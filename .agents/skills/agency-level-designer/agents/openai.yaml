@@ -1,0 +1,7 @@
+interface:
+  display_name: "Level Designer"
+  short_description: "Spatial storytelling and flow specialist - Masters layout theor…"
+  default_prompt: "Use $agency-level-designer to help with: Spatial storytelling and flow specialist - Masters layout theory, pacing archit…"
+
+policy:
+  allow_implicit_invocation: true

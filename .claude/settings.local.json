@@ -12,5 +12,18 @@
       "Bash(curl -s -m 5 \"http://localhost:8090/skills?category=Test\" -o all.json)",
       "Bash(curl -s -m 15 -X POST \"http://localhost:8090/skill/test_run\" -H \"Content-Type: application/json\" -d '{\"testMode\":\"EditMode\",\"filter\":\"Tattoo.Tests\"}')"
     ]
-  }
+  },
+  "enabledMcpjsonServers": [
+    "skill4agent",
+    "playwright",
+    "godot",
+    "blender",
+    "docker",
+    "kubernetes",
+    "frame-ronin",
+    "game-asset-mcp",
+    "mongodb",
+    "codebase-memory",
+    "atlassian"
+  ]
 }

@@ -1,0 +1,76 @@
+[mcp_servers.atlassian]
+command = "uvx"
+args = ["mcp-atlassian"]
+
+[mcp_servers.atlassian.env]
+JIRA_URL = "https://YOUR_DOMAIN.atlassian.net"
+JIRA_USERNAME = "YOUR_EMAIL"
+JIRA_API_TOKEN = "YOUR_JIRA_API_TOKEN"
+CONFLUENCE_URL = "https://YOUR_DOMAIN.atlassian.net/wiki"
+CONFLUENCE_USERNAME = "YOUR_EMAIL"
+CONFLUENCE_API_TOKEN = "YOUR_CONFLUENCE_API_TOKEN"
+
+[mcp_servers.blender]
+command = "cmd"
+args = [
+    "/c",
+    "uvx",
+    "--python",
+    "3.11",
+    "blender-mcp",
+]
+
+[mcp_servers.blender.env]
+UV_PYTHON_PREFERENCE = "only-managed"
+
+[mcp_servers.codebase-memory]
+command = "tools/codebase-memory-mcp/codebase-memory-mcp.exe"
+
+[mcp_servers.docker]
+command = "uvx"
+args = ["mcp-server-docker"]
+
+[mcp_servers.frame-ronin]
+command = ".venv/Scripts/frame-ronin-mcp.exe"
+
+[mcp_servers.game-asset-mcp]
+command = "node"
+args = ["tools/game-asset-mcp/src/index.js"]
+
+[mcp_servers.game-asset-mcp.env]
+HF_TOKEN = "YOUR_HUGGINGFACE_TOKEN"
+
+[mcp_servers.godot]
+command = "npx"
+args = ["@coding-solo/godot-mcp"]
+
+[mcp_servers.godot.env]
+GODOT_PATH = 'C:\path\to\Godot_v4.x.exe'
+
+[mcp_servers.kubernetes]
+command = "npx"
+args = [
+    "-y",
+    "kubernetes-mcp-server@latest",
+]
+
+[mcp_servers.mongodb]
+command = "npx"
+args = [
+    "-y",
+    "mongodb-mcp-server@latest",
+]
+
+[mcp_servers.mongodb.env]
+MDB_MCP_CONNECTION_STRING = "YOUR_MONGODB_CONNECTION_STRING"
+
+[mcp_servers.playwright]
+command = "npx"
+args = ["@playwright/mcp@latest"]
+
+[mcp_servers.skill4agent]
+command = "npx"
+args = [
+    "-y",
+    "@skill4agent/mcp-server",
+]

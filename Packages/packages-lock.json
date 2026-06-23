@@ -1,14 +1,13 @@
 {
   "dependencies": {
     "com.besty.unity-skills": {
-      "version": "https://github.com/Besty0728/Unity-Skills.git?path=/SkillsForUnity",
+      "version": "file:../OutPackages/Unity-Skills-main/SkillsForUnity",
       "depth": 0,
-      "source": "git",
+      "source": "local",
       "dependencies": {
         "com.unity.nuget.newtonsoft-json": "3.0.2",
         "com.unity.timeline": "1.7.7"
-      },
-      "hash": "d5637d60dc0193984fd48c12782899b7fe1e2791"
+      }
     },
     "com.unity.burst": {
       "version": "1.8.21",
