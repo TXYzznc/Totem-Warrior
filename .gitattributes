@@ -1,0 +1,68 @@
+# 默认让 git 自动检测文本/二进制
+* text=auto
+
+# ===== Unity 文本资源（强制 LF，避免 .meta 跨平台冲突） =====
+*.cs            text diff=csharp eol=lf
+*.shader        text eol=lf
+*.cginc         text eol=lf
+*.hlsl          text eol=lf
+*.compute       text eol=lf
+*.uxml          text eol=lf
+*.uss           text eol=lf
+
+# Unity YAML 资源（场景/Prefab/材质/动画/ScriptableObject 等）
+*.unity         merge=unityyamlmerge eol=lf
+*.prefab        merge=unityyamlmerge eol=lf
+*.asset         merge=unityyamlmerge eol=lf
+*.meta          merge=unityyamlmerge eol=lf
+*.mat           merge=unityyamlmerge eol=lf
+*.anim          merge=unityyamlmerge eol=lf
+*.controller    merge=unityyamlmerge eol=lf
+*.physicMaterial merge=unityyamlmerge eol=lf
+*.physicsMaterial2D merge=unityyamlmerge eol=lf
+
+# ===== 文档（保持 LF） =====
+*.md            text eol=lf
+*.txt           text eol=lf
+*.json          text eol=lf
+*.yaml          text eol=lf
+*.yml           text eol=lf
+
+# ===== 二进制资源（不要尝试 merge / diff，不要换行符转换） =====
+*.png           binary
+*.jpg           binary
+*.jpeg          binary
+*.gif           binary
+*.bmp           binary
+*.tga           binary
+*.psd           binary
+*.tif           binary
+*.tiff          binary
+*.exr           binary
+*.hdr           binary
+*.fbx           binary
+*.obj           binary
+*.blend         binary
+*.mb            binary
+*.ma            binary
+*.3ds           binary
+*.dae           binary
+*.dxf           binary
+*.wav           binary
+*.mp3           binary
+*.ogg           binary
+*.flac          binary
+*.aiff          binary
+*.mp4           binary
+*.mov           binary
+*.webm          binary
+*.ttf           binary
+*.otf           binary
+*.woff          binary
+*.woff2         binary
+*.zip           binary
+*.rar           binary
+*.7z            binary
+*.dll           binary
+*.so            binary
+*.dylib         binary
