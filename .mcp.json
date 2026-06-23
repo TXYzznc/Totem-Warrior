@@ -1,0 +1,77 @@
+{
+  "mcpServers": {
+    "skill4agent": {
+      "command": "npx",
+      "args": ["-y", "@skill4agent/mcp-server"]
+    },
+
+    "playwright": {
+      "command": "npx",
+      "args": ["@playwright/mcp@latest"]
+    },
+
+    "godot": {
+      "command": "npx",
+      "args": ["@coding-solo/godot-mcp"],
+      "env": {
+        "GODOT_PATH": "C:\\path\\to\\Godot_v4.x.exe"
+      }
+    },
+
+    "blender": {
+      "command": "cmd",
+      "args": ["/c", "uvx", "--python", "3.11", "blender-mcp"],
+      "env": {
+        "UV_PYTHON_PREFERENCE": "only-managed"
+      }
+    },
+
+    "docker": {
+      "command": "uvx",
+      "args": ["mcp-server-docker"]
+    },
+
+    "kubernetes": {
+      "command": "npx",
+      "args": ["-y", "kubernetes-mcp-server@latest"]
+    },
+
+    "frame-ronin": {
+      "command": ".venv/Scripts/frame-ronin-mcp.exe"
+    },
+
+    "game-asset-mcp": {
+      "command": "node",
+      "args": ["tools/game-asset-mcp/src/index.js"],
+      "env": {
+        "HF_TOKEN": "YOUR_HUGGINGFACE_TOKEN"
+      }
+    },
+
+    "mongodb": {
+      "command": "npx",
+      "args": ["-y", "mongodb-mcp-server@latest"],
+      "env": {
+        "MDB_MCP_CONNECTION_STRING": "YOUR_MONGODB_CONNECTION_STRING"
+      }
+    },
+
+    "codebase-memory": {
+      "command": "tools/codebase-memory-mcp/codebase-memory-mcp.exe",
+      "args": []
+    },
+
+    "atlassian": {
+      "command": "uvx",
+      "args": ["mcp-atlassian"],
+      "env": {
+        "JIRA_URL": "https://YOUR_DOMAIN.atlassian.net",
+        "JIRA_USERNAME": "YOUR_EMAIL",
+        "JIRA_API_TOKEN": "YOUR_JIRA_API_TOKEN",
+        "CONFLUENCE_URL": "https://YOUR_DOMAIN.atlassian.net/wiki",
+        "CONFLUENCE_USERNAME": "YOUR_EMAIL",
+        "CONFLUENCE_API_TOKEN": "YOUR_CONFLUENCE_API_TOKEN"
+      }
+    }
+  }
+}

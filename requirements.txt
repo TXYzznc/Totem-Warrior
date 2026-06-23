@@ -1,0 +1,1 @@
+frame-ronin-mcp @ git+https://github.com/GOODDAYDAY/FrameRonin-MCP.git

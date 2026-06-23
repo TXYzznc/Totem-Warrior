@@ -72,6 +72,9 @@ tools/**/hunyuan3d_output/
 tools/**/coverage/
 tools/**/test_output/
 
+# game-asset-mcp 是第三方 MCP 工具，新机器请按 setup.md 步骤 clone
+tools/game-asset-mcp/
+
 # ===== 操作系统垃圾 =====
 .DS_Store
 Thumbs.db
