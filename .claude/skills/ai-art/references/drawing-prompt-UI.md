@@ -3,31 +3,70 @@
 
 ## 核心设计理念
 
-### 项目美术风格
-- **整体风格**：像素化UI，与角色和敌人风格统一
-- **质感**：金属科幻感，厚重感，棱边清晰
-- **色彩体系**：蓝紫渐变为主，金色边框点缀，高对比
-- **装饰**：极简，避免复杂纹理，强调几何边框
+### 项目美术风格 —「黑暗史诗手绘肉鸽」
 
-### UI元素分类与色彩体系
+- **质感**：厚涂手绘 + 史诗感（**不是扁平 SVG**），有油彩笔触、有金属/木质质感
+- **核心组件**：金属边框（外）+ 木质 / 兽皮 / 羊皮纸内衬 + 厚涂主体
+- **装饰繁简**：中等装饰，边框四角点缀末日纹样
+- **边框按主题切换**：进 AI 区边框带机械齿轮、外星区带生体触手、病毒区带真菌肿块、默认中性带金属铆钉
 
-| 元素类型 | 用途 | 尺寸 | 主色 | 边框 | 高光 |
-|---------|------|------|------|------|------|
-| **按钮-正常** | 菜单/选关 | 200x60px | 蓝紫渐变 | 金色2px | 顶部白线 |
-| **按钮-悬停** | 高亮状态 | 200x60px | 更亮蓝紫 | 金色加粗 | 更明显高光 |
-| **血量条背景** | HUD | 200x20px | 灰色 | 白色1px | 无 |
-| **血量条填充** | HUD绿→红 | 200x20px | 绿→黄→红渐变 | 无 | 无 |
+### UI 元素分类与色彩体系
 
-### 设计细节
-1. **按钮**：圆角矩形，内角半径8px，支持9-slice拉伸
-2. **边框**：清晰金色2像素边框，表现科幻金属感
-3. **高光**：顶部白色细线（1px），强化金属质感
-4. **文本背景**：深蓝(#0F1932)，文本白色或黄色
+| 元素类型 | 用途 | 构成 | 主色 | 备注 |
+|---------|------|------|------|------|
+| **HUD 血条** | 屏顶血量 | 厚涂深红填充 + 金属边框 | 红 #c8302e + 金 #d4af37 | 可 9-slice |
+| **HUD 技能槽** | 屏底 4 个技能 | 金属圆角槽 + 厚涂图标 | 暗褐 #3a2418 + 金边 | 槽内嵌 ICON |
+| **缩圈倒计时** | 屏顶 | 卷轴底 + 厚描数字 | 羊皮纸 #d4b896 + 暗红字 | 史诗感 |
+| **暂停菜单面板** | 全屏 | 大幅羊皮纸 + 四角金属装饰 | 羊皮纸 + 暗红血字 | 史诗 |
+| **纹身师工作室面板** | 多面板布局 | 木质底 + 铜钉 + 人体图鉴 | 暗木 #4a2818 + 铜 #b87333 | 重头戏 |
+| **死亡宝箱面板** | 拾取交互 | 金属边框 + 物品格子 | 暗灰 + 物品稀有度光 | 紧凑 |
+| **构筑预览（远观）** | 看其他玩家纹身 | 描边轮廓 + 发光纹身位置 | 透明底 + 纹身元素色 | 不挡视野 |
+
+### 主题边框三套（同一形状不同元素）
+
+| 主题 | 边框装饰 | 颜色调整 |
+|------|--------|---------|
+| **AI 区** | 四角机械齿轮、铜管贯穿 | 金边偏冷青 #4a8aae |
+| **外星区** | 四角生体触手、紫色裂纹 | 金边偏紫 #8a4a8e |
+| **病毒区** | 四角真菌肿块、孢子飞散 | 金边偏黄绿 #8aae4a |
+| **默认/中性** | 四角金属铆钉、磨损划痕 | 标准金 #d4af37 |
+
+### 设计原则
+
+1. **信息密度优先 + 装饰只在四角**：BR 节奏下玩家要快速读 HUD，不能被装饰干扰
+2. **9-slice 友好**：所有面板/按钮的边框设计为四角 + 四边可拉伸
+3. **移动端可读**：最小可视尺寸下，文字 + 图标 + 边框都还能看清
+4. **史诗感来自材质而非繁复**：厚涂笔触、金属反光、木纹质感 → 史诗感；不需要堆装饰
+5. **状态完整**：按钮三态 Normal / Hover / Pressed 必须明显区分
+
+### 项目美术风格关键词集合（提示词模板填充用）
+
+> 下方 `[项目美术风格关键词]` / `[项目 UI 美术风格关键词]` 占位符使用：
+```
+dark epic painterly hand-drawn UI element, heavy brushwork, ornate metal frame
+border with parchment or wood inset, four-corner decoration only,
+9-slice tileable edges, reference style of Darkest Dungeon UI and Diablo IV UI
+```
+
+> 下方 `[主题描述]` 占位符使用：
+```
+UI for post-apocalyptic roguelike battle royale, epic dark aesthetic,
+mobile-friendly minimum readable size, optional theme variant
+(AI / alien / virus / neutral)
+```
 
 ### 推理示例
-**需求**："生成菜单按钮-正常态"  
-**推理**：按钮 → 200x60 → 蓝紫渐变 → 金边 → HD像素  
-**提示词关键字**：`HD pixel art, UI button 200x60 pixels, blue-purple gradient background, gold border 2px, white highlight top edge, transparent background, sci-fi style`
+
+**需求**：「暂停菜单面板，默认（中性）主题」
+**推理**：暂停面板 → 全屏羊皮纸 → 四角金属装饰 → 厚涂史诗感
+**提示词关键字**：
+```
+dark epic painterly hand-drawn UI panel, large parchment background with worn
+leather texture, ornate metal frame border with four-corner decoration of rivets
+and weathered scratches, standard gold trim #d4af37, 9-slice tileable edges,
+heavy brushwork, dark red blood-letter title bar at top, designed for pause menu,
+reference Darkest Dungeon UI style, 1920x1080
+```
 
 ---
 

@@ -13,30 +13,67 @@
 
 ## 核心设计理念
 
-### 项目美术风格
-- **整体风格**：现代高精像素美术（HD Pixel Art）
-- **色彩特征**：高饱和度 + 高对比度，冷色调为主，发光/能量感强
-- **细节程度**：极简（3-5条线条），优先速度感和识别度
-- **质感**：能量球体 + 发光，金属科幻感
+### 项目美术风格 —「黑暗史诗手绘肉鸽」
 
-### 通用素材分类与色彩体系
+适用于子弹/子弹特效、武器掉落物、宝箱、地图道具（颜料瓶、配方卷轴）、植物（藤蔓、苔藓、真菌）、岩石/废墟碎片、载具（断电机器人、外星运输舱）等。
 
-| 素材类型 | 主体特征 | 颜色 | 发光效果 | 尺寸 | 示例 |
-|---------|---------|------|--------|------|------|
-| **玩家子弹** | 圆形发光球 | 青蓝(#00C8FF) | 白色中心 + 渐变晕 | 20x20px | player_bullet |
-| **敌人子弹** | 圆形发光球，略小 | 红色(#FF6464) | 浅红中心 + 晕 | 15x15px | enemy_bullet |
-| **背景星点** | 小圆点，随机分布 | 白色(#FFFFFF) | 可选微弱晕 | 2x2-6x6px | star |
+- **细节程度**：中等细节（不画细胞肌理，但物体装饰金属件/材质区分可见）
+- **质感**：与角色统一的厚涂手绘 + 1-2px 黑色描边
+- **配色规则**：物体本体用环境同调（土褐 / 灰），仅功能性元素（元素色子弹、稀有道具光晕）走高饱和
+
+### 通用素材分类与色彩
+
+| 素材类型 | 细节级别 | 配色来源 | 描边 | 发光 | 示例 |
+|---------|--------|---------|------|------|------|
+| **玩家子弹** | 极简（球 + 尾迹） | 7 元素色（武器属性） | 无 | 强 | bullet_fire |
+| **敌人子弹** | 极简（球） | 暗红 / 暗紫 | 1px | 中 | enemy_bullet |
+| **武器掉落物** | 中等（轮廓 + 材质区分） | 灰金属 + 元素色辉光 | 1-2px | 弱 | weapon_axe |
+| **宝箱（普通/稀有/传说）** | 中等（木纹 + 铁件） | 暗木 + 铁皮 + 稀有度光 | 1-2px | 视稀有度 | chest_normal |
+| **颜料瓶** | 中等（玻璃瓶 + 液体） | 暗灰玻璃 + 元素液体 | 1-2px | 中 | pigment_red |
+| **植物（苔藓/真菌）** | 中等（叶片轮廓） | 病毒区黄绿 / 中性褐 | 1px | 无 | moss_patch |
+| **岩石/碎片** | 中等（块面 + 裂纹） | 灰褐 | 1-2px | 无 | rubble |
+| **机器人残骸** | 中等（铁件 + 电缆） | 锈铁 + 电火花点光 | 1-2px | 弱（火花点） | mech_husk |
+
+### 元素色板（与 CHARACTER §色彩体系-元素色板一致）
+
+```
+🔴 #ff3030  🟡 #ffe838  🟢 #38ff5c  🔵 #00d4ff  🟣 #b838ff  🟨 #ffd700  ⚪ #ffffff
+```
 
 ### 设计原则
-1. **简洁极致**：子弹只需圆形 + 颜色 + 发光，无需复杂细节
-2. **速度识别**：快速移动中仍能清晰识别友方/敌方（蓝vs红）
-3. **发光感**：重点在中心高光和外围渐变，制造能量感
-4. **性能优先**：尽可能简化，减少绘图工作量
+
+1. **统一描边宽度**：与角色一样 1-2px 黑色，让所有元素融为一体
+2. **环境物用环境色，功能物用元素色**：道具/装备的稀有度/属性靠「颜色 + 光晕」传达
+3. **子弹纯靠光晕**：子弹不需要细节，只需要「元素色 + 拖尾发光」
+4. **可复用模板**：同一类素材（如所有宝箱、所有颜料瓶）共享形状模板，仅换贴图/颜色
+
+### 项目美术风格关键词集合（提示词模板填充用）
+
+> 下方 `[项目美术风格关键词]` 占位符使用：
+```
+dark epic painterly hand-drawn game prop/object, medium detail, heavy brushwork,
+bold black outline 1-2px, low-saturation environment-matching base color,
+glowing accent color for functional items (elemental pigments, rare loot),
+reference style of Darkest Dungeon props and Hades pickups
+```
+
+> 下方 `[主题描述]` 占位符使用：
+```
+prop/object for post-apocalyptic roguelike battle royale, top-down 2.5D view,
+isolated on transparent background, size 64x64 or 128x128 sprite
+```
 
 ### 推理示例
-**需求**："生成玩家子弹"  
-**推理**：玩家 → 青蓝 → 发光球 → 20x20 → HD像素  
-**提示词关键字**：`HD pixel art, cyan glowing energy sphere, 20x20 pixels, white core glow, transparent background, sci-fi bullet`
+
+**需求**：「火元素玩家子弹」
+**推理**：火元素 → #ff3030 → 球 + 尾迹 → 强发光
+**提示词关键字**：
+```
+dark epic painterly hand-drawn projectile, glowing red #ff3030 energy sphere core
+with bright white inner highlight, soft elongated comet tail trailing behind,
+strong outer glow halo, no outline (pure energy), 32x32 sprite, isolated on
+transparent background, reference Hades projectile style
+```
 
 ---
 

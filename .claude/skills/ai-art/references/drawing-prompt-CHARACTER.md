@@ -3,39 +3,83 @@
 
 ## 核心设计理念
 
-### 项目美术风格
-- **整体风格**：现代高精像素美术（HD Pixel Art）
-- **色彩特征**：高饱和度 + 高对比度，冷色调为主
-- **细节程度**：适中（8-12条线条），清晰可读，支持远距离识别
-- **质感**：金属科幻感，扁平风格（无油画笔触）
+### 项目美术风格 —「黑暗史诗手绘肉鸽」
+
+- **整体风格**：手绘厚涂 + 粗描边 + 局部发光描边的混合质感（painterly hand-drawn + bold outlined + glowing rim light），偏向 *Darkest Dungeon × Hades × Battle Chasers* 的综合调性
+- **角色比例**：4-5 头身写实人体比例（不是 Q 版），俯视角 2.5D 下能展示 6 个纹身部位
+- **色彩特征**：环境低饱和黄昏调（土褐、深棕、墨绿）；纹身/技能效果高饱和发光（参 §色彩体系-元素色板）
+- **服饰**：破烂布装 + 大面积皮肤露出（露肩、胸口、腹部、大腿）；机械/生化改造痕迹可见（金属义体接缝、生化纹路、缝合线）
+- **质感**：粗手绘黑色描边 1-2px，内部厚涂笔触；纹身边缘霓虹光描边（参考 Hades 祝福图标的发光手法）
 
 ### 角色类型与视觉语言
 
-| 角色类型 | 视觉语言 | 颜色体系 | 尺寸 | 示例 |
-|---------|---------|--------|------|------|
-| **玩家飞机** | 尖锐箭头形，向上指，速度感 | 蓝色主体 + 白色高光 | 120x120px | player_ship |
-| **敌人-Scout** | 小型敏捷型，线条简洁 | 红色为主 | 80x80px | enemy_scout |
-| **敌人-Turret** | 方形厚重感，棱边设计 | 橙色为主 | 100x100px | enemy_turret |
-| **敌人-Boss** | 星形复杂细节，视觉压迫 | 紫色为主 | 150x150px | enemy_boss |
+| 角色类型 | 视觉语言 | 服饰倾向 | 改造痕迹 | 示例 |
+|---------|---------|--------|---------|------|
+| **标准实验体（玩家）** | 4.5头身、运动员体型 | 破烂束腰布装+绷带+腰间皮带 | 后背/肩膀有缝合线，金属接口 | player_01 |
+| **机械改造体** | 同上但直角线条更多 | 半甲+布裙 | 一只手/腿是金属义体 | mech_subject |
+| **植物变异体** | 同上+苔藓质感 | 藤蔓+皮甲 | 皮肤生有藤蔓/真菌 | plant_subject |
+| **异形改造体** | 异形比例（不对称） | 紧身肌纤维服 | 触手/复眼/角 | alien_subject |
+| **纹身师 NPC** | 5头身瘦长 | 长袍+围裙+多个小腰包 | 全身覆盖完成态纹身 | npc_tattooist |
+| **商人 NPC** | 4头身矮胖 | 多层斗篷 | 无 | npc_merchant |
 
 ### 色彩体系
+
+**环境色（角色背景中性色，去饱和黄昏调）**：
 ```
-玩家：蓝色(#0096FF) + 淡蓝 + 白色高光
-敌人：红色(#FF3232) / 橙色(#FFA500) / 紫色(#9600FF)
-子弹：青蓝(#00C8FF) / 红色(#FF6464)
-背景：深蓝黑(#0F1932)
+深棕底     #3a2418
+黄昏中明   #6b4423
+黄褐高光   #a87c4f
+土黄点缀   #d4b896
+```
+
+**纹身/技能元素色（7 色高饱和发光，与 03-世界观文档锁定）**：
+```
+🔴 火 Fire        #ff3030    病毒变异/异变能量
+🟡 雷 Lightning   #ffe838    AI 故障/机械能量
+🟢 毒 Poison      #38ff5c    病毒变异/生化污染
+🔵 冰 Ice         #00d4ff    外星造物/异界寒能
+🟣 异变 Void      #b838ff    外星入侵/维度扭曲
+🟨 神圣 Holy      #ffd700    神秘/古文明残留
+⚪ 纯能 Pure      #ffffff    中性/实验体本能
 ```
 
 ### 设计原则
-1. **高识别度**：缩小50%时仍可清晰区分每个元素
-2. **线条简洁**：8-12条线条表达完整形态，避免过度细节
-3. **对比清晰**：玩家蓝 vs 敌人红/黄/紫，一眼识别
-4. **像素对齐**：所有元素基于8x8像素网格，保证美观对齐
+
+1. **远观可读 build**：6 个纹身部位（头/胸/背/左臂/右臂/左腿/右腿）在俯视角下都能清晰展示且发光，让玩家「远观判断对手 build」的 USP 成立
+2. **写实人体 + 厚涂卡通处理**：身体比例真实，但渲染方式是厚涂手绘（不是 PBR、不是 cell-shading）
+3. **改造痕迹永远可见**：实验体身份必须从视觉上立刻识别，不能画成普通人
+4. **环境/角色色彩反差**：环境土褐低饱和让角色身上的纹身能量光成为视觉焦点
+
+### 项目美术风格关键词集合（提示词模板填充用）
+
+> 下方提示词结构中遇到 `[项目美术风格关键词]` 占位符时，使用以下字符串替换：
+
+```
+dark epic painterly hand-drawn, heavy brushwork, bold black outlined 1-2px,
+4-5 head tall realistic proportions, top-down 2.5D perspective,
+low-saturation dusk palette environment, glowing rim light on tattoos and energy,
+reference style of Darkest Dungeon, Hades, Battle Chasers Nightwar
+```
+
+> 下方 `[主题描述]` 占位符位置，使用：
+```
+post-apocalyptic experimental subject in multi-disaster world, body covered with
+elemental tattoos as ability build, mechanical/biological body modifications visible
+```
 
 ### 推理示例
-**需求**："生成玩家飞机"  
-**推理**：玩家飞机 → 箭头形 → 蓝色 → 120x120像素 → HD像素美术  
-**提示词关键字**：`HD pixel art, sci-fi fighter jet, blue streamline arrow shape, triangle top pointing upwards, high contrast, transparent background`
+
+**需求**：「生成标准实验体玩家立绘」
+**推理**：标准实验体 → 4.5 头身 → 运动员体型 → 破烂束腰布装+绷带 → 后背缝合线+金属接口 → 厚涂手绘描边 → 露出 6 个纹身部位
+**提示词关键字**：
+```
+dark epic painterly hand-drawn, 4-5 head tall realistic proportions, athletic build
+experimental human subject, torn cloth wraps and bandages, exposed shoulders chest
+and thighs revealing tattoo placement areas, surgical stitches on back and metallic
+implant ports, bold black outline 1-2px, heavy brushwork, dusk warm brown palette
+environment, glowing rim light on body, reference Darkest Dungeon and Hades art style,
+top-down 2.5D pose
+```
 
 ---
 
