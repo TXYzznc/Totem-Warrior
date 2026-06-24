@@ -2,7 +2,8 @@
     "name": "Tattoo.Tests",
     "rootNamespace": "Tattoo.Tests",
     "references": [
-        "Tattoo",
+        "Game",
+        "UniTask",
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner"
     ],
