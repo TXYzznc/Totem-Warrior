@@ -1,9 +1,9 @@
 ---
 name: skill-creator
-description: 高效Skill创建指南。当用户想要创建新Skill（或更新现有Skill），以通过专业知识、工作流或工具集成扩展Codex的能力时，应使用本Skill。
+description: 高效Skill创建指南。当用户想要创建新Skill（或更新现有Skill），以通过专业知识、工作流或工具集成扩展Claude的能力时，应使用本Skill。
 license: Complete terms in LICENSE.txt
-tags: skill-creation, Codex-extension, agent-workflow, skill-packaging, modular-ai-assets
-tags_cn: Skill创建, Codex能力扩展, Agent工作流, Skill打包, 模块化AI资源
+tags: skill-creation, claude-extension, agent-workflow, skill-packaging, modular-ai-assets
+tags_cn: Skill创建, Claude能力扩展, Agent工作流, Skill打包, 模块化AI资源
 ---
 
 # Skill 创建指南
@@ -12,7 +12,7 @@ tags_cn: Skill创建, Codex能力扩展, Agent工作流, Skill打包, 模块化A
 
 ## 关于Skill
 
-Skill是模块化、独立的包，通过提供专业知识、工作流和工具来扩展Codex的能力。可以将它们视为特定领域或任务的「入门指南」——它们将Codex从通用Agent转变为具备过程性知识的专业Agent，而这类知识是任何模型都无法完全拥有的。
+Skill是模块化、独立的包，通过提供专业知识、工作流和工具来扩展Claude的能力。可以将它们视为特定领域或任务的「入门指南」——它们将Claude从通用Agent转变为具备过程性知识的专业Agent，而这类知识是任何模型都无法完全拥有的。
 
 ### Skill能提供什么
 
@@ -25,9 +25,9 @@ Skill是模块化、独立的包，通过提供专业知识、工作流和工具
 
 ### 简洁为要
 
-上下文窗口是公共资源。Skill需要与Codex所需的其他所有内容共享上下文窗口：系统提示词、对话历史、其他Skill的元数据以及实际用户请求。
+上下文窗口是公共资源。Skill需要与Claude所需的其他所有内容共享上下文窗口：系统提示词、对话历史、其他Skill的元数据以及实际用户请求。
 
-**默认假设：Codex已经非常智能。** 仅添加Codex原本不具备的上下文信息。对每一条信息都要提出质疑：「Codex真的需要这个解释吗？」以及「这段内容的令牌成本是否合理？」
+**默认假设：Claude已经非常智能。** 仅添加Claude原本不具备的上下文信息。对每一条信息都要提出质疑：「Claude真的需要这个解释吗？」以及「这段内容的令牌成本是否合理？」
 
 优先使用简洁示例而非冗长说明。
 
@@ -41,7 +41,7 @@ Skill是模块化、独立的包，通过提供专业知识、工作流和工具
 
 **低自由度（特定脚本，参数极少）**：当操作脆弱且容易出错、一致性至关重要或必须遵循特定序列时使用。
 
-可以把Codex比作探索路径的人：两侧是悬崖的狭窄桥梁需要明确的护栏（低自由度），而开阔的田野则允许多种路线（高自由度）。
+可以把Claude比作探索路径的人：两侧是悬崖的狭窄桥梁需要明确的护栏（低自由度），而开阔的田野则允许多种路线（高自由度）。
 
 ### Skill的结构
 
@@ -64,7 +64,7 @@ skill-name/
 
 每个SKILL.md都包含：
 
-- **前置元数据（YAML）**：包含`name`和`description`字段。这是Codex判断何时使用该Skill的唯一依据，因此清晰全面地描述Skill的功能和适用场景至关重要。
+- **前置元数据（YAML）**：包含`name`和`description`字段。这是Claude判断何时使用该Skill的唯一依据，因此清晰全面地描述Skill的功能和适用场景至关重要。
 - **正文（Markdown）**：使用Skill的说明和指南。仅在Skill触发后才会加载（如果需要）。
 
 #### 捆绑资源（可选）
@@ -76,27 +76,27 @@ skill-name/
 - **何时包含**：当相同代码被重复编写或需要确定性可靠性时
 - **示例**：用于PDF旋转任务的`scripts/rotate_pdf.py`
 - **优势**：令牌效率高、结果确定，无需加载到上下文即可执行
-- **注意**：Codex可能仍需要读取脚本以进行补丁或环境特定调整
+- **注意**：Claude可能仍需要读取脚本以进行补丁或环境特定调整
 
 ##### 参考资料（`references/`）
 
-旨在按需加载到上下文中，为Codex的处理和思考提供信息的文档和参考材料。
+旨在按需加载到上下文中，为Claude的处理和思考提供信息的文档和参考材料。
 
-- **何时包含**：当Codex在工作中需要参考文档时
+- **何时包含**：当Claude在工作中需要参考文档时
 - **示例**：用于财务数据结构的`references/finance.md`、用于公司NDA模板的`references/mnda.md`、用于公司政策的`references/policies.md`、用于API规范的`references/api_docs.md`
 - **使用场景**：数据库结构、API文档、领域知识、公司政策、详细工作流指南
-- **优势**：保持SKILL.md简洁，仅在Codex确定需要时才加载
+- **优势**：保持SKILL.md简洁，仅在Claude确定需要时才加载
 - **最佳实践**：如果文件较大（>10000字），在SKILL.md中包含grep搜索模式
 - **避免重复**：信息应仅存在于SKILL.md或参考文件中，不要同时存在。除非是Skill的核心内容，否则优先将详细信息放在参考文件中——这样可以保持SKILL.md简洁，同时让信息可被发现且不会占用上下文窗口。仅在SKILL.md中保留必要的流程说明和工作流指南；将详细参考材料、数据结构和示例移至参考文件。
 
 ##### 资产（`assets/`）
 
-不加载到上下文中，而是在Codex生成的输出中使用的文件。
+不加载到上下文中，而是在Claude生成的输出中使用的文件。
 
 - **何时包含**：当Skill需要在最终输出中使用文件时
 - **示例**：用于品牌资产的`assets/logo.png`、用于PowerPoint模板的`assets/slides.pptx`、用于HTML/React模板的`assets/frontend-template/`、用于字体的`assets/font.ttf`
 - **使用场景**：模板、图片、图标、样板代码、字体、可复制或修改的示例文档
-- **优势**：将输出资源与文档分离，使Codex无需加载即可使用文件
+- **优势**：将输出资源与文档分离，使Claude无需加载即可使用文件
 
 #### Skill中不应包含的内容
 
@@ -116,7 +116,7 @@ Skill使用三级加载系统来高效管理上下文：
 
 1. **元数据（名称+描述）** - 始终在上下文中（约100词）
 2. **SKILL.md正文** - 当Skill触发时加载（<5000词）
-3. **捆绑资源** - 由Codex按需加载（无限制，因为脚本可以在不读取到上下文窗口的情况下执行）
+3. **捆绑资源** - 由Claude按需加载（无限制，因为脚本可以在不读取到上下文窗口的情况下执行）
 
 #### 渐进式披露模式
 
@@ -141,7 +141,7 @@ Skill使用三级加载系统来高效管理上下文：
 - **示例**：常见模式请参见[EXAMPLES.md](EXAMPLES.md)
 ```
 
-Codex仅在需要时才会加载FORMS.md、REFERENCE.md或EXAMPLES.md。
+Claude仅在需要时才会加载FORMS.md、REFERENCE.md或EXAMPLES.md。
 
 **模式2：按领域组织**
 
@@ -157,7 +157,7 @@ bigquery-skill/
     └── marketing.md（营销活动、归因）
 ```
 
-当用户询问销售指标时，Codex仅读取sales.md。
+当用户询问销售指标时，Claude仅读取sales.md。
 
 类似地，对于支持多个框架或变体的Skill，按变体组织：
 
@@ -170,7 +170,7 @@ cloud-deploy/
     └── azure.md（Azure部署模式）
 ```
 
-当用户选择AWS时，Codex仅读取aws.md。
+当用户选择AWS时，Claude仅读取aws.md。
 
 **模式3：条件式详细说明**
 
@@ -191,12 +191,12 @@ cloud-deploy/
 **如需OOXML详细信息**：请参见[OOXML.md](OOXML.md)
 ```
 
-Codex仅在用户需要这些功能时才会读取REDLINING.md或OOXML.md。
+Claude仅在用户需要这些功能时才会读取REDLINING.md或OOXML.md。
 
 **重要指南**：
 
 - **避免深度嵌套参考** - 参考文件应直接从SKILL.md链接，最多嵌套一层。所有参考文件都应直接与SKILL.md关联。
-- **结构化长参考文件** - 对于超过100行的文件，在顶部添加目录，以便Codex预览时可以了解完整范围。
+- **结构化长参考文件** - 对于超过100行的文件，在顶部添加目录，以便Claude预览时可以了解完整范围。
 
 ## Skill 创建流程
 
@@ -277,7 +277,7 @@ scripts/init_skill.py <skill-name> --path <output-directory>
 
 ### 步骤4：编辑Skill
 
-编辑（新生成或现有）Skill时，请记住，该Skill是为另一个Codex实例使用而创建的。请加入对Codex有帮助且非显而易见的信息。考虑哪些过程性知识、领域特定细节或可复用资产可以帮助另一个Codex实例更有效地执行这些任务。
+编辑（新生成或现有）Skill时，请记住，该Skill是为另一个Claude实例使用而创建的。请加入对Claude有帮助且非显而易见的信息。考虑哪些过程性知识、领域特定细节或可复用资产可以帮助另一个Claude实例更有效地执行这些任务。
 
 #### 学习经过验证的设计模式
 
@@ -305,10 +305,10 @@ scripts/init_skill.py <skill-name> --path <output-directory>
 编写包含`name`和`description`的YAML前置元数据：
 
 - `name`：Skill名称
-- `description`：这是Skill的主要触发机制，帮助Codex了解何时使用该Skill。
+- `description`：这是Skill的主要触发机制，帮助Claude了解何时使用该Skill。
   - 需同时包含Skill的功能和使用的具体触发场景/上下文。
-  - 所有「何时使用」的信息都应放在此处——不要放在正文中。正文仅在触发后才加载，因此正文中的「何时使用本Skill」部分对Codex没有帮助。
-  - `docx`Skill的描述示例「全面的文档创建、编辑和分析，支持跟踪更改、批注、格式保留和文本提取。当Codex需要处理专业文档（.docx文件）时使用，包括：(1) 创建新文档，(2) 修改或编辑内容，(3) 处理跟踪更改，(4) 添加批注，或任何其他文档任务」
+  - 所有「何时使用」的信息都应放在此处——不要放在正文中。正文仅在触发后才加载，因此正文中的「何时使用本Skill」部分对Claude没有帮助。
+  - `docx`Skill的描述示例「全面的文档创建、编辑和分析，支持跟踪更改、批注、格式保留和文本提取。当Claude需要处理专业文档（.docx文件）时使用，包括：(1) 创建新文档，(2) 修改或编辑内容，(3) 处理跟踪更改，(4) 添加批注，或任何其他文档任务」
 
 请勿在YAML前置元数据中包含其他字段。
 

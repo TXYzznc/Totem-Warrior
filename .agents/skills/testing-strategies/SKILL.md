@@ -3,7 +3,7 @@ name: testing-strategies
 description: 为软件质量保证设计全面的测试策略。适用于规划测试覆盖范围、实施测试金字塔或搭建测试基础设施的场景。涵盖单元测试、集成测试、端到端（E2E）测试、测试驱动开发（TDD）以及测试最佳实践。
 tags: test-strategy, unit-testing, integration-testing, e2e-testing, tdd-practices
 platforms:
-- Codex
+- Claude
 - ChatGPT
 - Gemini
 tags_cn: 测试策略, 单元测试, 集成测试, E2E测试, TDD实践
@@ -276,7 +276,7 @@ it('should return false for non-palindrome', () => {
 ### 版本
 - **当前版本**：1.0.0
 - **最后更新**：2025-01-01
-- **兼容平台**：Codex, ChatGPT, Gemini
+- **兼容平台**：Claude, ChatGPT, Gemini
 
 ### 相关技能
 - [backend-testing](../../backend/testing/SKILL.md)

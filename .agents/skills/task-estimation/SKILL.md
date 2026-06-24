@@ -3,7 +3,7 @@ name: task-estimation
 description: 使用多种技术准确估算软件开发任务。适用于冲刺规划、路线图制定或项目时间线规划场景。支持Story Points、T恤尺寸估算、计划扑克以及估算最佳实践。
 tags: task-estimation, agile-practices, sprint-planning, story-points, planning-poker
 platforms:
-- Codex
+- Claude
 - ChatGPT
 - Gemini
 tags_cn: 任务估算, 敏捷实践, Sprint规划, Story Points, 计划扑克
@@ -213,7 +213,7 @@ const final = adjustEstimate(task);  // 5 * 1.3 * 1.2 = 7.8 → 8 points
 ### 版本
 - **当前版本**: 1.0.0
 - **最后更新**: 2025-01-01
-- **兼容平台**: Codex, ChatGPT, Gemini
+- **兼容平台**: Claude, ChatGPT, Gemini
 
 ### 标签
 `#estimation` `#agile` `#story-points` `#planning-poker` `#sprint-planning` `#project-management`

@@ -151,7 +151,7 @@ GDD：[文件名]
 - `lean` → 跳过。提示："TD-CHANGE-IMPACT已跳过——精简模式。" 进入第7阶段。
 - `full` → 正常启动。
 
-通过Task启动`technical-director`，使用审核门**TD-CHANGE-IMPACT**（`.Codex/docs/director-gates.md`）。
+通过Task启动`technical-director`，使用审核门**TD-CHANGE-IMPACT**（`.claude/docs/director-gates.md`）。
 
 传递内容：第6阶段生成的完整设计变更影响报告（变更摘要、所有受影响ADR的状态分类及建议操作）。
 

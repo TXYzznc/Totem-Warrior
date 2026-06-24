@@ -1,6 +1,6 @@
 ---
 name: character-sprite
-description: 为Codex Office Visualizer的Agent生成完整的角色精灵图。创建所有动画帧（idle、行走、打字、递交文件、喝咖啡），确保所有精灵图的角色设计保持一致。采用迭代审批流程和基于参考图的生成方式来保证一致性。
+description: 为Claude Office Visualizer的Agent生成完整的角色精灵图。创建所有动画帧（idle、行走、打字、递交文件、喝咖啡），确保所有精灵图的角色设计保持一致。采用迭代审批流程和基于参考图的生成方式来保证一致性。
 triggers:
 - create agent sprite
 - create character sprite
@@ -8,13 +8,13 @@ triggers:
 - generate agent animations
 - make character for office
 tags: sprite-sheet-generation, pixel-art-animation, game-asset-creation, imagemagick-workflow,
-  Codex-office-visualizer
-tags_cn: 精灵图生成, 像素画动画, 游戏资源制作, ImageMagick工作流, Codex Office Visualizer Agent
+  claude-office-visualizer
+tags_cn: 精灵图生成, 像素画动画, 游戏资源制作, ImageMagick工作流, Claude Office Visualizer Agent
 ---
 
 # 角色精灵图生成器
 
-使用Nano Banana MCP和ImageMagick为Codex Office Visualizer Agent创建完整的动画角色精灵图。
+使用Nano Banana MCP和ImageMagick为Claude Office Visualizer Agent创建完整的动画角色精灵图。
 
 ## 项目背景
 
@@ -104,7 +104,7 @@ tags_cn: 精灵图生成, 像素画动画, 游戏资源制作, ImageMagick工作
 ```bash
 mcpl call nanobanana generate_image '{
   "prompt": "16-bit pixel art game sprite of a [CHARACTER DESCRIPTION], front view facing camera, [CLOTHING DESCRIPTION], simple friendly face, small character suitable for top-down office game, retro SNES/Genesis style pixel art, standing idle pose with arms at sides, isolated on solid magenta background #FF00FF, SHARP CRISP PIXEL EDGES WITH ABSOLUTELY NO ANTI-ALIASING NO SMOOTHING NO BLENDING, each pixel is a solid color with hard edges, centered composition, no text, no shadows on background, 64x80 pixels scale",
-  "output_path": "/Users/probello/Repos/Codex-office/frontend/public/sprites/[NAME]_front_idle_raw.png",
+  "output_path": "/Users/probello/Repos/claude-office/frontend/public/sprites/[NAME]_front_idle_raw.png",
   "model_tier": "pro"
 }'
 ```
@@ -121,7 +121,7 @@ mcpl call nanobanana generate_image '{
 1. 复制生成的图片:
    ```bash
    cp "/Users/probello/nanobanana-images/[FILENAME].png" \
-      "/Users/probello/Repos/Codex-office/frontend/public/sprites/[NAME]_front_idle_raw.png"
+      "/Users/probello/Repos/claude-office/frontend/public/sprites/[NAME]_front_idle_raw.png"
    ```
 
 2. 使用读取工具查看图片并展示给用户
@@ -154,9 +154,9 @@ mcpl call nanobanana generate_image '{
 ```bash
 mcpl call nanobanana generate_image '{
   "prompt": "16-bit pixel art sprite sheet, EXACTLY 928x1152 pixels total, divided into 8 columns and 8 rows grid, each cell is EXACTLY 116x144 pixels with NO borders NO padding NO gaps between cells, character is [CHARACTER DESCRIPTION] (EXACTLY as shown in first reference image), 8 DIRECTIONS IN EXACT ORDER from top to bottom: ROW 0 south facing toward camera, ROW 1 south-west diagonal, ROW 2 west facing left profile, ROW 3 north-west diagonal, ROW 4 north facing away back view, ROW 5 north-east diagonal, ROW 6 east facing right profile, ROW 7 south-east diagonal, each row has 8 frames of subtle idle breathing animation, cells touch edge-to-edge with no visible grid lines, retro SNES Genesis 16-bit pixel art, SHARP CRISP PIXEL EDGES WITH ABSOLUTELY NO ANTI-ALIASING NO SMOOTHING NO BLENDING, each pixel is a solid color with hard edges, consistent character in every cell matching reference, solid magenta #FF00FF background fills all empty space in each cell, game sprite sheet asset, no text no watermarks",
-  "input_image_path_1": "/Users/probello/Repos/Codex-office/frontend/public/sprites/[NAME]_front_idle_raw.png",
-  "input_image_path_2": "/Users/probello/Repos/Codex-office/frontend/public/sprites/agent1_idle_sheet.png",
-  "output_path": "/Users/probello/Repos/Codex-office/frontend/public/sprites/[NAME]_idle_sheet_raw.png",
+  "input_image_path_1": "/Users/probello/Repos/claude-office/frontend/public/sprites/[NAME]_front_idle_raw.png",
+  "input_image_path_2": "/Users/probello/Repos/claude-office/frontend/public/sprites/agent1_idle_sheet.png",
+  "output_path": "/Users/probello/Repos/claude-office/frontend/public/sprites/[NAME]_idle_sheet_raw.png",
   "model_tier": "pro",
   "aspect_ratio": "4:5",
   "negative_prompt": "blurry, 3D, realistic, anti-aliasing, anti-aliased edges, smoothing, blending, soft edges, gradients, shadows on background, inconsistent character, different characters, text, watermark, grid lines, cell borders, padding between frames, gaps between cells"
@@ -174,9 +174,9 @@ mcpl call nanobanana generate_image '{
 ```bash
 mcpl call nanobanana generate_image '{
   "prompt": "16-bit pixel art sprite sheet for WALKING animation, EXACTLY 928x1152 pixels total, divided into 8 columns and 8 rows grid, each cell is EXACTLY 116x144 pixels with NO borders NO padding NO gaps between cells, character is [CHARACTER DESCRIPTION] (EXACTLY as shown in first reference image), 8 DIRECTIONS IN EXACT ORDER from top to bottom: ROW 0 walking south toward camera, ROW 1 walking south-west diagonal, ROW 2 walking west left profile, ROW 3 walking north-west diagonal, ROW 4 walking north away back view, ROW 5 walking north-east diagonal, ROW 6 walking east right profile, ROW 7 walking south-east diagonal, each row has 8 frames of walk cycle with alternating legs and natural arm swing, cells touch edge-to-edge with no visible grid lines, retro SNES Genesis 16-bit pixel art, SHARP CRISP PIXEL EDGES WITH ABSOLUTELY NO ANTI-ALIASING NO SMOOTHING NO BLENDING, each pixel is a solid color with hard edges, consistent character in every cell matching reference, solid magenta #FF00FF background fills all empty space in each cell, game sprite sheet asset, no text no watermarks",
-  "input_image_path_1": "/Users/probello/Repos/Codex-office/frontend/public/sprites/[NAME]_front_idle_raw.png",
-  "input_image_path_2": "/Users/probello/Repos/Codex-office/frontend/public/sprites/agent1_walk_sheet.png",
-  "output_path": "/Users/probello/Repos/Codex-office/frontend/public/sprites/[NAME]_walk_sheet_raw.png",
+  "input_image_path_1": "/Users/probello/Repos/claude-office/frontend/public/sprites/[NAME]_front_idle_raw.png",
+  "input_image_path_2": "/Users/probello/Repos/claude-office/frontend/public/sprites/agent1_walk_sheet.png",
+  "output_path": "/Users/probello/Repos/claude-office/frontend/public/sprites/[NAME]_walk_sheet_raw.png",
   "model_tier": "pro",
   "aspect_ratio": "4:5",
   "negative_prompt": "blurry, 3D, realistic, anti-aliasing, anti-aliased edges, smoothing, blending, soft edges, gradients, shadows on background, inconsistent character, different characters, text, watermark, standing still, static pose, grid lines, cell borders, padding between frames, gaps between cells"
@@ -195,9 +195,9 @@ mcpl call nanobanana generate_image '{
 ```bash
 mcpl call nanobanana generate_image '{
   "prompt": "16-bit pixel art sprite sheet for TYPING animation, EXACTLY 928x144 pixels total, horizontal strip with 8 equal cells of EXACTLY 116x144 pixels each with NO borders NO padding NO gaps between cells, character is [CHARACTER DESCRIPTION] (EXACTLY as shown in first reference image), character seen from behind (back view) in seated typing pose with arms extended forward making typing motions, CHARACTER ONLY no desk no chair no keyboard no furniture, 8 frame typing animation showing hands and arms making typing movements, frames show subtle arm position changes as if typing, cells touch edge-to-edge with no visible grid lines, retro SNES Genesis 16-bit pixel art, SHARP CRISP PIXEL EDGES WITH ABSOLUTELY NO ANTI-ALIASING NO SMOOTHING NO BLENDING, each pixel is a solid color with hard edges, consistent character across all 8 frames matching reference, solid magenta #FF00FF background fills all empty space in each cell, game sprite sheet asset, no text no watermarks",
-  "input_image_path_1": "/Users/probello/Repos/Codex-office/frontend/public/sprites/[NAME]_front_idle_raw.png",
-  "input_image_path_2": "/Users/probello/Repos/Codex-office/frontend/public/sprites/agent1_typing_sheet.png",
-  "output_path": "/Users/probello/Repos/Codex-office/frontend/public/sprites/[NAME]_typing_sheet_raw.png",
+  "input_image_path_1": "/Users/probello/Repos/claude-office/frontend/public/sprites/[NAME]_front_idle_raw.png",
+  "input_image_path_2": "/Users/probello/Repos/claude-office/frontend/public/sprites/agent1_typing_sheet.png",
+  "output_path": "/Users/probello/Repos/claude-office/frontend/public/sprites/[NAME]_typing_sheet_raw.png",
   "model_tier": "pro",
   "aspect_ratio": "21:9",
   "negative_prompt": "blurry, 3D, realistic, anti-aliasing, anti-aliased edges, smoothing, blending, soft edges, gradients, shadows on background, inconsistent character, different characters, text, watermark, front view, standing, grid lines, cell borders, padding between frames, gaps between cells, desk, chair, keyboard, furniture, computer, monitor"
@@ -216,9 +216,9 @@ mcpl call nanobanana generate_image '{
 ```bash
 mcpl call nanobanana generate_image '{
   "prompt": "16-bit pixel art sprite sheet for HANDING FOLDER animation, EXACTLY 928 pixels wide, horizontal strip with 4 equal cells of EXACTLY 232 pixels wide each with NO borders NO padding NO gaps between cells, character is [CHARACTER DESCRIPTION] (EXACTLY as shown in first reference image), character seen from side profile holding and handing over a manila folder document, 4 frame animation sequence: frame 1 holding folder at waist, frame 2 extending arm with folder, frame 3 arm fully extended offering folder, frame 4 releasing folder hand open, cells touch edge-to-edge with no visible grid lines, retro SNES Genesis 16-bit pixel art, SHARP CRISP PIXEL EDGES WITH ABSOLUTELY NO ANTI-ALIASING NO SMOOTHING NO BLENDING, each pixel is a solid color with hard edges, consistent character across all 4 frames matching reference, solid magenta #FF00FF background fills all empty space in each cell, game sprite sheet asset, no text no watermarks",
-  "input_image_path_1": "/Users/probello/Repos/Codex-office/frontend/public/sprites/[NAME]_front_idle_raw.png",
-  "input_image_path_2": "/Users/probello/Repos/Codex-office/frontend/public/sprites/agent1_handoff_sheet.png",
-  "output_path": "/Users/probello/Repos/Codex-office/frontend/public/sprites/[NAME]_handoff_sheet_raw.png",
+  "input_image_path_1": "/Users/probello/Repos/claude-office/frontend/public/sprites/[NAME]_front_idle_raw.png",
+  "input_image_path_2": "/Users/probello/Repos/claude-office/frontend/public/sprites/agent1_handoff_sheet.png",
+  "output_path": "/Users/probello/Repos/claude-office/frontend/public/sprites/[NAME]_handoff_sheet_raw.png",
   "model_tier": "pro",
   "aspect_ratio": "21:9",
   "negative_prompt": "blurry, 3D, realistic, anti-aliasing, anti-aliased edges, smoothing, blending, soft edges, gradients, shadows on background, inconsistent character, different characters, text, watermark, back view, grid lines, cell borders, padding between frames, gaps between cells"
@@ -237,9 +237,9 @@ mcpl call nanobanana generate_image '{
 ```bash
 mcpl call nanobanana generate_image '{
   "prompt": "16-bit pixel art sprite sheet for DRINKING COFFEE animation, EXACTLY 928 pixels wide, horizontal strip with 4 equal cells of EXACTLY 232 pixels wide each with NO borders NO padding NO gaps between cells, character is [CHARACTER DESCRIPTION] (EXACTLY as shown in first reference image), character seen from front holding and drinking from a coffee cup mug, 4 frame animation sequence: frame 1 holding coffee cup at chest, frame 2 raising cup toward face, frame 3 cup at lips drinking, frame 4 lowering cup with satisfied expression, cells touch edge-to-edge with no visible grid lines, retro SNES Genesis 16-bit pixel art, SHARP CRISP PIXEL EDGES WITH ABSOLUTELY NO ANTI-ALIASING NO SMOOTHING NO BLENDING, each pixel is a solid color with hard edges, consistent character across all 4 frames matching reference, solid magenta #FF00FF background fills all empty space in each cell, game sprite sheet asset, no text no watermarks",
-  "input_image_path_1": "/Users/probello/Repos/Codex-office/frontend/public/sprites/[NAME]_front_idle_raw.png",
-  "input_image_path_2": "/Users/probello/Repos/Codex-office/frontend/public/sprites/agent1_coffee_sheet.png",
-  "output_path": "/Users/probello/Repos/Codex-office/frontend/public/sprites/[NAME]_coffee_sheet_raw.png",
+  "input_image_path_1": "/Users/probello/Repos/claude-office/frontend/public/sprites/[NAME]_front_idle_raw.png",
+  "input_image_path_2": "/Users/probello/Repos/claude-office/frontend/public/sprites/agent1_coffee_sheet.png",
+  "output_path": "/Users/probello/Repos/claude-office/frontend/public/sprites/[NAME]_coffee_sheet_raw.png",
   "model_tier": "pro",
   "aspect_ratio": "21:9",
   "negative_prompt": "blurry, 3D, realistic, anti-aliasing, anti-aliased edges, smoothing, blending, soft edges, gradients, shadows on background, inconsistent character, different characters, text, watermark, back view, sitting, grid lines, cell borders, padding between frames, gaps between cells"
@@ -253,12 +253,12 @@ mcpl call nanobanana generate_image '{
 1. 复制到精灵图文件夹:
    ```bash
    cp "/Users/probello/nanobanana-images/[FILENAME].png" \
-      "/Users/probello/Repos/Codex-office/frontend/public/sprites/[NAME]_[TYPE]_sheet_raw.png"
+      "/Users/probello/Repos/claude-office/frontend/public/sprites/[NAME]_[TYPE]_sheet_raw.png"
    ```
 
 2. 验证尺寸是否符合规格:
    ```bash
-   cd /Users/probello/Repos/Codex-office/frontend/public/sprites
+   cd /Users/probello/Repos/claude-office/frontend/public/sprites
 
    # 检查精灵图尺寸
    magick "[NAME]_[TYPE]_sheet_raw.png" -format "Size: %wx%h" info:
@@ -301,10 +301,10 @@ mcpl call nanobanana generate_image '{
 使用改进的多阶段工作流程移除所有精灵图的洋红色背景:
 
 ```bash
-cd /Users/probello/Repos/Codex-office/frontend/public/sprites
+cd /Users/probello/Repos/claude-office/frontend/public/sprites
 
 # 使用共享脚本处理所有精灵图
-SCRIPT="/Users/probello/Repos/Codex-office/.Codex/skills/shared/scripts/remove_magenta.sh"
+SCRIPT="/Users/probello/Repos/claude-office/.claude/skills/shared/scripts/remove_magenta.sh"
 
 for sheet in [NAME]_idle_sheet [NAME]_walk_sheet [NAME]_typing_sheet [NAME]_handoff_sheet [NAME]_coffee_sheet; do
   INPUT="${sheet}_raw.png"
@@ -368,7 +368,7 @@ magick "$INPUT" \
 
 ## 输出位置
 
-所有精灵图保存至: `/Users/probello/Repos/Codex-office/frontend/public/sprites/`
+所有精灵图保存至: `/Users/probello/Repos/claude-office/frontend/public/sprites/`
 
 - `[name]_front_idle_raw.png` - 原始角色设计（作为参考保留）
 - `[name]_front_idle.png` - 已处理的角色设计，带透明度
@@ -384,7 +384,7 @@ magick "$INPUT" \
 | Agent 2 | 女开发者，穿紫色衬衫、黑裤子、戴眼镜、扎马尾辫 |
 | Agent 3 | 男资深开发者，穿灰色毛衣、卡其裤、留胡子、发际线后移 |
 | Agent 4 | 非二元性别的实习生，穿绿色连帽衫、牛仔裤、发色鲜艳 |
-| Boss/Codex | 尊贵形象，采用橙色/棕褐色配色（与Codex品牌匹配） |
+| Boss/Claude | 尊贵形象，采用橙色/棕褐色配色（与Claude品牌匹配） |
 
 ## 反模式与常见问题
 

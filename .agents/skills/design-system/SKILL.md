@@ -18,7 +18,7 @@ tags_cn: 游戏设计文档(GDD), GDD创作指南, 协作式游戏设计, 游戏
 2. 否则读取 `production/review-mode.txt` → 使用该文件中的值
 3. 否则 → 默认使用 `lean`
 
-完整的检查规则请参见 `.Codex/docs/director-gates.md`。
+完整的检查规则请参见 `.claude/docs/director-gates.md`。
 
 系统名称或改造路径为**必填项**。如果缺失：
 
@@ -138,7 +138,7 @@ tags_cn: 游戏设计文档(GDD), GDD创作指南, 协作式游戏设计, 游戏
 | 对话、任务、叙事 | 脚本 |
 
 **步骤2 — 读取引擎上下文（如果可用）：**
-- 读取 `.Codex/docs/technical-preferences.md` 以确定引擎和版本
+- 读取 `.claude/docs/technical-preferences.md` 以确定引擎和版本
 - 如果已配置引擎，读取 `docs/engine-reference/[engine]/VERSION.md`
 - 如果存在，读取 `docs/engine-reference/[engine]/modules/[domain].md`
 - 读取 `docs/engine-reference/[engine]/breaking-changes.md` 中与领域相关的条目
@@ -189,7 +189,7 @@ tags_cn: 游戏设计文档(GDD), GDD创作指南, 协作式游戏设计, 游戏
 
 一旦用户确认，**立即**创建带有空白章节标题的GDD文件。这确保了逐步写入有明确的目标。
 
-使用 `.Codex/docs/templates/game-design-document.md` 中的模板结构：
+使用 `.claude/docs/templates/game-design-document.md` 中的模板结构：
 
 ```markdown
 # [系统名称]
@@ -580,7 +580,7 @@ tags_cn: 游戏设计文档(GDD), GDD创作指南, 协作式游戏设计, 游戏
 - `lean` → 跳过（非阶段关卡）。记录：“CD-GDD-ALIGN已跳过——精简模式。” 继续步骤5b。
 - `full` → 正常调用。
 
-在最终确定GDD前，通过Task使用关卡 **CD-GDD-ALIGN**（`.Codex/docs/director-gates.md`）调用 `creative-director`。
+在最终确定GDD前，通过Task使用关卡 **CD-GDD-ALIGN**（`.claude/docs/director-gates.md`）调用 `creative-director`。
 
 传递：已完成的GDD文件路径、游戏支柱（来自 `design/gdd/game-concept.md` 或 `design/gdd/game-pillars.md`）、MDA美学目标。
 
@@ -626,7 +626,7 @@ Grep pattern="  - name: [candidate_name]" path="design/registry/entities.yaml"
 > - 临时假设：[列出对未设计依赖项的任何假设]
 > - 发现的跨系统冲突：[列表或“无”]
 
-> **要验证本GDD，请打开新的Codex会话并运行：**
+> **要验证本GDD，请打开新的Claude Code会话并运行：**
 > `/design-review design/gdd/[system-name].md`
 >
 > **绝不要在与 `/design-system` 相同的会话中运行 `/design-review`。** 审查Agent必须独立于创作上下文。在此运行会继承完整的设计历史，使其无法进行独立批判。
@@ -736,7 +736,7 @@ GDD完成后（可选审查后）：
 
 这是一个长期运行的技能。每个章节写入后，检查状态行是否显示上下文达到或超过70%。如果是，在回复中附加此通知：
 
-> **上下文即将达到限制（≥70%）。** 您的进度已保存——所有已批准章节已写入 `design/gdd/[system-name].md`。准备好继续时，打开新的Codex会话并运行 `/design-system [system-name]`——它会检测哪些章节已完成并从下一个章节继续。
+> **上下文即将达到限制（≥70%）。** 您的进度已保存——所有已批准章节已写入 `design/gdd/[system-name].md`。准备好继续时，打开新的Claude Code会话并运行 `/design-system [system-name]`——它会检测哪些章节已完成并从下一个章节继续。
 
 ---
 

@@ -9,7 +9,7 @@ similar_to: []
 called_by: []
 authorization_required: false
 scope: general
-model_hint: Codex-sonnet
+model_hint: claude-sonnet
 embedding_hint: api architecture design rest versioning openapi gateway hateoas
 tags_cn: API架构设计, REST设计, OpenAPI文档, API网关, JWT认证
 ---

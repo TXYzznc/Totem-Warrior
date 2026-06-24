@@ -1,6 +1,6 @@
 ---
 name: xlsx
-description: 支持公式、格式设置、数据分析和可视化的全面电子表格创建、编辑与分析。当Codex需要处理电子表格（.xlsx、.xlsm、.csv、.tsv等）时，可用于：(1)
+description: 支持公式、格式设置、数据分析和可视化的全面电子表格创建、编辑与分析。当Claude需要处理电子表格（.xlsx、.xlsm、.csv、.tsv等）时，可用于：(1)
   创建包含公式和格式的新电子表格；(2) 读取或分析数据；(3) 修改现有电子表格同时保留公式；(4) 在电子表格中进行数据分析与可视化；(5) 重新计算公式
 license: Proprietary. LICENSE.txt has complete terms
 tags: spreadsheet-automation, excel-formula-management, pandas-data-analysis, openpyxl-usage,

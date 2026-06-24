@@ -19,7 +19,7 @@ tags_cn: A/B测试, 增长实验, 统计严谨性, 实验项目管理, 假设框
 ## 初始评估
 
 **首先检查产品营销背景：**
-如果存在`.agents/product-marketing.md`（或`.Codex/product-marketing.md`，旧版设置中的`product-marketing-context.md`），请先阅读该文档再提问。利用已有背景，仅询问未覆盖或与本次任务相关的特定信息。
+如果存在`.agents/product-marketing.md`（或`.claude/product-marketing.md`，旧版设置中的`product-marketing-context.md`），请先阅读该文档再提问。利用已有背景，仅询问未覆盖或与本次任务相关的特定信息。
 
 在设计测试前，需明确：
 

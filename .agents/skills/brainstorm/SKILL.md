@@ -17,7 +17,7 @@ tags_cn: 游戏概念构思, 游戏设计, 创意头脑风暴, 玩家心理学, 
    2. 否则读取`production/review-mode.txt` → 使用该文件中的值
    3. 否则 → 默认使用`lean`模式
 
-   完整的检查规则请参见`.Codex/docs/director-gates.md`。
+   完整的检查规则请参见`.claude/docs/director-gates.md`。
 
 2. **检查现有概念成果**：
    - 若`design/gdd/game-concept.md`文件存在则读取（继续构思，不重新开始）
@@ -178,10 +178,10 @@ AskUserQuestion(
 
 **在核心支柱和反支柱达成一致后，在进入第五阶段前，通过Task并行生成`creative-director`和`art-director`。同时发起两个Task调用——不要等待一个完成后再启动另一个。**
 
-- **`creative-director`** —— 关卡**CD-PILLARS**（`.Codex/docs/director-gates.md`）
+- **`creative-director`** —— 关卡**CD-PILLARS**（`.claude/docs/director-gates.md`）
   提交内容：包含设计测试的完整支柱集、反支柱、核心幻想、独特吸引力。
 
-- **`art-director`** —— 关卡**AD-CONCEPT-VISUAL**（`.Codex/docs/director-gates.md`）
+- **`art-director`** —— 关卡**AD-CONCEPT-VISUAL**（`.claude/docs/director-gates.md`）
   提交内容：游戏概念电梯游说、包含设计测试的完整支柱集、目标平台（若已知）、用户提及的任何参考游戏或视觉参考点。
 
 收集两个评审结果，然后使用双标签页的`AskUserQuestion`一起展示：
@@ -229,7 +229,7 @@ AskUserQuestion(
 - `lean` → 跳过（非PHASE-GATE关卡）。备注：“TD-FEASIBILITY已跳过——Lean模式。”直接进入范围层级定义。
 - `full` → 正常生成。
 
-**在确定最大技术风险后，在定义范围层级之前，通过Task使用关卡TD-FEASIBILITY（`.Codex/docs/director-gates.md`）生成`technical-director`。**
+**在确定最大技术风险后，在定义范围层级之前，通过Task使用关卡TD-FEASIBILITY（`.claude/docs/director-gates.md`）生成`technical-director`。**
 
 提交内容：核心循环描述、目标平台、引擎选择（或“未决定”）、已识别的技术风险列表。
 
@@ -240,7 +240,7 @@ AskUserQuestion(
 - `lean` → 跳过（非PHASE-GATE关卡）。备注：“PR-SCOPE已跳过——Lean模式。”进入文档生成阶段。
 - `full` → 正常生成。
 
-**在定义范围层级后，通过Task使用关卡PR-SCOPE（`.Codex/docs/director-gates.md`）生成`producer`。**
+**在定义范围层级后，通过Task使用关卡PR-SCOPE（`.claude/docs/director-gates.md`）生成`producer`。**
 
 提交内容：完整愿景范围、MVP定义、时间线预估、团队规模。
 
@@ -248,7 +248,7 @@ AskUserQuestion(
 
 ---
 
-4. **使用`.Codex/docs/templates/game-concept.md`中的模板生成游戏概念文档**。填充头脑风暴对话中的所有部分，包括MDA分析、玩家动机画像和心流状态设计部分。
+4. **使用`.claude/docs/templates/game-concept.md`中的模板生成游戏概念文档**。填充头脑风暴对话中的所有部分，包括MDA分析、玩家动机画像和心流状态设计部分。
 
    在游戏概念文档中加入**视觉标识锚点**部分，包含：
    - 选定的视觉方向名称
@@ -268,7 +268,7 @@ AskUserQuestion(
 选项：`[A] 是——写入` / `[B] 修改另一个部分`
 重复此过程直到用户选择[A]。
 
-如果同意，使用`.Codex/docs/templates/game-concept.md`中的模板生成文档，填充头脑风暴对话中的所有部分，并写入文件，必要时创建目录。
+如果同意，使用`.claude/docs/templates/game-concept.md`中的模板生成文档，填充头脑风暴对话中的所有部分，并写入文件，必要时创建目录。
 
 **范围一致性规则**：核心信息表中的“预估范围”字段必须与范围层级部分中的完整愿景时间线匹配——不能只写“大型（9个月以上）”。应写为“大型（X–Y个月，独立开发）”或“大型（X–Y个月，N人团队）”，确保摘要表准确。
 
@@ -303,7 +303,7 @@ AskUserQuestion(
 
 这是一个多阶段Skill。如果在任何阶段上下文达到或超过70%，在继续之前将以下通知附加到当前响应中：
 
-> **上下文即将达到限制（≥70%）。**游戏概念文档已保存至`design/gdd/game-concept.md`。如有需要，开启新的Codex会话继续——进度不会丢失。
+> **上下文即将达到限制（≥70%）。**游戏概念文档已保存至`design/gdd/game-concept.md`。如有需要，开启新的Claude Code会话继续——进度不会丢失。
 
 ---
 

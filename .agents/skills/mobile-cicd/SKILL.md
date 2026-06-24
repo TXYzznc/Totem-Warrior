@@ -268,10 +268,10 @@ eas update --branch production --message "Bug fix"
 
 ## 相关资源
 
-- `~/.Codex/skills/react-native/SKILL.md` - React Native开发
-- `~/.Codex/skills/flutter-development/SKILL.md` - Flutter开发
-- `~/.Codex/agents/mobile-release-manager.md` - 版本发布管理Agent
-- `~/.Codex/docs/reference/workflows/deployment-cicd.md` - 通用CI/CD模式
+- `~/.claude/skills/react-native/SKILL.md` - React Native开发
+- `~/.claude/skills/flutter-development/SKILL.md` - Flutter开发
+- `~/.claude/agents/mobile-release-manager.md` - 版本发布管理Agent
+- `~/.claude/docs/reference/workflows/deployment-cicd.md` - 通用CI/CD模式
 
 ---
 

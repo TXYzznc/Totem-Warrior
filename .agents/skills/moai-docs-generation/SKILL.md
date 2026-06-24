@@ -2,7 +2,7 @@
 name: moai-docs-generation
 description: 针对技术规格、API文档、用户指南和知识库的文档生成模式，使用Sphinx、MkDocs、TypeDoc和Nextra等实用工具。适用于从代码生成文档、搭建文档站点或自动化文档工作流的场景。
 license: Apache-2.0
-compatibility: Designed for Codex
+compatibility: Designed for Claude Code
 allowed-tools: Read Write Edit Grep Glob Bash(npm:*) Bash(npx:*) Bash(git:*) Bash(sphinx-build:*)
   Bash(mkdocs:*) Bash(typedoc:*) mcp__context7__resolve-library-id mcp__context7__get-library-docs
 user-invocable: false

@@ -3,7 +3,7 @@ name: backend-testing
 description: 编写全面的后端测试，包括单元测试、集成测试和API测试。适用于测试REST API、数据库操作、认证流程或业务逻辑的场景。支持Jest、Pytest、Mocha等测试工具，以及测试策略、模拟和测试覆盖率相关内容。
 tags: backend-testing, unit-testing, integration-testing, api-testing, test-coverage
 platforms:
-- Codex
+- Claude
 - ChatGPT
 - Gemini
 tags_cn: 后端测试, 单元测试, 集成测试, API测试, 测试覆盖率
@@ -836,7 +836,7 @@ it('should work', async () => {
 ### 版本
 - **当前版本**: 1.0.0
 - **最后更新**: 2025-01-01
-- **兼容平台**: Codex、ChatGPT、Gemini
+- **兼容平台**: Claude、ChatGPT、Gemini
 
 ### 相关技能
 - [api-design](../api-design/SKILL.md): 与API协同设计测试
