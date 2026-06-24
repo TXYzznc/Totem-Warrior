@@ -1,29 +1,32 @@
 {
+  "_comment": "本地配置：MCP 启用清单（按三档策略：core + middle 默认启用，optional 注释掉）+ permissions 白名单。Hook 已在 settings.json 中统一管理（人格 + 决策门槛 + ai-art 触发）。",
   "permissions": {
     "allow": [
       "mcp__skill4agent__search_skills",
+      "mcp__codebase-memory__search_code",
+      "mcp__codebase-memory__query_graph",
+      "mcp__codebase-memory__get_code_snippet",
+      "mcp__codebase-memory__get_architecture",
+      "mcp__codebase-memory__index_repository",
+      "mcp__codebase-memory__detect_changes",
+      "mcp__codebase-memory__list_projects",
       "WebFetch(domain:github.com)",
-      "WebFetch(domain:raw.githubusercontent.com)",
-      "Bash(curl -s -m 5 http://localhost:8090/skills)",
-      "Bash(curl -s -m 5 \"http://localhost:8090/skills?category=Test\")",
-      "Bash(curl -s -m 5 \"http://localhost:8090/skills?category=Test&format=names\")",
-      "Bash(curl -s -m 5 \"http://localhost:8090/skills/schema?category=Test\")",
-      "Bash(python -c ' *)",
-      "Bash(curl -s -m 5 \"http://localhost:8090/skills?category=Test\" -o all.json)",
-      "Bash(curl -s -m 15 -X POST \"http://localhost:8090/skill/test_run\" -H \"Content-Type: application/json\" -d '{\"testMode\":\"EditMode\",\"filter\":\"Tattoo.Tests\"}')"
+      "WebFetch(domain:raw.githubusercontent.com)"
     ]
   },
   "enabledMcpjsonServers": [
     "skill4agent",
+    "codebase-memory",
     "playwright",
-    "godot",
     "blender",
+    "godot",
+    "frame-ronin",
+    "game-asset-mcp"
+  ],
+  "_disabledByDefault_optional": [
     "docker",
     "kubernetes",
-    "frame-ronin",
-    "game-asset-mcp",
     "mongodb",
-    "codebase-memory",
     "atlassian"
   ]
 }

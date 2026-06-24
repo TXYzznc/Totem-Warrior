@@ -1,0 +1,37 @@
+{
+  "_comment": "全局 hooks。人格注入 + 重大决策门槛检测 + 会话启动时注入 AGENTS.md。settings.local.json 内的 hook 会追加。",
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node -e \"const fs=require('fs');try{const c=fs.readFileSync('.claude/AGENTS.md','utf8');console.log(JSON.stringify({hookSpecificOutput:{hookEventName:'SessionStart',additionalContext:'【自动注入 .claude/AGENTS.md — 多 Agent 协作 5 模式】\\\\n\\\\n'+c}}))}catch(e){}\""
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "printf '{\"hookSpecificOutput\":{\"hookEventName\":\"UserPromptSubmit\",\"additionalContext\":\"你是一个精通 C# 和 Unity 开发的游戏开发工程师，具备以下特质：\\n- 注重代码的灵活性、稳定性、可扩展性和可读性。\\n- 以实用性为主，在能够优秀的实现需求的前提下，不会对需求进行过度的扩展和延申。不会考虑过多的边界情况。优先用简单方案，不要过度工程。\\n- 编写代码时非常注意时序问题。\\n- 擅长性能优化，提供高性能的解决方案。\\n- 能够独立思考和批判性思考问题，当用户的需求有问题时，会主动指出并提供建议。\\n- 始终使用中文回答。\\n- 所有按键输入必须走InputModule。\"}}'"
+          },
+          {
+            "type": "command",
+            "command": "node -e \"let d='';process.stdin.on('data',c=>d+=c);process.stdin.on('end',()=>{let p='';try{p=JSON.parse(d).prompt||''}catch(e){return}const re=/设计|架构|重构|大改|重写|GDD|PRD|系统|范式|方案|思路/;if(re.test(p)){const ctx='⚠️ 检测到「大型决策」关键词。在给出任何方案前必须依次完成：\\\\n1) 调用 grill-me（或 grill-with-docs）压力测试方案，至少 3 轮关键反问；\\\\n2) 决策成形后通过 openspec new change \\\"NN-功能名\\\" 落地 spec；\\\\n3) 同步更新 项目知识库（AI自行维护）/INDEX.md。\\\\n未走以上 3 步直接给方案视为违规——若你是 lead/system agent，应立即停止并交回主对话。';console.log(JSON.stringify({hookSpecificOutput:{hookEventName:'UserPromptSubmit',additionalContext:ctx}}))}})\""
+          },
+          {
+            "type": "command",
+            "command": "node -e \"let d='';process.stdin.on('data',c=>d+=c);process.stdin.on('end',()=>{let p='';try{p=JSON.parse(d).prompt||''}catch(e){return}if(/初始化美术|设计美术风格|初始化.*美术/.test(p)){console.log(JSON.stringify({hookSpecificOutput:{hookEventName:'UserPromptSubmit',additionalContext:'我检测到用户想要初始化美术风格。根据项目规范，应该立即调用 ai-art SKILL 的美术风格初始化流程，而不是手动编写文档。'}}))}})\""
+          },
+          {
+            "type": "command",
+            "command": "node -e \"let d='';process.stdin.on('data',c=>d+=c);process.stdin.on('end',()=>{let p='';try{p=JSON.parse(d).prompt||''}catch(e){return}const re=/出图|生图|生成图片|绘制美术|绘制素材|实现.*美术素材|处理.*美术素材|按提示词出图|把美术需求出图|按需求出图|生成美术素材/;if(re.test(p)){const ctx='⚠️ 检测到用户希望生成美术素材。Claude 主对话本身没有图像生成能力，绘图执行必须外包给 Codex CLI。\\\\n执行规则：\\\\n1) 前置：openspec/changes/<change>/art/requirements.md 与 prompts.md 必须已存在且完整（若缺失，先按 ai-art SKILL 的「美术素材实现流程」补齐）\\\\n2) 出图阶段必须调用 codex-image-gen SKILL（见 .claude/skills/codex-image-gen/SKILL.md），由它发起 codex exec 实际生成 PNG 到 art/raw/\\\\n3) 严禁伪造文件、严禁假装已生成；失败逐项记录到 art/raw/生成记录.md';console.log(JSON.stringify({hookSpecificOutput:{hookEventName:'UserPromptSubmit',additionalContext:ctx}}))}})\""
+          }
+        ]
+      }
+    ]
+  }
+}
