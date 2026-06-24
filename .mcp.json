@@ -1,23 +1,22 @@
 {
+  "_comment": "MCP 服务清单。三档分类：core 默认启用 / middle 默认启用 / optional 默认关闭。实际启用由 .claude/settings.local.json 的 enabledMcpjsonServers 决定。凭据走 ${VAR}，模板见 .env.example。",
   "mcpServers": {
+    "_____CORE_____": {
+      "command": "echo",
+      "args": ["核心 MCP（默认启用）"]
+    },
     "skill4agent": {
       "command": "npx",
       "args": ["-y", "@skill4agent/mcp-server"]
     },
-
+    "codebase-memory": {
+      "command": "tools/codebase-memory-mcp/codebase-memory-mcp.exe",
+      "args": []
+    },
     "playwright": {
       "command": "npx",
       "args": ["@playwright/mcp@latest"]
     },
-
-    "godot": {
-      "command": "npx",
-      "args": ["@coding-solo/godot-mcp"],
-      "env": {
-        "GODOT_PATH": "C:\\path\\to\\Godot_v4.x.exe"
-      }
-    },
-
     "blender": {
       "command": "cmd",
       "args": ["/c", "uvx", "--python", "3.11", "blender-mcp"],
@@ -26,51 +25,57 @@
       }
     },
 
-    "docker": {
-      "command": "uvx",
-      "args": ["mcp-server-docker"]
+    "_____MIDDLE_____": {
+      "command": "echo",
+      "args": ["按项目可选（默认启用，可在 settings.local.json 移出 enabledMcpjsonServers）"]
     },
-
-    "kubernetes": {
+    "godot": {
       "command": "npx",
-      "args": ["-y", "kubernetes-mcp-server@latest"]
+      "args": ["@coding-solo/godot-mcp"],
+      "env": {
+        "GODOT_PATH": "${GODOT_PATH}"
+      }
     },
-
     "frame-ronin": {
       "command": ".venv/Scripts/frame-ronin-mcp.exe"
     },
-
     "game-asset-mcp": {
       "command": "node",
       "args": ["tools/game-asset-mcp/src/index.js"],
       "env": {
-        "HF_TOKEN": "YOUR_HUGGINGFACE_TOKEN"
+        "HF_TOKEN": "${HF_TOKEN}"
       }
     },
 
+    "_____OPTIONAL_____": {
+      "command": "echo",
+      "args": ["可选 MCP（默认不启用，需手动加入 settings.local.json 的 enabledMcpjsonServers）"]
+    },
+    "docker": {
+      "command": "uvx",
+      "args": ["mcp-server-docker"]
+    },
+    "kubernetes": {
+      "command": "npx",
+      "args": ["-y", "kubernetes-mcp-server@latest"]
+    },
     "mongodb": {
       "command": "npx",
       "args": ["-y", "mongodb-mcp-server@latest"],
       "env": {
-        "MDB_MCP_CONNECTION_STRING": "YOUR_MONGODB_CONNECTION_STRING"
+        "MDB_MCP_CONNECTION_STRING": "${MDB_MCP_CONNECTION_STRING}"
       }
     },
-
-    "codebase-memory": {
-      "command": "tools/codebase-memory-mcp/codebase-memory-mcp.exe",
-      "args": []
-    },
-
     "atlassian": {
       "command": "uvx",
       "args": ["mcp-atlassian"],
       "env": {
-        "JIRA_URL": "https://YOUR_DOMAIN.atlassian.net",
-        "JIRA_USERNAME": "YOUR_EMAIL",
-        "JIRA_API_TOKEN": "YOUR_JIRA_API_TOKEN",
-        "CONFLUENCE_URL": "https://YOUR_DOMAIN.atlassian.net/wiki",
-        "CONFLUENCE_USERNAME": "YOUR_EMAIL",
-        "CONFLUENCE_API_TOKEN": "YOUR_CONFLUENCE_API_TOKEN"
+        "JIRA_URL": "${JIRA_URL}",
+        "JIRA_USERNAME": "${JIRA_USERNAME}",
+        "JIRA_API_TOKEN": "${JIRA_API_TOKEN}",
+        "CONFLUENCE_URL": "${CONFLUENCE_URL}",
+        "CONFLUENCE_USERNAME": "${CONFLUENCE_USERNAME}",
+        "CONFLUENCE_API_TOKEN": "${CONFLUENCE_API_TOKEN}"
       }
     }
   }
