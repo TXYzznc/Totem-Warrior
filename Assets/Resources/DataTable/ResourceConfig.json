@@ -1,0 +1,10 @@
+{
+  "table": "ResourceConfig",
+  "fields": [
+    { "name": "Id",       "type": "int",    "desc": "资源 ID，主键" },
+    { "name": "Name",      "type": "string", "desc": "资源标识名" },
+    { "name": "Type",      "type": "string", "desc": "资源类型，对应 Resources 下子目录名" },
+    { "name": "LoadPath",  "type": "string", "desc": "相对 Resources/{Type}/ 的加载路径，不含扩展名" }
+  ],
+  "rows": []
+}

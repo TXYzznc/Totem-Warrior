@@ -1,0 +1,20 @@
+{
+  "table": "TattooElementConfig",
+  "fields": [
+    { "name": "Id",             "type": "int",    "desc": "主键 1-7" },
+    { "name": "Name",            "type": "string", "desc": "Fire / Lightning / Nature / Frost / Mutation / Holy / Pure" },
+    { "name": "BaseMultiplier",  "type": "float",  "desc": "元素基础倍率" },
+    { "name": "Param1",          "type": "float",  "desc": "元素参数 1（Fire: BurnDPS / Frost: SlowFactor / Holy: HealPercent / Pure: MagnitudeBonus / Lightning: ParalyzeDuration / Nature: PoisonDPS）" },
+    { "name": "Param2",          "type": "float",  "desc": "元素参数 2（Fire: BurnDuration / Frost: SlowDuration / Pure: FocusStackBonus / Nature: PoisonDuration）" },
+    { "name": "Param3",          "type": "float",  "desc": "元素参数 3（Frost/Pure: 最大叠层数；Mutation: 随机种子）" }
+  ],
+  "rows": [
+    { "Id": 1, "Name": "Fire",      "BaseMultiplier": 1.0, "Param1": 2.0,  "Param2": 3.0, "Param3": 0.0  },
+    { "Id": 2, "Name": "Lightning", "BaseMultiplier": 1.0, "Param1": 1.0,  "Param2": 0.0, "Param3": 0.0  },
+    { "Id": 3, "Name": "Nature",    "BaseMultiplier": 1.0, "Param1": 1.5,  "Param2": 4.0, "Param3": 5.0  },
+    { "Id": 4, "Name": "Frost",     "BaseMultiplier": 1.0, "Param1": 0.30, "Param2": 2.0, "Param3": 5.0  },
+    { "Id": 5, "Name": "Mutation",  "BaseMultiplier": 1.0, "Param1": 0.0,  "Param2": 0.0, "Param3": 42.0 },
+    { "Id": 6, "Name": "Holy",      "BaseMultiplier": 1.0, "Param1": 0.15, "Param2": 0.0, "Param3": 0.0  },
+    { "Id": 7, "Name": "Pure",      "BaseMultiplier": 1.0, "Param1": 0.20, "Param2": 0.01, "Param3": 5.0 }
+  ]
+}

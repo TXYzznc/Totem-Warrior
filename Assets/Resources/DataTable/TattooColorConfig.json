@@ -1,0 +1,18 @@
+{
+  "table": "TattooColorConfig",
+  "fields": [
+    { "name": "Id",              "type": "int",    "desc": "主键 1-7" },
+    { "name": "Name",             "type": "string", "desc": "Red / Yellow / Green / Blue / Purple / Gold / White" },
+    { "name": "Element",          "type": "string", "desc": "ElementType enum 名：Fire / Lightning / Nature / Frost / Mutation / Holy / Pure" },
+    { "name": "ColorMultiplier",  "type": "float",  "desc": "颜色级倍率（基础 1.0）" }
+  ],
+  "rows": [
+    { "Id": 1, "Name": "Red",    "Element": "Fire",      "ColorMultiplier": 1.0 },
+    { "Id": 2, "Name": "Yellow", "Element": "Lightning", "ColorMultiplier": 1.0 },
+    { "Id": 3, "Name": "Green",  "Element": "Nature",    "ColorMultiplier": 1.0 },
+    { "Id": 4, "Name": "Blue",   "Element": "Frost",     "ColorMultiplier": 1.0 },
+    { "Id": 5, "Name": "Purple", "Element": "Mutation",  "ColorMultiplier": 1.0 },
+    { "Id": 6, "Name": "Gold",   "Element": "Holy",      "ColorMultiplier": 1.0 },
+    { "Id": 7, "Name": "White",  "Element": "Pure",      "ColorMultiplier": 1.0 }
+  ]
+}

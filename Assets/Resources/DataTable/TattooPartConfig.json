@@ -1,0 +1,20 @@
+{
+  "table": "TattooPartConfig",
+  "fields": [
+    { "name": "Id",               "type": "int",    "desc": "主键 1-6" },
+    { "name": "Name",              "type": "string", "desc": "Head / Torso / LeftArm / RightArm / LeftLeg / RightLeg" },
+    { "name": "TriggerEvent",      "type": "string", "desc": "事件类名：AttackHitEvent / CritHitEvent / DamagedEvent / SkillCastEvent / DodgePressedEvent / MoveTickEvent" },
+    { "name": "ScaleStat",         "type": "string", "desc": "StatType enum 名" },
+    { "name": "SymmetryGroup",     "type": "string", "desc": "None / Arms / Legs" },
+    { "name": "ScaleFactor",       "type": "float",  "desc": "缩放系数" },
+    { "name": "PassiveDimension",  "type": "string", "desc": "被动维度标签（暴击/抗性/技能/武器/闪避/移速）" }
+  ],
+  "rows": [
+    { "Id": 1, "Name": "Head",     "TriggerEvent": "CritHitEvent",        "ScaleStat": "CritMultiplier", "SymmetryGroup": "None", "ScaleFactor": 10.0,  "PassiveDimension": "暴击率/暴伤" },
+    { "Id": 2, "Name": "Torso",    "TriggerEvent": "DamagedEvent",        "ScaleStat": "MaxHealth",      "SymmetryGroup": "None", "ScaleFactor": 0.12,  "PassiveDimension": "抗性/最大生命" },
+    { "Id": 3, "Name": "LeftArm",  "TriggerEvent": "SkillCastEvent",      "ScaleStat": "SkillPower",     "SymmetryGroup": "Arms", "ScaleFactor": 0.6,   "PassiveDimension": "技能强度" },
+    { "Id": 4, "Name": "RightArm", "TriggerEvent": "AttackHitEvent",      "ScaleStat": "WeaponDamage",   "SymmetryGroup": "Arms", "ScaleFactor": 0.8,   "PassiveDimension": "武器伤害" },
+    { "Id": 5, "Name": "LeftLeg",  "TriggerEvent": "DodgePressedEvent",   "ScaleStat": "DodgeFrames",    "SymmetryGroup": "Legs", "ScaleFactor": 40.0,  "PassiveDimension": "闪避帧" },
+    { "Id": 6, "Name": "RightLeg", "TriggerEvent": "MoveTickEvent",       "ScaleStat": "MoveSpeed",      "SymmetryGroup": "Legs", "ScaleFactor": 1.6,   "PassiveDimension": "移速" }
+  ]
+}

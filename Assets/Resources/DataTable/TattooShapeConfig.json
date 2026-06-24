@@ -1,0 +1,20 @@
+{
+  "table": "TattooShapeConfig",
+  "fields": [
+    { "name": "Id",          "type": "int",    "desc": "主键 1-8" },
+    { "name": "Name",         "type": "string", "desc": "ShapeBehavior 名" },
+    { "name": "Param1",       "type": "float",  "desc": "形状参数 1（AOEBurst: AreaFactor / StackingMark: Threshold / MultiHit: Segments / ChainJump: MaxJumps / ProbBurst: Probability / TrailZone: TickFactor / SummonForm: SummonMultiplier）" },
+    { "name": "Param2",       "type": "float",  "desc": "形状参数 2（AOEBurst: MaxTargets / StackingMark: BurstMul / ChainJump: Decay / ProbBurst: BurstMultiplier / TrailZone: Ticks）" },
+    { "name": "Param3",       "type": "float",  "desc": "形状参数 3（ProbBurst: Seed）" }
+  ],
+  "rows": [
+    { "Id": 1, "Name": "SingleHit",    "Param1": 0.0,  "Param2": 0.0,    "Param3": 0.0   },
+    { "Id": 2, "Name": "AOEBurst",     "Param1": 0.6,  "Param2": 5.0,    "Param3": 0.0   },
+    { "Id": 3, "Name": "StackingMark", "Param1": 5.0,  "Param2": 4.0,    "Param3": 0.0   },
+    { "Id": 4, "Name": "MultiHit",     "Param1": 4.0,  "Param2": 0.0,    "Param3": 0.0   },
+    { "Id": 5, "Name": "ChainJump",    "Param1": 3.0,  "Param2": 0.7,    "Param3": 0.0   },
+    { "Id": 6, "Name": "ProbBurst",    "Param1": 1.0,  "Param2": 2.0,    "Param3": 12345.0 },
+    { "Id": 7, "Name": "TrailZone",    "Param1": 0.4,  "Param2": 3.0,    "Param3": 0.0   },
+    { "Id": 8, "Name": "SummonForm",   "Param1": 2.5,  "Param2": 0.0,    "Param3": 0.0   }
+  ]
+}

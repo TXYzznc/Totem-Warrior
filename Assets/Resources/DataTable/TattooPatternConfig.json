@@ -1,0 +1,19 @@
+{
+  "table": "TattooPatternConfig",
+  "fields": [
+    { "name": "Id",                "type": "int",    "desc": "主键 1-8" },
+    { "name": "Name",               "type": "string", "desc": "Line / Ring / Spiral / Zigzag / Bolt / Star / Stream / Beast" },
+    { "name": "Shape",              "type": "string", "desc": "ShapeBehavior 名：SingleHit / AOEBurst / StackingMark / MultiHit / ChainJump / ProbBurst / TrailZone / SummonForm" },
+    { "name": "PatternMultiplier",  "type": "float",  "desc": "图案级倍率" }
+  ],
+  "rows": [
+    { "Id": 1, "Name": "Line",   "Shape": "SingleHit",    "PatternMultiplier": 1.0 },
+    { "Id": 2, "Name": "Ring",   "Shape": "AOEBurst",     "PatternMultiplier": 1.0 },
+    { "Id": 3, "Name": "Spiral", "Shape": "StackingMark", "PatternMultiplier": 1.0 },
+    { "Id": 4, "Name": "Zigzag", "Shape": "MultiHit",     "PatternMultiplier": 1.0 },
+    { "Id": 5, "Name": "Bolt",   "Shape": "ChainJump",    "PatternMultiplier": 1.0 },
+    { "Id": 6, "Name": "Star",   "Shape": "ProbBurst",    "PatternMultiplier": 1.0 },
+    { "Id": 7, "Name": "Stream", "Shape": "TrailZone",    "PatternMultiplier": 1.0 },
+    { "Id": 8, "Name": "Beast",  "Shape": "SummonForm",   "PatternMultiplier": 1.0 }
+  ]
+}

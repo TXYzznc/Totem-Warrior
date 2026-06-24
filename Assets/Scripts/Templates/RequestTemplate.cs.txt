@@ -1,0 +1,64 @@
+// ================================================================
+// 请求-响应模板 — EventBus.RequestAsync / [RequestHandler]
+//
+// ⚠️ 本文件为 .cs.txt 不编译。
+//
+// 使用场景：
+// - 需要立即得到结果（数据查询、权限校验、状态判断）
+// - 与广播事件（fire-and-forget）的区别：必须有且只有一个处理者
+//
+// 使用步骤：
+// 1. 复制到 Assets/Scripts/Events/（或模块内 Events/）
+// 2. 改名为具体请求名（如 GetPlayerHPRequest.cs）
+// 3. 在某个 IGameModule 中实现对应 [RequestHandler] 处理方法
+// ================================================================
+
+/// <summary>请求载体。命名规范：[名词]Request。</summary>
+public class SomeRequest
+{
+    public int TargetId { get; }
+    public SomeRequest(int targetId) { TargetId = targetId; }
+}
+
+/// <summary>响应载体。命名规范：[名词]Response 或与 Request 同名 + Result。</summary>
+public class SomeResponse
+{
+    public bool Success { get; }
+    public string Reason { get; }
+    public int ResultValue { get; }
+
+    public SomeResponse(bool success, string reason, int resultValue)
+    {
+        Success = success;
+        Reason = reason;
+        ResultValue = resultValue;
+    }
+}
+
+/* 处理者示例（写在某个 IGameModule 实现里）：
+
+    [RequestHandler]
+    SomeResponse OnSomeRequest(SomeRequest req)
+    {
+        // 同步返回结果
+        return new SomeResponse(success: true, reason: "", resultValue: req.TargetId * 2);
+    }
+
+    // 或异步：
+    [RequestHandler]
+    async UniTask<SomeResponse> OnSomeRequestAsync(SomeRequest req)
+    {
+        await UniTask.Yield();
+        return new SomeResponse(true, "", req.TargetId * 2);
+    }
+
+   调用方：
+
+    var resp = await _eventBus.RequestAsync<SomeRequest, SomeResponse>(new SomeRequest(42));
+    if (resp.Success) { ... }
+
+   关键约束：
+   - 同一个请求类型只能有一个 [RequestHandler]，否则启动时校验报错
+   - 处理者必须在 ModuleRunner 注册的模块中
+   - 响应类型必须是 class
+*/

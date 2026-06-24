@@ -1,0 +1,66 @@
+// ================================================================
+// 事件类型模板 — 标准写法参考
+//
+// ⚠️ 本文件为 .cs.txt 不编译。复制到 Assets/Scripts/Events/（跨模块事件）
+//    或模块自己的 Events/ 子目录（模块内部事件），并去掉 .txt 后缀。
+//
+// 使用步骤：
+// 1. 复制到目标位置
+// 2. 改名为具体事件名（如 PlayerDiedEvent.cs）
+// 3. 替换 SomeEvent 为你的事件名
+// 4. 添加事件数据字段（只读）
+// ================================================================
+
+/// <summary>
+/// 事件命名规范：[描述]Event
+///
+/// 设计原则：
+/// - class 不是 struct（EventBus 用引用相等性按精确类型匹配）
+/// - 数据只读（构造时传入，之后不可修改）—— 多订阅者并发安全
+/// - 不含逻辑——纯数据载体
+/// </summary>
+public class SomeEvent
+{
+    public int SomeData { get; }
+
+    public SomeEvent(int data)
+    {
+        SomeData = data;
+    }
+}
+
+// ========== 常见模板 ==========
+
+/// <summary>带单个值。</summary>
+public class IntValueEvent
+{
+    public int Value { get; }
+    public IntValueEvent(int value) { Value = value; }
+}
+
+/// <summary>带多个字段。</summary>
+public class ComplexEvent
+{
+    public string Message { get; }
+    public int Count { get; }
+    public bool IsSuccess { get; }
+
+    public ComplexEvent(string message, int count, bool isSuccess)
+    {
+        Message = message;
+        Count = count;
+        IsSuccess = isSuccess;
+    }
+}
+
+/// <summary>无数据（纯信号）。</summary>
+public class SimpleNotificationEvent { }
+
+/* 文件存放规则：
+   - 跨模块共享的事件 → Assets/Scripts/Events/
+   - 仅一个模块使用的事件 → 模块文件夹下的 Events/ 子目录
+
+   订阅方式：
+   - 推荐 [EventHandler] 属性（在 IGameModule 实现类中），ModuleRunner 自动管理生命周期
+   - 临时订阅 EventBus.Subscribe<T>(handler) 必须用 IDisposable 管理，否则内存泄漏
+*/
