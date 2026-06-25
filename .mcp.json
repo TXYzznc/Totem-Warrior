@@ -1,10 +1,6 @@
 {
-  "_comment": "MCP 服务清单。三档分类：core 默认启用 / middle 默认启用 / optional 默认关闭。实际启用由 .claude/settings.local.json 的 enabledMcpjsonServers 决定。凭据走 ${VAR}，模板见 .env.example。",
+  "_comment": "MCP 服务清单。实际启用由 .claude/settings.local.json 的 enabledMcpjsonServers 决定。凭据走 ${VAR}，模板见 .env.example。",
   "mcpServers": {
-    "_____CORE_____": {
-      "command": "echo",
-      "args": ["核心 MCP（默认启用）"]
-    },
     "skill4agent": {
       "command": "npx",
       "args": ["-y", "@skill4agent/mcp-server"]
@@ -24,11 +20,6 @@
         "UV_PYTHON_PREFERENCE": "only-managed"
       }
     },
-
-    "_____MIDDLE_____": {
-      "command": "echo",
-      "args": ["按项目可选（默认启用，可在 settings.local.json 移出 enabledMcpjsonServers）"]
-    },
     "godot": {
       "command": "npx",
       "args": ["@coding-solo/godot-mcp"],
@@ -38,33 +29,6 @@
     },
     "frame-ronin": {
       "command": ".venv/Scripts/frame-ronin-mcp.exe"
-    },
-    "game-asset-mcp": {
-      "command": "node",
-      "args": ["tools/game-asset-mcp/src/index.js"],
-      "env": {
-        "HF_TOKEN": "${HF_TOKEN}"
-      }
-    },
-
-    "_____OPTIONAL_____": {
-      "command": "echo",
-      "args": ["可选 MCP（默认不启用，需手动加入 settings.local.json 的 enabledMcpjsonServers）"]
-    },
-    "docker": {
-      "command": "uvx",
-      "args": ["mcp-server-docker"]
-    },
-    "kubernetes": {
-      "command": "npx",
-      "args": ["-y", "kubernetes-mcp-server@latest"]
-    },
-    "mongodb": {
-      "command": "npx",
-      "args": ["-y", "mongodb-mcp-server@latest"],
-      "env": {
-        "MDB_MCP_CONNECTION_STRING": "${MDB_MCP_CONNECTION_STRING}"
-      }
     },
     "atlassian": {
       "command": "uvx",

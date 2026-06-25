@@ -1,0 +1,41 @@
+{
+  "table": "TattooEnchantAffixConfig",
+  "fields": [
+    { "name": "Id",           "type": "int",    "desc": "词缀唯一 ID，主键" },
+    { "name": "PartId",       "type": "int",    "desc": "适用部位：0=全部位 1=Head 2=Torso 3=LeftArm 4=RightArm 5=LeftLeg 6=RightLeg" },
+    { "name": "ColorTier",    "type": "string", "desc": "适用颜料档：Common / Rare / Legendary / Any" },
+    { "name": "AffixType",    "type": "string", "desc": "效果类型：ElementDamageBonus / CooldownReduction / AttackSpeed / CritChance / CritDamage / RangeBonus / StatusChance / SelfHealOnHit" },
+    { "name": "StatKey",      "type": "string", "desc": "影响的数值 Key（ElementDmg / CritRate / CooldownPct 等）" },
+    { "name": "Value",        "type": "float",  "desc": "词缀数值（百分比类已存储为小数，0.15 = 15%）" },
+    { "name": "ConditionKey", "type": "string", "desc": "条件 Key（无条件留空字符串；如 DistanceGt8m / AfterDodge）" },
+    { "name": "ConditionVal", "type": "float",  "desc": "条件阈值（ConditionKey 为空时填 0）" },
+    { "name": "DisplayText",  "type": "string", "desc": "UI 展示文案（如 距离>8m 攻击 +30%）" },
+    { "name": "Weight",       "type": "float",  "desc": "同 PartId+ColorTier 池内的抽取权重（归一化前原始值）" }
+  ],
+  "rows": [
+    { "Id": 1,  "PartId": 0, "ColorTier": "Common",    "AffixType": "ElementDamageBonus", "StatKey": "ElementDmg",   "Value": 0.10, "ConditionKey": "",             "ConditionVal": 0, "DisplayText": "元素伤害 +10%",               "Weight": 5.0 },
+    { "Id": 2,  "PartId": 0, "ColorTier": "Common",    "AffixType": "AttackSpeed",        "StatKey": "AttackSpeed",  "Value": 0.08, "ConditionKey": "",             "ConditionVal": 0, "DisplayText": "攻速 +8%",                    "Weight": 4.0 },
+    { "Id": 3,  "PartId": 0, "ColorTier": "Common",    "AffixType": "CritChance",         "StatKey": "CritRate",     "Value": 0.05, "ConditionKey": "",             "ConditionVal": 0, "DisplayText": "暴击率 +5%",                  "Weight": 4.0 },
+    { "Id": 4,  "PartId": 0, "ColorTier": "Common",    "AffixType": "CooldownReduction",  "StatKey": "CooldownPct",  "Value": 0.10, "ConditionKey": "",             "ConditionVal": 0, "DisplayText": "技能冷却 -10%",               "Weight": 3.5 },
+    { "Id": 5,  "PartId": 0, "ColorTier": "Common",    "AffixType": "SelfHealOnHit",      "StatKey": "HealOnHit",    "Value": 5.0,  "ConditionKey": "",             "ConditionVal": 0, "DisplayText": "命中回血 5",                  "Weight": 3.0 },
+    { "Id": 6,  "PartId": 0, "ColorTier": "Common",    "AffixType": "StatusChance",       "StatKey": "StatusChance", "Value": 0.08, "ConditionKey": "",             "ConditionVal": 0, "DisplayText": "状态命中率 +8%",              "Weight": 3.5 },
+    { "Id": 7,  "PartId": 0, "ColorTier": "Common",    "AffixType": "RangeBonus",         "StatKey": "Range",        "Value": 0.10, "ConditionKey": "",             "ConditionVal": 0, "DisplayText": "射程 +10%",                   "Weight": 3.0 },
+    { "Id": 8,  "PartId": 0, "ColorTier": "Common",    "AffixType": "CritDamage",         "StatKey": "CritDmg",      "Value": 0.15, "ConditionKey": "",             "ConditionVal": 0, "DisplayText": "暴击伤害 +15%",               "Weight": 3.0 },
+    { "Id": 9,  "PartId": 0, "ColorTier": "Rare",      "AffixType": "ElementDamageBonus", "StatKey": "ElementDmg",   "Value": 0.20, "ConditionKey": "",             "ConditionVal": 0, "DisplayText": "元素伤害 +20%",               "Weight": 5.0 },
+    { "Id": 10, "PartId": 0, "ColorTier": "Rare",      "AffixType": "CritChance",         "StatKey": "CritRate",     "Value": 0.10, "ConditionKey": "",             "ConditionVal": 0, "DisplayText": "暴击率 +10%",                 "Weight": 4.0 },
+    { "Id": 11, "PartId": 0, "ColorTier": "Rare",      "AffixType": "CritDamage",         "StatKey": "CritDmg",      "Value": 0.25, "ConditionKey": "",             "ConditionVal": 0, "DisplayText": "暴击伤害 +25%",               "Weight": 4.0 },
+    { "Id": 12, "PartId": 0, "ColorTier": "Rare",      "AffixType": "ElementDamageBonus", "StatKey": "ElementDmg",   "Value": 0.30, "ConditionKey": "DistanceGt8m", "ConditionVal": 8, "DisplayText": "距离>8m 时元素伤害 +30%",    "Weight": 3.5 },
+    { "Id": 13, "PartId": 0, "ColorTier": "Rare",      "AffixType": "AttackSpeed",        "StatKey": "AttackSpeed",  "Value": 0.15, "ConditionKey": "",             "ConditionVal": 0, "DisplayText": "攻速 +15%",                   "Weight": 3.5 },
+    { "Id": 14, "PartId": 0, "ColorTier": "Rare",      "AffixType": "SelfHealOnHit",      "StatKey": "HealOnHit",    "Value": 12.0, "ConditionKey": "",             "ConditionVal": 0, "DisplayText": "命中回血 12",                 "Weight": 3.0 },
+    { "Id": 15, "PartId": 0, "ColorTier": "Rare",      "AffixType": "CooldownReduction",  "StatKey": "CooldownPct",  "Value": 0.18, "ConditionKey": "",             "ConditionVal": 0, "DisplayText": "技能冷却 -18%",               "Weight": 3.0 },
+    { "Id": 16, "PartId": 0, "ColorTier": "Rare",      "AffixType": "StatusChance",       "StatKey": "StatusChance", "Value": 0.15, "ConditionKey": "",             "ConditionVal": 0, "DisplayText": "状态命中率 +15%",             "Weight": 3.0 },
+    { "Id": 17, "PartId": 0, "ColorTier": "Legendary", "AffixType": "ElementDamageBonus", "StatKey": "ElementDmg",   "Value": 0.35, "ConditionKey": "",             "ConditionVal": 0, "DisplayText": "元素伤害 +35%",               "Weight": 5.0 },
+    { "Id": 18, "PartId": 0, "ColorTier": "Legendary", "AffixType": "CritChance",         "StatKey": "CritRate",     "Value": 0.18, "ConditionKey": "",             "ConditionVal": 0, "DisplayText": "暴击率 +18%",                 "Weight": 4.0 },
+    { "Id": 19, "PartId": 0, "ColorTier": "Legendary", "AffixType": "CritDamage",         "StatKey": "CritDmg",      "Value": 0.40, "ConditionKey": "",             "ConditionVal": 0, "DisplayText": "暴击伤害 +40%",               "Weight": 4.0 },
+    { "Id": 20, "PartId": 0, "ColorTier": "Legendary", "AffixType": "ElementDamageBonus", "StatKey": "ElementDmg",   "Value": 0.45, "ConditionKey": "AfterDodge",   "ConditionVal": 0, "DisplayText": "闪避后下次攻击元素伤害 +45%", "Weight": 3.5 },
+    { "Id": 21, "PartId": 0, "ColorTier": "Legendary", "AffixType": "AttackSpeed",        "StatKey": "AttackSpeed",  "Value": 0.25, "ConditionKey": "",             "ConditionVal": 0, "DisplayText": "攻速 +25%",                   "Weight": 3.5 },
+    { "Id": 22, "PartId": 0, "ColorTier": "Legendary", "AffixType": "CooldownReduction",  "StatKey": "CooldownPct",  "Value": 0.30, "ConditionKey": "",             "ConditionVal": 0, "DisplayText": "技能冷却 -30%",               "Weight": 3.0 },
+    { "Id": 23, "PartId": 0, "ColorTier": "Legendary", "AffixType": "SelfHealOnHit",      "StatKey": "HealOnHit",    "Value": 25.0, "ConditionKey": "",             "ConditionVal": 0, "DisplayText": "命中回血 25",                 "Weight": 3.0 },
+    { "Id": 24, "PartId": 0, "ColorTier": "Legendary", "AffixType": "StatusChance",       "StatKey": "StatusChance", "Value": 0.25, "ConditionKey": "",             "ConditionVal": 0, "DisplayText": "状态命中率 +25%",             "Weight": 3.0 }
+  ]
+}

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Tattoo.Strategies;
 
 namespace Tattoo.Data
@@ -34,5 +35,8 @@ namespace Tattoo.Data
         public string PatternName;
         /// <summary>颜色对应的元素类型。</summary>
         public ElementType ElementType;
+
+        /// <summary>v2.1 词缀（最多 2 条）。由纹身师 EnchantSlot 追加。</summary>
+        public List<TattooAffix> Affixes = new();
     }
 }

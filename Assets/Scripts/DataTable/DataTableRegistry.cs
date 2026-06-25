@@ -8,12 +8,39 @@ public static class DataTableRegistry
 {
     public static readonly DataTableEntry[] Entries =
     {
+        new DataTableEntry("MapTemplateConfig", typeof(MapTemplateConfig)),
         new DataTableEntry("ResourceConfig", typeof(ResourceConfig)),
         new DataTableEntry("TattooColorConfig", typeof(TattooColorConfig)),
         new DataTableEntry("TattooElementConfig", typeof(TattooElementConfig)),
         new DataTableEntry("TattooPartConfig", typeof(TattooPartConfig)),
         new DataTableEntry("TattooPatternConfig", typeof(TattooPatternConfig)),
         new DataTableEntry("TattooShapeConfig", typeof(TattooShapeConfig)),
+        new DataTableEntry("ZoneShrinkConfig", typeof(ZoneShrinkConfig)),
+        // v2.1 自纹身 / 附魔
+        new DataTableEntry("TattooReadingTimeConfig", typeof(TattooReadingTimeConfig)),
+        new DataTableEntry("TattooEnchantAffixConfig", typeof(TattooEnchantAffixConfig)),
+        new DataTableEntry("TattooEnchantRecipeConfig", typeof(TattooEnchantRecipeConfig)),
+        // v2.1 NPC 系统
+        new DataTableEntry("NPCConfig", typeof(NPCConfig)),
+        new DataTableEntry("ShopStockConfig", typeof(ShopStockConfig)),
+        // v2.1 武器系统
+        new DataTableEntry("WeaponConfig", typeof(WeaponConfig)),
+        new DataTableEntry("ProjectileConfig", typeof(ProjectileConfig)),
+        // v2.1 经济系统
+        new DataTableEntry("ItemConfig", typeof(ItemConfig)),
+        // v2.1 怪物与 Boss 系统
+        new DataTableEntry("EnemyConfig", typeof(EnemyConfig)),
+        new DataTableEntry("BossPhaseConfig", typeof(BossPhaseConfig)),
+        // v2.1 技能系统
+        new DataTableEntry("SkillConfig", typeof(SkillConfig)),
+        // v2.1 Bot AI
+        new DataTableEntry("BotConfig", typeof(BotConfig)),
+        new DataTableEntry("BotBuildPreset", typeof(BotBuildPresetConfig)),
+        // v2.1 事件系统
+        new DataTableEntry("EventConfig", typeof(EventConfig)),
+        new DataTableEntry("ThreeChoiceOptionConfig", typeof(ThreeChoiceOptionConfig)),
+        // v2.1 UI 表单配置
+        new DataTableEntry("UIFormConfig", typeof(UIFormConfig)),
     };
 }
 

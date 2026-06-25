@@ -82,7 +82,6 @@ tools/**/logs/
 tools/**/coverage/
 tools/**/test_output/
 tools/**/hunyuan3d_output/
-tools/game-asset-mcp/
 
 # Codebase memory 索引（项目特定数据）
 .codebase-memory/

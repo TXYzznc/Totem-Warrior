@@ -1,0 +1,57 @@
+{
+  "table": "ItemConfig",
+  "fields": [
+    { "name": "ItemId",      "type": "int",    "desc": "物品唯一 ID，全局不重复" },
+    { "name": "ItemType",    "type": "string", "desc": "枚举：Coin | InkBottle | RecipeShard | RecipeFull | Equipment | Antidote" },
+    { "name": "SubType",     "type": "string", "desc": "细分类型：颜料填 ColorId（1–7）；武器填品质（Common/Uncommon/Rare/Legendary）；其他留空" },
+    { "name": "Tier",        "type": "int",    "desc": "颜料档位：1=Basic / 2=Standard / 3=Premium；非颜料物品填 0" },
+    { "name": "DisplayName", "type": "string", "desc": "本地化显示名（中文，运行时替换为 LocalizationKey）" },
+    { "name": "Rarity",      "type": "string", "desc": "枚举：Common | Uncommon | Rare | Epic | Legendary" },
+    { "name": "MaxStack",    "type": "int",    "desc": "单槽最大堆叠数；金币 = 9999，颜料 = 99，其他 = 1" },
+    { "name": "BasePrice",   "type": "int",    "desc": "基础定价（coin）；供商人 ShopStockConfig 引用计算实际价格" },
+    { "name": "SellRatio",   "type": "float",  "desc": "玩家出售时的回收比例（× BasePrice）；默认 0.4" }
+  ],
+  "rows": [
+    { "ItemId": 1,    "ItemType": "Coin",        "SubType": "",           "Tier": 0, "DisplayName": "金币",           "Rarity": "Common",    "MaxStack": 9999, "BasePrice": 1,   "SellRatio": 0.0 },
+
+    { "ItemId": 2101, "ItemType": "InkBottle",   "SubType": "1",          "Tier": 1, "DisplayName": "红色颜料·基础", "Rarity": "Common",    "MaxStack": 99,   "BasePrice": 40,  "SellRatio": 0.4 },
+    { "ItemId": 2102, "ItemType": "InkBottle",   "SubType": "1",          "Tier": 2, "DisplayName": "红色颜料·标准", "Rarity": "Uncommon",  "MaxStack": 99,   "BasePrice": 60,  "SellRatio": 0.4 },
+    { "ItemId": 2103, "ItemType": "InkBottle",   "SubType": "1",          "Tier": 3, "DisplayName": "红色颜料·精品", "Rarity": "Rare",      "MaxStack": 99,   "BasePrice": 100, "SellRatio": 0.4 },
+
+    { "ItemId": 2201, "ItemType": "InkBottle",   "SubType": "2",          "Tier": 1, "DisplayName": "黄色颜料·基础", "Rarity": "Common",    "MaxStack": 99,   "BasePrice": 40,  "SellRatio": 0.4 },
+    { "ItemId": 2202, "ItemType": "InkBottle",   "SubType": "2",          "Tier": 2, "DisplayName": "黄色颜料·标准", "Rarity": "Uncommon",  "MaxStack": 99,   "BasePrice": 60,  "SellRatio": 0.4 },
+    { "ItemId": 2203, "ItemType": "InkBottle",   "SubType": "2",          "Tier": 3, "DisplayName": "黄色颜料·精品", "Rarity": "Rare",      "MaxStack": 99,   "BasePrice": 100, "SellRatio": 0.4 },
+
+    { "ItemId": 2301, "ItemType": "InkBottle",   "SubType": "3",          "Tier": 1, "DisplayName": "绿色颜料·基础", "Rarity": "Common",    "MaxStack": 99,   "BasePrice": 40,  "SellRatio": 0.4 },
+    { "ItemId": 2302, "ItemType": "InkBottle",   "SubType": "3",          "Tier": 2, "DisplayName": "绿色颜料·标准", "Rarity": "Uncommon",  "MaxStack": 99,   "BasePrice": 60,  "SellRatio": 0.4 },
+    { "ItemId": 2303, "ItemType": "InkBottle",   "SubType": "3",          "Tier": 3, "DisplayName": "绿色颜料·精品", "Rarity": "Rare",      "MaxStack": 99,   "BasePrice": 100, "SellRatio": 0.4 },
+
+    { "ItemId": 2401, "ItemType": "InkBottle",   "SubType": "4",          "Tier": 1, "DisplayName": "蓝色颜料·基础", "Rarity": "Common",    "MaxStack": 99,   "BasePrice": 50,  "SellRatio": 0.4 },
+    { "ItemId": 2402, "ItemType": "InkBottle",   "SubType": "4",          "Tier": 2, "DisplayName": "蓝色颜料·标准", "Rarity": "Uncommon",  "MaxStack": 99,   "BasePrice": 70,  "SellRatio": 0.4 },
+    { "ItemId": 2403, "ItemType": "InkBottle",   "SubType": "4",          "Tier": 3, "DisplayName": "蓝色颜料·精品", "Rarity": "Rare",      "MaxStack": 99,   "BasePrice": 120, "SellRatio": 0.4 },
+
+    { "ItemId": 2501, "ItemType": "InkBottle",   "SubType": "5",          "Tier": 1, "DisplayName": "紫色颜料·基础", "Rarity": "Uncommon",  "MaxStack": 99,   "BasePrice": 60,  "SellRatio": 0.4 },
+    { "ItemId": 2502, "ItemType": "InkBottle",   "SubType": "5",          "Tier": 2, "DisplayName": "紫色颜料·标准", "Rarity": "Rare",      "MaxStack": 99,   "BasePrice": 90,  "SellRatio": 0.4 },
+    { "ItemId": 2503, "ItemType": "InkBottle",   "SubType": "5",          "Tier": 3, "DisplayName": "紫色颜料·精品", "Rarity": "Epic",      "MaxStack": 99,   "BasePrice": 150, "SellRatio": 0.4 },
+
+    { "ItemId": 2601, "ItemType": "InkBottle",   "SubType": "6",          "Tier": 1, "DisplayName": "金色颜料·基础", "Rarity": "Uncommon",  "MaxStack": 99,   "BasePrice": 70,  "SellRatio": 0.4 },
+    { "ItemId": 2602, "ItemType": "InkBottle",   "SubType": "6",          "Tier": 2, "DisplayName": "金色颜料·标准", "Rarity": "Rare",      "MaxStack": 99,   "BasePrice": 110, "SellRatio": 0.4 },
+    { "ItemId": 2603, "ItemType": "InkBottle",   "SubType": "6",          "Tier": 3, "DisplayName": "金色颜料·精品", "Rarity": "Epic",      "MaxStack": 99,   "BasePrice": 180, "SellRatio": 0.4 },
+
+    { "ItemId": 2701, "ItemType": "InkBottle",   "SubType": "7",          "Tier": 1, "DisplayName": "白色颜料·基础", "Rarity": "Rare",      "MaxStack": 99,   "BasePrice": 100, "SellRatio": 0.4 },
+    { "ItemId": 2702, "ItemType": "InkBottle",   "SubType": "7",          "Tier": 2, "DisplayName": "白色颜料·标准", "Rarity": "Epic",      "MaxStack": 99,   "BasePrice": 150, "SellRatio": 0.4 },
+    { "ItemId": 2703, "ItemType": "InkBottle",   "SubType": "7",          "Tier": 3, "DisplayName": "白色颜料·精品", "Rarity": "Legendary", "MaxStack": 99,   "BasePrice": 220, "SellRatio": 0.4 },
+
+    { "ItemId": 3001, "ItemType": "RecipeShard", "SubType": "",           "Tier": 0, "DisplayName": "配方碎片",       "Rarity": "Uncommon",  "MaxStack": 99,   "BasePrice": 60,  "SellRatio": 0.3 },
+    { "ItemId": 3100, "ItemType": "RecipeFull",  "SubType": "",           "Tier": 0, "DisplayName": "完整配方",       "Rarity": "Rare",      "MaxStack": 10,   "BasePrice": 200, "SellRatio": 0.3 },
+
+    { "ItemId": 4001, "ItemType": "Equipment",   "SubType": "Common",     "Tier": 0, "DisplayName": "普通武器",       "Rarity": "Common",    "MaxStack": 1,    "BasePrice": 80,  "SellRatio": 0.4 },
+    { "ItemId": 4002, "ItemType": "Equipment",   "SubType": "Uncommon",   "Tier": 0, "DisplayName": "绿色武器",       "Rarity": "Uncommon",  "MaxStack": 1,    "BasePrice": 150, "SellRatio": 0.4 },
+    { "ItemId": 4003, "ItemType": "Equipment",   "SubType": "Rare",       "Tier": 0, "DisplayName": "蓝色武器",       "Rarity": "Rare",      "MaxStack": 1,    "BasePrice": 250, "SellRatio": 0.4 },
+    { "ItemId": 4004, "ItemType": "Equipment",   "SubType": "Legendary",  "Tier": 0, "DisplayName": "传奇武器",       "Rarity": "Legendary", "MaxStack": 1,    "BasePrice": 500, "SellRatio": 0.4 },
+
+    { "ItemId": 5001, "ItemType": "Antidote",    "SubType": "Detox",      "Tier": 0, "DisplayName": "解毒剂",         "Rarity": "Common",    "MaxStack": 5,    "BasePrice": 70,  "SellRatio": 0.3 },
+    { "ItemId": 5002, "ItemType": "Antidote",    "SubType": "Thaw",       "Tier": 0, "DisplayName": "解冻剂",         "Rarity": "Common",    "MaxStack": 5,    "BasePrice": 70,  "SellRatio": 0.3 },
+    { "ItemId": 5003, "ItemType": "Antidote",    "SubType": "Unstun",     "Tier": 0, "DisplayName": "解麻剂",         "Rarity": "Common",    "MaxStack": 5,    "BasePrice": 70,  "SellRatio": 0.3 }
+  ]
+}

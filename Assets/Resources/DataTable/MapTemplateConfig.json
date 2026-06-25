@@ -1,0 +1,19 @@
+{
+  "table": "MapTemplateConfig",
+  "fields": [
+    { "name": "Id",            "type": "int",    "desc": "主题模板主键（1=AI_RUINS, 2=CYBERPUNK, 3=MAGITECH）" },
+    { "name": "ThemeName",     "type": "string", "desc": "主题枚举名（AI_RUINS / CYBERPUNK / MAGITECH）" },
+    { "name": "MapSize",       "type": "float",  "desc": "v2.1 地图根边界尺寸（单位 m，固定 150）" },
+    { "name": "MinRoomSize",   "type": "float",  "desc": "BSP 最小房间尺寸（单位 m）" },
+    { "name": "BspMaxDepth",   "type": "int",    "desc": "BSP 最大递归深度（v2.1 = 4）" },
+    { "name": "TerrainPoolId", "type": "int",    "desc": "地块池 ID，用于 tile 替换。MVP 暂未消费" },
+    { "name": "PrefabPath",    "type": "string", "desc": "房间 Prefab 路径前缀（相对 Resources/Prefab/Map/）。MVP 留空" },
+    { "name": "HudAccentColor","type": "string", "desc": "HUD 强调色（hex，如 #66CCFF）。透传字段" },
+    { "name": "DominantColor", "type": "string", "desc": "主色调（hex）。透传字段" }
+  ],
+  "rows": [
+    { "Id": 1, "ThemeName": "AI_RUINS",  "MapSize": 150.0, "MinRoomSize": 15.0, "BspMaxDepth": 4, "TerrainPoolId": 101, "PrefabPath": "", "HudAccentColor": "#66CCFF", "DominantColor": "#3A4858" },
+    { "Id": 2, "ThemeName": "CYBERPUNK", "MapSize": 150.0, "MinRoomSize": 15.0, "BspMaxDepth": 4, "TerrainPoolId": 102, "PrefabPath": "", "HudAccentColor": "#FF44AA", "DominantColor": "#1A1030" },
+    { "Id": 3, "ThemeName": "MAGITECH",  "MapSize": 150.0, "MinRoomSize": 15.0, "BspMaxDepth": 4, "TerrainPoolId": 103, "PrefabPath": "", "HudAccentColor": "#FFCC55", "DominantColor": "#2A3A28" }
+  ]
+}

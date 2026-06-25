@@ -34,6 +34,9 @@ namespace Tattoo
         TattooPatternConfig _patternConfig;
         TattooElementConfig _elementConfig;
         TattooShapeConfig   _shapeConfig;
+        // v2.1 新增
+        TattooReadingTimeConfig  _readingTimeConfig;
+        TattooEnchantAffixConfig _enchantAffixConfig;
 
         // ===== 策略实例（按 Name 索引） =====
         readonly Dictionary<string, IPartBehavior>    _partBehaviors    = new();
@@ -73,6 +76,9 @@ namespace Tattoo
             _patternConfig = dt.GetTable<TattooPatternConfig>();
             _elementConfig = dt.GetTable<TattooElementConfig>();
             _shapeConfig   = dt.GetTable<TattooShapeConfig>();
+            // v2.1：自纹身读条 & 附魔词缀池
+            _readingTimeConfig  = dt.GetTable<TattooReadingTimeConfig>();
+            _enchantAffixConfig = dt.GetTable<TattooEnchantAffixConfig>();
 
             RegisterPartStrategies();
             RegisterElementStrategies();
@@ -89,6 +95,7 @@ namespace Tattoo
             _partBehaviors.Clear();
             _elementBehaviors.Clear();
             _shapeBehaviors.Clear();
+            _inProgress.Clear(); // v2.1
             FrameworkLogger.Info("TattooModule", "Action=Shutdown");
             return UniTask.CompletedTask;
         }
@@ -151,6 +158,89 @@ namespace Tattoo
                     continue;
                 }
                 _shapeBehaviors[row.Name] = beh;
+            }
+        }
+
+        // ===== v2.1 自纹身读条状态 =====
+
+        readonly Dictionary<Target, InProgressTattoo> _inProgress = new();
+
+        sealed class InProgressTattoo
+        {
+            public int PartId, ColorId, PatternId;
+            public float StartTime, DurationSec;
+        }
+
+        /// <summary>查询某 actor 是否正在自纹身读条中。CombatModule 用此 gate 抑制攻击/闪避。</summary>
+        public bool IsInProgress(Target actor)
+        {
+            return actor != null && _inProgress.ContainsKey(actor);
+        }
+
+        /// <summary>
+        /// 启动自纹身读条。资源校验在调用前完成。
+        /// v2.1：durationSec 若 &lt;= 0，则从 TattooReadingTimeConfig 按 partId 查表（替换原 Magic Number）。
+        /// </summary>
+        public void StartSelfTattoo(Target actor, int partId, int colorId, int patternId, float durationSec = -1f)
+        {
+            if (actor == null) return;
+
+            // v2.1：未显式传 duration 时按部位读表
+            if (durationSec <= 0f)
+            {
+                if (_readingTimeConfig != null && _readingTimeConfig.TryGetById(partId, out var rt))
+                {
+                    durationSec = rt.DurationSec;
+                }
+                else
+                {
+                    FrameworkLogger.Warn("TattooModule",
+                        $"Action=StartSelfTattoo PartId={partId} 未找到读条时长，回退 5s [v2.1]");
+                    durationSec = 5f;
+                }
+            }
+
+            _inProgress[actor] = new InProgressTattoo
+            {
+                PartId = partId, ColorId = colorId, PatternId = patternId,
+                StartTime = UnityEngine.Time.time, DurationSec = durationSec,
+            };
+            FrameworkLogger.Info("TattooModule",
+                $"Action=StartSelfTattoo Actor={actor.Name} PartId={partId} Duration={durationSec:F1}s [v2.1]");
+            _bus.Publish(new TattooInProgressEvent(actor, partId, colorId, patternId, durationSec));
+        }
+
+        /// <summary>取消自纹身。仅扣金币（由 EconomyModule 监听处理）。颜料不扣。</summary>
+        public void CancelSelfTattoo(Target actor, CancelReason reason)
+        {
+            if (actor == null || !_inProgress.ContainsKey(actor)) return;
+            _inProgress.Remove(actor);
+            _bus.Publish(new TattooCancelledEvent(actor, reason));
+        }
+
+        /// <summary>每帧检查读条完成。由 GameTickDriver 通过 ITickable 调用 — 但 TattooModule 不是 ITickable。
+        /// 改为：CombatModule.OnUpdate 末尾 tick 一次。</summary>
+        public void TickInProgressTattoos()
+        {
+            if (_inProgress.Count == 0) return;
+            var now = UnityEngine.Time.time;
+            List<Target> done = null;
+            foreach (var kv in _inProgress)
+            {
+                if (now - kv.Value.StartTime >= kv.Value.DurationSec)
+                {
+                    (done ??= new List<Target>()).Add(kv.Key);
+                }
+            }
+            if (done == null) return;
+            foreach (var actor in done)
+            {
+                var ip = _inProgress[actor];
+                _inProgress.Remove(actor);
+                // 把读条结果落到正式 Equip
+                bool ok = Equip(ip.PartId, ip.ColorId, ip.PatternId);
+                if (ok && _equipped.Count > 0)
+                    _bus.Publish(new TattooFinishedEvent(actor, _equipped[_equipped.Count - 1]));
             }
         }
 
@@ -219,6 +309,63 @@ namespace Tattoo
             return true;
         }
 
+        // ===== v2.1 附魔 API =====
+
+        /// <summary>每槽位最多词缀数。</summary>
+        public const int MaxAffixesPerSlot = 2;
+
+        /// <summary>
+        /// 纹身师附魔：对 owner 的第 slotIndex 个装备槽追加 newAffixes。
+        /// - 仅校验槽位存在 + 词缀总数不超过 MaxAffixesPerSlot
+        /// - 经济扣费由 EconomyModule 订阅 TattooEnchantedEvent 处理（本模块不直接扣金币 / 稀有墨水）
+        /// - owner 当前未参与槽位归属判定（单机：玩家就是唯一持槽人），保留参数以便未来扩展
+        /// </summary>
+        public bool EnchantSlot(Target owner, int slotIndex, List<TattooAffix> newAffixes, int costCoin, int costRareInk)
+        {
+            if (slotIndex < 0 || slotIndex >= _equipped.Count)
+            {
+                FrameworkLogger.Error("TattooModule",
+                    $"Action=EnchantSlot SlotIndex={slotIndex} Result=OutOfRange Equipped={_equipped.Count} [v2.1]");
+                return false;
+            }
+            if (newAffixes == null || newAffixes.Count == 0)
+            {
+                FrameworkLogger.Warn("TattooModule",
+                    $"Action=EnchantSlot SlotIndex={slotIndex} Result=NoAffix [v2.1]");
+                return false;
+            }
+
+            var slot = _equipped[slotIndex];
+            slot.Affixes ??= new List<TattooAffix>();
+            int remaining = MaxAffixesPerSlot - slot.Affixes.Count;
+            if (remaining <= 0)
+            {
+                FrameworkLogger.Warn("TattooModule",
+                    $"Action=EnchantSlot SlotIndex={slotIndex} Result=NoFreeSlot Existing={slot.Affixes.Count}/{MaxAffixesPerSlot} [v2.1]");
+                return false;
+            }
+            if (newAffixes.Count > remaining)
+            {
+                FrameworkLogger.Warn("TattooModule",
+                    $"Action=EnchantSlot SlotIndex={slotIndex} 仅追加前 {remaining} 个词缀（请求 {newAffixes.Count} 个） [v2.1]");
+            }
+
+            int added = 0;
+            for (int i = 0; i < newAffixes.Count && added < remaining; i++)
+            {
+                slot.Affixes.Add(newAffixes[i]);
+                added++;
+            }
+
+            FrameworkLogger.Info("TattooModule",
+                $"Action=EnchantSlot SlotIndex={slotIndex} Part={slot.PartName} Added={added} Total={slot.Affixes.Count} CostCoin={costCoin} CostRareInk={costRareInk} [v2.1]");
+
+            // 截取实际入槽的子集再广播
+            var applied = newAffixes.GetRange(0, added);
+            _bus.Publish(new TattooEnchantedEvent(owner, slot, applied, costCoin, costRareInk));
+            return true;
+        }
+
         /// <summary>清空当前 Build。重置玩家临时状态。</summary>
         public void Clear()
         {
@@ -245,10 +392,37 @@ namespace Tattoo
 
         [EventHandler] void OnAttackHit(AttackHitEvent e)        => Fire(typeof(AttackHitEvent),    primary: e.Target,   attacker: null);
         [EventHandler] void OnCritHit(CritHitEvent e)            => Fire(typeof(CritHitEvent),      primary: e.Target,   attacker: null);
-        [EventHandler] void OnDamaged(DamagedEvent e)            => Fire(typeof(DamagedEvent),      primary: null,       attacker: e.Attacker);
+        [EventHandler]
+        void OnDamaged(DamagedEvent e)
+        {
+            // v2.1 中断检测：自纹身者受伤即中断。当前 DamagedEvent 不带 victim 字段，
+            // 单机简化 — 任何受伤事件触发时中断所有 in-progress（玩家是唯一可读条主体）。
+            InterruptAllInProgress(CancelReason.Damaged);
+            Fire(typeof(DamagedEvent), primary: null, attacker: e.Attacker);
+        }
         [EventHandler] void OnSkillCast(SkillCastEvent e)        => Fire(typeof(SkillCastEvent),    primary: null,       attacker: null);
         [EventHandler] void OnDodgePressed(DodgePressedEvent e)  => Fire(typeof(DodgePressedEvent), primary: null,       attacker: null);
-        [EventHandler] void OnMoveTick(MoveTickEvent e)          => Fire(typeof(MoveTickEvent),     primary: null,       attacker: null, path: e.Path);
+        [EventHandler]
+        void OnMoveTick(MoveTickEvent e)
+        {
+            // v2.1 中断检测：自纹身者移动即中断。
+            if (e.Distance > 0f) InterruptAllInProgress(CancelReason.Moved);
+            Fire(typeof(MoveTickEvent), primary: null, attacker: null, path: e.Path);
+        }
+
+        // v2.1：批量中断当前所有 in-progress 读条。CancelSelfTattoo 已发 TattooCancelledEvent。
+        void InterruptAllInProgress(CancelReason reason)
+        {
+            if (_inProgress.Count == 0) return;
+            // 复制 key 集合避免迭代时修改字典
+            var actors = new List<Target>(_inProgress.Keys);
+            foreach (var actor in actors)
+            {
+                FrameworkLogger.Info("TattooModule",
+                    $"Action=InterruptInProgress Actor={actor?.Name ?? "?"} Reason={reason} [v2.1]");
+                CancelSelfTattoo(actor, reason);
+            }
+        }
 
         /// <summary>触发匹配槽位 → 应用策略 → 消耗 PendingTrigger → 发 EffectAppliedEvent。</summary>
         void Fire(Type eventType, Target primary, Target attacker, Target[] path = null)
@@ -280,6 +454,16 @@ namespace Tattoo
                 float synergyMul = _synergy.Compute(_equipped, slot);
                 float magnitude  = scale * elementMul * patternMul * synergyMul;
                 magnitude = slot.Element.ModifyMagnitude(ctx, magnitude);
+
+                // v2.1 词缀加成：基础实现 — 所有词缀 Value 累加成 magnitude 百分比加成。
+                // 后续按 AffixType 细分（ElementDamageBonus 只对元素伤、AttackSpeed 不影响 magnitude 等），
+                // 当前阶段统一加在 magnitude 上以最小化对 336 测试的影响（空 Affixes 列表 → 加成为 0）。
+                if (slot.Affixes != null && slot.Affixes.Count > 0)
+                {
+                    float affixSum = 0f;
+                    for (int i = 0; i < slot.Affixes.Count; i++) affixSum += slot.Affixes[i].Value;
+                    magnitude *= 1f + affixSum;
+                }
 
                 bool intercepted = slot.Part.InterceptApply(ctx, slot.Shape, slot.Element, magnitude);
                 if (!intercepted)

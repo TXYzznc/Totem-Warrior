@@ -1,0 +1,17 @@
+{
+  "table": "ZoneShrinkConfig",
+  "fields": [
+    { "name": "Id",            "type": "int",    "desc": "阶段 ID 即 Phase 编号（0/1/2）" },
+    { "name": "PhaseName",     "type": "string", "desc": "阶段名（Phase0_Slow / Phase1_Offset / Phase2_Rush）" },
+    { "name": "StartTime",     "type": "float",  "desc": "本阶段进入时刻（秒，Run 启动 0 起）" },
+    { "name": "Duration",      "type": "float",  "desc": "本阶段持续时长（秒）" },
+    { "name": "TargetRadius",  "type": "float",  "desc": "本阶段结束时的目标半径（米）" },
+    { "name": "OutZoneDamage", "type": "float",  "desc": "圈外伤害（HP/s）" },
+    { "name": "CenterOffsetMode", "type": "string", "desc": "圈心偏移模式（None / Drift / Fixed），MVP 仅 None" }
+  ],
+  "rows": [
+    { "Id": 0, "PhaseName": "Phase0_Slow",   "StartTime":   0.0, "Duration": 180.0, "TargetRadius": 65.0, "OutZoneDamage":  2.0, "CenterOffsetMode": "None"  },
+    { "Id": 1, "PhaseName": "Phase1_Offset", "StartTime": 180.0, "Duration": 360.0, "TargetRadius": 35.0, "OutZoneDamage":  6.0, "CenterOffsetMode": "Drift" },
+    { "Id": 2, "PhaseName": "Phase2_Rush",   "StartTime": 540.0, "Duration": 360.0, "TargetRadius":  5.0, "OutZoneDamage": 18.0, "CenterOffsetMode": "Fixed" }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "table": "TattooEnchantRecipeConfig",
+  "fields": [
+    { "name": "Id",               "type": "int",    "desc": "主键" },
+    { "name": "ColorTier",        "type": "string", "desc": "颜料档：Common / Rare / Legendary" },
+    { "name": "CoinCost",         "type": "int",    "desc": "附魔金币花费" },
+    { "name": "RarePigmentCost",  "type": "int",    "desc": "附魔稀有颜料花费（固定 1 瓶）" },
+    { "name": "MaxAffixPerSlot",  "type": "int",    "desc": "每个纹身槽最大词缀数（固定 2）" }
+  ],
+  "rows": [
+    { "Id": 1, "ColorTier": "Common",    "CoinCost": 200, "RarePigmentCost": 1, "MaxAffixPerSlot": 2 },
+    { "Id": 2, "ColorTier": "Rare",      "CoinCost": 350, "RarePigmentCost": 1, "MaxAffixPerSlot": 2 },
+    { "Id": 3, "ColorTier": "Legendary", "CoinCost": 500, "RarePigmentCost": 1, "MaxAffixPerSlot": 2 }
+  ]
+}

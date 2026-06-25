@@ -1,0 +1,45 @@
+{
+  "table": "BossPhaseConfig",
+  "fields": [
+    { "name": "BossId",               "type": "string", "desc": "对应 EnemyConfig.EnemyId" },
+    { "name": "PhaseIndex",           "type": "int",    "desc": "阶段编号：1 / 2 / 3" },
+    { "name": "HPThreshold",          "type": "float",  "desc": "进入本阶段的 HP 百分比：1.0=满血，0.6=60%HP" },
+    { "name": "NewSkillIds",          "type": "string", "desc": "本阶段解锁技能 ID，逗号分隔，叠加不替换" },
+    { "name": "EnrageMultiplier",     "type": "float",  "desc": "本阶段伤害倍率，1.0=无变化" },
+    { "name": "PhaseVFXId",           "type": "string", "desc": "阶段转换特效 ID" },
+    { "name": "PhaseBGMCueId",        "type": "string", "desc": "阶段 BGM cue ID" },
+    { "name": "DeathPatternRecipeId", "type": "string", "desc": "v2.1 新增：Boss 死亡时必掉的主题配方 ID（仅 PhaseIndex=3 有效，其余填空）" }
+  ],
+  "rows": [
+    {
+      "BossId": "enemy_ai_ruins_boss_01",
+      "PhaseIndex": 1,
+      "HPThreshold": 1.0,
+      "NewSkillIds": "skill_stomp,skill_beam",
+      "EnrageMultiplier": 1.0,
+      "PhaseVFXId": "vfx_boss_enter",
+      "PhaseBGMCueId": "bgm_boss_phase1",
+      "DeathPatternRecipeId": ""
+    },
+    {
+      "BossId": "enemy_ai_ruins_boss_01",
+      "PhaseIndex": 2,
+      "HPThreshold": 0.6,
+      "NewSkillIds": "skill_summon",
+      "EnrageMultiplier": 1.25,
+      "PhaseVFXId": "vfx_boss_phase2",
+      "PhaseBGMCueId": "bgm_boss_phase2",
+      "DeathPatternRecipeId": ""
+    },
+    {
+      "BossId": "enemy_ai_ruins_boss_01",
+      "PhaseIndex": 3,
+      "HPThreshold": 0.3,
+      "NewSkillIds": "skill_enrage_aoe",
+      "EnrageMultiplier": 1.5,
+      "PhaseVFXId": "vfx_boss_phase3",
+      "PhaseBGMCueId": "bgm_boss_phase3",
+      "DeathPatternRecipeId": "recipe_ai_ruins_boss"
+    }
+  ]
+}

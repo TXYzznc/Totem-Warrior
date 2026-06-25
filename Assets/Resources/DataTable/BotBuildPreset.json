@@ -1,0 +1,24 @@
+{
+  "table": "BotBuildPreset",
+  "fields": [
+    { "name": "PresetId",         "type": "int",    "desc": "主键 1-7" },
+    { "name": "Name",             "type": "string", "desc": "如 火爆右臂流" },
+    { "name": "Tendency",         "type": "string", "desc": "7 元素倾向 vector JSON：[Fire,Lightning,Nature,Frost,Mutation,Holy,Pure] sum=1.0" },
+    { "name": "PreferredParts",   "type": "string", "desc": "推荐刻的部位 ID 序列 JSON，按优先级排" },
+    { "name": "RecommendedSeq",   "type": "string", "desc": "推荐 build 序列 JSON：[{partId,colorId,patternId},...] 长度1..6" },
+    { "name": "EarlyGameWeapon",  "type": "int",    "desc": "WeaponId 默认起手武器" },
+    { "name": "BehaviorMacro",    "type": "string", "desc": "Rush / Camp / Pivot / Hybrid" },
+    { "name": "PreferredSkillQ",  "type": "int",    "desc": "起手 Q 槽推荐技能 SkillId" },
+    { "name": "PreferredSkillE",  "type": "int",    "desc": "起手 E 槽推荐技能 SkillId" },
+    { "name": "TargetEnchantAffixes", "type": "string", "desc": "希望最终叠到的词缀 ID 列表 JSON" }
+  ],
+  "rows": [
+    { "PresetId": 1, "Name": "火爆右臂流", "Tendency": "[0.55,0.05,0.05,0.05,0.05,0.10,0.15]", "PreferredParts": "[4,1,2,5,6,3]", "RecommendedSeq": "[{\"partId\":4,\"colorId\":1,\"patternId\":2},{\"partId\":1,\"colorId\":1,\"patternId\":6},{\"partId\":2,\"colorId\":1,\"patternId\":1}]", "EarlyGameWeapon": 1, "BehaviorMacro": "Rush", "PreferredSkillQ": 1, "PreferredSkillE": 2, "TargetEnchantAffixes": "[101,102]" },
+    { "PresetId": 2, "Name": "雷电链式流", "Tendency": "[0.05,0.55,0.05,0.05,0.05,0.10,0.15]", "PreferredParts": "[3,4,1,5,6,2]", "RecommendedSeq": "[{\"partId\":3,\"colorId\":2,\"patternId\":5},{\"partId\":4,\"colorId\":2,\"patternId\":2}]", "EarlyGameWeapon": 1, "BehaviorMacro": "Pivot", "PreferredSkillQ": 3, "PreferredSkillE": 4, "TargetEnchantAffixes": "[103]" },
+    { "PresetId": 3, "Name": "毒木持久流", "Tendency": "[0.05,0.05,0.55,0.05,0.05,0.10,0.15]", "PreferredParts": "[6,2,4,5,1,3]", "RecommendedSeq": "[{\"partId\":6,\"colorId\":3,\"patternId\":7},{\"partId\":2,\"colorId\":3,\"patternId\":3}]", "EarlyGameWeapon": 1, "BehaviorMacro": "Camp", "PreferredSkillQ": 5, "PreferredSkillE": 6, "TargetEnchantAffixes": "[104]" },
+    { "PresetId": 4, "Name": "寒冰防御流", "Tendency": "[0.05,0.05,0.05,0.55,0.05,0.10,0.15]", "PreferredParts": "[2,5,4,6,1,3]", "RecommendedSeq": "[{\"partId\":2,\"colorId\":4,\"patternId\":3},{\"partId\":5,\"colorId\":4,\"patternId\":7}]", "EarlyGameWeapon": 1, "BehaviorMacro": "Camp", "PreferredSkillQ": 7, "PreferredSkillE": 8, "TargetEnchantAffixes": "[105,106]" },
+    { "PresetId": 5, "Name": "变异乱斗流", "Tendency": "[0.05,0.05,0.05,0.05,0.55,0.10,0.15]", "PreferredParts": "[1,4,3,5,6,2]", "RecommendedSeq": "[{\"partId\":1,\"colorId\":5,\"patternId\":6},{\"partId\":4,\"colorId\":5,\"patternId\":5}]", "EarlyGameWeapon": 1, "BehaviorMacro": "Hybrid", "PreferredSkillQ": 9, "PreferredSkillE": 10, "TargetEnchantAffixes": "[107]" },
+    { "PresetId": 6, "Name": "圣光奶妈流", "Tendency": "[0.05,0.05,0.05,0.05,0.05,0.55,0.20]", "PreferredParts": "[2,3,1,6,5,4]", "RecommendedSeq": "[{\"partId\":2,\"colorId\":6,\"patternId\":4},{\"partId\":3,\"colorId\":6,\"patternId\":1}]", "EarlyGameWeapon": 1, "BehaviorMacro": "Camp", "PreferredSkillQ": 11, "PreferredSkillE": 12, "TargetEnchantAffixes": "[108]" },
+    { "PresetId": 7, "Name": "纯白控场流", "Tendency": "[0.05,0.05,0.05,0.05,0.05,0.20,0.55]", "PreferredParts": "[3,1,4,5,6,2]", "RecommendedSeq": "[{\"partId\":3,\"colorId\":7,\"patternId\":4},{\"partId\":1,\"colorId\":7,\"patternId\":1}]", "EarlyGameWeapon": 1, "BehaviorMacro": "Pivot", "PreferredSkillQ": 13, "PreferredSkillE": 14, "TargetEnchantAffixes": "[109]" }
+  ]
+}

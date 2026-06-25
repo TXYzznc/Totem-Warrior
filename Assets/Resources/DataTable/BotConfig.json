@@ -1,0 +1,30 @@
+{
+  "table": "BotConfig",
+  "fields": [
+    { "name": "BotId",              "type": "int",    "desc": "主键" },
+    { "name": "Type",               "type": "string", "desc": "Smart / Light" },
+    { "name": "DisplayName",        "type": "string", "desc": "调试用显示名" },
+    { "name": "RethinkInterval",    "type": "float",  "desc": "BuildPlanner 重评估周期(秒) Smart=20 Light=45" },
+    { "name": "AttackCooldown",     "type": "float",  "desc": "两次普攻最小间隔(秒)" },
+    { "name": "VisionRadius",       "type": "float",  "desc": "感知半径(米) 默认20" },
+    { "name": "AggroRadius",        "type": "float",  "desc": "进入战斗的半径，<=Vision" },
+    { "name": "DodgeReactionMs",    "type": "int",    "desc": "感知到威胁→闪避的反应时间ms" },
+    { "name": "Confidence",         "type": "float",  "desc": "0..1 决策置信度" },
+    { "name": "PreferredPreset",    "type": "int",    "desc": "BotBuildPreset.PresetId 起手 build" },
+    { "name": "LootGreedFactor",    "type": "float",  "desc": "拾取贪婪度 0..2" },
+    { "name": "SelfTattooBoldness", "type": "float",  "desc": "自纹身胆量 0..1（Smart 专用，Light 无意义）" },
+    { "name": "EnchantGreed",       "type": "float",  "desc": "去工作室附魔执着度 0..1（Smart 专用）" }
+  ],
+  "rows": [
+    { "BotId": 1, "Type": "Smart", "DisplayName": "智能火",   "RethinkInterval": 20.0, "AttackCooldown": 0.7, "VisionRadius": 20.0, "AggroRadius": 18.0, "DodgeReactionMs": 220, "Confidence": 0.85, "PreferredPreset": 1, "LootGreedFactor": 1.0, "SelfTattooBoldness": 0.55, "EnchantGreed": 0.6 },
+    { "BotId": 2, "Type": "Smart", "DisplayName": "智能雷",   "RethinkInterval": 20.0, "AttackCooldown": 0.7, "VisionRadius": 20.0, "AggroRadius": 18.0, "DodgeReactionMs": 240, "Confidence": 0.80, "PreferredPreset": 2, "LootGreedFactor": 1.0, "SelfTattooBoldness": 0.50, "EnchantGreed": 0.5 },
+    { "BotId": 3, "Type": "Smart", "DisplayName": "智能毒",   "RethinkInterval": 20.0, "AttackCooldown": 0.7, "VisionRadius": 20.0, "AggroRadius": 18.0, "DodgeReactionMs": 260, "Confidence": 0.78, "PreferredPreset": 3, "LootGreedFactor": 1.0, "SelfTattooBoldness": 0.60, "EnchantGreed": 0.55 },
+    { "BotId": 4, "Type": "Smart", "DisplayName": "智能冰",   "RethinkInterval": 20.0, "AttackCooldown": 0.75, "VisionRadius": 20.0, "AggroRadius": 18.0, "DodgeReactionMs": 230, "Confidence": 0.82, "PreferredPreset": 4, "LootGreedFactor": 1.1, "SelfTattooBoldness": 0.65, "EnchantGreed": 0.7 },
+    { "BotId": 5, "Type": "Smart", "DisplayName": "智能变异", "RethinkInterval": 20.0, "AttackCooldown": 0.7, "VisionRadius": 20.0, "AggroRadius": 18.0, "DodgeReactionMs": 280, "Confidence": 0.70, "PreferredPreset": 5, "LootGreedFactor": 1.2, "SelfTattooBoldness": 0.45, "EnchantGreed": 0.5 },
+    { "BotId": 6, "Type": "Smart", "DisplayName": "智能圣",   "RethinkInterval": 20.0, "AttackCooldown": 0.75, "VisionRadius": 22.0, "AggroRadius": 18.0, "DodgeReactionMs": 240, "Confidence": 0.85, "PreferredPreset": 6, "LootGreedFactor": 0.9, "SelfTattooBoldness": 0.55, "EnchantGreed": 0.6 },
+    { "BotId": 7, "Type": "Smart", "DisplayName": "智能纯",   "RethinkInterval": 20.0, "AttackCooldown": 0.7, "VisionRadius": 20.0, "AggroRadius": 18.0, "DodgeReactionMs": 220, "Confidence": 0.88, "PreferredPreset": 7, "LootGreedFactor": 1.0, "SelfTattooBoldness": 0.50, "EnchantGreed": 0.65 },
+    { "BotId": 8,  "Type": "Light", "DisplayName": "轻量A", "RethinkInterval": 45.0, "AttackCooldown": 1.0, "VisionRadius": 14.0, "AggroRadius": 12.0, "DodgeReactionMs": 350, "Confidence": 0.45, "PreferredPreset": 1, "LootGreedFactor": 0.3, "SelfTattooBoldness": 0.0, "EnchantGreed": 0.0 },
+    { "BotId": 9,  "Type": "Light", "DisplayName": "轻量B", "RethinkInterval": 45.0, "AttackCooldown": 1.0, "VisionRadius": 14.0, "AggroRadius": 12.0, "DodgeReactionMs": 380, "Confidence": 0.40, "PreferredPreset": 2, "LootGreedFactor": 0.3, "SelfTattooBoldness": 0.0, "EnchantGreed": 0.0 },
+    { "BotId": 10, "Type": "Light", "DisplayName": "轻量C", "RethinkInterval": 45.0, "AttackCooldown": 1.1, "VisionRadius": 14.0, "AggroRadius": 12.0, "DodgeReactionMs": 400, "Confidence": 0.40, "PreferredPreset": 3, "LootGreedFactor": 0.3, "SelfTattooBoldness": 0.0, "EnchantGreed": 0.0 }
+  ]
+}

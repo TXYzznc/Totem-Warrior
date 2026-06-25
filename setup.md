@@ -7,9 +7,9 @@
 | 依赖 | 检查命令 | 用途 |
 |---|---|---|
 | Python 3.10+ | `python --version` | frame-ronin-mcp 运行环境 |
-| Node.js 16+ | `node --version` | game-asset-mcp、skill4agent、playwright 等 |
+| Node.js 16+ | `node --version` | skill4agent、playwright、godot 等 |
 | git | `git --version` | clone 项目 + pip 装 git 源依赖 |
-| uv | `uv --version` | blender / docker / atlassian MCP（可选） |
+| uv | `uv --version` | blender / atlassian MCP |
 
 ## 一次性安装命令（在项目根目录执行）
 
@@ -18,8 +18,6 @@
 ```bash
 python -m venv .venv
 .venv\Scripts\pip install -r requirements.txt
-git clone https://github.com/MubarakHAlketbi/game-asset-mcp tools/game-asset-mcp
-cd tools/game-asset-mcp && npm install --ignore-scripts && cd ../..
 ```
 
 ### macOS / Linux
@@ -27,8 +25,6 @@ cd tools/game-asset-mcp && npm install --ignore-scripts && cd ../..
 ```bash
 python -m venv .venv
 .venv/bin/pip install -r requirements.txt
-git clone https://github.com/MubarakHAlketbi/game-asset-mcp tools/game-asset-mcp
-cd tools/game-asset-mcp && npm install --ignore-scripts && cd ../..
 ```
 
 ⚠️ 非 Windows 用户还需要把 `.mcp.json` 里 `frame-ronin` 的命令改为：
@@ -38,11 +34,9 @@ cd tools/game-asset-mcp && npm install --ignore-scripts && cd ../..
 
 ## 凭据填写
 
-编辑 `.mcp.json`，把以下占位符替换为真实值（按需启用对应 MCP）：
+复制 `.env.example` 为 `.env` 后按需填写（参考 [.env.example](./.env.example)）：
 
-- `YOUR_HUGGINGFACE_TOKEN` — Hugging Face API Token（game-asset-mcp）
-- `YOUR_MONGODB_CONNECTION_STRING` — MongoDB 连接串
-- `JIRA_URL` / `JIRA_USERNAME` / `JIRA_API_TOKEN` — Atlassian/JIRA 凭据
+- `JIRA_URL` / `JIRA_USERNAME` / `JIRA_API_TOKEN` 等 — Atlassian/JIRA 凭据
 - `GODOT_PATH` — Godot 可执行文件路径（如装 Godot）
 
 ## 自动加载的东西
@@ -60,7 +54,6 @@ cd tools/game-asset-mcp && npm install --ignore-scripts && cd ../..
 
 ```
 .venv/
-tools/game-asset-mcp/node_modules/
 .claude/plugins/ponytail/.git/
 ```
 

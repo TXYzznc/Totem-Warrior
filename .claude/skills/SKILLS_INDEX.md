@@ -1,4 +1,4 @@
-# SKILL 系统索引（123 个）
+# SKILL 系统索引（109 个）
 
 > AI 每次任务开始时应先查阅本文档，确认是否有可复用的 SKILL；不要重复造轮子。
 >
@@ -78,12 +78,6 @@
 | SKILL | 用途 |
 |---|---|
 | [level-design](./level-design/SKILL.md) | 关卡基础、节奏、环境叙事 |
-| [agency-level-designer](./agency-level-designer/SKILL.md) | 跨引擎布局理论 / 节奏 / encounter |
-| [anvil-level-design-blender](./anvil-level-design-blender/SKILL.md) | Blender 内 Trenchbroom 风格关卡 |
-| [godot-tilemap-mastery](./godot-tilemap-mastery/SKILL.md) | Godot TileMapLayer + autotile |
-| [godot-3d-world-building](./godot-3d-world-building/SKILL.md) | Godot GridMap + CSG + 体雾 |
-| [ue-world-level-streaming](./ue-world-level-streaming/SKILL.md) | UE World Partition / 关卡流送 |
-| [ue-procedural-generation](./ue-procedural-generation/SKILL.md) | UE PCG / HISM / 程序化地形 |
 
 ### 2.5 美术（2D / Sprite / Texture / 字体 / 排版）
 
@@ -140,20 +134,7 @@
 | [uloop-execute-dynamic-code](./uloop-execute-dynamic-code/SKILL.md) | 通过 uloop 在 Editor 内动态执行 C# |
 | [uloop-run-tests](./uloop-run-tests/SKILL.md) | Unity Test Runner 执行 + NUnit XML 落盘 |
 
-### 2.8 Godot（按 genre 分）
-
-| SKILL | 用途 |
-|---|---|
-| [godot-combat-system](./godot-combat-system/SKILL.md) | Hitbox/Hurtbox / 战斗 FSM / 连招 |
-| [godot-dialogue-system](./godot-dialogue-system/SKILL.md) | 分支对话 / 立绘 / 打字机 / 本地化 |
-| [godot-economy-system](./godot-economy-system/SKILL.md) | 货币 / 商店 / 战利品 / 通胀控制 |
-| [godot-genre-platformer](./godot-genre-platformer/SKILL.md) | 平台跳跃精准移动（coyote/jump buffer） |
-| [godot-genre-puzzle](./godot-genre-puzzle/SKILL.md) | 撤销系统 / 命令模式 |
-| [godot-genre-roguelike](./godot-genre-roguelike/SKILL.md) | 程序化生成 / 元进度 / 永久死亡 |
-| [godot-genre-stealth](./godot-genre-stealth/SKILL.md) | AI 感知 / 视野锥 / 声音传播 |
-| [godot-genre-visual-novel](./godot-genre-visual-novel/SKILL.md) | 分支叙事 / 打字机 / 回滚 |
-
-### 2.9 网络 / 后端 / 数据库
+### 2.8 网络 / 后端 / 数据库
 
 | SKILL | 用途 |
 |---|---|
@@ -170,7 +151,7 @@
 | [redis-specialist](./redis-specialist/SKILL.md) | Pub/Sub / 限流 / 分布式锁 / 排行榜 |
 | [kafka-development](./kafka-development/SKILL.md) | 事件流 / 分布式消息 |
 
-### 2.10 DevOps / CI/CD / 监控 / 发版
+### 2.9 DevOps / CI/CD / 监控 / 发版
 
 | SKILL | 用途 |
 |---|---|
@@ -191,7 +172,7 @@
 | [k6](./k6/SKILL.md) | k6 负载测试 |
 | [testing-strategies](./testing-strategies/SKILL.md) | 测试金字塔 / TDD |
 
-### 2.11 文档 / Web 自动化 / 工具
+### 2.10 文档 / Web 自动化 / 工具
 
 | SKILL | 用途 |
 |---|---|
@@ -215,7 +196,7 @@
 | 制定计划 / 拆任务 / 评估风险 / 竞品调研 | `project-management`、`task-estimation`、`risk-assessment`、`competitive-analysis` |
 | 平衡数值 / 经济 / 难度 | `balance-check`、`combat-balancer`、`game-monetization`、`difficulty-curve` |
 | GDD / 系统设计 / 平衡审稿 | `design-system`、`review-all-gdds`、`game-design-core`、`game-design-theory` |
-| 关卡 / 节奏 / 引导 | `level-design`、`player-guidance`、`agency-level-designer` |
+| 关卡 / 节奏 / 引导 | `level-design`、`player-guidance` |
 | UI / HUD / icon | `game-ui-design`、`unity-ui` |
 | 字体 / 排版 / CJK | `font-pairing-suggester`、`font-selection-cjk`、`font-subsetting`、`typeset`、`pixel-font-rendering` |
 | 3D 建模 / 贴图 / 拓扑 | `3d-modeling`、`texture-art`、`blender-mcp` |
@@ -228,9 +209,7 @@
 | CI/CD / 发版 / 商店 | `devops-deployment`、`mobile-cicd`、`steam-deploy`、`asc-submission-health` |
 | 监控 / 崩溃 / 性能压测 | `opentelemetry`、`prometheus`、`crash-analytics`、`k6` |
 | 浏览器自动化 / E2E | `agent-browser`、`playwright`（MCP） |
-| Godot 引擎 | `godot-*` 系列 |
-| UE 引擎 | `ue-procedural-generation`、`ue-world-level-streaming` |
 
 ---
 
-*最后更新：2026-06-24（02 + 03 follow-up：收录 codex-image-gen 为项目原生 7 大；数字 124→123 修正）*
+*最后更新：2026-06-25（Unity 全流程聚焦：删除 12 个跨引擎 SKILL + agency-level-designer + anvil-level-design-blender，123 → 109）*

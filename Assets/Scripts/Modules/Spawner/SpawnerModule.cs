@@ -26,8 +26,8 @@ namespace Tattoo
         public Target      PlayerTarget { get; private set; }
         public List<GameObject> Enemies { get; } = new();
 
-        /// <summary>初始敌人数量。可在挂 GameApp 的 Inspector 上配置（如果暴露），或代码中改。</summary>
-        public int InitialEnemyCount = 4;
+        /// <summary>初始敌人数量。v2.1：49 个 actor 占位（20 Smart + 29 Light），由 BotControllerModule 装配 controller。</summary>
+        public int InitialEnemyCount = 49;
 
         public SpawnerModule(ModuleRunner runner, EventBus bus)
         {
@@ -95,22 +95,33 @@ namespace Tattoo
             Player = pGo;
             PlayerTarget = playerRef.Target;
 
-            // 敌人
-            for (int i = 0; i < InitialEnemyCount; i++)
+            // v2.1：49 个 actor 占位（20 Smart + 29 Light）—— 分多圈布点避免重叠
+            // 圈 1：半径 8m，14 个；圈 2：半径 13m，17 个；圈 3：半径 18m，18 个
+            int[] ringCounts = { 14, 17, 18 };
+            float[] ringRadii = { 8f, 13f, 18f };
+            int idx = 0;
+            for (int r = 0; r < ringCounts.Length && idx < InitialEnemyCount; r++)
             {
-                var eGo = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                eGo.name = $"敌人{i + 1}";
-                float a = i * Mathf.PI * 2f / InitialEnemyCount;
-                eGo.transform.position = new Vector3(Mathf.Cos(a) * 6f, 0.4f, Mathf.Sin(a) * 6f);
-                eGo.transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
-                SetColor(eGo, new Color(0.9f, 0.3f, 0.3f));
+                int cnt = ringCounts[r];
+                float rad = ringRadii[r];
+                for (int k = 0; k < cnt && idx < InitialEnemyCount; k++, idx++)
+                {
+                    var eGo = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                    eGo.name = $"Actor{idx + 1}";
+                    float a = (k + r * 0.3f) * Mathf.PI * 2f / cnt;
+                    eGo.transform.position = new Vector3(Mathf.Cos(a) * rad, 0.4f, Mathf.Sin(a) * rad);
+                    eGo.transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
+                    // 前 20 标 Smart（橙红）/ 其余 Light（暗红）—— 配色仅 debug 可读，正式美术由 art-vfx 接手
+                    bool isSmart = idx < 20;
+                    SetColor(eGo, isSmart ? new Color(1f, 0.55f, 0.2f) : new Color(0.7f, 0.25f, 0.25f));
 
-                var eRef = eGo.AddComponent<EntityRef>();
-                eRef.IsPlayer = false;
-                eRef.MaxHP = 50f;
-                eRef.Target = new Target { Name = $"敌人{i + 1}", Health = eRef.MaxHP };
+                    var eRef = eGo.AddComponent<EntityRef>();
+                    eRef.IsPlayer = false;
+                    eRef.MaxHP = 50f;
+                    eRef.Target = new Target { Name = isSmart ? $"智能{idx + 1}" : $"轻量{idx - 19}", Health = eRef.MaxHP };
 
-                Enemies.Add(eGo);
+                    Enemies.Add(eGo);
+                }
             }
         }
 

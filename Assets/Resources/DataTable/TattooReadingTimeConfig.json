@@ -1,0 +1,16 @@
+{
+  "table": "TattooReadingTimeConfig",
+  "fields": [
+    { "name": "PartId",      "type": "int",    "desc": "主键，对齐 TattooPartConfig.Id（1-6）" },
+    { "name": "PartName",    "type": "string", "desc": "部位名（仅作可读冗余）" },
+    { "name": "DurationSec", "type": "float",  "desc": "自纹身读条秒数（v2.1）" }
+  ],
+  "rows": [
+    { "PartId": 1, "PartName": "Head",     "DurationSec": 8.0 },
+    { "PartId": 2, "PartName": "Torso",    "DurationSec": 8.0 },
+    { "PartId": 3, "PartName": "LeftArm",  "DurationSec": 5.0 },
+    { "PartId": 4, "PartName": "RightArm", "DurationSec": 5.0 },
+    { "PartId": 5, "PartName": "LeftLeg",  "DurationSec": 3.0 },
+    { "PartId": 6, "PartName": "RightLeg", "DurationSec": 3.0 }
+  ]
+}

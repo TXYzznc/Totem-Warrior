@@ -1,0 +1,24 @@
+{
+  "table": "NPCConfig",
+  "fields": [
+    { "name": "Id",             "type": "int",    "desc": "主键，运行时索引" },
+    { "name": "NPCId",          "type": "string", "desc": "实例唯一字符串 ID（如 tattooist_default）" },
+    { "name": "Type",           "type": "string", "desc": "Tattooist | Merchant" },
+    { "name": "MapTheme",       "type": "string", "desc": "适用地图主题：All / Slum / Lab / Alien" },
+    { "name": "ThemePriceMul",  "type": "float",  "desc": "主题价格倍率（普通 1.0 / 实验室 1.1 / 外星 1.2）" },
+    { "name": "ShopStockTable", "type": "string", "desc": "关联 ShopStockConfig 中的 TableId；纹身师留空字符串" },
+    { "name": "InteractRadius", "type": "float",  "desc": "触发交互提示距离（m）" },
+    { "name": "GuardRadius",    "type": "float",  "desc": "警卫怪巡逻半径（m）" },
+    { "name": "ServiceCooldown","type": "float",  "desc": "被攻击后关闭服务时长（s）" },
+    { "name": "GuardSpawnId",   "type": "string", "desc": "被攻击时生成的警卫怪 PrefabId" },
+    { "name": "GuardCount1",    "type": "int",    "desc": "首次警告警卫数量" },
+    { "name": "GuardCount2",    "type": "int",    "desc": "升级警告警卫数量" }
+  ],
+  "rows": [
+    { "Id": 1, "NPCId": "tattooist_default",  "Type": "Tattooist", "MapTheme": "All",   "ThemePriceMul": 1.0, "ShopStockTable": "", "InteractRadius": 2.5, "GuardRadius": 8.0, "ServiceCooldown": 30.0, "GuardSpawnId": "guard_basic",  "GuardCount1": 1, "GuardCount2": 2 },
+    { "Id": 2, "NPCId": "tattooist_advanced", "Type": "Tattooist", "MapTheme": "Lab",   "ThemePriceMul": 1.1, "ShopStockTable": "", "InteractRadius": 2.5, "GuardRadius": 8.0, "ServiceCooldown": 30.0, "GuardSpawnId": "guard_lab",    "GuardCount1": 2, "GuardCount2": 3 },
+    { "Id": 3, "NPCId": "tattooist_alien",    "Type": "Tattooist", "MapTheme": "Alien", "ThemePriceMul": 1.2, "ShopStockTable": "", "InteractRadius": 2.5, "GuardRadius": 8.0, "ServiceCooldown": 30.0, "GuardSpawnId": "guard_alien",  "GuardCount1": 2, "GuardCount2": 4 },
+    { "Id": 4, "NPCId": "merchant_general",   "Type": "Merchant",  "MapTheme": "All",   "ThemePriceMul": 1.0, "ShopStockTable": "general_shop",   "InteractRadius": 2.5, "GuardRadius": 6.0, "ServiceCooldown": 20.0, "GuardSpawnId": "guard_basic",  "GuardCount1": 1, "GuardCount2": 2 },
+    { "Id": 5, "NPCId": "merchant_alien",     "Type": "Merchant",  "MapTheme": "Alien", "ThemePriceMul": 1.2, "ShopStockTable": "alien_shop",      "InteractRadius": 2.5, "GuardRadius": 6.0, "ServiceCooldown": 20.0, "GuardSpawnId": "guard_alien",  "GuardCount1": 2, "GuardCount2": 3 }
+  ]
+}

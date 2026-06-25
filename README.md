@@ -18,8 +18,8 @@
 | [.claude/](./.claude/) | Claude Code：20 agents（含 frontmatter / skill 白名单 / escalate_to）+ 124 skills + 行为准则 + 工作流 |
 | [.codex/](./.codex/) | OpenAI Codex：由 `.claude/` 经 `sync-agents.py` 自动生成 |
 | [.agents/](./.agents/) | skill4agent MCP 镜像（自动同步） |
-| [.mcp.json](./.mcp.json) | 11 MCP，三档分类（core / middle / optional），凭据走 `${VAR}` + [.env.example](./.env.example) |
-| [tools/](./tools/) | codebase-memory-mcp + game-asset-mcp + 图像工具 + `sync-agents.py` |
+| [.mcp.json](./.mcp.json) | 7 MCP，凭据走 `${VAR}` + [.env.example](./.env.example) |
+| [tools/](./tools/) | codebase-memory-mcp + 图像工具 + `sync-agents.py` |
 
 ## 技术栈
 

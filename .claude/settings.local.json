@@ -1,5 +1,5 @@
 {
-  "_comment": "本地配置：MCP 启用清单（按三档策略：core + middle 默认启用，optional 注释掉）+ permissions 白名单。Hook 已在 settings.json 中统一管理（人格 + 决策门槛 + ai-art 触发）。",
+  "_comment": "本地配置：MCP 启用清单 + permissions 白名单。Hook 已在 settings.json 中统一管理（人格 + 决策门槛 + ai-art 触发）。",
   "permissions": {
     "allow": [
       "mcp__skill4agent__search_skills",
@@ -21,12 +21,6 @@
     "blender",
     "godot",
     "frame-ronin",
-    "game-asset-mcp"
-  ],
-  "_disabledByDefault_optional": [
-    "docker",
-    "kubernetes",
-    "mongodb",
     "atlassian"
   ]
 }

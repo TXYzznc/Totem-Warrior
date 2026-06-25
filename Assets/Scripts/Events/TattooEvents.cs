@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Tattoo.Data;
+using UnityEngine;
 
 namespace Tattoo.Events
 {
@@ -29,25 +30,33 @@ namespace Tattoo.Events
         }
     }
 
-    /// <summary>躯干触发：玩家自身受伤。</summary>
+    /// <summary>躯干触发：玩家自身受伤。NewHp / MaxHp 由 CombatModule 在调用时填充供 HUD 使用。</summary>
     public class DamagedEvent
     {
         public Target Attacker;
         public float  Damage;
-        public DamagedEvent(Target attacker, float damage)
+        public float  NewHp;
+        public float  MaxHp;
+        public DamagedEvent(Target attacker, float damage, float newHp = 0f, float maxHp = 0f)
         {
             Attacker = attacker;
-            Damage = damage;
+            Damage   = damage;
+            NewHp    = newHp;
+            MaxHp    = maxHp;
         }
     }
 
-    /// <summary>左臂触发：技能释放（不要求技能成功）。</summary>
+    /// <summary>左臂触发：技能释放（不要求技能成功）。SlotIndex/Cooldown 供 HUD CD 遮罩。</summary>
     public class SkillCastEvent
     {
         public string SkillId;
-        public SkillCastEvent(string skillId)
+        public int    SlotIndex;
+        public float  Cooldown;
+        public SkillCastEvent(string skillId, int slotIndex = 0, float cooldown = 0f)
         {
-            SkillId = skillId;
+            SkillId   = skillId;
+            SlotIndex = slotIndex;
+            Cooldown  = cooldown;
         }
     }
 
@@ -90,6 +99,56 @@ namespace Tattoo.Events
 
     /// <summary>玩家血量归零。</summary>
     public class PlayerDiedEvent { }
+
+    // ========== v2.1 自纹身 / 附魔事件 ==========
+
+    /// <summary>玩家或智能 Bot 发起自纹身请求。TattooModule 监听并启动读条状态机。</summary>
+    public class RequestSelfTattooEvent
+    {
+        public Target Requester;
+        public int PartId, ColorId, PatternId;
+        public RequestSelfTattooEvent(Target req, int part, int color, int pattern)
+        { Requester = req; PartId = part; ColorId = color; PatternId = pattern; }
+    }
+
+    /// <summary>自纹身读条开始。HUD 显示读条 UI。</summary>
+    public class TattooInProgressEvent
+    {
+        public Target Owner;
+        public int PartId, ColorId, PatternId;
+        public float DurationSec;
+        public TattooInProgressEvent(Target owner, int part, int color, int pattern, float duration)
+        { Owner = owner; PartId = part; ColorId = color; PatternId = pattern; DurationSec = duration; }
+    }
+
+    /// <summary>自纹身读条完成。新槽位生效。</summary>
+    public class TattooFinishedEvent
+    {
+        public Target Owner;
+        public TattooSlot NewSlot;
+        public TattooFinishedEvent(Target owner, TattooSlot slot) { Owner = owner; NewSlot = slot; }
+    }
+
+    public enum CancelReason { Damaged, Moved, Killed, UserAbort }
+
+    /// <summary>自纹身读条中断。仅扣金币，颜料不扣。</summary>
+    public class TattooCancelledEvent
+    {
+        public Target Owner;
+        public CancelReason Reason;
+        public TattooCancelledEvent(Target owner, CancelReason r) { Owner = owner; Reason = r; }
+    }
+
+    /// <summary>纹身师附魔完成。词缀添加到指定槽。</summary>
+    public class TattooEnchantedEvent
+    {
+        public Target Owner;
+        public TattooSlot Slot;
+        public System.Collections.Generic.List<TattooAffix> NewAffixes;
+        public int CostCoin, CostRareInk;
+        public TattooEnchantedEvent(Target owner, TattooSlot slot, System.Collections.Generic.List<TattooAffix> affs, int coin, int ink)
+        { Owner = owner; Slot = slot; NewAffixes = affs; CostCoin = coin; CostRareInk = ink; }
+    }
 
     /// <summary>纹身槽位触发后投递给 VFX 层的视觉信号。带主目标和最多 N 个附近目标，便于线条/粒子从玩家飞到目标。</summary>
     public class VFXTriggerEvent
@@ -161,6 +220,16 @@ namespace Tattoo.Events
         }
     }
 
+    // ========== Boss 事件 ==========
+
+    /// <summary>Boss 进场时广播。VFXModule 负责震屏 + 光柱，其他模块可做音效/UI。</summary>
+    public class BossSpawnedEvent
+    {
+        public Target Boss;
+        public Vector3 SpawnPosition;
+        public BossSpawnedEvent(Target boss, UnityEngine.Vector3 pos) { Boss = boss; SpawnPosition = pos; }
+    }
+
     // ========== 输入事件（InputModule → CombatModule，避免 CombatModule 直接读 Input）==========
 
     /// <summary>玩家按下攻击键（鼠标左键）。</summary>
@@ -171,4 +240,7 @@ namespace Tattoo.Events
 
     /// <summary>玩家按下闪避键（空格）。</summary>
     public class InputDodgeEvent { }
+
+    /// <summary>玩家按下暂停键（ESC）。UIModule 订阅后弹出 PauseMenuForm。</summary>
+    public class PauseRequestedEvent { }
 }

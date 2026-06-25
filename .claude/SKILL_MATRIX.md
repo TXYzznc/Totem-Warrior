@@ -23,7 +23,7 @@
 | **producer** | lead | `project-management`, `task-estimation`, `risk-assessment`, `milestone-tracker`, `grill-me`, `openspec`, `deep-research` | `competitive-analysis`, `sprint-retrospective`, `grill-with-docs`, `find-skills`, `xlsx` |
 | **gd-lead** | lead | `game-design-core`, `game-design-theory`, `brainstorm`, `design-system`, `grill-me`, `openspec`, `deep-research` | `review-all-gdds`, `propagate-design-change`, `game-monetization`, `player-onboarding` |
 | **gd-system** | system | `balance-check`, `combat-balancer`, `progression-systems`, `difficulty-curve`, `quest-mission-design` | `achievement-design`, `puzzle-design`, `casino-math-balancer`, `game-monetization`, `xlsx` |
-| **level-designer** | system | `level-design`, `agency-level-designer`, `player-guidance`, `difficulty-curve` | `puzzle-design`, `playtest-digital`, `anvil-level-design-blender` |
+| **level-designer** | system | `level-design`, `player-guidance`, `difficulty-curve` | `puzzle-design`, `playtest-digital` |
 | **art-director** | lead | `art-direction`, `game-art`, `grill-me`, `ai-art`, `codex-image-gen` | `gpt-image-2-style-library`, `find-skills` |
 | **art-ui** | impl | `game-ui-design`, `art-direction`, `ai-art`, `codex-image-gen` | `gpt-image-2-style-library`, `unity-ui` |
 | **art-font** | impl | `typeset`, `font-pairing-suggester`, `font-selection-cjk`, `font-subsetting`, `pixel-font-rendering` | — |

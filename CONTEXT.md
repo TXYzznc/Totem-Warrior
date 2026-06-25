@@ -74,7 +74,6 @@ AI_Friendly_Project/
 ├── tools/                ← 工程工具（.gitignore 排除大文件）
 │   ├── sync-agents.py    ← agents 同步脚本（source = .claude/agents/）
 │   ├── codebase-memory-mcp/
-│   ├── game-asset-mcp/
 │   ├── ImageCut_Tool / image-extender-main / rembg-main
 │
 ├── 工作/                  ← 5 Phase 工作流（QUICKSTART 已更新到 20 agents 体系）

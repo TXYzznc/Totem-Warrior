@@ -1,0 +1,32 @@
+{
+  "table": "ProjectileConfig",
+  "fields": [
+    { "name": "ProjectileId",    "type": "string", "desc": "主键，与 WeaponConfig.ProjectileId 关联" },
+    { "name": "Speed",           "type": "float",  "desc": "飞行速度 (m/s)" },
+    { "name": "MaxRange",        "type": "float",  "desc": "最大飞行距离，超出后回池 (m)" },
+    { "name": "Piercing",        "type": "bool",   "desc": "true=穿透，命中后继续飞行可触发多次 AttackHitEvent" },
+    { "name": "AoeRadius",       "type": "float",  "desc": ">0=着弹点范围判定半径 (m)" },
+    { "name": "VisualPrefabPath","type": "string", "desc": "Resources/Prefabs/Projectiles/ 下的 Prefab 路径名" },
+    { "name": "PoolSize",        "type": "int",    "desc": "对象池预分配容量" }
+  ],
+  "rows": [
+    {
+      "ProjectileId": "bullet_pistol",
+      "Speed": 30.0,
+      "MaxRange": 20.0,
+      "Piercing": false,
+      "AoeRadius": 0.0,
+      "VisualPrefabPath": "BulletPistol",
+      "PoolSize": 60
+    },
+    {
+      "ProjectileId": "arrow_bow",
+      "Speed": 22.0,
+      "MaxRange": 30.0,
+      "Piercing": true,
+      "AoeRadius": 0.0,
+      "VisualPrefabPath": "ArrowBow",
+      "PoolSize": 30
+    }
+  ]
+}

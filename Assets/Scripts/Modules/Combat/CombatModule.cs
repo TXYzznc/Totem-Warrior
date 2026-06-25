@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Tattoo.Data;
@@ -8,17 +9,18 @@ using UnityEngine;
 namespace Tattoo
 {
     /// <summary>
-    /// 战斗主循环：
-    /// - 在 OnUpdate 中轮询 InputModule，把高层动作转为 Tattoo 战斗事件
-    /// - 监听 EffectAppliedEvent → 判定目标击杀
-    /// - 击杀 / 玩家死亡 → 发 TargetKilledEvent / PlayerDiedEvent / CombatEndedEvent
-    ///
-    /// 输入不走 Update 直接读 KeyCode；全部通过 InputModule。
+    /// v2.1 战斗主循环：
+    /// - 维护 IPlayerController 列表（玩家 1 + Bot 49）
+    /// - 每帧遍历 controllers，消费意图 → 发战斗事件
+    /// - 不再直接轮询 InputModule（HumanPlayerController 内部接 Input）
+    /// - 玩家正在自纹身读条时，跳过攻击/蓄力/闪避（保留移动 + 技能逃生）
     /// </summary>
     public sealed class CombatModule : IGameModule, ITickable
     {
         public int ModuleCategory => 3;
-        public Type[] Dependencies => new[] { typeof(TattooModule), typeof(SpawnerModule), typeof(InputModule) };
+        public Type[] Dependencies => new[] {
+            typeof(TattooModule), typeof(SpawnerModule), typeof(InputModule)
+        };
 
         readonly ModuleRunner _runner;
         readonly EventBus _bus;
@@ -27,7 +29,8 @@ namespace Tattoo
         SpawnerModule _spawner;
         InputModule   _input;
 
-        float _moveTickAccum;
+        readonly List<Combat.IPlayerController> _controllers = new();
+        readonly Dictionary<Combat.IPlayerController, float> _moveTickAccum = new();
         const float MoveTickInterval = 0.5f;
 
         bool _combatEnded;
@@ -44,88 +47,138 @@ namespace Tattoo
             _spawner = _runner.GetModule<SpawnerModule>();
             _input   = _runner.GetModule<InputModule>();
 
-            FrameworkLogger.Info("CombatModule", "Action=Initialized");
+            // 装配玩家 HumanPlayerController（Bot controllers 由 BotControllerModule 注册）
+            if (_spawner.PlayerTarget != null)
+            {
+                RegisterController(new Combat.HumanPlayerController(
+                    _spawner.PlayerTarget, _input, _spawner));
+            }
+
+            FrameworkLogger.Info("CombatModule", "Action=Initialized v2.1");
             return UniTask.CompletedTask;
         }
 
         public UniTask ShutdownAsync(CancellationToken ct = default)
         {
+            _controllers.Clear();
             FrameworkLogger.Info("CombatModule", "Action=Shutdown");
             return UniTask.CompletedTask;
         }
 
-        // ===== 输入 → 事件 =====
+        /// <summary>由 BotControllerModule 在 Spawner 完成后注册各 Bot controller。</summary>
+        public void RegisterController(Combat.IPlayerController controller)
+        {
+            if (controller == null || _controllers.Contains(controller)) return;
+            _controllers.Add(controller);
+            _moveTickAccum[controller] = 0f;
+        }
+
+        public void UnregisterController(Combat.IPlayerController controller)
+        {
+            if (controller == null) return;
+            _controllers.Remove(controller);
+            _moveTickAccum.Remove(controller);
+        }
 
         public void OnUpdate(float dt)
         {
             if (_combatEnded) return;
 
-            // 移动
-            var dir = _input.GetMoveDirection();
-            if (dir.sqrMagnitude > 0.001f && _spawner.Player != null)
+            for (int i = 0; i < _controllers.Count; i++)
+            {
+                var c = _controllers[i];
+                if (c?.OwnerActor == null) continue;
+                if (c.OwnerActor.Health <= 0f) continue;
+                ProcessController(c, dt);
+            }
+
+            _tattoo.TickInProgressTattoos();
+        }
+
+        void ProcessController(Combat.IPlayerController c, float dt)
+        {
+            // v2.1: 玩家正在自纹身读条 → 跳过攻击/蓄力/闪避（保留移动 + 技能）
+            bool inTattooReading = _tattoo.IsInProgress(c.OwnerActor);
+
+            // 移动 (玩家用真实 GameObject，Bot 用 EntityRef GameObject)
+            var dir = c.GetMoveInput();
+            var go = ResolveGameObject(c);
+            if (dir.sqrMagnitude > 0.001f && go != null)
             {
                 float speed = _tattoo.Stats.MoveSpeed + _tattoo.Player.Passive.MoveSpeedBonus;
-                _spawner.Player.transform.position += new Vector3(dir.x, 0, dir.y) * speed * dt;
+                go.transform.position += new Vector3(dir.x, 0, dir.y) * speed * dt;
 
-                _moveTickAccum += dt;
-                if (_moveTickAccum >= MoveTickInterval)
+                if (!_moveTickAccum.ContainsKey(c)) _moveTickAccum[c] = 0f;
+                _moveTickAccum[c] += dt;
+                if (_moveTickAccum[c] >= MoveTickInterval)
                 {
-                    _moveTickAccum = 0f;
-                    var path = CollectNearbyEnemies(_spawner.Player.transform.position, radius: 3f, max: 4);
+                    _moveTickAccum[c] = 0f;
+                    var path = CollectNearbyEnemies(go.transform.position, 3f, 4);
                     _bus.Publish(new MoveTickEvent(path, dir.magnitude * speed * MoveTickInterval));
                 }
             }
 
+            if (inTattooReading) return; // 跳过下面攻击类意图
+
             // 普攻
-            if (_input.IsAttackPressed())
+            if (c.ShouldAttack())
             {
-                var t = FindClosestEnemyTarget();
+                var t = c.GetAimTarget();
                 if (t != null)
                 {
-                    bool crit = UnityEngine.Random.value < 0.25f; // 占位 25% 暴击率
+                    bool crit = UnityEngine.Random.value < 0.25f;
                     if (crit) _bus.Publish(new CritHitEvent(t, _tattoo.Stats.WeaponDamage));
                     else      _bus.Publish(new AttackHitEvent(t, _tattoo.Stats.WeaponDamage));
                 }
             }
 
-            // 技能
-            if (_input.IsSkillPressed())
+            // 技能（v2.1: 仅 0/1 槽位）
+            for (int slot = 0; slot < 2; slot++)
             {
-                _bus.Publish(new SkillCastEvent("default"));
+                if (c.ShouldUseSkill(slot))
+                    _bus.Publish(new SkillCastEvent($"slot{slot}"));
             }
 
             // 闪避
-            if (_input.IsDodgePressed())
-            {
+            if (c.ShouldDodge())
                 _bus.Publish(new DodgePressedEvent());
-            }
         }
 
-        // ===== 监听结果 =====
+        GameObject ResolveGameObject(Combat.IPlayerController c)
+        {
+            if (c.Type == Combat.PlayerControllerType.Human) return _spawner.Player;
+            // Bot：从 Enemies 列表里找匹配 OwnerActor
+            foreach (var go in _spawner.Enemies)
+            {
+                if (go == null) continue;
+                var er = go.GetComponent<EntityRef>();
+                if (er?.Target == c.OwnerActor) return go;
+            }
+            return null;
+        }
 
         [EventHandler]
         void OnEffectApplied(EffectAppliedEvent e)
         {
-            // 击杀判定：扫描所有敌人 EntityRef
+            // 击杀判定
             foreach (var go in _spawner.Enemies)
             {
                 if (go == null) continue;
-                var entRef = go.GetComponent<EntityRef>();
-                if (entRef == null || entRef.Target == null) continue;
-
-                if (entRef.Target.Health <= 0f && go.activeSelf)
+                var er = go.GetComponent<EntityRef>();
+                if (er?.Target == null) continue;
+                if (er.Target.Health <= 0f && go.activeSelf)
                 {
                     go.SetActive(false);
-                    _bus.Publish(new TargetKilledEvent(entRef.Target));
+                    _bus.Publish(new TargetKilledEvent(er.Target));
                 }
             }
 
             // 玩家死亡
-            var playerTarget = _spawner.PlayerTarget;
-            if (playerTarget != null && playerTarget.Health <= 0f)
+            var pt = _spawner.PlayerTarget;
+            if (pt != null && pt.Health <= 0f)
             {
                 _bus.Publish(new PlayerDiedEvent());
-                EndCombat(playerWin: false);
+                EndCombat(false);
                 return;
             }
 
@@ -134,10 +187,9 @@ namespace Tattoo
             foreach (var go in _spawner.Enemies)
             {
                 if (go == null || !go.activeSelf) continue;
-                allDead = false;
-                break;
+                allDead = false; break;
             }
-            if (allDead && !_combatEnded) EndCombat(playerWin: true);
+            if (allDead && !_combatEnded) EndCombat(true);
         }
 
         void EndCombat(bool playerWin)
@@ -147,40 +199,16 @@ namespace Tattoo
             FrameworkLogger.Info("CombatModule", $"Action=CombatEnded PlayerWin={playerWin}");
         }
 
-        // ===== 工具 =====
-
-        Target FindClosestEnemyTarget()
-        {
-            if (_spawner.Player == null) return null;
-            var pp = _spawner.Player.transform.position;
-            float min = float.MaxValue;
-            Target closest = null;
-            foreach (var go in _spawner.Enemies)
-            {
-                if (go == null || !go.activeSelf) continue;
-                var entRef = go.GetComponent<EntityRef>();
-                if (entRef == null || entRef.Target == null) continue;
-
-                float d = (go.transform.position - pp).sqrMagnitude;
-                if (d < min)
-                {
-                    min = d;
-                    closest = entRef.Target;
-                }
-            }
-            return closest;
-        }
-
         Target[] CollectNearbyEnemies(Vector3 origin, float radius, int max)
         {
-            var list = new System.Collections.Generic.List<Target>();
+            var list = new List<Target>();
             float sqr = radius * radius;
             foreach (var go in _spawner.Enemies)
             {
                 if (go == null || !go.activeSelf) continue;
                 if ((go.transform.position - origin).sqrMagnitude > sqr) continue;
-                var entRef = go.GetComponent<EntityRef>();
-                if (entRef?.Target != null) list.Add(entRef.Target);
+                var er = go.GetComponent<EntityRef>();
+                if (er?.Target != null) list.Add(er.Target);
                 if (list.Count >= max) break;
             }
             return list.ToArray();

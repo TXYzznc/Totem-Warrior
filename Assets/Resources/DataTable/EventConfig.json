@@ -1,0 +1,89 @@
+{
+  "table": "EventConfig",
+  "fields": [
+    { "name": "EventId",          "type": "string",  "desc": "事件唯一 ID，格式 event_<type>_<序号>" },
+    { "name": "EventType",        "type": "string",  "desc": "枚举：combat_event / choice_event / puzzle_event / merchant_event / boss_event / lore_event / curse_event" },
+    { "name": "DisplayName",      "type": "string",  "desc": "玩家可见名称（本地化 Key）" },
+    { "name": "TriggerCondition", "type": "string",  "desc": "前置条件 JSON：{ minElapsedSec, minRoomCleared, requiredFlag }；空字符串=无条件" },
+    { "name": "BaseRewardCoin",   "type": "int",     "desc": "完成时发放基础金币；0=不发" },
+    { "name": "RewardPoolId",     "type": "string",  "desc": "额外掉落池 ID，引用 LootPoolConfig；空=无额外掉落" },
+    { "name": "TimeoutSec",       "type": "float",   "desc": "超时时间(s)；choice_event 填 20(v2.1)；-1=不超时(merchant_event)" },
+    { "name": "CurseDebuffId",    "type": "string",  "desc": "仅 curse_event 用：施加的 Debuff ID；其余留空" },
+    { "name": "WeightBase",       "type": "int",     "desc": "地图生成时随机选取事件类型的基础权重 (1–100)" },
+    { "name": "IsRepeatAllowed",  "type": "bool",    "desc": "同一 Run 内是否允许同一 EventId 重复出现" }
+  ],
+  "rows": [
+    {
+      "EventId": "event_choice_001",
+      "EventType": "choice_event",
+      "DisplayName": "event.choice.mysterious_altar",
+      "TriggerCondition": "",
+      "BaseRewardCoin": 0,
+      "RewardPoolId": "",
+      "TimeoutSec": 20.0,
+      "CurseDebuffId": "",
+      "WeightBase": 40,
+      "IsRepeatAllowed": true
+    },
+    {
+      "EventId": "event_choice_002",
+      "EventType": "choice_event",
+      "DisplayName": "event.choice.old_forge",
+      "TriggerCondition": "{\"minElapsedSec\":120}",
+      "BaseRewardCoin": 0,
+      "RewardPoolId": "",
+      "TimeoutSec": 20.0,
+      "CurseDebuffId": "",
+      "WeightBase": 30,
+      "IsRepeatAllowed": true
+    },
+    {
+      "EventId": "event_combat_001",
+      "EventType": "combat_event",
+      "DisplayName": "event.combat.ambush",
+      "TriggerCondition": "",
+      "BaseRewardCoin": 50,
+      "RewardPoolId": "pool_combat_basic",
+      "TimeoutSec": -1.0,
+      "CurseDebuffId": "",
+      "WeightBase": 35,
+      "IsRepeatAllowed": true
+    },
+    {
+      "EventId": "event_merchant_001",
+      "EventType": "merchant_event",
+      "DisplayName": "event.merchant.wandering_trader",
+      "TriggerCondition": "",
+      "BaseRewardCoin": 0,
+      "RewardPoolId": "",
+      "TimeoutSec": -1.0,
+      "CurseDebuffId": "",
+      "WeightBase": 20,
+      "IsRepeatAllowed": true
+    },
+    {
+      "EventId": "event_curse_001",
+      "EventType": "curse_event",
+      "DisplayName": "event.curse.ink_corruption",
+      "TriggerCondition": "{\"minElapsedSec\":180}",
+      "BaseRewardCoin": 120,
+      "RewardPoolId": "pool_curse_reward",
+      "TimeoutSec": 20.0,
+      "CurseDebuffId": "debuff_ink_slow",
+      "WeightBase": 15,
+      "IsRepeatAllowed": false
+    },
+    {
+      "EventId": "event_lore_001",
+      "EventType": "lore_event",
+      "DisplayName": "event.lore.ancient_inscription",
+      "TriggerCondition": "",
+      "BaseRewardCoin": 20,
+      "RewardPoolId": "",
+      "TimeoutSec": -1.0,
+      "CurseDebuffId": "",
+      "WeightBase": 10,
+      "IsRepeatAllowed": false
+    }
+  ]
+}

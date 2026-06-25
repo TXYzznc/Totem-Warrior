@@ -1,0 +1,31 @@
+{
+  "table": "ShopStockConfig",
+  "fields": [
+    { "name": "Id",        "type": "int",    "desc": "主键" },
+    { "name": "TableId",   "type": "string", "desc": "被 NPCConfig.ShopStockTable 引用的表段 ID" },
+    { "name": "ItemId",    "type": "int",    "desc": "物品 ID" },
+    { "name": "Category",  "type": "string", "desc": "Weapon / Skill / Ink / Antidote / Remover / RareInk" },
+    { "name": "Weight",    "type": "float",  "desc": "同 TableId 内归一化抽取权重" },
+    { "name": "MinCount",  "type": "int",    "desc": "本局库存最小数量" },
+    { "name": "MaxCount",  "type": "int",    "desc": "本局库存最大数量" },
+    { "name": "BasePrice", "type": "int",    "desc": "基础售价（× ThemePriceMul = 实际售价）" },
+    { "name": "SellRatio", "type": "float",  "desc": "玩家出售回收比例（× BasePrice）" }
+  ],
+  "rows": [
+    { "Id": 1,  "TableId": "general_shop", "ItemId": 101, "Category": "Ink",      "Weight": 3.0, "MinCount": 1, "MaxCount": 3, "BasePrice": 80,  "SellRatio": 0.5 },
+    { "Id": 2,  "TableId": "general_shop", "ItemId": 102, "Category": "Ink",      "Weight": 3.0, "MinCount": 1, "MaxCount": 3, "BasePrice": 80,  "SellRatio": 0.5 },
+    { "Id": 3,  "TableId": "general_shop", "ItemId": 103, "Category": "Ink",      "Weight": 3.0, "MinCount": 1, "MaxCount": 3, "BasePrice": 80,  "SellRatio": 0.5 },
+    { "Id": 4,  "TableId": "general_shop", "ItemId": 104, "Category": "Ink",      "Weight": 3.0, "MinCount": 1, "MaxCount": 3, "BasePrice": 80,  "SellRatio": 0.5 },
+    { "Id": 5,  "TableId": "general_shop", "ItemId": 201, "Category": "Weapon",   "Weight": 2.0, "MinCount": 1, "MaxCount": 1, "BasePrice": 300, "SellRatio": 0.4 },
+    { "Id": 6,  "TableId": "general_shop", "ItemId": 202, "Category": "Weapon",   "Weight": 2.0, "MinCount": 1, "MaxCount": 1, "BasePrice": 300, "SellRatio": 0.4 },
+    { "Id": 7,  "TableId": "general_shop", "ItemId": 301, "Category": "Skill",    "Weight": 1.5, "MinCount": 1, "MaxCount": 1, "BasePrice": 200, "SellRatio": 0.4 },
+    { "Id": 8,  "TableId": "general_shop", "ItemId": 302, "Category": "Skill",    "Weight": 1.5, "MinCount": 1, "MaxCount": 1, "BasePrice": 200, "SellRatio": 0.4 },
+    { "Id": 9,  "TableId": "general_shop", "ItemId": 401, "Category": "Antidote", "Weight": 2.0, "MinCount": 1, "MaxCount": 2, "BasePrice": 120, "SellRatio": 0.3 },
+    { "Id": 10, "TableId": "general_shop", "ItemId": 402, "Category": "Remover",  "Weight": 1.5, "MinCount": 1, "MaxCount": 2, "BasePrice": 150, "SellRatio": 0.3 },
+    { "Id": 11, "TableId": "alien_shop",   "ItemId": 501, "Category": "RareInk",  "Weight": 5.0, "MinCount": 1, "MaxCount": 2, "BasePrice": 400, "SellRatio": 0.5 },
+    { "Id": 12, "TableId": "alien_shop",   "ItemId": 502, "Category": "RareInk",  "Weight": 3.0, "MinCount": 1, "MaxCount": 1, "BasePrice": 600, "SellRatio": 0.5 },
+    { "Id": 13, "TableId": "alien_shop",   "ItemId": 503, "Category": "RareInk",  "Weight": 1.0, "MinCount": 1, "MaxCount": 1, "BasePrice": 800, "SellRatio": 0.5 },
+    { "Id": 14, "TableId": "alien_shop",   "ItemId": 201, "Category": "Weapon",   "Weight": 1.5, "MinCount": 1, "MaxCount": 1, "BasePrice": 350, "SellRatio": 0.4 },
+    { "Id": 15, "TableId": "alien_shop",   "ItemId": 301, "Category": "Skill",    "Weight": 1.5, "MinCount": 1, "MaxCount": 1, "BasePrice": 250, "SellRatio": 0.4 }
+  ]
+}

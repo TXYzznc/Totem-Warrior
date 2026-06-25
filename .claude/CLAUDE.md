@@ -2,7 +2,7 @@
 
 > Unity 6.3 LTS 自研轻量模块化框架的 **AI 协作模板**。
 >
-> 核心配置：**20 人虚拟开发团队** + **123 个 Claude skills** + **11 个 MCP 工具** + **openspec 一站式工作流** + **决策门槛 hook**。
+> 核心配置：**20 人虚拟开发团队** + **109 个 Claude skills** + **7 个 MCP 工具** + **openspec 一站式工作流** + **决策门槛 hook**。
 
 ---
 
@@ -197,20 +197,17 @@ openspec/changes/<NN-name>/
 
 ### MCP 服务清单（[.mcp.json](../.mcp.json) + [.codex/config.toml](../.codex/config.toml)）
 
-| 档位 | MCP | 说明 |
-|---|---|---|
-| **core** | skill4agent | SKILL 注册中心 |
-| **core** | codebase-memory | 代码结构索引（优先于 Read+Grep） |
-| **core** | playwright | Web E2E |
-| **core** | blender | 3D 资产生成与脚本 |
-| middle | godot | 跨引擎参考 |
-| middle | frame-ronin | 帧/精灵/像素美术 |
-| middle | game-asset-mcp | HF 模型 → 3D/纹理 |
-| optional | docker / kubernetes | 部署/运行时 |
-| optional | mongodb | 后端持久层 |
-| optional | atlassian | Jira / Confluence |
+| MCP | 说明 |
+|---|---|
+| skill4agent | SKILL 注册中心 |
+| codebase-memory | 代码结构索引（优先于 Read+Grep） |
+| playwright | Web E2E |
+| blender | 3D 资产生成与脚本 |
+| godot | 跨引擎参考 |
+| frame-ronin | 帧/精灵/像素美术 |
+| atlassian | Jira / Confluence |
 
-> optional MCP 默认不在 `.claude/settings.local.json` 的 `enabledMcpjsonServers` 中。需要时手动加入。
+> 启用清单见 `.claude/settings.local.json` 的 `enabledMcpjsonServers`。
 
 ### codebase-memory MCP 使用准则
 
@@ -227,10 +224,9 @@ openspec/changes/<NN-name>/
 ### 工程工具（[tools/](../tools/)）
 
 - `codebase-memory-mcp/` — codebase-memory MCP 二进制
-- `game-asset-mcp/` — HF 模型生成（Node）
 - `ImageCut_Tool/` / `image-extender-main/` / `rembg-main/` — 图像处理
 
-> tools/ 较大（~687 MB），已加 `.gitignore`。新机器按 [setup.md](../setup.md) 重建。
+> tools/ 较大，已加 `.gitignore`。新机器按 [setup.md](../setup.md) 重建。
 
 ---
 
@@ -265,7 +261,7 @@ ModuleRunner.GetModule<T>() — 高频数据查询缓存入口
 
 ## 十、SKILL 系统
 
-- **总数**：123 个，分组索引见 [skills/SKILLS_INDEX.md](./skills/SKILLS_INDEX.md)
+- **总数**：109 个，分组索引见 [skills/SKILLS_INDEX.md](./skills/SKILLS_INDEX.md)
 - **Agent ↔ SKILL 白名单**：见 [SKILL_MATRIX.md](./SKILL_MATRIX.md)
 - **大多数 skill 不进上下文**：仅在对应 agent 触发时按需读取 `SKILL.md` + `references/*.md`
 - **找不到合适 skill 时**：用 `find-skills` 语义检索；仍找不到则 escalate_to: main 由主对话决定

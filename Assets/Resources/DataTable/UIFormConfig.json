@@ -1,0 +1,21 @@
+{
+  "table": "UIFormConfig",
+  "fields": [
+    { "name": "Id",          "type": "int",    "comment": "Form 唯一 ID" },
+    { "name": "FormName",    "type": "string", "comment": "Form C# class 名" },
+    { "name": "PrefabPath",  "type": "string", "comment": "相对于 Assets/Resources/UI/v21/ 的路径" },
+    { "name": "SortOrder",   "type": "int",    "comment": "Canvas Sort Order：HUD=0，覆盖层=10，系统=20，全屏=30" },
+    { "name": "IsExclusive", "type": "bool",   "comment": "是否实现 IExclusiveUIForm（覆盖层互斥）" }
+  ],
+  "rows": [
+    { "Id": 1, "FormName": "CombatHUDForm",      "PrefabPath": "CombatHUD",       "SortOrder": 0,  "IsExclusive": false },
+    { "Id": 2, "FormName": "TattooStudioForm",   "PrefabPath": "TattooStudio",    "SortOrder": 10, "IsExclusive": true  },
+    { "Id": 3, "FormName": "TattooEnchantForm",  "PrefabPath": "TattooEnchant",   "SortOrder": 10, "IsExclusive": true  },
+    { "Id": 4, "FormName": "ShopForm",           "PrefabPath": "Shop",            "SortOrder": 10, "IsExclusive": true  },
+    { "Id": 5, "FormName": "ThreeChoiceForm",    "PrefabPath": "ThreeChoice",     "SortOrder": 10, "IsExclusive": true  },
+    { "Id": 6, "FormName": "PauseMenuForm",      "PrefabPath": "PauseMenu",       "SortOrder": 20, "IsExclusive": false },
+    { "Id": 7, "FormName": "RunResultForm",      "PrefabPath": "RunResult",       "SortOrder": 20, "IsExclusive": false },
+    { "Id": 8, "FormName": "MainMenuForm",       "PrefabPath": "MainMenu",        "SortOrder": 30, "IsExclusive": false },
+    { "Id": 9, "FormName": "CharacterSelectForm","PrefabPath": "CharacterSelect", "SortOrder": 30, "IsExclusive": false }
+  ]
+}

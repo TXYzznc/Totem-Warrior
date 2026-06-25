@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using Economy;
+using MapGen;
 using Tattoo;
 using Tattoo.Events;
 using Tattoo.VFX;
@@ -40,6 +42,7 @@ public class GameApp : MonoBehaviour
             _runner.AddModule(new InputModule());
 
             // ===== Category 1: 系统服务 =====
+            _runner.AddModule(new SaveModule(_runner, _bus));
             _runner.AddModule(new TattooModule(_runner, _bus));
 
             // ===== Category 2: 应用协调 =====
@@ -48,9 +51,24 @@ public class GameApp : MonoBehaviour
             _runner.AddModule(new UIModule(_bus, _runner));
 
             // ===== Category 3: 项目扩展 =====
+            // MapGenModule 须在 SpawnerModule 之前注册：
+            // SpawnerModule 后续会订阅 MapGeneratedEvent 才 spawn actor（v2.1 GDD §五交互序列）。
+            _runner.AddModule(new MapGenModule(_runner, _bus));
             _runner.AddModule(new SpawnerModule(_runner, _bus));
+            _runner.AddModule(new WeaponModule(_runner, _bus));
+            _runner.AddModule(new SkillModule(_runner, _bus));
             _runner.AddModule(new CombatModule(_runner, _bus));
             _runner.AddModule(new VFXModule(_runner, _bus));
+            _runner.AddModule(new EconomyModule(_runner, _bus));
+            // v2.1 怪物与 Boss 系统（依赖 DataTableModule，Boss 依赖 EnemyModule）
+            _runner.AddModule(new EnemyModule(_runner, _bus));
+            _runner.AddModule(new BossModule(_bus));
+            // v2.1 NPC 系统（依赖 DataTableModule，运行时懒获取 EconomyModule / TattooModule）
+            _runner.AddModule(new NPCModule(_runner, _bus));
+            // v2.1 Bot AI（依赖 SpawnerModule + TattooModule + CombatModule + DataTableModule）
+            _runner.AddModule(new Tattoo.Bot.BotControllerModule(_runner, _bus));
+            // v2.1 事件系统（依赖 DataTableModule + MapGenModule）
+            _runner.AddModule(new EventModule(_runner, _bus));
 
             await _runner.StartAsync();
 
