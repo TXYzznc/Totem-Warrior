@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using Tattoo;
 using Tattoo.Events;
+using Tattoo.VFX;
 using UnityEngine;
 
 /// <summary>
@@ -49,6 +50,7 @@ public class GameApp : MonoBehaviour
             // ===== Category 3: 项目扩展 =====
             _runner.AddModule(new SpawnerModule(_runner, _bus));
             _runner.AddModule(new CombatModule(_runner, _bus));
+            _runner.AddModule(new VFXModule(_runner, _bus));
 
             await _runner.StartAsync();
 

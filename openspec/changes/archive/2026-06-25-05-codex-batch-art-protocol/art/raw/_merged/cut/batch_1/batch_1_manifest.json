@@ -1,0 +1,164 @@
+{
+  "source": "openspec\\changes\\05-codex-batch-art-protocol\\art\\raw\\_merged\\batch_1.png",
+  "size": {
+    "width": 1024,
+    "height": 1024
+  },
+  "count": 9,
+  "output_dir": "openspec\\changes\\05-codex-batch-art-protocol\\art\\raw\\_merged\\cut\\batch_1",
+  "sprites": [
+    {
+      "label": 1,
+      "file": "openspec\\changes\\05-codex-batch-art-protocol\\art\\raw\\_merged\\cut\\batch_1\\batch_1_001.png",
+      "bbox": {
+        "x": 41,
+        "y": 23,
+        "width": 279,
+        "height": 295
+      },
+      "raw_bbox": {
+        "x": 43,
+        "y": 25,
+        "width": 275,
+        "height": 291
+      },
+      "area": 23601
+    },
+    {
+      "label": 2,
+      "file": "openspec\\changes\\05-codex-batch-art-protocol\\art\\raw\\_merged\\cut\\batch_1\\batch_1_002.png",
+      "bbox": {
+        "x": 727,
+        "y": 26,
+        "width": 241,
+        "height": 296
+      },
+      "raw_bbox": {
+        "x": 729,
+        "y": 28,
+        "width": 237,
+        "height": 292
+      },
+      "area": 17301
+    },
+    {
+      "label": 3,
+      "file": "openspec\\changes\\05-codex-batch-art-protocol\\art\\raw\\_merged\\cut\\batch_1\\batch_1_003.png",
+      "bbox": {
+        "x": 381,
+        "y": 41,
+        "width": 260,
+        "height": 264
+      },
+      "raw_bbox": {
+        "x": 383,
+        "y": 43,
+        "width": 256,
+        "height": 260
+      },
+      "area": 52220
+    },
+    {
+      "label": 4,
+      "file": "openspec\\changes\\05-codex-batch-art-protocol\\art\\raw\\_merged\\cut\\batch_1\\batch_1_004.png",
+      "bbox": {
+        "x": 45,
+        "y": 357,
+        "width": 266,
+        "height": 300
+      },
+      "raw_bbox": {
+        "x": 47,
+        "y": 359,
+        "width": 262,
+        "height": 296
+      },
+      "area": 11412
+    },
+    {
+      "label": 5,
+      "file": "openspec\\changes\\05-codex-batch-art-protocol\\art\\raw\\_merged\\cut\\batch_1\\batch_1_005.png",
+      "bbox": {
+        "x": 418,
+        "y": 371,
+        "width": 185,
+        "height": 268
+      },
+      "raw_bbox": {
+        "x": 420,
+        "y": 373,
+        "width": 181,
+        "height": 264
+      },
+      "area": 32292
+    },
+    {
+      "label": 6,
+      "file": "openspec\\changes\\05-codex-batch-art-protocol\\art\\raw\\_merged\\cut\\batch_1\\batch_1_006.png",
+      "bbox": {
+        "x": 706,
+        "y": 375,
+        "width": 253,
+        "height": 260
+      },
+      "raw_bbox": {
+        "x": 708,
+        "y": 377,
+        "width": 249,
+        "height": 256
+      },
+      "area": 32464
+    },
+    {
+      "label": 7,
+      "file": "openspec\\changes\\05-codex-batch-art-protocol\\art\\raw\\_merged\\cut\\batch_1\\batch_1_007.png",
+      "bbox": {
+        "x": 408,
+        "y": 695,
+        "width": 223,
+        "height": 272
+      },
+      "raw_bbox": {
+        "x": 410,
+        "y": 697,
+        "width": 219,
+        "height": 268
+      },
+      "area": 18823
+    },
+    {
+      "label": 8,
+      "file": "openspec\\changes\\05-codex-batch-art-protocol\\art\\raw\\_merged\\cut\\batch_1\\batch_1_008.png",
+      "bbox": {
+        "x": 709,
+        "y": 706,
+        "width": 246,
+        "height": 252
+      },
+      "raw_bbox": {
+        "x": 711,
+        "y": 708,
+        "width": 242,
+        "height": 248
+      },
+      "area": 47605
+    },
+    {
+      "label": 9,
+      "file": "openspec\\changes\\05-codex-batch-art-protocol\\art\\raw\\_merged\\cut\\batch_1\\batch_1_009.png",
+      "bbox": {
+        "x": 57,
+        "y": 710,
+        "width": 234,
+        "height": 241
+      },
+      "raw_bbox": {
+        "x": 59,
+        "y": 712,
+        "width": 230,
+        "height": 237
+      },
+      "area": 35623
+    }
+  ]
+}

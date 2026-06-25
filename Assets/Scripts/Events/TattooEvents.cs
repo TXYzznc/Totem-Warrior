@@ -91,6 +91,29 @@ namespace Tattoo.Events
     /// <summary>玩家血量归零。</summary>
     public class PlayerDiedEvent { }
 
+    /// <summary>纹身槽位触发后投递给 VFX 层的视觉信号。带主目标和最多 N 个附近目标，便于线条/粒子从玩家飞到目标。</summary>
+    public class VFXTriggerEvent
+    {
+        public string PartName;
+        public string ElementName;
+        public string ShapeName;
+        public Target PrimaryTarget;
+        public Target[] NearbyTargets;
+        public float Magnitude;
+        public bool Intercepted; // 左腿打包 → 暂不画弹道，画一个自身的环
+
+        public VFXTriggerEvent(string part, string element, string shape, Target primary, Target[] nearby, float magnitude, bool intercepted)
+        {
+            PartName = part;
+            ElementName = element;
+            ShapeName = shape;
+            PrimaryTarget = primary;
+            NearbyTargets = nearby;
+            Magnitude = magnitude;
+            Intercepted = intercepted;
+        }
+    }
+
     // ========== Build / 装备事件 ==========
 
     /// <summary>装备变化（Equip / Clear）后广播。UI 重绘装备列表。</summary>

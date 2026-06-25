@@ -11,28 +11,25 @@ public sealed class TattooShapeConfigRow
     public int Id { get; set; }
     /// <summary>ShapeBehavior 名</summary>
     public string Name { get; set; }
-    /// <summary>形状参数 1</summary>
+    /// <summary>形状参数 1（AOEBurst: AreaFactor / StackingMark: Threshold / MultiHit: Segments / ChainJump: MaxJumps / ProbBurst: Probability / TrailZone: TickFactor / SummonForm: SummonMultiplier）</summary>
     public float Param1 { get; set; }
-    /// <summary>形状参数 2</summary>
+    /// <summary>形状参数 2（AOEBurst: MaxTargets / StackingMark: BurstMul / ChainJump: Decay / ProbBurst: BurstMultiplier / TrailZone: Ticks）</summary>
     public float Param2 { get; set; }
-    /// <summary>形状参数 3</summary>
+    /// <summary>形状参数 3（ProbBurst: Seed）</summary>
     public float Param3 { get; set; }
 }
 
 public sealed class TattooShapeConfig : IDataTable
 {
     readonly Dictionary<int, TattooShapeConfigRow> _rows = new();
-    readonly Dictionary<string, TattooShapeConfigRow> _rowsByName = new();
 
     public void Load(string json)
     {
         var file = JsonConvert.DeserializeObject<DataTableFile<TattooShapeConfigRow>>(json);
         _rows.Clear();
-        _rowsByName.Clear();
         foreach (var row in file.rows)
         {
             _rows[row.Id] = row;
-            _rowsByName[row.Name] = row;
         }
     }
 
@@ -41,13 +38,6 @@ public sealed class TattooShapeConfig : IDataTable
         if (_rows.TryGetValue(id, out var row))
             return row;
         throw new KeyNotFoundException($"TattooShapeConfig 未找到 Id={id}");
-    }
-
-    public TattooShapeConfigRow GetByName(string name)
-    {
-        if (_rowsByName.TryGetValue(name, out var row))
-            return row;
-        throw new KeyNotFoundException($"TattooShapeConfig 未找到 Name={name}");
     }
 
     public bool TryGetById(int id, out TattooShapeConfigRow row) => _rows.TryGetValue(id, out row);

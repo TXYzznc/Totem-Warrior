@@ -11,7 +11,7 @@ public sealed class TattooPatternConfigRow
     public int Id { get; set; }
     /// <summary>Line / Ring / Spiral / Zigzag / Bolt / Star / Stream / Beast</summary>
     public string Name { get; set; }
-    /// <summary>ShapeBehavior 名</summary>
+    /// <summary>ShapeBehavior 名：SingleHit / AOEBurst / StackingMark / MultiHit / ChainJump / ProbBurst / TrailZone / SummonForm</summary>
     public string Shape { get; set; }
     /// <summary>图案级倍率</summary>
     public float PatternMultiplier { get; set; }

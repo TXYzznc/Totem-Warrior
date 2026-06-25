@@ -289,6 +289,14 @@ namespace Tattoo
                     slot.Element.OnHitExtra(ctx, slot.Shape, ctx.PrimaryTarget, magnitude);
                 }
                 slot.Part.AffectSelf(Player, ctx);
+
+                // 视觉信号：交由 VFXModule 等订阅者绘制弹道/粒子
+                _bus.Publish(new VFXTriggerEvent(
+                    slot.PartName, slot.Element.ElementName, slot.Shape.ShapeName,
+                    primary: ctx.PrimaryTarget,
+                    nearby:  ctx.NearbyTargets?.ToArray() ?? Array.Empty<Target>(),
+                    magnitude: magnitude,
+                    intercepted: intercepted));
             }
 
             // 2. 消耗 PendingTrigger

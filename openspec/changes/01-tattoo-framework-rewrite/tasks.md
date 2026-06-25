@@ -130,6 +130,50 @@
 
 - [x] 写 `INTEGRATION_REPORT.md` 总结
 - [x] `项目知识库（AI自行维护）/wiki/Tattoo系统重构.md` 已就位（更早创建）
-- ⏳ Launch.unity 配置完成后跑 EditMode 测试套件（用户操作）
-- 🔲 `/openspec verify-change` 检查（等 Launch 后跑）
-- 🔲 `/openspec archive-change` 归档（最终）
+- [x] Launch.unity 自动构建完成（tools-engineer 通过 Unity REST API 创建 + UIDocument + PanelSettings + BuildSettings）
+- [x] EditMode 全量测试：144 项 143 通过（唯一失败 `UnitySkills.Tests.Core.SkillDocumentationConsistencyTests` 与 Tattoo 无关）
+- [x] 336 穷举测试：`Assets/Tests/EditMode/Tattoo336EnumerationTests.cs` + `Tattoo336Report.md`
+- [x] Play 模式手动验证：HUD 渲染、dropdown 内容、icon 预览、0 Console Error（[Assets/Screenshots/launch_final2.png]）
+- 🔲 `/openspec verify-change` 检查
+- 🔲 `/openspec archive-change` 归档
+
+---
+
+## Phase D — 美术接入 + VFX + ModuleRunner 修复（自补充）
+
+> 由主对话 orchestrator 在 2026-06-24 通过 3 个并行子 Agent 完成。
+
+### D.1 美术（art-pipeline）
+
+- [x] `openspec/changes/01-tattoo-framework-rewrite/art/requirements.md` + `prompts.md`（主对话编写）
+- [x] codex-image-gen SKILL 通过 `.codex-batch.sh` 顺序生成 17 张（7 colors + 8 patterns + 2 parts）
+- [x] PIL 降级生成 4 张（part_left_arm/right_arm/left_leg/right_leg，因 ChatGPT 配额超限）
+- [x] 21 张统一拷到 `Assets/Resources/Sprite/Tattoo/{Color,Pattern,Part}/`
+- [x] `ResourceConfig.json` 注册 21 条 ResourceItem（Id 1001–1006 / 1101–1107 / 1201–1208）
+- [x] `texture_set_settings_batch` 批量设 Sprite + Single + alphaIsTransparency
+
+### D.2 VFX（[client-ta]）
+
+- [x] `Assets/Scripts/Events/TattooEvents.cs` 新增 `VFXTriggerEvent`
+- [x] `Assets/Scripts/Modules/Tattoo/TattooModule.cs` 在 Fire 后 publish VFXTriggerEvent
+- [x] `Assets/Scripts/Modules/VFX/VFXModule.cs` 实现（client-ta 优化版：URP 透明完整开关 + Material 共享池 + AOEBurst/TrailZone/SummonForm 改 ParticleSystem + Frost/Holy/Pure Element 专属修饰）
+- [x] `GameApp.cs` 注册 VFXModule
+
+### D.3 场景与 UI（[tools-engineer] + 主对话）
+
+- [x] `Assets/Scenes/Launch.unity` 通过 REST API 创建（@Game + CombatHUD + EventSystem）
+- [x] `Assets/UI/CombatPanelSettings.asset` 已绑定
+- [x] BuildSettings 添加 Launch.unity 为 Scene 0
+- [x] `CombatHUDForm.cs` 接 ResourceModule.Load + UXML 加 preview 区 + USS scale-to-fit
+- [x] `CombatHUD.uxml/uss` 增 config-row + config-preview + slot-icon
+
+### D.4 测试（[qa-engineer]）
+
+- [x] `Assets/Tests/EditMode/Tattoo336EnumerationTests.cs` 穷举 336 组合
+- [x] `Assets/Tests/EditMode/Tattoo336Report.md` 报告（含每条组合的 Element/Shape/Part/Damage/HitCount/Status）
+- [x] EditMode 整套：143/144 通过
+
+### D.5 框架 bug 修复（主对话）
+
+- [x] **ModuleRunner.StartAsync** 退出条件 bug：`while (pending.Count > 0)` 改 `while (pending.Count > 0 || running.Count > 0)`，避免 pending 空但 running 尚有 Task 时提前退出导致最后一批模块卡 Initializing
+- [x] 新增 `ModuleRunner.GetState(Type)` 诊断 API

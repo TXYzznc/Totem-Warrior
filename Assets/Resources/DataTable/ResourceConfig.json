@@ -6,5 +6,29 @@
     { "name": "Type",      "type": "string", "desc": "资源类型，对应 Resources 下子目录名" },
     { "name": "LoadPath",  "type": "string", "desc": "相对 Resources/{Type}/ 的加载路径，不含扩展名" }
   ],
-  "rows": []
+  "rows": [
+    { "Id": 1001, "Name": "Tattoo.Part.Head",       "Type": "Sprite", "LoadPath": "Tattoo/Part/Head" },
+    { "Id": 1002, "Name": "Tattoo.Part.Torso",      "Type": "Sprite", "LoadPath": "Tattoo/Part/Torso" },
+    { "Id": 1003, "Name": "Tattoo.Part.LeftArm",    "Type": "Sprite", "LoadPath": "Tattoo/Part/LeftArm" },
+    { "Id": 1004, "Name": "Tattoo.Part.RightArm",   "Type": "Sprite", "LoadPath": "Tattoo/Part/RightArm" },
+    { "Id": 1005, "Name": "Tattoo.Part.LeftLeg",    "Type": "Sprite", "LoadPath": "Tattoo/Part/LeftLeg" },
+    { "Id": 1006, "Name": "Tattoo.Part.RightLeg",   "Type": "Sprite", "LoadPath": "Tattoo/Part/RightLeg" },
+
+    { "Id": 1101, "Name": "Tattoo.Color.Red",       "Type": "Sprite", "LoadPath": "Tattoo/Color/Red" },
+    { "Id": 1102, "Name": "Tattoo.Color.Yellow",    "Type": "Sprite", "LoadPath": "Tattoo/Color/Yellow" },
+    { "Id": 1103, "Name": "Tattoo.Color.Green",     "Type": "Sprite", "LoadPath": "Tattoo/Color/Green" },
+    { "Id": 1104, "Name": "Tattoo.Color.Blue",      "Type": "Sprite", "LoadPath": "Tattoo/Color/Blue" },
+    { "Id": 1105, "Name": "Tattoo.Color.Purple",    "Type": "Sprite", "LoadPath": "Tattoo/Color/Purple" },
+    { "Id": 1106, "Name": "Tattoo.Color.Gold",      "Type": "Sprite", "LoadPath": "Tattoo/Color/Gold" },
+    { "Id": 1107, "Name": "Tattoo.Color.White",     "Type": "Sprite", "LoadPath": "Tattoo/Color/White" },
+
+    { "Id": 1201, "Name": "Tattoo.Pattern.Line",    "Type": "Sprite", "LoadPath": "Tattoo/Pattern/Line" },
+    { "Id": 1202, "Name": "Tattoo.Pattern.Ring",    "Type": "Sprite", "LoadPath": "Tattoo/Pattern/Ring" },
+    { "Id": 1203, "Name": "Tattoo.Pattern.Spiral",  "Type": "Sprite", "LoadPath": "Tattoo/Pattern/Spiral" },
+    { "Id": 1204, "Name": "Tattoo.Pattern.Zigzag",  "Type": "Sprite", "LoadPath": "Tattoo/Pattern/Zigzag" },
+    { "Id": 1205, "Name": "Tattoo.Pattern.Bolt",    "Type": "Sprite", "LoadPath": "Tattoo/Pattern/Bolt" },
+    { "Id": 1206, "Name": "Tattoo.Pattern.Star",    "Type": "Sprite", "LoadPath": "Tattoo/Pattern/Star" },
+    { "Id": 1207, "Name": "Tattoo.Pattern.Stream",  "Type": "Sprite", "LoadPath": "Tattoo/Pattern/Stream" },
+    { "Id": 1208, "Name": "Tattoo.Pattern.Beast",   "Type": "Sprite", "LoadPath": "Tattoo/Pattern/Beast" }
+  ]
 }

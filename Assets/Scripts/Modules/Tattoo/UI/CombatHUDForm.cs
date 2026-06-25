@@ -34,12 +34,33 @@ namespace Tattoo.UI
         DropdownField _partDropdown;
         DropdownField _colorDropdown;
         DropdownField _patternDropdown;
+        VisualElement _partPreview;
+        VisualElement _colorPreview;
+        VisualElement _patternPreview;
         Label _statusLabel;
         Label _playerHpLabel;
         Label _playerBuffsLabel;
         VisualElement _equippedList;
         VisualElement _passiveList;
         VisualElement _logList;
+
+        ResourceModule _resource;
+        // Name → ResourceId 静态映射（与 ResourceConfig.json 保持一致）
+        static readonly Dictionary<string, int> PartIcons = new()
+        {
+            { "Head", 1001 }, { "Torso", 1002 }, { "LeftArm", 1003 },
+            { "RightArm", 1004 }, { "LeftLeg", 1005 }, { "RightLeg", 1006 },
+        };
+        static readonly Dictionary<string, int> ColorIcons = new()
+        {
+            { "Red", 1101 }, { "Yellow", 1102 }, { "Green", 1103 }, { "Blue", 1104 },
+            { "Purple", 1105 }, { "Gold", 1106 }, { "White", 1107 },
+        };
+        static readonly Dictionary<string, int> PatternIcons = new()
+        {
+            { "Line", 1201 }, { "Ring", 1202 }, { "Spiral", 1203 }, { "Zigzag", 1204 },
+            { "Bolt", 1205 }, { "Star", 1206 }, { "Stream", 1207 }, { "Beast", 1208 },
+        };
 
         IDisposable _subBuildChanged;
         IDisposable _subPassive;
@@ -78,8 +99,9 @@ namespace Tattoo.UI
             }
             _root = _doc.rootVisualElement;
 
-            _tattoo  = _runner.GetModule<TattooModule>();
-            _spawner = _runner.GetModule<SpawnerModule>();
+            _tattoo   = _runner.GetModule<TattooModule>();
+            _spawner  = _runner.GetModule<SpawnerModule>();
+            _resource = _runner.GetModule<ResourceModule>();
             _runner.GetModule<UIModule>().Register(this);
 
             QueryControls();
@@ -112,6 +134,9 @@ namespace Tattoo.UI
             _partDropdown    = _root.Q<DropdownField>("part-dropdown");
             _colorDropdown   = _root.Q<DropdownField>("color-dropdown");
             _patternDropdown = _root.Q<DropdownField>("pattern-dropdown");
+            _partPreview     = _root.Q<VisualElement>("part-preview");
+            _colorPreview    = _root.Q<VisualElement>("color-preview");
+            _patternPreview  = _root.Q<VisualElement>("pattern-preview");
             _statusLabel     = _root.Q<Label>("status-label");
             _playerHpLabel   = _root.Q<Label>("player-hp-label");
             _playerBuffsLabel = _root.Q<Label>("player-buffs-label");
@@ -124,10 +149,43 @@ namespace Tattoo.UI
         {
             _partDropdown.choices    = _partIds.Select(id => $"{id} - {ResolvePartName(id)}").ToList();
             _partDropdown.index = 0;
+            _partDropdown.RegisterValueChangedCallback(_ => RefreshSelectionPreview());
+
             _colorDropdown.choices   = _colorIds.Select(id => $"{id} - {ResolveColorName(id)}").ToList();
             _colorDropdown.index = 0;
+            _colorDropdown.RegisterValueChangedCallback(_ => RefreshSelectionPreview());
+
             _patternDropdown.choices = _patternIds.Select(id => $"{id} - {ResolvePatternName(id)}").ToList();
             _patternDropdown.index = 0;
+            _patternDropdown.RegisterValueChangedCallback(_ => RefreshSelectionPreview());
+
+            RefreshSelectionPreview();
+        }
+
+        void RefreshSelectionPreview()
+        {
+            int partId    = _partIds[Math.Max(0, _partDropdown.index)];
+            int colorId   = _colorIds[Math.Max(0, _colorDropdown.index)];
+            int patternId = _patternIds[Math.Max(0, _patternDropdown.index)];
+            ApplySpriteByName(_partPreview,    PartIcons,    ResolvePartName(partId));
+            ApplySpriteByName(_colorPreview,   ColorIcons,   ResolveColorName(colorId));
+            ApplySpriteByName(_patternPreview, PatternIcons, ResolvePatternName(patternId));
+        }
+
+        void ApplySpriteByName(VisualElement target, Dictionary<string, int> map, string name)
+        {
+            if (target == null) return;
+            if (_resource != null && map.TryGetValue(name, out var resId))
+            {
+                var sprite = _resource.Load<Sprite>(resId);
+                if (sprite != null)
+                {
+                    target.style.backgroundImage = new StyleBackground(sprite);
+                    return;
+                }
+            }
+            // 资源缺失时清空（占位 CSS 背景生效）
+            target.style.backgroundImage = StyleKeyword.None;
         }
 
         void BindButtons()
@@ -197,11 +255,32 @@ namespace Tattoo.UI
             _equippedList.Clear();
             foreach (var slot in _tattoo.Equipped)
             {
-                var lbl = new Label($"· {slot.PartName} × {slot.ColorName} × {slot.PatternName}");
-                lbl.AddToClassList("info");
-                _equippedList.Add(lbl);
+                var row = new VisualElement();
+                row.AddToClassList("equipped-slot");
+
+                row.Add(MakeSlotIcon(PartIcons,    slot.PartName));
+                row.Add(MakeSlotIcon(ColorIcons,   slot.ColorName));
+                row.Add(MakeSlotIcon(PatternIcons, slot.PatternName));
+
+                var lbl = new Label($"{slot.PartName} × {slot.ColorName} × {slot.PatternName}");
+                lbl.AddToClassList("slot-label");
+                row.Add(lbl);
+
+                _equippedList.Add(row);
             }
             RefreshPlayerState();
+        }
+
+        VisualElement MakeSlotIcon(Dictionary<string, int> map, string name)
+        {
+            var icon = new VisualElement();
+            icon.AddToClassList("slot-icon");
+            if (_resource != null && map.TryGetValue(name, out var resId))
+            {
+                var sp = _resource.Load<Sprite>(resId);
+                if (sp != null) icon.style.backgroundImage = new StyleBackground(sp);
+            }
+            return icon;
         }
 
         void RefreshPassive()

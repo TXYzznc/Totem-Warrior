@@ -1,0 +1,2052 @@
+=== generating part_right_arm_v2.png ===
+Reading additional input from stdin...
+2026-06-25T02:54:55.455660Z ERROR codex_core::session::session: failed to load skill D:\unity\UnityProject\GameDesinger\.agents\skills\unity-skills\skills\camera\SKILL.md: missing YAML frontmatter delimited by ---
+2026-06-25T02:54:55.455710Z ERROR codex_core::session::session: failed to load skill D:\unity\UnityProject\GameDesinger\.agents\skills\unity-skills\skills\cinemachine\SKILL.md: missing YAML frontmatter delimited by ---
+2026-06-25T02:54:55.455716Z ERROR codex_core::session::session: failed to load skill D:\unity\UnityProject\GameDesinger\.agents\skills\unity-skills\skills\event\SKILL.md: missing YAML frontmatter delimited by ---
+2026-06-25T02:54:55.455822Z ERROR codex_core::session::session: failed to load skill D:\unity\UnityProject\GameDesinger\.agents\skills\unity-skills\skills\navmesh\SKILL.md: missing YAML frontmatter delimited by ---
+2026-06-25T02:54:55.455828Z ERROR codex_core::session::session: failed to load skill D:\unity\UnityProject\GameDesinger\.agents\skills\unity-skills\skills\optimization\SKILL.md: missing YAML frontmatter delimited by ---
+2026-06-25T02:54:55.455831Z ERROR codex_core::session::session: failed to load skill D:\unity\UnityProject\GameDesinger\.agents\skills\unity-skills\skills\package\SKILL.md: missing YAML frontmatter delimited by ---
+2026-06-25T02:54:55.455833Z ERROR codex_core::session::session: failed to load skill D:\unity\UnityProject\GameDesinger\.agents\skills\unity-skills\skills\physics\SKILL.md: missing YAML frontmatter delimited by ---
+2026-06-25T02:54:55.455836Z ERROR codex_core::session::session: failed to load skill D:\unity\UnityProject\GameDesinger\.agents\skills\unity-skills\skills\profiler\SKILL.md: missing YAML frontmatter delimited by ---
+2026-06-25T02:54:55.455839Z ERROR codex_core::session::session: failed to load skill D:\unity\UnityProject\GameDesinger\.agents\skills\unity-skills\skills\project\SKILL.md: missing YAML frontmatter delimited by ---
+2026-06-25T02:54:55.455841Z ERROR codex_core::session::session: failed to load skill D:\unity\UnityProject\GameDesinger\.agents\skills\unity-skills\skills\sample\SKILL.md: missing YAML frontmatter delimited by ---
+2026-06-25T02:54:55.455844Z ERROR codex_core::session::session: failed to load skill D:\unity\UnityProject\GameDesinger\.agents\skills\unity-skills\skills\timeline\SKILL.md: missing YAML frontmatter delimited by ---
+2026-06-25T02:54:55.455847Z ERROR codex_core::session::session: failed to load skill D:\unity\UnityProject\GameDesinger\.agents\skills\unity-skills\skills\workflow\SKILL.md: missing YAML frontmatter delimited by ---
+OpenAI Codex v0.142.0
+--------
+workdir: D:\unity\UnityProject\GameDesinger
+model: gpt-5.5
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: none
+session id: 019efcb3-b094-7d62-bae6-f5a7bf3abe63
+--------
+user
+请使用 imagegen 系统 skill 生成一张图片。
+
+# 画面描述
+A 256x256 game UI icon, flat vector graphic, transparent background, centered, no text, 4px outer outline #7c8aa8, pure white silhouette.
+Pure white silhouette of a right arm gripping a vertical sword hilt, forearm horizontal, fist clenched on guard, blade extending up but cut at frame top, symmetric and clean.
+
+# 输出要求
+- 尺寸：1024x1024
+- 保存到：openspec/changes/01-tattoo-framework-rewrite/art/raw/part_right_arm_v2.png
+- 负面：blurry, watermark, text, signature, photographic
+
+# 完成标准
+生成成功后输出文件相对路径与字节大小。失败请说明具体错误，不要重试无限次。
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\art-2d.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\art-3d.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\art-anim.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\art-director.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\art-font.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\art-ui.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\art-vfx.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\client-lead.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\client-ta.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\client-unity.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\devops-engineer.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\gd-lead.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\gd-system.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\level-designer.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\net-backend.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\net-db.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\net-lead.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\producer.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\qa-engineer.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\tools-engineer.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\art-2d.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\art-3d.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\art-anim.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\art-director.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\art-font.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\art-ui.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\art-vfx.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\client-lead.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\client-ta.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\client-unity.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\devops-engineer.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\gd-lead.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\gd-system.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\level-designer.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\net-backend.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\net-db.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\net-lead.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\producer.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\qa-engineer.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\tools-engineer.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Skill descriptions were shortened to fit the 2% skills context budget. Codex can still see every skill, but some descriptions are shorter. Disable unused skills or plugins to leave more room for the rest.
+codex
+我会使用 `imagegen` 系统 skill 来处理这张图，并先读取它的本地说明，确认保存流程和约束。
+exec
+"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "Get-Content -LiteralPath C:\\Users\\WIN10\\.codex\\skills\\.system\\imagegen\\SKILL.md" in D:\unity\UnityProject\GameDesinger
+ succeeded in 308ms:
+---
+name: "imagegen"
+description: "Generate or edit raster images when the task benefits from AI-created bitmap visuals such as photos, illustrations, textures, sprites, mockups, or transparent-background cutouts. Use when Codex should create a brand-new image, transform an existing image, or derive visual variants from references, and the output should be a bitmap asset rather than repo-native code or vector. Do not use when the task is better handled by editing existing SVG/vector/code-native assets, extending an established icon or logo system, or building the visual directly in HTML/CSS/canvas."
+---
+
+# Image Generation Skill
+
+Generates or edits images for the current project (for example website assets, game assets, UI mockups, product mockups, wireframes, logo design, photorealistic images, or infographics).
+
+## Top-level modes and rules
+
+This skill has exactly two top-level modes:
+
+- **Default built-in tool mode (preferred):** built-in `image_gen` tool for normal image generation, editing, and simple transparent-image requests. Does not require `OPENAI_API_KEY`.
+- **Fallback CLI mode:** `scripts/image_gen.py` CLI. Use when the user explicitly asks for the CLI/API/model path, or after the user explicitly confirms a true model-native transparency fallback with `gpt-image-1.5`. Requires `OPENAI_API_KEY`.
+
+Within CLI fallback, the CLI exposes three subcommands:
+
+- `generate`
+- `edit`
+- `generate-batch`
+
+Rules:
+- Use the built-in `image_gen` tool by default for normal image generation and editing requests.
+- Do not switch to CLI fallback for ordinary quality, size, or file-path control.
+- If the user explicitly asks for a transparent image/background, stay on built-in `image_gen` first: prompt for a flat removable chroma-key background, then remove it locally with the installed helper at `$CODEX_HOME/skills/.system/imagegen/scripts/remove_chroma_key.py`.
+- Never silently switch from built-in `image_gen` or CLI `gpt-image-2` to CLI `gpt-image-1.5`. Treat this as a model/path downgrade and ask the user before doing it, unless the user has already explicitly requested `gpt-image-1.5`, `scripts/image_gen.py`, or CLI fallback.
+- If a transparent request appears too complex for clean chroma-key removal, asks for true/native transparency, or local removal fails validation, explain that true transparency requires CLI `gpt-image-1.5 --background transparent --output-format png` because `gpt-image-2` does not support `background=transparent`, then ask whether to proceed. Run the CLI fallback only after the user confirms.
+- The word `batch` by itself does not mean CLI fallback. If the user asks for many assets or says to batch-generate assets without explicitly asking for CLI/API/model controls, stay on the built-in path and issue one built-in call per requested asset or variant.
+- If the built-in tool fails or is unavailable, tell the user the CLI fallback exists and that it requires `OPENAI_API_KEY`. Proceed only if the user explicitly asks for that fallback.
+- If the user explicitly asks for CLI mode, use the bundled `scripts/image_gen.py` workflow. Do not create one-off SDK runners.
+- Never modify `scripts/image_gen.py`. If something is missing, ask the user before doing anything else.
+
+Built-in save-path policy:
+- In built-in tool mode, Codex saves generated images under `$CODEX_HOME/*` by default.
+- Do not describe or rely on OS temp as the default built-in destination.
+- Do not describe or rely on a destination-path argument (if any) on the built-in `image_gen` tool. If a specific location is needed, generate first and then move or copy the selected output from `$CODEX_HOME/generated_images/...`.
+- Save-path precedence in built-in mode:
+  1. If the user names a destination, move or copy the selected output there.
+  2. If the image is meant for the current project, move or copy the final selected image into the workspace before finishing.
+  3. If the image is only for preview or brainstorming, render it inline; the underlying file can remain at the default `$CODEX_HOME/*` path.
+- Never leave a project-referenced asset only at the default `$CODEX_HOME/*` path.
+- Do not overwrite an existing asset unless the user explicitly asked for replacement; otherwise create a sibling versioned filename such as `hero-v2.png` or `item-icon-edited.png`.
+
+Shared prompt guidance for both modes lives in `references/prompting.md` and `references/sample-prompts.md`.
+
+Fallback-only docs/resources for CLI mode:
+- `references/cli.md`
+- `references/image-api.md`
+- `references/codex-network.md`
+- `scripts/image_gen.py`
+
+Local post-processing helper:
+- `$CODEX_HOME/skills/.system/imagegen/scripts/remove_chroma_key.py`: removes a flat chroma-key background from a generated image and writes a PNG/WebP with alpha. Prefer auto-key sampling, soft matte, and despill for antialiased edges.
+
+## When to use
+- Generate a new image (concept art, product shot, cover, website hero)
+- Generate a new image using one or more reference images for style, composition, or mood
+- Edit an existing image (inpainting, lighting or weather transformations, background replacement, object removal, compositing, transparent background)
+- Produce many assets or variants for one task
+
+## When not to use
+- Extending or matching an existing SVG/vector icon set, logo system, or illustration library inside the repo
+- Creating simple shapes, diagrams, wireframes, or icons that are better produced directly in SVG, HTML/CSS, or canvas
+- Making a small project-local asset edit when the source file already exists in an editable native format
+- Any task where the user clearly wants deterministic code-native output instead of a generated bitmap
+
+## Decision tree
+
+Think about two separate questions:
+
+1. **Intent:** is this a new image or an edit of an existing image?
+2. **Execution strategy:** is this one asset or many assets/variants?
+
+Intent:
+- If the user wants to modify an existing image while preserving parts of it, treat the request as **edit**.
+- If the user provides images only as references for style, composition, mood, or subject guidance, treat the request as **generate**.
+- If the user provides no images, treat the request as **generate**.
+
+Built-in edit semantics:
+- Built-in edit mode is for images already visible in the conversation context, such as attached images or images generated earlier in the thread.
+- If the user wants to edit a local image file with the built-in tool, first load it with built-in `view_image` tool so the image is visible in the conversation context, then proceed with the built-in edit flow.
+- Do not promise arbitrary filesystem-path editing through the built-in tool.
+- If a local file still needs direct file-path control, masks, or other explicit CLI-only parameters, use the explicit CLI fallback only when the user asks for it.
+- For edits, preserve invariants aggressively and save non-destructively by default.
+
+Execution strategy:
+- In the built-in default path, produce many assets or variants by issuing one `image_gen` call per requested asset or variant.
+- In the CLI fallback path, use the CLI `generate-batch` subcommand only when the user explicitly chose CLI mode and needs many prompts/assets.
+- For many distinct assets, do not use `n` as a substitute for separate prompts. `n` is for variants of one prompt; distinct assets need distinct built-in calls or distinct CLI `generate-batch` jobs.
+
+Assume the user wants a new image unless they clearly ask to change an existing one.
+
+## Workflow
+1. Decide the top-level mode: built-in by default, including simple transparent-output requests; fallback CLI only if explicitly requested or after the user explicitly confirms a transparent-output fallback.
+2. Decide the intent: `generate` or `edit`.
+3. Decide whether the output is preview-only or meant to be consumed by the current project.
+4. Decide the execution strategy: single asset vs repeated built-in calls vs CLI `generate-batch`.
+5. Collect inputs up front: prompt(s), exact text (verbatim), constraints/avoid list, and any input images.
+6. For every input image, label its role explicitly:
+   - reference image
+   - edit target
+   - supporting insert/style/compositing input
+7. If the edit target is only on the local filesystem and you are staying on the built-in path, inspect it with `view_image` first so the image is available in conversation context.
+8. If the user asked for a photo, illustration, sprite, product image, banner, or other explicitly raster-style asset, use `image_gen` rather than substituting SVG/HTML/CSS placeholders. If the request is for an icon, logo, or UI graphic that should match existing repo-native SVG/vector/code assets, prefer editing those directly instead.
+9. Augment the prompt based on specificity:
+   - If the user's prompt is already specific and detailed, normalize it into a clear spec without adding creative requirements.
+   - If the user's prompt is generic, add tasteful augmentation only when it materially improves output quality.
+10. Use the built-in `image_gen` tool by default.
+11. For transparent-output requests, follow the transparent image guidance below: generate with built-in `image_gen` on a flat chroma-key background, copy the selected output into the workspace or `tmp/imagegen/`, run the installed `$CODEX_HOME/skills/.system/imagegen/scripts/remove_chroma_key.py` helper, and validate the alpha result before using it. If this path looks unsuitable or fails, ask before switching to CLI `gpt-image-1.5`.
+12. Inspect outputs and validate: subject, style, composition, text accuracy, and invariants/avoid items.
+13. Iterate with a single targeted change, then re-check.
+14. For preview-only work, render the image inline; the underlying file may remain at the default `$CODEX_HOME/generated_images/...` path.
+15. For project-bound work, move or copy the selected artifact into the workspace and update any consuming code or references. Never leave a project-referenced asset only at the default `$CODEX_HOME/generated_images/...` path.
+16. For batches or multi-asset requests, persist every requested deliverable final in the workspace unless the user explicitly asked to keep outputs preview-only. Discarded variants do not need to be kept unless requested.
+17. If the user explicitly chooses or confirms the CLI fallback, then use the fallback-only docs for model, quality, size, `input_fidelity`, masks, output format, output paths, and network setup.
+18. Always report the final saved path(s) for any workspace-bound asset(s), plus the final prompt or prompt set and whether the built-in tool or fallback CLI mode was used.
+
+## Transparent image requests
+
+Transparent-image requests still use built-in `image_gen` first. Because the built-in tool does not expose a true transparent-background control, create a removable chroma-key source image and then convert the key color to alpha locally.
+
+Default sequence:
+1. Use built-in `image_gen` to generate the requested subject on a perfectly flat solid chroma-key background.
+2. Choose a key color that is unlikely to appear in the subject: default `#00ff00`, use `#ff00ff` for green subjects, and avoid `#0000ff` for blue subjects.
+3. After generation, move or copy the selected source image from `$CODEX_HOME/generated_images/...` into the workspace or `tmp/imagegen/`.
+4. Run the installed helper path, not a project-relative script path:
+   ```bash
+   python "${CODEX_HOME:-$HOME/.codex}/skills/.system/imagegen/scripts/remove_chroma_key.py" \
+     --input <source> \
+     --out <final.png> \
+     --auto-key border \
+     --soft-matte \
+     --transparent-threshold 12 \
+     --opaque-threshold 220 \
+     --despill
+   ```
+5. Validate that the output has an alpha channel, transparent corners, plausible subject coverage, and no obvious key-color fringe. If a thin fringe remains, retry once with `--edge-contract 1`; use `--edge-feather 0.25` only when the edge is visibly stair-stepped and the subject is not shiny or reflective.
+6. Save the final alpha PNG/WebP in the project if the asset is project-bound. Never leave a project-referenced transparent asset only under `$CODEX_HOME/*`.
+
+Prompt transparent requests like this:
+
+```text
+Create the requested subject on a perfectly flat solid #00ff00 chroma-key background for background removal.
+The background must be one uniform color with no shadows, gradients, texture, reflections, floor plane, or lighting variation.
+Keep the subject fully separated from the background with crisp edges and generous padding.
+Do not use #00ff00 anywhere in the subject.
+No cast shadow, no contact shadow, no reflection, no watermark, and no text unless explicitly requested.
+```
+
+Do not automatically use CLI `gpt-image-1.5 --background transparent --output-format png` instead of chroma keying. Ask the user first when the user asks for true/native transparency, when local removal fails validation, or when the requested image is complex: hair, fur, feathers, smoke, glass, liquids, translucent materials, reflective objects, soft shadows, realistic product grounding, or subject colors that conflict with all practical key colors.
+
+Use a concise confirmation like:
+
+```text
+This likely needs true native transparency. The default built-in path uses a chroma-key background plus local removal, but true transparency requires the CLI fallback with gpt-image-1.5 because gpt-image-2 does not support background=transparent. It also requires OPENAI_API_KEY. Should I proceed with that CLI fallback?
+```
+
+## Prompt augmentation
+
+Reformat user prompts into a structured, production-oriented spec. Make the user's goal clearer and more actionable, but do not blindly add detail.
+
+Treat this as prompt-shaping guidance, not a closed schema. Use only the lines that help, and add a short extra labeled line when it materially improves clarity.
+
+### Specificity policy
+
+Use the user's prompt specificity to decide how much augmentation is appropriate:
+
+- If the prompt is already specific and detailed, preserve that specificity and only normalize/structure it.
+- If the prompt is generic, you may add tasteful augmentation when it will materially improve the result.
+
+Allowed augmentations:
+- composition or framing hints
+- polish level or intended-use hints
+- practical layout guidance
+- reasonable scene concreteness that supports the stated request
+
+Not allowed augmentations:
+- extra characters or objects that are not implied by the request
+- brand names, slogans, palettes, or narrative beats that are not implied
+- arbitrary side-specific placement unless the surrounding layout supports it
+
+## Use-case taxonomy (exact slugs)
+
+Classify each request into one of these buckets and keep the slug consistent across prompts and references.
+
+Generate:
+- photorealistic-natural 鈥?candid/editorial lifestyle scenes with real texture and natural lighting.
+- product-mockup 鈥?product/packaging shots, catalog imagery, merch concepts.
+- ui-mockup 鈥?app/web interface mockups and wireframes; specify the desired fidelity.
+- infographic-diagram 鈥?diagrams/infographics with structured layout and text.
+- scientific-educational 鈥?classroom explainers, scientific diagrams, and learning visuals with required labels and accuracy constraints.
+- ads-marketing 鈥?campaign concepts and ad creatives with audience, brand position, scene, and exact tagline/copy.
+- productivity-visual 鈥?slide, chart, workflow, and data-heavy business visuals.
+- logo-brand 鈥?logo/mark exploration, vector-friendly.
+- illustration-story 鈥?comics, children鈥檚 book art, narrative scenes.
+- stylized-concept 鈥?style-driven concept art, 3D/stylized renders.
+- historical-scene 鈥?period-accurate/world-knowledge scenes.
+
+Edit:
+- text-localization 鈥?translate/replace in-image text, preserve layout.
+- identity-preserve 鈥?try-on, person-in-scene; lock face/body/pose.
+- precise-object-edit 鈥?remove/replace a specific element (including interior swaps).
+- lighting-weather 鈥?time-of-day/season/atmosphere changes only.
+- background-extraction 鈥?transparent background / clean cutout. Use built-in `image_gen` with chroma-key removal first for simple opaque subjects; ask before using CLI true transparency for complex subjects.
+- style-transfer 鈥?apply reference style while changing subject/scene.
+- compositing 鈥?multi-image insert/merge with matched lighting/perspective.
+- sketch-to-render 鈥?drawing/line art to photoreal render.
+
+## Shared prompt schema
+
+Use the following labeled spec as shared prompt scaffolding for both top-level modes:
+
+```text
+Use case: <taxonomy slug>
+Asset type: <where the asset will be used>
+Primary request: <user's main prompt>
+Input images: <Image 1: role; Image 2: role> (optional)
+Scene/backdrop: <environment>
+Subject: <main subject>
+Style/medium: <photo/illustration/3D/etc>
+Composition/framing: <wide/close/top-down; placement>
+Lighting/mood: <lighting + mood>
+Color palette: <palette notes>
+Materials/textures: <surface details>
+Text (verbatim): "<exact text>"
+Constraints: <must keep/must avoid>
+Avoid: <negative constraints>
+```
+
+Notes:
+- `Asset type` and `Input images` are prompt scaffolding, not dedicated CLI flags.
+- `Scene/backdrop` refers to the visual setting. It is not the same as the fallback CLI `background` parameter, which controls output transparency behavior.
+- Fallback-only execution notes such as `Quality:`, `Input fidelity:`, masks, output format, and output paths belong in the CLI path only. Do not treat them as built-in `image_gen` tool arguments.
+
+Augmentation rules:
+- Keep it short.
+- Add only the details needed to improve the prompt materially.
+- For edits, explicitly list invariants (`change only X; keep Y unchanged`).
+- If any critical detail is missing and blocks success, ask a question; otherwise proceed.
+
+## Examples
+
+### Generation example (hero image)
+```text
+Use case: product-mockup
+Asset type: landing page hero
+Primary request: a minimal hero image of a ceramic coffee mug
+Style/medium: clean product photography
+Composition/framing: wide composition with usable negative space for page copy if needed
+Lighting/mood: soft studio lighting
+Constraints: no logos, no text, no watermark
+```
+
+### Edit example (invariants)
+```text
+Use case: precise-object-edit
+Asset type: product photo background replacement
+Primary request: replace only the background with a warm sunset gradient
+Constraints: change only the background; keep the product and its edges unchanged; no text; no watermark
+```
+
+## Prompting best practices
+- Structure prompt as scene/backdrop -> subject -> details -> constraints.
+- Include intended use (ad, UI mock, infographic) to set the mode and polish level.
+- Use camera/composition language for photorealism.
+- Only use SVG/vector stand-ins when the user explicitly asked for vector output or a non-image placeholder.
+- Quote exact text and specify typography + placement.
+- For tricky words, spell them letter-by-letter and require verbatim rendering.
+- For multi-image inputs, reference images by index and describe how they should be used.
+- For edits, repeat invariants every iteration to reduce drift.
+- Iterate with single-change follow-ups.
+- If the prompt is generic, add only the extra detail that will materially help.
+- If the prompt is already detailed, normalize it instead of expanding it.
+- For CLI fallback only, see `references/cli.md` and `references/image-api.md` for model, `quality`, `input_fidelity`, masks, output format, and output-path guidance.
+- For transparent images, use the built-in-first chroma-key workflow unless the request is complex enough to need true CLI transparency; ask before switching to CLI `gpt-image-1.5`.
+
+More principles shared by both modes: `references/prompting.md`.
+Copy/paste specs shared by both modes: `references/sample-prompts.md`.
+
+## Guidance by asset type
+Asset-type templates (website assets, game assets, wireframes, logo) are consolidated in `references/sample-prompts.md`.
+
+## gpt-image-2 guidance for CLI fallback
+
+The fallback CLI defaults to `gpt-image-2`.
+
+- Use `gpt-image-2` for new CLI/API workflows unless the request needs true model-native transparent output.
+- If a transparent request may need CLI fallback, ask before using `gpt-image-1.5` unless the user already explicitly requested `gpt-image-1.5`, `scripts/image_gen.py`, or CLI fallback. Explain that the built-in chroma-key path is the default, but true transparency requires `gpt-image-1.5` because `gpt-image-2` does not support `background=transparent`.
+- `gpt-image-2` always uses high fidelity for image inputs; do not set `input_fidelity` with this model.
+- `gpt-image-2` supports `quality` values `low`, `medium`, `high`, and `auto`.
+- Use `quality low` for fast drafts, thumbnails, and quick iterations. Use `medium`, `high`, or `auto` for final assets, dense text, diagrams, identity-sensitive edits, or high-resolution outputs.
+- Square images are typically fastest to generate. Use `1024x1024` for fast square drafts.
+- If the user asks for 4K-style output, use `3840x2160` for landscape or `2160x3840` for portrait.
+- `gpt-image-2` size may be `auto` or `WIDTHxHEIGHT` if all constraints hold: max edge `<= 3840px`, both edges multiples of `16px`, long-to-short ratio `<= 3:1`, total pixels between `655,360` and `8,294,400`.
+
+Popular `gpt-image-2` sizes:
+- `1024x1024` square
+- `1536x1024` landscape
+- `1024x1536` portrait
+- `2048x2048` 2K square
+- `2048x1152` 2K landscape
+- `3840x2160` 4K landscape
+- `2160x3840` 4K portrait
+- `auto`
+
+## Fallback CLI mode only
+
+### Temp and output conventions
+These conventions apply only to the CLI fallback. They do not describe built-in `image_gen` output behavior.
+- Use `tmp/imagegen/` for intermediate files (for example JSONL batches); delete them when done.
+- Write final artifacts under `output/imagegen/`.
+- Use `--out` or `--out-dir` to control output paths; keep filenames stable and descriptive.
+
+### Dependencies
+Prefer `uv` for dependency management in this repo.
+
+Required Python package:
+```bash
+uv pip install openai
+```
+
+Required for local chroma-key removal and optional downscaling:
+```bash
+uv pip install pillow
+```
+
+Portability note:
+- If you are using the installed skill outside this repo, install dependencies into that environment with its package manager.
+- In uv-managed environments, `uv pip install ...` remains the preferred path.
+
+### Environment
+- `OPENAI_API_KEY` must be set for live API calls.
+- Do not ask the user for `OPENAI_API_KEY` when using the built-in `image_gen` tool.
+- Never ask the user to paste the full key in chat. Ask them to set it locally and confirm when ready.
+
+If the key is missing, give the user these steps:
+1. Create an API key in the OpenAI platform UI: https://platform.openai.com/api-keys
+2. Set `OPENAI_API_KEY` as an environment variable in their system.
+3. Offer to guide them through setting the environment variable for their OS/shell if needed.
+
+If installation is not possible in this environment, tell the user which dependency is missing and how to install it into their active environment.
+
+### Script-mode notes
+- CLI commands + examples: `references/cli.md`
+- API parameter quick reference: `references/image-api.md`
+- Network approvals / sandbox settings for CLI mode: `references/codex-network.md`
+
+## Reference map
+- `references/prompting.md`: shared prompting principles for both modes.
+- `references/sample-prompts.md`: shared copy/paste prompt recipes for both modes.
+- `references/cli.md`: fallback-only CLI usage via `scripts/image_gen.py`.
+- `references/image-api.md`: fallback-only API/CLI parameter reference.
+- `references/codex-network.md`: fallback-only network/sandbox troubleshooting for CLI mode.
+- `scripts/image_gen.py`: fallback-only CLI implementation. Do not load or use it unless the user explicitly chooses CLI mode or explicitly confirms a transparent request's true CLI transparency fallback.
+- `$CODEX_HOME/skills/.system/imagegen/scripts/remove_chroma_key.py`: local post-processing helper for built-in transparent-image requests.
+
+codex
+这张图是简单不透明图标，透明背景按 skill 的默认流程处理：先生成纯色抠图背景，再用本地脚本转成 alpha PNG，最后保存到项目路径。
+codex
+生成结果已经出来，构图符合右臂握剑的基本要求。现在我会定位生成文件，做抠绿处理并写入指定项目路径。
+exec
+"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command 'Get-ChildItem -Path $env:USERPROFILE'"\\.codex -Recurse -File -Include *.png,*.webp,*.jpg | Sort-Object LastWriteTime -Descending | Select-Object -First 10 FullName,Length,LastWriteTime" in D:\unity\UnityProject\GameDesinger
+exec
+"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "Test-Path -LiteralPath openspec\\changes\\01-tattoo-framework-rewrite\\art\\raw; if ("'$?) { Get-Item -LiteralPath openspec'"\\changes\\01-tattoo-framework-rewrite\\art\\raw | Select-Object FullName }" in D:\unity\UnityProject\GameDesinger
+2026-06-25T02:56:22.387639Z ERROR codex_core::exec: exec error: windows sandbox: helper_unknown_error: apply deny-read ACLs
+2026-06-25T02:56:22.387908Z ERROR codex_core::tools::router: error=execution error: Io(Custom { kind: Other, error: "windows sandbox: helper_unknown_error: apply deny-read ACLs" })
+ exited -1 in 0ms:
+execution error: Io(Custom { kind: Other, error: "windows sandbox: helper_unknown_error: apply deny-read ACLs" })
+ succeeded in 385ms:
+True
+
+FullName                                                                               
+--------                                                                               
+D:\unity\UnityProject\GameDesinger\openspec\changes\01-tattoo-framework-rewrite\art\raw
+
+
+
+codex
+项目目标目录存在。读取 `.codex` 生成目录时被当前文件沙箱拦了一次，我会改用系统提示给出的精确生成路径直接复制，再执行本地透明化处理。
+exec
+"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command '$src='"'C:\\Users\\WIN10\\.codex\\generated_images\\019efcb3-b094-7d62-bae6-f5a7bf3abe63\\_image_id_.png'; "'$dst='"'D:\\unity\\UnityProject\\GameDesinger\\openspec\\changes\\01-tattoo-framework-rewrite\\art\\raw\\part_right_arm_v2_chroma.png'; Copy-Item -LiteralPath "'$src -Destination $dst -Force; Get-Item -LiteralPath $dst | Select-Object FullName,Length' in D:\unity\UnityProject\GameDesinger
+2026-06-25T02:56:29.275761Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.5 seconds
+Output:
+Copy-Item : 找不到路径“C:\Users\WIN10\.codex\generated_images\019efcb3-b094-7d62-bae6-f5a7bf3abe63\_image_id_.png”，因为该路径不存在。
+所在位置 行:2 字符: 225
++ ... hroma.png'; Copy-Item -LiteralPath $src -Destination $dst -Force; Get ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (C:\Users\WIN10\...\_image_id_.png:String) [Copy-Item], ItemNotFoundExce 
+   ption
+    + FullyQualifiedErrorId : PathNotFound,Microsoft.PowerShell.Commands.CopyItemCommand
+ 
+Get-Item : 找不到路径“D:\unity\UnityProject\GameDesinger\openspec\changes\01-tattoo-framework-rewrite\art\raw\part_right_arm
+_v2_chroma.png”，因为该路径不存在。
+所在位置 行:2 字符: 279
++ ... ath $src -Destination $dst -Force; Get-Item -LiteralPath $dst | Selec ...
++                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (D:\unity\UnityP...m_v2_chroma.png:String) [Get-Item], ItemNotFoundExcep 
+   tion
+    + FullyQualifiedErrorId : PathNotFound,Microsoft.PowerShell.Commands.GetItemCommand
+ 
+
+ exited 1 in 492ms:
+Copy-Item : 找不到路径“C:\Users\WIN10\.codex\generated_images\019efcb3-b094-7d62-bae6-f5a7bf3abe63\_image_id_.png”，因为该路径不存在。
+所在位置 行:2 字符: 225
++ ... hroma.png'; Copy-Item -LiteralPath $src -Destination $dst -Force; Get ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (C:\Users\WIN10\...\_image_id_.png:String) [Copy-Item], ItemNotFoundExce 
+   ption
+    + FullyQualifiedErrorId : PathNotFound,Microsoft.PowerShell.Commands.CopyItemCommand
+ 
+Get-Item : 找不到路径“D:\unity\UnityProject\GameDesinger\openspec\changes\01-tattoo-framework-rewrite\art\raw\part_right_arm
+_v2_chroma.png”，因为该路径不存在。
+所在位置 行:2 字符: 279
++ ... ath $src -Destination $dst -Force; Get-Item -LiteralPath $dst | Selec ...
++                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (D:\unity\UnityP...m_v2_chroma.png:String) [Get-Item], ItemNotFoundExcep 
+   tion
+    + FullyQualifiedErrorId : PathNotFound,Microsoft.PowerShell.Commands.GetItemCommand
+ 
+
+codex
+提示里的 `_image_id_.png` 是占位名，不是实际文件名。我需要列出这次生成目录里的真实文件名；只读取该精确目录，避免再次扫描整个用户目录。
+exec
+"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "Get-ChildItem -LiteralPath 'C:\\Users\\WIN10\\.codex\\generated_images\\019efcb3-b094-7d62-bae6-f5a7bf3abe63' -File | Select-Object FullName,Length,LastWriteTime" in D:\unity\UnityProject\GameDesinger
+ succeeded in 324ms:
+
+FullName                                                                                                               
+--------                                                                                                               
+C:\Users\WIN10\.codex\generated_images\019efcb3-b094-7d62-bae6-f5a7bf3abe63\ig_07b5af750a0cb192016a3c989778d8819189e...
+
+
+
+exec
+"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "Get-ChildItem -LiteralPath 'C:\\Users\\WIN10\\.codex\\generated_images\\019efcb3-b094-7d62-bae6-f5a7bf3abe63' -File | ForEach-Object { "'$_.FullName; $_.Length }' in D:\unity\UnityProject\GameDesinger
+ succeeded in 380ms:
+C:\Users\WIN10\.codex\generated_images\019efcb3-b094-7d62-bae6-f5a7bf3abe63\ig_07b5af750a0cb192016a3c989778d8819189ee5be88b40f456.png
+1002835
+
+codex
+已拿到真实生成文件名。接下来我会保留原始生成图，复制一份到项目目录作为中间文件，然后输出最终透明 PNG。
+exec
+"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command '$src='"'C:\\Users\\WIN10\\.codex\\generated_images\\019efcb3-b094-7d62-bae6-f5a7bf3abe63\\ig_07b5af750a0cb192016a3c989778d8819189ee5be88b40f456.png';
+"'$mid='"'D:\\unity\\UnityProject\\GameDesinger\\openspec\\changes\\01-tattoo-framework-rewrite\\art\\raw\\part_right_arm_v2_chroma.png';
+"'$out='"'D:\\unity\\UnityProject\\GameDesinger\\openspec\\changes\\01-tattoo-framework-rewrite\\art\\raw\\part_right_arm_v2.png';
+Copy-Item -LiteralPath "'$src -Destination $mid -Force;
+python '"'C:\\Users\\WIN10\\.codex\\skills\\.system\\imagegen\\scripts\\remove_chroma_key.py' --input "'$mid --out $out --auto-key border --soft-matte --transparent-threshold 12 --opaque-threshold 220 --despill;
+Get-Item -LiteralPath $out | Select-Object FullName,Length' in D:\unity\UnityProject\GameDesinger
+ succeeded in 2569ms:
+Wrote D:\unity\UnityProject\GameDesinger\openspec\changes\01-tattoo-framework-rewrite\art\raw\part_right_arm_v2.png
+Key color: #03f80a
+Transparent pixels: 1081564/1572516
+Partially transparent pixels: 4283/1572516
+
+FullName                                                                                                      Length
+--------                                                                                                      ------
+D:\unity\UnityProject\GameDesinger\openspec\changes\01-tattoo-framework-rewrite\art\raw\part_right_arm_v2.png 442109
+
+
+
+codex
+透明化完成，但我发现生成器返回的源图尺寸不是目标的 1024 方图。我会把最终 PNG 规范化到 1024x1024，并检查 alpha 与边角透明度。
+exec
+"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "@'
+from PIL import Image
+from pathlib import Path
+p = Path(r'D:\\unity\\UnityProject\\GameDesinger\\openspec\\changes\\01-tattoo-framework-rewrite\\art\\raw\\part_right_arm_v2.png')
+im = Image.open(p).convert('RGBA')
+if im.size "'!= (1024, 1024):
+    im = im.resize((1024, 1024), Image.Resampling.LANCZOS)
+    im.save(p)
+im = Image.open(p).convert('"'RGBA')
+w,h = im.size
+corners = [im.getpixel((0,0))[3], im.getpixel((w-1,0))[3], im.getpixel((0,h-1))[3], im.getpixel((w-1,h-1))[3]]
+alpha_pixels = sum(1 for a in im.getchannel('A').getdata() if a < 255)
+opaque_pixels = sum(1 for a in im.getchannel('A').getdata() if a == 255)
+print(f'size={w}x{h}')
+print(f'corner_alpha={corners}')
+print(f'alpha_pixels={alpha_pixels}')
+print(f'opaque_pixels={opaque_pixels}')
+print(f'bytes={p.stat().st_size}')
+'@ | python -" in D:\unity\UnityProject\GameDesinger
+ succeeded in 449ms:
+size=1024x1024
+corner_alpha=[0, 0, 0, 0]
+alpha_pixels=728767
+opaque_pixels=319809
+bytes=350330
+<stdin>:11: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+<stdin>:12: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+
+codex
+尺寸和透明通道已经验证通过：1024x1024，四角 alpha 为 0。最后我快速查看成图，确认没有文字或水印等明显问题。
+codex
+成图内容基本可用，但边缘有少量绿幕残留。我会按 skill 建议用 `--edge-contract 1` 重新抠一次，减少绿色边。
+exec
+"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command '$mid='"'D:\\unity\\UnityProject\\GameDesinger\\openspec\\changes\\01-tattoo-framework-rewrite\\art\\raw\\part_right_arm_v2_chroma.png';
+"'$out='"'D:\\unity\\UnityProject\\GameDesinger\\openspec\\changes\\01-tattoo-framework-rewrite\\art\\raw\\part_right_arm_v2.png';
+python 'C:\\Users\\WIN10\\.codex\\skills\\.system\\imagegen\\scripts\\remove_chroma_key.py' --input "'$mid --out $out --auto-key border --soft-matte --transparent-threshold 12 --opaque-threshold 220 --despill --edge-contract 1;
+@'"'
+from PIL import Image
+from pathlib import Path
+p = Path(r'D:\\unity\\UnityProject\\GameDesinger\\openspec\\changes\\01-tattoo-framework-rewrite\\art\\raw\\part_right_arm_v2.png')
+im = Image.open(p).convert('RGBA')
+if im.size "'!= (1024, 1024):
+    im = im.resize((1024, 1024), Image.Resampling.LANCZOS)
+    im.save(p)
+im = Image.open(p).convert('"'RGBA')
+w,h = im.size
+corners = [im.getpixel((0,0))[3], im.getpixel((w-1,0))[3], im.getpixel((0,h-1))[3], im.getpixel((w-1,h-1))[3]]
+print(f'size={w}x{h}')
+print(f'corner_alpha={corners}')
+print(f'bytes={p.stat().st_size}')
+'@ | python -" in D:\unity\UnityProject\GameDesinger
+ succeeded in 472ms:
+size=1024x1024
+corner_alpha=[0, 0, 0, 0]
+bytes=350330
+Error: Output already exists: D:\unity\UnityProject\GameDesinger\openspec\changes\01-tattoo-framework-rewrite\art\raw\part_right_arm_v2.png (use --force to overwrite)
+
+codex
+脚本默认不覆盖已有输出，刚才没有改到最终图。我会带 `--force` 重新执行同一处理。
+exec
+"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command '$mid='"'D:\\unity\\UnityProject\\GameDesinger\\openspec\\changes\\01-tattoo-framework-rewrite\\art\\raw\\part_right_arm_v2_chroma.png';
+"'$out='"'D:\\unity\\UnityProject\\GameDesinger\\openspec\\changes\\01-tattoo-framework-rewrite\\art\\raw\\part_right_arm_v2.png';
+python 'C:\\Users\\WIN10\\.codex\\skills\\.system\\imagegen\\scripts\\remove_chroma_key.py' --input "'$mid --out $out --auto-key border --soft-matte --transparent-threshold 12 --opaque-threshold 220 --despill --edge-contract 1 --force;
+@'"'
+from PIL import Image
+from pathlib import Path
+p = Path(r'D:\\unity\\UnityProject\\GameDesinger\\openspec\\changes\\01-tattoo-framework-rewrite\\art\\raw\\part_right_arm_v2.png')
+im = Image.open(p).convert('RGBA')
+if im.size "'!= (1024, 1024):
+    im = im.resize((1024, 1024), Image.Resampling.LANCZOS)
+    im.save(p)
+im = Image.open(p).convert('"'RGBA')
+w,h = im.size
+corners = [im.getpixel((0,0))[3], im.getpixel((w-1,0))[3], im.getpixel((0,h-1))[3], im.getpixel((w-1,h-1))[3]]
+print(f'size={w}x{h}')
+print(f'corner_alpha={corners}')
+print(f'bytes={p.stat().st_size}')
+'@ | python -" in D:\unity\UnityProject\GameDesinger
+ succeeded in 2819ms:
+Wrote D:\unity\UnityProject\GameDesinger\openspec\changes\01-tattoo-framework-rewrite\art\raw\part_right_arm_v2.png
+Key color: #03f80a
+Transparent pixels: 1086483/1572516
+Partially transparent pixels: 4289/1572516
+size=1024x1024
+corner_alpha=[0, 0, 0, 0]
+bytes=342246
+
+codex
+最终图已重新输出并保持 1024x1024。现在做最后一次目视检查和文件大小确认。
+codex
+目视检查仍能看到少量抠图边缘色，而且生成器给白色区域带了轻微渐变。为了贴近“纯白 silhouette + #7c8aa8 外轮廓”的要求，我会做一次像素级清理：去掉残余绿幕边，并把非透明像素规整为白色或指定描边色。
+exec
+"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "@'
+from PIL import Image
+from pathlib import Path
+p = Path(r'D:\\unity\\UnityProject\\GameDesinger\\openspec\\changes\\01-tattoo-framework-rewrite\\art\\raw\\part_right_arm_v2.png')
+im = Image.open(p).convert('RGBA')
+outline = (0x7c, 0x8a, 0xa8)
+out = Image.new('RGBA', im.size, (0,0,0,0))
+pix_in = im.load()
+pix_out = out.load()
+w,h = im.size
+for y in range(h):
+    for x in range(w):
+        r,g,b,a = pix_in[x,y]
+        if a == 0:
+            continue
+        # Remove residual green/cyan chroma spill from the generated key background.
+        if a < 180 and g > r + 25 and g > b + 5:
+            continue
+        # Pure two-tone icon: white fill, fixed blue-gray outline/interior strokes.
+        brightness = (r + g + b) / 3
+        saturation = max(r,g,b) - min(r,g,b)
+        if brightness > 232 and saturation < 40:
+            pix_out[x,y] = (255,255,255,a)
+        else:
+            pix_out[x,y] = (*outline,a)
+out.save(p)
+# Validate
+im = Image.open(p).convert('RGBA')
+w,h = im.size
+corners = [im.getpixel((0,0))[3], im.getpixel((w-1,0))[3], im.getpixel((0,h-1))[3], im.getpixel((w-1,h-1))[3]]
+colors = im.getcolors(maxcolors=2000000)
+nontransparent_colors = {c for count,c in colors if c[3] > 0}
+print(f'size={w}x{h}')
+print(f'corner_alpha={corners}')
+print(f'nontransparent_unique_colors={len(nontransparent_colors)}')
+print(f'bytes={p.stat().st_size}')
+'@ | python -" in D:\unity\UnityProject\GameDesinger
+ succeeded in 628ms:
+size=1024x1024
+corner_alpha=[0, 0, 0, 0]
+nontransparent_unique_colors=258
+bytes=36221
+
+codex
+像素清理已完成，文件变得更接近扁平 UI 图标规范。最后再看一次输出。
+codex
+已生成并保存成功。
+
+路径：`openspec/changes/01-tattoo-framework-rewrite/art/raw/part_right_arm_v2.png`  
+字节大小：`36,221 bytes`
+
+已验证：尺寸为 `1024x1024`，PNG 带透明 alpha，四角透明。
+tokens used
+66,364
+已生成并保存成功。
+
+路径：`openspec/changes/01-tattoo-framework-rewrite/art/raw/part_right_arm_v2.png`  
+字节大小：`36,221 bytes`
+
+已验证：尺寸为 `1024x1024`，PNG 带透明 alpha，四角透明。
+=== generating part_left_leg_v2.png ===
+Reading additional input from stdin...
+2026-06-25T02:57:48.886195Z ERROR codex_core::session::session: failed to load skill D:\unity\UnityProject\GameDesinger\.agents\skills\unity-skills\skills\camera\SKILL.md: missing YAML frontmatter delimited by ---
+2026-06-25T02:57:48.886273Z ERROR codex_core::session::session: failed to load skill D:\unity\UnityProject\GameDesinger\.agents\skills\unity-skills\skills\cinemachine\SKILL.md: missing YAML frontmatter delimited by ---
+2026-06-25T02:57:48.886278Z ERROR codex_core::session::session: failed to load skill D:\unity\UnityProject\GameDesinger\.agents\skills\unity-skills\skills\event\SKILL.md: missing YAML frontmatter delimited by ---
+2026-06-25T02:57:48.886281Z ERROR codex_core::session::session: failed to load skill D:\unity\UnityProject\GameDesinger\.agents\skills\unity-skills\skills\navmesh\SKILL.md: missing YAML frontmatter delimited by ---
+2026-06-25T02:57:48.886284Z ERROR codex_core::session::session: failed to load skill D:\unity\UnityProject\GameDesinger\.agents\skills\unity-skills\skills\optimization\SKILL.md: missing YAML frontmatter delimited by ---
+2026-06-25T02:57:48.886286Z ERROR codex_core::session::session: failed to load skill D:\unity\UnityProject\GameDesinger\.agents\skills\unity-skills\skills\package\SKILL.md: missing YAML frontmatter delimited by ---
+2026-06-25T02:57:48.886289Z ERROR codex_core::session::session: failed to load skill D:\unity\UnityProject\GameDesinger\.agents\skills\unity-skills\skills\physics\SKILL.md: missing YAML frontmatter delimited by ---
+2026-06-25T02:57:48.886291Z ERROR codex_core::session::session: failed to load skill D:\unity\UnityProject\GameDesinger\.agents\skills\unity-skills\skills\profiler\SKILL.md: missing YAML frontmatter delimited by ---
+2026-06-25T02:57:48.886294Z ERROR codex_core::session::session: failed to load skill D:\unity\UnityProject\GameDesinger\.agents\skills\unity-skills\skills\project\SKILL.md: missing YAML frontmatter delimited by ---
+2026-06-25T02:57:48.886296Z ERROR codex_core::session::session: failed to load skill D:\unity\UnityProject\GameDesinger\.agents\skills\unity-skills\skills\sample\SKILL.md: missing YAML frontmatter delimited by ---
+2026-06-25T02:57:48.886299Z ERROR codex_core::session::session: failed to load skill D:\unity\UnityProject\GameDesinger\.agents\skills\unity-skills\skills\timeline\SKILL.md: missing YAML frontmatter delimited by ---
+2026-06-25T02:57:48.886301Z ERROR codex_core::session::session: failed to load skill D:\unity\UnityProject\GameDesinger\.agents\skills\unity-skills\skills\workflow\SKILL.md: missing YAML frontmatter delimited by ---
+OpenAI Codex v0.142.0
+--------
+workdir: D:\unity\UnityProject\GameDesinger
+model: gpt-5.5
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: none
+session id: 019efcb6-55d4-7073-8a75-cca4d9a425f9
+--------
+user
+请使用 imagegen 系统 skill 生成一张图片。
+
+# 画面描述
+A 256x256 game UI icon, flat vector graphic, transparent background, centered, no text, 4px outer outline #7c8aa8, pure white silhouette.
+Pure white silhouette of a left leg mid-step forward, knee slightly bent, toe pointing down, two soft dashed motion-trail lines behind calf, geometric.
+
+# 输出要求
+- 尺寸：1024x1024
+- 保存到：openspec/changes/01-tattoo-framework-rewrite/art/raw/part_left_leg_v2.png
+- 负面：blurry, watermark, text, signature, photographic
+
+# 完成标准
+生成成功后输出文件相对路径与字节大小。失败请说明具体错误，不要重试无限次。
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\art-2d.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\art-3d.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\art-anim.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\art-director.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\art-font.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\art-ui.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\art-vfx.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\client-lead.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\client-ta.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\client-unity.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\devops-engineer.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\gd-lead.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\gd-system.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\level-designer.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\net-backend.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\net-db.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\net-lead.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\producer.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\qa-engineer.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\tools-engineer.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\art-2d.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\art-3d.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\art-anim.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\art-director.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\art-font.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\art-ui.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\art-vfx.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\client-lead.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\client-ta.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\client-unity.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\devops-engineer.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\gd-lead.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\gd-system.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\level-designer.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\net-backend.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\net-db.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\net-lead.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\producer.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\qa-engineer.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\tools-engineer.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Skill descriptions were shortened to fit the 2% skills context budget. Codex can still see every skill, but some descriptions are shorter. Disable unused skills or plugins to leave more room for the rest.
+codex
+我会先读取 `imagegen` 系统 skill 的说明，按它的流程生成并保存到指定路径。
+exec
+"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "Get-Content -Raw C:\\Users\\WIN10\\.codex\\skills\\.system\\imagegen\\SKILL.md" in D:\unity\UnityProject\GameDesinger
+ succeeded in 276ms:
+---
+name: "imagegen"
+description: "Generate or edit raster images when the task benefits from AI-created bitmap visuals such as photos, illustrations, textures, sprites, mockups, or transparent-background cutouts. Use when Codex should create a brand-new image, transform an existing image, or derive visual variants from references, and the output should be a bitmap asset rather than repo-native code or vector. Do not use when the task is better handled by editing existing SVG/vector/code-native assets, extending an established icon or logo system, or building the visual directly in HTML/CSS/canvas."
+---
+
+# Image Generation Skill
+
+Generates or edits images for the current project (for example website assets, game assets, UI mockups, product mockups, wireframes, logo design, photorealistic images, or infographics).
+
+## Top-level modes and rules
+
+This skill has exactly two top-level modes:
+
+- **Default built-in tool mode (preferred):** built-in `image_gen` tool for normal image generation, editing, and simple transparent-image requests. Does not require `OPENAI_API_KEY`.
+- **Fallback CLI mode:** `scripts/image_gen.py` CLI. Use when the user explicitly asks for the CLI/API/model path, or after the user explicitly confirms a true model-native transparency fallback with `gpt-image-1.5`. Requires `OPENAI_API_KEY`.
+
+Within CLI fallback, the CLI exposes three subcommands:
+
+- `generate`
+- `edit`
+- `generate-batch`
+
+Rules:
+- Use the built-in `image_gen` tool by default for normal image generation and editing requests.
+- Do not switch to CLI fallback for ordinary quality, size, or file-path control.
+- If the user explicitly asks for a transparent image/background, stay on built-in `image_gen` first: prompt for a flat removable chroma-key background, then remove it locally with the installed helper at `$CODEX_HOME/skills/.system/imagegen/scripts/remove_chroma_key.py`.
+- Never silently switch from built-in `image_gen` or CLI `gpt-image-2` to CLI `gpt-image-1.5`. Treat this as a model/path downgrade and ask the user before doing it, unless the user has already explicitly requested `gpt-image-1.5`, `scripts/image_gen.py`, or CLI fallback.
+- If a transparent request appears too complex for clean chroma-key removal, asks for true/native transparency, or local removal fails validation, explain that true transparency requires CLI `gpt-image-1.5 --background transparent --output-format png` because `gpt-image-2` does not support `background=transparent`, then ask whether to proceed. Run the CLI fallback only after the user confirms.
+- The word `batch` by itself does not mean CLI fallback. If the user asks for many assets or says to batch-generate assets without explicitly asking for CLI/API/model controls, stay on the built-in path and issue one built-in call per requested asset or variant.
+- If the built-in tool fails or is unavailable, tell the user the CLI fallback exists and that it requires `OPENAI_API_KEY`. Proceed only if the user explicitly asks for that fallback.
+- If the user explicitly asks for CLI mode, use the bundled `scripts/image_gen.py` workflow. Do not create one-off SDK runners.
+- Never modify `scripts/image_gen.py`. If something is missing, ask the user before doing anything else.
+
+Built-in save-path policy:
+- In built-in tool mode, Codex saves generated images under `$CODEX_HOME/*` by default.
+- Do not describe or rely on OS temp as the default built-in destination.
+- Do not describe or rely on a destination-path argument (if any) on the built-in `image_gen` tool. If a specific location is needed, generate first and then move or copy the selected output from `$CODEX_HOME/generated_images/...`.
+- Save-path precedence in built-in mode:
+  1. If the user names a destination, move or copy the selected output there.
+  2. If the image is meant for the current project, move or copy the final selected image into the workspace before finishing.
+  3. If the image is only for preview or brainstorming, render it inline; the underlying file can remain at the default `$CODEX_HOME/*` path.
+- Never leave a project-referenced asset only at the default `$CODEX_HOME/*` path.
+- Do not overwrite an existing asset unless the user explicitly asked for replacement; otherwise create a sibling versioned filename such as `hero-v2.png` or `item-icon-edited.png`.
+
+Shared prompt guidance for both modes lives in `references/prompting.md` and `references/sample-prompts.md`.
+
+Fallback-only docs/resources for CLI mode:
+- `references/cli.md`
+- `references/image-api.md`
+- `references/codex-network.md`
+- `scripts/image_gen.py`
+
+Local post-processing helper:
+- `$CODEX_HOME/skills/.system/imagegen/scripts/remove_chroma_key.py`: removes a flat chroma-key background from a generated image and writes a PNG/WebP with alpha. Prefer auto-key sampling, soft matte, and despill for antialiased edges.
+
+## When to use
+- Generate a new image (concept art, product shot, cover, website hero)
+- Generate a new image using one or more reference images for style, composition, or mood
+- Edit an existing image (inpainting, lighting or weather transformations, background replacement, object removal, compositing, transparent background)
+- Produce many assets or variants for one task
+
+## When not to use
+- Extending or matching an existing SVG/vector icon set, logo system, or illustration library inside the repo
+- Creating simple shapes, diagrams, wireframes, or icons that are better produced directly in SVG, HTML/CSS, or canvas
+- Making a small project-local asset edit when the source file already exists in an editable native format
+- Any task where the user clearly wants deterministic code-native output instead of a generated bitmap
+
+## Decision tree
+
+Think about two separate questions:
+
+1. **Intent:** is this a new image or an edit of an existing image?
+2. **Execution strategy:** is this one asset or many assets/variants?
+
+Intent:
+- If the user wants to modify an existing image while preserving parts of it, treat the request as **edit**.
+- If the user provides images only as references for style, composition, mood, or subject guidance, treat the request as **generate**.
+- If the user provides no images, treat the request as **generate**.
+
+Built-in edit semantics:
+- Built-in edit mode is for images already visible in the conversation context, such as attached images or images generated earlier in the thread.
+- If the user wants to edit a local image file with the built-in tool, first load it with built-in `view_image` tool so the image is visible in the conversation context, then proceed with the built-in edit flow.
+- Do not promise arbitrary filesystem-path editing through the built-in tool.
+- If a local file still needs direct file-path control, masks, or other explicit CLI-only parameters, use the explicit CLI fallback only when the user asks for it.
+- For edits, preserve invariants aggressively and save non-destructively by default.
+
+Execution strategy:
+- In the built-in default path, produce many assets or variants by issuing one `image_gen` call per requested asset or variant.
+- In the CLI fallback path, use the CLI `generate-batch` subcommand only when the user explicitly chose CLI mode and needs many prompts/assets.
+- For many distinct assets, do not use `n` as a substitute for separate prompts. `n` is for variants of one prompt; distinct assets need distinct built-in calls or distinct CLI `generate-batch` jobs.
+
+Assume the user wants a new image unless they clearly ask to change an existing one.
+
+## Workflow
+1. Decide the top-level mode: built-in by default, including simple transparent-output requests; fallback CLI only if explicitly requested or after the user explicitly confirms a transparent-output fallback.
+2. Decide the intent: `generate` or `edit`.
+3. Decide whether the output is preview-only or meant to be consumed by the current project.
+4. Decide the execution strategy: single asset vs repeated built-in calls vs CLI `generate-batch`.
+5. Collect inputs up front: prompt(s), exact text (verbatim), constraints/avoid list, and any input images.
+6. For every input image, label its role explicitly:
+   - reference image
+   - edit target
+   - supporting insert/style/compositing input
+7. If the edit target is only on the local filesystem and you are staying on the built-in path, inspect it with `view_image` first so the image is available in conversation context.
+8. If the user asked for a photo, illustration, sprite, product image, banner, or other explicitly raster-style asset, use `image_gen` rather than substituting SVG/HTML/CSS placeholders. If the request is for an icon, logo, or UI graphic that should match existing repo-native SVG/vector/code assets, prefer editing those directly instead.
+9. Augment the prompt based on specificity:
+   - If the user's prompt is already specific and detailed, normalize it into a clear spec without adding creative requirements.
+   - If the user's prompt is generic, add tasteful augmentation only when it materially improves output quality.
+10. Use the built-in `image_gen` tool by default.
+11. For transparent-output requests, follow the transparent image guidance below: generate with built-in `image_gen` on a flat chroma-key background, copy the selected output into the workspace or `tmp/imagegen/`, run the installed `$CODEX_HOME/skills/.system/imagegen/scripts/remove_chroma_key.py` helper, and validate the alpha result before using it. If this path looks unsuitable or fails, ask before switching to CLI `gpt-image-1.5`.
+12. Inspect outputs and validate: subject, style, composition, text accuracy, and invariants/avoid items.
+13. Iterate with a single targeted change, then re-check.
+14. For preview-only work, render the image inline; the underlying file may remain at the default `$CODEX_HOME/generated_images/...` path.
+15. For project-bound work, move or copy the selected artifact into the workspace and update any consuming code or references. Never leave a project-referenced asset only at the default `$CODEX_HOME/generated_images/...` path.
+16. For batches or multi-asset requests, persist every requested deliverable final in the workspace unless the user explicitly asked to keep outputs preview-only. Discarded variants do not need to be kept unless requested.
+17. If the user explicitly chooses or confirms the CLI fallback, then use the fallback-only docs for model, quality, size, `input_fidelity`, masks, output format, output paths, and network setup.
+18. Always report the final saved path(s) for any workspace-bound asset(s), plus the final prompt or prompt set and whether the built-in tool or fallback CLI mode was used.
+
+## Transparent image requests
+
+Transparent-image requests still use built-in `image_gen` first. Because the built-in tool does not expose a true transparent-background control, create a removable chroma-key source image and then convert the key color to alpha locally.
+
+Default sequence:
+1. Use built-in `image_gen` to generate the requested subject on a perfectly flat solid chroma-key background.
+2. Choose a key color that is unlikely to appear in the subject: default `#00ff00`, use `#ff00ff` for green subjects, and avoid `#0000ff` for blue subjects.
+3. After generation, move or copy the selected source image from `$CODEX_HOME/generated_images/...` into the workspace or `tmp/imagegen/`.
+4. Run the installed helper path, not a project-relative script path:
+   ```bash
+   python "${CODEX_HOME:-$HOME/.codex}/skills/.system/imagegen/scripts/remove_chroma_key.py" \
+     --input <source> \
+     --out <final.png> \
+     --auto-key border \
+     --soft-matte \
+     --transparent-threshold 12 \
+     --opaque-threshold 220 \
+     --despill
+   ```
+5. Validate that the output has an alpha channel, transparent corners, plausible subject coverage, and no obvious key-color fringe. If a thin fringe remains, retry once with `--edge-contract 1`; use `--edge-feather 0.25` only when the edge is visibly stair-stepped and the subject is not shiny or reflective.
+6. Save the final alpha PNG/WebP in the project if the asset is project-bound. Never leave a project-referenced transparent asset only under `$CODEX_HOME/*`.
+
+Prompt transparent requests like this:
+
+```text
+Create the requested subject on a perfectly flat solid #00ff00 chroma-key background for background removal.
+The background must be one uniform color with no shadows, gradients, texture, reflections, floor plane, or lighting variation.
+Keep the subject fully separated from the background with crisp edges and generous padding.
+Do not use #00ff00 anywhere in the subject.
+No cast shadow, no contact shadow, no reflection, no watermark, and no text unless explicitly requested.
+```
+
+Do not automatically use CLI `gpt-image-1.5 --background transparent --output-format png` instead of chroma keying. Ask the user first when the user asks for true/native transparency, when local removal fails validation, or when the requested image is complex: hair, fur, feathers, smoke, glass, liquids, translucent materials, reflective objects, soft shadows, realistic product grounding, or subject colors that conflict with all practical key colors.
+
+Use a concise confirmation like:
+
+```text
+This likely needs true native transparency. The default built-in path uses a chroma-key background plus local removal, but true transparency requires the CLI fallback with gpt-image-1.5 because gpt-image-2 does not support background=transparent. It also requires OPENAI_API_KEY. Should I proceed with that CLI fallback?
+```
+
+## Prompt augmentation
+
+Reformat user prompts into a structured, production-oriented spec. Make the user's goal clearer and more actionable, but do not blindly add detail.
+
+Treat this as prompt-shaping guidance, not a closed schema. Use only the lines that help, and add a short extra labeled line when it materially improves clarity.
+
+### Specificity policy
+
+Use the user's prompt specificity to decide how much augmentation is appropriate:
+
+- If the prompt is already specific and detailed, preserve that specificity and only normalize/structure it.
+- If the prompt is generic, you may add tasteful augmentation when it will materially improve the result.
+
+Allowed augmentations:
+- composition or framing hints
+- polish level or intended-use hints
+- practical layout guidance
+- reasonable scene concreteness that supports the stated request
+
+Not allowed augmentations:
+- extra characters or objects that are not implied by the request
+- brand names, slogans, palettes, or narrative beats that are not implied
+- arbitrary side-specific placement unless the surrounding layout supports it
+
+## Use-case taxonomy (exact slugs)
+
+Classify each request into one of these buckets and keep the slug consistent across prompts and references.
+
+Generate:
+- photorealistic-natural 鈥?candid/editorial lifestyle scenes with real texture and natural lighting.
+- product-mockup 鈥?product/packaging shots, catalog imagery, merch concepts.
+- ui-mockup 鈥?app/web interface mockups and wireframes; specify the desired fidelity.
+- infographic-diagram 鈥?diagrams/infographics with structured layout and text.
+- scientific-educational 鈥?classroom explainers, scientific diagrams, and learning visuals with required labels and accuracy constraints.
+- ads-marketing 鈥?campaign concepts and ad creatives with audience, brand position, scene, and exact tagline/copy.
+- productivity-visual 鈥?slide, chart, workflow, and data-heavy business visuals.
+- logo-brand 鈥?logo/mark exploration, vector-friendly.
+- illustration-story 鈥?comics, children鈥檚 book art, narrative scenes.
+- stylized-concept 鈥?style-driven concept art, 3D/stylized renders.
+- historical-scene 鈥?period-accurate/world-knowledge scenes.
+
+Edit:
+- text-localization 鈥?translate/replace in-image text, preserve layout.
+- identity-preserve 鈥?try-on, person-in-scene; lock face/body/pose.
+- precise-object-edit 鈥?remove/replace a specific element (including interior swaps).
+- lighting-weather 鈥?time-of-day/season/atmosphere changes only.
+- background-extraction 鈥?transparent background / clean cutout. Use built-in `image_gen` with chroma-key removal first for simple opaque subjects; ask before using CLI true transparency for complex subjects.
+- style-transfer 鈥?apply reference style while changing subject/scene.
+- compositing 鈥?multi-image insert/merge with matched lighting/perspective.
+- sketch-to-render 鈥?drawing/line art to photoreal render.
+
+## Shared prompt schema
+
+Use the following labeled spec as shared prompt scaffolding for both top-level modes:
+
+```text
+Use case: <taxonomy slug>
+Asset type: <where the asset will be used>
+Primary request: <user's main prompt>
+Input images: <Image 1: role; Image 2: role> (optional)
+Scene/backdrop: <environment>
+Subject: <main subject>
+Style/medium: <photo/illustration/3D/etc>
+Composition/framing: <wide/close/top-down; placement>
+Lighting/mood: <lighting + mood>
+Color palette: <palette notes>
+Materials/textures: <surface details>
+Text (verbatim): "<exact text>"
+Constraints: <must keep/must avoid>
+Avoid: <negative constraints>
+```
+
+Notes:
+- `Asset type` and `Input images` are prompt scaffolding, not dedicated CLI flags.
+- `Scene/backdrop` refers to the visual setting. It is not the same as the fallback CLI `background` parameter, which controls output transparency behavior.
+- Fallback-only execution notes such as `Quality:`, `Input fidelity:`, masks, output format, and output paths belong in the CLI path only. Do not treat them as built-in `image_gen` tool arguments.
+
+Augmentation rules:
+- Keep it short.
+- Add only the details needed to improve the prompt materially.
+- For edits, explicitly list invariants (`change only X; keep Y unchanged`).
+- If any critical detail is missing and blocks success, ask a question; otherwise proceed.
+
+## Examples
+
+### Generation example (hero image)
+```text
+Use case: product-mockup
+Asset type: landing page hero
+Primary request: a minimal hero image of a ceramic coffee mug
+Style/medium: clean product photography
+Composition/framing: wide composition with usable negative space for page copy if needed
+Lighting/mood: soft studio lighting
+Constraints: no logos, no text, no watermark
+```
+
+### Edit example (invariants)
+```text
+Use case: precise-object-edit
+Asset type: product photo background replacement
+Primary request: replace only the background with a warm sunset gradient
+Constraints: change only the background; keep the product and its edges unchanged; no text; no watermark
+```
+
+## Prompting best practices
+- Structure prompt as scene/backdrop -> subject -> details -> constraints.
+- Include intended use (ad, UI mock, infographic) to set the mode and polish level.
+- Use camera/composition language for photorealism.
+- Only use SVG/vector stand-ins when the user explicitly asked for vector output or a non-image placeholder.
+- Quote exact text and specify typography + placement.
+- For tricky words, spell them letter-by-letter and require verbatim rendering.
+- For multi-image inputs, reference images by index and describe how they should be used.
+- For edits, repeat invariants every iteration to reduce drift.
+- Iterate with single-change follow-ups.
+- If the prompt is generic, add only the extra detail that will materially help.
+- If the prompt is already detailed, normalize it instead of expanding it.
+- For CLI fallback only, see `references/cli.md` and `references/image-api.md` for model, `quality`, `input_fidelity`, masks, output format, and output-path guidance.
+- For transparent images, use the built-in-first chroma-key workflow unless the request is complex enough to need true CLI transparency; ask before switching to CLI `gpt-image-1.5`.
+
+More principles shared by both modes: `references/prompting.md`.
+Copy/paste specs shared by both modes: `references/sample-prompts.md`.
+
+## Guidance by asset type
+Asset-type templates (website assets, game assets, wireframes, logo) are consolidated in `references/sample-prompts.md`.
+
+## gpt-image-2 guidance for CLI fallback
+
+The fallback CLI defaults to `gpt-image-2`.
+
+- Use `gpt-image-2` for new CLI/API workflows unless the request needs true model-native transparent output.
+- If a transparent request may need CLI fallback, ask before using `gpt-image-1.5` unless the user already explicitly requested `gpt-image-1.5`, `scripts/image_gen.py`, or CLI fallback. Explain that the built-in chroma-key path is the default, but true transparency requires `gpt-image-1.5` because `gpt-image-2` does not support `background=transparent`.
+- `gpt-image-2` always uses high fidelity for image inputs; do not set `input_fidelity` with this model.
+- `gpt-image-2` supports `quality` values `low`, `medium`, `high`, and `auto`.
+- Use `quality low` for fast drafts, thumbnails, and quick iterations. Use `medium`, `high`, or `auto` for final assets, dense text, diagrams, identity-sensitive edits, or high-resolution outputs.
+- Square images are typically fastest to generate. Use `1024x1024` for fast square drafts.
+- If the user asks for 4K-style output, use `3840x2160` for landscape or `2160x3840` for portrait.
+- `gpt-image-2` size may be `auto` or `WIDTHxHEIGHT` if all constraints hold: max edge `<= 3840px`, both edges multiples of `16px`, long-to-short ratio `<= 3:1`, total pixels between `655,360` and `8,294,400`.
+
+Popular `gpt-image-2` sizes:
+- `1024x1024` square
+- `1536x1024` landscape
+- `1024x1536` portrait
+- `2048x2048` 2K square
+- `2048x1152` 2K landscape
+- `3840x2160` 4K landscape
+- `2160x3840` 4K portrait
+- `auto`
+
+## Fallback CLI mode only
+
+### Temp and output conventions
+These conventions apply only to the CLI fallback. They do not describe built-in `image_gen` output behavior.
+- Use `tmp/imagegen/` for intermediate files (for example JSONL batches); delete them when done.
+- Write final artifacts under `output/imagegen/`.
+- Use `--out` or `--out-dir` to control output paths; keep filenames stable and descriptive.
+
+### Dependencies
+Prefer `uv` for dependency management in this repo.
+
+Required Python package:
+```bash
+uv pip install openai
+```
+
+Required for local chroma-key removal and optional downscaling:
+```bash
+uv pip install pillow
+```
+
+Portability note:
+- If you are using the installed skill outside this repo, install dependencies into that environment with its package manager.
+- In uv-managed environments, `uv pip install ...` remains the preferred path.
+
+### Environment
+- `OPENAI_API_KEY` must be set for live API calls.
+- Do not ask the user for `OPENAI_API_KEY` when using the built-in `image_gen` tool.
+- Never ask the user to paste the full key in chat. Ask them to set it locally and confirm when ready.
+
+If the key is missing, give the user these steps:
+1. Create an API key in the OpenAI platform UI: https://platform.openai.com/api-keys
+2. Set `OPENAI_API_KEY` as an environment variable in their system.
+3. Offer to guide them through setting the environment variable for their OS/shell if needed.
+
+If installation is not possible in this environment, tell the user which dependency is missing and how to install it into their active environment.
+
+### Script-mode notes
+- CLI commands + examples: `references/cli.md`
+- API parameter quick reference: `references/image-api.md`
+- Network approvals / sandbox settings for CLI mode: `references/codex-network.md`
+
+## Reference map
+- `references/prompting.md`: shared prompting principles for both modes.
+- `references/sample-prompts.md`: shared copy/paste prompt recipes for both modes.
+- `references/cli.md`: fallback-only CLI usage via `scripts/image_gen.py`.
+- `references/image-api.md`: fallback-only API/CLI parameter reference.
+- `references/codex-network.md`: fallback-only network/sandbox troubleshooting for CLI mode.
+- `scripts/image_gen.py`: fallback-only CLI implementation. Do not load or use it unless the user explicitly chooses CLI mode or explicitly confirms a transparent request's true CLI transparency fallback.
+- `$CODEX_HOME/skills/.system/imagegen/scripts/remove_chroma_key.py`: local post-processing helper for built-in transparent-image requests.
+
+
+codex
+使用 `imagegen` skill：这是项目绑定的透明 PNG 资产，我会走内置生成工具，先生成纯色 chroma-key 背景，再本地移除背景并校验 alpha。
+codex
+图片已生成，接下来我会定位内置工具保存的源文件，复制到项目目标路径并运行 chroma-key 去底。
+exec
+"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command '$env:CODEX_HOME; if ($env:CODEX_HOME) { Get-ChildItem -Path $env:CODEX_HOME -Recurse -Filter *.png -ErrorAction SilentlyContinue | Sort-Object LastWriteTime -Descending | Select-Object -First 10 FullName,Length,LastWriteTime }' in D:\unity\UnityProject\GameDesinger
+exec
+"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "Get-ChildItem -Path C:\\Users\\WIN10\\.codex -Recurse -Filter *.png -ErrorAction SilentlyContinue | Sort-Object LastWriteTime -Descending | Select-Object -First 10 FullName,Length,LastWriteTime" in D:\unity\UnityProject\GameDesinger
+ succeeded in 285ms:
+2026-06-25T02:58:31.520578Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.5 seconds
+Output:
+
+FullName                                                                                                               
+--------                                                                                                               
+C:\Users\WIN10\.codex\generated_images\019efcb6-55d4-7073-8a75-cca4d9a425f9\ig_09527184544cf8f2016a3c993a834c8191a1a...
+C:\Users\WIN10\.codex\generated_images\019efcb3-b094-7d62-bae6-f5a7bf3abe63\ig_07b5af750a0cb192016a3c989778d8819189e...
+C:\Users\WIN10\.codex\generated_images\019efcb1-521a-7983-8925-671b9d4342a9\ig_0f7b9103dc347930016a3c97fbb7c48191ab8...
+C:\Users\WIN10\.codex\.tmp\plugins\plugins\zotero\skills\zotero\assets\icon.png                                        
+C:\Users\WIN10\.codex\.tmp\plugins\plugins\zotero\assets\icon.png                                                      
+C:\Users\WIN10\.codex\.tmp\plugins\plugins\zoominfo\assets\logo.png                                                    
+C:\Users\WIN10\.codex\.tmp\plugins\plugins\zoom\assets\screenshot-4.png                                                
+C:\Users\WIN10\.codex\.tmp\plugins\plugins\zoom\assets\screenshot-3.png                                                
+C:\Users\WIN10\.codex\.tmp\plugins\plugins\zoom\assets\screenshot-2.png                                                
+C:\Users\WIN10\.codex\.tmp\plugins\plugins\zoom\assets\screenshot-1.png                                                
+
+
+
+ exited 1 in 487ms:
+
+FullName                                                                                                               
+--------                                                                                                               
+C:\Users\WIN10\.codex\generated_images\019efcb6-55d4-7073-8a75-cca4d9a425f9\ig_09527184544cf8f2016a3c993a834c8191a1a...
+C:\Users\WIN10\.codex\generated_images\019efcb3-b094-7d62-bae6-f5a7bf3abe63\ig_07b5af750a0cb192016a3c989778d8819189e...
+C:\Users\WIN10\.codex\generated_images\019efcb1-521a-7983-8925-671b9d4342a9\ig_0f7b9103dc347930016a3c97fbb7c48191ab8...
+C:\Users\WIN10\.codex\.tmp\plugins\plugins\zotero\skills\zotero\assets\icon.png                                        
+C:\Users\WIN10\.codex\.tmp\plugins\plugins\zotero\assets\icon.png                                                      
+C:\Users\WIN10\.codex\.tmp\plugins\plugins\zoominfo\assets\logo.png                                                    
+C:\Users\WIN10\.codex\.tmp\plugins\plugins\zoom\assets\screenshot-4.png                                                
+C:\Users\WIN10\.codex\.tmp\plugins\plugins\zoom\assets\screenshot-3.png                                                
+C:\Users\WIN10\.codex\.tmp\plugins\plugins\zoom\assets\screenshot-2.png                                                
+C:\Users\WIN10\.codex\.tmp\plugins\plugins\zoom\assets\screenshot-1.png                                                
+
+
+
+codex
+我准备把最新生成文件作为源图保留在 `.codex/generated_images`，项目内只写入最终透明 PNG。若目标文件已存在，会按你指定的路径覆盖。
+exec
+"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command '$latest = Get-ChildItem -LiteralPath C:'"\\Users\\WIN10\\.codex\\generated_images -Recurse -Filter *.png -ErrorAction Stop | Sort-Object LastWriteTime -Descending | Select-Object -First 1; "'$latest | Format-List FullName,Length,LastWriteTime' in D:\unity\UnityProject\GameDesinger
+ succeeded in 312ms:
+
+
+FullName      : C:\Users\WIN10\.codex\generated_images\019efcb6-55d4-7073-8a75-cca4d9a425f9\ig_09527184544cf8f2016a3c99
+                3a834c8191a1a79c51b150377b.png
+Length        : 979734
+LastWriteTime : 2026/6/25 10:58:28
+
+
+
+
+codex
+源图已定位。我会先复制为项目内临时源图，再用 skill 自带 `remove_chroma_key.py` 输出指定的透明 PNG，并做尺寸与 alpha 检查。
+exec
+"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command '$src = '"'C:\\Users\\WIN10\\.codex\\generated_images\\019efcb6-55d4-7073-8a75-cca4d9a425f9\\ig_09527184544cf8f2016a3c993a834c8191a1a79c51b150377b.png'
+"'$tmpDir = '"'D:\\unity\\UnityProject\\GameDesinger\\openspec\\changes\\01-tattoo-framework-rewrite\\art\\raw\\_tmp'
+"'$out = '"'D:\\unity\\UnityProject\\GameDesinger\\openspec\\changes\\01-tattoo-framework-rewrite\\art\\raw\\part_left_leg_v2.png'
+New-Item -ItemType Directory -Force -Path "'$tmpDir | Out-Null
+New-Item -ItemType Directory -Force -Path (Split-Path -Parent $out) | Out-Null
+$tmpSrc = Join-Path $tmpDir '"'part_left_leg_v2_chromakey.png'
+Copy-Item -LiteralPath "'$src -Destination $tmpSrc -Force
+python '"'C:\\Users\\WIN10\\.codex\\skills\\.system\\imagegen\\scripts\\remove_chroma_key.py' --input "'$tmpSrc --out $out --auto-key border --soft-matte --transparent-threshold 12 --opaque-threshold 220 --despill
+Get-Item -LiteralPath $out | Format-List FullName,Length,LastWriteTime' in D:\unity\UnityProject\GameDesinger
+ succeeded in 2454ms:
+Wrote D:\unity\UnityProject\GameDesinger\openspec\changes\01-tattoo-framework-rewrite\art\raw\part_left_leg_v2.png
+Key color: #03f807
+Transparent pixels: 1474022/1572516
+Partially transparent pixels: 2931/1572516
+
+
+FullName      : D:\unity\UnityProject\GameDesinger\openspec\changes\01-tattoo-framework-rewrite\art\raw\part_left_leg_v
+                2.png
+Length        : 158936
+LastWriteTime : 2026/6/25 10:58:47
+
+
+
+
+codex
+去底已完成，但我还要确认最终 PNG 的像素尺寸确实是 `1024x1024`，因为内置生成器有时会返回更大方图。
+exec
+"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "@'
+from PIL import Image
+from pathlib import Path
+p = Path(r'D:\\unity\\UnityProject\\GameDesinger\\openspec\\changes\\01-tattoo-framework-rewrite\\art\\raw\\part_left_leg_v2.png')
+im = Image.open(p)
+print('size', im.size)
+print('mode', im.mode)
+print('corner_alpha', [im.getpixel((x,y))[3] if im.mode == 'RGBA' else None for x,y in [(0,0),(im.width-1,0),(0,im.height-1),(im.width-1,im.height-1)]])
+print('bytes', p.stat().st_size)
+'@ | python -" in D:\unity\UnityProject\GameDesinger
+ succeeded in 342ms:
+size (1254, 1254)
+mode RGBA
+corner_alpha [0, 0, 0, 0]
+bytes 158936
+
+codex
+生成器输出是 `1254x1254`，不符合你的尺寸要求。我会把透明 PNG 等比重采样到精确 `1024x1024`，再重新检查 alpha 与字节大小。
+exec
+"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "@'
+from PIL import Image
+from pathlib import Path
+p = Path(r'D:\\unity\\UnityProject\\GameDesinger\\openspec\\changes\\01-tattoo-framework-rewrite\\art\\raw\\part_left_leg_v2.png')
+im = Image.open(p).convert('RGBA')
+if im.size "'!= (1024, 1024):
+    im = im.resize((1024, 1024), Image.Resampling.LANCZOS)
+    im.save(p)
+im = Image.open(p)
+print('"'size', im.size)
+print('mode', im.mode)
+print('corner_alpha', [im.getpixel((x,y))[3] for x,y in [(0,0),(im.width-1,0),(0,im.height-1),(im.width-1,im.height-1)]])
+print('bytes', p.stat().st_size)
+'@ | python -" in D:\unity\UnityProject\GameDesinger
+ succeeded in 402ms:
+size (1024, 1024)
+mode RGBA
+corner_alpha [0, 0, 0, 0]
+bytes 129329
+
+codex
+最终文件现在是 `1024x1024` 且四角 alpha 为 0。我会快速目检成品，确认构图和背景处理没有明显问题。
+codex
+生成成功。
+
+路径：`openspec/changes/01-tattoo-framework-rewrite/art/raw/part_left_leg_v2.png`  
+字节大小：`129329` bytes
+
+已校验：`1024x1024`、`RGBA`、四角透明 alpha 为 `0`。
+tokens used
+53,323
+生成成功。
+
+路径：`openspec/changes/01-tattoo-framework-rewrite/art/raw/part_left_leg_v2.png`  
+字节大小：`129329` bytes
+
+已校验：`1024x1024`、`RGBA`、四角透明 alpha 为 `0`。
+=== generating part_right_leg_v2.png ===
+Reading additional input from stdin...
+2026-06-25T02:59:10.176622Z ERROR codex_core::session::session: failed to load skill D:\unity\UnityProject\GameDesinger\.agents\skills\unity-skills\skills\camera\SKILL.md: missing YAML frontmatter delimited by ---
+2026-06-25T02:59:10.176660Z ERROR codex_core::session::session: failed to load skill D:\unity\UnityProject\GameDesinger\.agents\skills\unity-skills\skills\cinemachine\SKILL.md: missing YAML frontmatter delimited by ---
+2026-06-25T02:59:10.176663Z ERROR codex_core::session::session: failed to load skill D:\unity\UnityProject\GameDesinger\.agents\skills\unity-skills\skills\event\SKILL.md: missing YAML frontmatter delimited by ---
+2026-06-25T02:59:10.176666Z ERROR codex_core::session::session: failed to load skill D:\unity\UnityProject\GameDesinger\.agents\skills\unity-skills\skills\navmesh\SKILL.md: missing YAML frontmatter delimited by ---
+2026-06-25T02:59:10.176669Z ERROR codex_core::session::session: failed to load skill D:\unity\UnityProject\GameDesinger\.agents\skills\unity-skills\skills\optimization\SKILL.md: missing YAML frontmatter delimited by ---
+2026-06-25T02:59:10.176671Z ERROR codex_core::session::session: failed to load skill D:\unity\UnityProject\GameDesinger\.agents\skills\unity-skills\skills\package\SKILL.md: missing YAML frontmatter delimited by ---
+2026-06-25T02:59:10.176674Z ERROR codex_core::session::session: failed to load skill D:\unity\UnityProject\GameDesinger\.agents\skills\unity-skills\skills\physics\SKILL.md: missing YAML frontmatter delimited by ---
+2026-06-25T02:59:10.176677Z ERROR codex_core::session::session: failed to load skill D:\unity\UnityProject\GameDesinger\.agents\skills\unity-skills\skills\profiler\SKILL.md: missing YAML frontmatter delimited by ---
+2026-06-25T02:59:10.176679Z ERROR codex_core::session::session: failed to load skill D:\unity\UnityProject\GameDesinger\.agents\skills\unity-skills\skills\project\SKILL.md: missing YAML frontmatter delimited by ---
+2026-06-25T02:59:10.176682Z ERROR codex_core::session::session: failed to load skill D:\unity\UnityProject\GameDesinger\.agents\skills\unity-skills\skills\sample\SKILL.md: missing YAML frontmatter delimited by ---
+2026-06-25T02:59:10.176684Z ERROR codex_core::session::session: failed to load skill D:\unity\UnityProject\GameDesinger\.agents\skills\unity-skills\skills\timeline\SKILL.md: missing YAML frontmatter delimited by ---
+2026-06-25T02:59:10.176687Z ERROR codex_core::session::session: failed to load skill D:\unity\UnityProject\GameDesinger\.agents\skills\unity-skills\skills\workflow\SKILL.md: missing YAML frontmatter delimited by ---
+OpenAI Codex v0.142.0
+--------
+workdir: D:\unity\UnityProject\GameDesinger
+model: gpt-5.5
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: none
+session id: 019efcb7-93c4-7b53-b02d-5891ca36b281
+--------
+user
+请使用 imagegen 系统 skill 生成一张图片。
+
+# 画面描述
+A 256x256 game UI icon, flat vector graphic, transparent background, centered, no text, 4px outer outline #7c8aa8, pure white silhouette.
+Pure white silhouette of a right leg in mid-run forward, knee high, foot forward, long curved sprint streak trailing behind heel, geometric.
+
+# 输出要求
+- 尺寸：1024x1024
+- 保存到：openspec/changes/01-tattoo-framework-rewrite/art/raw/part_right_leg_v2.png
+- 负面：blurry, watermark, text, signature, photographic
+
+# 完成标准
+生成成功后输出文件相对路径与字节大小。失败请说明具体错误，不要重试无限次。
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\art-2d.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\art-3d.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\art-anim.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\art-director.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\art-font.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\art-ui.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\art-vfx.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\client-lead.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\client-ta.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\client-unity.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\devops-engineer.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\gd-lead.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\gd-system.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\level-designer.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\net-backend.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\net-db.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\net-lead.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\producer.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\qa-engineer.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\tools-engineer.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\art-2d.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\art-3d.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\art-anim.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\art-director.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\art-font.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\art-ui.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\art-vfx.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\client-lead.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\client-ta.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\client-unity.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\devops-engineer.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\gd-lead.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\gd-system.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\level-designer.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\net-backend.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\net-db.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\net-lead.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\producer.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\qa-engineer.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\tools-engineer.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Skill descriptions were shortened to fit the 2% skills context budget. Codex can still see every skill, but some descriptions are shorter. Disable unused skills or plugins to leave more room for the rest.
+codex
+我会按你指定的 `imagegen` 系统 skill 走一遍生成流程，并在写入目标文件后检查文件大小。
+exec
+"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "Get-Content -Raw C:\\Users\\WIN10\\.codex\\skills\\.system\\imagegen\\SKILL.md" in D:\unity\UnityProject\GameDesinger
+ succeeded in 276ms:
+---
+name: "imagegen"
+description: "Generate or edit raster images when the task benefits from AI-created bitmap visuals such as photos, illustrations, textures, sprites, mockups, or transparent-background cutouts. Use when Codex should create a brand-new image, transform an existing image, or derive visual variants from references, and the output should be a bitmap asset rather than repo-native code or vector. Do not use when the task is better handled by editing existing SVG/vector/code-native assets, extending an established icon or logo system, or building the visual directly in HTML/CSS/canvas."
+---
+
+# Image Generation Skill
+
+Generates or edits images for the current project (for example website assets, game assets, UI mockups, product mockups, wireframes, logo design, photorealistic images, or infographics).
+
+## Top-level modes and rules
+
+This skill has exactly two top-level modes:
+
+- **Default built-in tool mode (preferred):** built-in `image_gen` tool for normal image generation, editing, and simple transparent-image requests. Does not require `OPENAI_API_KEY`.
+- **Fallback CLI mode:** `scripts/image_gen.py` CLI. Use when the user explicitly asks for the CLI/API/model path, or after the user explicitly confirms a true model-native transparency fallback with `gpt-image-1.5`. Requires `OPENAI_API_KEY`.
+
+Within CLI fallback, the CLI exposes three subcommands:
+
+- `generate`
+- `edit`
+- `generate-batch`
+
+Rules:
+- Use the built-in `image_gen` tool by default for normal image generation and editing requests.
+- Do not switch to CLI fallback for ordinary quality, size, or file-path control.
+- If the user explicitly asks for a transparent image/background, stay on built-in `image_gen` first: prompt for a flat removable chroma-key background, then remove it locally with the installed helper at `$CODEX_HOME/skills/.system/imagegen/scripts/remove_chroma_key.py`.
+- Never silently switch from built-in `image_gen` or CLI `gpt-image-2` to CLI `gpt-image-1.5`. Treat this as a model/path downgrade and ask the user before doing it, unless the user has already explicitly requested `gpt-image-1.5`, `scripts/image_gen.py`, or CLI fallback.
+- If a transparent request appears too complex for clean chroma-key removal, asks for true/native transparency, or local removal fails validation, explain that true transparency requires CLI `gpt-image-1.5 --background transparent --output-format png` because `gpt-image-2` does not support `background=transparent`, then ask whether to proceed. Run the CLI fallback only after the user confirms.
+- The word `batch` by itself does not mean CLI fallback. If the user asks for many assets or says to batch-generate assets without explicitly asking for CLI/API/model controls, stay on the built-in path and issue one built-in call per requested asset or variant.
+- If the built-in tool fails or is unavailable, tell the user the CLI fallback exists and that it requires `OPENAI_API_KEY`. Proceed only if the user explicitly asks for that fallback.
+- If the user explicitly asks for CLI mode, use the bundled `scripts/image_gen.py` workflow. Do not create one-off SDK runners.
+- Never modify `scripts/image_gen.py`. If something is missing, ask the user before doing anything else.
+
+Built-in save-path policy:
+- In built-in tool mode, Codex saves generated images under `$CODEX_HOME/*` by default.
+- Do not describe or rely on OS temp as the default built-in destination.
+- Do not describe or rely on a destination-path argument (if any) on the built-in `image_gen` tool. If a specific location is needed, generate first and then move or copy the selected output from `$CODEX_HOME/generated_images/...`.
+- Save-path precedence in built-in mode:
+  1. If the user names a destination, move or copy the selected output there.
+  2. If the image is meant for the current project, move or copy the final selected image into the workspace before finishing.
+  3. If the image is only for preview or brainstorming, render it inline; the underlying file can remain at the default `$CODEX_HOME/*` path.
+- Never leave a project-referenced asset only at the default `$CODEX_HOME/*` path.
+- Do not overwrite an existing asset unless the user explicitly asked for replacement; otherwise create a sibling versioned filename such as `hero-v2.png` or `item-icon-edited.png`.
+
+Shared prompt guidance for both modes lives in `references/prompting.md` and `references/sample-prompts.md`.
+
+Fallback-only docs/resources for CLI mode:
+- `references/cli.md`
+- `references/image-api.md`
+- `references/codex-network.md`
+- `scripts/image_gen.py`
+
+Local post-processing helper:
+- `$CODEX_HOME/skills/.system/imagegen/scripts/remove_chroma_key.py`: removes a flat chroma-key background from a generated image and writes a PNG/WebP with alpha. Prefer auto-key sampling, soft matte, and despill for antialiased edges.
+
+## When to use
+- Generate a new image (concept art, product shot, cover, website hero)
+- Generate a new image using one or more reference images for style, composition, or mood
+- Edit an existing image (inpainting, lighting or weather transformations, background replacement, object removal, compositing, transparent background)
+- Produce many assets or variants for one task
+
+## When not to use
+- Extending or matching an existing SVG/vector icon set, logo system, or illustration library inside the repo
+- Creating simple shapes, diagrams, wireframes, or icons that are better produced directly in SVG, HTML/CSS, or canvas
+- Making a small project-local asset edit when the source file already exists in an editable native format
+- Any task where the user clearly wants deterministic code-native output instead of a generated bitmap
+
+## Decision tree
+
+Think about two separate questions:
+
+1. **Intent:** is this a new image or an edit of an existing image?
+2. **Execution strategy:** is this one asset or many assets/variants?
+
+Intent:
+- If the user wants to modify an existing image while preserving parts of it, treat the request as **edit**.
+- If the user provides images only as references for style, composition, mood, or subject guidance, treat the request as **generate**.
+- If the user provides no images, treat the request as **generate**.
+
+Built-in edit semantics:
+- Built-in edit mode is for images already visible in the conversation context, such as attached images or images generated earlier in the thread.
+- If the user wants to edit a local image file with the built-in tool, first load it with built-in `view_image` tool so the image is visible in the conversation context, then proceed with the built-in edit flow.
+- Do not promise arbitrary filesystem-path editing through the built-in tool.
+- If a local file still needs direct file-path control, masks, or other explicit CLI-only parameters, use the explicit CLI fallback only when the user asks for it.
+- For edits, preserve invariants aggressively and save non-destructively by default.
+
+Execution strategy:
+- In the built-in default path, produce many assets or variants by issuing one `image_gen` call per requested asset or variant.
+- In the CLI fallback path, use the CLI `generate-batch` subcommand only when the user explicitly chose CLI mode and needs many prompts/assets.
+- For many distinct assets, do not use `n` as a substitute for separate prompts. `n` is for variants of one prompt; distinct assets need distinct built-in calls or distinct CLI `generate-batch` jobs.
+
+Assume the user wants a new image unless they clearly ask to change an existing one.
+
+## Workflow
+1. Decide the top-level mode: built-in by default, including simple transparent-output requests; fallback CLI only if explicitly requested or after the user explicitly confirms a transparent-output fallback.
+2. Decide the intent: `generate` or `edit`.
+3. Decide whether the output is preview-only or meant to be consumed by the current project.
+4. Decide the execution strategy: single asset vs repeated built-in calls vs CLI `generate-batch`.
+5. Collect inputs up front: prompt(s), exact text (verbatim), constraints/avoid list, and any input images.
+6. For every input image, label its role explicitly:
+   - reference image
+   - edit target
+   - supporting insert/style/compositing input
+7. If the edit target is only on the local filesystem and you are staying on the built-in path, inspect it with `view_image` first so the image is available in conversation context.
+8. If the user asked for a photo, illustration, sprite, product image, banner, or other explicitly raster-style asset, use `image_gen` rather than substituting SVG/HTML/CSS placeholders. If the request is for an icon, logo, or UI graphic that should match existing repo-native SVG/vector/code assets, prefer editing those directly instead.
+9. Augment the prompt based on specificity:
+   - If the user's prompt is already specific and detailed, normalize it into a clear spec without adding creative requirements.
+   - If the user's prompt is generic, add tasteful augmentation only when it materially improves output quality.
+10. Use the built-in `image_gen` tool by default.
+11. For transparent-output requests, follow the transparent image guidance below: generate with built-in `image_gen` on a flat chroma-key background, copy the selected output into the workspace or `tmp/imagegen/`, run the installed `$CODEX_HOME/skills/.system/imagegen/scripts/remove_chroma_key.py` helper, and validate the alpha result before using it. If this path looks unsuitable or fails, ask before switching to CLI `gpt-image-1.5`.
+12. Inspect outputs and validate: subject, style, composition, text accuracy, and invariants/avoid items.
+13. Iterate with a single targeted change, then re-check.
+14. For preview-only work, render the image inline; the underlying file may remain at the default `$CODEX_HOME/generated_images/...` path.
+15. For project-bound work, move or copy the selected artifact into the workspace and update any consuming code or references. Never leave a project-referenced asset only at the default `$CODEX_HOME/generated_images/...` path.
+16. For batches or multi-asset requests, persist every requested deliverable final in the workspace unless the user explicitly asked to keep outputs preview-only. Discarded variants do not need to be kept unless requested.
+17. If the user explicitly chooses or confirms the CLI fallback, then use the fallback-only docs for model, quality, size, `input_fidelity`, masks, output format, output paths, and network setup.
+18. Always report the final saved path(s) for any workspace-bound asset(s), plus the final prompt or prompt set and whether the built-in tool or fallback CLI mode was used.
+
+## Transparent image requests
+
+Transparent-image requests still use built-in `image_gen` first. Because the built-in tool does not expose a true transparent-background control, create a removable chroma-key source image and then convert the key color to alpha locally.
+
+Default sequence:
+1. Use built-in `image_gen` to generate the requested subject on a perfectly flat solid chroma-key background.
+2. Choose a key color that is unlikely to appear in the subject: default `#00ff00`, use `#ff00ff` for green subjects, and avoid `#0000ff` for blue subjects.
+3. After generation, move or copy the selected source image from `$CODEX_HOME/generated_images/...` into the workspace or `tmp/imagegen/`.
+4. Run the installed helper path, not a project-relative script path:
+   ```bash
+   python "${CODEX_HOME:-$HOME/.codex}/skills/.system/imagegen/scripts/remove_chroma_key.py" \
+     --input <source> \
+     --out <final.png> \
+     --auto-key border \
+     --soft-matte \
+     --transparent-threshold 12 \
+     --opaque-threshold 220 \
+     --despill
+   ```
+5. Validate that the output has an alpha channel, transparent corners, plausible subject coverage, and no obvious key-color fringe. If a thin fringe remains, retry once with `--edge-contract 1`; use `--edge-feather 0.25` only when the edge is visibly stair-stepped and the subject is not shiny or reflective.
+6. Save the final alpha PNG/WebP in the project if the asset is project-bound. Never leave a project-referenced transparent asset only under `$CODEX_HOME/*`.
+
+Prompt transparent requests like this:
+
+```text
+Create the requested subject on a perfectly flat solid #00ff00 chroma-key background for background removal.
+The background must be one uniform color with no shadows, gradients, texture, reflections, floor plane, or lighting variation.
+Keep the subject fully separated from the background with crisp edges and generous padding.
+Do not use #00ff00 anywhere in the subject.
+No cast shadow, no contact shadow, no reflection, no watermark, and no text unless explicitly requested.
+```
+
+Do not automatically use CLI `gpt-image-1.5 --background transparent --output-format png` instead of chroma keying. Ask the user first when the user asks for true/native transparency, when local removal fails validation, or when the requested image is complex: hair, fur, feathers, smoke, glass, liquids, translucent materials, reflective objects, soft shadows, realistic product grounding, or subject colors that conflict with all practical key colors.
+
+Use a concise confirmation like:
+
+```text
+This likely needs true native transparency. The default built-in path uses a chroma-key background plus local removal, but true transparency requires the CLI fallback with gpt-image-1.5 because gpt-image-2 does not support background=transparent. It also requires OPENAI_API_KEY. Should I proceed with that CLI fallback?
+```
+
+## Prompt augmentation
+
+Reformat user prompts into a structured, production-oriented spec. Make the user's goal clearer and more actionable, but do not blindly add detail.
+
+Treat this as prompt-shaping guidance, not a closed schema. Use only the lines that help, and add a short extra labeled line when it materially improves clarity.
+
+### Specificity policy
+
+Use the user's prompt specificity to decide how much augmentation is appropriate:
+
+- If the prompt is already specific and detailed, preserve that specificity and only normalize/structure it.
+- If the prompt is generic, you may add tasteful augmentation when it will materially improve the result.
+
+Allowed augmentations:
+- composition or framing hints
+- polish level or intended-use hints
+- practical layout guidance
+- reasonable scene concreteness that supports the stated request
+
+Not allowed augmentations:
+- extra characters or objects that are not implied by the request
+- brand names, slogans, palettes, or narrative beats that are not implied
+- arbitrary side-specific placement unless the surrounding layout supports it
+
+## Use-case taxonomy (exact slugs)
+
+Classify each request into one of these buckets and keep the slug consistent across prompts and references.
+
+Generate:
+- photorealistic-natural 鈥?candid/editorial lifestyle scenes with real texture and natural lighting.
+- product-mockup 鈥?product/packaging shots, catalog imagery, merch concepts.
+- ui-mockup 鈥?app/web interface mockups and wireframes; specify the desired fidelity.
+- infographic-diagram 鈥?diagrams/infographics with structured layout and text.
+- scientific-educational 鈥?classroom explainers, scientific diagrams, and learning visuals with required labels and accuracy constraints.
+- ads-marketing 鈥?campaign concepts and ad creatives with audience, brand position, scene, and exact tagline/copy.
+- productivity-visual 鈥?slide, chart, workflow, and data-heavy business visuals.
+- logo-brand 鈥?logo/mark exploration, vector-friendly.
+- illustration-story 鈥?comics, children鈥檚 book art, narrative scenes.
+- stylized-concept 鈥?style-driven concept art, 3D/stylized renders.
+- historical-scene 鈥?period-accurate/world-knowledge scenes.
+
+Edit:
+- text-localization 鈥?translate/replace in-image text, preserve layout.
+- identity-preserve 鈥?try-on, person-in-scene; lock face/body/pose.
+- precise-object-edit 鈥?remove/replace a specific element (including interior swaps).
+- lighting-weather 鈥?time-of-day/season/atmosphere changes only.
+- background-extraction 鈥?transparent background / clean cutout. Use built-in `image_gen` with chroma-key removal first for simple opaque subjects; ask before using CLI true transparency for complex subjects.
+- style-transfer 鈥?apply reference style while changing subject/scene.
+- compositing 鈥?multi-image insert/merge with matched lighting/perspective.
+- sketch-to-render 鈥?drawing/line art to photoreal render.
+
+## Shared prompt schema
+
+Use the following labeled spec as shared prompt scaffolding for both top-level modes:
+
+```text
+Use case: <taxonomy slug>
+Asset type: <where the asset will be used>
+Primary request: <user's main prompt>
+Input images: <Image 1: role; Image 2: role> (optional)
+Scene/backdrop: <environment>
+Subject: <main subject>
+Style/medium: <photo/illustration/3D/etc>
+Composition/framing: <wide/close/top-down; placement>
+Lighting/mood: <lighting + mood>
+Color palette: <palette notes>
+Materials/textures: <surface details>
+Text (verbatim): "<exact text>"
+Constraints: <must keep/must avoid>
+Avoid: <negative constraints>
+```
+
+Notes:
+- `Asset type` and `Input images` are prompt scaffolding, not dedicated CLI flags.
+- `Scene/backdrop` refers to the visual setting. It is not the same as the fallback CLI `background` parameter, which controls output transparency behavior.
+- Fallback-only execution notes such as `Quality:`, `Input fidelity:`, masks, output format, and output paths belong in the CLI path only. Do not treat them as built-in `image_gen` tool arguments.
+
+Augmentation rules:
+- Keep it short.
+- Add only the details needed to improve the prompt materially.
+- For edits, explicitly list invariants (`change only X; keep Y unchanged`).
+- If any critical detail is missing and blocks success, ask a question; otherwise proceed.
+
+## Examples
+
+### Generation example (hero image)
+```text
+Use case: product-mockup
+Asset type: landing page hero
+Primary request: a minimal hero image of a ceramic coffee mug
+Style/medium: clean product photography
+Composition/framing: wide composition with usable negative space for page copy if needed
+Lighting/mood: soft studio lighting
+Constraints: no logos, no text, no watermark
+```
+
+### Edit example (invariants)
+```text
+Use case: precise-object-edit
+Asset type: product photo background replacement
+Primary request: replace only the background with a warm sunset gradient
+Constraints: change only the background; keep the product and its edges unchanged; no text; no watermark
+```
+
+## Prompting best practices
+- Structure prompt as scene/backdrop -> subject -> details -> constraints.
+- Include intended use (ad, UI mock, infographic) to set the mode and polish level.
+- Use camera/composition language for photorealism.
+- Only use SVG/vector stand-ins when the user explicitly asked for vector output or a non-image placeholder.
+- Quote exact text and specify typography + placement.
+- For tricky words, spell them letter-by-letter and require verbatim rendering.
+- For multi-image inputs, reference images by index and describe how they should be used.
+- For edits, repeat invariants every iteration to reduce drift.
+- Iterate with single-change follow-ups.
+- If the prompt is generic, add only the extra detail that will materially help.
+- If the prompt is already detailed, normalize it instead of expanding it.
+- For CLI fallback only, see `references/cli.md` and `references/image-api.md` for model, `quality`, `input_fidelity`, masks, output format, and output-path guidance.
+- For transparent images, use the built-in-first chroma-key workflow unless the request is complex enough to need true CLI transparency; ask before switching to CLI `gpt-image-1.5`.
+
+More principles shared by both modes: `references/prompting.md`.
+Copy/paste specs shared by both modes: `references/sample-prompts.md`.
+
+## Guidance by asset type
+Asset-type templates (website assets, game assets, wireframes, logo) are consolidated in `references/sample-prompts.md`.
+
+## gpt-image-2 guidance for CLI fallback
+
+The fallback CLI defaults to `gpt-image-2`.
+
+- Use `gpt-image-2` for new CLI/API workflows unless the request needs true model-native transparent output.
+- If a transparent request may need CLI fallback, ask before using `gpt-image-1.5` unless the user already explicitly requested `gpt-image-1.5`, `scripts/image_gen.py`, or CLI fallback. Explain that the built-in chroma-key path is the default, but true transparency requires `gpt-image-1.5` because `gpt-image-2` does not support `background=transparent`.
+- `gpt-image-2` always uses high fidelity for image inputs; do not set `input_fidelity` with this model.
+- `gpt-image-2` supports `quality` values `low`, `medium`, `high`, and `auto`.
+- Use `quality low` for fast drafts, thumbnails, and quick iterations. Use `medium`, `high`, or `auto` for final assets, dense text, diagrams, identity-sensitive edits, or high-resolution outputs.
+- Square images are typically fastest to generate. Use `1024x1024` for fast square drafts.
+- If the user asks for 4K-style output, use `3840x2160` for landscape or `2160x3840` for portrait.
+- `gpt-image-2` size may be `auto` or `WIDTHxHEIGHT` if all constraints hold: max edge `<= 3840px`, both edges multiples of `16px`, long-to-short ratio `<= 3:1`, total pixels between `655,360` and `8,294,400`.
+
+Popular `gpt-image-2` sizes:
+- `1024x1024` square
+- `1536x1024` landscape
+- `1024x1536` portrait
+- `2048x2048` 2K square
+- `2048x1152` 2K landscape
+- `3840x2160` 4K landscape
+- `2160x3840` 4K portrait
+- `auto`
+
+## Fallback CLI mode only
+
+### Temp and output conventions
+These conventions apply only to the CLI fallback. They do not describe built-in `image_gen` output behavior.
+- Use `tmp/imagegen/` for intermediate files (for example JSONL batches); delete them when done.
+- Write final artifacts under `output/imagegen/`.
+- Use `--out` or `--out-dir` to control output paths; keep filenames stable and descriptive.
+
+### Dependencies
+Prefer `uv` for dependency management in this repo.
+
+Required Python package:
+```bash
+uv pip install openai
+```
+
+Required for local chroma-key removal and optional downscaling:
+```bash
+uv pip install pillow
+```
+
+Portability note:
+- If you are using the installed skill outside this repo, install dependencies into that environment with its package manager.
+- In uv-managed environments, `uv pip install ...` remains the preferred path.
+
+### Environment
+- `OPENAI_API_KEY` must be set for live API calls.
+- Do not ask the user for `OPENAI_API_KEY` when using the built-in `image_gen` tool.
+- Never ask the user to paste the full key in chat. Ask them to set it locally and confirm when ready.
+
+If the key is missing, give the user these steps:
+1. Create an API key in the OpenAI platform UI: https://platform.openai.com/api-keys
+2. Set `OPENAI_API_KEY` as an environment variable in their system.
+3. Offer to guide them through setting the environment variable for their OS/shell if needed.
+
+If installation is not possible in this environment, tell the user which dependency is missing and how to install it into their active environment.
+
+### Script-mode notes
+- CLI commands + examples: `references/cli.md`
+- API parameter quick reference: `references/image-api.md`
+- Network approvals / sandbox settings for CLI mode: `references/codex-network.md`
+
+## Reference map
+- `references/prompting.md`: shared prompting principles for both modes.
+- `references/sample-prompts.md`: shared copy/paste prompt recipes for both modes.
+- `references/cli.md`: fallback-only CLI usage via `scripts/image_gen.py`.
+- `references/image-api.md`: fallback-only API/CLI parameter reference.
+- `references/codex-network.md`: fallback-only network/sandbox troubleshooting for CLI mode.
+- `scripts/image_gen.py`: fallback-only CLI implementation. Do not load or use it unless the user explicitly chooses CLI mode or explicitly confirms a transparent request's true CLI transparency fallback.
+- `$CODEX_HOME/skills/.system/imagegen/scripts/remove_chroma_key.py`: local post-processing helper for built-in transparent-image requests.
+
+
+codex
+生成图已经出来了。现在我会定位内置工具保存的源图，做绿色背景抠除为透明 PNG，然后放到你指定的项目路径。
+exec
+"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command 'Get-ChildItem -Path $env:USERPROFILE'"\\.codex -Recurse -File -Filter *.png | Sort-Object LastWriteTime -Descending | Select-Object -First 10 FullName,Length,LastWriteTime" in D:\unity\UnityProject\GameDesinger
+exec
+"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command 'Get-ChildItem -Path $env:USERPROFILE'"\\.Codex -Recurse -File -Filter *.png | Sort-Object LastWriteTime -Descending | Select-Object -First 10 FullName,Length,LastWriteTime" in D:\unity\UnityProject\GameDesinger
+2026-06-25T03:00:16.639870Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.6 seconds
+Output:
+
+FullName                                                                                                               
+--------                                                                                                               
+C:\Users\WIN10\.codex\generated_images\019efcb7-93c4-7b53-b02d-5891ca36b281\ig_0cdac3359152a7dd016a3c998a2bb08191aac...
+C:\Users\WIN10\.codex\generated_images\019efcb6-55d4-7073-8a75-cca4d9a425f9\ig_09527184544cf8f2016a3c993a834c8191a1a...
+C:\Users\WIN10\.codex\generated_images\019efcb3-b094-7d62-bae6-f5a7bf3abe63\ig_07b5af750a0cb192016a3c989778d8819189e...
+C:\Users\WIN10\.codex\generated_images\019efcb1-521a-7983-8925-671b9d4342a9\ig_0f7b9103dc347930016a3c97fbb7c48191ab8...
+C:\Users\WIN10\.codex\.tmp\plugins\plugins\zotero\skills\zotero\assets\icon.png                                        
+C:\Users\WIN10\.codex\.tmp\plugins\plugins\zotero\assets\icon.png                                                      
+C:\Users\WIN10\.codex\.tmp\plugins\plugins\zoominfo\assets\logo.png                                                    
+C:\Users\WIN10\.codex\.tmp\plugins\plugins\zoom\assets\screenshot-4.png                                                
+C:\Users\WIN10\.codex\.tmp\plugins\plugins\zoom\assets\screenshot-3.png                                                
+C:\Users\WIN10\.codex\.tmp\plugins\plugins\zoom\assets\screenshot-2.png                                                
+
+
+Get-ChildItem : 对路径“C:\Users\WIN10\.codex\.sandbox-secrets”的访问被拒绝。
+所在位置 行:2 字符: 1
++ Get-ChildItem -Path $env:USERPROFILE\.codex -Recurse -File -Filter *. ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (C:\Users\WIN10\.codex\.sandbox-secrets:String) [Get-ChildItem], Unaut 
+   horizedAccessException
+    + FullyQualifiedErrorId : DirUnauthorizedAccessError,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+
+ exited 1 in 635ms:
+
+FullName                                                                                                               
+--------                                                                                                               
+C:\Users\WIN10\.codex\generated_images\019efcb7-93c4-7b53-b02d-5891ca36b281\ig_0cdac3359152a7dd016a3c998a2bb08191aac...
+C:\Users\WIN10\.codex\generated_images\019efcb6-55d4-7073-8a75-cca4d9a425f9\ig_09527184544cf8f2016a3c993a834c8191a1a...
+C:\Users\WIN10\.codex\generated_images\019efcb3-b094-7d62-bae6-f5a7bf3abe63\ig_07b5af750a0cb192016a3c989778d8819189e...
+C:\Users\WIN10\.codex\generated_images\019efcb1-521a-7983-8925-671b9d4342a9\ig_0f7b9103dc347930016a3c97fbb7c48191ab8...
+C:\Users\WIN10\.codex\.tmp\plugins\plugins\zotero\skills\zotero\assets\icon.png                                        
+C:\Users\WIN10\.codex\.tmp\plugins\plugins\zotero\assets\icon.png                                                      
+C:\Users\WIN10\.codex\.tmp\plugins\plugins\zoominfo\assets\logo.png                                                    
+C:\Users\WIN10\.codex\.tmp\plugins\plugins\zoom\assets\screenshot-4.png                                                
+C:\Users\WIN10\.codex\.tmp\plugins\plugins\zoom\assets\screenshot-3.png                                                
+C:\Users\WIN10\.codex\.tmp\plugins\plugins\zoom\assets\screenshot-2.png                                                
+
+
+Get-ChildItem : 对路径“C:\Users\WIN10\.codex\.sandbox-secrets”的访问被拒绝。
+所在位置 行:2 字符: 1
++ Get-ChildItem -Path $env:USERPROFILE\.codex -Recurse -File -Filter *. ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (C:\Users\WIN10\.codex\.sandbox-secrets:String) [Get-ChildItem], Unaut 
+   horizedAccessException
+    + FullyQualifiedErrorId : DirUnauthorizedAccessError,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+
+2026-06-25T03:00:16.646444Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.6 seconds
+Output:
+
+FullName                                                                                                               
+--------                                                                                                               
+C:\Users\WIN10\.Codex\generated_images\019efcb7-93c4-7b53-b02d-5891ca36b281\ig_0cdac3359152a7dd016a3c998a2bb08191aac...
+C:\Users\WIN10\.Codex\generated_images\019efcb6-55d4-7073-8a75-cca4d9a425f9\ig_09527184544cf8f2016a3c993a834c8191a1a...
+C:\Users\WIN10\.Codex\generated_images\019efcb3-b094-7d62-bae6-f5a7bf3abe63\ig_07b5af750a0cb192016a3c989778d8819189e...
+C:\Users\WIN10\.Codex\generated_images\019efcb1-521a-7983-8925-671b9d4342a9\ig_0f7b9103dc347930016a3c97fbb7c48191ab8...
+C:\Users\WIN10\.Codex\.tmp\plugins\plugins\zotero\skills\zotero\assets\icon.png                                        
+C:\Users\WIN10\.Codex\.tmp\plugins\plugins\zotero\assets\icon.png                                                      
+C:\Users\WIN10\.Codex\.tmp\plugins\plugins\zoominfo\assets\logo.png                                                    
+C:\Users\WIN10\.Codex\.tmp\plugins\plugins\zoom\assets\screenshot-4.png                                                
+C:\Users\WIN10\.Codex\.tmp\plugins\plugins\zoom\assets\screenshot-3.png                                                
+C:\Users\WIN10\.Codex\.tmp\plugins\plugins\zoom\assets\screenshot-2.png                                                
+
+
+Get-ChildItem : 对路径“C:\Users\WIN10\.Codex\.sandbox-secrets”的访问被拒绝。
+所在位置 行:2 字符: 1
++ Get-ChildItem -Path $env:USERPROFILE\.Codex -Recurse -File -Filter *. ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (C:\Users\WIN10\.Codex\.sandbox-secrets:String) [Get-ChildItem], Unaut 
+   horizedAccessException
+    + FullyQualifiedErrorId : DirUnauthorizedAccessError,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+
+ exited 1 in 634ms:
+
+FullName                                                                                                               
+--------                                                                                                               
+C:\Users\WIN10\.Codex\generated_images\019efcb7-93c4-7b53-b02d-5891ca36b281\ig_0cdac3359152a7dd016a3c998a2bb08191aac...
+C:\Users\WIN10\.Codex\generated_images\019efcb6-55d4-7073-8a75-cca4d9a425f9\ig_09527184544cf8f2016a3c993a834c8191a1a...
+C:\Users\WIN10\.Codex\generated_images\019efcb3-b094-7d62-bae6-f5a7bf3abe63\ig_07b5af750a0cb192016a3c989778d8819189e...
+C:\Users\WIN10\.Codex\generated_images\019efcb1-521a-7983-8925-671b9d4342a9\ig_0f7b9103dc347930016a3c97fbb7c48191ab8...
+C:\Users\WIN10\.Codex\.tmp\plugins\plugins\zotero\skills\zotero\assets\icon.png                                        
+C:\Users\WIN10\.Codex\.tmp\plugins\plugins\zotero\assets\icon.png                                                      
+C:\Users\WIN10\.Codex\.tmp\plugins\plugins\zoominfo\assets\logo.png                                                    
+C:\Users\WIN10\.Codex\.tmp\plugins\plugins\zoom\assets\screenshot-4.png                                                
+C:\Users\WIN10\.Codex\.tmp\plugins\plugins\zoom\assets\screenshot-3.png                                                
+C:\Users\WIN10\.Codex\.tmp\plugins\plugins\zoom\assets\screenshot-2.png                                                
+
+
+Get-ChildItem : 对路径“C:\Users\WIN10\.Codex\.sandbox-secrets”的访问被拒绝。
+所在位置 行:2 字符: 1
++ Get-ChildItem -Path $env:USERPROFILE\.Codex -Recurse -File -Filter *. ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (C:\Users\WIN10\.Codex\.sandbox-secrets:String) [Get-ChildItem], Unaut 
+   horizedAccessException
+    + FullyQualifiedErrorId : DirUnauthorizedAccessError,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+
+codex
+我找到了最新生成源图目录。接下来只处理 `generated_images` 下的这张 PNG，避免递归扫到无关目录权限问题。
+exec
+"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command '$src = Get-ChildItem -Path "$env:USERPROFILE'"\\.codex\\generated_images\\019efcb7-93c4-7b53-b02d-5891ca36b281\" -File -Filter *.png | Sort-Object LastWriteTime -Descending | Select-Object -First 1
+"'$src.FullName
+$src.Length' in D:\unity\UnityProject\GameDesinger
+ succeeded in 343ms:
+C:\Users\WIN10\.codex\generated_images\019efcb7-93c4-7b53-b02d-5891ca36b281\ig_0cdac3359152a7dd016a3c998a2bb08191aac624f35b077211.png
+1047693
+
+codex
+我会把最终文件写到 `openspec/changes/01-tattoo-framework-rewrite/art/raw/part_right_leg_v2.png`，并用 helper 验证 alpha 结果的基本属性。
+exec
+"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command '$src = "$env:USERPROFILE'"\\.codex\\generated_images\\019efcb7-93c4-7b53-b02d-5891ca36b281\\ig_0cdac3359152a7dd016a3c998a2bb08191aac624f35b077211.png\"
+"'$out = "D:'"\\unity\\UnityProject\\GameDesinger\\openspec\\changes\\01-tattoo-framework-rewrite\\art\\raw\\part_right_leg_v2.png\"
+New-Item -ItemType Directory -Force -Path (Split-Path -Parent "'$out) | Out-Null
+python "C:'"\\Users\\WIN10\\.codex\\skills\\.system\\imagegen\\scripts\\remove_chroma_key.py\" --input "'$src --out $out --auto-key border --soft-matte --transparent-threshold 12 --opaque-threshold 220 --despill
+Get-Item -LiteralPath $out | Select-Object FullName,Length,LastWriteTime' in D:\unity\UnityProject\GameDesinger
+ succeeded in 2538ms:
+Wrote D:\unity\UnityProject\GameDesinger\openspec\changes\01-tattoo-framework-rewrite\art\raw\part_right_leg_v2.png
+Key color: #04f814
+Transparent pixels: 1296474/1572516
+Partially transparent pixels: 4203/1572516
+
+FullName                                                                                                      Length La
+                                                                                                                     st
+                                                                                                                     Wr
+                                                                                                                     it
+                                                                                                                     eT
+                                                                                                                     im
+                                                                                                                     e 
+--------                                                                                                      ------ --
+D:\unity\UnityProject\GameDesinger\openspec\changes\01-tattoo-framework-rewrite\art\raw\part_right_leg_v2.png 337154 20
+
+
+
+codex
+透明处理成功，但我还要确认最终像素尺寸是否正好是 `1024x1024`。如果内置生成源图不是这个尺寸，我会把最终 PNG 规范化到指定尺寸。
+exec
+"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "@'
+from PIL import Image
+from pathlib import Path
+p = Path(r'D:\\unity\\UnityProject\\GameDesinger\\openspec\\changes\\01-tattoo-framework-rewrite\\art\\raw\\part_right_leg_v2.png')
+im = Image.open(p)
+print(im.size, im.mode)
+print('corner alpha', im.getpixel((0,0))[3] if im.mode == 'RGBA' else None)
+'@ | python -" in D:\unity\UnityProject\GameDesinger
+ succeeded in 364ms:
+(1254, 1254) RGBA
+corner alpha 0
+
+codex
+源图尺寸是 `1254x1254`，不是目标要求。现在我会只做一次等比例缩放到 `1024x1024`，保持透明通道和现有构图。
+exec
+"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "@'
+from PIL import Image
+from pathlib import Path
+p = Path(r'D:\\unity\\UnityProject\\GameDesinger\\openspec\\changes\\01-tattoo-framework-rewrite\\art\\raw\\part_right_leg_v2.png')
+im = Image.open(p).convert('RGBA')
+im = im.resize((1024, 1024), Image.Resampling.LANCZOS)
+im.save(p)
+print(p)
+print(p.stat().st_size)
+print(Image.open(p).size, Image.open(p).mode)
+print('corner alpha', Image.open(p).getpixel((0,0))[3])
+'@ | python -" in D:\unity\UnityProject\GameDesinger
+ succeeded in 422ms:
+D:\unity\UnityProject\GameDesinger\openspec\changes\01-tattoo-framework-rewrite\art\raw\part_right_leg_v2.png
+272052
+(1024, 1024) RGBA
+corner alpha 0
+
+codex
+已生成并保存：
+
+`openspec/changes/01-tattoo-framework-rewrite/art/raw/part_right_leg_v2.png`
+
+字节大小：`272052` bytes
+
+已确认最终文件为 `1024x1024`、`RGBA`，角落透明。
+tokens used
+54,930
+已生成并保存：
+
+`openspec/changes/01-tattoo-framework-rewrite/art/raw/part_right_leg_v2.png`
+
+字节大小：`272052` bytes
+
+已确认最终文件为 `1024x1024`、`RGBA`，角落透明。

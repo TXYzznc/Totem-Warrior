@@ -19,7 +19,7 @@ public sealed class TattooPartConfigRow
     public string SymmetryGroup { get; set; }
     /// <summary>缩放系数</summary>
     public float ScaleFactor { get; set; }
-    /// <summary>被动维度标签</summary>
+    /// <summary>被动维度标签（暴击/抗性/技能/武器/闪避/移速）</summary>
     public string PassiveDimension { get; set; }
 }
 

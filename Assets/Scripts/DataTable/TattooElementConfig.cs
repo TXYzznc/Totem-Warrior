@@ -13,28 +13,25 @@ public sealed class TattooElementConfigRow
     public string Name { get; set; }
     /// <summary>元素基础倍率</summary>
     public float BaseMultiplier { get; set; }
-    /// <summary>元素参数 1</summary>
+    /// <summary>元素参数 1（Fire: BurnDPS / Frost: SlowFactor / Holy: HealPercent / Pure: MagnitudeBonus / Lightning: ParalyzeDuration / Nature: PoisonDPS）</summary>
     public float Param1 { get; set; }
-    /// <summary>元素参数 2</summary>
+    /// <summary>元素参数 2（Fire: BurnDuration / Frost: SlowDuration / Pure: FocusStackBonus / Nature: PoisonDuration）</summary>
     public float Param2 { get; set; }
-    /// <summary>元素参数 3</summary>
+    /// <summary>元素参数 3（Frost/Pure: 最大叠层数；Mutation: 随机种子）</summary>
     public float Param3 { get; set; }
 }
 
 public sealed class TattooElementConfig : IDataTable
 {
     readonly Dictionary<int, TattooElementConfigRow> _rows = new();
-    readonly Dictionary<string, TattooElementConfigRow> _rowsByName = new();
 
     public void Load(string json)
     {
         var file = JsonConvert.DeserializeObject<DataTableFile<TattooElementConfigRow>>(json);
         _rows.Clear();
-        _rowsByName.Clear();
         foreach (var row in file.rows)
         {
             _rows[row.Id] = row;
-            _rowsByName[row.Name] = row;
         }
     }
 
@@ -43,13 +40,6 @@ public sealed class TattooElementConfig : IDataTable
         if (_rows.TryGetValue(id, out var row))
             return row;
         throw new KeyNotFoundException($"TattooElementConfig 未找到 Id={id}");
-    }
-
-    public TattooElementConfigRow GetByName(string name)
-    {
-        if (_rowsByName.TryGetValue(name, out var row))
-            return row;
-        throw new KeyNotFoundException($"TattooElementConfig 未找到 Name={name}");
     }
 
     public bool TryGetById(int id, out TattooElementConfigRow row) => _rows.TryGetValue(id, out row);

@@ -85,7 +85,9 @@
 
 ---
 
-## 五、决策门槛（hook 强约束）
+## 五、决策门槛（两阶段 FSM）
+
+> **设计目标**：前期一次性人在场把需求挖透，后续全自动跑 —— 配合 Auto Mode / Loop 长时间无人值守执行。Auto Mode 的「少打断」前提是「目标已对齐」，grill-me 是**对齐目标**的工具，不算违反 Auto Mode。
 
 ### 触发关键词（settings.json 中实装）
 
@@ -93,15 +95,38 @@
 设计 / 架构 / 重构 / 大改 / 重写 / GDD / PRD / 系统 / 范式 / 方案 / 思路
 ```
 
-### 触发后强制流程
+### 阶段 A：需求挖掘（人在场，必须阻塞）
 
-UserPromptSubmit hook 注入 `additionalContext` 要求：
+触发关键词后**必须**先调用 `grill-me`（或 `grill-with-docs`）多轮反问，**直到以下 5 条全部明确**才能退出：
 
-1. 先调用 `grill-me`（或 `grill-with-docs`）压力测试方案，至少 3 轮关键反问
-2. 决策成形后通过 `openspec new change "NN-功能名"` 落地 spec
-3. 同步更新 [项目知识库（AI自行维护）/INDEX.md](../项目知识库（AI自行维护）/INDEX.md)
+- [ ] 核心目标一句话能说清楚（做什么、为什么）
+- [ ] 关键决策点有 A/B 比较并明确选了哪个、为什么
+- [ ] 不做什么（边界）已明确
+- [ ] 验收标准已明确（怎么算完成）
+- [ ] 关键约束已明确（性能/兼容/时间）
 
-**未走以上 3 步直接给方案视为违规**。lead/system agent 在此规则下应立即停止并交回主对话。
+**任何一条没挖透都不能退出 grill** —— 这是整个流程**唯一**的人在场卡点。
+
+### 阶段 B：自动执行（不再打断用户）
+
+阶段 A 退出后，自动按顺序执行，**不再请求用户审批**：
+
+1. `openspec new change <NN-功能名>` → 写 proposal/design/tasks/specs
+2. 按 tasks.md 顺序实现（client-unity / art-director 等 agent 落地）
+3. 中途遇到模糊点：**优先按阶段 A 的共识自决**，写日志/spec 备注
+4. 完成后 `openspec archive-change <NN-name>` + 同步更新 [项目知识库（AI自行维护）/INDEX.md](../项目知识库（AI自行维护）/INDEX.md)
+
+### 例外打断条件（阶段 B 仅以下情况可中断用户）
+
+只有遇到**真正不可自决**的问题才能打断：
+
+- 与阶段 A 共识**直接冲突**（grill 说了 A，实现发现必须做 B）
+- 引入**不可逆变更**（删除/重命名公共 API、迁移数据、改动他人正在用的契约）
+- 触及**项目宪法级**文件（`.claude/` / `openspec/` / `Assets/Scripts/Core/` 框架核心）
+
+其他所有模糊点（命名、内部实现选型、测试粒度、日志格式等）一律自决。
+
+**阶段 A 未挖透直接给方案视为违规**。lead/system agent 在此规则下应立即停止并交回主对话。
 
 ---
 
@@ -144,10 +169,11 @@ openspec/changes/<NN-name>/
 详见 [.claude/skills/ai-art/SKILL.md](./skills/ai-art/SKILL.md) 的「美术素材实现流程」。核心规则：
 
 1. 主对话识别意图后，**先定位当前 active openspec change**（`openspec status` / 用户上下文 / 询问用户）
-2. 读取 `openspec/changes/<change-name>/art/requirements.md` + `art/prompts.md`
-3. 调绘图模型逐项生图，输出到 `openspec/changes/<change-name>/art/raw/`
-4. 同目录写 `生成记录.md`；更新 `art/requirements.md` 头部状态字段为「已处理」
-5. 无可用绘图模型时明确阻塞，不能假装已生成
+2. **⚠️ UI 类型前置**：若 change 含 UI 类型素材，`art/requirements.md` 必须先有三表（页面清单 / 复用组件清单 / 组件状态表）；缺三表 → ai-art 主动起草骨架供用户审阅修订，未确认不得进出图。详见 [drawing-prompt-UI.md](./skills/ai-art/references/drawing-prompt-UI.md) 顶部「UI 出图前置：先定表（强制）」
+3. 读取 `openspec/changes/<change-name>/art/requirements.md` + `art/prompts.md`
+4. 调绘图模型逐项生图，输出到 `openspec/changes/<change-name>/art/raw/`
+5. 同目录写 `生成记录.md`；更新 `art/requirements.md` 头部状态字段为「已处理」
+6. 无可用绘图模型时明确阻塞，不能假装已生成
 
 ---
 

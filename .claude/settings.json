@@ -20,7 +20,7 @@
           },
           {
             "type": "command",
-            "command": "node -e \"let d='';process.stdin.on('data',c=>d+=c);process.stdin.on('end',()=>{let p='';try{p=JSON.parse(d).prompt||''}catch(e){return}const re=/设计|架构|重构|大改|重写|GDD|PRD|系统|范式|方案|思路/;if(re.test(p)){const ctx='⚠️ 检测到「大型决策」关键词。在给出任何方案前必须依次完成：\\\\n1) 调用 grill-me（或 grill-with-docs）压力测试方案，至少 3 轮关键反问；\\\\n2) 决策成形后通过 openspec new change \\\"NN-功能名\\\" 落地 spec；\\\\n3) 同步更新 项目知识库（AI自行维护）/INDEX.md。\\\\n未走以上 3 步直接给方案视为违规——若你是 lead/system agent，应立即停止并交回主对话。';console.log(JSON.stringify({hookSpecificOutput:{hookEventName:'UserPromptSubmit',additionalContext:ctx}}))}})\""
+            "command": "node -e \"let d='';process.stdin.on('data',c=>d+=c);process.stdin.on('end',()=>{let p='';try{p=JSON.parse(d).prompt||''}catch(e){return}const re=/设计|架构|重构|大改|重写|GDD|PRD|系统|范式|方案|思路/;if(re.test(p)){const ctx='⚠️ 检测到「大型决策」关键词。按 CLAUDE.md §五 两阶段 FSM 执行：\\\\n【阶段 A · 阻塞】先用 grill-me / grill-with-docs 多轮反问，直到 5 条全清才能退出：1)目标 2)关键决策(A/B 比较) 3)边界 4)验收标准 5)约束。任何一条没挖透都不能进 B。\\\\n【阶段 B · 自动】挖透后自动执行：openspec new change → 按 tasks 实现 → archive + 更新 INDEX，期间不再请求审批。模糊点按 A 阶段共识自决。\\\\n仅以下情况可中断 B：与 A 共识冲突 / 不可逆变更 / 改动 .claude、openspec、Assets/Scripts/Core 框架核心。\\\\n阶段 A 未挖透直接给方案视为违规——lead/system agent 应立即停止并交回主对话。';console.log(JSON.stringify({hookSpecificOutput:{hookEventName:'UserPromptSubmit',additionalContext:ctx}}))}})\""
           },
           {
             "type": "command",

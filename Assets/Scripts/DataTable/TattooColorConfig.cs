@@ -11,9 +11,9 @@ public sealed class TattooColorConfigRow
     public int Id { get; set; }
     /// <summary>Red / Yellow / Green / Blue / Purple / Gold / White</summary>
     public string Name { get; set; }
-    /// <summary>ElementType enum 名</summary>
+    /// <summary>ElementType enum 名：Fire / Lightning / Nature / Frost / Mutation / Holy / Pure</summary>
     public string Element { get; set; }
-    /// <summary>颜色级倍率</summary>
+    /// <summary>颜色级倍率（基础 1.0）</summary>
     public float ColorMultiplier { get; set; }
 }
 

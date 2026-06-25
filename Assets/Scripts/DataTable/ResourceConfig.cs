@@ -7,13 +7,13 @@ using Newtonsoft.Json;
 
 public sealed class ResourceConfigRow
 {
-    /// <summary>资源ID，主键</summary>
+    /// <summary>资源 ID，主键</summary>
     public int Id { get; set; }
-    /// <summary>资源标识名，便于阅读</summary>
+    /// <summary>资源标识名</summary>
     public string Name { get; set; }
-    /// <summary>资源类型，对应Resources下子文件夹名（Animation/Audio/Effect/Font/Material/Model/Prefab/Sprite/Texture）</summary>
+    /// <summary>资源类型，对应 Resources 下子目录名</summary>
     public string Type { get; set; }
-    /// <summary>相对Resources/{Type}/的加载路径，不含扩展名</summary>
+    /// <summary>相对 Resources/{Type}/ 的加载路径，不含扩展名</summary>
     public string LoadPath { get; set; }
 }
 

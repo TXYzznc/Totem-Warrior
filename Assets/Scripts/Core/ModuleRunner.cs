@@ -190,7 +190,9 @@ public class ModuleRunner
 
         try
         {
-            while (pending.Count > 0)
+            // 退出条件必须同时考虑 pending（待启动）与 running（已启动未标 Initialized）。
+            // 仅看 pending 会导致最后一批 Task 同步完成时被 while 提前 break 而漏标 Initialized。
+            while (pending.Count > 0 || running.Count > 0)
             {
                 // 找出所有依赖满足的模块
                 var ready = pending
@@ -393,6 +395,9 @@ public class ModuleRunner
 
     /// <summary>所有已注册模块的只读视图（按 AddModule 顺序）。供 GameApp 注册 ITickable 等场景。</summary>
     public IReadOnlyList<IGameModule> GetAllModules() => _modules;
+
+    /// <summary>诊断用：查询模块当前状态。</summary>
+    public ModuleState GetState(Type type) => _states.GetValueOrDefault(type, ModuleState.Pending);
 
     // ========== 调度优先级 ==========
 

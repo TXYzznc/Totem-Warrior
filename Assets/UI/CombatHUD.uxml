@@ -37,13 +37,22 @@
             <ui:Label text="【装备配置】" class="panel-title" />
 
             <ui:Label text="部位" class="section-title" />
-            <ui:DropdownField name="part-dropdown" class="dropdown" />
+            <ui:VisualElement class="config-row">
+                <ui:DropdownField name="part-dropdown" class="dropdown" />
+                <ui:VisualElement name="part-preview" class="config-preview" />
+            </ui:VisualElement>
 
             <ui:Label text="颜色" class="section-title" />
-            <ui:DropdownField name="color-dropdown" class="dropdown" />
+            <ui:VisualElement class="config-row">
+                <ui:DropdownField name="color-dropdown" class="dropdown" />
+                <ui:VisualElement name="color-preview" class="config-preview" />
+            </ui:VisualElement>
 
             <ui:Label text="图案" class="section-title" />
-            <ui:DropdownField name="pattern-dropdown" class="dropdown" />
+            <ui:VisualElement class="config-row">
+                <ui:DropdownField name="pattern-dropdown" class="dropdown" />
+                <ui:VisualElement name="pattern-preview" class="config-preview" />
+            </ui:VisualElement>
 
             <ui:VisualElement class="button-row">
                 <ui:Button name="equip-button" text="装入 Build" class="action-button" />

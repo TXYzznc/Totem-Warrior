@@ -9,10 +9,10 @@ public static class DataTableRegistry
     public static readonly DataTableEntry[] Entries =
     {
         new DataTableEntry("ResourceConfig", typeof(ResourceConfig)),
-        new DataTableEntry("TattooPartConfig", typeof(TattooPartConfig)),
         new DataTableEntry("TattooColorConfig", typeof(TattooColorConfig)),
-        new DataTableEntry("TattooPatternConfig", typeof(TattooPatternConfig)),
         new DataTableEntry("TattooElementConfig", typeof(TattooElementConfig)),
+        new DataTableEntry("TattooPartConfig", typeof(TattooPartConfig)),
+        new DataTableEntry("TattooPatternConfig", typeof(TattooPatternConfig)),
         new DataTableEntry("TattooShapeConfig", typeof(TattooShapeConfig)),
     };
 }

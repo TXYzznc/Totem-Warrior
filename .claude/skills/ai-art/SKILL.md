@@ -35,12 +35,35 @@ description: "AI 绘图提示词生成与美术素材实现工具集。当用户
 
 当用户明确输入 **"实现和处理美术素材"**，或对相近意图确认要执行该流程后：
 
+### Step 0：UI 类型前置 — 先定表（强制，仅 UI 类型生效）
+
+**触发条件**：当前 change 的 requirements 或 prompts 包含任一 UI 元素（按钮 / 面板 / HUD / 弹窗 / 标签页 / 输入框 / 进度条 / 标题条 等）。
+
+**门槛**：requirements.md **必须包含三张表**才能进入 Step 1：
+
+- **表 A 页面清单**：每个页面 + 优先级（必做 / 可复用 / 后补）+ 备注
+- **表 B 复用组件清单**：组件类型 + 目标数量（AI 根据表 A 推算，不写死） + 用途
+- **表 C 组件状态表**：组件 + 必备状态（按钮 normal/pressed/disabled、页签 selected/unselected、弹窗 确认/取消/关闭等）+ 备注
+
+**AI 自动行为**：
+1. 检测到 UI 类型且 requirements.md 缺三表或不完整 → **主动起草三表骨架**，写入 requirements.md
+2. 提交用户审阅修订（明示"骨架由 AI 起草，请审阅修订后再进出图阶段"）
+3. 用户确认或修订完成后，才能进入 Step 1
+
+**禁止**：UI 类型缺三表 → 直接跳到提示词生成阶段。
+
+详见 [drawing-prompt-UI.md](./references/drawing-prompt-UI.md) 「UI 出图前置：先定表（强制）」小节。
+
+> CHARACTER / ICON / SCENE / COMMON 四种非 UI 类型不受 Step 0 约束，直接进 Step 1。
+
+### Step 1：定位 change 与读取需求
+
 1. 定位当前 openspec change：
    - 优先：执行 `openspec status` 找 active change（同一时刻只有 1 个合法）
    - 次选：从用户上下文（最近提到的 change-name）推测
    - 最次：询问用户「目标 change 是哪个？」
 2. 读取 `openspec/changes/<change-name>/art/requirements.md` 和 `art/prompts.md`。多模块需求按 prompts.md / requirements.md 中的 `<子模块名>` 字段定位。
-3. 处理前检查 `art/requirements.md` 与 `art/prompts.md` 文件头部是否已有 `美术素材状态: 已处理` 或 `美术素材状态: 已归档`。若已存在，先提示用户该需求可能已处理过，并询问是否重新生成。
+3. 处理前检查 `art/requirements.md` 与 `art/prompts.md` 文件头部是否已有 `美术素材状态: 已处理` 或 `美术素材状态: 已归档`。若已存在，先提示用户该需求可能已处理过，并询问是否重新生成。**UI 类型还要检查三表（页面清单 / 复用组件清单 / 组件状态表）是否齐全；缺一不可进入 Step 4。**
 4. 解析每个资源的：
    - 资源名/文件名
    - 类型（角色、敌人、子弹、UI、背景、道具等）

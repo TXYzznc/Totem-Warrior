@@ -102,3 +102,18 @@
 - 清晰展示发生了什么
 - 若请求同步，使用 openspec-sync-specs 方式（代理驱动）
 - 若存在增量 spec，始终运行同步评估并在提示前显示综合摘要
+
+**陷阱：CLI vs 手动 mv 两条路径**
+
+如果想走 CLI 快捷路径 `openspec archive <name>`（替代步骤 5 的 mv），**必须加 `--yes`**：
+
+```bash
+openspec archive <change-name> --yes
+```
+
+否则 CLI 在以下任一情况会弹 interactive prompt 中断 Auto Mode / Loop / Goal 流程：
+- tasks.md 有任何 `- [ ]` 未完成任务（即使是「archive 本身」这种递归任务）
+- proposal.md 缺 `## Why` / `## What Changes` 章节（warning，但仍要确认）
+- specs/ 缺 delta（warning，但仍要确认）
+
+走 SKILL 引导的 AskUserQuestion + 手动 mv 路径不会触发 CLI prompt（因为是 Claude 自己控制交互节奏）。Auto Mode 下推荐 `openspec archive --yes`；手动确认场景走 SKILL 引导。

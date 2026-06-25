@@ -98,3 +98,23 @@
 - 若上下文极不明确，询问用户——但倾向于做出合理决策以保持推进势头
 - 若该名称的变更已存在，询问用户是继续还是创建新的
 - 写入后验证每个 artifact 文件存在再继续下一个
+
+**陷阱：proposal.md 必须用英文必备 header**
+
+openspec validate / archive 会校验 proposal.md 必须含 `## Why` 和 `## What Changes` 两个**英文** header（不能写成"## 为什么"、"## 变更内容"等中文译名，否则触发 warning，archive 时弹 prompt）。
+
+正确做法：
+- **走 SKILL 流程**：通过 `openspec instructions proposal --change <name> --json` 拿 template，它内置正确的英文 header → 自动遵守
+- **手写 proposal**（跳过 openspec 命令）：英文 header 后**可以**用中文正文，比如：
+
+```markdown
+## Why
+
+（中文正文随意写）
+
+## What Changes
+
+（中文正文随意写）
+```
+
+正文里再用 `### 为什么做` / `### 文件变更清单` 这类二级中文小标题没问题，但 `## Why` / `## What Changes` 必须存在为顶层段落 header。
