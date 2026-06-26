@@ -1,0 +1,283 @@
+{
+  "source": "D:\\unity\\UnityProject\\GameDesinger\\openspec\\changes\\06-v21-implementation\\art\\ui-test\\raw\\_merged\\ui_sheet_001_alpha.png",
+  "size": {
+    "width": 1254,
+    "height": 1254
+  },
+  "count": 16,
+  "output_dir": "D:\\unity\\UnityProject\\GameDesinger\\openspec\\changes\\06-v21-implementation\\art\\ui-test\\raw\\_merged\\ui_sheet_001_cut\\ui_sheet_001_alpha",
+  "sprites": [
+    {
+      "label": 1,
+      "file": "D:\\unity\\UnityProject\\GameDesinger\\openspec\\changes\\06-v21-implementation\\art\\ui-test\\raw\\_merged\\ui_sheet_001_cut\\ui_sheet_001_alpha\\ui_sheet_001_alpha_001.png",
+      "bbox": {
+        "x": 329,
+        "y": 114,
+        "width": 305,
+        "height": 162
+      },
+      "raw_bbox": {
+        "x": 331,
+        "y": 116,
+        "width": 301,
+        "height": 158
+      },
+      "area": 40345
+    },
+    {
+      "label": 2,
+      "file": "D:\\unity\\UnityProject\\GameDesinger\\openspec\\changes\\06-v21-implementation\\art\\ui-test\\raw\\_merged\\ui_sheet_001_cut\\ui_sheet_001_alpha\\ui_sheet_001_alpha_002.png",
+      "bbox": {
+        "x": 645,
+        "y": 114,
+        "width": 276,
+        "height": 162
+      },
+      "raw_bbox": {
+        "x": 647,
+        "y": 116,
+        "width": 272,
+        "height": 158
+      },
+      "area": 34240
+    },
+    {
+      "label": 3,
+      "file": "D:\\unity\\UnityProject\\GameDesinger\\openspec\\changes\\06-v21-implementation\\art\\ui-test\\raw\\_merged\\ui_sheet_001_cut\\ui_sheet_001_alpha\\ui_sheet_001_alpha_003.png",
+      "bbox": {
+        "x": 27,
+        "y": 120,
+        "width": 290,
+        "height": 156
+      },
+      "raw_bbox": {
+        "x": 29,
+        "y": 122,
+        "width": 286,
+        "height": 152
+      },
+      "area": 33906
+    },
+    {
+      "label": 4,
+      "file": "D:\\unity\\UnityProject\\GameDesinger\\openspec\\changes\\06-v21-implementation\\art\\ui-test\\raw\\_merged\\ui_sheet_001_cut\\ui_sheet_001_alpha\\ui_sheet_001_alpha_004.png",
+      "bbox": {
+        "x": 961,
+        "y": 128,
+        "width": 262,
+        "height": 133
+      },
+      "raw_bbox": {
+        "x": 963,
+        "y": 130,
+        "width": 258,
+        "height": 129
+      },
+      "area": 29523
+    },
+    {
+      "label": 5,
+      "file": "D:\\unity\\UnityProject\\GameDesinger\\openspec\\changes\\06-v21-implementation\\art\\ui-test\\raw\\_merged\\ui_sheet_001_cut\\ui_sheet_001_alpha\\ui_sheet_001_alpha_005.png",
+      "bbox": {
+        "x": 947,
+        "y": 323,
+        "width": 290,
+        "height": 299
+      },
+      "raw_bbox": {
+        "x": 949,
+        "y": 325,
+        "width": 286,
+        "height": 295
+      },
+      "area": 67893
+    },
+    {
+      "label": 6,
+      "file": "D:\\unity\\UnityProject\\GameDesinger\\openspec\\changes\\06-v21-implementation\\art\\ui-test\\raw\\_merged\\ui_sheet_001_cut\\ui_sheet_001_alpha\\ui_sheet_001_alpha_006.png",
+      "bbox": {
+        "x": 640,
+        "y": 330,
+        "width": 281,
+        "height": 292
+      },
+      "raw_bbox": {
+        "x": 642,
+        "y": 332,
+        "width": 277,
+        "height": 288
+      },
+      "area": 68785
+    },
+    {
+      "label": 7,
+      "file": "D:\\unity\\UnityProject\\GameDesinger\\openspec\\changes\\06-v21-implementation\\art\\ui-test\\raw\\_merged\\ui_sheet_001_cut\\ui_sheet_001_alpha\\ui_sheet_001_alpha_007.png",
+      "bbox": {
+        "x": 345,
+        "y": 345,
+        "width": 232,
+        "height": 248
+      },
+      "raw_bbox": {
+        "x": 347,
+        "y": 347,
+        "width": 228,
+        "height": 244
+      },
+      "area": 46269
+    },
+    {
+      "label": 8,
+      "file": "D:\\unity\\UnityProject\\GameDesinger\\openspec\\changes\\06-v21-implementation\\art\\ui-test\\raw\\_merged\\ui_sheet_001_cut\\ui_sheet_001_alpha\\ui_sheet_001_alpha_008.png",
+      "bbox": {
+        "x": 42,
+        "y": 359,
+        "width": 243,
+        "height": 248
+      },
+      "raw_bbox": {
+        "x": 44,
+        "y": 361,
+        "width": 239,
+        "height": 244
+      },
+      "area": 47006
+    },
+    {
+      "label": 9,
+      "file": "D:\\unity\\UnityProject\\GameDesinger\\openspec\\changes\\06-v21-implementation\\art\\ui-test\\raw\\_merged\\ui_sheet_001_cut\\ui_sheet_001_alpha\\ui_sheet_001_alpha_009.png",
+      "bbox": {
+        "x": 987,
+        "y": 650,
+        "width": 209,
+        "height": 211
+      },
+      "raw_bbox": {
+        "x": 989,
+        "y": 652,
+        "width": 205,
+        "height": 207
+      },
+      "area": 20264
+    },
+    {
+      "label": 10,
+      "file": "D:\\unity\\UnityProject\\GameDesinger\\openspec\\changes\\06-v21-implementation\\art\\ui-test\\raw\\_merged\\ui_sheet_001_cut\\ui_sheet_001_alpha\\ui_sheet_001_alpha_010.png",
+      "bbox": {
+        "x": 13,
+        "y": 719,
+        "width": 305,
+        "height": 75
+      },
+      "raw_bbox": {
+        "x": 15,
+        "y": 721,
+        "width": 301,
+        "height": 71
+      },
+      "area": 17845
+    },
+    {
+      "label": 11,
+      "file": "D:\\unity\\UnityProject\\GameDesinger\\openspec\\changes\\06-v21-implementation\\art\\ui-test\\raw\\_merged\\ui_sheet_001_cut\\ui_sheet_001_alpha\\ui_sheet_001_alpha_011.png",
+      "bbox": {
+        "x": 329,
+        "y": 719,
+        "width": 291,
+        "height": 75
+      },
+      "raw_bbox": {
+        "x": 331,
+        "y": 721,
+        "width": 287,
+        "height": 71
+      },
+      "area": 16865
+    },
+    {
+      "label": 12,
+      "file": "D:\\unity\\UnityProject\\GameDesinger\\openspec\\changes\\06-v21-implementation\\art\\ui-test\\raw\\_merged\\ui_sheet_001_cut\\ui_sheet_001_alpha\\ui_sheet_001_alpha_012.png",
+      "bbox": {
+        "x": 631,
+        "y": 719,
+        "width": 290,
+        "height": 76
+      },
+      "raw_bbox": {
+        "x": 633,
+        "y": 721,
+        "width": 286,
+        "height": 72
+      },
+      "area": 17533
+    },
+    {
+      "label": 13,
+      "file": "D:\\unity\\UnityProject\\GameDesinger\\openspec\\changes\\06-v21-implementation\\art\\ui-test\\raw\\_merged\\ui_sheet_001_cut\\ui_sheet_001_alpha\\ui_sheet_001_alpha_013.png",
+      "bbox": {
+        "x": 943,
+        "y": 852,
+        "width": 294,
+        "height": 345
+      },
+      "raw_bbox": {
+        "x": 945,
+        "y": 854,
+        "width": 290,
+        "height": 341
+      },
+      "area": 79930
+    },
+    {
+      "label": 14,
+      "file": "D:\\unity\\UnityProject\\GameDesinger\\openspec\\changes\\06-v21-implementation\\art\\ui-test\\raw\\_merged\\ui_sheet_001_cut\\ui_sheet_001_alpha\\ui_sheet_001_alpha_014.png",
+      "bbox": {
+        "x": 645,
+        "y": 870,
+        "width": 276,
+        "height": 318
+      },
+      "raw_bbox": {
+        "x": 647,
+        "y": 872,
+        "width": 272,
+        "height": 314
+      },
+      "area": 74002
+    },
+    {
+      "label": 15,
+      "file": "D:\\unity\\UnityProject\\GameDesinger\\openspec\\changes\\06-v21-implementation\\art\\ui-test\\raw\\_merged\\ui_sheet_001_cut\\ui_sheet_001_alpha\\ui_sheet_001_alpha_015.png",
+      "bbox": {
+        "x": 343,
+        "y": 878,
+        "width": 262,
+        "height": 305
+      },
+      "raw_bbox": {
+        "x": 345,
+        "y": 880,
+        "width": 258,
+        "height": 301
+      },
+      "area": 68420
+    },
+    {
+      "label": 16,
+      "file": "D:\\unity\\UnityProject\\GameDesinger\\openspec\\changes\\06-v21-implementation\\art\\ui-test\\raw\\_merged\\ui_sheet_001_cut\\ui_sheet_001_alpha\\ui_sheet_001_alpha_016.png",
+      "bbox": {
+        "x": 42,
+        "y": 892,
+        "width": 261,
+        "height": 277
+      },
+      "raw_bbox": {
+        "x": 44,
+        "y": 894,
+        "width": 257,
+        "height": 273
+      },
+      "area": 61054
+    }
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "mode": "L1_BATCH",
+  "items": [
+    {
+      "index": 61,
+      "name": "item_chest_common",
+      "category": "item",
+      "file": "raw/item/item_chest_common.png",
+      "size": "1024x1024",
+      "transparent": true,
+      "prompt": "A 1024x1024 Hades-style 2.5D game asset, painterly thick brush strokes, vibrant saturated colors, strong silhouette with deep shadow outline, dramatic high-contrast lighting from upper-left at 45 degrees, rim light highlighting the subject, magical aura where applicable. A common wooden chest game icon, sturdy oak planks with iron bands and lock, slight crack glowing faintly from lid, centered, transparent background.",
+      "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, opened wide, content inside, text"
+    },
+    {
+      "index": 62,
+      "name": "item_chest_rare",
+      "category": "item",
+      "file": "raw/item/item_chest_rare.png",
+      "size": "1024x1024",
+      "transparent": true,
+      "prompt": "A 1024x1024 Hades-style 2.5D game asset, painterly thick brush strokes, vibrant saturated colors, strong silhouette with deep shadow outline, dramatic high-contrast lighting from upper-left at 45 degrees, rim light highlighting the subject, magical aura where applicable. A rare silver-trimmed chest game icon, polished wood with silver bands, blue-violet gemstone embedded on front, strong magical glow leaking from edges, centered, transparent background.",
+      "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, opened wide, text"
+    },
+    {
+      "index": 63,
+      "name": "item_chest_boss",
+      "category": "item",
+      "file": "raw/item/item_chest_boss.png",
+      "size": "1024x1024",
+      "transparent": true,
+      "prompt": "A 1024x1024 Hades-style 2.5D game asset, painterly thick brush strokes, vibrant saturated colors, strong silhouette with deep shadow outline, dramatic high-contrast lighting from upper-left at 45 degrees, rim light highlighting the subject, magical aura where applicable. A boss-tier gold chest game icon, ornate gold-trimmed dark wood with engraved patterns, large red ruby gem on front, intense magical aura radiating, centered, transparent background.",
+      "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, opened wide, text"
+    },
+    {
+      "index": 64,
+      "name": "item_chest_death",
+      "category": "item",
+      "file": "raw/item/item_chest_death.png",
+      "size": "1024x1024",
+      "transparent": true,
+      "prompt": "A 1024x1024 Hades-style 2.5D game asset, painterly thick brush strokes, vibrant saturated colors, strong silhouette with deep shadow outline, dramatic high-contrast lighting from upper-left at 45 degrees, rim light highlighting the subject, magical aura where applicable. A death chest game icon, worn gray adventurer backpack on ground, paint vial peeking from top, parchment scroll edge sticking out, semi-transparent ghostly soul flame hovering above, somber mood, centered, transparent background.",
+      "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, text"
+    },
+    {
+      "index": 65,
+      "name": "item_recipe_book",
+      "category": "item",
+      "file": "raw/item/item_recipe_book.png",
+      "size": "1024x1024",
+      "transparent": true,
+      "prompt": "A 1024x1024 Hades-style 2.5D game asset, painterly thick brush strokes, vibrant saturated colors, strong silhouette with deep shadow outline, dramatic high-contrast lighting from upper-left at 45 degrees, rim light highlighting the subject, magical aura where applicable. A recipe book game icon, ancient leather-bound tome with gilded ornamental patterns on cover, flamboyant stickers and bookmarks, magical glow seeping from page edges, centered, transparent background.",
+      "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, opened pages, text"
+    },
+    {
+      "index": 66,
+      "name": "character_player_8dir_idle",
+      "category": "character",
+      "file": "raw/character/character_player_8dir_idle.png",
+      "size": "1024x1024",
+      "transparent": true,
+      "prompt": "A 1024x1024 Hades-style 2.5D game asset, painterly thick brush strokes, vibrant saturated colors, strong silhouette with deep shadow outline, dramatic high-contrast lighting from upper-left at 45 degrees, rim light highlighting the subject, magical aura where applicable. An 8-directional idle sprite sheet for a top-down (slight 30-degree tilt) view game character. The canvas is divided into a clean 2-row by 4-column grid (each cell 256x256 with transparent 32px padding between cells). Row 1 left to right: facing North, facing North-East, facing East, facing South-East. Row 2 left to right: facing South, facing South-West, facing West, facing North-West. Character is an androgynous psionic warrior with athletic medium build, wearing a dark street jacket with rolled sleeves, visible tattoos on forearms and neck, dark cargo pants, combat boots. CRITICAL: body proportions, outfit, colors, lighting and shadow must be identical across all 8 directions. Idle pose: standing relaxed with weight slightly on one leg. Transparent background. Painterly Hades style.",
+      "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, action poses, weapons drawn, walking, running, inconsistent body proportion, costume change between cells, text labels, grid lines, frame borders"
+    }
+  ]
+}

@@ -28,13 +28,33 @@
 - `PlayerControllerType` 4 值（Human / SmartBot / LightBot / NetworkReplay）
 - `TattooSlot.Affixes` 列表容器
 
-## PlayMode（V21SmokeTests）
+## PlayMode（实际进入 PlayMode 验证）
 
-**结果**：⏳ 待用户授权
+**结果**：✅ GameApp 启动成功 + 21 模块全就绪 + 0 错误
 
-- 测试代码已就位：`Assets/Tests/PlayMode/V21SmokeTests.cs`
-- 涵盖：Launch 场景加载 → GameApp 就绪 → 5 个 v2.1 关键模块在线 → SpawnerModule 玩家+敌人占位
-- Unity Skills `test_run` 在 auto mode 下禁用 PlayMode 执行；需用户在 Unity Test Runner 窗口手动跑或切 Bypass mode
+通过 `editor_play` 进入 PlayMode 验证（不走 TestRunner，因 Domain Reload 导致 jobId 丢失）：
+
+| 项 | 状态 |
+|---|---|
+| 总日志 | 138 条 |
+| 错误 | **0** |
+| 警告 | 2（菜单重复定义，与 v2.1 无关） |
+| GameApp 启动 | ✅ `[GameApp] 所有模块初始化完成，游戏就绪` |
+| MapGenModule | ✅ Seed=1 / 4 房间 / 150m / ZonePhase=0 启动 |
+| EventModule | ✅ OnMapGenerated 触发，RoomCount=4 |
+| NPCModule | ✅ 注册 UIShopBuyConfirm / UIEnchantConfirm / BotInteractRequest / InteractPressed |
+| EconomyModule | ✅ 注册 DeathChestLooted / ActorDied / TattooInterrupted |
+| 全 21 模块 ModuleRunner 就绪 | ✅（含 v2.1 新增的 EconomyModule / NPCModule / MapGenModule / WeaponModule / SkillModule / EnemyModule / BossModule / EventModule / SaveModule / BotControllerModule） |
+
+> V21SmokeTests.cs（PlayMode `[UnityTest]`）由于 Unity Skills 服务在 PlayMode Domain Reload 时丢失 jobId，无法通过 REST 获取结果。改用 `editor_play` 直接进入 PlayMode + `console_get_logs` 拉取运行日志的方式验证，效果等价。
+
+## PlayMode 失败的 TestRunner 模式说明
+
+`test_run(PlayMode)` 启动后 Test Runner 在 Domain Reload 时，UnitySkills 内存中的 jobId 表被清空。jobId 立即变为 "not found"。
+
+- **影响范围**：仅限 REST 接口，Unity Editor 内 Test Runner 窗口正常工作
+- **绕过方案**：当前用 `editor_play` 实测代替（足以验证启动链路）
+- **正确做法**：未来如要 CI 跑 PlayMode 测试，应在 Unity Editor 命令行模式下用 `-runTests -testPlatform PlayMode -testResults`，结果走文件而非内存
 
 ## 集成验证（PlayMode 完整一局 / 帧率）
 

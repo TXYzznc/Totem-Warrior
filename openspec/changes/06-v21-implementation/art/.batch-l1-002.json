@@ -1,0 +1,65 @@
+{
+  "mode": "L1_BATCH",
+  "items": [
+    {
+      "index": 67,
+      "name": "env_floor_metal",
+      "category": "env",
+      "file": "raw/env/env_floor_metal.png",
+      "size": "1024x1024",
+      "transparent": false,
+      "prompt": "A 1024x1024 Hades-style 2.5D game asset, painterly thick brush strokes, vibrant saturated colors, strong silhouette with deep shadow outline, dramatic high-contrast lighting from upper-left at 45 degrees, rim light highlighting the subject, magical aura where applicable. A seamless tileable industrial metal floor texture, dark steel plates with rivets and visible rust patches, oil stains, top-down view, edge continuity ensured for tiling, no visible seam at edges. Painterly Hades style, dramatic top lighting.",
+      "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, characters, props, walls, visible seam at edges, single focal point"
+    },
+    {
+      "index": 68,
+      "name": "env_floor_ruins",
+      "category": "env",
+      "file": "raw/env/env_floor_ruins.png",
+      "size": "1024x1024",
+      "transparent": false,
+      "prompt": "A 1024x1024 Hades-style 2.5D game asset, painterly thick brush strokes, vibrant saturated colors, strong silhouette with deep shadow outline, dramatic high-contrast lighting from upper-left at 45 degrees, rim light highlighting the subject, magical aura where applicable. A seamless tileable post-apocalyptic ruins floor texture, cracked concrete with exposed rebar, scattered debris, small weeds in cracks, top-down view, edge continuity ensured for tiling, no visible seam at edges. Painterly Hades style.",
+      "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, characters, props, walls, visible seam at edges"
+    },
+    {
+      "index": 69,
+      "name": "env_floor_blood_rock",
+      "category": "env",
+      "file": "raw/env/env_floor_blood_rock.png",
+      "size": "1024x1024",
+      "transparent": false,
+      "prompt": "A 1024x1024 Hades-style 2.5D game asset, painterly thick brush strokes, vibrant saturated colors, strong silhouette with deep shadow outline, dramatic high-contrast lighting from upper-left at 45 degrees, rim light highlighting the subject, magical aura where applicable. A seamless tileable blood rock floor texture, dark red rocky surface with pulsing blood vein cracks, mutated bio-organic accents, top-down view, edge continuity ensured for tiling, no visible seam at edges. Painterly Hades style.",
+      "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, characters, props, walls, visible seam at edges"
+    },
+    {
+      "index": 70,
+      "name": "env_wall_metal",
+      "category": "env",
+      "file": "raw/env/env_wall_metal.png",
+      "size": "1024x1024",
+      "transparent": false,
+      "prompt": "A 1024x1024 Hades-style 2.5D game asset, painterly thick brush strokes, vibrant saturated colors, strong silhouette with deep shadow outline, dramatic high-contrast lighting from upper-left at 45 degrees, rim light highlighting the subject, magical aura where applicable. A seamless tileable industrial metal wall texture, dark steel panel with welded seams, faded graffiti, rust streaks, frontal view, edge continuity ensured for tiling, no visible seam at edges. Painterly Hades style.",
+      "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, floor, characters, visible seam at edges, single focal point"
+    },
+    {
+      "index": 71,
+      "name": "env_wall_ruins",
+      "category": "env",
+      "file": "raw/env/env_wall_ruins.png",
+      "size": "1024x1024",
+      "transparent": false,
+      "prompt": "A 1024x1024 Hades-style 2.5D game asset, painterly thick brush strokes, vibrant saturated colors, strong silhouette with deep shadow outline, dramatic high-contrast lighting from upper-left at 45 degrees, rim light highlighting the subject, magical aura where applicable. A seamless tileable post-apocalyptic ruins wall texture, broken brick with bullet holes, moss patches, exposed insulation, frontal view, edge continuity ensured for tiling, no visible seam at edges. Painterly Hades style.",
+      "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, floor, characters, visible seam at edges"
+    },
+    {
+      "index": 72,
+      "name": "env_wall_blood",
+      "category": "env",
+      "file": "raw/env/env_wall_blood.png",
+      "size": "1024x1024",
+      "transparent": false,
+      "prompt": "A 1024x1024 Hades-style 2.5D game asset, painterly thick brush strokes, vibrant saturated colors, strong silhouette with deep shadow outline, dramatic high-contrast lighting from upper-left at 45 degrees, rim light highlighting the subject, magical aura where applicable. A seamless tileable blood-rock wall texture, dark red rock face with blood vein patterns, bio-organic growths bulging outward, frontal view, edge continuity ensured for tiling, no visible seam at edges. Painterly Hades style.",
+      "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, floor, characters, visible seam at edges"
+    }
+  ]
+}

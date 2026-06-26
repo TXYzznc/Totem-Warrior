@@ -1,0 +1,25 @@
+{
+  "mode": "L1_BATCH",
+  "items": [
+    {
+      "index": 73,
+      "name": "env_light_pillar_a",
+      "category": "env",
+      "file": "raw/env/env_light_pillar_a.png",
+      "size": "1024x1024",
+      "transparent": true,
+      "prompt": "A 1024x1024 Hades-style 2.5D game asset, painterly thick brush strokes, vibrant saturated colors, strong silhouette with deep shadow outline, dramatic high-contrast lighting from upper-left at 45 degrees, rim light highlighting the subject, magical aura where applicable. An industrial fluorescent light pillar game prop, tall vertical fixture with blue-white glowing tubes inside, top metallic shade, base bolted to ground, painterly Hades style, transparent background. Single subject centered.",
+      "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, tileable texture, floor, walls, characters, text"
+    },
+    {
+      "index": 74,
+      "name": "env_light_pillar_b",
+      "category": "env",
+      "file": "raw/env/env_light_pillar_b.png",
+      "size": "1024x1024",
+      "transparent": true,
+      "prompt": "A 1024x1024 Hades-style 2.5D game asset, painterly thick brush strokes, vibrant saturated colors, strong silhouette with deep shadow outline, dramatic high-contrast lighting from upper-left at 45 degrees, rim light highlighting the subject, magical aura where applicable. A broken neon light pillar game prop, weathered pink-red neon glass tubes partially cracked, faint flicker glow, dystopian feel, painterly Hades style, transparent background. Single subject centered.",
+      "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, tileable texture, floor, walls, characters, text"
+    }
+  ]
+}

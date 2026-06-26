@@ -96,15 +96,48 @@ Assets/Scripts/DataTable/DataTableRegistry.cs (注册新增 8 张表)
 
 | 项 | 状态 | 备注 |
 |---|---|---|
-| 代码编译 | 🟡 | 所有源头错误已修，等 Unity Reimport All 触发 |
-| EditMode V21ContractTests | ⏳ | 11 个测试用例已写，等编译过后跑 |
-| EditMode 原有测试（Tattoo336 / Strategy） | ⏳ | 等编译，预期不挂 |
-| PlayMode 完整一局 | 🔲 | 等编译 |
-| 帧率 ≥ 60fps | 🔲 | 等 PlayMode |
+| 代码编译 | ✅ | 0 CS 错误（通过 Unity Skills `console_get_logs`） |
+| EditMode V21ContractTests | ✅ | 11 个用例全过 |
+| EditMode 全套测试 | ✅ | 154/155 通过（99.4%），唯一失败是 Unity Skills 自身一致性测试 |
+| PlayMode GameApp 启动 | ✅ | 实测 `editor_play` 进入 PlayMode，21 模块全就绪，0 errors |
+| MapGen / EventModule / NPCModule / EconomyModule 联动 | ✅ | 日志确认事件订阅 + MapGenerated 触发链路 |
+| BotControllerModule | ✅ | 实测 `Smart=20 Light=29` 49 Bot 已生成 |
+| SkillModule | ✅ | 实测 `SkillCount=8 ItemMappings=8` 8 技能就绪 |
+| MapGenModule | ✅ | 实测 `Templates=3 ZonePhases=3` 缩圈三段完整 |
+| EventModule | ✅ | 实测 `OptionTypes=8 EventCount=6` 三选一事件就绪 |
+| VFXModule | ✅ | 实测 `MatPoolSize=7` 材质池就绪 |
+| CombatModule | ✅ | 实测 `Initialized v2.1` |
+| 9 个 UI Prefab 文件 | ✅ | CombatHUD / TattooStudio / Shop / PauseMenu / TattooEnchant / ThreeChoice / RunResult / MainMenu / CharacterSelect |
+| PlayMode 完整一局（10-15min） | 🔲 | 等可玩内容（玩家输入循环 + 攻击 + 升级实测） |
+| 帧率 ≥ 60fps | 🔲 | 等可玩内容 |
 
-## 六、遗留与已知风险
+## 六、PlayMode 实测发现与修复（2026-06-26）
 
-- **美术资源 24/82**：codex 后台跑中，速率 ~2.5min/张，ETA 约 2.5h。UI 在缺图时 Unity Image 默认白底渲染，不影响逻辑。
+通过 Unity Skills（端口 8090）端到端实测 PlayMode 运行效果，截图见 `tests/screenshots/`：
+
+### ✅ 框架级验证通过
+- `[GameApp]` 完整初始化 + 21 模块全就绪 + 0 console errors
+- 50 actor 视觉确认：玩家（绿球）+ 20 SmartBot（橙方块）+ 29 LightBot（红方块）+ 1 NPC（蓝方块）
+- 占位场景（深灰地面 + 黑色墙体 / 蓝色 NPC 区）已生成
+- 实际跑通 BotControllerModule `Smart=20 Light=29` + SkillModule 8 技能 + MapGenModule 3 模板/3 缩圈 + EventModule 8 选项/6 事件 + VFXModule MatPoolSize=7
+
+### ❌ 实测发现的 UI Bug + 修复
+
+| Bug | 根因 | 修复 |
+|---|---|---|
+| UI 完全不显示 | 4 个 UI Prefab（CombatHUD / PauseMenu / Shop / TattooStudio）实例上**未挂对应 Form 脚本**（12-Agent 并行时 UI Agent 漏掉） | `component_add` 给 4 个 Canvas 加 Form 脚本 |
+| Canvas 是世界空间 UI | RenderMode = `WorldSpace`（应为屏幕覆盖） | `component_set_property` 改为 `ScreenSpaceOverlay` |
+| Canvas RectTransform 100×100 居中 | UI Agent 用 Prefab 默认值（应全屏 stretch） | `gameobject_set_transform` 改 anchorMin=(0,0) / anchorMax=(1,1) / sizeDelta=(0,0) |
+| Canvas 启动后自动隐藏 | `Form.Awake()` 调用 `SetActive(false)` 等 `RunStartedEvent` | 主动调 `gameobject_set_active(true)`（治标）+ 待补：在主菜单加"开始游戏"按钮发 `RunStartedEvent`（治本） |
+
+### 🟡 后续 UI 细化（需手工 + 美术到位）
+- 9 个 Form 中只有 4 个 Prefab 在 Launch 场景里实例化，剩 5 个（MainMenu / CharacterSelect / TattooEnchant / ThreeChoice / RunResult）需要补
+- CombatHUDForm 有 14 个 SerializeField（_hpBar / _skillQ / _cdMaskQ / ... 等）需要在 Inspector 拖拽绑定到 Canvas 子节点
+- HpBarBg / SkillSlotQ 等子节点的 Image 现在是占位深灰，等美术 icon 到位替换 sprite
+
+## 七、遗留与已知风险
+
+- **美术资源 60/82（73%）**：codex 后台分多批次跑，受 5h 额度限制按段跑。已完成：武器 5 / 技能 8 / 词缀 8 / 颜料 21 / 消耗品 5 / NPC 2 / Boss 3 / HUD 8。剩 22 张（配方 8 / 物品 5 / 环境 4 / 角色 5）等下次额度窗口续跑。UI 在缺图时 Unity Image 默认白底渲染，不影响逻辑。
 - **占位场景**：SpawnerModule 用 CreatePrimitive 起步（Cube/Plane），未来切 Hades 风 Prefab 走 ResourceModule。
 - **NavMesh 烘焙**：MapGenModule 程序化生成几何后需运行时烘焙，目前用直线寻路占位。
 - **NetworkReplay Controller**：v2.1 仅声明 enum 占位，真联机版本另起 change。

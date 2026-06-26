@@ -1,0 +1,28 @@
+{
+  "source": "D:\\unity\\UnityProject\\GameDesinger\\openspec\\changes\\06-v21-implementation\\art\\ui-test\\raw\\_merged\\ui_sheet_001.png",
+  "size": {
+    "width": 1254,
+    "height": 1254
+  },
+  "count": 1,
+  "output_dir": "D:\\unity\\UnityProject\\GameDesinger\\openspec\\changes\\06-v21-implementation\\art\\ui-test\\raw\\_merged\\ui_sheet_001_cut\\ui_sheet_001",
+  "sprites": [
+    {
+      "label": 1,
+      "file": "D:\\unity\\UnityProject\\GameDesinger\\openspec\\changes\\06-v21-implementation\\art\\ui-test\\raw\\_merged\\ui_sheet_001_cut\\ui_sheet_001\\ui_sheet_001_001.png",
+      "bbox": {
+        "x": 0,
+        "y": 0,
+        "width": 1254,
+        "height": 1254
+      },
+      "raw_bbox": {
+        "x": 0,
+        "y": 0,
+        "width": 1254,
+        "height": 1254
+      },
+      "area": 1572516
+    }
+  ]
+}

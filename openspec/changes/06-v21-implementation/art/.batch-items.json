@@ -1,5 +1,8 @@
 [
   {
+    "index": 1,
+    "name": "weapon_short_blade",
+    "category": "weapon",
     "file": "raw/weapon/weapon_short_blade.png",
     "size": "1024x1024",
     "transparent": true,
@@ -7,6 +10,9 @@
     "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, sheath, hand holding, character"
   },
   {
+    "index": 2,
+    "name": "weapon_heavy_hammer",
+    "category": "weapon",
     "file": "raw/weapon/weapon_heavy_hammer.png",
     "size": "1024x1024",
     "transparent": true,
@@ -14,6 +20,9 @@
     "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, character holding"
   },
   {
+    "index": 3,
+    "name": "weapon_pistol",
+    "category": "weapon",
     "file": "raw/weapon/weapon_pistol.png",
     "size": "1024x1024",
     "transparent": true,
@@ -21,6 +30,9 @@
     "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, hand, ammunition magazine separated"
   },
   {
+    "index": 4,
+    "name": "weapon_bow",
+    "category": "weapon",
     "file": "raw/weapon/weapon_bow.png",
     "size": "1024x1024",
     "transparent": true,
@@ -28,6 +40,9 @@
     "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, quiver, archer"
   },
   {
+    "index": 5,
+    "name": "weapon_energy_fist",
+    "category": "weapon",
     "file": "raw/weapon/weapon_energy_fist.png",
     "size": "1024x1024",
     "transparent": true,
@@ -35,6 +50,9 @@
     "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, arm, character"
   },
   {
+    "index": 6,
+    "name": "skill_fireball",
+    "category": "skill",
     "file": "raw/skill/skill_fireball.png",
     "size": "1024x1024",
     "transparent": true,
@@ -42,6 +60,9 @@
     "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration"
   },
   {
+    "index": 7,
+    "name": "skill_ice_field",
+    "category": "skill",
     "file": "raw/skill/skill_ice_field.png",
     "size": "1024x1024",
     "transparent": true,
@@ -49,6 +70,9 @@
     "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration"
   },
   {
+    "index": 8,
+    "name": "skill_chain_lightning",
+    "category": "skill",
     "file": "raw/skill/skill_chain_lightning.png",
     "size": "1024x1024",
     "transparent": true,
@@ -56,6 +80,9 @@
     "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration"
   },
   {
+    "index": 9,
+    "name": "skill_heal_aura",
+    "category": "skill",
     "file": "raw/skill/skill_heal_aura.png",
     "size": "1024x1024",
     "transparent": true,
@@ -63,6 +90,9 @@
     "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration"
   },
   {
+    "index": 10,
+    "name": "skill_shield",
+    "category": "skill",
     "file": "raw/skill/skill_shield.png",
     "size": "1024x1024",
     "transparent": true,
@@ -70,6 +100,9 @@
     "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration"
   },
   {
+    "index": 11,
+    "name": "skill_stealth",
+    "category": "skill",
     "file": "raw/skill/skill_stealth.png",
     "size": "1024x1024",
     "transparent": true,
@@ -77,6 +110,9 @@
     "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration"
   },
   {
+    "index": 12,
+    "name": "skill_summon",
+    "category": "skill",
     "file": "raw/skill/skill_summon.png",
     "size": "1024x1024",
     "transparent": true,
@@ -84,6 +120,9 @@
     "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration"
   },
   {
+    "index": 13,
+    "name": "skill_time_slow",
+    "category": "skill",
     "file": "raw/skill/skill_time_slow.png",
     "size": "1024x1024",
     "transparent": true,
@@ -91,6 +130,9 @@
     "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration"
   },
   {
+    "index": 14,
+    "name": "affix_fire_damage",
+    "category": "affix",
     "file": "raw/affix/affix_fire_damage.png",
     "size": "1024x1024",
     "transparent": true,
@@ -98,6 +140,9 @@
     "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration"
   },
   {
+    "index": 15,
+    "name": "affix_cooldown",
+    "category": "affix",
     "file": "raw/affix/affix_cooldown.png",
     "size": "1024x1024",
     "transparent": true,
@@ -105,6 +150,9 @@
     "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration"
   },
   {
+    "index": 16,
+    "name": "affix_attack_speed",
+    "category": "affix",
     "file": "raw/affix/affix_attack_speed.png",
     "size": "1024x1024",
     "transparent": true,
@@ -112,6 +160,9 @@
     "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration"
   },
   {
+    "index": 17,
+    "name": "affix_crit_chance",
+    "category": "affix",
     "file": "raw/affix/affix_crit_chance.png",
     "size": "1024x1024",
     "transparent": true,
@@ -119,6 +170,9 @@
     "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration"
   },
   {
+    "index": 18,
+    "name": "affix_crit_damage",
+    "category": "affix",
     "file": "raw/affix/affix_crit_damage.png",
     "size": "1024x1024",
     "transparent": true,
@@ -126,6 +180,9 @@
     "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration"
   },
   {
+    "index": 19,
+    "name": "affix_range",
+    "category": "affix",
     "file": "raw/affix/affix_range.png",
     "size": "1024x1024",
     "transparent": true,
@@ -133,6 +190,9 @@
     "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration"
   },
   {
+    "index": 20,
+    "name": "affix_accuracy",
+    "category": "affix",
     "file": "raw/affix/affix_accuracy.png",
     "size": "1024x1024",
     "transparent": true,
@@ -140,6 +200,9 @@
     "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration"
   },
   {
+    "index": 21,
+    "name": "affix_lifesteal",
+    "category": "affix",
     "file": "raw/affix/affix_lifesteal.png",
     "size": "1024x1024",
     "transparent": true,
@@ -147,6 +210,9 @@
     "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration"
   },
   {
+    "index": 22,
+    "name": "paint_red_common",
+    "category": "paint",
     "file": "raw/paint/paint_red_common.png",
     "size": "1024x1024",
     "transparent": true,
@@ -154,6 +220,9 @@
     "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, glow, aura, particles, text on label"
   },
   {
+    "index": 23,
+    "name": "paint_red_rare",
+    "category": "paint",
     "file": "raw/paint/paint_red_rare.png",
     "size": "1024x1024",
     "transparent": true,
@@ -161,6 +230,9 @@
     "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, full body aura, text"
   },
   {
+    "index": 24,
+    "name": "paint_red_legendary",
+    "category": "paint",
     "file": "raw/paint/paint_red_legendary.png",
     "size": "1024x1024",
     "transparent": true,
@@ -168,6 +240,9 @@
     "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, text"
   },
   {
+    "index": 25,
+    "name": "paint_yellow_common",
+    "category": "paint",
     "file": "raw/paint/paint_yellow_common.png",
     "size": "1024x1024",
     "transparent": true,
@@ -175,6 +250,9 @@
     "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, glow, text"
   },
   {
+    "index": 26,
+    "name": "paint_yellow_rare",
+    "category": "paint",
     "file": "raw/paint/paint_yellow_rare.png",
     "size": "1024x1024",
     "transparent": true,
@@ -182,6 +260,9 @@
     "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, full aura, text"
   },
   {
+    "index": 27,
+    "name": "paint_yellow_legendary",
+    "category": "paint",
     "file": "raw/paint/paint_yellow_legendary.png",
     "size": "1024x1024",
     "transparent": true,
@@ -189,6 +270,9 @@
     "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, text"
   },
   {
+    "index": 28,
+    "name": "paint_green_common",
+    "category": "paint",
     "file": "raw/paint/paint_green_common.png",
     "size": "1024x1024",
     "transparent": true,
@@ -196,6 +280,9 @@
     "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, glow, text"
   },
   {
+    "index": 29,
+    "name": "paint_green_rare",
+    "category": "paint",
     "file": "raw/paint/paint_green_rare.png",
     "size": "1024x1024",
     "transparent": true,
@@ -203,6 +290,9 @@
     "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, text"
   },
   {
+    "index": 30,
+    "name": "paint_green_legendary",
+    "category": "paint",
     "file": "raw/paint/paint_green_legendary.png",
     "size": "1024x1024",
     "transparent": true,
@@ -210,6 +300,9 @@
     "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, text"
   },
   {
+    "index": 31,
+    "name": "paint_blue_common",
+    "category": "paint",
     "file": "raw/paint/paint_blue_common.png",
     "size": "1024x1024",
     "transparent": true,
@@ -217,6 +310,9 @@
     "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, glow, text"
   },
   {
+    "index": 32,
+    "name": "paint_blue_rare",
+    "category": "paint",
     "file": "raw/paint/paint_blue_rare.png",
     "size": "1024x1024",
     "transparent": true,
@@ -224,6 +320,9 @@
     "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, text"
   },
   {
+    "index": 33,
+    "name": "paint_blue_legendary",
+    "category": "paint",
     "file": "raw/paint/paint_blue_legendary.png",
     "size": "1024x1024",
     "transparent": true,
@@ -231,6 +330,9 @@
     "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, text"
   },
   {
+    "index": 34,
+    "name": "paint_purple_common",
+    "category": "paint",
     "file": "raw/paint/paint_purple_common.png",
     "size": "1024x1024",
     "transparent": true,
@@ -238,6 +340,9 @@
     "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, glow, text"
   },
   {
+    "index": 35,
+    "name": "paint_purple_rare",
+    "category": "paint",
     "file": "raw/paint/paint_purple_rare.png",
     "size": "1024x1024",
     "transparent": true,
@@ -245,6 +350,9 @@
     "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, text"
   },
   {
+    "index": 36,
+    "name": "paint_purple_legendary",
+    "category": "paint",
     "file": "raw/paint/paint_purple_legendary.png",
     "size": "1024x1024",
     "transparent": true,
@@ -252,6 +360,9 @@
     "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, text"
   },
   {
+    "index": 37,
+    "name": "paint_gold_common",
+    "category": "paint",
     "file": "raw/paint/paint_gold_common.png",
     "size": "1024x1024",
     "transparent": true,
@@ -259,6 +370,9 @@
     "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, full glow, text"
   },
   {
+    "index": 38,
+    "name": "paint_gold_rare",
+    "category": "paint",
     "file": "raw/paint/paint_gold_rare.png",
     "size": "1024x1024",
     "transparent": true,
@@ -266,6 +380,9 @@
     "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, text"
   },
   {
+    "index": 39,
+    "name": "paint_gold_legendary",
+    "category": "paint",
     "file": "raw/paint/paint_gold_legendary.png",
     "size": "1024x1024",
     "transparent": true,
@@ -273,6 +390,9 @@
     "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, text"
   },
   {
+    "index": 40,
+    "name": "paint_white_common",
+    "category": "paint",
     "file": "raw/paint/paint_white_common.png",
     "size": "1024x1024",
     "transparent": true,
@@ -280,6 +400,9 @@
     "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, glow, text"
   },
   {
+    "index": 41,
+    "name": "paint_white_rare",
+    "category": "paint",
     "file": "raw/paint/paint_white_rare.png",
     "size": "1024x1024",
     "transparent": true,
@@ -287,6 +410,9 @@
     "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, text"
   },
   {
+    "index": 42,
+    "name": "paint_white_legendary",
+    "category": "paint",
     "file": "raw/paint/paint_white_legendary.png",
     "size": "1024x1024",
     "transparent": true,
@@ -294,6 +420,9 @@
     "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, text"
   },
   {
+    "index": 43,
+    "name": "consumable_antidote",
+    "category": "consumable",
     "file": "raw/consumable/consumable_antidote.png",
     "size": "1024x1024",
     "transparent": true,
@@ -301,6 +430,9 @@
     "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, text"
   },
   {
+    "index": 44,
+    "name": "consumable_repair_kit",
+    "category": "consumable",
     "file": "raw/consumable/consumable_repair_kit.png",
     "size": "1024x1024",
     "transparent": true,
@@ -308,6 +440,9 @@
     "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, text"
   },
   {
+    "index": 45,
+    "name": "consumable_eraser",
+    "category": "consumable",
     "file": "raw/consumable/consumable_eraser.png",
     "size": "1024x1024",
     "transparent": true,
@@ -315,6 +450,9 @@
     "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, text"
   },
   {
+    "index": 46,
+    "name": "consumable_universal_paint",
+    "category": "consumable",
     "file": "raw/consumable/consumable_universal_paint.png",
     "size": "1024x1024",
     "transparent": true,
@@ -322,6 +460,9 @@
     "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, text"
   },
   {
+    "index": 47,
+    "name": "consumable_gold_pile",
+    "category": "consumable",
     "file": "raw/consumable/consumable_gold_pile.png",
     "size": "1024x1024",
     "transparent": true,
@@ -329,6 +470,9 @@
     "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, text, characters on coins"
   },
   {
+    "index": 48,
+    "name": "npc_tattoo_artist",
+    "category": "npc",
     "file": "raw/npc/npc_tattoo_artist.png",
     "size": "1024x1024",
     "transparent": true,
@@ -336,6 +480,9 @@
     "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, full body, multiple characters, text"
   },
   {
+    "index": 49,
+    "name": "npc_merchant",
+    "category": "npc",
     "file": "raw/npc/npc_merchant.png",
     "size": "1024x1024",
     "transparent": true,
@@ -343,6 +490,9 @@
     "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, full body, multiple characters, text"
   },
   {
+    "index": 50,
+    "name": "boss_ai_guardian",
+    "category": "boss",
     "file": "raw/boss/boss_ai_guardian.png",
     "size": "1024x1024",
     "transparent": true,
@@ -350,6 +500,9 @@
     "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, full body, text"
   },
   {
+    "index": 51,
+    "name": "boss_alien_consciousness",
+    "category": "boss",
     "file": "raw/boss/boss_alien_consciousness.png",
     "size": "1024x1024",
     "transparent": true,
@@ -357,6 +510,9 @@
     "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, full body, text"
   },
   {
+    "index": 52,
+    "name": "boss_virus_mutant",
+    "category": "boss",
     "file": "raw/boss/boss_virus_mutant.png",
     "size": "1024x1024",
     "transparent": true,
@@ -364,6 +520,9 @@
     "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, full body, multiple characters, text"
   },
   {
+    "index": 53,
+    "name": "hud_hp_bar_frame",
+    "category": "hud",
     "file": "raw/hud/hud_hp_bar_frame.png",
     "size": "1024x1024",
     "transparent": true,
@@ -371,6 +530,9 @@
     "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, fill content inside, text, characters"
   },
   {
+    "index": 54,
+    "name": "hud_buff_slot",
+    "category": "hud",
     "file": "raw/hud/hud_buff_slot.png",
     "size": "1024x1024",
     "transparent": true,
@@ -378,6 +540,9 @@
     "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, icon inside, text"
   },
   {
+    "index": 55,
+    "name": "hud_skill_slot",
+    "category": "hud",
     "file": "raw/hud/hud_skill_slot.png",
     "size": "1024x1024",
     "transparent": true,
@@ -385,6 +550,9 @@
     "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, icon inside, Q letter, E letter, text"
   },
   {
+    "index": 56,
+    "name": "hud_ammo_box",
+    "category": "hud",
     "file": "raw/hud/hud_ammo_box.png",
     "size": "1024x1024",
     "transparent": true,
@@ -392,6 +560,9 @@
     "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, numbers, text"
   },
   {
+    "index": 57,
+    "name": "hud_minimap_frame",
+    "category": "hud",
     "file": "raw/hud/hud_minimap_frame.png",
     "size": "1024x1024",
     "transparent": true,
@@ -399,6 +570,9 @@
     "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, map content inside, text labels"
   },
   {
+    "index": 58,
+    "name": "hud_shrink_timer",
+    "category": "hud",
     "file": "raw/hud/hud_shrink_timer.png",
     "size": "1024x1024",
     "transparent": true,
@@ -406,6 +580,9 @@
     "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, numbers, text"
   },
   {
+    "index": 59,
+    "name": "hud_weapon_frame",
+    "category": "hud",
     "file": "raw/hud/hud_weapon_frame.png",
     "size": "1024x1024",
     "transparent": true,
@@ -413,6 +590,9 @@
     "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, weapon inside, text"
   },
   {
+    "index": 60,
+    "name": "hud_build_row_bg",
+    "category": "hud",
     "file": "raw/hud/hud_build_row_bg.png",
     "size": "1024x1024",
     "transparent": true,
@@ -420,6 +600,9 @@
     "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, content inside, text, icons"
   },
   {
+    "index": 61,
+    "name": "item_chest_common",
+    "category": "item",
     "file": "raw/item/item_chest_common.png",
     "size": "1024x1024",
     "transparent": true,
@@ -427,6 +610,9 @@
     "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, opened wide, content inside, text"
   },
   {
+    "index": 62,
+    "name": "item_chest_rare",
+    "category": "item",
     "file": "raw/item/item_chest_rare.png",
     "size": "1024x1024",
     "transparent": true,
@@ -434,6 +620,9 @@
     "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, opened wide, text"
   },
   {
+    "index": 63,
+    "name": "item_chest_boss",
+    "category": "item",
     "file": "raw/item/item_chest_boss.png",
     "size": "1024x1024",
     "transparent": true,
@@ -441,6 +630,9 @@
     "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, opened wide, text"
   },
   {
+    "index": 64,
+    "name": "item_chest_death",
+    "category": "item",
     "file": "raw/item/item_chest_death.png",
     "size": "1024x1024",
     "transparent": true,
@@ -448,6 +640,9 @@
     "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, text"
   },
   {
+    "index": 65,
+    "name": "item_recipe_book",
+    "category": "item",
     "file": "raw/item/item_recipe_book.png",
     "size": "1024x1024",
     "transparent": true,
@@ -455,6 +650,9 @@
     "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, opened pages, text"
   },
   {
+    "index": 66,
+    "name": "character_player_8dir_idle",
+    "category": "character",
     "file": "raw/character/character_player_8dir_idle.png",
     "size": "1024x1024",
     "transparent": true,
@@ -462,6 +660,9 @@
     "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, action poses, weapons drawn, walking, running, inconsistent body proportion, costume change between cells, text labels, grid lines, frame borders"
   },
   {
+    "index": 67,
+    "name": "env_floor_metal",
+    "category": "env",
     "file": "raw/env/env_floor_metal.png",
     "size": "1024x1024",
     "transparent": false,
@@ -469,6 +670,9 @@
     "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, characters, props, walls, visible seam at edges, single focal point"
   },
   {
+    "index": 68,
+    "name": "env_floor_ruins",
+    "category": "env",
     "file": "raw/env/env_floor_ruins.png",
     "size": "1024x1024",
     "transparent": false,
@@ -476,6 +680,9 @@
     "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, characters, props, walls, visible seam at edges"
   },
   {
+    "index": 69,
+    "name": "env_floor_blood_rock",
+    "category": "env",
     "file": "raw/env/env_floor_blood_rock.png",
     "size": "1024x1024",
     "transparent": false,
@@ -483,6 +690,9 @@
     "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, characters, props, walls, visible seam at edges"
   },
   {
+    "index": 70,
+    "name": "env_wall_metal",
+    "category": "env",
     "file": "raw/env/env_wall_metal.png",
     "size": "1024x1024",
     "transparent": false,
@@ -490,6 +700,9 @@
     "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, floor, characters, visible seam at edges, single focal point"
   },
   {
+    "index": 71,
+    "name": "env_wall_ruins",
+    "category": "env",
     "file": "raw/env/env_wall_ruins.png",
     "size": "1024x1024",
     "transparent": false,
@@ -497,6 +710,9 @@
     "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, floor, characters, visible seam at edges"
   },
   {
+    "index": 72,
+    "name": "env_wall_blood",
+    "category": "env",
     "file": "raw/env/env_wall_blood.png",
     "size": "1024x1024",
     "transparent": false,
@@ -504,6 +720,9 @@
     "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, floor, characters, visible seam at edges"
   },
   {
+    "index": 73,
+    "name": "env_light_pillar_a",
+    "category": "env",
     "file": "raw/env/env_light_pillar_a.png",
     "size": "1024x1024",
     "transparent": true,
@@ -511,6 +730,9 @@
     "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, tileable texture, floor, walls, characters, text"
   },
   {
+    "index": 74,
+    "name": "env_light_pillar_b",
+    "category": "env",
     "file": "raw/env/env_light_pillar_b.png",
     "size": "1024x1024",
     "transparent": true,
@@ -518,6 +740,9 @@
     "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, tileable texture, floor, walls, characters, text"
   },
   {
+    "index": 75,
+    "name": "recipe_scroll_line",
+    "category": "recipe",
     "file": "raw/recipe/recipe_scroll_line.png",
     "size": "1024x1024",
     "transparent": true,
@@ -525,6 +750,9 @@
     "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, text, written characters"
   },
   {
+    "index": 76,
+    "name": "recipe_scroll_ring",
+    "category": "recipe",
     "file": "raw/recipe/recipe_scroll_ring.png",
     "size": "1024x1024",
     "transparent": true,
@@ -532,6 +760,9 @@
     "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, text, written characters"
   },
   {
+    "index": 77,
+    "name": "recipe_scroll_spiral",
+    "category": "recipe",
     "file": "raw/recipe/recipe_scroll_spiral.png",
     "size": "1024x1024",
     "transparent": true,
@@ -539,6 +770,9 @@
     "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, text, written characters"
   },
   {
+    "index": 78,
+    "name": "recipe_scroll_zigzag",
+    "category": "recipe",
     "file": "raw/recipe/recipe_scroll_zigzag.png",
     "size": "1024x1024",
     "transparent": true,
@@ -546,6 +780,9 @@
     "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, text, written characters"
   },
   {
+    "index": 79,
+    "name": "recipe_scroll_bolt",
+    "category": "recipe",
     "file": "raw/recipe/recipe_scroll_bolt.png",
     "size": "1024x1024",
     "transparent": true,
@@ -553,6 +790,9 @@
     "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, text, written characters"
   },
   {
+    "index": 80,
+    "name": "recipe_scroll_star",
+    "category": "recipe",
     "file": "raw/recipe/recipe_scroll_star.png",
     "size": "1024x1024",
     "transparent": true,
@@ -560,6 +800,9 @@
     "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, text, written characters"
   },
   {
+    "index": 81,
+    "name": "recipe_scroll_stream",
+    "category": "recipe",
     "file": "raw/recipe/recipe_scroll_stream.png",
     "size": "1024x1024",
     "transparent": true,
@@ -567,6 +810,9 @@
     "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, text, written characters"
   },
   {
+    "index": 82,
+    "name": "recipe_scroll_beast",
+    "category": "recipe",
     "file": "raw/recipe/recipe_scroll_beast.png",
     "size": "1024x1024",
     "transparent": true,

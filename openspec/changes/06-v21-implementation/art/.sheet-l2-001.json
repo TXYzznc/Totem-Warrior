@@ -1,0 +1,85 @@
+{
+  "mode": "L2_SHEET",
+  "items": [
+    {
+      "index": 75,
+      "name": "recipe_scroll_line",
+      "category": "recipe",
+      "file": "raw/recipe/recipe_scroll_line.png",
+      "size": "1024x1024",
+      "transparent": true,
+      "prompt": "A 1024x1024 Hades-style 2.5D game asset, painterly thick brush strokes, vibrant saturated colors, strong silhouette with deep shadow outline, dramatic high-contrast lighting from upper-left at 45 degrees, rim light highlighting the subject, magical aura where applicable. A recipe scroll game icon, ancient parchment scroll with both ends rolled up, central area unrolled showing a single bold straight line tattoo pattern in dark gold ink, gilded wax seal at bottom, faint magical glow around scroll edges, centered, transparent background.",
+      "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, text, written characters"
+    },
+    {
+      "index": 76,
+      "name": "recipe_scroll_ring",
+      "category": "recipe",
+      "file": "raw/recipe/recipe_scroll_ring.png",
+      "size": "1024x1024",
+      "transparent": true,
+      "prompt": "A 1024x1024 Hades-style 2.5D game asset, painterly thick brush strokes, vibrant saturated colors, strong silhouette with deep shadow outline, dramatic high-contrast lighting from upper-left at 45 degrees, rim light highlighting the subject, magical aura where applicable. A recipe scroll game icon, ancient parchment scroll, central area unrolled showing a double concentric ring tattoo pattern in dark gold ink, gilded wax seal, faint magical glow, centered, transparent background.",
+      "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, text, written characters"
+    },
+    {
+      "index": 77,
+      "name": "recipe_scroll_spiral",
+      "category": "recipe",
+      "file": "raw/recipe/recipe_scroll_spiral.png",
+      "size": "1024x1024",
+      "transparent": true,
+      "prompt": "A 1024x1024 Hades-style 2.5D game asset, painterly thick brush strokes, vibrant saturated colors, strong silhouette with deep shadow outline, dramatic high-contrast lighting from upper-left at 45 degrees, rim light highlighting the subject, magical aura where applicable. A recipe scroll game icon, ancient parchment scroll, central area unrolled showing an Archimedean 5-loop spiral tattoo pattern in dark gold ink, gilded wax seal, faint magical glow, centered, transparent background.",
+      "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, text, written characters"
+    },
+    {
+      "index": 78,
+      "name": "recipe_scroll_zigzag",
+      "category": "recipe",
+      "file": "raw/recipe/recipe_scroll_zigzag.png",
+      "size": "1024x1024",
+      "transparent": true,
+      "prompt": "A 1024x1024 Hades-style 2.5D game asset, painterly thick brush strokes, vibrant saturated colors, strong silhouette with deep shadow outline, dramatic high-contrast lighting from upper-left at 45 degrees, rim light highlighting the subject, magical aura where applicable. A recipe scroll game icon, ancient parchment scroll, central area unrolled showing a 4-segment zigzag tattoo pattern in dark gold ink, gilded wax seal, faint magical glow, centered, transparent background.",
+      "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, text, written characters"
+    },
+    {
+      "index": 79,
+      "name": "recipe_scroll_bolt",
+      "category": "recipe",
+      "file": "raw/recipe/recipe_scroll_bolt.png",
+      "size": "1024x1024",
+      "transparent": true,
+      "prompt": "A 1024x1024 Hades-style 2.5D game asset, painterly thick brush strokes, vibrant saturated colors, strong silhouette with deep shadow outline, dramatic high-contrast lighting from upper-left at 45 degrees, rim light highlighting the subject, magical aura where applicable. A recipe scroll game icon, ancient parchment scroll, central area unrolled showing a forked lightning bolt tattoo pattern in dark gold ink with branching forks, gilded wax seal, faint magical glow, centered, transparent background.",
+      "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, text, written characters"
+    },
+    {
+      "index": 80,
+      "name": "recipe_scroll_star",
+      "category": "recipe",
+      "file": "raw/recipe/recipe_scroll_star.png",
+      "size": "1024x1024",
+      "transparent": true,
+      "prompt": "A 1024x1024 Hades-style 2.5D game asset, painterly thick brush strokes, vibrant saturated colors, strong silhouette with deep shadow outline, dramatic high-contrast lighting from upper-left at 45 degrees, rim light highlighting the subject, magical aura where applicable. A recipe scroll game icon, ancient parchment scroll, central area unrolled showing a five-pointed star tattoo pattern with surrounding dashed probability arcs in dark gold ink, gilded wax seal, faint magical glow, centered, transparent background.",
+      "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, text, written characters"
+    },
+    {
+      "index": 81,
+      "name": "recipe_scroll_stream",
+      "category": "recipe",
+      "file": "raw/recipe/recipe_scroll_stream.png",
+      "size": "1024x1024",
+      "transparent": true,
+      "prompt": "A 1024x1024 Hades-style 2.5D game asset, painterly thick brush strokes, vibrant saturated colors, strong silhouette with deep shadow outline, dramatic high-contrast lighting from upper-left at 45 degrees, rim light highlighting the subject, magical aura where applicable. A recipe scroll game icon, ancient parchment scroll, central area unrolled showing a stream tattoo pattern with 3 parallel flowing lines in dark gold ink, gilded wax seal, faint magical glow, centered, transparent background.",
+      "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, text, written characters"
+    },
+    {
+      "index": 82,
+      "name": "recipe_scroll_beast",
+      "category": "recipe",
+      "file": "raw/recipe/recipe_scroll_beast.png",
+      "size": "1024x1024",
+      "transparent": true,
+      "prompt": "A 1024x1024 Hades-style 2.5D game asset, painterly thick brush strokes, vibrant saturated colors, strong silhouette with deep shadow outline, dramatic high-contrast lighting from upper-left at 45 degrees, rim light highlighting the subject, magical aura where applicable. A recipe scroll game icon, ancient parchment scroll, central area unrolled showing a beast claw silhouette tattoo pattern with summoning runes in dark gold ink, gilded wax seal, faint magical glow, centered, transparent background.",
+      "negative": "no text, no letters, no numbers, no watermark, no signature, no logo, blurry, low contrast, flat vector, washed out, multiple subjects, frame border decoration, text, written characters"
+    }
+  ]
+}
