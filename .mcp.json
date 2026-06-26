@@ -30,6 +30,10 @@
     "frame-ronin": {
       "command": ".venv/Scripts/frame-ronin-mcp.exe"
     },
+    "codex-art-gen": {
+      "command": ".venv/Scripts/python.exe",
+      "args": ["tools/codex-art-gen-mcp/server.py"]
+    },
     "atlassian": {
       "command": "uvx",
       "args": ["mcp-atlassian"],
