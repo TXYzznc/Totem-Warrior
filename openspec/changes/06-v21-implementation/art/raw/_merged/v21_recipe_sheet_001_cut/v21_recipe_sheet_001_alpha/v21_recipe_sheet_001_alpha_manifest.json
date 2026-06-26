@@ -1,0 +1,147 @@
+{
+  "source": "D:\\unity\\UnityProject\\GameDesinger\\openspec\\changes\\06-v21-implementation\\art\\raw\\_merged\\v21_recipe_sheet_001_alpha.png",
+  "size": {
+    "width": 1254,
+    "height": 1254
+  },
+  "count": 8,
+  "output_dir": "D:\\unity\\UnityProject\\GameDesinger\\openspec\\changes\\06-v21-implementation\\art\\raw\\_merged\\v21_recipe_sheet_001_cut\\v21_recipe_sheet_001_alpha",
+  "sprites": [
+    {
+      "label": 1,
+      "file": "D:\\unity\\UnityProject\\GameDesinger\\openspec\\changes\\06-v21-implementation\\art\\raw\\_merged\\v21_recipe_sheet_001_cut\\v21_recipe_sheet_001_alpha\\v21_recipe_sheet_001_alpha_001.png",
+      "bbox": {
+        "x": 21,
+        "y": 146,
+        "width": 282,
+        "height": 405
+      },
+      "raw_bbox": {
+        "x": 23,
+        "y": 148,
+        "width": 278,
+        "height": 401
+      },
+      "area": 83326
+    },
+    {
+      "label": 2,
+      "file": "D:\\unity\\UnityProject\\GameDesinger\\openspec\\changes\\06-v21-implementation\\art\\raw\\_merged\\v21_recipe_sheet_001_cut\\v21_recipe_sheet_001_alpha\\v21_recipe_sheet_001_alpha_002.png",
+      "bbox": {
+        "x": 328,
+        "y": 146,
+        "width": 283,
+        "height": 405
+      },
+      "raw_bbox": {
+        "x": 330,
+        "y": 148,
+        "width": 279,
+        "height": 401
+      },
+      "area": 83306
+    },
+    {
+      "label": 3,
+      "file": "D:\\unity\\UnityProject\\GameDesinger\\openspec\\changes\\06-v21-implementation\\art\\raw\\_merged\\v21_recipe_sheet_001_cut\\v21_recipe_sheet_001_alpha\\v21_recipe_sheet_001_alpha_003.png",
+      "bbox": {
+        "x": 636,
+        "y": 146,
+        "width": 282,
+        "height": 405
+      },
+      "raw_bbox": {
+        "x": 638,
+        "y": 148,
+        "width": 278,
+        "height": 401
+      },
+      "area": 83204
+    },
+    {
+      "label": 4,
+      "file": "D:\\unity\\UnityProject\\GameDesinger\\openspec\\changes\\06-v21-implementation\\art\\raw\\_merged\\v21_recipe_sheet_001_cut\\v21_recipe_sheet_001_alpha\\v21_recipe_sheet_001_alpha_004.png",
+      "bbox": {
+        "x": 943,
+        "y": 146,
+        "width": 282,
+        "height": 405
+      },
+      "raw_bbox": {
+        "x": 945,
+        "y": 148,
+        "width": 278,
+        "height": 401
+      },
+      "area": 83126
+    },
+    {
+      "label": 5,
+      "file": "D:\\unity\\UnityProject\\GameDesinger\\openspec\\changes\\06-v21-implementation\\art\\raw\\_merged\\v21_recipe_sheet_001_cut\\v21_recipe_sheet_001_alpha\\v21_recipe_sheet_001_alpha_005.png",
+      "bbox": {
+        "x": 21,
+        "y": 696,
+        "width": 282,
+        "height": 406
+      },
+      "raw_bbox": {
+        "x": 23,
+        "y": 698,
+        "width": 278,
+        "height": 402
+      },
+      "area": 83436
+    },
+    {
+      "label": 6,
+      "file": "D:\\unity\\UnityProject\\GameDesinger\\openspec\\changes\\06-v21-implementation\\art\\raw\\_merged\\v21_recipe_sheet_001_cut\\v21_recipe_sheet_001_alpha\\v21_recipe_sheet_001_alpha_006.png",
+      "bbox": {
+        "x": 328,
+        "y": 696,
+        "width": 282,
+        "height": 406
+      },
+      "raw_bbox": {
+        "x": 330,
+        "y": 698,
+        "width": 278,
+        "height": 402
+      },
+      "area": 83358
+    },
+    {
+      "label": 7,
+      "file": "D:\\unity\\UnityProject\\GameDesinger\\openspec\\changes\\06-v21-implementation\\art\\raw\\_merged\\v21_recipe_sheet_001_cut\\v21_recipe_sheet_001_alpha\\v21_recipe_sheet_001_alpha_007.png",
+      "bbox": {
+        "x": 636,
+        "y": 696,
+        "width": 282,
+        "height": 406
+      },
+      "raw_bbox": {
+        "x": 638,
+        "y": 698,
+        "width": 278,
+        "height": 402
+      },
+      "area": 83317
+    },
+    {
+      "label": 8,
+      "file": "D:\\unity\\UnityProject\\GameDesinger\\openspec\\changes\\06-v21-implementation\\art\\raw\\_merged\\v21_recipe_sheet_001_cut\\v21_recipe_sheet_001_alpha\\v21_recipe_sheet_001_alpha_008.png",
+      "bbox": {
+        "x": 940,
+        "y": 696,
+        "width": 282,
+        "height": 406
+      },
+      "raw_bbox": {
+        "x": 942,
+        "y": 698,
+        "width": 278,
+        "height": 402
+      },
+      "area": 83234
+    }
+  ]
+}

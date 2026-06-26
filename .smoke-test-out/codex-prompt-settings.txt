@@ -1,0 +1,23 @@
+请使用 imagegen 系统 skill 出图（必须实际调用 image_gen 工具，不能跳过）。
+
+# 任务
+读取 openspec/changes/10-settings-form/art/prompts.md 中「页面 1：SettingsForm — 设置主面板」段落，提取其中「正向提示词」（英文代码块）与「负面提示词」全文，按其内容生成 1 张游戏设置面板 UI mockup。
+
+# 落盘
+- 文件路径：openspec/changes/10-settings-form/art/mockups/SettingsForm.png
+- 尺寸：1920x1080
+- 透明背景：否（panel 后面有 blurred dark scene 背景）
+
+# 关键执行要求
+1. 必须实际调用 image_gen 工具落盘 PNG，不能仅返回文本跳过生成
+2. 严格遵守 prompts.md §0.2 色彩 hex 约束：#1A1C2E 面板背景 / #FFB400 金色 accent / #22243A 描边 / #F8F9FA 白字 / #FFD060 滑块
+3. 必须显示 RadioGroup 三态同时可见：低（未选）+ 中（已选金色实心）+ 高（未选）
+4. 必须按 prompts.md 显示 mock 内容：BGM 滑块 0.70 / SFX 滑块 0.85 / 移动 WASD / 攻击 鼠标左键 / 暂停 Esc / 画质选中「中」
+5. 严禁出现：重绑定 waiting 文字 / 冲突 Toast / 分辨率帧率附注 / 手柄提示 / flat design / pastel colors
+
+# 完成后请输出
+- 实际落盘文件路径
+- 文件字节数
+- 调用的 imagegen 模型名
+- 是否一次成功
+不需要 JSON，自由文本即可。

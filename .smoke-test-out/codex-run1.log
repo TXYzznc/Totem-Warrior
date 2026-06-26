@@ -1,0 +1,925 @@
+Reading additional input from stdin...
+2026-06-26T09:40:48.898437Z ERROR codex_core::session::session: failed to load skill D:\unity\UnityProject\GameDesinger\.agents\skills\unity-skills\skills\camera\SKILL.md: missing YAML frontmatter delimited by ---
+2026-06-26T09:40:48.898485Z ERROR codex_core::session::session: failed to load skill D:\unity\UnityProject\GameDesinger\.agents\skills\unity-skills\skills\cinemachine\SKILL.md: missing YAML frontmatter delimited by ---
+2026-06-26T09:40:48.898492Z ERROR codex_core::session::session: failed to load skill D:\unity\UnityProject\GameDesinger\.agents\skills\unity-skills\skills\event\SKILL.md: missing YAML frontmatter delimited by ---
+2026-06-26T09:40:48.898498Z ERROR codex_core::session::session: failed to load skill D:\unity\UnityProject\GameDesinger\.agents\skills\unity-skills\skills\navmesh\SKILL.md: missing YAML frontmatter delimited by ---
+2026-06-26T09:40:48.898640Z ERROR codex_core::session::session: failed to load skill D:\unity\UnityProject\GameDesinger\.agents\skills\unity-skills\skills\optimization\SKILL.md: missing YAML frontmatter delimited by ---
+2026-06-26T09:40:48.898655Z ERROR codex_core::session::session: failed to load skill D:\unity\UnityProject\GameDesinger\.agents\skills\unity-skills\skills\package\SKILL.md: missing YAML frontmatter delimited by ---
+2026-06-26T09:40:48.898659Z ERROR codex_core::session::session: failed to load skill D:\unity\UnityProject\GameDesinger\.agents\skills\unity-skills\skills\physics\SKILL.md: missing YAML frontmatter delimited by ---
+2026-06-26T09:40:48.898663Z ERROR codex_core::session::session: failed to load skill D:\unity\UnityProject\GameDesinger\.agents\skills\unity-skills\skills\profiler\SKILL.md: missing YAML frontmatter delimited by ---
+2026-06-26T09:40:48.898666Z ERROR codex_core::session::session: failed to load skill D:\unity\UnityProject\GameDesinger\.agents\skills\unity-skills\skills\project\SKILL.md: missing YAML frontmatter delimited by ---
+2026-06-26T09:40:48.898670Z ERROR codex_core::session::session: failed to load skill D:\unity\UnityProject\GameDesinger\.agents\skills\unity-skills\skills\sample\SKILL.md: missing YAML frontmatter delimited by ---
+2026-06-26T09:40:48.898673Z ERROR codex_core::session::session: failed to load skill D:\unity\UnityProject\GameDesinger\.agents\skills\unity-skills\skills\timeline\SKILL.md: missing YAML frontmatter delimited by ---
+2026-06-26T09:40:48.898677Z ERROR codex_core::session::session: failed to load skill D:\unity\UnityProject\GameDesinger\.agents\skills\unity-skills\skills\workflow\SKILL.md: missing YAML frontmatter delimited by ---
+OpenAI Codex v0.142.0
+--------
+workdir: D:\unity\UnityProject\GameDesinger
+model: gpt-5.5
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: low
+reasoning summaries: none
+session id: 019f034d-a70f-7862-8db6-99cbe58d8547
+--------
+user
+请使用 imagegen 系统 skill 出图（必须实际调用 image_gen 工具，不能跳过）。
+
+# 任务
+读取 openspec/changes/10-settings-form/art/prompts.md 中「页面 1：SettingsForm — 设置主面板」段落，提取其中「正向提示词」（英文代码块）与「负面提示词」全文，按其内容生成 1 张游戏设置面板 UI mockup。
+
+# 落盘
+- 文件路径：openspec/changes/10-settings-form/art/mockups/SettingsForm.png
+- 尺寸：1920x1080
+- 透明背景：否（panel 后面有 blurred dark scene 背景）
+
+# 关键执行要求
+1. 必须实际调用 image_gen 工具落盘 PNG，不能仅返回文本跳过生成
+2. 严格遵守 prompts.md §0.2 色彩 hex 约束：#1A1C2E 面板背景 / #FFB400 金色 accent / #22243A 描边 / #F8F9FA 白字 / #FFD060 滑块
+3. 必须显示 RadioGroup 三态同时可见：低（未选）+ 中（已选金色实心）+ 高（未选）
+4. 必须按 prompts.md 显示 mock 内容：BGM 滑块 0.70 / SFX 滑块 0.85 / 移动 WASD / 攻击 鼠标左键 / 暂停 Esc / 画质选中「中」
+5. 严禁出现：重绑定 waiting 文字 / 冲突 Toast / 分辨率帧率附注 / 手柄提示 / flat design / pastel colors
+
+# 完成后请输出
+- 实际落盘文件路径
+- 文件字节数
+- 调用的 imagegen 模型名
+- 是否一次成功
+不需要 JSON，自由文本即可。
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\art-2d.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\art-3d.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\art-anim.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\art-director.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\art-font.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\art-ui.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\art-vfx.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\client-lead.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\client-ta.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\client-unity.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\devops-engineer.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\gd-lead.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\gd-system.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\level-designer.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\net-backend.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\net-db.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\net-lead.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\producer.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\qa-engineer.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\tools-engineer.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\art-2d.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\art-3d.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\art-anim.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\art-director.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\art-font.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\art-ui.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\art-vfx.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\client-lead.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\client-ta.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\client-unity.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\devops-engineer.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\gd-lead.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\gd-system.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\level-designer.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\net-backend.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\net-db.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\net-lead.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\producer.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\qa-engineer.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Ignoring malformed agent role definition: failed to deserialize agent role file at D:\unity\UnityProject\GameDesinger\.codex\agents\tools-engineer.toml: data did not match any variant of untagged enum WebSearchToolConfigInput
+
+warning: Skill descriptions were shortened to fit the 2% skills context budget. Codex can still see every skill, but some descriptions are shorter. Disable unused skills or plugins to leave more room for the rest.
+codex
+我会先读取 `imagegen` skill 和目标提示词段落，然后按提取出的正负提示词实际调用 `image_gen` 生成 PNG。
+exec
+"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "Get-Content -Raw C:\\Users\\WIN10\\.codex\\skills\\.system\\imagegen\\SKILL.md" in D:\unity\UnityProject\GameDesinger
+exec
+"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "Get-Content -Raw openspec\\changes\\10-settings-form\\art\\prompts.md" in D:\unity\UnityProject\GameDesinger
+ succeeded in 549ms:
+---
+name: "imagegen"
+description: "Generate or edit raster images when the task benefits from AI-created bitmap visuals such as photos, illustrations, textures, sprites, mockups, or transparent-background cutouts. Use when Codex should create a brand-new image, transform an existing image, or derive visual variants from references, and the output should be a bitmap asset rather than repo-native code or vector. Do not use when the task is better handled by editing existing SVG/vector/code-native assets, extending an established icon or logo system, or building the visual directly in HTML/CSS/canvas."
+---
+
+# Image Generation Skill
+
+Generates or edits images for the current project (for example website assets, game assets, UI mockups, product mockups, wireframes, logo design, photorealistic images, or infographics).
+
+## Top-level modes and rules
+
+This skill has exactly two top-level modes:
+
+- **Default built-in tool mode (preferred):** built-in `image_gen` tool for normal image generation, editing, and simple transparent-image requests. Does not require `OPENAI_API_KEY`.
+- **Fallback CLI mode:** `scripts/image_gen.py` CLI. Use when the user explicitly asks for the CLI/API/model path, or after the user explicitly confirms a true model-native transparency fallback with `gpt-image-1.5`. Requires `OPENAI_API_KEY`.
+
+Within CLI fallback, the CLI exposes three subcommands:
+
+- `generate`
+- `edit`
+- `generate-batch`
+
+Rules:
+- Use the built-in `image_gen` tool by default for normal image generation and editing requests.
+- Do not switch to CLI fallback for ordinary quality, size, or file-path control.
+- If the user explicitly asks for a transparent image/background, stay on built-in `image_gen` first: prompt for a flat removable chroma-key background, then remove it locally with the installed helper at `$CODEX_HOME/skills/.system/imagegen/scripts/remove_chroma_key.py`.
+- Never silently switch from built-in `image_gen` or CLI `gpt-image-2` to CLI `gpt-image-1.5`. Treat this as a model/path downgrade and ask the user before doing it, unless the user has already explicitly requested `gpt-image-1.5`, `scripts/image_gen.py`, or CLI fallback.
+- If a transparent request appears too complex for clean chroma-key removal, asks for true/native transparency, or local removal fails validation, explain that true transparency requires CLI `gpt-image-1.5 --background transparent --output-format png` because `gpt-image-2` does not support `background=transparent`, then ask whether to proceed. Run the CLI fallback only after the user confirms.
+- The word `batch` by itself does not mean CLI fallback. If the user asks for many assets or says to batch-generate assets without explicitly asking for CLI/API/model controls, stay on the built-in path and issue one built-in call per requested asset or variant.
+- If the built-in tool fails or is unavailable, tell the user the CLI fallback exists and that it requires `OPENAI_API_KEY`. Proceed only if the user explicitly asks for that fallback.
+- If the user explicitly asks for CLI mode, use the bundled `scripts/image_gen.py` workflow. Do not create one-off SDK runners.
+- Never modify `scripts/image_gen.py`. If something is missing, ask the user before doing anything else.
+
+Built-in save-path policy:
+- In built-in tool mode, Codex saves generated images under `$CODEX_HOME/*` by default.
+- Do not describe or rely on OS temp as the default built-in destination.
+- Do not describe or rely on a destination-path argument (if any) on the built-in `image_gen` tool. If a specific location is needed, generate first and then move or copy the selected output from `$CODEX_HOME/generated_images/...`.
+- Save-path precedence in built-in mode:
+  1. If the user names a destination, move or copy the selected output there.
+  2. If the image is meant for the current project, move or copy the final selected image into the workspace before finishing.
+  3. If the image is only for preview or brainstorming, render it inline; the underlying file can remain at the default `$CODEX_HOME/*` path.
+- Never leave a project-referenced asset only at the default `$CODEX_HOME/*` path.
+- Do not overwrite an existing asset unless the user explicitly asked for replacement; otherwise create a sibling versioned filename such as `hero-v2.png` or `item-icon-edited.png`.
+
+Shared prompt guidance for both modes lives in `references/prompting.md` and `references/sample-prompts.md`.
+
+Fallback-only docs/resources for CLI mode:
+- `references/cli.md`
+- `references/image-api.md`
+- `references/codex-network.md`
+- `scripts/image_gen.py`
+
+Local post-processing helper:
+- `$CODEX_HOME/skills/.system/imagegen/scripts/remove_chroma_key.py`: removes a flat chroma-key background from a generated image and writes a PNG/WebP with alpha. Prefer auto-key sampling, soft matte, and despill for antialiased edges.
+
+## When to use
+- Generate a new image (concept art, product shot, cover, website hero)
+- Generate a new image using one or more reference images for style, composition, or mood
+- Edit an existing image (inpainting, lighting or weather transformations, background replacement, object removal, compositing, transparent background)
+- Produce many assets or variants for one task
+
+## When not to use
+- Extending or matching an existing SVG/vector icon set, logo system, or illustration library inside the repo
+- Creating simple shapes, diagrams, wireframes, or icons that are better produced directly in SVG, HTML/CSS, or canvas
+- Making a small project-local asset edit when the source file already exists in an editable native format
+- Any task where the user clearly wants deterministic code-native output instead of a generated bitmap
+
+## Decision tree
+
+Think about two separate questions:
+
+1. **Intent:** is this a new image or an edit of an existing image?
+2. **Execution strategy:** is this one asset or many assets/variants?
+
+Intent:
+- If the user wants to modify an existing image while preserving parts of it, treat the request as **edit**.
+- If the user provides images only as references for style, composition, mood, or subject guidance, treat the request as **generate**.
+- If the user provides no images, treat the request as **generate**.
+
+Built-in edit semantics:
+- Built-in edit mode is for images already visible in the conversation context, such as attached images or images generated earlier in the thread.
+- If the user wants to edit a local image file with the built-in tool, first load it with built-in `view_image` tool so the image is visible in the conversation context, then proceed with the built-in edit flow.
+- Do not promise arbitrary filesystem-path editing through the built-in tool.
+- If a local file still needs direct file-path control, masks, or other explicit CLI-only parameters, use the explicit CLI fallback only when the user asks for it.
+- For edits, preserve invariants aggressively and save non-destructively by default.
+
+Execution strategy:
+- In the built-in default path, produce many assets or variants by issuing one `image_gen` call per requested asset or variant.
+- In the CLI fallback path, use the CLI `generate-batch` subcommand only when the user explicitly chose CLI mode and needs many prompts/assets.
+- For many distinct assets, do not use `n` as a substitute for separate prompts. `n` is for variants of one prompt; distinct assets need distinct built-in calls or distinct CLI `generate-batch` jobs.
+
+Assume the user wants a new image unless they clearly ask to change an existing one.
+
+## Workflow
+1. Decide the top-level mode: built-in by default, including simple transparent-output requests; fallback CLI only if explicitly requested or after the user explicitly confirms a transparent-output fallback.
+2. Decide the intent: `generate` or `edit`.
+3. Decide whether the output is preview-only or meant to be consumed by the current project.
+4. Decide the execution strategy: single asset vs repeated built-in calls vs CLI `generate-batch`.
+5. Collect inputs up front: prompt(s), exact text (verbatim), constraints/avoid list, and any input images.
+6. For every input image, label its role explicitly:
+   - reference image
+   - edit target
+   - supporting insert/style/compositing input
+7. If the edit target is only on the local filesystem and you are staying on the built-in path, inspect it with `view_image` first so the image is available in conversation context.
+8. If the user asked for a photo, illustration, sprite, product image, banner, or other explicitly raster-style asset, use `image_gen` rather than substituting SVG/HTML/CSS placeholders. If the request is for an icon, logo, or UI graphic that should match existing repo-native SVG/vector/code assets, prefer editing those directly instead.
+9. Augment the prompt based on specificity:
+   - If the user's prompt is already specific and detailed, normalize it into a clear spec without adding creative requirements.
+   - If the user's prompt is generic, add tasteful augmentation only when it materially improves output quality.
+10. Use the built-in `image_gen` tool by default.
+11. For transparent-output requests, follow the transparent image guidance below: generate with built-in `image_gen` on a flat chroma-key background, copy the selected output into the workspace or `tmp/imagegen/`, run the installed `$CODEX_HOME/skills/.system/imagegen/scripts/remove_chroma_key.py` helper, and validate the alpha result before using it. If this path looks unsuitable or fails, ask before switching to CLI `gpt-image-1.5`.
+12. Inspect outputs and validate: subject, style, composition, text accuracy, and invariants/avoid items.
+13. Iterate with a single targeted change, then re-check.
+14. For preview-only work, render the image inline; the underlying file may remain at the default `$CODEX_HOME/generated_images/...` path.
+15. For project-bound work, move or copy the selected artifact into the workspace and update any consuming code or references. Never leave a project-referenced asset only at the default `$CODEX_HOME/generated_images/...` path.
+16. For batches or multi-asset requests, persist every requested deliverable final in the workspace unless the user explicitly asked to keep outputs preview-only. Discarded variants do not need to be kept unless requested.
+17. If the user explicitly chooses or confirms the CLI fallback, then use the fallback-only docs for model, quality, size, `input_fidelity`, masks, output format, output paths, and network setup.
+18. Always report the final saved path(s) for any workspace-bound asset(s), plus the final prompt or prompt set and whether the built-in tool or fallback CLI mode was used.
+
+## Transparent image requests
+
+Transparent-image requests still use built-in `image_gen` first. Because the built-in tool does not expose a true transparent-background control, create a removable chroma-key source image and then convert the key color to alpha locally.
+
+Default sequence:
+1. Use built-in `image_gen` to generate the requested subject on a perfectly flat solid chroma-key background.
+2. Choose a key color that is unlikely to appear in the subject: default `#00ff00`, use `#ff00ff` for green subjects, and avoid `#0000ff` for blue subjects.
+3. After generation, move or copy the selected source image from `$CODEX_HOME/generated_images/...` into the workspace or `tmp/imagegen/`.
+4. Run the installed helper path, not a project-relative script path:
+   ```bash
+   python "${CODEX_HOME:-$HOME/.codex}/skills/.system/imagegen/scripts/remove_chroma_key.py" \
+     --input <source> \
+     --out <final.png> \
+     --auto-key border \
+     --soft-matte \
+     --transparent-threshold 12 \
+     --opaque-threshold 220 \
+     --despill
+   ```
+5. Validate that the output has an alpha channel, transparent corners, plausible subject coverage, and no obvious key-color fringe. If a thin fringe remains, retry once with `--edge-contract 1`; use `--edge-feather 0.25` only when the edge is visibly stair-stepped and the subject is not shiny or reflective.
+6. Save the final alpha PNG/WebP in the project if the asset is project-bound. Never leave a project-referenced transparent asset only under `$CODEX_HOME/*`.
+
+Prompt transparent requests like this:
+
+```text
+Create the requested subject on a perfectly flat solid #00ff00 chroma-key background for background removal.
+The background must be one uniform color with no shadows, gradients, texture, reflections, floor plane, or lighting variation.
+Keep the subject fully separated from the background with crisp edges and generous padding.
+Do not use #00ff00 anywhere in the subject.
+No cast shadow, no contact shadow, no reflection, no watermark, and no text unless explicitly requested.
+```
+
+Do not automatically use CLI `gpt-image-1.5 --background transparent --output-format png` instead of chroma keying. Ask the user first when the user asks for true/native transparency, when local removal fails validation, or when the requested image is complex: hair, fur, feathers, smoke, glass, liquids, translucent materials, reflective objects, soft shadows, realistic product grounding, or subject colors that conflict with all practical key colors.
+
+Use a concise confirmation like:
+
+```text
+This likely needs true native transparency. The default built-in path uses a chroma-key background plus local removal, but true transparency requires the CLI fallback with gpt-image-1.5 because gpt-image-2 does not support background=transparent. It also requires OPENAI_API_KEY. Should I proceed with that CLI fallback?
+```
+
+## Prompt augmentation
+
+Reformat user prompts into a structured, production-oriented spec. Make the user's goal clearer and more actionable, but do not blindly add detail.
+
+Treat this as prompt-shaping guidance, not a closed schema. Use only the lines that help, and add a short extra labeled line when it materially improves clarity.
+
+### Specificity policy
+
+Use the user's prompt specificity to decide how much augmentation is appropriate:
+
+- If the prompt is already specific and detailed, preserve that specificity and only normalize/structure it.
+- If the prompt is generic, you may add tasteful augmentation when it will materially improve the result.
+
+Allowed augmentations:
+- composition or framing hints
+- polish level or intended-use hints
+- practical layout guidance
+- reasonable scene concreteness that supports the stated request
+
+Not allowed augmentations:
+- extra characters or objects that are not implied by the request
+- brand names, slogans, palettes, or narrative beats that are not implied
+- arbitrary side-specific placement unless the surrounding layout supports it
+
+## Use-case taxonomy (exact slugs)
+
+Classify each request into one of these buckets and keep the slug consistent across prompts and references.
+
+Generate:
+- photorealistic-natural 鈥?candid/editorial lifestyle scenes with real texture and natural lighting.
+- product-mockup 鈥?product/packaging shots, catalog imagery, merch concepts.
+- ui-mockup 鈥?app/web interface mockups and wireframes; specify the desired fidelity.
+- infographic-diagram 鈥?diagrams/infographics with structured layout and text.
+- scientific-educational 鈥?classroom explainers, scientific diagrams, and learning visuals with required labels and accuracy constraints.
+- ads-marketing 鈥?campaign concepts and ad creatives with audience, brand position, scene, and exact tagline/copy.
+- productivity-visual 鈥?slide, chart, workflow, and data-heavy business visuals.
+- logo-brand 鈥?logo/mark exploration, vector-friendly.
+- illustration-story 鈥?comics, children鈥檚 book art, narrative scenes.
+- stylized-concept 鈥?style-driven concept art, 3D/stylized renders.
+- historical-scene 鈥?period-accurate/world-knowledge scenes.
+
+Edit:
+- text-localization 鈥?translate/replace in-image text, preserve layout.
+- identity-preserve 鈥?try-on, person-in-scene; lock face/body/pose.
+- precise-object-edit 鈥?remove/replace a specific element (including interior swaps).
+- lighting-weather 鈥?time-of-day/season/atmosphere changes only.
+- background-extraction 鈥?transparent background / clean cutout. Use built-in `image_gen` with chroma-key removal first for simple opaque subjects; ask before using CLI true transparency for complex subjects.
+- style-transfer 鈥?apply reference style while changing subject/scene.
+- compositing 鈥?multi-image insert/merge with matched lighting/perspective.
+- sketch-to-render 鈥?drawing/line art to photoreal render.
+
+## Shared prompt schema
+
+Use the following labeled spec as shared prompt scaffolding for both top-level modes:
+
+```text
+Use case: <taxonomy slug>
+Asset type: <where the asset will be used>
+Primary request: <user's main prompt>
+Input images: <Image 1: role; Image 2: role> (optional)
+Scene/backdrop: <environment>
+Subject: <main subject>
+Style/medium: <photo/illustration/3D/etc>
+Composition/framing: <wide/close/top-down; placement>
+Lighting/mood: <lighting + mood>
+Color palette: <palette notes>
+Materials/textures: <surface details>
+Text (verbatim): "<exact text>"
+Constraints: <must keep/must avoid>
+Avoid: <negative constraints>
+```
+
+Notes:
+- `Asset type` and `Input images` are prompt scaffolding, not dedicated CLI flags.
+- `Scene/backdrop` refers to the visual setting. It is not the same as the fallback CLI `background` parameter, which controls output transparency behavior.
+- Fallback-only execution notes such as `Quality:`, `Input fidelity:`, masks, output format, and output paths belong in the CLI path only. Do not treat them as built-in `image_gen` tool arguments.
+
+Augmentation rules:
+- Keep it short.
+- Add only the details needed to improve the prompt materially.
+- For edits, explicitly list invariants (`change only X; keep Y unchanged`).
+- If any critical detail is missing and blocks success, ask a question; otherwise proceed.
+
+## Examples
+
+### Generation example (hero image)
+```text
+Use case: product-mockup
+Asset type: landing page hero
+Primary request: a minimal hero image of a ceramic coffee mug
+Style/medium: clean product photography
+Composition/framing: wide composition with usable negative space for page copy if needed
+Lighting/mood: soft studio lighting
+Constraints: no logos, no text, no watermark
+```
+
+### Edit example (invariants)
+```text
+Use case: precise-object-edit
+Asset type: product photo background replacement
+Primary request: replace only the background with a warm sunset gradient
+Constraints: change only the background; keep the product and its edges unchanged; no text; no watermark
+```
+
+## Prompting best practices
+- Structure prompt as scene/backdrop -> subject -> details -> constraints.
+- Include intended use (ad, UI mock, infographic) to set the mode and polish level.
+- Use camera/composition language for photorealism.
+- Only use SVG/vector stand-ins when the user explicitly asked for vector output or a non-image placeholder.
+- Quote exact text and specify typography + placement.
+- For tricky words, spell them letter-by-letter and require verbatim rendering.
+- For multi-image inputs, reference images by index and describe how they should be used.
+- For edits, repeat invariants every iteration to reduce drift.
+- Iterate with single-change follow-ups.
+- If the prompt is generic, add only the extra detail that will materially help.
+- If the prompt is already detailed, normalize it instead of expanding it.
+- For CLI fallback only, see `references/cli.md` and `references/image-api.md` for model, `quality`, `input_fidelity`, masks, output format, and output-path guidance.
+- For transparent images, use the built-in-first chroma-key workflow unless the request is complex enough to need true CLI transparency; ask before switching to CLI `gpt-image-1.5`.
+
+More principles shared by both modes: `references/prompting.md`.
+Copy/paste specs shared by both modes: `references/sample-prompts.md`.
+
+## Guidance by asset type
+Asset-type templates (website assets, game assets, wireframes, logo) are consolidated in `references/sample-prompts.md`.
+
+## gpt-image-2 guidance for CLI fallback
+
+The fallback CLI defaults to `gpt-image-2`.
+
+- Use `gpt-image-2` for new CLI/API workflows unless the request needs true model-native transparent output.
+- If a transparent request may need CLI fallback, ask before using `gpt-image-1.5` unless the user already explicitly requested `gpt-image-1.5`, `scripts/image_gen.py`, or CLI fallback. Explain that the built-in chroma-key path is the default, but true transparency requires `gpt-image-1.5` because `gpt-image-2` does not support `background=transparent`.
+- `gpt-image-2` always uses high fidelity for image inputs; do not set `input_fidelity` with this model.
+- `gpt-image-2` supports `quality` values `low`, `medium`, `high`, and `auto`.
+- Use `quality low` for fast drafts, thumbnails, and quick iterations. Use `medium`, `high`, or `auto` for final assets, dense text, diagrams, identity-sensitive edits, or high-resolution outputs.
+- Square images are typically fastest to generate. Use `1024x1024` for fast square drafts.
+- If the user asks for 4K-style output, use `3840x2160` for landscape or `2160x3840` for portrait.
+- `gpt-image-2` size may be `auto` or `WIDTHxHEIGHT` if all constraints hold: max edge `<= 3840px`, both edges multiples of `16px`, long-to-short ratio `<= 3:1`, total pixels between `655,360` and `8,294,400`.
+
+Popular `gpt-image-2` sizes:
+- `1024x1024` square
+- `1536x1024` landscape
+- `1024x1536` portrait
+- `2048x2048` 2K square
+- `2048x1152` 2K landscape
+- `3840x2160` 4K landscape
+- `2160x3840` 4K portrait
+- `auto`
+
+## Fallback CLI mode only
+
+### Temp and output conventions
+These conventions apply only to the CLI fallback. They do not describe built-in `image_gen` output behavior.
+- Use `tmp/imagegen/` for intermediate files (for example JSONL batches); delete them when done.
+- Write final artifacts under `output/imagegen/`.
+- Use `--out` or `--out-dir` to control output paths; keep filenames stable and descriptive.
+
+### Dependencies
+Prefer `uv` for dependency management in this repo.
+
+Required Python package:
+```bash
+uv pip install openai
+```
+
+Required for local chroma-key removal and optional downscaling:
+```bash
+uv pip install pillow
+```
+
+Portability note:
+- If you are using the installed skill outside this repo, install dependencies into that environment with its package manager.
+- In uv-managed environments, `uv pip install ...` remains the preferred path.
+
+### Environment
+- `OPENAI_API_KEY` must be set for live API calls.
+- Do not ask the user for `OPENAI_API_KEY` when using the built-in `image_gen` tool.
+- Never ask the user to paste the full key in chat. Ask them to set it locally and confirm when ready.
+
+If the key is missing, give the user these steps:
+1. Create an API key in the OpenAI platform UI: https://platform.openai.com/api-keys
+2. Set `OPENAI_API_KEY` as an environment variable in their system.
+3. Offer to guide them through setting the environment variable for their OS/shell if needed.
+
+If installation is not possible in this environment, tell the user which dependency is missing and how to install it into their active environment.
+
+### Script-mode notes
+- CLI commands + examples: `references/cli.md`
+- API parameter quick reference: `references/image-api.md`
+- Network approvals / sandbox settings for CLI mode: `references/codex-network.md`
+
+## Reference map
+- `references/prompting.md`: shared prompting principles for both modes.
+- `references/sample-prompts.md`: shared copy/paste prompt recipes for both modes.
+- `references/cli.md`: fallback-only CLI usage via `scripts/image_gen.py`.
+- `references/image-api.md`: fallback-only API/CLI parameter reference.
+- `references/codex-network.md`: fallback-only network/sandbox troubleshooting for CLI mode.
+- `scripts/image_gen.py`: fallback-only CLI implementation. Do not load or use it unless the user explicitly chooses CLI mode or explicitly confirms a transparent request's true CLI transparency fallback.
+- `$CODEX_HOME/skills/.system/imagegen/scripts/remove_chroma_key.py`: local post-processing helper for built-in transparent-image requests.
+
+
+ succeeded in 567ms:
+缇庢湳绱犳潗鐘舵€? 寰呯敓鎴愶紙闃舵 2 瀹屾垚锛岀瓑鐢ㄦ埛纭鍚庤繘鍏ラ樁娈?3锛?澶勭悊鏃ユ湡: 2026-06-26锛堟晥鏋滃浘鎻愮ず璇嶅畾绋匡級
+鎵ц SKILL: codex-image-gen锛堥樁娈?3 璋冪敤锛?杈撳嚭璺緞: art/mockups/SettingsForm.png
+閲嶈瘯涓婇檺: 3 杞紙闃舵 3 寮哄埗绾︽潫锛涙瘡杞皟鏁存彁绀鸿瘝鍚庨噸璇曪紱3 杞粛涓嶆弧鎰忓垯闃诲浜ゅ洖鐢ㄦ埛锛?鍏宠仈鏂囦欢: art/requirements.md
+
+---
+
+# 鏁堟灉鍥炬彁绀鸿瘝 鈥?10-settings-form 璁剧疆闈㈡澘
+
+> **闃舵 2 浜у嚭鐗?*锛氭湰鏂囦欢鐢?`art-ui` 璧疯崏锛屼富瀵硅瘽鎷垮幓缁欑敤鎴风‘璁ゅ悗锛岄樁娈?3 鐢?`codex-image-gen` 閫愭潯璋?Codex 鍑哄浘銆?> **鍑哄浘鑼冨洿**锛氬彧鍑轰富闈㈡澘 1 寮?`SettingsForm.png`锛涚姸鎬佸彉浣擄紙閲嶇粦瀹?waiting / 鍐茬獊 Toast锛夊欢鍚庡埌闃舵 5 鑱旇皟鏃舵寜闇€琛ャ€?
+---
+
+## Art Bible 閿氬畾锛堝己鍒剁户鎵匡紝codex-image-gen 鍗曡鏈枃浠朵篃鑳藉嚭瀵归鏍硷級
+
+### 搂0.1 椋庢牸瀹氫綅
+
+缁ф壙椤圭洰宸查攣瀹氶鏍煎熀绾匡紙鏉ユ簮锛歚06-v21-implementation/art/requirements.md 搂0`锛夛細
+
+- **鏁翠綋瀹氫綅**锛氥€屼技 Hades 绮捐嚧 2.5D銆嶁€斺€旀墜缁樻弿杈?+ 楂樺姣斿厜褰?+ 鍘氭秱 + 椴滆壋楗卞拰鑹插僵
+- **鐢婚灞?*锛氭墜缁樻弿杈硅疆寤擄紙1-2px 绛夋晥鏆楄壊鎻忚竟锛夛紝鍘氭秱锛屽崟浣撳舰璞″湪缂╃暐灏哄浠嶈兘娓呮櫚杈ㄨ瘑
+- **鍏夊奖灞?*锛氫富鍏夋簮楂樹綅鍋忎晶锛?0掳-60掳锛夛紝鑳屽厜 + rim light 寮哄寲杈圭紭锛沀I 闈㈡澘甯﹁交寰诞闆曟劅
+- **姘涘洿灞?*锛氭殫鑹茬郴鍩鸿皟锛孶I 闈㈡澘鍗婇€忔槑娣辫壊鑳屾櫙 + 浜壊璋冩枃瀛楋紝閲戣壊 accent 鐐逛寒瑙嗚鐒︾偣
+
+### 搂0.2 鑹插僵纭害鏉?
+| 鐢ㄩ€?| HEX | 璇存槑 |
+|---|---|---|
+| 闈㈡澘鑳屾櫙 | `#1A1C2E`锛堝惈 90% 涓嶉€忔槑搴︼級 | 娣辫摑榛戯紝涓庢父鎴忎笘鐣屽舰鎴愭櫙娣卞垎绂?|
+| 涓绘枃瀛?| `#F8F9FA` | 楂樺姣旂櫧 |
+| 娆＄骇鏂囧瓧 / 鏍囩 | `#A8A9C0` | 鍋忕伆钃濓紝闄嶈皟涓嶆姠瑙嗙嚎 |
+| Accent锛堜富棰樿壊锛?| `#FFB400` | 閲戣壊锛孒ades 椋?鈥?鐢ㄤ簬閫変腑鎬?/ 婊戝潡 / 涓昏鎸夐挳 |
+| 鎻忚竟锛堥€氱敤锛?| `#22243A` | 娣辫摑榛戞弿杈癸紝鎵€鏈夊彲浜や簰鍏冪礌杈圭紭 |
+| 鍒嗗壊绾?| `#2E3050` | 姣旈潰鏉胯儗鏅暐浜紝缁嗙嚎鍖哄垎缁勫潡 |
+| 婊戝姩鏉¤建閬?| `#3A3C58` | 娣辩伆钃濓紝鏈～鍏呭尯娈?|
+| 婊戝姩鏉″凡濉厖 | `#FFB400` | 鍚?Accent锛屽凡鎷栧姩鍖烘 |
+| 婊戝潡锛坱humb锛?| `#FFD060` | 姣?Accent 鐣ヤ寒锛屽渾褰㈠皬鎷栧潡 |
+| RadioGroup 鏈€変腑 | 鎻忚竟 `#6C6E90`锛屽～鍏呴€忔槑 | 绌哄績鍦嗗湀 |
+| RadioGroup 閫変腑 | 鎻忚竟 + 濉厖 `#FFB400`锛屽唴鏈夊疄蹇冪櫧鍦嗙偣 | 楂樹寒鍗曢€夌偣 |
+| KeyBindButton 鑳屾櫙 | `#252740`锛屾弿杈?`#6C6E90` | 閿悕鏄剧ず鍖猴紝绌哄績鐭╁舰鎸夐挳 |
+| PrimaryButton锛堜繚瀛橈級 | 濉厖 `#FFB400`锛屾枃瀛?`#1A1C2E` | 閲戣壊瀹炲績锛岄粦瀛?|
+| SecondaryButton锛堝彇娑堬級 | 濉厖閫忔槑锛屾弿杈?`#A8A9C0`锛屾枃瀛?`#F8F9FA` | 鎻忚竟鐗?|
+| 鍗遍櫓绾紙棰勭暀鍐茬獊鐢級 | `#E63946` | 鍐茬獊鐘舵€佹弿杈归棯鐑佽壊锛屾湰寮?mockup 涓嶅嚭鐜?|
+
+### 搂0.3 瀛椾綋涓庢帓鐗堢‖绾︽潫
+
+- **瀛椾綋椋庢牸**锛欳JK 绮椾綋锛堥粦浣?鍘氫綋鏃忥級+ 鎷変竵澶у啓鑻辨枃娣锋帓锛屽帤閲嶆湁鍔涳紝涓?Hades 椋庢牸涓€鑷?- **瀛楀彿灞傜骇寤鸿**锛?  - 闈㈡澘鏍囬銆岃缃€嶏細32-40px锛宍#F8F9FA`锛屽眳宸︽垨灞呬腑
+  - 缁勬爣棰橈紙闊抽噺 / 鐢昏川 / 鎸夐敭锛夛細22-26px锛宍#FFB400` accent 鑹诧紝甯︺€屸柛銆嶅墠缂€
+  - 琛屾爣绛撅紙BGM / SFX / 绉诲姩 / 鏀诲嚮 / 鏆傚仠锛夛細18-20px锛宍#A8A9C0`
+  - 鏁板€兼樉绀猴紙0.70 / 0.85锛夛細16-18px锛宍#F8F9FA` 绛夊瀛椾綋鎰?  - 鎸夐挳鏂囧瓧锛堝彇娑?/ 淇濆瓨锛夛細18-20px
+- **瀛楅棿璺?*锛氱粍鏍囬 letter-spacing 鐣ユ澗锛?5%锛夛紝姝ｆ枃 normal
+
+---
+
+## 鏁堟灉鍥炬彁绀鸿瘝锛堥樁娈?3 鍑哄浘鐢級
+
+### 椤甸潰 1锛歋ettingsForm 鈥?璁剧疆涓婚潰鏉?
+**杈撳嚭鏂囦欢**锛歚art/mockups/SettingsForm.png`
+**寤鸿灏哄**锛?920脳1080锛?6:9锛屾爣鍑嗘父鎴忓叏灞忓弬鑰冨昂瀵革級
+
+---
+
+#### 姝ｅ悜鎻愮ず璇嶏紙鑻辨枃锛宨magegen 浼樺厛鑻辨枃锛?
+```
+A single dark fantasy game settings panel UI mockup, full 1920x1080 resolution, game HUD design inspired by Hades by Supergiant Games.
+
+OVERALL COMPOSITION:
+A centered floating panel occupying approximately 60% screen width and 75% screen height. Panel sits on a blurred dark background (scene behind). Panel has rounded corners (8-12px radius equivalent), a subtle golden inner glow border (#FFB400 at 40% opacity), and a deep dark-blue semi-transparent background (#1A1C2E at 90% opacity). Light outer shadow to separate from background.
+
+TITLE BAR:
+Top of panel: title text "璁剧疆" (Chinese: Settings) in bold CJK font, approximately 36px, white (#F8F9FA), left-aligned with 24px padding. Top-right corner has a circular close button [X] with dark fill and light border.
+
+SECTION 鈥?闊抽噺 (Volume):
+Gold accent section header "鈻?闊抽噺" at ~24px bold, color #FFB400. Two rows below:
+Row 1: label "BGM" (gray #A8A9C0, 18px), then a horizontal slider track (dark gray #3A3C58, height 6px, width ~300px), the left portion filled gold (#FFB400) indicating value 0.70 鈥?slider thumb is a small gold circle (#FFD060, ~14px diameter) positioned at 70% mark, right side shows numeric value "0.70" in white 16px monospace.
+Row 2: label "SFX" (gray #A8A9C0, 18px), similar slider with thumb at 85% mark, numeric value "0.85".
+A thin horizontal divider line (#2E3050) separates this section from the next.
+
+SECTION 鈥?鐢昏川 (Quality):
+Gold accent section header "鈻?鐢昏川" at ~24px bold, color #FFB400. One row with three radio buttons horizontally:
+Option "浣? (Low): empty circle border (#6C6E90), transparent fill, label text "浣? gray.
+Option "涓? (Medium) 鈥?SELECTED STATE: filled gold circle (#FFB400) with white center dot, label text "涓? in white bold. This is the active selection.
+Option "楂? (High): empty circle border (#6C6E90), transparent fill, label text "楂? gray.
+Spacing between radio options: ~60px. No resolution or FPS annotations.
+A thin horizontal divider line (#2E3050) separates this section from the next.
+
+SECTION 鈥?鎸夐敭 (Key Bindings):
+Gold accent section header "鈻?鎸夐敭" at ~24px bold, color #FFB400. Three rows:
+Row 1: label "绉诲姩" (gray, 18px), then a rectangular key-bind button [ WASD ] 鈥?dark fill (#252740), border (#6C6E90, 1px), rounded corners, text "WASD" in white 16px bold, width ~120px.
+Row 2: label "鏀诲嚮" (gray, 18px), key-bind button [ 榧犳爣宸﹂敭 ] 鈥?same style, text "榧犳爣宸﹂敭" in white 16px bold, width ~120px.
+Row 3: label "鏆傚仠" (gray, 18px), key-bind button [ Esc ] 鈥?same style, text "Esc" in white 16px bold, width ~120px.
+All three key-bind buttons in idle state (no glow, standard border).
+
+FOOTER BAR:
+Thin divider at bottom of content area. Footer row right-aligned:
+Left button "鍙栨秷" (Cancel): transparent fill, border #A8A9C0 1px, text "鍙栨秷" white 18px. Width ~100px.
+Right button "淇濆瓨" (Save): filled #FFB400 gold, text "淇濆瓨" dark #1A1C2E 18px bold. Width ~100px. Spacing between buttons: 12px.
+
+TYPOGRAPHY STYLE:
+All Chinese text in heavy bold sans-serif CJK style (similar to Source Han Sans Bold / Noto Sans CJK Bold). High contrast. No decorative calligraphy. Slightly loose letter-spacing on section headers.
+
+RENDERING STYLE:
+Hand-painted thick outline style (Hades-inspired). UI elements have subtle beveled highlights on top-left edges and darker shadows on bottom-right (classic game UI emboss). The overall aesthetic is dark fantasy game UI, NOT flat design, NOT material design, NOT minimalist web UI. Rich, atmospheric, and clearly readable. The panel feels like it belongs in an action roguelike game.
+
+LIGHTING:
+Subtle golden glow emanates from gold accent elements (slider fill, radio selection, primary button). Panel background has very faint vignette at edges. Crisp, game-ready appearance.
+```
+
+---
+
+#### 璐熼潰鎻愮ず璇?
+```
+flat design, flat vector, minimalist, material design, web UI, mobile app UI, light background, white panel, pastel colors, low saturation, desaturated, gray dull palette, cartoon chibi, pixel art, realistic photograph, excessive decorations, heavy ornamental borders, watermark, signature, text artifacts outside UI elements, emoji, multiple separate windows, lorem ipsum, English-only labels for Chinese settings, blurry, jpeg compression artifacts, UI glitches, misaligned elements, inconsistent style, neon cyberpunk (unless gold accent), cluttered layout, overlapping text
+```
+
+---
+
+#### 鏋勫浘瑕佺偣澶囨敞锛堢粰 codex-image-gen 鐨勮ˉ鍏呰鏄庯級
+
+- 闈㈡澘灞呬腑锛屽洓鍛ㄧ暀鏈夋父鎴忚儗鏅紙鍙互鏄繁鑹叉ā绯婅儗鏅垨绠€鍗曟殫鑹叉笎鍙橈紝妯℃嫙娓告垙鍐呮诞绐楀満鏅級
+- 涓夊ぇ鍖哄潡锛堥煶閲?/ 鐢昏川 / 鎸夐敭锛夊瀭鐩村爢鍙狅紝姣忕粍涔嬮棿鐢ㄧ粏鍒嗗壊绾垮尯闅旓紝鏁翠綋鏈夊懠鍚告劅锛屼笉鎷ユ尋
+- 姣忎釜缁勪欢蹇呴』鑷冲皯鏄剧ず 1 涓?normal/idle 鐘舵€侊紙瑕佹眰鍦ㄥ悓涓€寮?mockup 涓婂悓鏃跺彲瑙侊級锛?  - BGM 婊戝潡锛氭甯告嫋鍔ㄦ€侊紝鍊兼樉绀?0.70
+  - SFX 婊戝潡锛氭甯告嫋鍔ㄦ€侊紝鍊兼樉绀?0.85
+  - RadioGroup锛氥€屼綆銆嶆湭閫変腑 + 銆屼腑銆嶅凡閫変腑 + 銆岄珮銆嶆湭閫変腑锛屼笁鎬佸悓鏃跺彲瑙?  - KeyBindButton锛氫笁涓叏閮?idle 鎬侊紝鍒嗗埆鏄剧ず WASD / 榧犳爣宸﹂敭 / Esc
+  - 鍙栨秷鎸夐挳锛歩dle 鎬侊紙鎻忚竟鐗堬級
+  - 淇濆瓨鎸夐挳锛歩dle 鎬侊紙閲戣壊瀹炲績锛?  - 鍙充笂 X 鍏抽棴鎸夐挳锛歩dle 鎬?- **涓嶈**鍑虹幇閲嶇粦瀹?waiting 鐘舵€侊紙鏂囧瓧鍙樸€屾寜浠绘剰閿?..銆嶏級
+- **涓嶈**鍑虹幇鍐茬獊 Toast
+- **涓嶈**鍑虹幇鍒嗚鲸鐜?/ 甯х巼 / 鐏垫晱搴?/ 鎵嬫焺鎻愮ず绛夊唴瀹?
+---
+
+#### 閲嶈瘯绛栫暐锛堥樁娈?3 浣跨敤锛?
+| 杞 | 璋冩暣鏂瑰悜 |
+|---|---|
+| 绗?1 杞?| 鎸変笂鏂规彁绀鸿瘝鍘熸牱鍑哄浘 |
+| 绗?2 杞紙濡備笉婊℃剰锛?| 鍔犲己鎻愮ず璇嶄腑銆孒ades-inspired thick outline hand-painted銆嶆潈閲嶏紱琛ュ厖銆宺eference style: Supergiant Games Hades UI, dark fantasy game menu銆?|
+| 绗?3 杞紙濡備粛涓嶆弧鎰忥級 | 鎶婇厤鑹插眰 hex 鍊煎湪鎻愮ず璇嶉噷閲嶅涓€閬嶏紱澧炲姞銆宔xtremely detailed, professional game UI concept art, high quality銆嶏紱鍑忓皯璐熼潰璇嶉暱搴?|
+| 瓒呰繃 3 杞?| 鍋滄锛屼氦鍥炰富瀵硅瘽 + 鐢ㄦ埛鍐冲畾鏄惁浜哄伐浠嬪叆鎴栬烦杩囨湰椤?|
+```
+
+
+codex
+`prompts.md` 首次读取出现了控制台编码乱码，我会用 UTF-8 重新读取并只抽取「页面 1」的正向/负面提示词，避免把错误文本带进图像。
+exec
+"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "Get-Content -Raw -Encoding utf8 openspec\\changes\\10-settings-form\\art\\prompts.md" in D:\unity\UnityProject\GameDesinger
+ succeeded in 513ms:
+美术素材状态: 待生成（阶段 2 完成，等用户确认后进入阶段 3）
+处理日期: 2026-06-26（效果图提示词定稿）
+执行 SKILL: codex-image-gen（阶段 3 调用）
+输出路径: art/mockups/SettingsForm.png
+重试上限: 3 轮（阶段 3 强制约束；每轮调整提示词后重试；3 轮仍不满意则阻塞交回用户）
+关联文件: art/requirements.md
+
+---
+
+# 效果图提示词 — 10-settings-form 设置面板
+
+> **阶段 2 产出物**：本文件由 `art-ui` 起草，主对话拿去给用户确认后，阶段 3 由 `codex-image-gen` 逐条调 Codex 出图。
+> **出图范围**：只出主面板 1 张 `SettingsForm.png`；状态变体（重绑定 waiting / 冲突 Toast）延后到阶段 5 联调时按需补。
+
+---
+
+## Art Bible 锚定（强制继承，codex-image-gen 单读本文件也能出对风格）
+
+### §0.1 风格定位
+
+继承项目已锁定风格基线（来源：`06-v21-implementation/art/requirements.md §0`）：
+
+- **整体定位**：「似 Hades 精致 2.5D」——手绘描边 + 高对比光影 + 厚涂 + 鲜艳饱和色彩
+- **画风层**：手绘描边轮廓（1-2px 等效暗色描边），厚涂，单体形象在缩略尺寸仍能清晰辨识
+- **光影层**：主光源高位偏侧（30°-60°），背光 + rim light 强化边缘；UI 面板带轻微浮雕感
+- **氛围层**：暗色系基调，UI 面板半透明深色背景 + 亮色调文字，金色 accent 点亮视觉焦点
+
+### §0.2 色彩硬约束
+
+| 用途 | HEX | 说明 |
+|---|---|---|
+| 面板背景 | `#1A1C2E`（含 90% 不透明度） | 深蓝黑，与游戏世界形成景深分离 |
+| 主文字 | `#F8F9FA` | 高对比白 |
+| 次级文字 / 标签 | `#A8A9C0` | 偏灰蓝，降调不抢视线 |
+| Accent（主题色） | `#FFB400` | 金色，Hades 风 — 用于选中态 / 滑块 / 主要按钮 |
+| 描边（通用） | `#22243A` | 深蓝黑描边，所有可交互元素边缘 |
+| 分割线 | `#2E3050` | 比面板背景略亮，细线区分组块 |
+| 滑动条轨道 | `#3A3C58` | 深灰蓝，未填充区段 |
+| 滑动条已填充 | `#FFB400` | 同 Accent，已拖动区段 |
+| 滑块（thumb） | `#FFD060` | 比 Accent 略亮，圆形小拖块 |
+| RadioGroup 未选中 | 描边 `#6C6E90`，填充透明 | 空心圆圈 |
+| RadioGroup 选中 | 描边 + 填充 `#FFB400`，内有实心白圆点 | 高亮单选点 |
+| KeyBindButton 背景 | `#252740`，描边 `#6C6E90` | 键名显示区，空心矩形按钮 |
+| PrimaryButton（保存） | 填充 `#FFB400`，文字 `#1A1C2E` | 金色实心，黑字 |
+| SecondaryButton（取消） | 填充透明，描边 `#A8A9C0`，文字 `#F8F9FA` | 描边版 |
+| 危险红（预留冲突用） | `#E63946` | 冲突状态描边闪烁色，本张 mockup 不出现 |
+
+### §0.3 字体与排版硬约束
+
+- **字体风格**：CJK 粗体（黑体/厚体族）+ 拉丁大写英文混排，厚重有力，与 Hades 风格一致
+- **字号层级建议**：
+  - 面板标题「设置」：32-40px，`#F8F9FA`，居左或居中
+  - 组标题（音量 / 画质 / 按键）：22-26px，`#FFB400` accent 色，带「▸」前缀
+  - 行标签（BGM / SFX / 移动 / 攻击 / 暂停）：18-20px，`#A8A9C0`
+  - 数值显示（0.70 / 0.85）：16-18px，`#F8F9FA` 等宽字体感
+  - 按钮文字（取消 / 保存）：18-20px
+- **字间距**：组标题 letter-spacing 略松（+5%），正文 normal
+
+---
+
+## 效果图提示词（阶段 3 出图用）
+
+### 页面 1：SettingsForm — 设置主面板
+
+**输出文件**：`art/mockups/SettingsForm.png`
+**建议尺寸**：1920×1080（16:9，标准游戏全屏参考尺寸）
+
+---
+
+#### 正向提示词（英文，imagegen 优先英文）
+
+```
+A single dark fantasy game settings panel UI mockup, full 1920x1080 resolution, game HUD design inspired by Hades by Supergiant Games.
+
+OVERALL COMPOSITION:
+A centered floating panel occupying approximately 60% screen width and 75% screen height. Panel sits on a blurred dark background (scene behind). Panel has rounded corners (8-12px radius equivalent), a subtle golden inner glow border (#FFB400 at 40% opacity), and a deep dark-blue semi-transparent background (#1A1C2E at 90% opacity). Light outer shadow to separate from background.
+
+TITLE BAR:
+Top of panel: title text "设置" (Chinese: Settings) in bold CJK font, approximately 36px, white (#F8F9FA), left-aligned with 24px padding. Top-right corner has a circular close button [X] with dark fill and light border.
+
+SECTION — 音量 (Volume):
+Gold accent section header "▸ 音量" at ~24px bold, color #FFB400. Two rows below:
+Row 1: label "BGM" (gray #A8A9C0, 18px), then a horizontal slider track (dark gray #3A3C58, height 6px, width ~300px), the left portion filled gold (#FFB400) indicating value 0.70 — slider thumb is a small gold circle (#FFD060, ~14px diameter) positioned at 70% mark, right side shows numeric value "0.70" in white 16px monospace.
+Row 2: label "SFX" (gray #A8A9C0, 18px), similar slider with thumb at 85% mark, numeric value "0.85".
+A thin horizontal divider line (#2E3050) separates this section from the next.
+
+SECTION — 画质 (Quality):
+Gold accent section header "▸ 画质" at ~24px bold, color #FFB400. One row with three radio buttons horizontally:
+Option "低" (Low): empty circle border (#6C6E90), transparent fill, label text "低" gray.
+Option "中" (Medium) — SELECTED STATE: filled gold circle (#FFB400) with white center dot, label text "中" in white bold. This is the active selection.
+Option "高" (High): empty circle border (#6C6E90), transparent fill, label text "高" gray.
+Spacing between radio options: ~60px. No resolution or FPS annotations.
+A thin horizontal divider line (#2E3050) separates this section from the next.
+
+SECTION — 按键 (Key Bindings):
+Gold accent section header "▸ 按键" at ~24px bold, color #FFB400. Three rows:
+Row 1: label "移动" (gray, 18px), then a rectangular key-bind button [ WASD ] — dark fill (#252740), border (#6C6E90, 1px), rounded corners, text "WASD" in white 16px bold, width ~120px.
+Row 2: label "攻击" (gray, 18px), key-bind button [ 鼠标左键 ] — same style, text "鼠标左键" in white 16px bold, width ~120px.
+Row 3: label "暂停" (gray, 18px), key-bind button [ Esc ] — same style, text "Esc" in white 16px bold, width ~120px.
+All three key-bind buttons in idle state (no glow, standard border).
+
+FOOTER BAR:
+Thin divider at bottom of content area. Footer row right-aligned:
+Left button "取消" (Cancel): transparent fill, border #A8A9C0 1px, text "取消" white 18px. Width ~100px.
+Right button "保存" (Save): filled #FFB400 gold, text "保存" dark #1A1C2E 18px bold. Width ~100px. Spacing between buttons: 12px.
+
+TYPOGRAPHY STYLE:
+All Chinese text in heavy bold sans-serif CJK style (similar to Source Han Sans Bold / Noto Sans CJK Bold). High contrast. No decorative calligraphy. Slightly loose letter-spacing on section headers.
+
+RENDERING STYLE:
+Hand-painted thick outline style (Hades-inspired). UI elements have subtle beveled highlights on top-left edges and darker shadows on bottom-right (classic game UI emboss). The overall aesthetic is dark fantasy game UI, NOT flat design, NOT material design, NOT minimalist web UI. Rich, atmospheric, and clearly readable. The panel feels like it belongs in an action roguelike game.
+
+LIGHTING:
+Subtle golden glow emanates from gold accent elements (slider fill, radio selection, primary button). Panel background has very faint vignette at edges. Crisp, game-ready appearance.
+```
+
+---
+
+#### 负面提示词
+
+```
+flat design, flat vector, minimalist, material design, web UI, mobile app UI, light background, white panel, pastel colors, low saturation, desaturated, gray dull palette, cartoon chibi, pixel art, realistic photograph, excessive decorations, heavy ornamental borders, watermark, signature, text artifacts outside UI elements, emoji, multiple separate windows, lorem ipsum, English-only labels for Chinese settings, blurry, jpeg compression artifacts, UI glitches, misaligned elements, inconsistent style, neon cyberpunk (unless gold accent), cluttered layout, overlapping text
+```
+
+---
+
+#### 构图要点备注（给 codex-image-gen 的补充说明）
+
+- 面板居中，四周留有游戏背景（可以是深色模糊背景或简单暗色渐变，模拟游戏内浮窗场景）
+- 三大区块（音量 / 画质 / 按键）垂直堆叠，每组之间用细分割线区隔，整体有呼吸感，不拥挤
+- 每个组件必须至少显示 1 个 normal/idle 状态（要求在同一张 mockup 上同时可见）：
+  - BGM 滑块：正常拖动态，值显示 0.70
+  - SFX 滑块：正常拖动态，值显示 0.85
+  - RadioGroup：「低」未选中 + 「中」已选中 + 「高」未选中，三态同时可见
+  - KeyBindButton：三个全部 idle 态，分别显示 WASD / 鼠标左键 / Esc
+  - 取消按钮：idle 态（描边版）
+  - 保存按钮：idle 态（金色实心）
+  - 右上 X 关闭按钮：idle 态
+- **不要**出现重绑定 waiting 状态（文字变「按任意键...」）
+- **不要**出现冲突 Toast
+- **不要**出现分辨率 / 帧率 / 灵敏度 / 手柄提示等内容
+
+---
+
+#### 重试策略（阶段 3 使用）
+
+| 轮次 | 调整方向 |
+|---|---|
+| 第 1 轮 | 按上方提示词原样出图 |
+| 第 2 轮（如不满意） | 加强提示词中「Hades-inspired thick outline hand-painted」权重；补充「reference style: Supergiant Games Hades UI, dark fantasy game menu」 |
+| 第 3 轮（如仍不满意） | 把配色层 hex 值在提示词里重复一遍；增加「extremely detailed, professional game UI concept art, high quality」；减少负面词长度 |
+| 超过 3 轮 | 停止，交回主对话 + 用户决定是否人工介入或跳过本页 |
+```
+
+
+codex
+已确认提示词内容和色彩约束。接下来我会用内置 `image_gen` 生成一张 1920x1080 的非透明背景 UI mockup，生成后再移动到项目指定路径并检查文件大小。
+codex
+生成结果已返回，画面满足主要内容要求：三态 RadioGroup、BGM/SFX 数值、WASD/鼠标左键/Esc 和保存/取消都可见。现在我会定位内置工具生成的 PNG，复制到 `openspec/changes/10-settings-form/art/mockups/SettingsForm.png` 并读取尺寸与字节数。
+exec
+"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command '$candidates = @();
+$roots = @($env:CODEX_HOME, "$env:USERPROFILE'"\\.codex\", \""'$env:USERPROFILE'"\\.Codex\") | Where-Object { "'$_ -and (Test-Path $_) };
+foreach ($r in $roots) { $candidates += Get-ChildItem -Path $r -Recurse -File -Include *.png,*.webp -ErrorAction SilentlyContinue | Sort-Object LastWriteTime -Descending | Select-Object -First 10 FullName,Length,LastWriteTime }
+$candidates | Sort-Object LastWriteTime -Descending | Select-Object -First 20 | Format-Table -AutoSize' in D:\unity\UnityProject\GameDesinger
+ succeeded in 1994ms:
+
+FullName                                                                                                               
+--------                                                                                                               
+C:\Users\WIN10\.Codex\generated_images\019f034d-a70f-7862-8db6-99cbe58d8547\ig_00c09326e966eb26016a3e493aa5408199945...
+C:\Users\WIN10\.codex\generated_images\019f034d-a70f-7862-8db6-99cbe58d8547\ig_00c09326e966eb26016a3e493aa5408199945...
+C:\Users\WIN10\.codex\generated_images\019f034f-20af-7163-8855-3e5e1a13689c\ig_0a3a664aeba799ce016a3e49875b9c8191956...
+C:\Users\WIN10\.Codex\generated_images\019f034f-20af-7163-8855-3e5e1a13689c\ig_0a3a664aeba799ce016a3e49875b9c8191956...
+C:\Users\WIN10\.Codex\generated_images\019f034c-50bc-7933-b8dc-426312bffd4e\ig_036552dad0ae3404016a3e49078e748191914...
+C:\Users\WIN10\.codex\generated_images\019f034c-50bc-7933-b8dc-426312bffd4e\ig_036552dad0ae3404016a3e49078e748191914...
+C:\Users\WIN10\.codex\generated_images\019f034c-50bc-7933-b8dc-426312bffd4e\ig_036552dad0ae3404016a3e48ceb2e88191949...
+C:\Users\WIN10\.Codex\generated_images\019f034c-50bc-7933-b8dc-426312bffd4e\ig_036552dad0ae3404016a3e48ceb2e88191949...
+C:\Users\WIN10\.codex\generated_images\019f034b-fd9e-77e3-a655-263074a4d569\ig_0aa19f0b9a08c8d4016a3e48c3d770819196f...
+C:\Users\WIN10\.Codex\generated_images\019f034b-fd9e-77e3-a655-263074a4d569\ig_0aa19f0b9a08c8d4016a3e48c3d770819196f...
+C:\Users\WIN10\.codex\generated_images\019f0346-838d-7e21-a4b8-2ae953a55b97\ig_001bdff6b0405936016a3e47548a7c8191a51...
+C:\Users\WIN10\.Codex\generated_images\019f0346-838d-7e21-a4b8-2ae953a55b97\ig_001bdff6b0405936016a3e47548a7c8191a51...
+C:\Users\WIN10\.codex\generated_images\019f033f-33bd-7343-91a0-1ad9e23172fc\ig_0d49f53815f58bb2016a3e4590a76c8191a79...
+C:\Users\WIN10\.Codex\generated_images\019f033f-33bd-7343-91a0-1ad9e23172fc\ig_0d49f53815f58bb2016a3e4590a76c8191a79...
+C:\Users\WIN10\.codex\generated_images\019f033f-33bd-7343-91a0-1ad9e23172fc\ig_0d49f53815f58bb2016a3e45769b008191b72...
+C:\Users\WIN10\.Codex\generated_images\019f033f-33bd-7343-91a0-1ad9e23172fc\ig_0d49f53815f58bb2016a3e45769b008191b72...
+C:\Users\WIN10\.codex\generated_images\019f0332-ee64-70a3-a0f6-745b9f5e7b49\ig_0cb7770908582895016a3e4253a7448194924...
+C:\Users\WIN10\.Codex\generated_images\019f0332-ee64-70a3-a0f6-745b9f5e7b49\ig_0cb7770908582895016a3e4253a7448194924...
+C:\Users\WIN10\.Codex\generated_images\019f032e-a03e-7032-a322-8ce9b095ef6a\ig_06d3e1195a291662016a3e4135a8d4819194d...
+C:\Users\WIN10\.codex\generated_images\019f032e-a03e-7032-a322-8ce9b095ef6a\ig_06d3e1195a291662016a3e4135a8d4819194d...
+
+
+
+exec
+"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "Get-ChildItem -Path C:\\Users\\WIN10\\.codex\\generated_images\\019f034d-a70f-7862-8db6-99cbe58d8547 -File | Select-Object FullName,Length,LastWriteTime | Format-List" in D:\unity\UnityProject\GameDesinger
+ succeeded in 528ms:
+
+
+FullName      : C:\Users\WIN10\.codex\generated_images\019f034d-a70f-7862-8db6-99cbe58d8547\ig_00c09326e966eb26016a3e49
+                3aa54081999451a2dbd0830cd4.png
+Length        : 1481201
+LastWriteTime : 2026/6/26 17:43:44
+
+
+
+
+codex
+我会按 skill 要求保留原始生成文件，只复制一份到项目内指定路径。随后用 .NET 图像读取检查落盘尺寸和字节数。
+exec
+"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command '$src = '"'C:\\Users\\WIN10\\.codex\\generated_images\\019f034d-a70f-7862-8db6-99cbe58d8547\\ig_00c09326e966eb26016a3e493aa54081999451a2dbd0830cd4.png'
+"'$dst = '"'openspec\\changes\\10-settings-form\\art\\mockups\\SettingsForm.png'
+New-Item -ItemType Directory -Force -Path (Split-Path "'$dst) | Out-Null
+Copy-Item -LiteralPath $src -Destination $dst -Force
+Add-Type -AssemblyName System.Drawing
+$img = [System.Drawing.Image]::FromFile((Resolve-Path $dst))
+try {
+  $file = Get-Item $dst
+  [pscustomobject]@{
+    Path = $file.FullName
+    Bytes = $file.Length
+    Width = $img.Width
+    Height = $img.Height
+  } | Format-List
+} finally { $img.Dispose() }' in D:\unity\UnityProject\GameDesinger
+ succeeded in 679ms:
+
+
+Path   : D:\unity\UnityProject\GameDesinger\openspec\changes\10-settings-form\art\mockups\SettingsForm.png
+Bytes  : 1481201
+Width  : 1672
+Height : 941
+
+
+
+
+codex
+生成图是 16:9，但内置工具实际输出为 1672x941；为了满足指定落盘尺寸，我会做一次无内容裁切的等比重采样到精确 1920x1080，并覆盖项目内副本，原始生成文件仍保留。
+exec
+"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command '$dst = '"'openspec\\changes\\10-settings-form\\art\\mockups\\SettingsForm.png'
+Add-Type -AssemblyName System.Drawing
+"'$resolved = (Resolve-Path $dst).Path
+$srcImg = [System.Drawing.Image]::FromFile($resolved)
+try {
+  $bmp = New-Object System.Drawing.Bitmap 1920, 1080, ([System.Drawing.Imaging.PixelFormat]::Format32bppArgb)
+  $g = [System.Drawing.Graphics]::FromImage($bmp)
+  try {
+    $g.InterpolationMode = [System.Drawing.Drawing2D.InterpolationMode]::HighQualityBicubic
+    $g.SmoothingMode = [System.Drawing.Drawing2D.SmoothingMode]::HighQuality
+    $g.PixelOffsetMode = [System.Drawing.Drawing2D.PixelOffsetMode]::HighQuality
+    $g.CompositingQuality = [System.Drawing.Drawing2D.CompositingQuality]::HighQuality
+    $g.DrawImage($srcImg, 0, 0, 1920, 1080)
+  } finally { $g.Dispose() }
+  $tmp = "$resolved.tmp.png"
+  $bmp.Save($tmp, [System.Drawing.Imaging.ImageFormat]::Png)
+  $bmp.Dispose()
+} finally { $srcImg.Dispose() }
+Move-Item -LiteralPath $tmp -Destination $resolved -Force
+$check = [System.Drawing.Image]::FromFile($resolved)
+try {
+  $file = Get-Item $resolved
+  [pscustomobject]@{ Path=$file.FullName; Bytes=$file.Length; Width=$check.Width; Height=$check.Height } | Format-List
+} finally { $check.Dispose() }' in D:\unity\UnityProject\GameDesinger
+ succeeded in 906ms:
+
+
+Path   : D:\unity\UnityProject\GameDesinger\openspec\changes\10-settings-form\art\mockups\SettingsForm.png
+Bytes  : 2965646
+Width  : 1920
+Height : 1080
+
+
+
+
+codex
+已完成生成并落盘。
+
+- 实际落盘路径：`D:\unity\UnityProject\GameDesinger\openspec\changes\10-settings-form\art\mockups\SettingsForm.png`
+- 文件字节数：`2,965,646`
+- 最终尺寸：`1920x1080`
+- 调用的 imagegen 模型名：内置 `image_gen` 工具（工具未暴露更具体的底层模型名）
+- 是否一次成功：是，图像生成一次成功；因内置工具原始输出为 16:9 的 `1672x941`，已本地等比重采样为要求的 `1920x1080` PNG。
+tokens used
+57,465
+已完成生成并落盘。
+
+- 实际落盘路径：`D:\unity\UnityProject\GameDesinger\openspec\changes\10-settings-form\art\mockups\SettingsForm.png`
+- 文件字节数：`2,965,646`
+- 最终尺寸：`1920x1080`
+- 调用的 imagegen 模型名：内置 `image_gen` 工具（工具未暴露更具体的底层模型名）
+- 是否一次成功：是，图像生成一次成功；因内置工具原始输出为 16:9 的 `1672x941`，已本地等比重采样为要求的 `1920x1080` PNG。

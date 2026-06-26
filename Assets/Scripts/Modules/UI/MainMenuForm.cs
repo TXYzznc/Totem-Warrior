@@ -16,6 +16,7 @@ namespace Tattoo.UI
     {
         [Header("按钮")]
         [SerializeField] Button _startBtn;
+        [SerializeField] Button _settingsBtn;
 
         EventBus     _bus;
         ModuleRunner _runner;
@@ -33,6 +34,17 @@ namespace Tattoo.UI
         {
             // 主菜单初始显示
             gameObject.SetActive(true);
+
+            // 缺失时按名自动绑定（Prefab 控件命名契约：StartButton / SettingsButton）
+            if (_startBtn    == null) _startBtn    = FindChildByName<Button>("StartButton");
+            if (_settingsBtn == null) _settingsBtn = FindChildByName<Button>("SettingsButton");
+        }
+
+        T FindChildByName<T>(string name) where T : Component
+        {
+            foreach (var t in GetComponentsInChildren<Transform>(true))
+                if (t.name == name) { var c = t.GetComponent<T>(); if (c != null) return c; }
+            return null;
         }
 
         async void Start()
@@ -48,6 +60,7 @@ namespace Tattoo.UI
             if (_bus == null) return;
             _runner.GetModule<UIModule>().Register(this);
             _startBtn?.onClick.AddListener(OnStartClicked);
+            _settingsBtn?.onClick.AddListener(OnSettingsClicked);
         }
 
         /// <summary>开始游戏：切换状态到 InGame，CombatHUDForm 等会按 OnGameStateChanged 自动显示。</summary>
@@ -57,6 +70,24 @@ namespace Tattoo.UI
             if (gs == null) return;
             gs.StartGame();
             FrameworkLogger.Info("MainMenuForm", "Action=StartClicked → GameState.InGame");
+        }
+
+        /// <summary>设置按钮点击：打开设置面板。</summary>
+        void OnSettingsClicked()
+        {
+            // SettingsForm 已由 UIModule 在 GameReady 后加载并实例化
+            // 通过 FindObjectOfType 找到已实例化的 SettingsForm 并打开
+            // 注：FindObjectOfType 仅在 Start/Click 慢路径中使用，符合规范
+            var settingsForm = UnityEngine.Object.FindObjectOfType<Tattoo.UI.SettingsForm>();
+            if (settingsForm != null)
+            {
+                settingsForm.Open();
+                FrameworkLogger.Info("MainMenuForm", "Action=SettingsClicked → SettingsForm.Open");
+            }
+            else
+            {
+                FrameworkLogger.Warn("MainMenuForm", "Action=SettingsClicked SettingsForm=null 未找到实例");
+            }
         }
 
         void OnDestroy()

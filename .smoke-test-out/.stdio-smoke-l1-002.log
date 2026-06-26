@@ -1,0 +1,144 @@
+OpenAI Codex v0.142.0
+--------
+workdir: C:\Users\WIN10\AppData\Local\Temp\codex-art-gen-runner
+model: gpt-5.5
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR, D:\unity\UnityProject\GameDesinger\.smoke-test-out]
+reasoning effort: low
+reasoning summaries: none
+session id: 019f034c-50bc-7933-b8dc-426312bffd4e
+--------
+user
+你是图片生成执行器。
+
+任务：
+读取下面的 batch JSON,在同一个 Codex session 内批量生成所有 items。
+
+硬性规则：
+- 不要读取项目文档。
+- 不要解释、不要计划、不要询问。
+- 对 items 中的每个条目生成一张独立图片。
+- 每个 item 最多调用 1 次 image_gen。
+- 可以并行处理多个 item;即使内部不能并行,也必须在同一个 Codex session 内完成整批。
+- 单个 item 失败时记录 failed,并继续处理后续 item。
+- 不要自行重试。
+- 每张图片必须保存到 file 指定路径。
+- 最终只输出合法 JSON 数组,不要 markdown。
+
+背景规则（按 item.transparent 分流）：
+- 若 item.transparent=true:背景必须为纯色 chroma_key 底色(见 batch JSON 的 chroma_key 字段,默认 #00ff00),完全填满主体之外的所有空间(image_gen 的 transparent 在 gpt-image-2 上不可靠,本地会用 chroma-key 工具去键色)。主体本身**禁用**接近 chroma_key 的色调,避免被键出。不要渐变 / 阴影投射到键色底上。
+- 若 item.transparent=false:背景按 item.prompt 自身要求绘制(常见用于场景纹理 / 背景图)。
+
+通用规则：
+- 不要文字、数字、水印、签名、边框、标签。
+- 美术风格、配色由各 item.prompt 自带,本模板不规定。
+
+返回格式：
+[
+  {"index":1,"file":"...","size_bytes":123456,"status":"ok"},
+  {"index":2,"file":"...","size_bytes":0,"status":"failed","error":"..."}
+]
+
+batch JSON:
+{
+  "mode": "L1_BATCH",
+  "batch_id": "stdio-smoke-l1-002",
+  "chroma_key": "#00ff00",
+  "items": [
+    {
+      "index": 1,
+      "name": "smoke_apple",
+      "file": "d:/unity/UnityProject/GameDesinger/.smoke-test-out/smoke_apple.png",
+      "size": "1024x1024",
+      "transparent": true,
+      "prompt": "A single red apple icon on a plain background, simple digital illustration, centered composition.",
+      "negative": "text, watermark, blurry"
+    },
+    {
+      "index": 2,
+      "name": "smoke_banana",
+      "file": "d:/unity/UnityProject/GameDesinger/.smoke-test-out/smoke_banana.png",
+      "size": "1024x1024",
+      "transparent": true,
+      "prompt": "A single yellow banana icon on a plain background, simple digital illustration, centered composition.",
+      "negative": "text, watermark, blurry"
+    }
+  ]
+}
+
+exec
+"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command 'Get-ChildItem -Path $env:TEMP -Recurse -Filter *.png -ErrorAction SilentlyContinue | Sort-Object LastWriteTime -Descending | Select-Object -First 10 FullName,Length,LastWriteTime' in C:\Users\WIN10\AppData\Local\Temp\codex-art-gen-runner
+2026-06-26T09:41:01.895654Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.6 seconds
+Output:
+
+FullName                                                                                                             Le
+                                                                                                                     ng
+                                                                                                                     th
+--------                                                                                                             --
+C:\Users\WIN10\AppData\Local\Temp\test-ck\smoke_apple.png                                                            60
+C:\Users\WIN10\AppData\Local\Temp\a0277de6c660492cb53f12c020a36eca.png                                               21
+C:\Users\WIN10\AppData\Local\Temp\d2b0712b63694e2890a5da0f90441e19.png                                               57
+C:\Users\WIN10\AppData\Local\Temp\galasports\unityLibrary\ImageCache\TW\Activity\ActivityUI\141\1538\Player_1538.png 78
+C:\Users\WIN10\AppData\Local\Temp\galasports\unityLibrary\ImageCache\TW\Activity\ActivityUI\Tab\Theme_3.png          43
+C:\Users\WIN10\AppData\Local\Temp\galasports\unityLibrary\ImageCache\TW\Activity\ActivityUI\Tab\Theme_6.png          93
+C:\Users\WIN10\AppData\Local\Temp\galasports\unityLibrary\ImageCache\TW\Activity\ActivityUI\Tab\Theme_1.png          43
+C:\Users\WIN10\AppData\Local\Temp\cut_test\ui_sheet_001\ui_sheet_001_016.png                                         17
+C:\Users\WIN10\AppData\Local\Temp\cut_test\ui_sheet_001\ui_sheet_001_015.png                                         58
+C:\Users\WIN10\AppData\Local\Temp\cut_test\ui_sheet_001\ui_sheet_001_014.png                                         31
+
+
+
+ exited 1 in 1620ms:
+
+FullName                                                                                                             Le
+                                                                                                                     ng
+                                                                                                                     th
+--------                                                                                                             --
+C:\Users\WIN10\AppData\Local\Temp\test-ck\smoke_apple.png                                                            60
+C:\Users\WIN10\AppData\Local\Temp\a0277de6c660492cb53f12c020a36eca.png                                               21
+C:\Users\WIN10\AppData\Local\Temp\d2b0712b63694e2890a5da0f90441e19.png                                               57
+C:\Users\WIN10\AppData\Local\Temp\galasports\unityLibrary\ImageCache\TW\Activity\ActivityUI\141\1538\Player_1538.png 78
+C:\Users\WIN10\AppData\Local\Temp\galasports\unityLibrary\ImageCache\TW\Activity\ActivityUI\Tab\Theme_3.png          43
+C:\Users\WIN10\AppData\Local\Temp\galasports\unityLibrary\ImageCache\TW\Activity\ActivityUI\Tab\Theme_6.png          93
+C:\Users\WIN10\AppData\Local\Temp\galasports\unityLibrary\ImageCache\TW\Activity\ActivityUI\Tab\Theme_1.png          43
+C:\Users\WIN10\AppData\Local\Temp\cut_test\ui_sheet_001\ui_sheet_001_016.png                                         17
+C:\Users\WIN10\AppData\Local\Temp\cut_test\ui_sheet_001\ui_sheet_001_015.png                                         58
+C:\Users\WIN10\AppData\Local\Temp\cut_test\ui_sheet_001\ui_sheet_001_014.png                                         31
+
+
+
+exec
+"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "Get-ChildItem -Path 'C:\\Users\\WIN10\\.codex\\generated_images\\019f034c-50bc-7933-b8dc-426312bffd4e' -Filter *.png | Sort-Object LastWriteTime | Select-Object FullName,Length,LastWriteTime" in C:\Users\WIN10\AppData\Local\Temp\codex-art-gen-runner
+ succeeded in 555ms:
+
+FullName                                                                                                               
+--------                                                                                                               
+C:\Users\WIN10\.codex\generated_images\019f034c-50bc-7933-b8dc-426312bffd4e\ig_036552dad0ae3404016a3e48ceb2e88191949...
+C:\Users\WIN10\.codex\generated_images\019f034c-50bc-7933-b8dc-426312bffd4e\ig_036552dad0ae3404016a3e49078e748191914...
+
+
+
+exec
+"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command '$imgs = Get-ChildItem -LiteralPath '"'C:\\Users\\WIN10\\.codex\\generated_images\\019f034c-50bc-7933-b8dc-426312bffd4e' -Filter *.png | Sort-Object LastWriteTime; "'$dest = @('"'D:\\unity\\UnityProject\\GameDesinger\\.smoke-test-out\\smoke_apple.png','D:\\unity\\UnityProject\\GameDesinger\\.smoke-test-out\\smoke_banana.png'); for ("'$i=0; $i -lt 2; $i++) { Copy-Item -LiteralPath $imgs[$i].FullName -Destination $dest[$i] -Force }; Get-Item -LiteralPath $dest[0],$dest[1] | Select-Object FullName,Length' in C:\Users\WIN10\AppData\Local\Temp\codex-art-gen-runner
+ succeeded in 580ms:
+
+FullName                                                            Length
+--------                                                            ------
+D:\unity\UnityProject\GameDesinger\.smoke-test-out\smoke_apple.png  974238
+D:\unity\UnityProject\GameDesinger\.smoke-test-out\smoke_banana.png 989830
+
+
+
+codex
+[
+  {"index":1,"file":"d:/unity/UnityProject/GameDesinger/.smoke-test-out/smoke_apple.png","size_bytes":974238,"status":"ok"},
+  {"index":2,"file":"d:/unity/UnityProject/GameDesinger/.smoke-test-out/smoke_banana.png","size_bytes":989830,"status":"ok"}
+]
+tokens used
+11,375
+[
+  {"index":1,"file":"d:/unity/UnityProject/GameDesinger/.smoke-test-out/smoke_apple.png","size_bytes":974238,"status":"ok"},
+  {"index":2,"file":"d:/unity/UnityProject/GameDesinger/.smoke-test-out/smoke_banana.png","size_bytes":989830,"status":"ok"}
+]

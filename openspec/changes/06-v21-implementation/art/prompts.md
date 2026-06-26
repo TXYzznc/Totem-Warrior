@@ -1,6 +1,6 @@
-美术素材状态: 待处理
-处理日期: 2026-06-25（创建）
-执行 SKILL: codex-image-gen
+美术素材状态: 已处理
+处理日期: 2026-06-25（创建）/ 2026-06-26（执行完成 22 张剩余资产）
+执行 SKILL: codex-image-gen（via codex-art-gen MCP）
 输出目录: art/raw/
 生成记录: art/raw/生成记录.md
 

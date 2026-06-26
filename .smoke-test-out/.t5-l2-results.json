@@ -1,0 +1,62 @@
+{
+  "success": true,
+  "results": [
+    {
+      "sheet_id": "v21-l2-001",
+      "canvas_path": "D:\\unity\\UnityProject\\GameDesinger\\openspec\\changes\\06-v21-implementation\\art\\raw\\_merged\\v21_recipe_sheet_001.png",
+      "alpha_canvas": "D:\\unity\\UnityProject\\GameDesinger\\openspec\\changes\\06-v21-implementation\\art\\raw\\_merged\\v21_recipe_sheet_001_alpha.png",
+      "cuts_ok": 8,
+      "cuts_failed": 0,
+      "cut_items": [
+        {
+          "name": "recipe_scroll_line",
+          "file": "D:\\unity\\UnityProject\\GameDesinger\\openspec\\changes\\06-v21-implementation\\art\\raw\\recipe\\recipe_scroll_line.png",
+          "size_bytes": 235076,
+          "status": "ok"
+        },
+        {
+          "name": "recipe_scroll_ring",
+          "file": "D:\\unity\\UnityProject\\GameDesinger\\openspec\\changes\\06-v21-implementation\\art\\raw\\recipe\\recipe_scroll_ring.png",
+          "size_bytes": 245631,
+          "status": "ok"
+        },
+        {
+          "name": "recipe_scroll_spiral",
+          "file": "D:\\unity\\UnityProject\\GameDesinger\\openspec\\changes\\06-v21-implementation\\art\\raw\\recipe\\recipe_scroll_spiral.png",
+          "size_bytes": 248390,
+          "status": "ok"
+        },
+        {
+          "name": "recipe_scroll_zigzag",
+          "file": "D:\\unity\\UnityProject\\GameDesinger\\openspec\\changes\\06-v21-implementation\\art\\raw\\recipe\\recipe_scroll_zigzag.png",
+          "size_bytes": 240325,
+          "status": "ok"
+        },
+        {
+          "name": "recipe_scroll_bolt",
+          "file": "D:\\unity\\UnityProject\\GameDesinger\\openspec\\changes\\06-v21-implementation\\art\\raw\\recipe\\recipe_scroll_bolt.png",
+          "size_bytes": 244216,
+          "status": "ok"
+        },
+        {
+          "name": "recipe_scroll_star",
+          "file": "D:\\unity\\UnityProject\\GameDesinger\\openspec\\changes\\06-v21-implementation\\art\\raw\\recipe\\recipe_scroll_star.png",
+          "size_bytes": 246179,
+          "status": "ok"
+        },
+        {
+          "name": "recipe_scroll_stream",
+          "file": "D:\\unity\\UnityProject\\GameDesinger\\openspec\\changes\\06-v21-implementation\\art\\raw\\recipe\\recipe_scroll_stream.png",
+          "size_bytes": 245156,
+          "status": "ok"
+        },
+        {
+          "name": "recipe_scroll_beast",
+          "file": "D:\\unity\\UnityProject\\GameDesinger\\openspec\\changes\\06-v21-implementation\\art\\raw\\recipe\\recipe_scroll_beast.png",
+          "size_bytes": 247743,
+          "status": "ok"
+        }
+      ]
+    }
+  ]
+}

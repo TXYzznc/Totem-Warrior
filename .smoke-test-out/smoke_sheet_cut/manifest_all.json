@@ -1,0 +1,81 @@
+[
+  {
+    "source": "D:\\unity\\UnityProject\\GameDesinger\\.smoke-test-out\\smoke_sheet_alpha.png",
+    "size": {
+      "width": 1254,
+      "height": 1254
+    },
+    "count": 4,
+    "output_dir": "D:\\unity\\UnityProject\\GameDesinger\\.smoke-test-out\\smoke_sheet_cut\\smoke_sheet_alpha",
+    "sprites": [
+      {
+        "label": 1,
+        "file": "D:\\unity\\UnityProject\\GameDesinger\\.smoke-test-out\\smoke_sheet_cut\\smoke_sheet_alpha\\smoke_sheet_alpha_001.png",
+        "bbox": {
+          "x": 222,
+          "y": 171,
+          "width": 206,
+          "height": 295
+        },
+        "raw_bbox": {
+          "x": 224,
+          "y": 173,
+          "width": 202,
+          "height": 291
+        },
+        "area": 40319
+      },
+      {
+        "label": 2,
+        "file": "D:\\unity\\UnityProject\\GameDesinger\\.smoke-test-out\\smoke_sheet_cut\\smoke_sheet_alpha\\smoke_sheet_alpha_002.png",
+        "bbox": {
+          "x": 825,
+          "y": 171,
+          "width": 206,
+          "height": 296
+        },
+        "raw_bbox": {
+          "x": 827,
+          "y": 173,
+          "width": 202,
+          "height": 292
+        },
+        "area": 40301
+      },
+      {
+        "label": 3,
+        "file": "D:\\unity\\UnityProject\\GameDesinger\\.smoke-test-out\\smoke_sheet_cut\\smoke_sheet_alpha\\smoke_sheet_alpha_003.png",
+        "bbox": {
+          "x": 222,
+          "y": 773,
+          "width": 206,
+          "height": 296
+        },
+        "raw_bbox": {
+          "x": 224,
+          "y": 775,
+          "width": 202,
+          "height": 292
+        },
+        "area": 40308
+      },
+      {
+        "label": 4,
+        "file": "D:\\unity\\UnityProject\\GameDesinger\\.smoke-test-out\\smoke_sheet_cut\\smoke_sheet_alpha\\smoke_sheet_alpha_004.png",
+        "bbox": {
+          "x": 825,
+          "y": 773,
+          "width": 206,
+          "height": 296
+        },
+        "raw_bbox": {
+          "x": 827,
+          "y": 775,
+          "width": 202,
+          "height": 292
+        },
+        "area": 40272
+      }
+    ]
+  }
+]

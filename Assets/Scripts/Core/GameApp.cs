@@ -43,6 +43,8 @@ public class GameApp : MonoBehaviour
 
             // ===== Category 1: 系统服务 =====
             _runner.AddModule(new SaveModule(_runner, _bus));
+            _runner.AddModule(new AudioModule(_runner));
+            _runner.AddModule(new SettingsModule(_runner, _bus));
             _runner.AddModule(new TattooModule(_runner, _bus));
 
             // ===== Category 2: 应用协调 =====

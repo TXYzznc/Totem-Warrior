@@ -1,0 +1,89 @@
+OpenAI Codex v0.142.0
+--------
+workdir: C:\Users\WIN10\AppData\Local\Temp\codex-art-gen-runner
+model: gpt-5.5
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR, D:\unity\UnityProject\GameDesinger\.smoke-test-out]
+reasoning effort: low
+reasoning summaries: none
+session id: 019f034f-20af-7163-8855-3e5e1a13689c
+--------
+user
+你是图片生成执行器。
+
+任务：
+读取下面的 sheet JSON,只调用 1 次 image_gen,生成 1 张包含多个小素材的 PNG 画布。
+
+硬性规则：
+- 只调用 1 次 image_gen。
+- 不要读取项目文档。
+- 不要解释、不要计划、不要询问。
+- 不要自行重试。
+- 不要切图。
+- 不要生成多个文件。
+- 只保存 1 张画布到 canvas 指定路径。
+- 最终只输出合法 JSON 对象,不要 markdown。
+
+画布规则：
+- 画布尺寸使用 size。
+- 背景必须为纯色 chroma_key 底色(默认 #00ff00, 见 sheet JSON 的 chroma_key 字段), 完全填满素材之外的所有空间(image_gen 的 transparent 在 gpt-image-2 上不可靠, 本地会用 chroma-key 工具去键色)。
+- 素材本身**禁用**接近 chroma_key 的色调, 避免被键出。
+- 按 grid_rows x grid_cols 网格排列。
+- 每个素材必须独立, 不要相互接触。
+- 每个素材位于自己的格子中央。
+- 素材之间至少 32px 纯键色 padding(不要渐变 / 阴影投射到键色底上)。
+- 不要文字、数字、水印、签名、边框、标签。
+- 按从左到右、从上到下排列, 顺序必须与 items 一致。
+- 美术风格、配色由各 item.prompt 自带, 本模板不规定。
+
+返回格式：
+{"canvas":"...","size_bytes":123456,"status":"ok","grid_rows":4,"grid_cols":4,"layout_order":["asset_1","asset_2"]}
+
+sheet JSON:
+{
+  "mode": "L2_SHEET",
+  "sheet_id": "stdio-smoke-l2-002",
+  "canvas": "d:\\unity\\UnityProject\\GameDesinger\\.smoke-test-out\\smoke_sheet.png",
+  "size": "1024x1024",
+  "transparent": false,
+  "grid_rows": 2,
+  "grid_cols": 2,
+  "chroma_key": "#00ff00",
+  "items": [
+    {
+      "index": 1,
+      "name": "smoke_potion_red",
+      "target_file": "d:/unity/UnityProject/GameDesinger/.smoke-test-out/smoke_potion_red.png",
+      "prompt": "small red potion bottle icon, simple cartoon style",
+      "negative": "text"
+    },
+    {
+      "index": 2,
+      "name": "smoke_potion_blue",
+      "target_file": "d:/unity/UnityProject/GameDesinger/.smoke-test-out/smoke_potion_blue.png",
+      "prompt": "small blue potion bottle icon, simple cartoon style",
+      "negative": "text"
+    },
+    {
+      "index": 3,
+      "name": "smoke_potion_yellow",
+      "target_file": "d:/unity/UnityProject/GameDesinger/.smoke-test-out/smoke_potion_yellow.png",
+      "prompt": "small yellow potion bottle icon, simple cartoon style",
+      "negative": "text"
+    },
+    {
+      "index": 4,
+      "name": "smoke_potion_purple",
+      "target_file": "d:/unity/UnityProject/GameDesinger/.smoke-test-out/smoke_potion_purple.png",
+      "prompt": "small purple potion bottle icon, simple cartoon style",
+      "negative": "text"
+    }
+  ]
+}
+
+codex
+{"canvas":"d:\\unity\\UnityProject\\GameDesinger\\.smoke-test-out\\smoke_sheet.png","size_bytes":123456,"status":"ok","grid_rows":2,"grid_cols":2,"layout_order":["smoke_potion_red","smoke_potion_blue","smoke_potion_yellow","smoke_potion_purple"]}
+tokens used
+6,653
+{"canvas":"d:\\unity\\UnityProject\\GameDesinger\\.smoke-test-out\\smoke_sheet.png","size_bytes":123456,"status":"ok","grid_rows":2,"grid_cols":2,"layout_order":["smoke_potion_red","smoke_potion_blue","smoke_potion_yellow","smoke_potion_purple"]}

@@ -18,6 +18,7 @@ namespace Tattoo.UI
     {
         [Header("按钮")]
         [SerializeField] Button _resumeBtn;
+        [SerializeField] Button _settingsBtn;
         [SerializeField] Button _quitBtn;
 
         // ── 运行时 ────────────────────────────────────────────
@@ -39,7 +40,21 @@ namespace Tattoo.UI
 
         // ── MonoBehaviour ─────────────────────────────────────
 
-        void Awake() => gameObject.SetActive(false);
+        void Awake()
+        {
+            gameObject.SetActive(false);
+            // 缺失时按名自动绑定（Prefab 控件命名契约：ResumeButton / SettingsButton / QuitButton）
+            if (_resumeBtn   == null) _resumeBtn   = FindChildByName<Button>("ResumeButton");
+            if (_settingsBtn == null) _settingsBtn = FindChildByName<Button>("SettingsButton");
+            if (_quitBtn     == null) _quitBtn     = FindChildByName<Button>("QuitButton");
+        }
+
+        T FindChildByName<T>(string name) where T : Component
+        {
+            foreach (var t in GetComponentsInChildren<Transform>(true))
+                if (t.name == name) { var c = t.GetComponent<T>(); if (c != null) return c; }
+            return null;
+        }
 
         async void Start()
         {
@@ -55,6 +70,7 @@ namespace Tattoo.UI
 
             _runner.GetModule<UIModule>().Register(this);
             _resumeBtn?.onClick.AddListener(OnResumeClicked);
+            _settingsBtn?.onClick.AddListener(OnSettingsClicked);
             _quitBtn?.onClick.AddListener(OnQuitClicked);
             SubscribeEvents();
         }
@@ -92,6 +108,21 @@ namespace Tattoo.UI
 
         /// <summary>恢复按钮点击（PlayMode 测试可直接调用）。</summary>
         public void OnResumeClicked() => Close();
+
+        /// <summary>设置按钮点击：打开设置面板（暂停时 timeScale=0，SettingsForm 用 SetUpdate(true) 不受影响）。</summary>
+        void OnSettingsClicked()
+        {
+            var settingsForm = UnityEngine.Object.FindObjectOfType<Tattoo.UI.SettingsForm>();
+            if (settingsForm != null)
+            {
+                settingsForm.Open();
+                FrameworkLogger.Info("PauseMenuForm", "Action=SettingsClicked → SettingsForm.Open");
+            }
+            else
+            {
+                FrameworkLogger.Warn("PauseMenuForm", "Action=SettingsClicked SettingsForm=null 未找到实例");
+            }
+        }
 
         void OnQuitClicked()
         {

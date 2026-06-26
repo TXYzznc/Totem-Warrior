@@ -47,10 +47,9 @@ L1_PROMPT_TPL = """你是图片生成执行器。
 - 对 items 中的每个条目生成一张独立图片。
 - 每个 item 最多调用 1 次 image_gen。
 - 可以并行处理多个 item;即使内部不能并行,也必须在同一个 Codex session 内完成整批。
-- 单个 item 失败时记录 failed,并继续处理后续 item。
-- 不要自行重试。
-- 每张图片必须保存到 file 指定路径。
-- 最终只输出合法 JSON 数组,不要 markdown。
+- 单个 item 失败时跳过该项继续处理后续 item,不要自行重试。
+- **每张图片必须真实落盘到 item.file 指定的绝对路径**(image_gen 默认会输出到 .codex/generated_images/...,你必须用 exec 命令把它复制/移动到 item.file 的目标路径)。
+- 任务由调用方通过**磁盘文件是否存在 + 体积 > 1KB**来判定每张图是否成功,不依赖你的文字回复。
 
 背景规则（按 item.transparent 分流）：
 - 若 item.transparent=true:背景必须为纯色 chroma_key 底色(见 batch JSON 的 chroma_key 字段,默认 #00ff00),完全填满主体之外的所有空间(image_gen 的 transparent 在 gpt-image-2 上不可靠,本地会用 chroma-key 工具去键色)。主体本身**禁用**接近 chroma_key 的色调,避免被键出。不要渐变 / 阴影投射到键色底上。
@@ -59,12 +58,6 @@ L1_PROMPT_TPL = """你是图片生成执行器。
 通用规则：
 - 不要文字、数字、水印、签名、边框、标签。
 - 美术风格、配色由各 item.prompt 自带,本模板不规定。
-
-返回格式：
-[
-  {{"index":1,"file":"...","size_bytes":123456,"status":"ok"}},
-  {{"index":2,"file":"...","size_bytes":0,"status":"failed","error":"..."}}
-]
 
 batch JSON:
 {batch_json}
@@ -82,8 +75,8 @@ L2_PROMPT_TPL = """你是图片生成执行器。
 - 不要自行重试。
 - 不要切图。
 - 不要生成多个文件。
-- 只保存 1 张画布到 canvas 指定路径。
-- 最终只输出合法 JSON 对象,不要 markdown。
+- **画布必须真实落盘到 sheet.canvas 指定的绝对路径**(image_gen 默认会输出到 .codex/generated_images/...,你必须用 exec 命令把它复制/移动到 sheet.canvas 的目标路径)。
+- 任务由调用方通过**磁盘上 sheet.canvas 文件是否存在 + 体积 > 1KB**来判定是否成功,不依赖你的文字回复。
 
 画布规则：
 - 画布尺寸使用 size。
@@ -96,9 +89,6 @@ L2_PROMPT_TPL = """你是图片生成执行器。
 - 不要文字、数字、水印、签名、边框、标签。
 - 按从左到右、从上到下排列, 顺序必须与 items 一致。
 - 美术风格、配色由各 item.prompt 自带, 本模板不规定。
-
-返回格式：
-{{"canvas":"...","size_bytes":123456,"status":"ok","grid_rows":4,"grid_cols":4,"layout_order":["asset_1","asset_2"]}}
 
 sheet JSON:
 {sheet_json}
@@ -150,28 +140,22 @@ async def _run_one_l1_batch(batch: dict, sem: asyncio.Semaphore) -> dict:
                 ],
             }
 
-        codex_items = codex_result["result"]
-        if isinstance(codex_items, dict):
-            codex_items = codex_items.get("items", [])
-
-        # 用 index 把 codex 返回项与原 item 对齐(取 transparent 字段决定是否走 chroma_key)
-        item_by_index = {it["index"]: it for it in items}
+        # 纯磁盘核验:遍历原始 items,不信 codex 文字回复(防它复读 prompt 模板假装出图)
         ok, failed = 0, 0
-        for r in codex_items:
-            file_abs = Path(r.get("file", ""))
+        result_items: list[dict] = []
+        for it in items:
+            file_abs = Path(it["file"])
+            entry: dict = {"index": it["index"], "file": str(file_abs)}
             if not file_abs.exists() or file_abs.stat().st_size <= 1024:
-                r["status"] = "failed"
-                r.setdefault("error", "file missing or < 1KB")
+                entry["status"] = "failed"
+                entry["error"] = "file missing or < 1KB (codex 未真出图或路径不对)"
                 failed += 1
+                result_items.append(entry)
                 continue
 
-            src_item = item_by_index.get(r.get("index"))
-            needs_key = bool(src_item.get("transparent", True)) if src_item else True
-
+            needs_key = bool(it.get("transparent", True))
             if needs_key:
                 # 走 chroma_key:codex 出图是 RGB 绿底,本地转 RGBA 真透明,覆盖原文件
-                # 注意:remove_chroma_key 内部用 chroma_key.py -o dst.parent,当 src/dst 同目录时
-                # 会覆盖 src 自身,然后 helper rename src → dst,所以 file_abs 已不存在
                 tmp_file = file_abs.with_name(file_abs.stem + "_keyed.png")
                 ck_res = remove_chroma_key(
                     src_png=file_abs,
@@ -182,17 +166,19 @@ async def _run_one_l1_batch(batch: dict, sem: asyncio.Semaphore) -> dict:
                     despill=0.5,
                 )
                 if not ck_res["success"]:
-                    r["status"] = "failed"
-                    r["error"] = f"chroma_key failed: {ck_res['error']}"
+                    entry["status"] = "failed"
+                    entry["error"] = f"chroma_key failed: {ck_res['error']}"
                     failed += 1
+                    result_items.append(entry)
                     continue
                 # 用 os.replace 原子覆盖回 file_abs(Windows 安全;file_abs 此刻已不存在,直接移动)
                 os.replace(str(tmp_file), str(file_abs))
 
-            r["status"] = "ok"
-            r["size_bytes"] = file_abs.stat().st_size
+            entry["status"] = "ok"
+            entry["size_bytes"] = file_abs.stat().st_size
             ok += 1
-        return {"batch_id": batch_id, "ok": ok, "failed": failed, "items": codex_items}
+            result_items.append(entry)
+        return {"batch_id": batch_id, "ok": ok, "failed": failed, "items": result_items}
 
 
 async def tool_dispatch_l1(args: dict) -> dict:
@@ -257,6 +243,16 @@ async def _run_one_l2_sheet(sheet: dict, sem: asyncio.Semaphore) -> dict:
                 "cuts_ok": 0,
                 "cuts_failed": len(items),
                 "error": codex_result["error"],
+            }
+
+        # 纯磁盘核验:不信 codex 文字回复,直接看 canvas 是否真落盘
+        if not canvas_path.exists() or canvas_path.stat().st_size <= 1024:
+            return {
+                "sheet_id": sheet_id,
+                "canvas_path": str(canvas_path),
+                "cuts_ok": 0,
+                "cuts_failed": len(items),
+                "error": "canvas missing or < 1KB (codex 未真出图或路径不对)",
             }
 
         # 本地步骤 1：chroma-key 去键色

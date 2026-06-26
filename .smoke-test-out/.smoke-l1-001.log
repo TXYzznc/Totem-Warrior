@@ -1,0 +1,93 @@
+OpenAI Codex v0.142.0
+--------
+workdir: C:\Users\WIN10\AppData\Local\Temp\codex-art-gen-runner
+model: gpt-5.5
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR, D:\unity\UnityProject\GameDesinger\.smoke-test-out]
+reasoning effort: low
+reasoning summaries: none
+session id: 019f035a-cf60-7600-a0ed-69655dce949a
+--------
+user
+你是图片生成执行器。
+
+任务：
+读取下面的 batch JSON,在同一个 Codex session 内批量生成所有 items。
+
+硬性规则：
+- 不要读取项目文档。
+- 不要解释、不要计划、不要询问。
+- 对 items 中的每个条目生成一张独立图片。
+- 每个 item 最多调用 1 次 image_gen。
+- 可以并行处理多个 item;即使内部不能并行,也必须在同一个 Codex session 内完成整批。
+- 单个 item 失败时跳过该项继续处理后续 item,不要自行重试。
+- **每张图片必须真实落盘到 item.file 指定的绝对路径**(image_gen 默认会输出到 .codex/generated_images/...,你必须用 exec 命令把它复制/移动到 item.file 的目标路径)。
+- 任务由调用方通过**磁盘文件是否存在 + 体积 > 1KB**来判定每张图是否成功,不依赖你的文字回复。
+
+背景规则（按 item.transparent 分流）：
+- 若 item.transparent=true:背景必须为纯色 chroma_key 底色(见 batch JSON 的 chroma_key 字段,默认 #00ff00),完全填满主体之外的所有空间(image_gen 的 transparent 在 gpt-image-2 上不可靠,本地会用 chroma-key 工具去键色)。主体本身**禁用**接近 chroma_key 的色调,避免被键出。不要渐变 / 阴影投射到键色底上。
+- 若 item.transparent=false:背景按 item.prompt 自身要求绘制(常见用于场景纹理 / 背景图)。
+
+通用规则：
+- 不要文字、数字、水印、签名、边框、标签。
+- 美术风格、配色由各 item.prompt 自带,本模板不规定。
+
+batch JSON:
+{
+  "mode": "L1_BATCH",
+  "batch_id": "smoke-l1-001",
+  "chroma_key": "#00ff00",
+  "items": [
+    {
+      "index": 1,
+      "name": "smoke_apple",
+      "file": "D:\\unity\\UnityProject\\GameDesinger\\.smoke-test-out\\smoke_apple.png",
+      "size": "1024x1024",
+      "transparent": true,
+      "prompt": "A single red apple icon on a plain background, simple digital illustration, centered composition.",
+      "negative": "text, watermark, blurry"
+    },
+    {
+      "index": 2,
+      "name": "smoke_banana",
+      "file": "D:\\unity\\UnityProject\\GameDesinger\\.smoke-test-out\\smoke_banana.png",
+      "size": "1024x1024",
+      "transparent": true,
+      "prompt": "A single yellow banana icon on a plain background, simple digital illustration, centered composition.",
+      "negative": "text, watermark, blurry"
+    }
+  ]
+}
+
+exec
+"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command 'Get-ChildItem -Path . -Recurse -File | Where-Object { $_.Extension -match '"'png|jpg|jpeg|webp' } | Sort-Object LastWriteTime -Descending | Select-Object -First 10 FullName,Length,LastWriteTime" in C:\Users\WIN10\AppData\Local\Temp\codex-art-gen-runner
+ succeeded in 563ms:
+exec
+"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "Get-ChildItem -Path 'C:\\Users\\WIN10\\.codex\\generated_images\\019f035a-cf60-7600-a0ed-69655dce949a' -File | Sort-Object LastWriteTime | Select-Object FullName,Length,LastWriteTime" in C:\Users\WIN10\AppData\Local\Temp\codex-art-gen-runner
+ succeeded in 526ms:
+
+FullName                                                                                                               
+--------                                                                                                               
+C:\Users\WIN10\.codex\generated_images\019f035a-cf60-7600-a0ed-69655dce949a\ig_0079665f6f6ba603016a3e4c84dcec81919ef...
+C:\Users\WIN10\.codex\generated_images\019f035a-cf60-7600-a0ed-69655dce949a\ig_0079665f6f6ba603016a3e4ca022b48191a00...
+
+
+
+exec
+"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "Get-ChildItem -Path 'C:\\Users\\WIN10\\.codex\\generated_images\\019f035a-cf60-7600-a0ed-69655dce949a' -File | Sort-Object LastWriteTime | ForEach-Object { "'$_.FullName + '"'|' + "'$_.Length }' in C:\Users\WIN10\AppData\Local\Temp\codex-art-gen-runner
+ succeeded in 553ms:
+C:\Users\WIN10\.codex\generated_images\019f035a-cf60-7600-a0ed-69655dce949a\ig_0079665f6f6ba603016a3e4c84dcec81919ef133bcf119c583.png|965599
+C:\Users\WIN10\.codex\generated_images\019f035a-cf60-7600-a0ed-69655dce949a\ig_0079665f6f6ba603016a3e4ca022b48191a0005dc9ba82b579.png|962062
+
+exec
+"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command '$destDir='"'D:\\unity\\UnityProject\\GameDesinger\\.smoke-test-out'; New-Item -ItemType Directory -Force -Path "'$destDir | Out-Null; Copy-Item -LiteralPath '"'C:\\Users\\WIN10\\.codex\\generated_images\\019f035a-cf60-7600-a0ed-69655dce949a\\ig_0079665f6f6ba603016a3e4c84dcec81919ef133bcf119c583.png' -Destination (Join-Path "'$destDir '"'smoke_apple.png') -Force; Copy-Item -LiteralPath 'C:\\Users\\WIN10\\.codex\\generated_images\\019f035a-cf60-7600-a0ed-69655dce949a\\ig_0079665f6f6ba603016a3e4ca022b48191a0005dc9ba82b579.png' -Destination (Join-Path "'$destDir '"'smoke_banana.png') -Force; Get-Item -LiteralPath (Join-Path "'$destDir '"'smoke_apple.png'),(Join-Path "'$destDir '"'smoke_banana.png') | ForEach-Object { "'$_.FullName + '"'|' + "'$_.Length }' in C:\Users\WIN10\AppData\Local\Temp\codex-art-gen-runner
+ succeeded in 531ms:
+D:\unity\UnityProject\GameDesinger\.smoke-test-out\smoke_apple.png|965599
+D:\unity\UnityProject\GameDesinger\.smoke-test-out\smoke_banana.png|962062
+
+codex
+{"batch_id":"smoke-l1-001","results":[{"index":1,"name":"smoke_apple","file":"D:\\unity\\UnityProject\\GameDesinger\\.smoke-test-out\\smoke_apple.png","success":true},{"index":2,"name":"smoke_banana","file":"D:\\unity\\UnityProject\\GameDesinger\\.smoke-test-out\\smoke_banana.png","success":true}]}
+tokens used
+31,125
+{"batch_id":"smoke-l1-001","results":[{"index":1,"name":"smoke_apple","file":"D:\\unity\\UnityProject\\GameDesinger\\.smoke-test-out\\smoke_apple.png","success":true},{"index":2,"name":"smoke_banana","file":"D:\\unity\\UnityProject\\GameDesinger\\.smoke-test-out\\smoke_banana.png","success":true}]}

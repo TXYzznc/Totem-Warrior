@@ -374,6 +374,23 @@ sprites_sorted = sorted(manifest["sprites"], key=row_then_x)
 - **根因**：图快走 Python import，但 MCP server 进程根本没启动，相当于"测了引擎没测车壳"。
 - **规避**：MCP 改动后**必须**让 Claude Code 重启加载 MCP，用 `mcp__<server>__<tool>` 工具走真实 stdio 协议测一次。
 
+### 7.9 MCP stdio 下 subprocess 必须 `stdin=DEVNULL`（不然死锁）
+
+- **症状**：`tools/codex-art-gen-mcp/sheet_cutter.py` 调 `chroma_key.py` 子进程在 Python `import server` 旁路测试下 1-2 秒完成；同样代码在 **stdio MCP 真测**下 hang 到 60s timeout 报 "chroma_key.py timeout 60s"。
+- **根因**：MCP stdio 模式下，server.py 父进程的 stdin 是 MCP 客户端协议管道。`subprocess.run(cmd, capture_output=True)` 不显式设 `stdin`，子进程**继承父进程的 stdin**，于是 chroma_key.py 子进程→父进程→MCP 客户端形成环形等待，Windows + asyncio 下 100% 复现死锁；import 旁路下 stdin 是 tty，所以测不出。
+- **规避**：MCP server 里**所有** `subprocess.run` / `subprocess.Popen` 必须显式 `stdin=subprocess.DEVNULL`。`asyncio.create_subprocess_exec` 同理。**只在 MCP server 里要这样**，普通 CLI 脚本不用。
+- **教训**：7.8 说"import 旁路 ≈ stdio 真测"是错的，stdio 模式有 subprocess 继承陷阱，import 旁路完全测不到。
+
+### 7.10 server.py 别强依赖 codex 返回 JSON，纯磁盘核验最稳
+
+- **症状**：dispatch_l2 在 stdio 真测下，**codex 6,653 tokens 直接返回 `{"size_bytes":123456,"status":"ok",...}`，画布根本没出**——codex 把 prompt 末尾的"返回格式"示例 JSON 当成答案原样吐回了，0 次 image_gen 调用。L1 同样模板曾经成功只是 gpt-5.5 随机性。
+- **根因**：7.2 已经警告过 prompt 不要给完整答案模板，但 server.py 当时仍**强依赖 `codex_result["result"]` 的 list/dict 结构来对齐 items**——codex 复读 → list 结构刚好"合法" → server.py 接受 → 假装成功。
+- **规避**（**两步连改**才能根治）：
+  1. **删 prompt 里的"返回格式"段**：不给字段名 + 不给占位数值。改成 `"任务由调用方通过磁盘文件是否存在 + 体积 > 1KB 判定"`，断 codex 复读路径。
+  2. **server.py 改纯磁盘核验**：不用 `codex_result["result"]`；遍历**原始** items，对每个 `item.file` 自己 `Path.exists()` + `stat().st_size > 1024`，再走 chroma_key。L2 同理：codex 完成后立即 `canvas_path.exists()` 早期检查，给清晰错误"codex 未真出图"。
+- **副作用**：`size_bytes` 永远是 server.py 本地 `stat()` 算出来的真值，不可能被伪造。出图失败也不会因为 codex 嘴硬"status:ok"而被误判成功。
+- **本次 v21 验证**：14 L1 + 8 L2 = 22 张一把过，0 失败。
+
 ---
 
 ## 八、Definition of Done

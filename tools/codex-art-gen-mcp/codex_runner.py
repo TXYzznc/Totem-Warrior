@@ -5,7 +5,7 @@
 - --skip-git-repo-check（绕 trusted dir 检查）
 - --ephemeral（不污染 session 历史）
 - -s workspace-write + writable_roots 显式授权写出
-- -m gpt-5.4-mini（输入信用比 gpt-5.5 便宜 6.7×）
+- -m gpt-5.5（默认模型；调用方可通过 model 参数覆盖为 mini 系列以省信用）
 - -o result.json（codex 返回写到文件，外部直接读）
 - prompt 从 stdin 传（避复杂引号问题）
 """
@@ -65,9 +65,10 @@ async def run_codex_exec(
     prompt: str,
     result_json_path: Path,
     writable_roots: list[str],
-    model: str = "gpt-5.4-mini",
+    model: str = "gpt-5.5",
     log_path: Path | None = None,
     timeout_sec: int = 900,
+    images: list[str | Path] | None = None,
 ) -> dict[str, Any]:
     """单次 codex exec。返回 {success, result, error, token_estimate}。
 
@@ -75,9 +76,10 @@ async def run_codex_exec(
         prompt: 完整 prompt 文本（已含批次 JSON 等）
         result_json_path: codex 输出的 JSON 写到这里（绝对路径）
         writable_roots: sandbox 允许写出的目录绝对路径列表
-        model: 默认 gpt-5.4-mini，省 85% 输入信用
+        model: 默认 gpt-5.5；调用方可显式传 mini 系列省信用
         log_path: stderr+stdout 重定向到此文件（并发不交叠）
         timeout_sec: 单次 codex exec 最长 15 分钟
+        images: 可选参考图绝对路径列表（每张走独立 -i，避免逗号路径冲突）
     """
     runner_cwd = ensure_runner_dir()
     # writable_roots 转 TOML 数组字符串（注意 Windows 反斜杠转义）
@@ -93,8 +95,11 @@ async def run_codex_exec(
         "-c", f"sandbox_workspace_write.writable_roots={roots_toml}",
         "-m", model,
         "-o", str(result_json_path.resolve()),
-        "-",  # prompt 从 stdin 读
     ]
+    if images:
+        for img in images:
+            args.extend(["-i", str(Path(img).resolve())])
+    args.append("-")  # prompt 从 stdin 读，必须放在末尾
 
     log_fh = open(log_path, "w", encoding="utf-8") if log_path else subprocess.DEVNULL
     try:

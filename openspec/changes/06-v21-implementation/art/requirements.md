@@ -1,13 +1,13 @@
-美术素材状态: 待处理
-处理日期: 2026-06-25（创建）
-执行 SKILL: codex-image-gen
+美术素材状态: 已处理
+处理日期: 2026-06-25（创建）/ 2026-06-26（执行完成 22 张剩余资产 = 14 L1 + 8 L2 recipe）
+执行 SKILL: codex-image-gen（via codex-art-gen MCP）
 输出目录: art/raw/
 生成记录: art/raw/生成记录.md
-批量分档: 待 codex-image-gen 自动归类（预估 L1 主导 + L2 少量 ICON 合批）
+批量分档: L1 = item/character/env 14 张 / 3 batches; L2 = recipe 8 张 / 1 sheet 2x4
 
 # 美术需求 — 06-v21-implementation v2.1 全套美术包
 
-> **状态**：待处理
+> **状态**：已处理
 > **创建日期**：2026-06-25
 > **承担方**：`art-director`（本文档）+ `ai-art`（提示词）+ `codex-image-gen`（落盘）
 > **目标用户**：v2.1 vertical slice 内所有图标、立绘、HUD、占位场景、角色 sprite，构成 10-15 分钟单局可玩 demo 的完整视觉资产
