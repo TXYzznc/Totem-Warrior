@@ -1,6 +1,18 @@
 {
-  "_comment": "全局 hooks。人格注入 + 重大决策门槛检测 + 会话启动时注入 AGENTS.md。settings.local.json 内的 hook 会追加。",
+  "_comment": "全局 hooks。人格注入 + 重大决策门槛检测 + 会话启动时注入 AGENTS.md + Tool 使用频次记录（11-skill-governance）。settings.local.json 内的 hook 会追加。",
   "hooks": {
+    "PreToolUse": [
+      {
+        "_comment": "记录 Skill/Agent/MCP 调用频次到 .claude/skills/_usage.log，月度防腐用。脚本静默失败不阻塞工具。",
+        "matcher": "Skill|Agent|mcp__.*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python tools/log_tool_usage.py"
+          }
+        ]
+      }
+    ],
     "SessionStart": [
       {
         "hooks": [

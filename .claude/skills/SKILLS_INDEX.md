@@ -212,4 +212,21 @@
 
 ---
 
-*最后更新：2026-06-25（Unity 全流程聚焦：删除 12 个跨引擎 SKILL + agency-level-designer + anvil-level-design-blender，123 → 109）*
+## 四、候选淘汰区（11-skill-governance 标注，下次清理周期前正式删）
+
+以下 SKILL 与本项目无关或可被替代，**先不删**（避免误伤），等下次清理周期评估后决断。
+
+| SKILL | 标注原因 | 当前白名单引用 |
+|---|---|---|
+| character-sprite | "为 Claude Office Visualizer Agent 生成精灵图"——其他项目残留，与本项目无关 | `art-2d` 仍引用，淘汰前需先剔除 |
+| hytale-texture-artist | Hytale 项目专属像素纹理，本项目无 Hytale 风格需求 | `art-2d` 仍引用，淘汰前需先剔除 |
+| agency-unity-shader-graph-artist | agency 系列模板，可被 `unity-shaders-rendering` + `shader-effects` 替代 | `client-ta` 仍引用，淘汰前需先剔除 |
+| agency-technical-artist | agency 系列模板，可被 `client-ta` 自身 system prompt 替代 | 无白名单引用，可优先淘汰 |
+
+> 淘汰流程：（1）确认无 agent 白名单引用 →（2）从 `frontmatter.skills` 移除 →（3）删 SKILL 目录 →（4）更新本索引计数
+
+---
+
+*最后更新：2026-06-26（11-skill-governance：8 极短 description 补强 + 5 极长 description 压缩 + 6 组重叠 SKILL 加 ❌ 不适用 划界 + 候选淘汰区登记）*
+
+*历史：2026-06-25（Unity 全流程聚焦：删除 12 个跨引擎 SKILL + agency-level-designer + anvil-level-design-blender，123 → 109）*

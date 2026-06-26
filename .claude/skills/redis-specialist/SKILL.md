@@ -1,6 +1,6 @@
 ---
 name: redis-specialist
-description: Redis专家，擅长缓存、发布订阅（pub/sub）、数据结构及分布式系统模式。当提及「redis、缓存策略、缓存失效、pub/sub、限流、分布式锁、会话存储、排行榜、消息队列、upstash、redis、缓存、pub-sub、会话、rate-limiting、distributed-lock、upstash、elasticache、memorystore」这些内容时，可使用该专家能力。
+description: Redis 高阶模式。覆盖缓存策略与失效、pub/sub、分布式锁、限流、会话存储、排行榜（ZSet）、消息队列、Upstash/ElastiCache/MemoryStore。触发：缓存策略、缓存失效、pub-sub、限流、distributed lock、分布式锁、排行榜、leaderboard、Upstash。❌ 不适用：入门键命名/TTL/pipeline，请用 redis-best-practices。
 tags: redis-specialist, caching-strategy, distributed-systems, pub-sub, data-structures
 tags_cn: Redis专家, 缓存策略, 分布式系统, Pub/Sub, 数据结构
 ---

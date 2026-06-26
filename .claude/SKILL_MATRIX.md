@@ -92,4 +92,45 @@
 
 ---
 
-*最后更新：2026-06-24（02 + 03 follow-up：收录 codex-image-gen 为 3 art-* 共享 SKILL；硬墙白名单 + 共享 SKILL 显式登记 + gitnexus 清除）*
+## 六、SKILL description 写作规范（11-skill-governance 沉淀）
+
+### 6.1 模板
+
+```
+<一句话定位>。覆盖 <能力 1>、<能力 2>、<能力 3>...。触发：<关键词 1>、<关键词 2>、<关键词 3>...。❌ 不适用：<场景>，请用 <其他 SKILL>。
+```
+
+- **一句话定位**：动词开头、30-60 字符，说清"做什么"
+- **覆盖**：3-6 项核心能力，避免无穷罗列
+- **触发**：3-10 个关键词（中英文同义），用顿号分隔
+- **不适用划界**：仅当存在重叠 SKILL 时加（如 redis-best-practices ↔ redis-specialist）
+- **总长度上限 250 字符**：超过证明在堆叠关键词，应拆分或压缩
+
+### 6.2 反模式（禁止）
+
+| 反模式 | 危害 | 例 |
+|---|---|---|
+| 同义关键词堆叠 | description 变噪声，模型误判相关性 | `texture-art` 旧版 30+ 关键词（PBR ≈ Substance ≈ roughness ≈ normal map） |
+| 缺触发词的极短 | 模型无法判断何时召回，召回率低 | `k6: k6负载测试工具，用于性能测试。`（16 字符） |
+| 重叠不划界 | 多条同时召回，浪费 context | `redis-best-practices` vs `redis-specialist` 无 ❌ 不适用 标注 |
+| 文学修辞过多 | 占长度但不增加判别力 | `game-ui-design` 旧版引用任天堂/死亡空间/银河战士 |
+
+### 6.3 创建/修改 SKILL 时的 checklist
+
+- [ ] description 长度 60-250 字符
+- [ ] 含「触发：」或「适用：」前缀 + 关键词列表
+- [ ] 与现有 SKILL 重叠时加 `❌ 不适用：<场景>，请用 <其他 SKILL>`
+- [ ] 项目无关的 SKILL 不要进 `.claude/skills/`，挂到 [SKILLS_INDEX 候选淘汰区](./skills/SKILLS_INDEX.md)
+
+### 6.4 复跑审计
+
+修改后复跑扫描脚本（见 `openspec/changes/11-skill-governance/`），验证：
+- 平均长度落在 120-180 区间
+- 无极短（<60）/极长（>250）描述
+- 重叠 SKILL 全部带 ❌ 不适用
+
+---
+
+*最后更新：2026-06-26（11-skill-governance：新增 §六 description 写作规范）*
+
+*历史：2026-06-24（02 + 03 follow-up：收录 codex-image-gen 为 3 art-* 共享 SKILL；硬墙白名单 + 共享 SKILL 显式登记 + gitnexus 清除）*

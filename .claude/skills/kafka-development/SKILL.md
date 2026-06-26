@@ -1,6 +1,6 @@
 ---
 name: kafka-development
-description: Apache Kafka事件流与分布式消息传递的最佳实践和指南
+description: Apache Kafka 开发实战。覆盖 topic/partition 设计、Producer/Consumer 配置、消费组、offset 管理、exactly-once 语义、Schema Registry、监控埋点。触发：Kafka、kafka、消息队列、event streaming、topic、partition、consumer group、Schema Registry、Confluent。
 tags: kafka-development, event-streaming, distributed-messaging, best-practices, system-architecture
 tags_cn: Kafka开发, 事件流处理, 分布式消息传递, 最佳实践, 系统架构
 ---

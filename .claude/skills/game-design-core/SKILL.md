@@ -1,6 +1,6 @@
 ---
 name: game-design-core
-description: 互动体验设计的基础理论——循环、动机、手感与有意义的玩乐艺术。当提及以下相关内容时可使用本技能：游戏设计、核心循环、游戏手感、玩家动机、游戏机制、有意义的选择、成长系统、游戏经济、游戏平衡、游戏测试、GDD、游戏文档、趣味因子、参与度、心流状态、风险回报、玩家自主性、Juice、游戏打磨、8种乐趣、巴特尔玩家类型、MDA框架、game-design、player-experience、core-loop、motivation、game-feel、MDA、playtesting、GDD、系统思维、玩家心理学、engagement、flow-state
+description: 游戏设计实操原则。覆盖核心循环、游戏手感（Juice/打磨）、玩家动机、机制设计、有意义的选择、心流状态、风险回报、playtest 反馈。触发：游戏设计、core loop、game feel、Juice、玩家动机、心流、playtest、GDD、游戏机制。❌ 不适用：纯学术理论（MDA / 8 类乐趣 / 巴特尔），请用 game-design-theory。
 tags: game-design, core-loop, player-experience, playtesting, mda-framework
 tags_cn: 游戏设计, 核心循环, 玩家体验, 游戏测试, MDA框架
 ---

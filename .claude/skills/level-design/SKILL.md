@@ -1,7 +1,7 @@
 ---
 name: level-design
 version: 2.0.0
-description: 关卡设计基础、节奏把控、难度递进、环境叙事，以及打造沉浸式游戏体验的空间设计。
+description: 关卡设计通用原则。覆盖空间布局、节奏把控、难度递进、环境叙事、checkpoint 放置、encounter 节拍。触发：关卡设计、level design、blockout、节奏、pacing、环境叙事、encounter、checkpoint。❌ 不适用：实际拆解项目关卡任务，请 delegate 给 level-designer agent。
 sasmp_version: 1.3.0
 bonded_agent: 01-game-designer
 bond_type: PRIMARY_BOND

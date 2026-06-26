@@ -1,6 +1,6 @@
 ---
 name: rigging
-description: Rigging基础、骨骼设置与动画控制
+description: 角色 rigging 基础。覆盖骨骼层级、IK/FK 控制器、权重绘制、面部 blend shape、控制器命名规范、实时绑定优化。触发：rigging、骨骼、骨架、bone、skeleton、IK、FK、控制器、权重、weight paint、blend shape。
 tags: rigging-fundamentals, skeleton-setup, ik-fk-controls, blendshapes, real-time-rig-optimization
 tags_cn: Rigging基础, 骨骼设置, IK/FK控制, Blendshapes制作, 实时绑定优化
 ---

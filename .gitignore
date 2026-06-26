@@ -97,3 +97,7 @@ tools/**/hunyuan3d_output/
 *~
 desktop.ini
 ehthumbs.db
+
+# 11-skill-governance：tool 使用日志与审计中间产物，不进版本控制
+.claude/skills/_usage.log
+.claude/skills/_audit.json

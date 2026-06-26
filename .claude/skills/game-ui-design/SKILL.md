@@ -1,11 +1,6 @@
 ---
 name: game-ui-design
-description: 具备世界级游戏UI设计专业能力，融合任天堂UI理念的清晰性、《死亡空间》与《银河战士Prime》的沉浸式叙事化界面，以及电竞游戏的竞技可读性原则。游戏UI是连接玩家意图与游戏响应的无形桥梁。优秀的游戏UI在不破坏沉浸感的前提下为玩家服务，能在激烈的游戏过程中瞬间传达关键信息，引导新玩家的同时又不会让老玩家感到被轻视，还能流畅适配从4K显示器到掌机屏幕、从键盘到触摸再到控制器的各类场景。顶尖的游戏UI设计师深知，屏幕上的每一个像素都弥足珍贵——它们是从游戏世界中“借”来的。当提及“game
-  ui, game interface, hud design, heads up display, game menu, inventory ui, health
-  bar, stamina bar, game hud, minimap, crosshair, reticle, button prompt, controller
-  ui, gamepad navigation, diegetic interface, in-world ui, quest tracker, damage numbers,
-  cooldown indicator, radial menu, game tooltip, game-ui, hud, game-interface, game-menu,
-  controller-ui, diegetic, game-design, accessibility, console, mobile-games”这些关键词时适用。
+description: 游戏 UI 设计理论。覆盖 HUD、菜单、背包、健康/耐力条、小地图、准星、按键提示、手柄导航、diegetic 叙事化界面、跨平台适配（4K/掌机/触摸/手柄）、无障碍设计。触发：game UI、HUD、游戏菜单、minimap、crosshair、controller UI、diegetic、game-interface、accessibility。
 tags: game-ui-design, hud-design, diegetic-interface, accessibility-gaming, cross-platform-ui
 tags_cn: 游戏UI设计, HUD设计, 叙事化界面, 游戏无障碍设计, 跨平台UI适配
 ---

@@ -1,7 +1,7 @@
 ---
 name: game-design-theory
 version: 2.0.0
-description: 涵盖MDA框架、玩家心理学、平衡原则和成长系统的全面游戏设计理论，带你掌握游戏为何有趣的核心原因。
+description: 游戏设计学术理论。覆盖 MDA 框架（Mechanics/Dynamics/Aesthetics）、Bartle 玩家分类、8 类乐趣、心流理论、玩家心理学、平衡原则、成长系统理论基础。触发：MDA、Bartle、玩家分类、8 类乐趣、玩家心理学、设计理论。❌ 不适用：实操（循环/手感/平衡），请用 game-design-core。
 sasmp_version: 1.3.0
 bonded_agent: 01-game-designer
 bond_type: PRIMARY_BOND

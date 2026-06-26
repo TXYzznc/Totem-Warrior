@@ -1,6 +1,6 @@
 ---
 name: unity-dev
-description: "Unity 游戏开发工具集。当任务涉及 Unity Editor 操作、UI 设计与构建、动画/微交互、配置表设计、前端界面开发时使用。覆盖：Unity Editor REST API 自动化（GameObject/组件/场景/材质/预制体控制）、UI 全流程开发（需求分析→设计→原型→脚本→构建）、游戏 UI 设计理论、配置表（DataTable）设计与生成、动画与微交互优化、前端界面设计。触发场景：提到 Unity、UI 设计、动画、配置表、预制体、场景构建等。"
+description: "Unity 实战工具集（项目主入口）。覆盖 Editor REST API 自动化（GameObject/场景/材质/预制体）、UI 全流程（需求→设计→脚本）、DataTable 配置表生成、动画/微交互优化。触发：Unity 开发、Editor REST API、DataTable、UI 实现、预制体批量、场景构建。❌ 不适用：纯概念入门，请用 unity-foundations。"
 ---
 
 # Unity Dev — Unity 游戏开发工具集

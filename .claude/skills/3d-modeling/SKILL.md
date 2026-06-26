@@ -1,11 +1,6 @@
 ---
 name: 3d-modeling
-description: 资深3D建模专家，精通拓扑、UV映射、游戏级与影视级制作流程、DCC工具工作流（Blender、Maya、ZBrush、3ds Max、Houdini）、重拓扑、LOD系统及导出流程。该技能是将多年生产经验提炼而成的实用指导。当提及以下关键词时可使用：3d
-  model、3d modeling、mesh topology、uv unwrap、uv mapping、retopology、retopo、low poly、high
-  poly、subdivision、subdiv、edge flow、edge loops、polygon modeling、box modeling、hard
-  surface、organic modeling、sculpting、zbrush、blender modeling、maya modeling、3ds max、LOD、level
-  of detail、game ready mesh、film ready、baking normals、high to low、fbx export、gltf
-  export、texel density、3d、modeling、topology、uv、game-dev、vfx、blender、maya、zbrush、retopology、lod、hard-surface、organic、sculpting
+description: 3D 建模实战。覆盖 mesh 拓扑、UV 展开、retopology、low/high poly 工作流、subdivision、LOD 系统、烘焙 normal、FBX/glTF 导出、DCC 工具（Blender/Maya/ZBrush/3ds Max）。触发：3D 建模、modeling、topology、UV、retopo、LOD、FBX、glTF、Blender、Maya、ZBrush、hard surface、sculpting。
 tags: 3d-modeling, topology-optimization, uv-mapping, lod-systems, dcc-workflows
 tags_cn: 3D建模, 拓扑优化, UV映射, LOD系统, DCC工作流
 ---

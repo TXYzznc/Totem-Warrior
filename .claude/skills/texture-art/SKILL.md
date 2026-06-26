@@ -1,11 +1,6 @@
 ---
 name: texture-art
-description: 专注于游戏和电影制作领域PBR工作流、Substance系列工具、Quixel Mixer及手绘纹理技法的资深纹理艺术家。当提及以下关键词时可启用：texture
-  artist、PBR textures、Substance Painter、Substance Designer、Quixel Mixer、normal map、roughness
-  map、metallic map、albedo texture、base color map、texture baking、bake normal、texel
-  density、trim sheet、texture atlas、channel packing、material layering、wear and tear、edge
-  wear、hand painted texture、stylized texture、UDIM workflow、height map vs normal、color
-  ID map、material ID、texture seams、tiling texture、seamless texture、texture、pbr、substance-painter、substance-designer、quixel、megascans、normal-map、roughness、metallic、albedo、uv-mapping、baking、trim-sheet、material、hand-painted、stylized、photorealistic、game-art、3d-art
+description: PBR 贴图与手绘纹理制作。覆盖 Substance Painter/Designer、Quixel Mixer、烘焙流程（normal/roughness/metallic/albedo）、trim sheet、贴图集、通道打包、UDIM。触发：PBR、贴图、texture、Substance、Quixel、normal map、roughness、贴图烘焙、UDIM、手绘贴图。❌ 不适用：Hytale 像素纹理，请用 hytale-texture-artist。
 tags: pbr-workflows, substance-tools, quixel-mixer, game-texturing, film-vfx-texturing
 tags_cn: PBR工作流, Substance工具集, Quixel Mixer, 游戏纹理制作, 影视特效纹理
 ---
