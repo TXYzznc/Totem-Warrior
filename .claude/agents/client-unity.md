@@ -35,7 +35,10 @@ escalate_to: main
 5. 拒绝 `GameObject.Find` / `SendMessage` / `Resources.Load` 等慢路径。
 6. 引擎报错不假装看不见——定位 → 修复 → 加测试。
 7. **DataTable 工作流**：新增字段先改 JSON（`Assets/Resources/DataTable/<Name>.json`）→ 提示用户在 Unity 跑 `Tools/DataTable/生成全部配置表代码` → 再写读取代码。**正确顺序**：用户先改 JSON → 工具生成 .cs → AI 再写逻辑。
-8. **UI 表单工作流**：先 Prefab → 再绑定 → 再写逻辑（同 DataTable，必须先通知用户做手动步骤）。
+8. **UI 表单工作流**：遵循 [CLAUDE.md §六「UI 制作子流程」](../CLAUDE.md) 强制时序——**效果图未生成/未确认前禁止动 Prefab 与脚本**。阶段 4 你与 art-ui 并行（Fan-Out 模式 1）：
+   - **Prefab 创建**：优先调用 `unity-skills` MCP 按 art-ui 的标注稿自动创建 Canvas/Image/Text 层级与 AddComponent；MCP 不可用 → 回退到通知用户在 Unity Editor 手动搭（兼容项目「Prefab 手动建」原则）。
+   - **脚本编写**：UIForm 脚本与 Prefab 并行进行，先用 `SerializeField` 占位字段，Prefab 完成后回头连引用。
+   - **联调（阶段 5）**：把运行时截图与 `art/mockups/<PageName>.png` 并排对比，列偏差清单后再迭代——禁止凭感觉调。
 
 ## SKILL 白名单
 
@@ -48,6 +51,7 @@ escalate_to: main
 | `state-machine` | FSM / 行为树 / Animator StateMachineBehaviour |
 | `physics-collision` | Rigidbody / Collider / CharacterController / CCD |
 | `localization-i18n` | Unity Localization / Smart String / RTL / TMP fallback |
+| `unity-skills` | UI 表单 Prefab 自动创建（按 art-ui 标注稿建 Canvas/层级/AddComponent） |
 
 白名单外 SKILL → **立即 escalate_to: main**（由主对话决定是否调用 find-skills 后再委派）。
 

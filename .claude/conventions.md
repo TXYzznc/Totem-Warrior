@@ -130,3 +130,49 @@ FrameworkLogger.Info("ModuleName", $"Key=Value Key2=Value2");
 - 私有字段用 _camelCase：`_character`, `_subs`
 - 方法用 PascalCase：`OnCombatEnd`, `InitializeAsync`
 - 模块只暴露数据（public 只读属性），行为方法设 internal
+
+---
+
+## 八、UI 制作时序（强制）
+
+> 编排细节见 [CLAUDE.md §六「UI 制作子流程」](./CLAUDE.md)。本节是**编码视角的硬约束**，写 UIForm / 改 Prefab 前必须满足。
+
+### 5 阶段不可跳
+
+```
+需求设计 → 效果图设计 → 效果图生成 → Prefab + 代码（并行） → 联调微调
+（三表）   （prompts.md）  （mockups/）   （Fan-Out 模式 1）        （对比效果图）
+```
+
+| 前置条件未满足 | 禁止做的事 |
+|---|---|
+| 三表（页面 / 组件 / 状态）未齐 | 不许写效果图提示词 |
+| 效果图未生成或用户未确认 | 不许动 Prefab 与 UIForm 脚本 |
+| 标注稿（间距 / 字号 / 锚点）未给出 | 不许调 unity-skills MCP 建 Prefab |
+| 运行时截图未与效果图对比 | 不许声称该 UI 完成 |
+
+### Prefab 创建路径
+
+1. **首选**：`client-unity` 调用 `unity-skills` MCP，按 art-ui 标注稿自动建 Canvas 层级 + AddComponent
+2. **回退**：MCP 不可用 → 通知用户在 Unity Editor 手动搭（兼容 §十二「Prefab 必须手动建」原则）
+3. **禁止**：跳过标注稿凭感觉创建组件层级
+
+### UIForm 脚本约束
+
+- 字段一律 `[SerializeField] private` + PascalCase 命名（与 §七 一致）
+- Prefab 未完成时用占位字段，等 Prefab 搭好后再拖引用，不许在运行时 `Find` 抓
+- 与 Prefab 的对接必须在脚本头部注释明确依赖的 Prefab 路径与节点结构
+
+### 效果图位置约定
+
+```
+openspec/changes/<NN-name>/art/
+├─ prompts.md       ← 每页一条效果图提示词
+├─ mockups/         ← 完整页面效果图（codex-image-gen 输出）
+│  ├─ <PageName>.png
+│  └─ 生成记录.md
+└─ raw/             ← 单独素材切片（icon / 头像等）
+   └─ <ResName>.png
+```
+
+`mockups/` 与 `raw/` **严格分目录**——前者是「页面参考稿」，后者是「最终切片」。混存视为违规。

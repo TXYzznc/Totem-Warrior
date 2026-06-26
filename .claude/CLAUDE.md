@@ -2,7 +2,7 @@
 
 > Unity 6.3 LTS 自研轻量模块化框架的 **AI 协作模板**。
 >
-> 核心配置：**20 人虚拟开发团队** + **109 个 Claude skills** + **7 个 MCP 工具** + **openspec 一站式工作流** + **决策门槛 hook**。
+> 核心配置：**20 人虚拟开发团队** + **109 个 Claude skills** + **8 个 MCP 工具（默认启 4，按需启 4）** + **openspec 一站式工作流** + **决策门槛 hook**。
 
 ---
 
@@ -109,12 +109,37 @@
 
 ### 阶段 B：自动执行（不再打断用户）
 
-阶段 A 退出后，自动按顺序执行，**不再请求用户审批**：
+阶段 A 退出后，**主对话先做「任务规模评估」**，再选择对应路径执行，**不再请求用户审批**：
+
+#### B0. 任务规模评估（必做，主对话自决）
+
+按下表判断是否走 openspec。**任一「走 openspec」信号命中即走 openspec；否则走轻量路径**。判断结果在回复里用一行说明（例："任务规模评估：轻量任务，跳过 openspec"），不必征求用户同意。
+
+| 信号 | 走 openspec | 轻量路径（跳过 openspec） |
+|---|---|---|
+| 涉及模块数 | 跨 2+ 模块 / 新增模块 | 单模块内部修改 |
+| 公共契约 | 新事件 / 改公共 API / 改 DataTable schema | 不动公共接口 |
+| 美术素材 | 需要 ai-art 出图（要落 `art/` 目录） | 不涉及美术生成 |
+| 实施粒度 | 子任务 ≥ 3 / 需要分阶段 | 1-2 步内完成 |
+| 决策密度 | 阶段 A 留下多个需 design.md 沉淀的 trade-off | 阶段 A 共识已经足够覆盖 |
+| 测试规模 | 需要 qa-engineer 写测试计划 / 多场景 E2E | 单元测试或无测试足够 |
+| 影响范围 | 框架核心 / 多人协作契约 | 局部 bug fix / 局部参数调整 / 局部重构 |
+
+> **判断原则**：宁可漏走也不要硬上 openspec。openspec 的成本是 proposal/design/tasks/specs 至少 4 个文件 + 归档同步索引；轻量任务硬走 openspec 会浪费 token 与时间。
+
+#### B1. openspec 路径（命中任一信号）
 
 1. `openspec new change <NN-功能名>` → 写 proposal/design/tasks/specs
 2. 按 tasks.md 顺序实现（client-unity / art-director 等 agent 落地）
 3. 中途遇到模糊点：**优先按阶段 A 的共识自决**，写日志/spec 备注
 4. 完成后 `openspec archive-change <NN-name>` + 同步更新 [项目知识库（AI自行维护）/INDEX.md](../项目知识库（AI自行维护）/INDEX.md)
+
+#### B2. 轻量路径（跳过 openspec）
+
+1. 直接按阶段 A 共识落地代码
+2. 中途遇到模糊点：**优先按阶段 A 的共识自决**
+3. 完成后简短回复变更摘要即可，**不必创建 openspec change，也不必更新 INDEX.md**
+4. 如果实现过程中发现规模超预期（触发任一「走 openspec」信号）→ 当场升级到 B1 路径，补建 openspec change
 
 ### 例外打断条件（阶段 B 仅以下情况可中断用户）
 
@@ -132,7 +157,9 @@
 
 ## 六、工作流系统（一站式 openspec change）
 
-每个功能 = 一个 `openspec/changes/<NN-name>/` 目录，承载全生命周期 artifact。
+> **适用范围**：仅适用于 §五「B0 任务规模评估」命中「走 openspec」信号的中大型任务。轻量任务走 B2 路径，**不创建 openspec change**。
+
+中大型功能 = 一个 `openspec/changes/<NN-name>/` 目录，承载全生命周期 artifact。
 
 ```
 策划讨论（brainstorm.md） → openspec 全程（proposal/design/tasks/specs+art+tests） → openspec archive-change 自动归档
@@ -175,6 +202,54 @@ openspec/changes/<NN-name>/
 5. 同目录写 `生成记录.md`；更新 `art/requirements.md` 头部状态字段为「已处理」
 6. 无可用绘图模型时明确阻塞，不能假装已生成
 
+### UI 制作子流程（强制时序）
+
+> 适用于任何新建 / 重做的 UI 界面（HUD / 菜单 / 弹窗 / 表单 / 设置 / 商店 / 任务面板等）。**主对话作为 orchestrator 按下列 5 阶段顺序编排**，禁止跳阶段。
+
+```
+1. 需求设计     2. 效果图设计       3. 效果图生成        4. Prefab + 代码并行     5. 联调微调
+（producer/    （art-ui 写         （codex-image-gen     ┌─ art-ui 出标注稿       （client-unity
+  gd-system    prompts.md，每页     调 Codex 生图，输出 │                          + 用户对比
+  + 三表）     一条效果图提示词）   art/mockups/）       ├─ client-unity 用        效果图迭代）
+                                                        │  unity-skills MCP
+                                                        │  自动建 Prefab
+                                                        └─ client-unity 写
+                                                           UIForm 脚本
+                                                        （Fan-Out 模式 1，
+                                                         WhenAll 同步）
+```
+
+| 阶段 | 主导 | 产出物 | 通过条件 |
+|---|---|---|---|
+| **1. 需求设计** | producer / gd-system + 用户 | `proposal.md` / `design.md` + `art/requirements.md` 三表 | 三表齐全（页面清单 / 复用组件清单 / 组件状态表）+ 用户确认 |
+| **2. 效果图设计** | art-ui | `art/prompts.md` 中每个页面一条效果图提示词（风格 / 配色 / 字体 / 构图 / 信息层级 / 负面词） | 用户确认提示词 |
+| **3. 效果图生成** | 主对话 → `codex-image-gen` | `art/mockups/<PageName>.png` + 同目录 `生成记录.md` | 用户确认效果图（**3 轮重试上限**：每轮调整提示词；3 轮仍不满意 → 阻塞通知用户人工介入） |
+| **4. Prefab + 代码** | art-ui ∥ client-unity（**Fan-Out 模式 1，并行**） | 标注稿 + Prefab 文件（unity-skills MCP 自动建）+ UIForm 脚本 | 两个 Agent 都返回；UIForm 编译通过；Prefab 层级与标注稿一致 |
+| **5. 联调微调** | client-unity + 用户 | 运行时截图 vs 效果图对比 + 偏差修复 | 运行时与效果图视觉一致（间距 / 字号 / 配色） |
+
+#### 强制约束
+
+1. **不许跳阶段**：效果图未生成 / 未确认 → 禁止进入阶段 4
+2. **效果图位置固定**：`openspec/changes/<change-name>/art/mockups/<PageName>.png`，**与 `raw/`（素材切片）严格分目录**
+3. **Prefab 优先 MCP 自动建**：阶段 4 由 client-unity 调用 `unity-skills` MCP 创建基础层级；**MCP 不可用** → 回退到通知用户在 Unity Editor 手动搭（兼容 §十二「Prefab 必须手动建」原则）
+4. **阶段 4 必须并行**：标注稿（art-ui）与脚本+Prefab（client-unity）通过 Fan-Out 编排，`UniTask.WhenAll` 等待汇合，禁止顺序串行浪费时间
+5. **效果图重试上限 3 轮**：codex-image-gen 调用失败或用户不满意 → 调整提示词/加参考图重试，**累计 3 轮仍未通过即停下来交回用户决定**（手动找参考 / 跳过本页 / 重新设计），禁止无限重试
+6. **联调以效果图为准绳**：阶段 5 必须把运行时截图与 mockups 并排对比，列偏差清单后再迭代；client-unity 不许凭感觉调
+
+#### Agent 编排速查
+
+```
+主对话
+ ├─ 阶段 1：delegate producer / gd-system + ai-art Step 0（三表）
+ ├─ 阶段 2：delegate art-ui（写 prompts.md 效果图条目）
+ ├─ 阶段 3：直接调 codex-image-gen SKILL（生 mockups + 重试循环）
+ ├─ 阶段 4：fan-out
+ │           ├─ Agent A：art-ui（标注稿）
+ │           └─ Agent B：client-unity（unity-skills MCP 建 prefab + 写脚本）
+ │          await WhenAll
+ └─ 阶段 5：delegate client-unity 比对效果图，迭代到一致
+```
+
 ---
 
 ## 七、技术栈
@@ -197,17 +272,18 @@ openspec/changes/<NN-name>/
 
 ### MCP 服务清单（[.mcp.json](../.mcp.json) + [.codex/config.toml](../.codex/config.toml)）
 
-| MCP | 说明 |
-|---|---|
-| skill4agent | SKILL 注册中心 |
-| codebase-memory | 代码结构索引（优先于 Read+Grep） |
-| playwright | Web E2E |
-| blender | 3D 资产生成与脚本 |
-| godot | 跨引擎参考 |
-| frame-ronin | 帧/精灵/像素美术 |
-| atlassian | Jira / Confluence |
+| MCP | 默认状态 | 说明 |
+|---|---|---|
+| skill4agent | 🟢 常驻 | SKILL 注册中心 |
+| codebase-memory | 🟢 常驻 | 代码结构索引（优先于 Read+Grep） |
+| codex-art-gen | 🟢 常驻 | 美术出图主入口（codex exec 调度） |
+| playwright | 🟡 高频 | Web E2E 测试 |
+| blender | ⚪ 按需 | 3D 资产生成与脚本（art-3d 触发时手动启） |
+| godot | ⚪ 按需 | 跨引擎参考（极少用） |
+| frame-ronin | ⚪ 按需 | 帧/精灵/像素美术（特定批次手动启） |
+| atlassian | ⚪ 按需 | Jira / Confluence（外部协作时手动启） |
 
-> 启用清单见 `.claude/settings.local.json` 的 `enabledMcpjsonServers`。
+> 启用清单见 [.claude/settings.local.json](./settings.local.json) 的 `enabledMcpjsonServers`。**按需 MCP** 不在默认启用列表里，使用时手动加入 → 重启会话生效。理由：每个 MCP 启动都注册 schema 占 token，4 个低频 MCP 常驻浪费上下文。
 
 ### codebase-memory MCP 使用准则
 
@@ -265,6 +341,20 @@ ModuleRunner.GetModule<T>() — 高频数据查询缓存入口
 - **Agent ↔ SKILL 白名单**：见 [SKILL_MATRIX.md](./SKILL_MATRIX.md)
 - **大多数 skill 不进上下文**：仅在对应 agent 触发时按需读取 `SKILL.md` + `references/*.md`
 - **找不到合适 skill 时**：用 `find-skills` 语义检索；仍找不到则 escalate_to: main 由主对话决定
+- **写作规范**：新建 / 修改 SKILL 时遵守 [SKILL_MATRIX.md §六](./SKILL_MATRIX.md)（60-250 字符，带触发词，重叠时加 ❌ 不适用）
+
+### 月度防腐机制
+
+每月 1 号跑两个脚本看 SKILL/Agent/MCP 状态：
+
+```bash
+python tools/audit_skills.py        # description 长度审计（看是否回涨）
+python tools/audit_skill_usage.py   # 使用频次 + 0 召回清单（看是否该淘汰）
+```
+
+- `tools/log_tool_usage.py`：PreToolUse hook 自动调用，记录每次 Skill / Agent / mcp__\* 调用到 `.claude/skills/_usage.log`（已加 .gitignore）
+- 0 次召回的 SKILL → 候选淘汰；高频但有误召回的 → 改 description 加 ❌ 不适用
+- 报告里出现极短 / 极长 / 重叠未划界 → 按 SKILL_MATRIX §六.3 checklist 处理 + 覆写 `_audit.json` 作为新基线
 
 ---
 
