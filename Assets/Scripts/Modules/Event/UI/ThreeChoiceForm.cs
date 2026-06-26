@@ -9,7 +9,7 @@ namespace Tattoo.UI
     /// <summary>
     /// 三选一面板（UGUI v2.1）— 空壳，待后续迭代实装。
     ///
-    /// Prefab 落点：Assets/Resources/UI/v21/ThreeChoice.prefab
+    /// Prefab 落点：Assets/Resources/Prefab/UI/ThreeChoice.prefab
     /// 触发条件：ThreeChoiceShownEvent
     /// 注：打开后 3 秒内按钮 interactable=false（UnscaledDeltaTime 防误触锁）。
     /// </summary>

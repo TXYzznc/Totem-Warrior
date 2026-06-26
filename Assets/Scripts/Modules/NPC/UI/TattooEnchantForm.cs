@@ -9,7 +9,7 @@ namespace Tattoo.UI
     /// <summary>
     /// 纹身附魔面板（UGUI v2.1）— 空壳，待后续迭代实装。
     ///
-    /// Prefab 落点：Assets/Resources/UI/v21/TattooEnchant.prefab
+    /// Prefab 落点：Assets/Resources/Prefab/UI/TattooEnchant.prefab
     /// 触发条件：EnchantStartEvent
     /// 注：附魔流程嵌套于 TattooStudioForm 内，不参与 IExclusiveUIForm 互斥。
     /// </summary>

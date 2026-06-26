@@ -13,7 +13,7 @@ namespace Tattoo.UI
     /// 纹身工作室面板（UGUI v2.1）。
     /// 实现 IExclusiveUIForm 参与覆盖层互斥管理。
     ///
-    /// Prefab 落点：Assets/Resources/UI/v21/TattooStudio.prefab
+    /// Prefab 落点：Assets/Resources/Prefab/UI/TattooStudio.prefab
     /// 触发条件：NPCInteractStartEvent（NPC=TattooArtist）
     /// </summary>
     public sealed class TattooStudioForm : MonoBehaviour, IExclusiveUIForm

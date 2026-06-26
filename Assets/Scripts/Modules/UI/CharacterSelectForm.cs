@@ -9,7 +9,7 @@ namespace Tattoo.UI
     /// <summary>
     /// 角色选择面板（UGUI v2.1）— 空壳，待后续迭代实装。
     ///
-    /// Prefab 落点：Assets/Resources/UI/v21/CharacterSelect.prefab
+    /// Prefab 落点：Assets/Resources/Prefab/UI/CharacterSelect.prefab
     /// 触发条件：MainMenuForm「开始」按钮
     /// </summary>
     public sealed class CharacterSelectForm : MonoBehaviour, IUIForm

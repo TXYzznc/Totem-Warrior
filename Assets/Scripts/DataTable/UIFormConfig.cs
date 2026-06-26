@@ -11,7 +11,7 @@ public sealed class UIFormConfigRow
     public int Id { get; set; }
     /// <summary>Form C# class 名</summary>
     public string FormName { get; set; }
-    /// <summary>相对于 Assets/Resources/UI/v21/ 的路径（不含扩展名）</summary>
+    /// <summary>相对于 Assets/Resources/Prefab/ 的路径（含子目录，不含扩展名）</summary>
     public string PrefabPath { get; set; }
     /// <summary>Canvas Sort Order：HUD=0，覆盖层=10，系统=20，全屏=30</summary>
     public int SortOrder { get; set; }

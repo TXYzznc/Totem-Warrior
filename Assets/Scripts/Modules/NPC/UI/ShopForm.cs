@@ -12,7 +12,7 @@ namespace Tattoo.UI
     /// <summary>
     /// 商店面板（UGUI v2.1）。
     ///
-    /// Prefab 落点：Assets/Resources/UI/v21/Shop.prefab
+    /// Prefab 落点：Assets/Resources/Prefab/UI/Shop.prefab
     /// 触发条件：NPCInteractStartEvent（NPC=Shop）
     /// </summary>
     public sealed class ShopForm : MonoBehaviour, IExclusiveUIForm

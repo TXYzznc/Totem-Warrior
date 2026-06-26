@@ -9,7 +9,7 @@ namespace Tattoo.UI
     /// <summary>
     /// 主菜单面板（UGUI v2.1）— 空壳，待后续迭代实装。
     ///
-    /// Prefab 落点：Assets/Resources/UI/v21/MainMenu.prefab
+    /// Prefab 落点：Assets/Resources/Prefab/UI/MainMenu.prefab
     /// 初始状态：SetActive(true)（游戏启动即显示）
     /// </summary>
     public sealed class MainMenuForm : MonoBehaviour, IUIForm
@@ -47,7 +47,16 @@ namespace Tattoo.UI
             }
             if (_bus == null) return;
             _runner.GetModule<UIModule>().Register(this);
-            // 开始按钮逻辑留待后续迭代
+            _startBtn?.onClick.AddListener(OnStartClicked);
+        }
+
+        /// <summary>开始游戏：切换状态到 InGame，CombatHUDForm 等会按 OnGameStateChanged 自动显示。</summary>
+        public void OnStartClicked()
+        {
+            var gs = _runner?.GetModule<GameStateModule>();
+            if (gs == null) return;
+            gs.StartGame();
+            FrameworkLogger.Info("MainMenuForm", "Action=StartClicked → GameState.InGame");
         }
 
         void OnDestroy()

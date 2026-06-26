@@ -10,7 +10,7 @@ namespace Tattoo.UI
     /// <summary>
     /// 暂停菜单面板（UGUI v2.1）。
     ///
-    /// Prefab 落点：Assets/Resources/UI/v21/PauseMenu.prefab
+    /// Prefab 落点：Assets/Resources/Prefab/UI/PauseMenu.prefab
     /// 触发条件：PauseRequestedEvent（由 InputModule 发出）
     /// 打开时 Time.timeScale = 0，关闭时恢复。
     /// </summary>

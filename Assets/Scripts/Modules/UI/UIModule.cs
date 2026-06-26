@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using Tattoo.Events;
 using UnityEngine;
 
 /// <summary>
@@ -10,7 +11,7 @@ using UnityEngine;
 /// 职责：
 /// - 维护 IUIForm 注册列表，监听 GameStateChangedEvent 后批量转发
 /// - 管理覆盖层互斥（IExclusiveUIForm），保证同时只有一个覆盖层处于 Open 状态
-/// - 不持有 Prefab 引用，不耦合具体业务
+/// - 在 GameReady 后从 UIFormConfig 动态加载 Prefab + 实例化（DontDestroyOnLoad）
 /// </summary>
 public sealed class UIModule : IGameModule
 {
@@ -20,6 +21,9 @@ public sealed class UIModule : IGameModule
 
     /// <summary>当前活跃的覆盖层表单（互斥）</summary>
     IExclusiveUIForm _exclusiveForm;
+
+    /// <summary>动态加载的 UI 根容器（DontDestroyOnLoad）</summary>
+    GameObject _uiRoot;
 
     public int ModuleCategory => 2;
     public Type[] Dependencies => Type.EmptyTypes;
@@ -40,8 +44,73 @@ public sealed class UIModule : IGameModule
     {
         _forms.Clear();
         _exclusiveForm = null;
+        if (_uiRoot != null) UnityEngine.Object.Destroy(_uiRoot);
+        _uiRoot = null;
         FrameworkLogger.Info("UIModule", "Action=Shutdown");
         return UniTask.CompletedTask;
+    }
+
+    /// <summary>
+    /// GameApp 全模块就绪后，从 UIFormConfig 读取 9 个 Form Prefab 动态加载。
+    /// 加载顺序：MainMenu 类（SortOrder 30）先创建占满屏，覆盖层（10/20）次之，HUD（0）最低。
+    /// </summary>
+    [EventHandler]
+    void OnGameReady(GameReadyEvent e)
+    {
+        if (_uiRoot != null) return; // 已加载过
+
+        _uiRoot = new GameObject("UIRoot");
+        UnityEngine.Object.DontDestroyOnLoad(_uiRoot);
+
+        var dt = _runner.GetModule<DataTableModule>();
+        var cfg = dt.GetTable<UIFormConfig>();
+        int success = 0, failed = 0;
+
+        foreach (var row in cfg.All.Values)
+        {
+            try
+            {
+                var prefab = Resources.Load<GameObject>("Prefab/" + row.PrefabPath);
+                if (prefab == null)
+                {
+                    FrameworkLogger.Warn("UIModule", $"Action=LoadForm Form={row.FormName} 找不到 Prefab Path=Prefab/{row.PrefabPath}");
+                    failed++;
+                    continue;
+                }
+                var inst = UnityEngine.Object.Instantiate(prefab, _uiRoot.transform);
+                inst.name = row.FormName;
+
+                // 强制 Canvas ScreenSpaceOverlay + SortOrder + 全屏 stretch
+                var canvas = inst.GetComponent<Canvas>();
+                if (canvas != null)
+                {
+                    canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+                    canvas.sortingOrder = row.SortOrder;
+                }
+                var rt = inst.GetComponent<RectTransform>();
+                if (rt != null)
+                {
+                    rt.anchorMin = Vector2.zero;
+                    rt.anchorMax = Vector2.one;
+                    rt.sizeDelta = Vector2.zero;
+                    rt.anchoredPosition = Vector2.zero;
+                }
+                // 加载后立刻喂一次当前 GameState，让 Form 决定初始显隐
+                var form = inst.GetComponent<IUIForm>();
+                if (form != null)
+                {
+                    var gs = _runner.GetModule<GameStateModule>();
+                    if (gs != null) form.OnGameStateChanged(gs.CurrentState, gs.CurrentState);
+                }
+                success++;
+            }
+            catch (Exception ex)
+            {
+                FrameworkLogger.Error("UIModule", $"Action=LoadForm Form={row.FormName} Exception={ex.GetType().Name} Msg=\"{ex.Message}\"");
+                failed++;
+            }
+        }
+        FrameworkLogger.Info("UIModule", $"Action=AllFormsLoaded Success={success} Failed={failed} Total={cfg.All.Count}");
     }
 
     /// <summary>由 IUIForm MonoBehaviour 在 Start() 中调用注册。</summary>

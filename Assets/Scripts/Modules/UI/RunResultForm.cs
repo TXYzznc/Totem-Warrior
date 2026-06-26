@@ -9,7 +9,7 @@ namespace Tattoo.UI
     /// <summary>
     /// 本局结算面板（UGUI v2.1）— 空壳，待后续迭代实装。
     ///
-    /// Prefab 落点：Assets/Resources/UI/v21/RunResult.prefab
+    /// Prefab 落点：Assets/Resources/Prefab/UI/RunResult.prefab
     /// 触发条件：RunEndedEvent（等 CombatHUDForm SetActive(false) 后延一帧再进场）
     /// </summary>
     public sealed class RunResultForm : MonoBehaviour, IUIForm

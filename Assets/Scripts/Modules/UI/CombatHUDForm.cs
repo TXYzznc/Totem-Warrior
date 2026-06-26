@@ -15,7 +15,7 @@ namespace Tattoo.UI
     /// <summary>
     /// 战斗 HUD（UGUI 版，v2.1）。
     ///
-    /// Prefab 落点：Assets/Resources/UI/v21/CombatHUD.prefab
+    /// Prefab 落点：Assets/Resources/Prefab/UI/CombatHUD.prefab
     /// 场景放置：Launch.unity → UICanvas（Sort Order 0）→ CombatHUD GameObject
     ///
     /// 结构（SerializeField 绑定，不做 Q&lt;T&gt;）：
