@@ -14,13 +14,11 @@
       "WebFetch(domain:raw.githubusercontent.com)"
     ]
   },
+  "_mcp_governance_comment": "11-skill-governance：常驻 3（skill4agent / codebase-memory / codex-art-gen）+ 高频 1（playwright）。其余 4 个（blender/godot/frame-ronin/atlassian）默认关闭，需要时手动加回。",
   "enabledMcpjsonServers": [
     "skill4agent",
     "codebase-memory",
-    "playwright",
-    "blender",
-    "godot",
-    "frame-ronin",
-    "atlassian"
+    "codex-art-gen",
+    "playwright"
   ]
 }
