@@ -1,0 +1,18 @@
+{
+  "grid_rows": 3,
+  "grid_cols": 4,
+  "layout_order": [
+    "hp_bar_normal",
+    "buff_icon_fire",
+    "buff_icon_ice",
+    "buff_icon_crit",
+    "skill_slot_q_ready",
+    "skill_slot_e_cooldown",
+    "weapon_icon_dagger",
+    "minimap_frame",
+    "boss_hp_bar",
+    "sidebar_panel_bg",
+    "zone_timer_clock_icon",
+    "boss_phase_icon"
+  ]
+}

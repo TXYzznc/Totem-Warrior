@@ -1,0 +1,215 @@
+{
+  "source": "openspec\\changes\\12-core-ui-screens\\art\\raw\\CombatHUDForm\\_merged\\alpha\\batch_1.png",
+  "size": {
+    "width": 1024,
+    "height": 1024
+  },
+  "count": 12,
+  "output_dir": "openspec\\changes\\12-core-ui-screens\\art\\raw\\CombatHUDForm\\_merged\\cut\\batch_1",
+  "sprites": [
+    {
+      "label": 1,
+      "file": "openspec\\changes\\12-core-ui-screens\\art\\raw\\CombatHUDForm\\_merged\\cut\\batch_1\\batch_1_001.png",
+      "bbox": {
+        "x": 413,
+        "y": 101,
+        "width": 148,
+        "height": 163
+      },
+      "raw_bbox": {
+        "x": 415,
+        "y": 103,
+        "width": 144,
+        "height": 159
+      },
+      "area": 22381
+    },
+    {
+      "label": 2,
+      "file": "openspec\\changes\\12-core-ui-screens\\art\\raw\\CombatHUDForm\\_merged\\cut\\batch_1\\batch_1_002.png",
+      "bbox": {
+        "x": 610,
+        "y": 101,
+        "width": 148,
+        "height": 163
+      },
+      "raw_bbox": {
+        "x": 612,
+        "y": 103,
+        "width": 144,
+        "height": 159
+      },
+      "area": 22390
+    },
+    {
+      "label": 3,
+      "file": "openspec\\changes\\12-core-ui-screens\\art\\raw\\CombatHUDForm\\_merged\\cut\\batch_1\\batch_1_003.png",
+      "bbox": {
+        "x": 808,
+        "y": 101,
+        "width": 149,
+        "height": 163
+      },
+      "raw_bbox": {
+        "x": 810,
+        "y": 103,
+        "width": 145,
+        "height": 159
+      },
+      "area": 22378
+    },
+    {
+      "label": 4,
+      "file": "openspec\\changes\\12-core-ui-screens\\art\\raw\\CombatHUDForm\\_merged\\cut\\batch_1\\batch_1_004.png",
+      "bbox": {
+        "x": 25,
+        "y": 148,
+        "width": 353,
+        "height": 83
+      },
+      "raw_bbox": {
+        "x": 27,
+        "y": 150,
+        "width": 349,
+        "height": 79
+      },
+      "area": 26498
+    },
+    {
+      "label": 5,
+      "file": "openspec\\changes\\12-core-ui-screens\\art\\raw\\CombatHUDForm\\_merged\\cut\\batch_1\\batch_1_005.png",
+      "bbox": {
+        "x": 750,
+        "y": 362,
+        "width": 262,
+        "height": 265
+      },
+      "raw_bbox": {
+        "x": 752,
+        "y": 364,
+        "width": 258,
+        "height": 261
+      },
+      "area": 44067
+    },
+    {
+      "label": 6,
+      "file": "openspec\\changes\\12-core-ui-screens\\art\\raw\\CombatHUDForm\\_merged\\cut\\batch_1\\batch_1_006.png",
+      "bbox": {
+        "x": 19,
+        "y": 376,
+        "width": 234,
+        "height": 246
+      },
+      "raw_bbox": {
+        "x": 21,
+        "y": 378,
+        "width": 230,
+        "height": 242
+      },
+      "area": 42152
+    },
+    {
+      "label": 7,
+      "file": "openspec\\changes\\12-core-ui-screens\\art\\raw\\CombatHUDForm\\_merged\\cut\\batch_1\\batch_1_007.png",
+      "bbox": {
+        "x": 272,
+        "y": 376,
+        "width": 228,
+        "height": 246
+      },
+      "raw_bbox": {
+        "x": 274,
+        "y": 378,
+        "width": 224,
+        "height": 242
+      },
+      "area": 41284
+    },
+    {
+      "label": 8,
+      "file": "openspec\\changes\\12-core-ui-screens\\art\\raw\\CombatHUDForm\\_merged\\cut\\batch_1\\batch_1_008.png",
+      "bbox": {
+        "x": 519,
+        "y": 396,
+        "width": 204,
+        "height": 208
+      },
+      "raw_bbox": {
+        "x": 521,
+        "y": 398,
+        "width": 200,
+        "height": 204
+      },
+      "area": 40295
+    },
+    {
+      "label": 9,
+      "file": "openspec\\changes\\12-core-ui-screens\\art\\raw\\CombatHUDForm\\_merged\\cut\\batch_1\\batch_1_009.png",
+      "bbox": {
+        "x": 405,
+        "y": 668,
+        "width": 137,
+        "height": 275
+      },
+      "raw_bbox": {
+        "x": 407,
+        "y": 670,
+        "width": 133,
+        "height": 271
+      },
+      "area": 35736
+    },
+    {
+      "label": 10,
+      "file": "openspec\\changes\\12-core-ui-screens\\art\\raw\\CombatHUDForm\\_merged\\cut\\batch_1\\batch_1_010.png",
+      "bbox": {
+        "x": 768,
+        "y": 700,
+        "width": 223,
+        "height": 252
+      },
+      "raw_bbox": {
+        "x": 770,
+        "y": 702,
+        "width": 219,
+        "height": 248
+      },
+      "area": 30707
+    },
+    {
+      "label": 11,
+      "file": "openspec\\changes\\12-core-ui-screens\\art\\raw\\CombatHUDForm\\_merged\\cut\\batch_1\\batch_1_011.png",
+      "bbox": {
+        "x": 575,
+        "y": 730,
+        "width": 167,
+        "height": 178
+      },
+      "raw_bbox": {
+        "x": 577,
+        "y": 732,
+        "width": 163,
+        "height": 174
+      },
+      "area": 16875
+    },
+    {
+      "label": 12,
+      "file": "openspec\\changes\\12-core-ui-screens\\art\\raw\\CombatHUDForm\\_merged\\cut\\batch_1\\batch_1_012.png",
+      "bbox": {
+        "x": 10,
+        "y": 770,
+        "width": 382,
+        "height": 130
+      },
+      "raw_bbox": {
+        "x": 12,
+        "y": 772,
+        "width": 378,
+        "height": 126
+      },
+      "area": 33665
+    }
+  ]
+}

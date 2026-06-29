@@ -25,14 +25,14 @@
 | **gd-system** | system | `balance-check`, `combat-balancer`, `progression-systems`, `difficulty-curve`, `quest-mission-design` | `achievement-design`, `puzzle-design`, `casino-math-balancer`, `game-monetization`, `xlsx` |
 | **level-designer** | system | `level-design`, `player-guidance`, `difficulty-curve` | `puzzle-design`, `playtest-digital` |
 | **art-director** | lead | `art-direction`, `game-art`, `grill-me`, `ai-art`, `codex-image-gen` | `gpt-image-2-style-library`, `find-skills` |
-| **art-ui** | impl | `game-ui-design`, `art-direction`, `ai-art`, `codex-image-gen` | `gpt-image-2-style-library`, `unity-ui` |
+| **art-ui** | impl | `game-ui-design`, `art-direction`, `ai-art`, `codex-image-gen`, `ui-asset-splitting` | `gpt-image-2-style-library`, `unity-ui` |
 | **art-font** | impl | `typeset`, `font-pairing-suggester`, `font-selection-cjk`, `font-subsetting`, `pixel-font-rendering` | — |
 | **art-vfx** | impl | `vfx-realtime`, `shader-effects` | `agency-technical-artist`, `unity-lighting-vfx` |
 | **art-2d** | impl | `character-sprite`, `hytale-texture-artist`, `gpt-image-2-style-library`, `ai-art`, `codex-image-gen` | `art-direction`, `pixel-font-rendering` |
 | **art-3d** | impl | `3d-modeling`, `texture-art`, `blender-mcp` | `agency-technical-artist`, `rigging` |
 | **art-anim** | impl | `animation-systems`, `rigging` | `unity-animation`, `blender-mcp` |
 | **client-lead** | lead | `unity-foundations`, `unity-architecture-di`, `unity-async-patterns`, `grill-me`, `openspec` | `unity-ecs-patterns`, `addressables-hotfix`, `state-machine` |
-| **client-unity** | impl | `unity-foundations`, `unity-ui`, `unity-input-correctness`, `save-serialization`, `state-machine`, `physics-collision`, `localization-i18n` | `unity-animation`, `addressables-hotfix`, `uloop-execute-dynamic-code`, `uloop-run-tests` |
+| **client-unity** | impl | `unity-foundations`, `unity-ui`, `unity-input-correctness`, `save-serialization`, `state-machine`, `physics-collision`, `localization-i18n`, `ui-asset-splitting` | `unity-animation`, `addressables-hotfix`, `uloop-execute-dynamic-code`, `uloop-run-tests` |
 | **client-ta** | impl | `unity-shaders-rendering`, `unity-lighting-vfx`, `shader-effects`, `agency-unity-shader-graph-artist` | `vfx-realtime`, `agency-technical-artist` |
 | **net-lead** | lead | `arch-api`, `game-networking`, `multiplayer-game`, `grill-me`, `openspec` | `algo-rank-trueskill`, `atomic-matchmaking` |
 | **net-backend** | impl | `arch-api`, `jwt-auth`, `oauth-implementation`, `backend-testing` | `redis-specialist`, `kafka-development`, `opentelemetry`, `prometheus` |
@@ -57,6 +57,7 @@
 | `openspec` | 4 lead（producer / gd-lead / client-lead / net-lead） | 大型决策落 spec 的强制门槛 |
 | `ai-art` | 3 art-*（art-director / art-2d / art-ui） | 美术出图前置：提示词与需求沉淀；hook 自动唤起 |
 | `codex-image-gen` | 3 art-*（art-director / art-2d / art-ui） | 美术出图后置：调 codex exec 实际生图；出图关键词 hook 自动唤起 |
+| `ui-asset-splitting` | art-ui + client-unity | 效果图拆素材（更后置）：已确认 mockup 拆成背景+组件+状态变体，搬进 Resources；client-unity 搭 Prefab 时直接消费产物 |
 | `deep-research` | 2 lead（producer / gd-lead） | 竞品/玩法联网研究 |
 
 > 共享 SKILL 不需要独占归属。代码索引/架构理解类需求统一走 `codebase-memory` MCP（详见 [CLAUDE.md §八](./CLAUDE.md)），不进 SKILL 白名单。

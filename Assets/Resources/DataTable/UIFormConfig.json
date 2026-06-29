@@ -17,6 +17,7 @@
     { "Id": 7, "FormName": "RunResultForm",      "PrefabPath": "UI/RunResult",       "SortOrder": 20, "IsExclusive": false },
     { "Id": 8, "FormName": "MainMenuForm",       "PrefabPath": "UI/MainMenu",        "SortOrder": 30, "IsExclusive": false },
     { "Id": 9, "FormName": "CharacterSelectForm","PrefabPath": "UI/CharacterSelect", "SortOrder": 30, "IsExclusive": false },
-    { "Id": 10,"FormName": "SettingsForm",      "PrefabPath": "UI/Settings",        "SortOrder": 20, "IsExclusive": true  }
+    { "Id": 10,"FormName": "SettingsForm",      "PrefabPath": "UI/Settings",        "SortOrder": 20, "IsExclusive": true  },
+    { "Id": 11,"FormName": "SelfTattooForm",    "PrefabPath": "UI/SelfTattoo",      "SortOrder": 10, "IsExclusive": true  }
   ]
 }

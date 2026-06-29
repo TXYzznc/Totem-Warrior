@@ -1,5 +1,4 @@
 {
-  "_comment": "本地配置：MCP 启用清单 + permissions 白名单。Hook 已在 settings.json 中统一管理（人格 + 决策门槛 + ai-art 触发）。",
   "permissions": {
     "allow": [
       "mcp__skill4agent__search_skills",
@@ -11,14 +10,16 @@
       "mcp__codebase-memory__detect_changes",
       "mcp__codebase-memory__list_projects",
       "WebFetch(domain:github.com)",
-      "WebFetch(domain:raw.githubusercontent.com)"
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(git -C \"D:\\\\Sourcetree\\\\Totem-Warrior\" log --oneline -30)"
     ]
   },
-  "_mcp_governance_comment": "11-skill-governance：常驻 3（skill4agent / codebase-memory / codex-art-gen）+ 高频 1（playwright）。其余 4 个（blender/godot/frame-ronin/atlassian）默认关闭，需要时手动加回。",
   "enabledMcpjsonServers": [
     "skill4agent",
     "codebase-memory",
     "codex-art-gen",
     "playwright"
-  ]
+  ],
+  "_comment": "本地配置：MCP 启用清单 + permissions 白名单。Hook 已在 settings.json 中统一管理（人格 + 决策门槛 + ai-art 触发）。",
+  "_mcp_governance_comment": "11-skill-governance：常驻 3（skill4agent / codebase-memory / codex-art-gen）+ 高频 1（playwright）。其余 4 个（blender/godot/frame-ronin/atlassian）默认关闭，需要时手动加回。"
 }

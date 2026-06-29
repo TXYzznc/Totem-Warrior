@@ -1,0 +1,23 @@
+Generate ONE 1024x1024 image: a flat grid layout on a SOLID PURE GREEN CHROMA-KEY background (#00FF00, fully uniform, no gradient, no texture, no shadow cast onto the green). This is a sprite sheet for a dark fantasy ARPG "Diablo-like" UI, ornate gold-and-bone engraved metal frame style, with red/blue/green/purple magical glowing accents.
+
+Lay out the following items in a 3 rows x 3 columns grid, each cell ~300x300px, with at least 40px pure green padding between cells and from the canvas edge. NONE of the subjects themselves should contain pure green (#00FF00) anywhere, to avoid being keyed out.
+
+Row 1 (top):
+1. "humanoid_silhouette" - a dark bronze/black anatomical human silhouette icon (front view, arms slightly spread), used as a body-part selection diagram, plain dark metallic silhouette, no slot markers on it.
+2. "slot_marker_active" - a single round glowing magic rune slot marker, ornate gold ring border, icy blue glowing core (like a frost tattoo slot), circular, used to mark equipped body part position.
+3. "slot_marker_fire" - same style round glowing rune slot marker but with fire-orange/red glowing core.
+
+Row 2 (middle):
+4. "progressbar_track" - an empty horizontal progress bar background plate, ornate gold filigree border, dark bronze empty interior, rounded ends, wide aspect ratio (like 280x40px proportions), no fill.
+5. "progressbar_fill" - the same horizontal progress bar but FILLED with a glowing golden-amber gradient energy fill, same border style and proportions as item 4, fully filled state.
+6. "icon_enchant_fire" - a circular dark bronze frame icon containing a glowing orange-red flame/ember tattoo rune symbol inside, ornate carved border.
+
+Row 3 (bottom):
+7. "icon_enchant_frost" - a circular dark bronze frame icon containing a glowing blue crystalline ice rune symbol inside, ornate carved border, same frame style as item 6.
+8. "icon_enchant_nature" - a circular dark bronze frame icon containing a glowing green leaf/nature rune symbol inside, ornate carved border, same frame style as items 6-7.
+9. "icon_death_chest_marker" - a small circular dark bronze map marker icon with a glowing purple skull-and-treasure-chest symbol inside, ornate carved border, used as a minimap marker icon.
+
+Additionally, in the bottom-right corner area outside the 3x3 grid (use remaining canvas space, keep on pure green), add one more small icon:
+10. "button_close" - a circular dark bronze ornate button with a glowing red "X" cross symbol in the center, close/cancel button style, matching the dark fantasy gold-bronze frame aesthetic.
+
+All elements rendered in consistent dark fantasy ARPG art style: aged bronze/gold metal, carved stone textures, glowing magic energy accents, dramatic rim lighting. Sharp readable silhouettes suitable for UI icons. No text labels, no captions, no numbers in the image.

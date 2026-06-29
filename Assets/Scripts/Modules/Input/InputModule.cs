@@ -53,4 +53,7 @@ public sealed class InputModule : IGameModule
     public bool IsEscapePressed() => Input.GetKeyDown(KeyCode.Escape);
     public bool IsReturnPressed() => Input.GetKeyDown(KeyCode.Return);
     public bool IsDebugKeyPressed() => Input.GetKeyDown(KeyCode.F12);
+
+    /// <summary>玩家按下自助纹身面板开关（Tab 键）。</summary>
+    public bool IsSelfTattooTogglePressed() => Input.GetKeyDown(KeyCode.Tab);
 }

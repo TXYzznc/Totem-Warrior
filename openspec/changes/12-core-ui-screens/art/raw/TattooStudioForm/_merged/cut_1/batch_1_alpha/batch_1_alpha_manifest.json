@@ -1,0 +1,164 @@
+{
+  "source": "openspec\\changes\\12-core-ui-screens\\art\\raw\\TattooStudioForm\\_merged\\batch_1_alpha.png",
+  "size": {
+    "width": 1254,
+    "height": 1254
+  },
+  "count": 9,
+  "output_dir": "openspec\\changes\\12-core-ui-screens\\art\\raw\\TattooStudioForm\\_merged\\cut_1\\batch_1_alpha",
+  "sprites": [
+    {
+      "label": 1,
+      "file": "openspec\\changes\\12-core-ui-screens\\art\\raw\\TattooStudioForm\\_merged\\cut_1\\batch_1_alpha\\batch_1_alpha_001.png",
+      "bbox": {
+        "x": 456,
+        "y": 65,
+        "width": 342,
+        "height": 353
+      },
+      "raw_bbox": {
+        "x": 458,
+        "y": 67,
+        "width": 338,
+        "height": 349
+      },
+      "area": 68481
+    },
+    {
+      "label": 2,
+      "file": "openspec\\changes\\12-core-ui-screens\\art\\raw\\TattooStudioForm\\_merged\\cut_1\\batch_1_alpha\\batch_1_alpha_002.png",
+      "bbox": {
+        "x": 103,
+        "y": 67,
+        "width": 242,
+        "height": 353
+      },
+      "raw_bbox": {
+        "x": 105,
+        "y": 69,
+        "width": 238,
+        "height": 349
+      },
+      "area": 49875
+    },
+    {
+      "label": 3,
+      "file": "openspec\\changes\\12-core-ui-screens\\art\\raw\\TattooStudioForm\\_merged\\cut_1\\batch_1_alpha\\batch_1_alpha_003.png",
+      "bbox": {
+        "x": 863,
+        "y": 68,
+        "width": 335,
+        "height": 348
+      },
+      "raw_bbox": {
+        "x": 865,
+        "y": 70,
+        "width": 331,
+        "height": 344
+      },
+      "area": 66790
+    },
+    {
+      "label": 4,
+      "file": "openspec\\changes\\12-core-ui-screens\\art\\raw\\TattooStudioForm\\_merged\\cut_1\\batch_1_alpha\\batch_1_alpha_004.png",
+      "bbox": {
+        "x": 871,
+        "y": 466,
+        "width": 320,
+        "height": 321
+      },
+      "raw_bbox": {
+        "x": 873,
+        "y": 468,
+        "width": 316,
+        "height": 317
+      },
+      "area": 62310
+    },
+    {
+      "label": 5,
+      "file": "openspec\\changes\\12-core-ui-screens\\art\\raw\\TattooStudioForm\\_merged\\cut_1\\batch_1_alpha\\batch_1_alpha_005.png",
+      "bbox": {
+        "x": 25,
+        "y": 541,
+        "width": 389,
+        "height": 175
+      },
+      "raw_bbox": {
+        "x": 27,
+        "y": 543,
+        "width": 385,
+        "height": 171
+      },
+      "area": 40605
+    },
+    {
+      "label": 6,
+      "file": "openspec\\changes\\12-core-ui-screens\\art\\raw\\TattooStudioForm\\_merged\\cut_1\\batch_1_alpha\\batch_1_alpha_006.png",
+      "bbox": {
+        "x": 439,
+        "y": 543,
+        "width": 375,
+        "height": 173
+      },
+      "raw_bbox": {
+        "x": 441,
+        "y": 545,
+        "width": 371,
+        "height": 169
+      },
+      "area": 38487
+    },
+    {
+      "label": 7,
+      "file": "openspec\\changes\\12-core-ui-screens\\art\\raw\\TattooStudioForm\\_merged\\cut_1\\batch_1_alpha\\batch_1_alpha_007.png",
+      "bbox": {
+        "x": 60,
+        "y": 844,
+        "width": 320,
+        "height": 323
+      },
+      "raw_bbox": {
+        "x": 62,
+        "y": 846,
+        "width": 316,
+        "height": 319
+      },
+      "area": 63392
+    },
+    {
+      "label": 8,
+      "file": "openspec\\changes\\12-core-ui-screens\\art\\raw\\TattooStudioForm\\_merged\\cut_1\\batch_1_alpha\\batch_1_alpha_008.png",
+      "bbox": {
+        "x": 467,
+        "y": 846,
+        "width": 316,
+        "height": 322
+      },
+      "raw_bbox": {
+        "x": 469,
+        "y": 848,
+        "width": 312,
+        "height": 318
+      },
+      "area": 62360
+    },
+    {
+      "label": 9,
+      "file": "openspec\\changes\\12-core-ui-screens\\art\\raw\\TattooStudioForm\\_merged\\cut_1\\batch_1_alpha\\batch_1_alpha_009.png",
+      "bbox": {
+        "x": 902,
+        "y": 868,
+        "width": 248,
+        "height": 312
+      },
+      "raw_bbox": {
+        "x": 904,
+        "y": 870,
+        "width": 244,
+        "height": 308
+      },
+      "area": 51583
+    }
+  ]
+}

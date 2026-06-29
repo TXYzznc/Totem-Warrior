@@ -1,0 +1,81 @@
+[
+  {
+    "source": "openspec\\changes\\12-core-ui-screens\\art\\raw\\SelfTattooForm\\_merged\\alpha\\batch_1.png",
+    "size": {
+      "width": 1254,
+      "height": 1254
+    },
+    "count": 4,
+    "output_dir": "openspec\\changes\\12-core-ui-screens\\art\\raw\\SelfTattooForm\\_merged\\cut1\\batch_1",
+    "sprites": [
+      {
+        "label": 1,
+        "file": "openspec\\changes\\12-core-ui-screens\\art\\raw\\SelfTattooForm\\_merged\\cut1\\batch_1\\batch_1_001.png",
+        "bbox": {
+          "x": 152,
+          "y": 97,
+          "width": 370,
+          "height": 498
+        },
+        "raw_bbox": {
+          "x": 154,
+          "y": 99,
+          "width": 366,
+          "height": 494
+        },
+        "area": 70398
+      },
+      {
+        "label": 2,
+        "file": "openspec\\changes\\12-core-ui-screens\\art\\raw\\SelfTattooForm\\_merged\\cut1\\batch_1\\batch_1_002.png",
+        "bbox": {
+          "x": 725,
+          "y": 97,
+          "width": 386,
+          "height": 498
+        },
+        "raw_bbox": {
+          "x": 727,
+          "y": 99,
+          "width": 382,
+          "height": 494
+        },
+        "area": 72514
+      },
+      {
+        "label": 3,
+        "file": "openspec\\changes\\12-core-ui-screens\\art\\raw\\SelfTattooForm\\_merged\\cut1\\batch_1\\batch_1_003.png",
+        "bbox": {
+          "x": 843,
+          "y": 801,
+          "width": 235,
+          "height": 234
+        },
+        "raw_bbox": {
+          "x": 845,
+          "y": 803,
+          "width": 231,
+          "height": 230
+        },
+        "area": 41925
+      },
+      {
+        "label": 4,
+        "file": "openspec\\changes\\12-core-ui-screens\\art\\raw\\SelfTattooForm\\_merged\\cut1\\batch_1\\batch_1_004.png",
+        "bbox": {
+          "x": 57,
+          "y": 862,
+          "width": 670,
+          "height": 131
+        },
+        "raw_bbox": {
+          "x": 59,
+          "y": 864,
+          "width": 666,
+          "height": 127
+        },
+        "area": 36989
+      }
+    ]
+  }
+]

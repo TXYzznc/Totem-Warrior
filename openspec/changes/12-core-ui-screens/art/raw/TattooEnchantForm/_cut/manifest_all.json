@@ -1,0 +1,115 @@
+[
+  {
+    "source": "openspec\\changes\\12-core-ui-screens\\art\\raw\\TattooEnchantForm\\_merged\\batch_1.png",
+    "size": {
+      "width": 1254,
+      "height": 1254
+    },
+    "count": 6,
+    "output_dir": "openspec\\changes\\12-core-ui-screens\\art\\raw\\TattooEnchantForm\\_cut\\batch_1",
+    "sprites": [
+      {
+        "label": 1,
+        "file": "openspec\\changes\\12-core-ui-screens\\art\\raw\\TattooEnchantForm\\_cut\\batch_1\\batch_1_001.png",
+        "bbox": {
+          "x": 866,
+          "y": 126,
+          "width": 346,
+          "height": 476
+        },
+        "raw_bbox": {
+          "x": 868,
+          "y": 128,
+          "width": 342,
+          "height": 472
+        },
+        "area": 160339
+      },
+      {
+        "label": 2,
+        "file": "openspec\\changes\\12-core-ui-screens\\art\\raw\\TattooEnchantForm\\_cut\\batch_1\\batch_1_002.png",
+        "bbox": {
+          "x": 38,
+          "y": 318,
+          "width": 396,
+          "height": 87
+        },
+        "raw_bbox": {
+          "x": 40,
+          "y": 320,
+          "width": 392,
+          "height": 83
+        },
+        "area": 31676
+      },
+      {
+        "label": 3,
+        "file": "openspec\\changes\\12-core-ui-screens\\art\\raw\\TattooEnchantForm\\_cut\\batch_1\\batch_1_003.png",
+        "bbox": {
+          "x": 472,
+          "y": 333,
+          "width": 358,
+          "height": 64
+        },
+        "raw_bbox": {
+          "x": 474,
+          "y": 335,
+          "width": 354,
+          "height": 60
+        },
+        "area": 20453
+      },
+      {
+        "label": 4,
+        "file": "openspec\\changes\\12-core-ui-screens\\art\\raw\\TattooEnchantForm\\_cut\\batch_1\\batch_1_004.png",
+        "bbox": {
+          "x": 29,
+          "y": 731,
+          "width": 367,
+          "height": 385
+        },
+        "raw_bbox": {
+          "x": 31,
+          "y": 733,
+          "width": 363,
+          "height": 381
+        },
+        "area": 108736
+      },
+      {
+        "label": 5,
+        "file": "openspec\\changes\\12-core-ui-screens\\art\\raw\\TattooEnchantForm\\_cut\\batch_1\\batch_1_005.png",
+        "bbox": {
+          "x": 440,
+          "y": 732,
+          "width": 365,
+          "height": 384
+        },
+        "raw_bbox": {
+          "x": 442,
+          "y": 734,
+          "width": 361,
+          "height": 380
+        },
+        "area": 107879
+      },
+      {
+        "label": 6,
+        "file": "openspec\\changes\\12-core-ui-screens\\art\\raw\\TattooEnchantForm\\_cut\\batch_1\\batch_1_006.png",
+        "bbox": {
+          "x": 851,
+          "y": 732,
+          "width": 367,
+          "height": 385
+        },
+        "raw_bbox": {
+          "x": 853,
+          "y": 734,
+          "width": 363,
+          "height": 381
+        },
+        "area": 108821
+      }
+    ]
+  }
+]

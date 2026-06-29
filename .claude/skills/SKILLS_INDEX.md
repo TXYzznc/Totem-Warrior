@@ -27,6 +27,7 @@
 |---|---|
 | [ai-art](./ai-art/SKILL.md) | AI 绘图提示词与素材实现（前置）：图标/立绘/场景/UI 提示词与需求沉淀（见 `references/drawing-prompt-*.md`） |
 | [codex-image-gen](./codex-image-gen/SKILL.md) | AI 绘图实际出图（后置）：通过 `codex exec` 把出图任务外包给 Codex CLI，落盘到 `art/raw/` |
+| [ui-asset-splitting](./ui-asset-splitting/SKILL.md) | UI 效果图拆分（更后置）：已确认 mockup 拆成背景+组件+状态变体素材，搬进 `Assets/Resources/Sprite/UI/` |
 | [deep-research](./deep-research/SKILL.md) | 联网深度研究，收集整理资料（`scripts/research.py`） |
 | [dev-tools](./dev-tools/SKILL.md) | 创建 MCP Server / 创建/改进 Skill |
 | [document-tools](./document-tools/SKILL.md) | Word/PDF/PPT/Excel/markitdown/docx 复制 |

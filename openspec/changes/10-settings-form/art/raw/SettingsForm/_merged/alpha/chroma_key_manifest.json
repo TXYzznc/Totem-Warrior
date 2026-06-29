@@ -1,0 +1,24 @@
+{
+  "items": [
+    {
+      "source": "openspec\\changes\\10-settings-form\\art\\raw\\SettingsForm\\_merged\\batch_1.png",
+      "output": "openspec\\changes\\10-settings-form\\art\\raw\\SettingsForm\\_merged\\alpha\\batch_1.png",
+      "size": {
+        "width": 1024,
+        "height": 1024
+      },
+      "key_color": [
+        0,
+        255,
+        0
+      ],
+      "threshold": 80.0,
+      "soft_edge": 30.0,
+      "despill": 0.5,
+      "alpha_zero_pixels": 807301,
+      "alpha_full_pixels": 240660,
+      "alpha_zero_ratio": 0.7699,
+      "status": "ok"
+    }
+  ]
+}

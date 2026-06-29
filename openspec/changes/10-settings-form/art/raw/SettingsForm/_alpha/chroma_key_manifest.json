@@ -1,0 +1,104 @@
+{
+  "items": [
+    {
+      "source": "openspec\\changes\\10-settings-form\\art\\raw\\SettingsForm\\panel_frame_gold.png",
+      "output": "openspec\\changes\\10-settings-form\\art\\raw\\SettingsForm\\_alpha\\panel_frame_gold.png",
+      "size": {
+        "width": 1254,
+        "height": 1254
+      },
+      "key_color": [
+        0,
+        255,
+        0
+      ],
+      "threshold": 80.0,
+      "soft_edge": 30.0,
+      "despill": 0.5,
+      "alpha_zero_pixels": 312413,
+      "alpha_full_pixels": 1259253,
+      "alpha_zero_ratio": 0.1987,
+      "status": "ok"
+    },
+    {
+      "source": "openspec\\changes\\10-settings-form\\art\\raw\\SettingsForm\\icon_close_button.png",
+      "output": "openspec\\changes\\10-settings-form\\art\\raw\\SettingsForm\\_alpha\\icon_close_button.png",
+      "size": {
+        "width": 1254,
+        "height": 1254
+      },
+      "key_color": [
+        0,
+        255,
+        0
+      ],
+      "threshold": 80.0,
+      "soft_edge": 30.0,
+      "despill": 0.5,
+      "alpha_zero_pixels": 1079156,
+      "alpha_full_pixels": 492987,
+      "alpha_zero_ratio": 0.6863,
+      "status": "ok"
+    },
+    {
+      "source": "openspec\\changes\\10-settings-form\\art\\raw\\SettingsForm\\icon_radio_selected.png",
+      "output": "openspec\\changes\\10-settings-form\\art\\raw\\SettingsForm\\_alpha\\icon_radio_selected.png",
+      "size": {
+        "width": 1254,
+        "height": 1254
+      },
+      "key_color": [
+        0,
+        255,
+        0
+      ],
+      "threshold": 80.0,
+      "soft_edge": 30.0,
+      "despill": 0.5,
+      "alpha_zero_pixels": 1279237,
+      "alpha_full_pixels": 292984,
+      "alpha_zero_ratio": 0.8135,
+      "status": "ok"
+    },
+    {
+      "source": "openspec\\changes\\10-settings-form\\art\\raw\\SettingsForm\\icon_radio_unselected.png",
+      "output": "openspec\\changes\\10-settings-form\\art\\raw\\SettingsForm\\_alpha\\icon_radio_unselected.png",
+      "size": {
+        "width": 128,
+        "height": 128
+      },
+      "key_color": [
+        0,
+        255,
+        0
+      ],
+      "threshold": 80.0,
+      "soft_edge": 30.0,
+      "despill": 0.5,
+      "alpha_zero_pixels": 11929,
+      "alpha_full_pixels": 4418,
+      "alpha_zero_ratio": 0.7281,
+      "status": "ok"
+    },
+    {
+      "source": "openspec\\changes\\10-settings-form\\art\\raw\\SettingsForm\\slider_thumb_gold.png",
+      "output": "openspec\\changes\\10-settings-form\\art\\raw\\SettingsForm\\_alpha\\slider_thumb_gold.png",
+      "size": {
+        "width": 128,
+        "height": 128
+      },
+      "key_color": [
+        0,
+        255,
+        0
+      ],
+      "threshold": 80.0,
+      "soft_edge": 30.0,
+      "despill": 0.5,
+      "alpha_zero_pixels": 10792,
+      "alpha_full_pixels": 5560,
+      "alpha_zero_ratio": 0.6587,
+      "status": "ok"
+    }
+  ]
+}

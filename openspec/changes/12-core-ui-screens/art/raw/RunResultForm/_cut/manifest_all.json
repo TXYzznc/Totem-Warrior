@@ -1,0 +1,217 @@
+[
+  {
+    "source": "openspec\\changes\\12-core-ui-screens\\art\\raw\\RunResultForm\\_merged\\batch_1.png",
+    "size": {
+      "width": 1024,
+      "height": 1024
+    },
+    "count": 12,
+    "output_dir": "openspec\\changes\\12-core-ui-screens\\art\\raw\\RunResultForm\\_cut\\batch_1",
+    "sprites": [
+      {
+        "label": 1,
+        "file": "openspec\\changes\\12-core-ui-screens\\art\\raw\\RunResultForm\\_cut\\batch_1\\batch_1_001.png",
+        "bbox": {
+          "x": 37,
+          "y": 112,
+          "width": 215,
+          "height": 239
+        },
+        "raw_bbox": {
+          "x": 39,
+          "y": 114,
+          "width": 211,
+          "height": 235
+        },
+        "area": 39055
+      },
+      {
+        "label": 2,
+        "file": "openspec\\changes\\12-core-ui-screens\\art\\raw\\RunResultForm\\_cut\\batch_1\\batch_1_002.png",
+        "bbox": {
+          "x": 282,
+          "y": 112,
+          "width": 217,
+          "height": 239
+        },
+        "raw_bbox": {
+          "x": 284,
+          "y": 114,
+          "width": 213,
+          "height": 235
+        },
+        "area": 39429
+      },
+      {
+        "label": 3,
+        "file": "openspec\\changes\\12-core-ui-screens\\art\\raw\\RunResultForm\\_cut\\batch_1\\batch_1_003.png",
+        "bbox": {
+          "x": 522,
+          "y": 112,
+          "width": 218,
+          "height": 239
+        },
+        "raw_bbox": {
+          "x": 524,
+          "y": 114,
+          "width": 214,
+          "height": 235
+        },
+        "area": 39620
+      },
+      {
+        "label": 4,
+        "file": "openspec\\changes\\12-core-ui-screens\\art\\raw\\RunResultForm\\_cut\\batch_1\\batch_1_004.png",
+        "bbox": {
+          "x": 768,
+          "y": 112,
+          "width": 217,
+          "height": 239
+        },
+        "raw_bbox": {
+          "x": 770,
+          "y": 114,
+          "width": 213,
+          "height": 235
+        },
+        "area": 39361
+      },
+      {
+        "label": 5,
+        "file": "openspec\\changes\\12-core-ui-screens\\art\\raw\\RunResultForm\\_cut\\batch_1\\batch_1_005.png",
+        "bbox": {
+          "x": 761,
+          "y": 394,
+          "width": 223,
+          "height": 233
+        },
+        "raw_bbox": {
+          "x": 763,
+          "y": 396,
+          "width": 219,
+          "height": 229
+        },
+        "area": 39528
+      },
+      {
+        "label": 6,
+        "file": "openspec\\changes\\12-core-ui-screens\\art\\raw\\RunResultForm\\_cut\\batch_1\\batch_1_006.png",
+        "bbox": {
+          "x": 34,
+          "y": 395,
+          "width": 219,
+          "height": 232
+        },
+        "raw_bbox": {
+          "x": 36,
+          "y": 397,
+          "width": 215,
+          "height": 228
+        },
+        "area": 38578
+      },
+      {
+        "label": 7,
+        "file": "openspec\\changes\\12-core-ui-screens\\art\\raw\\RunResultForm\\_cut\\batch_1\\batch_1_007.png",
+        "bbox": {
+          "x": 275,
+          "y": 395,
+          "width": 219,
+          "height": 232
+        },
+        "raw_bbox": {
+          "x": 277,
+          "y": 397,
+          "width": 215,
+          "height": 228
+        },
+        "area": 38392
+      },
+      {
+        "label": 8,
+        "file": "openspec\\changes\\12-core-ui-screens\\art\\raw\\RunResultForm\\_cut\\batch_1\\batch_1_008.png",
+        "bbox": {
+          "x": 520,
+          "y": 395,
+          "width": 219,
+          "height": 232
+        },
+        "raw_bbox": {
+          "x": 522,
+          "y": 397,
+          "width": 215,
+          "height": 228
+        },
+        "area": 38464
+      },
+      {
+        "label": 9,
+        "file": "openspec\\changes\\12-core-ui-screens\\art\\raw\\RunResultForm\\_cut\\batch_1\\batch_1_009.png",
+        "bbox": {
+          "x": 33,
+          "y": 678,
+          "width": 220,
+          "height": 233
+        },
+        "raw_bbox": {
+          "x": 35,
+          "y": 680,
+          "width": 216,
+          "height": 229
+        },
+        "area": 38919
+      },
+      {
+        "label": 10,
+        "file": "openspec\\changes\\12-core-ui-screens\\art\\raw\\RunResultForm\\_cut\\batch_1\\batch_1_010.png",
+        "bbox": {
+          "x": 274,
+          "y": 679,
+          "width": 219,
+          "height": 232
+        },
+        "raw_bbox": {
+          "x": 276,
+          "y": 681,
+          "width": 215,
+          "height": 228
+        },
+        "area": 38717
+      },
+      {
+        "label": 11,
+        "file": "openspec\\changes\\12-core-ui-screens\\art\\raw\\RunResultForm\\_cut\\batch_1\\batch_1_011.png",
+        "bbox": {
+          "x": 513,
+          "y": 686,
+          "width": 175,
+          "height": 222
+        },
+        "raw_bbox": {
+          "x": 515,
+          "y": 688,
+          "width": 171,
+          "height": 218
+        },
+        "area": 36715
+      },
+      {
+        "label": 12,
+        "file": "openspec\\changes\\12-core-ui-screens\\art\\raw\\RunResultForm\\_cut\\batch_1\\batch_1_012.png",
+        "bbox": {
+          "x": 701,
+          "y": 777,
+          "width": 289,
+          "height": 114
+        },
+        "raw_bbox": {
+          "x": 703,
+          "y": 779,
+          "width": 285,
+          "height": 110
+        },
+        "area": 30782
+      }
+    ]
+  }
+]

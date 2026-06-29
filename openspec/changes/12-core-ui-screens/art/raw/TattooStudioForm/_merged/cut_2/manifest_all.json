@@ -1,0 +1,30 @@
+[
+  {
+    "source": "openspec\\changes\\12-core-ui-screens\\art\\raw\\TattooStudioForm\\_merged\\batch_2_alpha.png",
+    "size": {
+      "width": 1254,
+      "height": 1254
+    },
+    "count": 1,
+    "output_dir": "openspec\\changes\\12-core-ui-screens\\art\\raw\\TattooStudioForm\\_merged\\cut_2\\batch_2_alpha",
+    "sprites": [
+      {
+        "label": 1,
+        "file": "openspec\\changes\\12-core-ui-screens\\art\\raw\\TattooStudioForm\\_merged\\cut_2\\batch_2_alpha\\batch_2_alpha_001.png",
+        "bbox": {
+          "x": 382,
+          "y": 358,
+          "width": 490,
+          "height": 494
+        },
+        "raw_bbox": {
+          "x": 384,
+          "y": 360,
+          "width": 486,
+          "height": 490
+        },
+        "area": 173591
+      }
+    ]
+  }
+]

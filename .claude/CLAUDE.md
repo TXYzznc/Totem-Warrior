@@ -202,21 +202,22 @@ openspec/changes/<NN-name>/
 5. 同目录写 `生成记录.md`；更新 `art/requirements.md` 头部状态字段为「已处理」
 6. 无可用绘图模型时明确阻塞，不能假装已生成
 
-### UI 制作子流程（强制时序）
+### UI 制作子流程（强制时序，v2 — 2026-06-28 插入「素材拆分」阶段）
 
-> 适用于任何新建 / 重做的 UI 界面（HUD / 菜单 / 弹窗 / 表单 / 设置 / 商店 / 任务面板等）。**主对话作为 orchestrator 按下列 5 阶段顺序编排**，禁止跳阶段。
+> 适用于任何新建 / 重做的 UI 界面（HUD / 菜单 / 弹窗 / 表单 / 设置 / 商店 / 任务面板等）。**主对话作为 orchestrator 按下列 6 阶段顺序编排**，禁止跳阶段。
 
 ```
-1. 需求设计     2. 效果图设计       3. 效果图生成        4. Prefab + 代码并行     5. 联调微调
-（producer/    （art-ui 写         （codex-image-gen     ┌─ art-ui 出标注稿       （client-unity
-  gd-system    prompts.md，每页     调 Codex 生图，输出 │                          + 用户对比
-  + 三表）     一条效果图提示词）   art/mockups/）       ├─ client-unity 用        效果图迭代）
-                                                        │  unity-skills MCP
-                                                        │  自动建 Prefab
-                                                        └─ client-unity 写
-                                                           UIForm 脚本
-                                                        （Fan-Out 模式 1，
-                                                         WhenAll 同步）
+1.需求设计  2.效果图设计  3.效果图生成  4.素材拆分(新)        5.Prefab+代码并行       6.联调微调
+(producer/ (art-ui 写   (codex-       (ui-asset-splitting,  ┌─art-ui出标注稿        (client-unity
+ gd-system  prompts.md)  image-gen)    多张 mockup           │                        +用户对比
+ +三表)                                Fan-Out 并行拆分)     ├─client-unity 用        效果图迭代)
+                                                              │ unity-skills MCP
+                                                              │ 自动建 Prefab
+                                                              │ +贴入拆分素材
+                                                              └─client-unity 写
+                                                                UIForm 脚本
+                                                              (Fan-Out 模式1,
+                                                               WhenAll 同步)
 ```
 
 | 阶段 | 主导 | 产出物 | 通过条件 |
@@ -224,17 +225,20 @@ openspec/changes/<NN-name>/
 | **1. 需求设计** | producer / gd-system + 用户 | `proposal.md` / `design.md` + `art/requirements.md` 三表 | 三表齐全（页面清单 / 复用组件清单 / 组件状态表）+ 用户确认 |
 | **2. 效果图设计** | art-ui | `art/prompts.md` 中每个页面一条效果图提示词（风格 / 配色 / 字体 / 构图 / 信息层级 / 负面词） | 用户确认提示词 |
 | **3. 效果图生成** | 主对话 → `codex-image-gen` | `art/mockups/<PageName>.png` + 同目录 `生成记录.md` | 用户确认效果图（**3 轮重试上限**：每轮调整提示词；3 轮仍不满意 → 阻塞通知用户人工介入） |
-| **4. Prefab + 代码** | art-ui ∥ client-unity（**Fan-Out 模式 1，并行**） | 标注稿 + Prefab 文件（unity-skills MCP 自动建）+ UIForm 脚本 | 两个 Agent 都返回；UIForm 编译通过；Prefab 层级与标注稿一致 |
-| **5. 联调微调** | client-unity + 用户 | 运行时截图 vs 效果图对比 + 偏差修复 | 运行时与效果图视觉一致（间距 / 字号 / 配色） |
+| **4. 素材拆分**🆕 | 主对话 fan-out 子 Agent → `ui-asset-splitting` | `art/raw/<PageName>/`（背景 1 张 + 组件/状态变体若干张）→ 搬进 `Assets/Resources/Sprite/UI/<PageName>/` | 每页拆分清单产物齐全；`UISpriteImportProcessor` 自动设好导入参数（抽查 1 张 `.meta` 确认 `textureType: 8`） |
+| **5. Prefab + 代码** | art-ui ∥ client-unity（**Fan-Out 模式 1，并行**） | 标注稿 + Prefab 文件（unity-skills MCP 自动建，贴入阶段 4 产出的素材）+ UIForm 脚本 | 两个 Agent 都返回；UIForm 编译通过；Prefab 层级与标注稿一致 |
+| **6. 联调微调** | client-unity + 用户 | 运行时截图 vs 效果图对比 + 偏差修复 | 运行时与效果图视觉一致（间距 / 字号 / 配色） |
 
 #### 强制约束
 
-1. **不许跳阶段**：效果图未生成 / 未确认 → 禁止进入阶段 4
-2. **效果图位置固定**：`openspec/changes/<change-name>/art/mockups/<PageName>.png`，**与 `raw/`（素材切片）严格分目录**
-3. **Prefab 优先 MCP 自动建**：阶段 4 由 client-unity 调用 `unity-skills` MCP 创建基础层级；**MCP 不可用** → 回退到通知用户在 Unity Editor 手动搭（兼容 §十二「Prefab 必须手动建」原则）
-4. **阶段 4 必须并行**：标注稿（art-ui）与脚本+Prefab（client-unity）通过 Fan-Out 编排，`UniTask.WhenAll` 等待汇合，禁止顺序串行浪费时间
-5. **效果图重试上限 3 轮**：codex-image-gen 调用失败或用户不满意 → 调整提示词/加参考图重试，**累计 3 轮仍未通过即停下来交回用户决定**（手动找参考 / 跳过本页 / 重新设计），禁止无限重试
-6. **联调以效果图为准绳**：阶段 5 必须把运行时截图与 mockups 并排对比，列偏差清单后再迭代；client-unity 不许凭感觉调
+1. **不许跳阶段**：效果图未生成/未确认 → 禁止进入阶段 4；素材未拆分入库 → 禁止进入阶段 5
+2. **效果图位置固定**：`openspec/changes/<change-name>/art/mockups/<PageName>.png`，**与 `raw/`（拆分素材）严格分目录**
+3. **阶段 4 多页并行**：N 张已确认 mockup 互不依赖时，主对话直接 fan-out N 个 Agent 各自跑 `ui-asset-splitting`，不串行
+4. **导入设置不手动改**：`Assets/Resources/Sprite/UI/` 下贴图由 `Assets/Editor/UISpriteImportProcessor.cs` 自动设置 Texture Type 等参数，禁止在 Inspector 里手动调（改了也会在下次 reimport 被覆盖，应改脚本而非改单个贴图）
+5. **Prefab 优先 MCP 自动建**：阶段 5 由 client-unity 调用 `unity-skills` MCP 创建基础层级 + 贴入阶段 4 的素材；**MCP 不可用** → 回退到通知用户在 Unity Editor 手动搭（兼容 §十二「Prefab 必须手动建」原则）
+6. **阶段 5 必须并行**：标注稿（art-ui）与脚本+Prefab（client-unity）通过 Fan-Out 编排，`UniTask.WhenAll` 等待汇合，禁止顺序串行浪费时间
+7. **效果图重试上限 3 轮**：codex-image-gen 调用失败或用户不满意 → 调整提示词/加参考图重试，**累计 3 轮仍未通过即停下来交回用户决定**（手动找参考 / 跳过本页 / 重新设计），禁止无限重试
+8. **联调以效果图为准绳**：阶段 6 必须把运行时截图与 mockups 并排对比，列偏差清单后再迭代；client-unity 不许凭感觉调
 
 #### Agent 编排速查
 
@@ -243,11 +247,13 @@ openspec/changes/<NN-name>/
  ├─ 阶段 1：delegate producer / gd-system + ai-art Step 0（三表）
  ├─ 阶段 2：delegate art-ui（写 prompts.md 效果图条目）
  ├─ 阶段 3：直接调 codex-image-gen SKILL（生 mockups + 重试循环）
- ├─ 阶段 4：fan-out
- │           ├─ Agent A：art-ui（标注稿）
- │           └─ Agent B：client-unity（unity-skills MCP 建 prefab + 写脚本）
+ ├─ 阶段 4：fan-out（N 张 mockup → N 个 Agent，各自调 ui-asset-splitting）
  │          await WhenAll
- └─ 阶段 5：delegate client-unity 比对效果图，迭代到一致
+ ├─ 阶段 5：fan-out
+ │           ├─ Agent A：art-ui（标注稿）
+ │           └─ Agent B：client-unity（unity-skills MCP 建 prefab + 贴素材 + 写脚本）
+ │          await WhenAll
+ └─ 阶段 6：delegate client-unity 比对效果图，迭代到一致
 ```
 
 ---

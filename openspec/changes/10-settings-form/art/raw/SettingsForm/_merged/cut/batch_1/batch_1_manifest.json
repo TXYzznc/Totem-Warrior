@@ -1,0 +1,96 @@
+{
+  "source": "openspec\\changes\\10-settings-form\\art\\raw\\SettingsForm\\_merged\\alpha\\batch_1.png",
+  "size": {
+    "width": 1024,
+    "height": 1024
+  },
+  "count": 5,
+  "output_dir": "openspec\\changes\\10-settings-form\\art\\raw\\SettingsForm\\_merged\\cut\\batch_1",
+  "sprites": [
+    {
+      "label": 1,
+      "file": "openspec\\changes\\10-settings-form\\art\\raw\\SettingsForm\\_merged\\cut\\batch_1\\batch_1_001.png",
+      "bbox": {
+        "x": 39,
+        "y": 117,
+        "width": 388,
+        "height": 315
+      },
+      "raw_bbox": {
+        "x": 41,
+        "y": 119,
+        "width": 384,
+        "height": 311
+      },
+      "area": 110180
+    },
+    {
+      "label": 2,
+      "file": "openspec\\changes\\10-settings-form\\art\\raw\\SettingsForm\\_merged\\cut\\batch_1\\batch_1_002.png",
+      "bbox": {
+        "x": 481,
+        "y": 175,
+        "width": 205,
+        "height": 208
+      },
+      "raw_bbox": {
+        "x": 483,
+        "y": 177,
+        "width": 201,
+        "height": 204
+      },
+      "area": 32543
+    },
+    {
+      "label": 3,
+      "file": "openspec\\changes\\10-settings-form\\art\\raw\\SettingsForm\\_merged\\cut\\batch_1\\batch_1_003.png",
+      "bbox": {
+        "x": 760,
+        "y": 175,
+        "width": 209,
+        "height": 210
+      },
+      "raw_bbox": {
+        "x": 762,
+        "y": 177,
+        "width": 205,
+        "height": 206
+      },
+      "area": 33215
+    },
+    {
+      "label": 4,
+      "file": "openspec\\changes\\10-settings-form\\art\\raw\\SettingsForm\\_merged\\cut\\batch_1\\batch_1_004.png",
+      "bbox": {
+        "x": 78,
+        "y": 615,
+        "width": 212,
+        "height": 213
+      },
+      "raw_bbox": {
+        "x": 80,
+        "y": 617,
+        "width": 208,
+        "height": 209
+      },
+      "area": 34249
+    },
+    {
+      "label": 5,
+      "file": "openspec\\changes\\10-settings-form\\art\\raw\\SettingsForm\\_merged\\cut\\batch_1\\batch_1_005.png",
+      "bbox": {
+        "x": 421,
+        "y": 618,
+        "width": 199,
+        "height": 205
+      },
+      "raw_bbox": {
+        "x": 423,
+        "y": 620,
+        "width": 195,
+        "height": 201
+      },
+      "area": 31048
+    }
+  ]
+}

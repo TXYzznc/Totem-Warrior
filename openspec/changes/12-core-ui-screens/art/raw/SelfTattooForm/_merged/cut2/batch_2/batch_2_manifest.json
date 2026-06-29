@@ -1,0 +1,147 @@
+{
+  "source": "openspec\\changes\\12-core-ui-screens\\art\\raw\\SelfTattooForm\\_merged\\alpha\\batch_2.png",
+  "size": {
+    "width": 1254,
+    "height": 1254
+  },
+  "count": 8,
+  "output_dir": "openspec\\changes\\12-core-ui-screens\\art\\raw\\SelfTattooForm\\_merged\\cut2\\batch_2",
+  "sprites": [
+    {
+      "label": 1,
+      "file": "openspec\\changes\\12-core-ui-screens\\art\\raw\\SelfTattooForm\\_merged\\cut2\\batch_2\\batch_2_001.png",
+      "bbox": {
+        "x": 25,
+        "y": 261,
+        "width": 255,
+        "height": 261
+      },
+      "raw_bbox": {
+        "x": 27,
+        "y": 263,
+        "width": 251,
+        "height": 257
+      },
+      "area": 45492
+    },
+    {
+      "label": 2,
+      "file": "openspec\\changes\\12-core-ui-screens\\art\\raw\\SelfTattooForm\\_merged\\cut2\\batch_2\\batch_2_002.png",
+      "bbox": {
+        "x": 339,
+        "y": 261,
+        "width": 255,
+        "height": 261
+      },
+      "raw_bbox": {
+        "x": 341,
+        "y": 263,
+        "width": 251,
+        "height": 257
+      },
+      "area": 45518
+    },
+    {
+      "label": 3,
+      "file": "openspec\\changes\\12-core-ui-screens\\art\\raw\\SelfTattooForm\\_merged\\cut2\\batch_2\\batch_2_003.png",
+      "bbox": {
+        "x": 652,
+        "y": 261,
+        "width": 255,
+        "height": 261
+      },
+      "raw_bbox": {
+        "x": 654,
+        "y": 263,
+        "width": 251,
+        "height": 257
+      },
+      "area": 45497
+    },
+    {
+      "label": 4,
+      "file": "openspec\\changes\\12-core-ui-screens\\art\\raw\\SelfTattooForm\\_merged\\cut2\\batch_2\\batch_2_004.png",
+      "bbox": {
+        "x": 965,
+        "y": 261,
+        "width": 255,
+        "height": 261
+      },
+      "raw_bbox": {
+        "x": 967,
+        "y": 263,
+        "width": 251,
+        "height": 257
+      },
+      "area": 45532
+    },
+    {
+      "label": 5,
+      "file": "openspec\\changes\\12-core-ui-screens\\art\\raw\\SelfTattooForm\\_merged\\cut2\\batch_2\\batch_2_005.png",
+      "bbox": {
+        "x": 634,
+        "y": 682,
+        "width": 291,
+        "height": 304
+      },
+      "raw_bbox": {
+        "x": 636,
+        "y": 684,
+        "width": 287,
+        "height": 300
+      },
+      "area": 55504
+    },
+    {
+      "label": 6,
+      "file": "openspec\\changes\\12-core-ui-screens\\art\\raw\\SelfTattooForm\\_merged\\cut2\\batch_2\\batch_2_006.png",
+      "bbox": {
+        "x": 25,
+        "y": 705,
+        "width": 255,
+        "height": 261
+      },
+      "raw_bbox": {
+        "x": 27,
+        "y": 707,
+        "width": 251,
+        "height": 257
+      },
+      "area": 45514
+    },
+    {
+      "label": 7,
+      "file": "openspec\\changes\\12-core-ui-screens\\art\\raw\\SelfTattooForm\\_merged\\cut2\\batch_2\\batch_2_007.png",
+      "bbox": {
+        "x": 338,
+        "y": 705,
+        "width": 256,
+        "height": 261
+      },
+      "raw_bbox": {
+        "x": 340,
+        "y": 707,
+        "width": 252,
+        "height": 257
+      },
+      "area": 45541
+    },
+    {
+      "label": 8,
+      "file": "openspec\\changes\\12-core-ui-screens\\art\\raw\\SelfTattooForm\\_merged\\cut2\\batch_2\\batch_2_008.png",
+      "bbox": {
+        "x": 965,
+        "y": 705,
+        "width": 255,
+        "height": 261
+      },
+      "raw_bbox": {
+        "x": 967,
+        "y": 707,
+        "width": 251,
+        "height": 257
+      },
+      "area": 45523
+    }
+  ]
+}

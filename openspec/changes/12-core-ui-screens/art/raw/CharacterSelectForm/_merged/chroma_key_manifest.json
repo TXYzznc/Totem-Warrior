@@ -1,0 +1,24 @@
+{
+  "items": [
+    {
+      "source": "openspec\\changes\\12-core-ui-screens\\art\\raw\\CharacterSelectForm\\_merged\\batch_1.png",
+      "output": "openspec\\changes\\12-core-ui-screens\\art\\raw\\CharacterSelectForm\\_merged\\batch_1.png",
+      "size": {
+        "width": 1024,
+        "height": 1024
+      },
+      "key_color": [
+        0,
+        255,
+        0
+      ],
+      "threshold": 80.0,
+      "soft_edge": 30.0,
+      "despill": 0.5,
+      "alpha_zero_pixels": 639583,
+      "alpha_full_pixels": 408205,
+      "alpha_zero_ratio": 0.61,
+      "status": "ok"
+    }
+  ]
+}

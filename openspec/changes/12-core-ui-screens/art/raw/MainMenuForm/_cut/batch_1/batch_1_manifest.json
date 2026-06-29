@@ -1,0 +1,79 @@
+{
+  "source": "openspec\\changes\\12-core-ui-screens\\art\\raw\\MainMenuForm\\_merged2\\batch_1.png",
+  "size": {
+    "width": 1254,
+    "height": 1254
+  },
+  "count": 4,
+  "output_dir": "openspec\\changes\\12-core-ui-screens\\art\\raw\\MainMenuForm\\_cut2\\batch_1",
+  "sprites": [
+    {
+      "label": 1,
+      "file": "openspec\\changes\\12-core-ui-screens\\art\\raw\\MainMenuForm\\_cut2\\batch_1\\batch_1_001.png",
+      "bbox": {
+        "x": 33,
+        "y": 84,
+        "width": 1189,
+        "height": 597
+      },
+      "raw_bbox": {
+        "x": 35,
+        "y": 86,
+        "width": 1185,
+        "height": 593
+      },
+      "area": 383745
+    },
+    {
+      "label": 2,
+      "file": "openspec\\changes\\12-core-ui-screens\\art\\raw\\MainMenuForm\\_cut2\\batch_1\\batch_1_002.png",
+      "bbox": {
+        "x": 438,
+        "y": 201,
+        "width": 31,
+        "height": 21
+      },
+      "raw_bbox": {
+        "x": 440,
+        "y": 203,
+        "width": 27,
+        "height": 17
+      },
+      "area": 119
+    },
+    {
+      "label": 3,
+      "file": "openspec\\changes\\12-core-ui-screens\\art\\raw\\MainMenuForm\\_cut2\\batch_1\\batch_1_003.png",
+      "bbox": {
+        "x": 28,
+        "y": 816,
+        "width": 588,
+        "height": 279
+      },
+      "raw_bbox": {
+        "x": 30,
+        "y": 818,
+        "width": 584,
+        "height": 275
+      },
+      "area": 141446
+    },
+    {
+      "label": 4,
+      "file": "openspec\\changes\\12-core-ui-screens\\art\\raw\\MainMenuForm\\_cut2\\batch_1\\batch_1_004.png",
+      "bbox": {
+        "x": 647,
+        "y": 826,
+        "width": 563,
+        "height": 260
+      },
+      "raw_bbox": {
+        "x": 649,
+        "y": 828,
+        "width": 559,
+        "height": 256
+      },
+      "area": 121060
+    }
+  ]
+}
