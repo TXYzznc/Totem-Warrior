@@ -14,14 +14,6 @@
     { "Id": 1005, "Name": "Tattoo.Part.LeftLeg",    "Type": "Sprite", "LoadPath": "Tattoo/Part/LeftLeg" },
     { "Id": 1006, "Name": "Tattoo.Part.RightLeg",   "Type": "Sprite", "LoadPath": "Tattoo/Part/RightLeg" },
 
-    { "Id": 1101, "Name": "Tattoo.Color.Red",       "Type": "Sprite", "LoadPath": "Tattoo/Color/Red" },
-    { "Id": 1102, "Name": "Tattoo.Color.Yellow",    "Type": "Sprite", "LoadPath": "Tattoo/Color/Yellow" },
-    { "Id": 1103, "Name": "Tattoo.Color.Green",     "Type": "Sprite", "LoadPath": "Tattoo/Color/Green" },
-    { "Id": 1104, "Name": "Tattoo.Color.Blue",      "Type": "Sprite", "LoadPath": "Tattoo/Color/Blue" },
-    { "Id": 1105, "Name": "Tattoo.Color.Purple",    "Type": "Sprite", "LoadPath": "Tattoo/Color/Purple" },
-    { "Id": 1106, "Name": "Tattoo.Color.Gold",      "Type": "Sprite", "LoadPath": "Tattoo/Color/Gold" },
-    { "Id": 1107, "Name": "Tattoo.Color.White",     "Type": "Sprite", "LoadPath": "Tattoo/Color/White" },
-
     { "Id": 1201, "Name": "Tattoo.Pattern.Line",    "Type": "Sprite", "LoadPath": "Tattoo/Pattern/Line" },
     { "Id": 1202, "Name": "Tattoo.Pattern.Ring",    "Type": "Sprite", "LoadPath": "Tattoo/Pattern/Ring" },
     { "Id": 1203, "Name": "Tattoo.Pattern.Spiral",  "Type": "Sprite", "LoadPath": "Tattoo/Pattern/Spiral" },
