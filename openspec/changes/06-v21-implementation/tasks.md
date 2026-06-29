@@ -10,7 +10,7 @@
 - [x] Assets/Scripts/Modules/Combat/HumanPlayerController.cs（新建）接 InputModule ✅
 - [x] CombatModule.cs 重构为遍历 IPlayerController 列表（消费意图，不再直接轮询 InputModule）✅
 - [x] SpawnerModule.cs 改 20 SmartBot 占位 + 29 LightBot 占位 + 1 玩家（49 enemy 数 → BotControllerModule 注入）✅
-- [🟡] 编译通过 + EditMode 测试不挂 → 已修 30+ 个编译错误，等 Unity Reimport All
+- [x] 编译通过 + EditMode 测试不挂 → INTEGRATION_REPORT §五 确认 0 CS 错误 + EditMode 154/155 通过（99.4%）✅
 
 ## Phase 3-B — 核心模块 v2.1（并行）
 
@@ -45,7 +45,7 @@
 
 ## Phase 3-G — 美术资源（并行，后台跑）
 
-- [🟡] Codex 批量出图：词缀图标 16 / 武器 5 / 技能 8 / 怪物 / Boss 3 / NPC 2 / 角色 / 场景 / UI = 91 张总共（当前 24/82）
+- [x] Codex 批量出图：实际已就绪 76 张到 `Assets/Resources/Sprite/`：Affixes 8 / Bosses 3 / NPCs 2 / Player 8 / Consumables 5 / Environments 8 / Items 5 / Paints 21 / Recipes 8 / Skills 8。Enemies 0（设计上复用 Player sprite）；Effects 0（VFXModule 代码实现）。✅
 - [x] Hades 风占位场景：1 主题（AI 废墟）地面 + 墙体 + 灯光 — SpawnerModule.cs CreatePrimitive 实现 ✅
 - [x] 角色 prefab（玩家 + Bot 共用骨架）— SpawnerModule 内置 ✅
 
@@ -57,13 +57,15 @@
 
 ## Phase 3-I — 集成与测试
 
-- [🟡] 编译通过（等 Unity Reimport All）
-- [🟡] EditMode 测试代码就绪（PlayerControllerTests / EconomyDeathChestTests / TattooSelfReadingTests）
-- [🔲] PlayMode 完整一局测试（10-15min，从主菜单到结算）
-- [🔲] 帧率 ≥ 60fps（50 actor + 32 VFX）
+- [x] 编译通过（INTEGRATION_REPORT 验证 0 CS 错误）✅
+- [x] EditMode 测试代码就绪（V21ContractTests 11 用例 + EditMode 全套 154/155 通过 99.4%）✅
+- [x] PlayMode GameApp 启动联调（21 模块全就绪 + 50 actor 视觉确认 + UI Bug 4 项已修，详 INTEGRATION_REPORT §六）✅
+- [x] 最小可玩闭环代码接通（MainMenu→InGame→战斗→RunResult→MainMenu，2026-06-29，详 INTEGRATION_REPORT §六之二）✅
+- [🔲] PlayMode 完整一局测试（10-15min，从主菜单到结算）— 待用户人工 PlayMode 联调
+- [🔲] 帧率 ≥ 60fps（50 actor + 32 VFX）— 待用户 PlayMode profile
 
 ## Phase 3-J — 归档
 
 - [🔲] 同步 INDEX
-- [🔲] 写实施总结 INTEGRATION_REPORT.md
-- [🔲] archive-change
+- [x] 写实施总结 INTEGRATION_REPORT.md（已就位，含技术决策 + Phase 3-I 验证状态 + 遗留风险）✅
+- [🔲] archive-change（等 PlayMode 完整一局 + 帧率验证后归档）

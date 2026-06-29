@@ -13,6 +13,30 @@ if sys.platform == 'win32':
     if hasattr(sys.stderr, 'buffer'):
         sys.stderr = codecs.getwriter('utf-8')(sys.stderr.buffer, 'replace')
 
+    # 14-mcp-encoding-fix: 通过 GetCommandLineW + CommandLineToArgvW 重写 sys.argv，
+    # 绕开 Python 默认的 ANSI(cp936) → Unicode 转换层，保证 CJK 参数完整。
+    # 现代 Python (3.6+) wmain 已经默认走 Unicode argv，本块在那之上 belt-and-suspenders；
+    # MSYS / Cygwin / WSL Python 的 ctypes.windll 不可用，try/except 兜底跳过。
+    #
+    # CommandLineToArgvW 返回 [exe_path, *python_flags, script, *script_args]，
+    # Python 自己的 sys.argv = [script, *script_args]，所以按尾部对齐覆盖。
+    try:
+        import ctypes
+        from ctypes import wintypes
+        _get_cmd_line_w = ctypes.windll.kernel32.GetCommandLineW
+        _get_cmd_line_w.restype = wintypes.LPCWSTR
+        _cmd_to_argv_w = ctypes.windll.shell32.CommandLineToArgvW
+        _cmd_to_argv_w.argtypes = [wintypes.LPCWSTR, ctypes.POINTER(ctypes.c_int)]
+        _cmd_to_argv_w.restype = ctypes.POINTER(wintypes.LPWSTR)
+        _argc = ctypes.c_int(0)
+        _argv_w = _cmd_to_argv_w(_get_cmd_line_w(), ctypes.byref(_argc))
+        if _argv_w and _argc.value >= len(sys.argv):
+            _full = [_argv_w[i] for i in range(_argc.value)]
+            sys.argv = _full[-len(sys.argv):]
+    except (OSError, AttributeError):
+        # MSYS / Cygwin / WSL Python：windll 不可用，保持原 sys.argv
+        pass
+
 import requests
 import time
 import json
@@ -289,8 +313,10 @@ def main():
     """Command-line interface for Unity Skills."""
     if len(sys.argv) < 2:
         print('用法: python unity_skills.py <skill_name> [param1=value1] [param2=value2] ...')
+        print('     python unity_skills.py <skill_name> --stdin-json   # 参数从 stdin 读 JSON（推荐 CJK 场景）')
         print('示例: python unity_skills.py editor_get_selection')
         print('示例: python unity_skills.py gameobject_create name=MyCube primitiveType=Cube')
+        print('示例: echo {"name":"T","text":"设置"} | python unity_skills.py ui_set_text --stdin-json')
         sys.exit(1)
 
     if sys.argv[1] == "--list":
@@ -302,7 +328,34 @@ def main():
 
     skill_name = sys.argv[1]
 
-    # Parse parameters
+    # 14-mcp-encoding-fix: --stdin-json 模式从 stdin 读 JSON body
+    # 唯一保证 100% 编码安全的入口；CJK / emoji 参数必须用此模式
+    if '--stdin-json' in sys.argv[2:]:
+        try:
+            stdin_bytes = sys.stdin.buffer.read()
+        except AttributeError:
+            # 已被 codecs wrap：用文本读再转 utf-8
+            stdin_bytes = sys.stdin.read().encode('utf-8')
+        try:
+            params = json.loads(stdin_bytes.decode('utf-8'))
+        except (UnicodeDecodeError, json.JSONDecodeError) as e:
+            print(json.dumps({
+                "success": False,
+                "error": f"--stdin-json 模式 stdin 解析失败: {e}",
+                "hint": "stdin 必须是 UTF-8 编码的 JSON 对象。调用方推荐 subprocess.run(..., input=json.dumps(params).encode('utf-8'))"
+            }, ensure_ascii=False, indent=2))
+            sys.exit(2)
+        if not isinstance(params, dict):
+            print(json.dumps({
+                "success": False,
+                "error": f"--stdin-json 期望 JSON 对象，实际拿到 {type(params).__name__}",
+            }, ensure_ascii=False, indent=2))
+            sys.exit(2)
+        result = call_skill(skill_name, **params)
+        print(json.dumps(result, ensure_ascii=False, indent=2))
+        return
+
+    # Parse parameters from argv (legacy 模式)
     params = {}
     for arg in sys.argv[2:]:
         if '=' in arg:

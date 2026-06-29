@@ -108,8 +108,9 @@ Assets/Scripts/DataTable/DataTableRegistry.cs (注册新增 8 张表)
 | VFXModule | ✅ | 实测 `MatPoolSize=7` 材质池就绪 |
 | CombatModule | ✅ | 实测 `Initialized v2.1` |
 | 9 个 UI Prefab 文件 | ✅ | CombatHUD / TattooStudio / Shop / PauseMenu / TattooEnchant / ThreeChoice / RunResult / MainMenu / CharacterSelect |
-| PlayMode 完整一局（10-15min） | 🔲 | 等可玩内容（玩家输入循环 + 攻击 + 升级实测） |
-| 帧率 ≥ 60fps | 🔲 | 等可玩内容 |
+| 最小可玩闭环接通 | ✅ | 2026-06-29 接通 MainMenu→InGame→战斗→RunResult→MainMenu（详 §六之二） |
+| PlayMode 完整一局（10-15min） | 🔲 | 待用户人工 PlayMode 联调 |
+| 帧率 ≥ 60fps | 🔲 | 待用户 PlayMode profile |
 
 ## 六、PlayMode 实测发现与修复（2026-06-26）
 
@@ -135,18 +136,48 @@ Assets/Scripts/DataTable/DataTableRegistry.cs (注册新增 8 张表)
 - CombatHUDForm 有 14 个 SerializeField（_hpBar / _skillQ / _cdMaskQ / ... 等）需要在 Inspector 拖拽绑定到 Canvas 子节点
 - HpBarBg / SkillSlotQ 等子节点的 Image 现在是占位深灰，等美术 icon 到位替换 sprite
 
+## 六之二、最小可玩闭环接通（2026-06-29）
+
+继 §六 修复 UI 显示问题后，本轮接通 **MainMenu → InGame → 战斗 → RunResult → MainMenu** 的最小可玩闭环。0 CS 错误（`console_get_logs` 实测）。
+
+### 改动清单
+
+| 文件 | 改动 | 作用 |
+|---|---|---|
+| `Assets/Scripts/Modules/Spawner/SpawnerModule.cs` | 新增 `PlayerActor` / `PlayerMaxHp` 属性 + 创建 `Economy.Actor` 实例 | `RunStartedEvent` 需要 Actor；HUD HP 条初始化需要 MaxHp |
+| `Assets/Scripts/Modules/Combat/CombatModule.cs` | 加 `_runStarted` + `OnGameStateChanged` 事件处理；进入 InGame → 发 `RunStartedEvent`；`EndCombat` 加发 `RunEndedEvent` + 切 `GameOver`；`OnUpdate` 桥接 `Esc → PauseRequestedEvent` | 闭合 run 生命周期 |
+| `Assets/Scripts/Modules/UI/RunResultForm.cs` | 从空壳重写：订阅 `RunEndedEvent` 显示「胜利/本局结束」 + 按钮回主菜单 | 结算面板 |
+
+### 闭环链路
+
+```
+MainMenuForm.StartButton
+   ↓ gs.StartGame()
+GameStateModule → MainMenu→InGame
+   ↓ GameStateChangedEvent
+CombatModule.OnGameStateChanged → 发 RunStartedEvent
+   ↓
+CombatHUDForm 初始化 HP 条；玩家可移动/普攻/技能/Esc 暂停
+   ↓ 全敌死 OR 玩家死
+CombatModule.EndCombat → 发 CombatEndedEvent + RunEndedEvent + gs.GameOver()
+   ↓ GameStateChangedEvent
+RunResultForm.OnRunEnded → 显示面板
+   ↓ ReturnToMenuBtn
+gs.GoToMainMenu() → 回主菜单（_runStarted 重置，允许下一局）
+```
+
 ## 七、遗留与已知风险
 
-- **美术资源 60/82（73%）**：codex 后台分多批次跑，受 5h 额度限制按段跑。已完成：武器 5 / 技能 8 / 词缀 8 / 颜料 21 / 消耗品 5 / NPC 2 / Boss 3 / HUD 8。剩 22 张（配方 8 / 物品 5 / 环境 4 / 角色 5）等下次额度窗口续跑。UI 在缺图时 Unity Image 默认白底渲染，不影响逻辑。
+- **美术资源 76/82（93%）**（2026-06-29 复核）：已就绪到 `Assets/Resources/Sprite/`：Affixes 8 / Bosses 3 / NPCs 2 / Player 8 / Consumables 5 / Environments 8 / Items 5 / Paints 21 / Recipes 8 / Skills 8。设计上 Enemies 0（复用 Player sprite）+ Effects 0（VFXModule 代码实现）。openspec/changes/06-v21-implementation/art/raw/ 仍保留原始 chromakey 源图作为追溯。
 - **占位场景**：SpawnerModule 用 CreatePrimitive 起步（Cube/Plane），未来切 Hades 风 Prefab 走 ResourceModule。
 - **NavMesh 烘焙**：MapGenModule 程序化生成几何后需运行时烘焙，目前用直线寻路占位。
 - **NetworkReplay Controller**：v2.1 仅声明 enum 占位，真联机版本另起 change。
 
-## 七、归档前 checklist
+## 八、归档前 checklist
 
-- [ ] Unity Reimport All 触发，Console 全绿
-- [ ] EditMode 全套测试通过率 ≥ 90%
-- [ ] PlayMode 跑通一局 10-15min
-- [ ] 帧率截图 / 性能 profile 截图
+- [x] Unity Reimport All 触发，Console 全绿（2026-06-26 实测 0 CS 错误）
+- [x] EditMode 全套测试通过率 ≥ 90%（154/155 = 99.4%）
+- [ ] PlayMode 跑通一局 10-15min — 等可玩内容（玩家输入循环 + 攻击 + 升级实测）
+- [ ] 帧率截图 / 性能 profile 截图 — 等可玩内容
 - [ ] INDEX.md 加 v2.1 入口
 - [ ] openspec archive-change 06-v21-implementation

@@ -235,7 +235,7 @@ openspec/changes/<NN-name>/
 2. **效果图位置固定**：`openspec/changes/<change-name>/art/mockups/<PageName>.png`，**与 `raw/`（拆分素材）严格分目录**
 3. **阶段 4 多页并行**：N 张已确认 mockup 互不依赖时，主对话直接 fan-out N 个 Agent 各自跑 `ui-asset-splitting`，不串行
 4. **导入设置不手动改**：`Assets/Resources/Sprite/UI/` 下贴图由 `Assets/Editor/UISpriteImportProcessor.cs` 自动设置 Texture Type 等参数，禁止在 Inspector 里手动调（改了也会在下次 reimport 被覆盖，应改脚本而非改单个贴图）
-5. **Prefab 优先 MCP 自动建**：阶段 5 由 client-unity 调用 `unity-skills` MCP 创建基础层级 + 贴入阶段 4 的素材；**MCP 不可用** → 回退到通知用户在 Unity Editor 手动搭（兼容 §十二「Prefab 必须手动建」原则）
+5. **Prefab 优先 MCP 自动建**：阶段 5 由 client-unity 调用 `unity-skills` MCP 创建基础层级 + 贴入阶段 4 的素材；**MCP 不可用** → 回退到通知用户在 Unity Editor 手动搭（兼容 §十二「Prefab 必须手动建」原则）。**调用 unity-skills 时若参数含 CJK / Emoji（节点名、按钮文本、说明文字等），必须用 `--stdin-json` 模式**，详见 [skills/unity-skills/SKILL.md](./skills/unity-skills/SKILL.md) 「中文 / CJK 参数调用约定（强制）」。
 6. **阶段 5 必须并行**：标注稿（art-ui）与脚本+Prefab（client-unity）通过 Fan-Out 编排，`UniTask.WhenAll` 等待汇合，禁止顺序串行浪费时间
 7. **效果图重试上限 3 轮**：codex-image-gen 调用失败或用户不满意 → 调整提示词/加参考图重试，**累计 3 轮仍未通过即停下来交回用户决定**（手动找参考 / 跳过本页 / 重新设计），禁止无限重试
 8. **联调以效果图为准绳**：阶段 6 必须把运行时截图与 mockups 并排对比，列偏差清单后再迭代；client-unity 不许凭感觉调

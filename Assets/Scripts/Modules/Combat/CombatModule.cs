@@ -34,6 +34,7 @@ namespace Tattoo
         const float MoveTickInterval = 0.5f;
 
         bool _combatEnded;
+        bool _runStarted;
 
         public CombatModule(ModuleRunner runner, EventBus bus)
         {
@@ -82,6 +83,10 @@ namespace Tattoo
 
         public void OnUpdate(float dt)
         {
+            // Esc 弹暂停（v2.1：InputModule 不发事件，由 CombatModule 在 Tick 内桥接）
+            if (_input.IsEscapePressed())
+                _bus.Publish(new PauseRequestedEvent());
+
             if (_combatEnded) return;
 
             for (int i = 0; i < _controllers.Count; i++)
@@ -158,6 +163,28 @@ namespace Tattoo
         }
 
         [EventHandler]
+        void OnGameStateChanged(GameStateChangedEvent e)
+        {
+            // 进入 InGame 状态 → 发 RunStartedEvent，HUD 初始化 HP 条
+            if (e.NewState == GameState.InGame && !_runStarted && _spawner?.PlayerActor != null)
+            {
+                _runStarted = true;
+                _combatEnded = false;
+                _bus.Publish(new RunStartedEvent(
+                    _spawner.PlayerActor,
+                    seed: UnityEngine.Random.Range(1, int.MaxValue),
+                    maxHealth: _spawner.PlayerMaxHp));
+                FrameworkLogger.Info("CombatModule",
+                    $"Action=RunStarted MaxHp={_spawner.PlayerMaxHp}");
+            }
+            // 返回主菜单 → 重置 run 状态，允许下一局重新进入
+            else if (e.NewState == GameState.MainMenu && _runStarted)
+            {
+                _runStarted = false;
+            }
+        }
+
+        [EventHandler]
         void OnEffectApplied(EffectAppliedEvent e)
         {
             // 击杀判定
@@ -196,6 +223,14 @@ namespace Tattoo
         {
             _combatEnded = true;
             _bus.Publish(new CombatEndedEvent(playerWin));
+
+            // v2.1 收尾：发 RunEndedEvent 给 SaveModule + 切 GameState 让 RunResultForm 弹出
+            var stats = new RunStats { Win = playerWin, Kills = 0, DurationSec = 0f };
+            _bus.Publish(new RunEndedEvent(_spawner?.PlayerActor, playerWin, stats));
+
+            var gs = _runner.GetModule<GameStateModule>();
+            gs?.GameOver();
+
             FrameworkLogger.Info("CombatModule", $"Action=CombatEnded PlayerWin={playerWin}");
         }
 

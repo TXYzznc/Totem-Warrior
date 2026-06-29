@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using Economy;
 using Tattoo.Data;
 using Tattoo.Events;
 using UnityEngine;
@@ -24,7 +25,9 @@ namespace Tattoo
 
         public GameObject  Player    { get; private set; }
         public Target      PlayerTarget { get; private set; }
+        public Actor       PlayerActor  { get; private set; }
         public List<GameObject> Enemies { get; } = new();
+        public float       PlayerMaxHp { get; private set; } = 100f;
 
         /// <summary>初始敌人数量。v2.1：49 个 actor 占位（20 Smart + 29 Light），由 BotControllerModule 装配 controller。</summary>
         public int InitialEnemyCount = 49;
@@ -94,6 +97,12 @@ namespace Tattoo
 
             Player = pGo;
             PlayerTarget = playerRef.Target;
+            PlayerMaxHp = 100f;
+            PlayerActor = new Actor(1, "玩家", isPlayer: true)
+            {
+                Target = PlayerTarget,
+                GameObject = pGo,
+            };
 
             // v2.1：49 个 actor 占位（20 Smart + 29 Light）—— 分多圈布点避免重叠
             // 圈 1：半径 8m，14 个；圈 2：半径 13m，17 个；圈 3：半径 18m，18 个
