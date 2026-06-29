@@ -19,7 +19,7 @@
 
 ## 二、按职能分组
 
-### 2.1 项目原生 7 大 SKILL（框架核心，强烈优先）
+### 2.1 项目原生 8 大 SKILL（框架核心，强烈优先）
 
 > **代码分析 / 架构理解 / 影响范围 / Bug 追踪 / 重构 impact** 由 `codebase-memory` MCP 承担——详见 [CLAUDE.md §八](../CLAUDE.md)「codebase-memory MCP 使用准则」。
 

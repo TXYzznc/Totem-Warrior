@@ -101,3 +101,6 @@ ehthumbs.db
 # 11-skill-governance：tool 使用日志与审计中间产物，不进版本控制
 .claude/skills/_usage.log
 .claude/skills/_audit.json
+
+# 字体资源体积过大，不进版本控制（本地各自维护）
+/Assets/Resources/Font/
