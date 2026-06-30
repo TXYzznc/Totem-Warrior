@@ -19,7 +19,8 @@ namespace Tattoo
     {
         public int ModuleCategory => 3;
         public Type[] Dependencies => new[] {
-            typeof(TattooModule), typeof(SpawnerModule), typeof(InputModule)
+            typeof(TattooModule), typeof(SpawnerModule), typeof(InputModule),
+            typeof(WeaponModule)
         };
 
         readonly ModuleRunner _runner;
@@ -52,7 +53,7 @@ namespace Tattoo
             _input   = _runner.GetModule<InputModule>();
 
             // 装配玩家 HumanPlayerController（Bot controllers 由 BotControllerModule 注册）
-            // WeaponModule 在 GameApp 中注册早于 CombatModule，InitAsync 时可安全 GetModule
+            // 注：WeaponModule 已加入 Dependencies，InitAsync 时一定 Initialized
             if (_spawner.PlayerTarget != null)
             {
                 var weapon = _runner.GetModule<WeaponModule>();
@@ -204,6 +205,9 @@ namespace Tattoo
             {
                 _runStarted = true;
                 _combatEnded = false;
+                // 复活/回合开始：把玩家 HP 拉满，避免上一局 PlayerDied 后 Health=0 残留进入新局
+                if (_spawner.PlayerTarget != null)
+                    _spawner.PlayerTarget.Health = _spawner.PlayerMaxHp;
                 _bus.Publish(new RunStartedEvent(
                     _spawner.PlayerActor,
                     seed: UnityEngine.Random.Range(1, int.MaxValue),
