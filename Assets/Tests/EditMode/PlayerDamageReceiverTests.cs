@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using AttackSystem.Events;
 using NUnit.Framework;
+using Tattoo;
 using Tattoo.Data;
 using Tattoo.Events;
 
@@ -194,12 +195,17 @@ namespace Combat.Tests
             {
                 // 将 fakeSpawner.Real 注册到内部 map，使 GetModule&lt;SpawnerModule&gt;() 能返回
                 // ModuleRunner.AddModule 是 public，但会触发依赖检查和注册流程。
-                // 改用反射直接插入 _moduleMap：
-                var mapField = typeof(ModuleRunner).GetField("_moduleMap",
-                    System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+                // 改用反射直接插入 _moduleMap + _states（GetModule 会校验状态必须为 Initialized）。
+                var flags = System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic;
+                var mapField = typeof(ModuleRunner).GetField("_moduleMap", flags);
                 if (mapField?.GetValue(this) is System.Collections.Generic.Dictionary<System.Type, IGameModule> map)
                 {
                     map[typeof(SpawnerModule)] = fakeSpawner.Real;
+                }
+                var stateField = typeof(ModuleRunner).GetField("_states", flags);
+                if (stateField?.GetValue(this) is System.Collections.IDictionary states)
+                {
+                    states[typeof(SpawnerModule)] = ModuleState.Initialized;
                 }
             }
         }

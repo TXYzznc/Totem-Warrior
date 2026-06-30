@@ -368,7 +368,7 @@ namespace Economy
         /// 并发防护：同一个 ChestInstanceId 只处理一次。
         /// </summary>
         [EventHandler]
-        void OnChestOpened(ChestOpenedEvent e)
+        void OnChestOpened(Economy.Events.ChestOpenedEvent e)
         {
             if (e.Opener == null) return;
 

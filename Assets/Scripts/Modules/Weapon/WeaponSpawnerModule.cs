@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using MapGen;
+using Tattoo;
 using Tattoo.Events;
 using UnityEngine;
 

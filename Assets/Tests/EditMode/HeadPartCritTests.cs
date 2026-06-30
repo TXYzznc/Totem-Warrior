@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using NUnit.Framework;
+using Tattoo;
 using Tattoo.Data;
 using Tattoo.Events;
 using Tattoo.Strategies.Parts;
