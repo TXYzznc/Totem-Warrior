@@ -51,6 +51,11 @@ public sealed class WeaponModule : IGameModule, ITickable
     // 默认装备槽（未拾取武器时的 fallback）
     const string DefaultWeaponId = "knife_basic";
 
+    // ─── 升级倍率注入槽（CONTRACT §H 方案 A） ───────────────────────
+    // CombatModule 在调用 FireWeapon 前通过 SetPendingMultipliers 写入，
+    // FireWeapon 消费后立即清零（线程安全：均在主线程调用）。
+    readonly Dictionary<Target, WeaponMultipliers> _pendingMul = new();
+
     // ─── 构造 ────────────────────────────────────────────────────────
     public WeaponModule(ModuleRunner runner, EventBus bus)
     {
@@ -141,6 +146,16 @@ public sealed class WeaponModule : IGameModule, ITickable
     /// - 近战：推入 HitboxJob（5 帧后检测）
     /// - 远程（MVP）：直接向 aim target 发布命中事件
     /// </summary>
+    /// <summary>
+    /// 由 CombatModule 在 FireWeapon 调用前设置升级倍率（CONTRACT §H 方案 A）。
+    /// FireWeapon 消费后自动清零，保证不影响下一次攻击。
+    /// </summary>
+    public void SetPendingMultipliers(Target actor, WeaponMultipliers mul)
+    {
+        if (actor == null) return;
+        _pendingMul[actor] = mul;
+    }
+
     public void FireWeapon(Target actor, Target aimTarget, bool isCharged, float chargeRatio = 1f)
     {
         if (actor == null) return;
@@ -161,7 +176,15 @@ public sealed class WeaponModule : IGameModule, ITickable
         bool hasAmmo = ConsumeAmmo(actor, row);
         if (!hasAmmo) return;
 
-        float finalDamage = row.BaseDamage;
+        // 消费升级倍率（CombatModule 注入，CONTRACT §H 方案 A）
+        WeaponMultipliers mul = WeaponMultipliers.Identity;
+        if (_pendingMul.TryGetValue(actor, out var pending))
+        {
+            mul = pending;
+            _pendingMul.Remove(actor);
+        }
+
+        float finalDamage = row.BaseDamage * mul.DamageMul;
         if (isCharged) finalDamage *= row.ChargedMul;
 
         if (row.Class == "Melee" || row.Class == "Special")

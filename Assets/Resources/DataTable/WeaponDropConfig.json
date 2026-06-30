@@ -1,0 +1,148 @@
+{
+  "table": "WeaponDropConfig",
+  "fields": [
+    { "name": "DropId",       "type": "string", "desc": "主键，全局唯一掉落记录 ID" },
+    { "name": "WeaponId",     "type": "string", "desc": "对应 WeaponConfig.WeaponId" },
+    { "name": "DropSource",   "type": "string", "desc": "枚举：Elite / Chest / Merchant" },
+    { "name": "Weight",       "type": "int",    "desc": "同 DropSource 内加权随机权重，越高越易出" },
+    { "name": "MinRoomIndex", "type": "int",    "desc": "该武器最早可出现的房间序号（关卡进度门控，1=起始房）" },
+    { "name": "MaxRoomIndex", "type": "int",    "desc": "该武器最晚可出现的房间序号（10=最终Boss前一房）" }
+  ],
+  "rows": [
+    {
+      "DropId": "drop_elite_001",
+      "WeaponId": "knife_basic",
+      "DropSource": "Elite",
+      "Weight": 35,
+      "MinRoomIndex": 1,
+      "MaxRoomIndex": 10,
+      "comment": "刀是入门武器，权重最高，全程可掉；引导新玩家尽快熟悉升级循环"
+    },
+    {
+      "DropId": "drop_elite_002",
+      "WeaponId": "hammer_heavy",
+      "DropSource": "Elite",
+      "Weight": 25,
+      "MinRoomIndex": 2,
+      "MaxRoomIndex": 10,
+      "comment": "重锤中期引入（房间 2 起），避免开局即拿到高控制力武器破坏节奏"
+    },
+    {
+      "DropId": "drop_elite_003",
+      "WeaponId": "pistol_basic",
+      "DropSource": "Elite",
+      "Weight": 20,
+      "MinRoomIndex": 1,
+      "MaxRoomIndex": 10,
+      "comment": "手枪全程可掉；权重20，低于刀，避免远程武器过度充斥早期"
+    },
+    {
+      "DropId": "drop_elite_004",
+      "WeaponId": "bow_charge",
+      "DropSource": "Elite",
+      "Weight": 10,
+      "MinRoomIndex": 3,
+      "MaxRoomIndex": 10,
+      "comment": "蓄力弓高技巧武器，房间 3 起才出；权重最低（10），保持稀缺感"
+    },
+    {
+      "DropId": "drop_elite_005",
+      "WeaponId": "energy_fist",
+      "DropSource": "Elite",
+      "Weight": 10,
+      "MinRoomIndex": 3,
+      "MaxRoomIndex": 10,
+      "comment": "能量拳特殊武器，房间 3 起才出；稀缺感与弓对等"
+    },
+    {
+      "DropId": "drop_chest_001",
+      "WeaponId": "knife_basic",
+      "DropSource": "Chest",
+      "Weight": 30,
+      "MinRoomIndex": 1,
+      "MaxRoomIndex": 10,
+      "comment": "宝箱武器池：刀权重最高，作为普通宝箱最常见产出"
+    },
+    {
+      "DropId": "drop_chest_002",
+      "WeaponId": "hammer_heavy",
+      "DropSource": "Chest",
+      "Weight": 20,
+      "MinRoomIndex": 1,
+      "MaxRoomIndex": 10,
+      "comment": "宝箱可早于精英掉落给锤（房间 1 起），因为宝箱本身是探索奖励，可以略超进度门控"
+    },
+    {
+      "DropId": "drop_chest_003",
+      "WeaponId": "pistol_basic",
+      "DropSource": "Chest",
+      "Weight": 25,
+      "MinRoomIndex": 1,
+      "MaxRoomIndex": 10,
+      "comment": "宝箱手枪权重 25，低于刀但高于精英池，鼓励玩家探索"
+    },
+    {
+      "DropId": "drop_chest_004",
+      "WeaponId": "bow_charge",
+      "DropSource": "Chest",
+      "Weight": 15,
+      "MinRoomIndex": 2,
+      "MaxRoomIndex": 10,
+      "comment": "宝箱弓从房间 2 起可出，权重 15；比精英掉落稍高频（奖励探索的有效途径）"
+    },
+    {
+      "DropId": "drop_chest_005",
+      "WeaponId": "energy_fist",
+      "DropSource": "Chest",
+      "Weight": 10,
+      "MinRoomIndex": 2,
+      "MaxRoomIndex": 10,
+      "comment": "宝箱能量拳权重最低，保持稀有武器的惊喜感"
+    },
+    {
+      "DropId": "drop_merchant_001",
+      "WeaponId": "knife_basic",
+      "DropSource": "Merchant",
+      "Weight": 20,
+      "MinRoomIndex": 1,
+      "MaxRoomIndex": 10,
+      "comment": "商人武器池：刀权重较低（玩家通过精英更容易得刀，商人提供稀有武器更有吸引力）"
+    },
+    {
+      "DropId": "drop_merchant_002",
+      "WeaponId": "hammer_heavy",
+      "DropSource": "Merchant",
+      "Weight": 25,
+      "MinRoomIndex": 1,
+      "MaxRoomIndex": 10,
+      "comment": "商人锤权重25，是玩家花金币的主要目标之一（可靠的控制力武器）"
+    },
+    {
+      "DropId": "drop_merchant_003",
+      "WeaponId": "pistol_basic",
+      "DropSource": "Merchant",
+      "Weight": 30,
+      "MinRoomIndex": 1,
+      "MaxRoomIndex": 10,
+      "comment": "商人手枪权重最高；玩家对远程武器需求强，商人是获取手枪的稳定渠道"
+    },
+    {
+      "DropId": "drop_merchant_004",
+      "WeaponId": "bow_charge",
+      "DropSource": "Merchant",
+      "Weight": 15,
+      "MinRoomIndex": 2,
+      "MaxRoomIndex": 10,
+      "comment": "商人弓权重15；弓是高价值武器，低权重配合高 GoldCost 形成稀有感"
+    },
+    {
+      "DropId": "drop_merchant_005",
+      "WeaponId": "energy_fist",
+      "DropSource": "Merchant",
+      "Weight": 10,
+      "MinRoomIndex": 2,
+      "MaxRoomIndex": 10,
+      "comment": "商人能量拳最稀有，权重10；高价售出增加玩家存钱期待"
+    }
+  ]
+}

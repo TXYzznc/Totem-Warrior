@@ -1,0 +1,26 @@
+name: 19-visual-polish
+created: 2026-07-01
+status: proposal
+owner: producer
+phase: C
+roadmap_ref: openspec/changes/20-player-attack-system/ROADMAP.md
+
+artifacts:
+  - id: proposal
+    status: done
+    file: proposal.md
+  - id: design
+    status: done
+    file: design.md
+  - id: tasks
+    status: done
+    file: tasks.md
+  - id: specs
+    status: done
+    file: specs/visual-polish/spec.md
+  - id: art-requirements
+    status: done
+    file: art/requirements.md
+  - id: art-prompts
+    status: done
+    file: art/prompts.md

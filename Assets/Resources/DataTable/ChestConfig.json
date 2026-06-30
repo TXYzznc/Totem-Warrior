@@ -1,0 +1,60 @@
+{
+  "table": "ChestConfig",
+  "fields": [
+    { "name": "ChestId",      "type": "string", "desc": "宝箱类型主键，如 chest_common / chest_rare" },
+    { "name": "RewardType",   "type": "string", "desc": "枚举：Weapon / Gold / Potion" },
+    { "name": "RewardId",     "type": "string", "desc": "Weapon 时填 WeaponId（从 WeaponDropConfig 随机选）；Gold/Potion 时留空字符串" },
+    { "name": "RewardAmount", "type": "int",    "desc": "Gold 时为金币数量（单位 coin）；Weapon 时恒为 1；Potion 时为药水数量" },
+    { "name": "Probability",  "type": "int",    "desc": "同 ChestId 内概率（整数百分比），同 ChestId 所有行之和必须 = 100（DataTableModule Assert）" }
+  ],
+  "rows": [
+    {
+      "ChestId": "chest_common",
+      "RewardType": "Weapon",
+      "RewardId": "",
+      "RewardAmount": 1,
+      "Probability": 45,
+      "comment": "普通箱 45% 出武器（从 Chest DropSource 的 WeaponDropConfig 随机按权重选）"
+    },
+    {
+      "ChestId": "chest_common",
+      "RewardType": "Gold",
+      "RewardId": "",
+      "RewardAmount": 40,
+      "Probability": 40,
+      "comment": "普通箱 40% 出金币 40 枚；低于商人最低售价 60，不能直接购买武器，必须积累"
+    },
+    {
+      "ChestId": "chest_common",
+      "RewardType": "Potion",
+      "RewardId": "",
+      "RewardAmount": 1,
+      "Probability": 15,
+      "comment": "普通箱 15% 出药水；中期血量压力较高时有价值；总和 45+40+15=100 校验通过"
+    },
+    {
+      "ChestId": "chest_rare",
+      "RewardType": "Weapon",
+      "RewardId": "",
+      "RewardAmount": 1,
+      "Probability": 60,
+      "comment": "稀有箱 60% 出武器；稀有箱是强力奖励节点，武器概率明显高于普通箱"
+    },
+    {
+      "ChestId": "chest_rare",
+      "RewardType": "Gold",
+      "RewardId": "",
+      "RewardAmount": 80,
+      "Probability": 30,
+      "comment": "稀有箱 30% 出金币 80 枚；足够购买商人中等价位武器（60-80 GoldCost 区间）"
+    },
+    {
+      "ChestId": "chest_rare",
+      "RewardType": "Potion",
+      "RewardId": "",
+      "RewardAmount": 2,
+      "Probability": 10,
+      "comment": "稀有箱 10% 出 2 瓶药水；总和 60+30+10=100 校验通过"
+    }
+  ]
+}

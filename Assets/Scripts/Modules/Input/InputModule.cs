@@ -130,6 +130,15 @@ public sealed class InputModule : IGameModule
     /// <summary>玩家按下自助纹身面板开关（Tab 键）。</summary>
     public bool IsSelfTattooTogglePressed() => IsKeyDown(KeyCode.Tab);
 
+    // ===== change#18 拾取 / 交互 Action =====
+
+    /// <summary>
+    /// change#18: 拾取/交互（F 键）。
+    /// 对应 WeaponPickupTrigger / ChestInteractTrigger / MerchantTrigger 的交互触发。
+    /// 一次性按下语义（IsKeyDown）。
+    /// </summary>
+    public bool IsPickupPressed() => IsKeyDown(KeyCode.F);
+
     // ===== 双源融合内部辅助 =====
 
     bool IsKeyDown(KeyCode k)

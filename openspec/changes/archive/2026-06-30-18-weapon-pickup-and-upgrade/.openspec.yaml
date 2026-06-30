@@ -1,0 +1,7 @@
+name: 18-weapon-pickup-and-upgrade
+created: 2026-07-01
+status: proposed
+owner: producer
+phase: proposal
+roadmap_ref: openspec/changes/20-player-attack-system/ROADMAP.md#phase-b
+decisions_frozen: true

@@ -146,7 +146,28 @@ namespace Tattoo
                     float chargeRatio = wantsCharged
                         ? Mathf.Clamp01(_input.GetAttackHoldDuration() / ChargeThreshold)
                         : 0f;
-                    _runner.GetModule<WeaponModule>().FireWeapon(c.OwnerActor, t, wantsCharged, chargeRatio);
+
+                    // CONTRACT §H 方案 A：查升级倍率 → 注入 WeaponModule → FireWeapon
+                    var weaponMod   = _runner.GetModule<WeaponModule>();
+                    var upgradeMod  = _runner.GetModule<WeaponUpgradeModule>();
+                    var equippedId  = weaponMod.GetEquippedWeapon(c.OwnerActor).Weapon?.WeaponId ?? string.Empty;
+                    var mul = upgradeMod != null
+                        ? upgradeMod.GetMultipliers(c.OwnerActor, equippedId)
+                        : WeaponMultipliers.Identity;
+
+                    // 非 Identity 时才写日志（L1 默认 Identity，避免每帧刷屏）
+                    if (mul.DamageMul != 1f || mul.RangeAdd != 0f || mul.CooldownMul != 1f)
+                    {
+                        float baseDmg  = weaponMod.GetBaseDamage(c.OwnerActor);
+                        float finalDmg = baseDmg * mul.DamageMul;
+                        FrameworkLogger.Info("CombatModule",
+                            $"Action=UpgradeMulApplied Actor={c.OwnerActor.Name} WeaponId={equippedId} " +
+                            $"BaseDmg={baseDmg:F1} DamageMul={mul.DamageMul:F3} FinalDmg={finalDmg:F1} " +
+                            $"RangeAdd={mul.RangeAdd:F2} CooldownMul={mul.CooldownMul:F3}");
+                    }
+
+                    weaponMod.SetPendingMultipliers(c.OwnerActor, mul);
+                    weaponMod.FireWeapon(c.OwnerActor, t, wantsCharged, chargeRatio);
                 }
             }
 

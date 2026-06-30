@@ -43,6 +43,10 @@ public static class DataTableRegistry
         new DataTableEntry("ThreeChoiceOptionConfig", typeof(ThreeChoiceOptionConfig)),
         // v2.1 UI 表单配置
         new DataTableEntry("UIFormConfig", typeof(UIFormConfig)),
+        // change#18 武器拾取与升级
+        new DataTableEntry("WeaponDropConfig", typeof(WeaponDropConfig)),
+        new DataTableEntry("ChestConfig", typeof(ChestConfig)),
+        new DataTableEntry("MerchantConfig", typeof(MerchantConfig)),
     };
 }
 

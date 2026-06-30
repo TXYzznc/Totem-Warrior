@@ -1,0 +1,74 @@
+{
+  "table": "MerchantConfig",
+  "fields": [
+    { "name": "SlotIndex",     "type": "int",    "desc": "商人展示槽位索引，范围 0~2（每局刷新时按 RefreshWeight 随机选定该槽武器）" },
+    { "name": "WeaponId",      "type": "string", "desc": "候选武器 ID，对应 WeaponConfig.WeaponId" },
+    { "name": "GoldCost",      "type": "int",    "desc": "购买所需金币（单位 coin），范围 [50, 200]" },
+    { "name": "RefreshWeight", "type": "int",    "desc": "商人每局刷新时该候选被选中的概率权重（同 SlotIndex 内竞争）" }
+  ],
+  "rows": [
+    {
+      "SlotIndex": 0,
+      "WeaponId": "knife_basic",
+      "GoldCost": 50,
+      "RefreshWeight": 40,
+      "comment": "槽0-候选A：刀最便宜（50），权重40；槽0定位为「入门价位」，鼓励金币不足的玩家消费"
+    },
+    {
+      "SlotIndex": 0,
+      "WeaponId": "pistol_basic",
+      "GoldCost": 75,
+      "RefreshWeight": 35,
+      "comment": "槽0-候选B：手枪中等价位（75）出现在廉价槽，给玩家惊喜感；权重35"
+    },
+    {
+      "SlotIndex": 0,
+      "WeaponId": "energy_fist",
+      "GoldCost": 90,
+      "RefreshWeight": 25,
+      "comment": "槽0-候选C：能量拳在廉价槽以折扣价出现（90），权重25；罕见概率制造高价值时刻"
+    },
+    {
+      "SlotIndex": 1,
+      "WeaponId": "hammer_heavy",
+      "GoldCost": 80,
+      "RefreshWeight": 40,
+      "comment": "槽1-候选A：锤中等价位（80），权重40；槽1定位「中档武器」，是玩家最常购买的槽位"
+    },
+    {
+      "SlotIndex": 1,
+      "WeaponId": "pistol_basic",
+      "GoldCost": 85,
+      "RefreshWeight": 35,
+      "comment": "槽1-候选B：手枪在中档槽（85），权重35；手枪需求高，两槽都可出现保证供应"
+    },
+    {
+      "SlotIndex": 1,
+      "WeaponId": "bow_charge",
+      "GoldCost": 120,
+      "RefreshWeight": 25,
+      "comment": "槽1-候选C：弓在中档槽以120出现，权重25；玩家积蓄后的理想升级目标"
+    },
+    {
+      "SlotIndex": 2,
+      "WeaponId": "bow_charge",
+      "GoldCost": 140,
+      "RefreshWeight": 35,
+      "comment": "槽2-候选A：弓高价槽标准价（140），权重35；槽2定位「高端武器」，预期玩家积累 3-4 房间金币后购买"
+    },
+    {
+      "SlotIndex": 2,
+      "WeaponId": "energy_fist",
+      "GoldCost": 130,
+      "RefreshWeight": 35,
+      "comment": "槽2-候选B：能量拳高价槽（130），权重35；特殊武器集中在高价槽体现稀有价值"
+    },
+    {
+      "SlotIndex": 2,
+      "WeaponId": "hammer_heavy",
+      "GoldCost": 100,
+      "RefreshWeight": 30,
+      "comment": "槽2-候选C：锤在高价槽出现（100），权重30；为玩家提供「高价槽捡漏」机会，增加刷新价值"
+    }
+  ]
+}
