@@ -46,6 +46,8 @@ public class GameApp : MonoBehaviour
             _runner.AddModule(new AudioModule(_runner));
             _runner.AddModule(new SettingsModule(_runner, _bus));
             _runner.AddModule(new TattooModule(_runner, _bus));
+            // change#20 D4 元素 DoT tick（Burn / Poison）
+            _runner.AddModule(new StatusEffectModule(_runner, _bus));
 
             // ===== Category 2: 应用协调 =====
             _runner.AddModule(new GameStateModule(_bus));
@@ -58,7 +60,15 @@ public class GameApp : MonoBehaviour
             _runner.AddModule(new MapGenModule(_runner, _bus));
             _runner.AddModule(new SpawnerModule(_runner, _bus));
             _runner.AddModule(new WeaponModule(_runner, _bus));
+            // change#18 武器拾取与升级
+            // 注册顺序：WeaponSpawnerModule(deps: Spawner+DataTable) → WeaponUpgradeModule(deps: Weapon+DataTable)
+            _runner.AddModule(new WeaponSpawnerModule(_runner, _bus));
+            _runner.AddModule(new WeaponUpgradeModule(_runner, _bus));
             _runner.AddModule(new SkillModule(_runner, _bus));
+            // change#20 D7 技能伤害结算桥（依赖 Weapon + DataTable）
+            _runner.AddModule(new SkillHitResolver(_runner, _bus));
+            // change#20 D8 玩家受击通路（依赖 Spawner）
+            _runner.AddModule(new PlayerDamageReceiver(_runner, _bus));
             _runner.AddModule(new CombatModule(_runner, _bus));
             _runner.AddModule(new VFXModule(_runner, _bus));
             _runner.AddModule(new EconomyModule(_runner, _bus));

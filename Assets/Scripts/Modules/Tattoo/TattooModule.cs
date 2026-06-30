@@ -9,6 +9,7 @@ using Tattoo.Strategies;
 using Tattoo.Strategies.Elements;
 using Tattoo.Strategies.Parts;
 using Tattoo.Strategies.Shapes;
+using Weapon.Events;
 
 namespace Tattoo
 {
@@ -91,6 +92,10 @@ namespace Tattoo
 
         public UniTask ShutdownAsync(CancellationToken ct = default)
         {
+            // change#20: HeadPartBehavior 持有 EventBus 订阅，Shutdown 时需 Dispose
+            if (_partBehaviors.TryGetValue("Head", out var headBeh) && headBeh is IDisposable d)
+                d.Dispose();
+
             _equipped.Clear();
             _partBehaviors.Clear();
             _elementBehaviors.Clear();
@@ -104,7 +109,8 @@ namespace Tattoo
 
         void RegisterPartStrategies()
         {
-            _partBehaviors["Head"]     = new HeadPartBehavior();
+            // change#20: HeadPartBehavior 需要 EventBus + TattooModule 引用以订阅 WeaponAttackHitEvent
+            _partBehaviors["Head"]     = new HeadPartBehavior(_bus, this);
             _partBehaviors["Torso"]    = new TorsoPartBehavior();
             _partBehaviors["LeftArm"]  = new LeftArmPartBehavior();
             _partBehaviors["RightArm"] = new RightArmPartBehavior();
@@ -402,6 +408,29 @@ namespace Tattoo
         }
         [EventHandler] void OnSkillCast(SkillCastEvent e)        => Fire(typeof(SkillCastEvent),    primary: null,       attacker: null);
         [EventHandler] void OnDodgePressed(DodgePressedEvent e)  => Fire(typeof(DodgePressedEvent), primary: null,       attacker: null);
+
+        // ===== change#20 武器事件桥接（骨架空壳）=====
+
+        /// <summary>change#20: 武器普攻命中 → 桥接到 AttackHitEvent 走右臂刺青链。</summary>
+        [EventHandler]
+        void OnWeaponAttackHit(WeaponAttackHitEvent e)
+        {
+            // TODO change#20 阶段 3 Agent E：
+            //   _bus.Publish(new AttackHitEvent(e.Target, e.BaseDamage));
+            //   注：CombatModule 改造完后由 WeaponModule 唯一发起；本桥接确保 D3 链不断
+        }
+
+        /// <summary>change#20: 武器蓄力命中 → 桥接到 AttackHitEvent + 缩放伤害（蓄力转普攻链）。</summary>
+        [EventHandler]
+        void OnWeaponChargedAttack(WeaponChargedAttackEvent e)
+        {
+            // TODO change#20 阶段 3 Agent E：
+            //   float dmg = e.BaseDamage * e.ChargeRatio;  // chargeRatio 已含 ChargedMul 加成
+            //   _bus.Publish(new AttackHitEvent(e.Target, dmg));
+        }
+
+        // ===== /change#20 =====
+
         [EventHandler]
         void OnMoveTick(MoveTickEvent e)
         {
@@ -488,7 +517,7 @@ namespace Tattoo
 
             // 3. 广播结果
             if (ctx.Log.Count > 0)
-                _bus.Publish(new EffectAppliedEvent(ctx.Log));
+                _bus.Publish(new EffectAppliedEvent(ctx.PrimaryTarget, ctx.Log));
         }
 
         void ConsumePendingTriggers(Type eventType, EffectContext ctx)

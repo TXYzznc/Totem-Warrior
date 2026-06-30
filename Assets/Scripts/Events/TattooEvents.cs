@@ -80,9 +80,11 @@ namespace Tattoo.Events
     /// <summary>一次效果应用完成后广播。UI / CombatModule 等订阅。</summary>
     public class EffectAppliedEvent
     {
+        public Target Target;
         public IReadOnlyList<EffectResult> Results;
-        public EffectAppliedEvent(IReadOnlyList<EffectResult> results)
+        public EffectAppliedEvent(Target target, IReadOnlyList<EffectResult> results)
         {
+            Target  = target;
             Results = results;
         }
     }
@@ -243,4 +245,7 @@ namespace Tattoo.Events
 
     /// <summary>玩家按下暂停键（ESC）。UIModule 订阅后弹出 PauseMenuForm。</summary>
     public class PauseRequestedEvent { }
+
+    /// <summary>玩家按下 Tab 键请求开关自助纹身面板。CombatModule 桥接，SelfTattooForm 订阅。</summary>
+    public class SelfTattooToggleRequestedEvent { }
 }

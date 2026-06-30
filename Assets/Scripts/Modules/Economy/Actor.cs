@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Economy
@@ -34,6 +35,16 @@ namespace Economy
         /// SpawnerModule 创建实体后注入，用于死亡宝箱坐标读取。
         /// </summary>
         public GameObject GameObject { get; set; }
+
+        // ───── change #18 武器升级 ─────
+
+        /// <summary>
+        /// 武器等级字典（key = WeaponId, value = 当前等级 1~3）。
+        /// 默认不含条目 = 等级视为 1（lazy init，由 WeaponUpgradeModule.GetWeaponLevel 处理）。
+        /// 仅在 IsPlayer == true 时使用，其他 Actor 字典保持空。
+        /// 设计：design.md §2.1；spec.md §3。
+        /// </summary>
+        public Dictionary<string, int> WeaponLevels { get; set; } = new();
 
         // ───── 构造 ─────
 

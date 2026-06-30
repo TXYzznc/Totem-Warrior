@@ -36,6 +36,9 @@ namespace Tattoo
         bool _combatEnded;
         bool _runStarted;
 
+        // change#20: 蓄力判定阈值（秒）。与 HumanPlayerController.ChargeThreshold 保持一致（0.4s）。
+        const float ChargeThreshold = 0.4f;
+
         public CombatModule(ModuleRunner runner, EventBus bus)
         {
             _runner = runner ?? throw new ArgumentNullException(nameof(runner));
@@ -49,10 +52,12 @@ namespace Tattoo
             _input   = _runner.GetModule<InputModule>();
 
             // 装配玩家 HumanPlayerController（Bot controllers 由 BotControllerModule 注册）
+            // WeaponModule 在 GameApp 中注册早于 CombatModule，InitAsync 时可安全 GetModule
             if (_spawner.PlayerTarget != null)
             {
+                var weapon = _runner.GetModule<WeaponModule>();
                 RegisterController(new Combat.HumanPlayerController(
-                    _spawner.PlayerTarget, _input, _spawner));
+                    _spawner.PlayerTarget, _input, _spawner, weapon));
             }
 
             FrameworkLogger.Info("CombatModule", "Action=Initialized v2.1");
@@ -86,6 +91,10 @@ namespace Tattoo
             // Esc 弹暂停（v2.1：InputModule 不发事件，由 CombatModule 在 Tick 内桥接）
             if (_input.IsEscapePressed())
                 _bus.Publish(new PauseRequestedEvent());
+
+            // Tab 开/关自助纹身面板（同样桥接：Form 起始 inactive，Update 不跑，必须事件驱动）
+            if (_input.IsSelfTattooTogglePressed())
+                _bus.Publish(new SelfTattooToggleRequestedEvent());
 
             if (_combatEnded) return;
 
@@ -125,15 +134,19 @@ namespace Tattoo
 
             if (inTattooReading) return; // 跳过下面攻击类意图
 
-            // 普攻
-            if (c.ShouldAttack())
+            // 普攻 / 蓄力攻击
+            // change#20: 删除原 25% 硬编码暴击；WeaponModule.FireWeapon 做命中检测 →
+            //   发 WeaponAttackHitEvent → HeadPartBehavior 按 PatternMultiplier 概率决定是否发 CritHitEvent。
+            bool wantsCharged = c.ShouldChargedAttack();
+            if (c.ShouldAttack() || wantsCharged)
             {
                 var t = c.GetAimTarget();
                 if (t != null)
                 {
-                    bool crit = UnityEngine.Random.value < 0.25f;
-                    if (crit) _bus.Publish(new CritHitEvent(t, _tattoo.Stats.WeaponDamage));
-                    else      _bus.Publish(new AttackHitEvent(t, _tattoo.Stats.WeaponDamage));
+                    float chargeRatio = wantsCharged
+                        ? Mathf.Clamp01(_input.GetAttackHoldDuration() / ChargeThreshold)
+                        : 0f;
+                    _runner.GetModule<WeaponModule>().FireWeapon(c.OwnerActor, t, wantsCharged, chargeRatio);
                 }
             }
 

@@ -35,6 +35,14 @@ public sealed class WeaponConfigRow
     public int BaseRecovery { get; set; }
     /// <summary>true=需蓄力才激活伤害判定（弓）</summary>
     public bool RequiresCharge { get; set; }
+    /// <summary>change#20: 鼠标射击半角(度) 0=Raycast严格 / 180=自动锁定 / 中间=SphereCast</summary>
+    public float AimSpreadHalfDeg { get; set; }
+    /// <summary>change#20: 普攻 trait，引用 WeaponTraitConfig.TraitId</summary>
+    public string NormalTraitId { get; set; }
+    /// <summary>change#20: 蓄力 trait，引用 WeaponTraitConfig.TraitId</summary>
+    public string ChargedTraitId { get; set; }
+    /// <summary>change#20: 武器 prefab Resources 路径（不含扩展名）</summary>
+    public string WeaponPrefabPath { get; set; }
 }
 
 public sealed class WeaponConfig : IDataTable

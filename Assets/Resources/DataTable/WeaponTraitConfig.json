@@ -1,0 +1,93 @@
+{
+  "table": "WeaponTraitConfig",
+  "fields": [
+    { "name": "TraitId",     "type": "string", "desc": "主键，如 trait_quickslash / trait_pierce" },
+    { "name": "Name",        "type": "string", "desc": "显示名称" },
+    { "name": "Description", "type": "string", "desc": "UI tooltip（含具体数值，无占位）" },
+    { "name": "EffectType",  "type": "string", "desc": "枚举：Status / Pierce / Stun / Chain / Explosive / MultiShot / Pull / Quick" },
+    { "name": "EffectParam1","type": "float",  "desc": "主参数（见各条目说明）" },
+    { "name": "EffectParam2","type": "float",  "desc": "副参数（见各条目说明）" }
+  ],
+  "rows": [
+    {
+      "TraitId": "trait_quickslash",
+      "Name": "快斩",
+      "Description": "普攻后摇缩短 30%；连续命中同一目标时，第 3 刀起每刀附加 4 点灼烧伤害（0.5s tick，持续 1.5s）",
+      "EffectType": "Quick",
+      "EffectParam1": 0.30,
+      "EffectParam2": 4.0
+    },
+    {
+      "TraitId": "trait_pierce",
+      "Name": "穿透",
+      "Description": "攻击穿透最多 3 个目标（每穿一个衰减 20% 伤害）；弓蓄力满后穿透数上限提升至 5",
+      "EffectType": "Pierce",
+      "EffectParam1": 3.0,
+      "EffectParam2": 0.20
+    },
+    {
+      "TraitId": "trait_stun",
+      "Name": "震晕",
+      "Description": "命中后令目标眩晕 0.8s，眩晕期间受到的伤害提升 25%；蓄力攻击眩晕时长翻倍（1.6s）",
+      "EffectType": "Stun",
+      "EffectParam1": 0.8,
+      "EffectParam2": 0.25
+    },
+    {
+      "TraitId": "trait_chain",
+      "Name": "连锁",
+      "Description": "命中后在 4m 范围内跳传给最多 3 个敌人，每跳衰减 30% 伤害；跳传目标也能触发刺青",
+      "EffectType": "Chain",
+      "EffectParam1": 3.0,
+      "EffectParam2": 0.30
+    },
+    {
+      "TraitId": "trait_explosive",
+      "Name": "爆震",
+      "Description": "蓄力命中后在目标位置爆炸，2.5m 范围内敌人各受 60% 基础伤害；爆炸不穿透，但可触发目标身上现有 DoT 立即爆发（1 次 tick 伤害）",
+      "EffectType": "Explosive",
+      "EffectParam1": 2.5,
+      "EffectParam2": 0.60
+    },
+    {
+      "TraitId": "trait_multishot",
+      "Name": "多重射击",
+      "Description": "蓄力后扇形同时发射 3 发，扇形半角 18°；附加弹消耗各自弹药但伤害乘 0.7，合计约 2.1 倍等效伤害",
+      "EffectType": "MultiShot",
+      "EffectParam1": 3.0,
+      "EffectParam2": 18.0
+    },
+    {
+      "TraitId": "trait_pull",
+      "Name": "拉扯",
+      "Description": "蓄力命中后将敌人强制拖拽至玩家 1.5m 内；拖拽过程中敌人每 0.1s 受 5 点物理碰撞伤害（最多 3 次）",
+      "EffectType": "Pull",
+      "EffectParam1": 1.5,
+      "EffectParam2": 5.0
+    },
+    {
+      "TraitId": "trait_dot_burn",
+      "Name": "灼烧附加",
+      "Description": "命中附加灼烧状态：每 0.5s 造成 4 点伤害（约 BaseDamage 的 22%），持续 2.5s（共 5 tick，总计 20 点）；灼烧可被新命中刷新但不叠层",
+      "EffectType": "Status",
+      "EffectParam1": 4.0,
+      "EffectParam2": 2.5
+    },
+    {
+      "TraitId": "trait_dot_poison",
+      "Name": "中毒附加",
+      "Description": "命中附加中毒状态：每 0.5s 造成 3 点伤害（约 BaseDamage 的 17%），持续 3s（共 6 tick，总计 18 点）；中毒可叠层最多 2 层（同时中毒总 DPS 6/s）",
+      "EffectType": "Status",
+      "EffectParam1": 3.0,
+      "EffectParam2": 3.0
+    },
+    {
+      "TraitId": "trait_lifesteal",
+      "Name": "微吸血",
+      "Description": "每次命中回复最终伤害的 8% 为 HP（含刺青触发链，上限每次命中回 12 HP）；该 trait 当前未分配给任何武器，预留给 #18 掉落系统",
+      "EffectType": "Quick",
+      "EffectParam1": 0.08,
+      "EffectParam2": 12.0
+    }
+  ]
+}

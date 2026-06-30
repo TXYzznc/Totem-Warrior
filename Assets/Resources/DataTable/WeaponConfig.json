@@ -14,7 +14,11 @@
     { "name": "BaseStartup", "type": "int",    "desc": "前摇帧数（60fps 基准）" },
     { "name": "BaseActive",  "type": "int",    "desc": "伤害帧数（Hitbox 开启区间）" },
     { "name": "BaseRecovery","type": "int",    "desc": "后摇帧数" },
-    { "name": "RequiresCharge","type": "bool", "desc": "true=需蓄力才激活伤害判定（弓）" }
+    { "name": "RequiresCharge","type": "bool", "desc": "true=需蓄力才激活伤害判定（弓）" },
+    { "name": "AimSpreadHalfDeg","type": "float","desc": "change#20: 鼠标射击半角(度)，0=Raycast严格 / 180=自动锁定最近敌 / 中间=SphereCast锥形" },
+    { "name": "NormalTraitId",  "type": "string","desc": "change#20: 普攻 trait，引用 WeaponTraitConfig.TraitId" },
+    { "name": "ChargedTraitId", "type": "string","desc": "change#20: 蓄力 trait，引用 WeaponTraitConfig.TraitId" },
+    { "name": "WeaponPrefabPath","type": "string","desc": "change#20: 武器 prefab 在 Resources 下的相对路径（不含扩展名），元气骑士范式动画用" }
   ],
   "rows": [
     {
@@ -31,7 +35,11 @@
       "BaseStartup": 3,
       "BaseActive": 3,
       "BaseRecovery": 4,
-      "RequiresCharge": false
+      "RequiresCharge": false,
+      "AimSpreadHalfDeg": 120.0,
+      "NormalTraitId": "trait_quickslash",
+      "ChargedTraitId": "trait_pierce",
+      "WeaponPrefabPath": "Prefab/Weapon/Knife"
     },
     {
       "WeaponId": "hammer_heavy",
@@ -47,7 +55,11 @@
       "BaseStartup": 8,
       "BaseActive": 5,
       "BaseRecovery": 12,
-      "RequiresCharge": false
+      "RequiresCharge": false,
+      "AimSpreadHalfDeg": 90.0,
+      "NormalTraitId": "trait_stun",
+      "ChargedTraitId": "trait_explosive",
+      "WeaponPrefabPath": "Prefab/Weapon/Hammer"
     },
     {
       "WeaponId": "pistol_basic",
@@ -63,7 +75,11 @@
       "BaseStartup": 2,
       "BaseActive": 1,
       "BaseRecovery": 5,
-      "RequiresCharge": false
+      "RequiresCharge": false,
+      "AimSpreadHalfDeg": 12.0,
+      "NormalTraitId": "trait_pierce",
+      "ChargedTraitId": "trait_multishot",
+      "WeaponPrefabPath": "Prefab/Weapon/Pistol"
     },
     {
       "WeaponId": "bow_charge",
@@ -79,7 +95,11 @@
       "BaseStartup": 12,
       "BaseActive": 2,
       "BaseRecovery": 6,
-      "RequiresCharge": true
+      "RequiresCharge": true,
+      "AimSpreadHalfDeg": 4.0,
+      "NormalTraitId": "trait_pierce",
+      "ChargedTraitId": "trait_chain",
+      "WeaponPrefabPath": "Prefab/Weapon/Bow"
     },
     {
       "WeaponId": "energy_fist",
@@ -95,7 +115,11 @@
       "BaseStartup": 5,
       "BaseActive": 4,
       "BaseRecovery": 6,
-      "RequiresCharge": false
+      "RequiresCharge": false,
+      "AimSpreadHalfDeg": 35.0,
+      "NormalTraitId": "trait_quickslash",
+      "ChargedTraitId": "trait_pull",
+      "WeaponPrefabPath": "Prefab/Weapon/Fist"
     }
   ]
 }

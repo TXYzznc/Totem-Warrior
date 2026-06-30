@@ -26,6 +26,8 @@ public static class DataTableRegistry
         // v2.1 武器系统
         new DataTableEntry("WeaponConfig", typeof(WeaponConfig)),
         new DataTableEntry("ProjectileConfig", typeof(ProjectileConfig)),
+        // change#20 武器 trait（占位 10 行）
+        new DataTableEntry("WeaponTraitConfig", typeof(WeaponTraitConfig)),
         // v2.1 经济系统
         new DataTableEntry("ItemConfig", typeof(ItemConfig)),
         // v2.1 怪物与 Boss 系统
