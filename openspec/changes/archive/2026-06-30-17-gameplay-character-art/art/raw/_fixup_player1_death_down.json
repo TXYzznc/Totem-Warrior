@@ -1,0 +1,24 @@
+{
+  "batches": [
+    {
+      "batch_id": "char17_player1_04_fix_down",
+      "writable_roots": [
+        "D:/unity/UnityProject/GameDesinger/Assets/Resources/Sprite/Character",
+        "D:/unity/UnityProject/GameDesinger/openspec/changes/17-gameplay-character-art/art/raw"
+      ],
+      "chroma_key": "#00ff00",
+      "items": [
+        {
+          "index": 1,
+          "name": "Player1_Death_Down",
+          "file": "D:/unity/UnityProject/GameDesinger/Assets/Resources/Sprite/Character/Player1/Death/Down.png",
+          "size": "1536x1024",
+          "transparent": true,
+          "prompt": "hand-painted dark fantasy 2D game character sprite, gothic occult tone, painterly textured brushwork (no pixel art, no cel-shading, no line-art outline), warm gold rim light edge highlight from upper-left, cool blue-purple ambient shadow underbelly, palette dominated by dark slate blue / deep crimson / aged gold / muted browns, top-down 3/4 perspective viewed from a camera tilted 55 degrees downward (slightly looking-down angle), character body forward-leaning to fit overhead readability.\n\n4-frame horizontal sprite sheet, 4 frames arranged left-to-right with EQUAL width, identical character bounding box per frame (character must NOT shift between frames), pure solid chroma-key green (#00ff00) gutter between subjects, no frame number labels, no border lines between frames, frames occupy the FULL width of the canvas equally.\n\nCanvas dimensions 1536x1024. The 4 frames occupy the full canvas width, each frame is 384px wide, arranged in a single horizontal row. Within each frame, the character body is centered horizontally and vertically, scaled large enough to fill ~75% of the frame height for player characters (~85% for boss). The 4 frames are visually separated by a thin (12-24px) solid #00ff00 vertical gutter, not a drawn line.\n\nCharacter (固定不变): medium-build male tribal ranger, dark-tan leather chest armor, brown leather belt with golden buckle, crimson hooded cape draped over LEFT shoulder, LEFT ARM FULLY TATTOOED in spiral flame motif (amber-gold + blood-red linework, clearly visible from any angle), dual curved daggers sheathed at both hips, leather boots with golden lacing, short black hair, weather-tanned skin.\n\nSubject: medium-build male tribal ranger, dark-tan leather chest armor, brown leather belt with golden buckle, crimson hooded cape draped over LEFT shoulder, LEFT ARM FULLY TATTOOED in spiral flame motif (amber-gold + blood-red linework, clearly visible from any angle), dual curved daggers sheathed at both hips, leather boots with golden lacing, short black hair, weather-tanned skin, DYING, originally facing the camera. Frame 1: HIT -- body jerks backward, arms fly outward, daggers dropped, pained grimace, slight crimson burst at chest. Frame 2: COLLAPSE -- knees buckle, body hunches forward, daggers fall to the ground. Frame 3: FALLING -- body tilts forward and to one side, arms sprawling. Frame 4: GROUNDED -- body lies prone face-down toward camera, arms spread, cape draped over back, completely still. THIS IS THE FINAL FRAME and should look clearly LIFELESS. One-shot, NOT looping.\n\nAvoid: text, signature, watermark, logo, UI elements, health bar, ground shadow, checkered background, frame number, left-right flipped duplicate (each frame independently drawn), pixel-art mosaic, cel-shading hard cell lines, anime line-art, realistic photo skin, nudity, blood splatter overflow, extra characters in the scene, weapon swap between frames.",
+          "negative": "Avoid: text, signature, watermark, logo, UI elements, health bar, ground shadow, checkered background, frame number, left-right flipped duplicate (each frame independently drawn), pixel-art mosaic, cel-shading hard cell lines, anime line-art, realistic photo skin, nudity, blood splatter overflow, extra characters in the scene, weapon swap between frames."
+        }
+      ]
+    }
+  ],
+  "concurrency": 1
+}

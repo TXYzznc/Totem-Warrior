@@ -1,0 +1,8 @@
+
+=== _group_2.json (954.6s) ===
+  char17_player2_01: ok=4 failed=0
+  char17_player3_01: ok=4 failed=0
+  char17_boss1_01: ok=4 failed=0
+
+TOTAL ok=12 failed=0 elapsed=954.6s
+result written: _group_2_result.json

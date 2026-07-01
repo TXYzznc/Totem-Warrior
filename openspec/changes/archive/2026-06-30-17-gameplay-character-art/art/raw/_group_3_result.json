@@ -1,0 +1,101 @@
+{
+  "success": true,
+  "results": [
+    {
+      "batch_id": "char17_boss1_02",
+      "ok": 0,
+      "failed": 4,
+      "error": "codex exec exit 1",
+      "items": [
+        {
+          "index": 1,
+          "file": "D:/unity/UnityProject/GameDesinger/Assets/Resources/Sprite/Character/Boss1/Walk/Down.png",
+          "status": "failed",
+          "error": "codex exec exit 1"
+        },
+        {
+          "index": 2,
+          "file": "D:/unity/UnityProject/GameDesinger/Assets/Resources/Sprite/Character/Boss1/Walk/Up.png",
+          "status": "failed",
+          "error": "codex exec exit 1"
+        },
+        {
+          "index": 3,
+          "file": "D:/unity/UnityProject/GameDesinger/Assets/Resources/Sprite/Character/Boss1/Walk/Left.png",
+          "status": "failed",
+          "error": "codex exec exit 1"
+        },
+        {
+          "index": 4,
+          "file": "D:/unity/UnityProject/GameDesinger/Assets/Resources/Sprite/Character/Boss1/Walk/Right.png",
+          "status": "failed",
+          "error": "codex exec exit 1"
+        }
+      ]
+    },
+    {
+      "batch_id": "char17_boss1_03",
+      "ok": 0,
+      "failed": 4,
+      "error": "codex exec exit 1",
+      "items": [
+        {
+          "index": 1,
+          "file": "D:/unity/UnityProject/GameDesinger/Assets/Resources/Sprite/Character/Boss1/Attack/Down.png",
+          "status": "failed",
+          "error": "codex exec exit 1"
+        },
+        {
+          "index": 2,
+          "file": "D:/unity/UnityProject/GameDesinger/Assets/Resources/Sprite/Character/Boss1/Attack/Up.png",
+          "status": "failed",
+          "error": "codex exec exit 1"
+        },
+        {
+          "index": 3,
+          "file": "D:/unity/UnityProject/GameDesinger/Assets/Resources/Sprite/Character/Boss1/Attack/Left.png",
+          "status": "failed",
+          "error": "codex exec exit 1"
+        },
+        {
+          "index": 4,
+          "file": "D:/unity/UnityProject/GameDesinger/Assets/Resources/Sprite/Character/Boss1/Attack/Right.png",
+          "status": "failed",
+          "error": "codex exec exit 1"
+        }
+      ]
+    },
+    {
+      "batch_id": "char17_boss1_04",
+      "ok": 0,
+      "failed": 4,
+      "error": "codex exec exit 1",
+      "items": [
+        {
+          "index": 1,
+          "file": "D:/unity/UnityProject/GameDesinger/Assets/Resources/Sprite/Character/Boss1/Death/Down.png",
+          "status": "failed",
+          "error": "codex exec exit 1"
+        },
+        {
+          "index": 2,
+          "file": "D:/unity/UnityProject/GameDesinger/Assets/Resources/Sprite/Character/Boss1/Death/Up.png",
+          "status": "failed",
+          "error": "codex exec exit 1"
+        },
+        {
+          "index": 3,
+          "file": "D:/unity/UnityProject/GameDesinger/Assets/Resources/Sprite/Character/Boss1/Death/Left.png",
+          "status": "failed",
+          "error": "codex exec exit 1"
+        },
+        {
+          "index": 4,
+          "file": "D:/unity/UnityProject/GameDesinger/Assets/Resources/Sprite/Character/Boss1/Death/Right.png",
+          "status": "failed",
+          "error": "codex exec exit 1"
+        }
+      ]
+    }
+  ]
+}

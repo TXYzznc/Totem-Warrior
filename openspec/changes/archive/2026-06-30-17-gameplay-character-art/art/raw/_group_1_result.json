@@ -1,0 +1,98 @@
+{
+  "success": true,
+  "results": [
+    {
+      "batch_id": "char17_player1_02",
+      "ok": 4,
+      "failed": 0,
+      "items": [
+        {
+          "index": 1,
+          "file": "D:\\unity\\UnityProject\\GameDesinger\\Assets\\Resources\\Sprite\\Character\\Player1\\Walk\\Down.png",
+          "status": "ok",
+          "size_bytes": 51861
+        },
+        {
+          "index": 2,
+          "file": "D:\\unity\\UnityProject\\GameDesinger\\Assets\\Resources\\Sprite\\Character\\Player1\\Walk\\Up.png",
+          "status": "ok",
+          "size_bytes": 53321
+        },
+        {
+          "index": 3,
+          "file": "D:\\unity\\UnityProject\\GameDesinger\\Assets\\Resources\\Sprite\\Character\\Player1\\Walk\\Left.png",
+          "status": "ok",
+          "size_bytes": 147168
+        },
+        {
+          "index": 4,
+          "file": "D:\\unity\\UnityProject\\GameDesinger\\Assets\\Resources\\Sprite\\Character\\Player1\\Walk\\Right.png",
+          "status": "ok",
+          "size_bytes": 66475
+        }
+      ]
+    },
+    {
+      "batch_id": "char17_player1_03",
+      "ok": 4,
+      "failed": 0,
+      "items": [
+        {
+          "index": 1,
+          "file": "D:\\unity\\UnityProject\\GameDesinger\\Assets\\Resources\\Sprite\\Character\\Player1\\Attack\\Down.png",
+          "status": "ok",
+          "size_bytes": 2283005
+        },
+        {
+          "index": 2,
+          "file": "D:\\unity\\UnityProject\\GameDesinger\\Assets\\Resources\\Sprite\\Character\\Player1\\Attack\\Up.png",
+          "status": "ok",
+          "size_bytes": 2307469
+        },
+        {
+          "index": 3,
+          "file": "D:\\unity\\UnityProject\\GameDesinger\\Assets\\Resources\\Sprite\\Character\\Player1\\Attack\\Left.png",
+          "status": "ok",
+          "size_bytes": 1887735
+        },
+        {
+          "index": 4,
+          "file": "D:\\unity\\UnityProject\\GameDesinger\\Assets\\Resources\\Sprite\\Character\\Player1\\Attack\\Right.png",
+          "status": "ok",
+          "size_bytes": 1888351
+        }
+      ]
+    },
+    {
+      "batch_id": "char17_player1_04",
+      "ok": 3,
+      "failed": 1,
+      "items": [
+        {
+          "index": 1,
+          "file": "D:\\unity\\UnityProject\\GameDesinger\\Assets\\Resources\\Sprite\\Character\\Player1\\Death\\Down.png",
+          "status": "failed",
+          "error": "file missing or < 1KB (codex 未真出图或路径不对)"
+        },
+        {
+          "index": 2,
+          "file": "D:\\unity\\UnityProject\\GameDesinger\\Assets\\Resources\\Sprite\\Character\\Player1\\Death\\Up.png",
+          "status": "ok",
+          "size_bytes": 2396795
+        },
+        {
+          "index": 3,
+          "file": "D:\\unity\\UnityProject\\GameDesinger\\Assets\\Resources\\Sprite\\Character\\Player1\\Death\\Left.png",
+          "status": "ok",
+          "size_bytes": 2414527
+        },
+        {
+          "index": 4,
+          "file": "D:\\unity\\UnityProject\\GameDesinger\\Assets\\Resources\\Sprite\\Character\\Player1\\Death\\Right.png",
+          "status": "ok",
+          "size_bytes": 1690247
+        }
+      ]
+    }
+  ]
+}

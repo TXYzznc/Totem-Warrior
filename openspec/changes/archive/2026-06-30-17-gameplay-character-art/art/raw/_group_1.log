@@ -1,0 +1,9 @@
+
+=== _group_1.json (1115.7s) ===
+  char17_player1_02: ok=4 failed=0
+  char17_player1_03: ok=4 failed=0
+  char17_player1_04: ok=3 failed=1
+    FAIL  idx=1 Down.png: file missing or < 1KB (codex 未真出图或路径不对)
+
+TOTAL ok=11 failed=1 elapsed=1115.7s
+result written: _group_1_result.json

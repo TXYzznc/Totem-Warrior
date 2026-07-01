@@ -1,0 +1,20 @@
+
+=== _group_3.json (9.5s) ===
+  char17_boss1_02: ok=0 failed=4
+    FAIL  idx=1 Down.png: codex exec exit 1
+    FAIL  idx=2 Up.png: codex exec exit 1
+    FAIL  idx=3 Left.png: codex exec exit 1
+    FAIL  idx=4 Right.png: codex exec exit 1
+  char17_boss1_03: ok=0 failed=4
+    FAIL  idx=1 Down.png: codex exec exit 1
+    FAIL  idx=2 Up.png: codex exec exit 1
+    FAIL  idx=3 Left.png: codex exec exit 1
+    FAIL  idx=4 Right.png: codex exec exit 1
+  char17_boss1_04: ok=0 failed=4
+    FAIL  idx=1 Down.png: codex exec exit 1
+    FAIL  idx=2 Up.png: codex exec exit 1
+    FAIL  idx=3 Left.png: codex exec exit 1
+    FAIL  idx=4 Right.png: codex exec exit 1
+
+TOTAL ok=0 failed=12 elapsed=9.5s
+result written: _group_3_result.json

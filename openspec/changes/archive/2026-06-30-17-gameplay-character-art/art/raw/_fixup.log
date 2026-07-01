@@ -1,0 +1,7 @@
+
+=== _fixup_player1_death_down.json (4.9s) ===
+  char17_player1_04_fix_down: ok=0 failed=1
+    FAIL  idx=1 Down.png: codex exec exit 1
+
+TOTAL ok=0 failed=1 elapsed=4.9s
+result written: _fixup_player1_death_down_result.json

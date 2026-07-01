@@ -1,0 +1,19 @@
+{
+  "success": true,
+  "results": [
+    {
+      "batch_id": "char17_player1_04_fix_down",
+      "ok": 0,
+      "failed": 1,
+      "error": "codex exec exit 1",
+      "items": [
+        {
+          "index": 1,
+          "file": "D:/unity/UnityProject/GameDesinger/Assets/Resources/Sprite/Character/Player1/Death/Down.png",
+          "status": "failed",
+          "error": "codex exec exit 1"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,98 @@
+{
+  "success": true,
+  "results": [
+    {
+      "batch_id": "char17_player2_01",
+      "ok": 4,
+      "failed": 0,
+      "items": [
+        {
+          "index": 1,
+          "file": "D:\\unity\\UnityProject\\GameDesinger\\Assets\\Resources\\Sprite\\Character\\Player2\\Idle\\Down.png",
+          "status": "ok",
+          "size_bytes": 2162846
+        },
+        {
+          "index": 2,
+          "file": "D:\\unity\\UnityProject\\GameDesinger\\Assets\\Resources\\Sprite\\Character\\Player2\\Idle\\Up.png",
+          "status": "ok",
+          "size_bytes": 2287963
+        },
+        {
+          "index": 3,
+          "file": "D:\\unity\\UnityProject\\GameDesinger\\Assets\\Resources\\Sprite\\Character\\Player2\\Idle\\Left.png",
+          "status": "ok",
+          "size_bytes": 2438263
+        },
+        {
+          "index": 4,
+          "file": "D:\\unity\\UnityProject\\GameDesinger\\Assets\\Resources\\Sprite\\Character\\Player2\\Idle\\Right.png",
+          "status": "ok",
+          "size_bytes": 2107460
+        }
+      ]
+    },
+    {
+      "batch_id": "char17_player3_01",
+      "ok": 4,
+      "failed": 0,
+      "items": [
+        {
+          "index": 1,
+          "file": "D:\\unity\\UnityProject\\GameDesinger\\Assets\\Resources\\Sprite\\Character\\Player3\\Idle\\Down.png",
+          "status": "ok",
+          "size_bytes": 2110127
+        },
+        {
+          "index": 2,
+          "file": "D:\\unity\\UnityProject\\GameDesinger\\Assets\\Resources\\Sprite\\Character\\Player3\\Idle\\Up.png",
+          "status": "ok",
+          "size_bytes": 2119042
+        },
+        {
+          "index": 3,
+          "file": "D:\\unity\\UnityProject\\GameDesinger\\Assets\\Resources\\Sprite\\Character\\Player3\\Idle\\Left.png",
+          "status": "ok",
+          "size_bytes": 2097481
+        },
+        {
+          "index": 4,
+          "file": "D:\\unity\\UnityProject\\GameDesinger\\Assets\\Resources\\Sprite\\Character\\Player3\\Idle\\Right.png",
+          "status": "ok",
+          "size_bytes": 2662814
+        }
+      ]
+    },
+    {
+      "batch_id": "char17_boss1_01",
+      "ok": 4,
+      "failed": 0,
+      "items": [
+        {
+          "index": 1,
+          "file": "D:\\unity\\UnityProject\\GameDesinger\\Assets\\Resources\\Sprite\\Character\\Boss1\\Idle\\Down.png",
+          "status": "ok",
+          "size_bytes": 2662814
+        },
+        {
+          "index": 2,
+          "file": "D:\\unity\\UnityProject\\GameDesinger\\Assets\\Resources\\Sprite\\Character\\Boss1\\Idle\\Up.png",
+          "status": "ok",
+          "size_bytes": 2304260
+        },
+        {
+          "index": 3,
+          "file": "D:\\unity\\UnityProject\\GameDesinger\\Assets\\Resources\\Sprite\\Character\\Boss1\\Idle\\Left.png",
+          "status": "ok",
+          "size_bytes": 2340819
+        },
+        {
+          "index": 4,
+          "file": "D:\\unity\\UnityProject\\GameDesinger\\Assets\\Resources\\Sprite\\Character\\Boss1\\Idle\\Right.png",
+          "status": "ok",
+          "size_bytes": 2410917
+        }
+      ]
+    }
+  ]
+}
