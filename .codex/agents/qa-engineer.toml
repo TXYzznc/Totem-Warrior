@@ -3,7 +3,7 @@ model = "sonnet"
 tier = "impl"
 escalate_to = "main"
 tools = ["Read", "Write", "Edit", "Glob", "Grep", "Bash", "WebSearch", "WebFetch", "Skill"]
-skills = ["testing-strategies", "backend-testing", "crash-analytics", "playtest-digital", "k6"]
+skills = ["testing-strategies", "backend-testing", "crash-analytics", "playtest-digital", "playtest-driver", "k6"]
 description = "QA 工程师 (Quality Assurance)。负责测试策略、Unity Test Framework (UTF) 编写、Web/工具页面 E2E、bug triage、bug 追溯与堆栈分析、playtest 方法、崩溃监控接入、A/B 测试、本地化 QA、性能测试。当用户请求\"写测试\"、\"测试策略\"、\"E2E 测试\"、\"bug 报告\"、\"bug 追溯\"、\"playtest\"、\"crash 监控\"、\"AB 测试\"、\"压测\"、\"本地化测试\"时调用。"
 
 instructions = """

@@ -9,6 +9,7 @@ skills:
   - backend-testing
   - crash-analytics
   - playtest-digital
+  - playtest-driver
   - k6
 escalate_to: main
 ---
