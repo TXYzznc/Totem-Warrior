@@ -1,0 +1,162 @@
+# Playtest 报告模板：TC-Pillar-A — 核心战斗手感
+
+> 状态: PENDING（本期写场景描述；实装需 Editor Play Mode + InputSimulator）
+> 依赖: PlaytestDriverEditor + InputSimulator（change#20 实装后可跑）
+
+---
+
+## 基本信息
+
+| 字段 | 值 |
+|---|---|
+| TC 编号 | TC-Pillar-A |
+| 归属 change | #20 player-attack-system |
+| 报告日期 | {{YYYY-MM-DD HH:MM}} |
+| 跑者 | qa-engineer（自动化）/ {{测试员姓名}}（人工） |
+| 武器 | knife（AimSpreadHalfDeg=120°，代表宽扇形手感） |
+| Build | {{Build version}} |
+
+---
+
+## 前置条件
+
+1. Editor Play Mode 已进入（GameApp 日志显示"所有模块初始化完成"）
+2. StartupSelectForm 已选择：颜料=任意，武器=knife，图案=任意
+3. 至少 1 个存活敌人在场（SpawnerModule 默认 49 敌人）
+4. InputSimulator 已装配（`Tools/Playtest/01 Enable Simulator`）
+5. 控制台无 Error 级别日志
+
+---
+
+## 测试场景描述
+
+### 场景 A: 普攻 TTK 估算
+
+**目标**：确认 knife 普攻击杀标准敌人（HP=100）所需次数在合理范围（4-8 次）。
+
+**操作序列**（PlaytestDriver 菜单）：
+```
+1. Tools/Playtest/Press/MouseLeft (Attack) × 1
+   期望日志: [PlayerDamageReceiver|INFO] Action=ApplyDamage
+   期望日志: [WeaponModule|INFO] Action=AttackHit 或 AttackHitEvent 发布
+2. 等待 0.5s（敌人 Update）
+3. 重复步骤 1 共 8 次
+4. 观察敌人 HP 变化（控制台 AttackHitEvent.BaseDamage）
+5. 记录击杀所需次数
+```
+
+**通过标准**：
+- 击杀所需次数 ∈ [4, 8]（WeaponDamage 基础值 10，敌人 HP 100）
+- 无 Error 级别日志
+
+**PASS / FAIL**: {{结果}}
+
+---
+
+### 场景 B: 暴击体感验证
+
+**目标**：有 Head 槽（PatternMultiplier=0.3）时，100 次普攻中暴击数量可感知（期望约 30 次 CritHitEvent）。
+
+**前置**：装备含 Head 纹身槽的 Build。
+
+**操作序列**：
+```
+1. 订阅 console_get_logs filter="CritTriggered"
+2. Tools/Playtest/Press/MouseLeft (Attack) × 20
+3. 统计 [HeadPartBehavior|INFO] Action=CritTriggered 日志行数
+4. 验证暴击数量 / 总攻击次数 ≈ PatternMultiplier
+```
+
+**通过标准**：
+- 20 次攻击中，CritTriggered 日志数量 ∈ [2, 10]（PatternMultiplier=0.3，±理论偏差）
+- CritHitEvent.BaseDamage = WeaponBaseDamage × CritMultiplier（约 15，默认 1.5×）
+
+**PASS / FAIL**: {{结果}}
+
+---
+
+### 场景 C: 状态效果 DoT 可见性（需 change#19 视觉，本期仅验证日志）
+
+**目标**：敌人被 Burn 后 StatusEffectModule tick 日志正常输出。
+
+**前置**：SkillHitResolver 处理了 EffectType=Status 的 trait；或手动调 ApplyStatus。
+
+**操作序列**：
+```
+1. Tools/Playtest/Press/E (Skill)（触发技能，若带 Burn trait）
+2. 等待 2s（4 个 0.5s tick）
+3. console_get_logs filter="StatusEffectTicked" limit=20
+4. 验证 StatusEffectTickedEvent 日志存在
+```
+
+**通过标准**：
+- 每 0.5s 出现 1 条 `[StatusEffectModule|INFO] Action=StatusTick...` 日志（或 TickedEvent 被订阅方处理）
+- `StatusEffectExpiredEvent` 在 duration 到期后发出 1 次
+
+**PASS / FAIL**: {{结果}}
+
+---
+
+### 场景 D: 输入响应延迟
+
+**目标**：鼠标左键到 AttackHitEvent 发布间隔 < 2 帧（约 33ms@30fps）。
+
+**方法**：观测 InputAttackEvent 发布时间戳 vs AttackHitEvent 时间戳（日志 timestamp 行）。
+
+**通过标准**：
+- 日志中两个事件时间戳差 < 100ms（Edit/Step 单帧推进验证，1 帧 ≈ 16-33ms）
+
+**PASS / FAIL**: {{结果}}
+
+---
+
+## SUS 快速评估（5 题，1-5 Likert）
+
+> 适用于人工 Playtest；自动化测试跳过本节。
+
+| 题目 | 评分 (1-5) |
+|---|---|
+| 1. 攻击操作感觉直觉/顺手 | {{}} |
+| 2. 暴击反馈（颜色/数字）清晰可辨 | {{}} |
+| 3. 状态效果（Burn/Poison）的持续感明确 | {{}} |
+| 4. 击杀敌人的节奏感令人满意 | {{}} |
+| 5. 整体战斗手感达到预期水准 | {{}} |
+
+SUS 加权分: {{计算值}} / 100
+通过线: 68
+
+---
+
+## 发现的问题
+
+| ID | 描述 | 严重度 | 关联 |
+|---|---|---|---|
+| {{}} | {{}} | {{P0-P3}} | {{TC/BUG 编号}} |
+
+---
+
+## 汇总结论
+
+**TTK 估算**：knife 普攻 × {{N}} 次击杀（实测），理论 4-8 次。{{PASS/FAIL}}
+
+**暴击体感**：{{N}}/20 次暴击（PatternMultiplier={{val}}），{{符合/不符合}}期望分布。{{PASS/FAIL}}
+
+**DoT 日志**：Burn tick {{N}} 次，Expired {{N}} 次。{{PASS/FAIL}}
+
+**输入延迟**：{{N}}ms。{{PASS/FAIL}}
+
+**整体评估**：{{通过/需修复后复测}}
+
+---
+
+## 下一步行动
+
+| 行动 | 负责人 | 截止 |
+|---|---|---|
+| BUG-20-01 最后半秒 DoT 丢失修复 | client-unity | change#20 归档前 |
+| BUG-20-02 EffectResult.HitTarget 路由补全 | client-unity | change#21 计划内 |
+| R3 评分公式 100× 系数 playtest 主观验证 | qa-engineer | change#20 archive 前补跑 |
+
+---
+
+*本模板使用 playtest-digital SKILL 方法论 + playtest-driver SKILL 执行框架生成*
