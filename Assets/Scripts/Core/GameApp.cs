@@ -81,6 +81,8 @@ public class GameApp : MonoBehaviour
             _runner.AddModule(new Tattoo.Bot.BotControllerModule(_runner, _bus));
             // v2.1 事件系统（依赖 DataTableModule + MapGenModule）
             _runner.AddModule(new EventModule(_runner, _bus));
+            // change #22 子项 D：音效桥（依赖 AudioModule + SpawnerModule + DataTableModule）
+            _runner.AddModule(new Tattoo.Audio.AudioBridge(_runner, _bus));
 
             await _runner.StartAsync();
 

@@ -3,6 +3,7 @@
     "com.besty.unity-skills": "file:../OutPackages/Unity-Skills-main/SkillsForUnity",
     "com.cysharp.unitask": "file:../OutPackages/UniTask/src/UniTask/Assets/Plugins/UniTask",
     "com.unity.collab-proxy": "2.12.4",
+    "com.unity.feature.2d": "2.0.1",
     "com.unity.ide.rider": "3.0.36",
     "com.unity.ide.visualstudio": "2.0.22",
     "com.unity.ide.vscode": "1.2.5",
