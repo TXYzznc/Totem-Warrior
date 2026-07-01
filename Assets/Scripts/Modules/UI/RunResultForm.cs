@@ -14,7 +14,7 @@ namespace Tattoo.UI
     /// 触发：订阅 RunEndedEvent → 显示「胜利」/「失败」+ 等玩家点 ReturnToMenuBtn 回主菜单
     /// 控件契约（按 Prefab 节点名）：TitleText / ReturnToMenuBtn
     /// </summary>
-    public sealed class RunResultForm : MonoBehaviour, IUIForm
+    public sealed class RunResultForm : MonoBehaviour, IUIForm, IUIFormBootstrap
     {
         EventBus     _bus;
         ModuleRunner _runner;
@@ -27,9 +27,19 @@ namespace Tattoo.UI
 
         public void OnGameStateChanged(GameState oldState, GameState newState)
         {
-            // 离开 GameOver（玩家点了返回主菜单）→ 隐藏
-            if (newState != GameState.GameOver && gameObject.activeSelf)
+            if (newState == GameState.GameOver)
+            {
+                // GameOver → 显示结算面板（兜底：RunEndedEvent 若先到则标题已设好，否则默认"本局结束"）
+                if (_titleText != null && !gameObject.activeSelf)
+                    _titleText.text = "本局结束";
+                gameObject.SetActive(true);
+                FrameworkLogger.Info("RunResultForm", $"Action=ShownByGameOver OldState={oldState}");
+            }
+            else if (gameObject.activeSelf)
+            {
+                // 离开 GameOver（玩家点了返回主菜单）→ 隐藏
                 gameObject.SetActive(false);
+            }
         }
 
         void Awake()
@@ -46,19 +56,11 @@ namespace Tattoo.UI
             return null;
         }
 
-        async void Start()
+        public void Bootstrap(EventBus bus, ModuleRunner runner)
         {
-            GameApp app = null;
-            float timeout = Time.unscaledTime + 10f;
-            while (Time.unscaledTime < timeout)
-            {
-                app = FindObjectOfType<GameApp>();
-                if (app != null && app.TryGetRuntime(out _bus, out _runner)) break;
-                await UniTask.Yield();
-            }
-            if (_bus == null) return;
-
-            _runner.GetModule<UIModule>().Register(this);
+            // UIModule 同步调用：避免 Start 在 inactive 下不跑而导致 RunEndedEvent 订阅丢失
+            _bus = bus;
+            _runner = runner;
             _returnBtn?.onClick.AddListener(OnReturnClicked);
             _subs.Add(_bus.Subscribe<RunEndedEvent>(OnRunEnded));
         }

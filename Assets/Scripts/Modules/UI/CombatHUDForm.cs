@@ -109,10 +109,29 @@ namespace Tattoo.UI
                 return;
             }
 
+            // UIModule.EarlyRegister 已在 GameReady 时提前注册，此处 Register 幂等（_forms.Contains 保护）
             _runner.GetModule<UIModule>().Register(this);
             SubscribeEvents();
             IsReady = true;
             FrameworkLogger.Info("CombatHUDForm", "Action=Ready");
+
+            // 决策 (a)：GameStateModule.StartGame() 已发 GameStateChangedEvent，
+            // UIModule.EarlyRegister 让本 Form 收到了 OnGameStateChanged(InGame) 并 SetActive(true)。
+            // 但 RunStartedEvent 由 CombatModule 在 OnGameStateChanged(InGame) 中发布，
+            // 彼时本 Form 的 EventBus 订阅尚未建立（Start 下一帧才跑），HUD 初始数据会丢失。
+            // 补偿：Start() 完成后，若当前状态已是 InGame，从 SpawnerModule 读取初始数据手动初始化。
+            var gs = _runner.GetModule<GameStateModule>();
+            if (gs != null && gs.CurrentState == GameState.InGame)
+            {
+                var spawner = _runner.GetModule<SpawnerModule>();
+                float maxHp = spawner != null ? spawner.PlayerMaxHp : 100f;
+                _maxHp = maxHp > 0 ? maxHp : 100f;
+                _curHp = _maxHp;
+                UpdateHpBar();
+                gameObject.SetActive(true);
+                FrameworkLogger.Info("CombatHUDForm",
+                    $"Action=LateInit MaxHp={_maxHp} Reason=RunStartedEvent_missed_before_Subscribe");
+            }
         }
 
         void OnDestroy()

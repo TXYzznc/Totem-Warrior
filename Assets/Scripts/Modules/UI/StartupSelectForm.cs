@@ -54,6 +54,36 @@ namespace Tattoo.UI
         static readonly Color NormalTint    = Color.white;
         static readonly Color SelectedTint  = new Color(0.5f, 1f, 0.5f);
 
+        // ── 素材路径映射（change #21 landing）──
+        // 颜料 ColorId → sprite 路径（不带扩展名，Resources.Load 用）
+        static readonly Dictionary<int, string> ColorSpritePaths = new()
+        {
+            { 1, "Sprite/Paints/paint_red_common"    },
+            { 2, "Sprite/Paints/paint_yellow_common" },
+            { 4, "Sprite/Paints/paint_blue_common"   },
+        };
+        // 武器 WeaponId → sprite 路径
+        static readonly Dictionary<string, string> WeaponSpritePaths = new()
+        {
+            { "knife_basic",  "Sprite/Weapons/weapon_short_blade"  },
+            { "hammer_heavy", "Sprite/Weapons/weapon_heavy_hammer" },
+            { "pistol_basic", "Sprite/Weapons/weapon_pistol"       },
+            { "bow_charge",   "Sprite/Weapons/weapon_bow"          },
+            { "energy_fist",  "Sprite/Weapons/weapon_energy_fist"  },
+        };
+        // 图案 PatternId → sprite 路径
+        static readonly Dictionary<int, string> PatternSpritePaths = new()
+        {
+            { 1, "Sprite/Tattoo/Pattern/Line" },
+            { 2, "Sprite/Tattoo/Pattern/Ring" },
+        };
+
+        static Sprite LoadSpriteSafe(string path)
+        {
+            if (string.IsNullOrEmpty(path)) return null;
+            return Resources.Load<Sprite>(path);
+        }
+
         // ── IUIForm ───────────────────────────────────────────
 
         public GameObject GameObject => gameObject;
@@ -151,7 +181,8 @@ namespace Tattoo.UI
                 if (colorAdded >= 3) break;
                 if (!colorTable.TryGetById(cid, out var row)) continue;
                 int captureId = row.Id;
-                var go = CreateCard($"Color_{row.Name}", _colorRoot, row.Name, () => SetSelectedColor(captureId));
+                Sprite icon = LoadSpriteSafe(ColorSpritePaths.TryGetValue(cid, out var p) ? p : null);
+                var go = CreateCard($"Color_{row.Name}", _colorRoot, row.Name, icon, () => SetSelectedColor(captureId));
                 _colorCards.Add(go);
                 _colorIds.Add(row.Id);
                 colorAdded++;
@@ -166,7 +197,8 @@ namespace Tattoo.UI
                     foreach (int pid in preferredColorIds) if (pid == kv.Key) { already = true; break; }
                     if (already) continue;
                     int captureId = kv.Value.Id;
-                    var go = CreateCard($"Color_{kv.Value.Name}", _colorRoot, kv.Value.Name, () => SetSelectedColor(captureId));
+                    Sprite icon = LoadSpriteSafe(ColorSpritePaths.TryGetValue(kv.Key, out var p) ? p : null);
+                    var go = CreateCard($"Color_{kv.Value.Name}", _colorRoot, kv.Value.Name, icon, () => SetSelectedColor(captureId));
                     _colorCards.Add(go);
                     _colorIds.Add(kv.Value.Id);
                     colorAdded++;
@@ -178,7 +210,8 @@ namespace Tattoo.UI
             foreach (var kv in weaponTable.All)
             {
                 string captureId = kv.Value.WeaponId;
-                var go = CreateCard($"Weapon_{kv.Value.WeaponId}", _weaponRoot, kv.Value.Name, () => SetSelectedWeapon(captureId));
+                Sprite icon = LoadSpriteSafe(WeaponSpritePaths.TryGetValue(captureId, out var p) ? p : null);
+                var go = CreateCard($"Weapon_{kv.Value.WeaponId}", _weaponRoot, kv.Value.Name, icon, () => SetSelectedWeapon(captureId));
                 _weaponCards.Add(go);
                 _weaponIds.Add(kv.Value.WeaponId);
             }
@@ -190,7 +223,8 @@ namespace Tattoo.UI
             {
                 if (!patternTable.TryGetById(pid, out var row)) continue;
                 int captureId = row.Id;
-                var go = CreateCard($"Pattern_{row.Name}", _patternRoot, row.Name, () => ToggleSelectedPattern(captureId));
+                Sprite icon = LoadSpriteSafe(PatternSpritePaths.TryGetValue(pid, out var p) ? p : null);
+                var go = CreateCard($"Pattern_{row.Name}", _patternRoot, row.Name, icon, () => ToggleSelectedPattern(captureId));
                 _patternCards.Add(go);
                 _patternIds.Add(row.Id);
             }
@@ -199,10 +233,10 @@ namespace Tattoo.UI
         }
 
         /// <summary>
-        /// 代码动态创建卡片 GameObject（Image + Button + Text）。
-        /// Prefab 缺失时兜底，不阻塞开发进度。
+        /// 代码动态创建卡片 GameObject（IconBg + Icon + Name）。
+        /// 结构 = 卡片框（tint 表达选中）+ 中央 icon（sprite）+ 底部文字。
         /// </summary>
-        GameObject CreateCard(string goName, Transform parent, string label, UnityEngine.Events.UnityAction onClick)
+        GameObject CreateCard(string goName, Transform parent, string label, Sprite icon, UnityEngine.Events.UnityAction onClick)
         {
             var go = new GameObject(goName, typeof(RectTransform));
             go.transform.SetParent(parent, false);
@@ -212,19 +246,35 @@ namespace Tattoo.UI
 
             var bg = go.AddComponent<Image>();
             bg.color = NormalTint;
+            bg.raycastTarget = true;
 
             var btn = go.AddComponent<Button>();
             btn.targetGraphic = bg;
             btn.onClick.AddListener(onClick);
 
-            // 文本子节点
-            var labelGo = new GameObject("Label", typeof(RectTransform));
+            // Icon 子节点（居中）
+            if (icon != null)
+            {
+                var iconGo = new GameObject("Icon", typeof(RectTransform));
+                iconGo.transform.SetParent(go.transform, false);
+                var iconRect = iconGo.GetComponent<RectTransform>();
+                iconRect.sizeDelta = new Vector2(80f, 80f);
+                iconRect.anchoredPosition = new Vector2(0f, 8f);
+                var iImg = iconGo.AddComponent<Image>();
+                iImg.sprite = icon;
+                iImg.raycastTarget = false;
+                iImg.preserveAspect = true;
+            }
+
+            // Name 子节点（底部）
+            var labelGo = new GameObject("Name", typeof(RectTransform));
             labelGo.transform.SetParent(go.transform, false);
             var labelRect = labelGo.GetComponent<RectTransform>();
-            labelRect.anchorMin = Vector2.zero;
-            labelRect.anchorMax = Vector2.one;
-            labelRect.offsetMin = Vector2.zero;
-            labelRect.offsetMax = Vector2.zero;
+            labelRect.anchorMin = new Vector2(0f, 0f);
+            labelRect.anchorMax = new Vector2(1f, 0f);
+            labelRect.pivot = new Vector2(0.5f, 0f);
+            labelRect.sizeDelta = new Vector2(0f, 24f);
+            labelRect.anchoredPosition = new Vector2(0f, 4f);
 
             var txt = labelGo.AddComponent<Text>();
             txt.text      = label;
@@ -232,6 +282,7 @@ namespace Tattoo.UI
             txt.alignment = TextAnchor.MiddleCenter;
             txt.fontSize  = 14;
             txt.color     = Color.black;
+            txt.raycastTarget = false;
 
             return go;
         }
@@ -386,13 +437,35 @@ namespace Tattoo.UI
             FrameworkLogger.Info("StartupSelectForm",
                 $"Action=Confirm Color={_selectedColorId} Weapon={_selectedWeaponId} Patterns=[{string.Join(",", patArr)}]");
 
+            // change#21：起手确认 → 切 InGame，触发 RunStartedEvent（HUD 初始化等）
+            try
+            {
+                var gs = _runner?.GetModule<GameStateModule>();
+                if (gs != null && gs.CurrentState != GameState.InGame)
+                {
+                    gs.StartGame();
+                    FrameworkLogger.Info("StartupSelectForm", "Action=Confirm → GameState.InGame");
+                }
+            }
+            catch (Exception ex)
+            {
+                FrameworkLogger.Error("StartupSelectForm",
+                    $"Action=Confirm StartGame Exception={ex.GetType().Name} Msg=\"{ex.Message}\"");
+            }
+
             Close();
         }
 
         void OnCancel()
         {
-            // TODO change#20: 取消 → 回主菜单或保持 CharacterSelect（待 gd-lead 决策）
+            // change#21：取消 → 回到 CharacterSelect（让玩家重选角色 / 再进武器）
             Close();
+            var charSel = UnityEngine.Object.FindObjectOfType<CharacterSelectForm>(true);
+            if (charSel != null)
+            {
+                charSel.Open();
+                FrameworkLogger.Info("StartupSelectForm", "Action=Cancel → CharacterSelectForm.Open");
+            }
         }
     }
 }

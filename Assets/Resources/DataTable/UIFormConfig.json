@@ -18,6 +18,7 @@
     { "Id": 8, "FormName": "MainMenuForm",       "PrefabPath": "UI/MainMenu",        "SortOrder": 30, "IsExclusive": false },
     { "Id": 9, "FormName": "CharacterSelectForm","PrefabPath": "UI/CharacterSelect", "SortOrder": 30, "IsExclusive": false },
     { "Id": 10,"FormName": "SettingsForm",      "PrefabPath": "UI/Settings",        "SortOrder": 20, "IsExclusive": true  },
-    { "Id": 11,"FormName": "SelfTattooForm",    "PrefabPath": "UI/SelfTattoo",      "SortOrder": 10, "IsExclusive": true  }
+    { "Id": 11,"FormName": "SelfTattooForm",    "PrefabPath": "UI/SelfTattoo",      "SortOrder": 10, "IsExclusive": true  },
+    { "Id": 12,"FormName": "StartupSelectForm", "PrefabPath": "UI/StartupSelect",   "SortOrder": 30, "IsExclusive": false }
   ]
 }

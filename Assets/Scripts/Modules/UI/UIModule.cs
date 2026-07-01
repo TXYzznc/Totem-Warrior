@@ -95,12 +95,35 @@ public sealed class UIModule : IGameModule
                     rt.sizeDelta = Vector2.zero;
                     rt.anchoredPosition = Vector2.zero;
                 }
-                // 加载后立刻喂一次当前 GameState，让 Form 决定初始显隐
-                var form = inst.GetComponent<IUIForm>();
+                // 实例化后立即注册到 UIModule，不依赖 Form.Start() 的异步轮询。
+                // Form.Start() 中的 Register 调用因 _forms.Contains 检查而幂等，不会重复注册。
+                // 若不在此处提前注册，Start() 在下一帧才执行，OnGameStateChanged 广播会丢失。
+                // 用 GetComponentInChildren(includeInactive=true)：部分 Prefab 的 IUIForm 挂在子节点
+                // （如 Canvas/Panel 下），且 Form 自身常在 Awake 中 SetActive(false)，必须 includeInactive
+                var form = inst.GetComponentInChildren<IUIForm>(true);
                 if (form != null)
                 {
+                    Register(form);
+                    FrameworkLogger.Info("UIModule", $"Action=EarlyRegister Form={row.FormName}");
+                    // Bootstrap：让 Form 在 inactive 状态下也能完成事件订阅 / 按钮绑定
+                    // 必要原因：MonoBehaviour.Start 不在 inactive GameObject 上运行，
+                    // 所以 Form 若在 Awake 中 SetActive(false) 就永远拿不到 Start 触发，
+                    // 必须借这个 hook 同步传 bus/runner 完成初始化。
+                    if (form is IUIFormBootstrap boot)
+                    {
+                        try { boot.Bootstrap(_eventBus, _runner); }
+                        catch (Exception bex)
+                        {
+                            FrameworkLogger.Error("UIModule", $"Action=Bootstrap Form={row.FormName} Exception={bex.GetType().Name} Msg=\"{bex.Message}\"");
+                        }
+                    }
+                    // 喂一次当前 GameState，让 Form 决定初始显隐
                     var gs = _runner.GetModule<GameStateModule>();
                     if (gs != null) form.OnGameStateChanged(gs.CurrentState, gs.CurrentState);
+                }
+                else
+                {
+                    FrameworkLogger.Warn("UIModule", $"Action=EarlyRegister Form={row.FormName} 找不到 IUIForm 组件（Prefab 结构异常）");
                 }
                 success++;
             }
@@ -192,4 +215,23 @@ public interface IExclusiveUIForm : IUIForm
 
     /// <summary>UIModule 互斥冲突时强制关闭（不播动画，直接 SetActive(false)）。</summary>
     void ForceClose();
+}
+
+/// <summary>
+/// UIForm 的"inactive 阶段初始化"钩子（可选）。
+///
+/// 背景：UIModule.OnGameReady 实例化 Prefab 后，Form 通常在 Awake 中 SetActive(false)；
+/// Unity 不在 inactive GameObject 上调用 Start()，因此把订阅 / 按钮绑定写在 Start 里的 Form
+/// 会一直收不到事件（如 PauseMenuForm 收不到 PauseRequestedEvent）。
+///
+/// 实现该接口的 Form 由 UIModule 在 EarlyRegister 之后立即同步调用 Bootstrap，
+/// 把 EventBus / ModuleRunner 直接传进来，Form 在此完成事件订阅与按钮 listener 绑定。
+/// </summary>
+public interface IUIFormBootstrap
+{
+    /// <summary>
+    /// 由 UIModule 在 EarlyRegister 之后立即调用。Form 应在此设置 EventBus / ModuleRunner 引用、
+    /// 调用 SubscribeEvents、为按钮绑定 onClick。**禁止**在此调用 SetActive(true)。
+    /// </summary>
+    void Bootstrap(EventBus bus, ModuleRunner runner);
 }

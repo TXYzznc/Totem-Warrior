@@ -14,7 +14,7 @@ namespace Tattoo.UI
     /// 触发条件：PauseRequestedEvent（由 InputModule 发出）
     /// 打开时 Time.timeScale = 0，关闭时恢复。
     /// </summary>
-    public sealed class PauseMenuForm : MonoBehaviour, IUIForm
+    public sealed class PauseMenuForm : MonoBehaviour, IUIForm, IUIFormBootstrap
     {
         [Header("按钮")]
         [SerializeField] Button _resumeBtn;
@@ -56,19 +56,11 @@ namespace Tattoo.UI
             return null;
         }
 
-        async void Start()
+        public void Bootstrap(EventBus bus, ModuleRunner runner)
         {
-            GameApp app = null;
-            float timeout = Time.unscaledTime + 10f;
-            while (Time.unscaledTime < timeout)
-            {
-                app = FindObjectOfType<GameApp>();
-                if (app != null && app.TryGetRuntime(out _bus, out _runner)) break;
-                await UniTask.Yield();
-            }
-            if (_bus == null) return;
-
-            _runner.GetModule<UIModule>().Register(this);
+            // UIModule 在 EarlyRegister 之后同步调用：Form 起始 inactive，Start() 不会跑，必须借这里
+            _bus = bus;
+            _runner = runner;
             _resumeBtn?.onClick.AddListener(OnResumeClicked);
             _settingsBtn?.onClick.AddListener(OnSettingsClicked);
             _quitBtn?.onClick.AddListener(OnQuitClicked);

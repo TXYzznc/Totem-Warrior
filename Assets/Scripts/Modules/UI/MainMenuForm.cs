@@ -63,13 +63,17 @@ namespace Tattoo.UI
             _settingsBtn?.onClick.AddListener(OnSettingsClicked);
         }
 
-        /// <summary>开始游戏：切换状态到 InGame，CombatHUDForm 等会按 OnGameStateChanged 自动显示。</summary>
+        /// <summary>开始游戏：打开 CharacterSelectForm 进入选择流程（不再直接切 InGame）。</summary>
         public void OnStartClicked()
         {
-            var gs = _runner?.GetModule<GameStateModule>();
-            if (gs == null) return;
-            gs.StartGame();
-            FrameworkLogger.Info("MainMenuForm", "Action=StartClicked → GameState.InGame");
+            var charSel = UnityEngine.Object.FindObjectOfType<CharacterSelectForm>(true);
+            if (charSel == null)
+            {
+                FrameworkLogger.Warn("MainMenuForm", "Action=StartClicked CharacterSelectForm=null 未找到实例");
+                return;
+            }
+            charSel.Open();
+            FrameworkLogger.Info("MainMenuForm", "Action=StartClicked → CharacterSelectForm.Open");
         }
 
         /// <summary>设置按钮点击：打开设置面板。</summary>
