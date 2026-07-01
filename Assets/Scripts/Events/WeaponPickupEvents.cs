@@ -149,3 +149,26 @@ public sealed class WeaponMaxLevelConvertEvent
         GoldConverted = goldConverted;
     }
 }
+
+/// <summary>
+/// 武器拾取 GO 在场上生成后发布（用于调试日志、UI 提示、TC-15 验证）。
+/// 发布方：WeaponSpawnerModule.SpawnDroppedWeapon（Instantiate 完成后）。
+/// 订阅方：无强制订阅方，TC-15 通过 console_get_logs filter=WeaponSpawned 验证。
+/// 规格：plan-22tc.md TC-15。
+/// </summary>
+public sealed class WeaponSpawnedEvent
+{
+    /// <summary>生成的武器 ID（对应 WeaponConfig.WeaponId）。</summary>
+    public string  WeaponId;
+    /// <summary>生成的世界坐标。</summary>
+    public Vector3 Position;
+    /// <summary>生成的武器 pickup GameObject 实例（可为 null，仅作调试用）。</summary>
+    public GameObject Instance;
+
+    public WeaponSpawnedEvent(string weaponId, Vector3 position, GameObject instance = null)
+    {
+        WeaponId = weaponId;
+        Position = position;
+        Instance = instance;
+    }
+}

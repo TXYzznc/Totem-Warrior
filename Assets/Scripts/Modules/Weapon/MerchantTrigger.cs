@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Tattoo.Data;
 
 // TODO: 后续接 InputModule.IsPickupPressed() / IsAlpha1Pressed() 等，当前回退到 Unity 原生 Input
 // 因 MonoBehaviour 不许 GetModule，InputModule 访问点暂用 Input.GetKeyDown

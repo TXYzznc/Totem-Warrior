@@ -162,6 +162,11 @@ public sealed class WeaponSpawnerModule : IGameModule
         trigger.Bus = _bus;
 
         _activePickups.Add(go);
+
+        // TC-15：武器生成后 Publish WeaponSpawnedEvent，QA 通过 filter=WeaponSpawned 验证
+        _bus.Publish(new WeaponSpawnedEvent(weaponId, position, go));
+        FrameworkLogger.Info("WeaponSpawnerModule",
+            $"WeaponSpawned Id={weaponId} Pos={position}");
     }
 
     /// <summary>
