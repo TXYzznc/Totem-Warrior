@@ -7,6 +7,7 @@ using Tattoo.Data;
 using Tattoo.Events;
 using UnityEngine;
 using UnityEngine.Rendering;
+using Weapon.Events;
 
 namespace Tattoo.VFX
 {
@@ -42,6 +43,11 @@ namespace Tattoo.VFX
         IDisposable _subTattooCancelled;
         IDisposable _subTattooEnchanted;
         IDisposable _subBossSpawned;
+
+        // change #22：战斗反馈 VFX 订阅
+        IDisposable _subWeaponHit;
+        IDisposable _subTargetKilled;
+        IDisposable _subPlayerDied;
 
         Transform _root;
         readonly List<VFXInstance> _instances = new();
@@ -85,6 +91,10 @@ namespace Tattoo.VFX
             _subTattooCancelled  = _bus.Subscribe<TattooCancelledEvent>(OnTattooCancelled);
             _subTattooEnchanted  = _bus.Subscribe<TattooEnchantedEvent>(OnTattooEnchanted);
             _subBossSpawned      = _bus.Subscribe<BossSpawnedEvent>(OnBossSpawned);
+            // change #22
+            _subWeaponHit    = _bus.Subscribe<WeaponAttackHitEvent>(OnWeaponAttackHit);
+            _subTargetKilled = _bus.Subscribe<TargetKilledEvent>(OnTargetKilled);
+            _subPlayerDied   = _bus.Subscribe<PlayerDiedEvent>(OnPlayerDied);
 
             var go = new GameObject("[VFX Root]");
             _root = go.transform;
@@ -111,6 +121,9 @@ namespace Tattoo.VFX
             _subTattooCancelled?.Dispose();
             _subTattooEnchanted?.Dispose();
             _subBossSpawned?.Dispose();
+            _subWeaponHit?.Dispose();
+            _subTargetKilled?.Dispose();
+            _subPlayerDied?.Dispose();
             foreach (var inst in _instances)
                 if (inst.Go != null) UnityEngine.Object.Destroy(inst.Go);
             _instances.Clear();
@@ -346,6 +359,9 @@ namespace Tattoo.VFX
             goPart.transform.SetParent(_root, true);
 
             var ps = goPart.AddComponent<ParticleSystem>();
+            // AddComponent 后 ParticleSystem 默认 playOnAwake=true 处于 Playing 状态，
+            // 必须先 Stop 才能修改 main.duration，否则 Unity 抛 Engine Error。
+            ps.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
             var psr = goPart.GetComponent<ParticleSystemRenderer>();
             psr.renderMode = ParticleSystemRenderMode.Billboard;
             psr.sharedMaterial = BuildTransparentUnlitMat(color);
@@ -397,6 +413,9 @@ namespace Tattoo.VFX
             go.transform.SetParent(_root, true);
 
             var ps = go.AddComponent<ParticleSystem>();
+            // AddComponent 后 ParticleSystem 默认 playOnAwake=true 处于 Playing 状态，
+            // 必须先 Stop 才能修改 main.duration，否则 Unity 抛 Engine Error。
+            ps.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
             var psr = go.GetComponent<ParticleSystemRenderer>();
             psr.renderMode = ParticleSystemRenderMode.Billboard;
             psr.sharedMaterial = BuildTransparentUnlitMat(Color.white);
@@ -448,6 +467,9 @@ namespace Tattoo.VFX
             go.transform.SetParent(_root, true);
 
             var ps = go.AddComponent<ParticleSystem>();
+            // AddComponent 后 ParticleSystem 默认 playOnAwake=true 处于 Playing 状态，
+            // 必须先 Stop 才能修改 main.duration，否则 Unity 抛 Engine Error。
+            ps.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
             var psr = go.GetComponent<ParticleSystemRenderer>();
             psr.renderMode = ParticleSystemRenderMode.Billboard;
             psr.sharedMaterial = BuildTransparentUnlitMat(color);
@@ -495,6 +517,9 @@ namespace Tattoo.VFX
             go.transform.SetParent(_root, true);
 
             var ps = go.AddComponent<ParticleSystem>();
+            // AddComponent 后 ParticleSystem 默认 playOnAwake=true 处于 Playing 状态，
+            // 必须先 Stop 才能修改 main.duration，否则 Unity 抛 Engine Error。
+            ps.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
             var psr = go.GetComponent<ParticleSystemRenderer>();
             psr.renderMode = ParticleSystemRenderMode.Billboard;
             psr.sharedMaterial = BuildTransparentUnlitMat(color);
@@ -911,6 +936,9 @@ namespace Tattoo.VFX
             go.transform.SetParent(_root, true);
 
             var ps = go.AddComponent<ParticleSystem>();
+            // AddComponent 后 ParticleSystem 默认 playOnAwake=true 处于 Playing 状态，
+            // 必须先 Stop 才能修改 main.duration，否则 Unity 抛 Engine Error。
+            ps.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
 
             // Renderer
             var psr = go.GetComponent<ParticleSystemRenderer>();
@@ -967,6 +995,9 @@ namespace Tattoo.VFX
             go.transform.SetParent(_root, true);
 
             var ps = go.AddComponent<ParticleSystem>();
+            // AddComponent 后 ParticleSystem 默认 playOnAwake=true 处于 Playing 状态，
+            // 必须先 Stop 才能修改 main.duration，否则 Unity 抛 Engine Error。
+            ps.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
             var psr = go.GetComponent<ParticleSystemRenderer>();
             psr.renderMode = ParticleSystemRenderMode.Billboard;
             psr.sharedMaterial = BuildTransparentUnlitMat(color);
@@ -1014,6 +1045,9 @@ namespace Tattoo.VFX
             go.transform.SetParent(_root, true);
 
             var ps = go.AddComponent<ParticleSystem>();
+            // AddComponent 后 ParticleSystem 默认 playOnAwake=true 处于 Playing 状态，
+            // 必须先 Stop 才能修改 main.duration，否则 Unity 抛 Engine Error。
+            ps.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
             var psr = go.GetComponent<ParticleSystemRenderer>();
             psr.renderMode = ParticleSystemRenderMode.Billboard;
             psr.sharedMaterial = BuildTransparentUnlitMat(color);
@@ -1062,6 +1096,9 @@ namespace Tattoo.VFX
             go.transform.SetParent(_root, true);
 
             var ps = go.AddComponent<ParticleSystem>();
+            // AddComponent 后 ParticleSystem 默认 playOnAwake=true 处于 Playing 状态，
+            // 必须先 Stop 才能修改 main.duration，否则 Unity 抛 Engine Error。
+            ps.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
             var psr = go.GetComponent<ParticleSystemRenderer>();
             psr.renderMode = ParticleSystemRenderMode.Billboard;
             psr.sharedMaterial = BuildTransparentUnlitMat(color);
@@ -1135,6 +1172,9 @@ namespace Tattoo.VFX
             go.transform.SetParent(_root, true);
 
             var ps = go.AddComponent<ParticleSystem>();
+            // AddComponent 后 ParticleSystem 默认 playOnAwake=true 处于 Playing 状态，
+            // 必须先 Stop 才能修改 main.duration，否则 Unity 抛 Engine Error。
+            ps.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
             var psr = go.GetComponent<ParticleSystemRenderer>();
             psr.renderMode = ParticleSystemRenderMode.Billboard;
             psr.sharedMaterial = BuildTransparentUnlitMat(Color.white);
@@ -1170,6 +1210,72 @@ namespace Tattoo.VFX
 
             ps.Play();
             Push(new VFXInstance { Go = go, Duration = 0.5f });
+        }
+
+        // ===== change #22：战斗反馈 VFX =====
+
+        /// <summary>普攻命中：目标位置 spark + 暴击加放大 ring。</summary>
+        void OnWeaponAttackHit(WeaponAttackHitEvent e)
+        {
+            // BUG-04: Target 为 null（如 placeholder 事件）时直接 skip，不报 NRE
+            if (e == null || e.Target == null)
+            {
+                FrameworkLogger.Warn("VFXModule", "Action=OnWeaponAttackHit Skip Reason=TargetNull");
+                return;
+            }
+            var pos = TryGetPos(e.Target);
+            if (!pos.HasValue)
+            {
+                FrameworkLogger.Warn("VFXModule",
+                    $"Action=OnWeaponAttackHit TryGetPos=null Target={e.Target} —— fallback Vector3.zero");
+                pos = Vector3.zero;
+            }
+            var color = e.IsCrit ? new Color(1f, 0.4f, 0.2f) : new Color(1f, 0.95f, 0.75f);
+            SpawnSpark(pos.Value + Vector3.up * 0.3f, color);
+            FrameworkLogger.Info("VFXModule",
+                $"Action=SpawnSpark Pos={pos.Value} IsCrit={e.IsCrit}");
+            if (e.IsCrit)
+                SpawnRing(pos.Value + Vector3.up * 0.3f, color, radius: 0.6f, duration: 0.25f);
+        }
+
+        /// <summary>目标击杀：位置爆发一次消散粒子。</summary>
+        void OnTargetKilled(TargetKilledEvent e)
+        {
+            // 优先级1：TryGetPos 通过 EntityRef 找 GO（Bot 被杀时 GO 可能已移出 Enemies 列表，会返回 null）
+            var pos = TryGetPos(e.Target);
+
+            // 优先级2：TryGetPos 失败时兜底 Vector3.zero，并记录 Warn 以便 QA 感知
+            if (!pos.HasValue)
+            {
+                FrameworkLogger.Warn("VFXModule",
+                    $"Action=OnTargetKilled TryGetPos=null Target={e.Target} Fallback=Vector3.zero");
+                pos = Vector3.zero;
+            }
+
+            SpawnAOEBurst(pos.Value, new Color(1f, 0.85f, 0.35f), radius: 0.9f, duration: 0.35f);
+            FrameworkLogger.Info("VFXModule",
+                $"Action=OnTargetKilled SpawnAOEBurst Pos={pos.Value}");
+        }
+
+        /// <summary>玩家死亡：更大范围的白光爆发。</summary>
+        void OnPlayerDied(PlayerDiedEvent _)
+        {
+            Vector3 pos;
+            if (_spawner == null || _spawner.Player == null)
+            {
+                FrameworkLogger.Warn("VFXModule",
+                    $"Action=OnPlayerDied SpawnerPlayer=null Fallback=Vector3.zero");
+                pos = Vector3.zero;
+            }
+            else
+            {
+                pos = _spawner.Player.transform.position;
+            }
+
+            SpawnAOEBurst(pos, new Color(1f, 1f, 1f), radius: 2.2f, duration: 0.55f);
+            SpawnRing(pos, new Color(1f, 0.9f, 0.6f), radius: 1.6f, duration: 0.5f);
+            FrameworkLogger.Info("VFXModule",
+                $"Action=OnPlayerDied SpawnAOEBurst+Ring Pos={pos}");
         }
 
         // ===== 内部数据结构 =====
