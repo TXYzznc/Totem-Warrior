@@ -82,6 +82,12 @@ tools/**/logs/
 tools/**/coverage/
 tools/**/test_output/
 tools/**/hunyuan3d_output/
+tools/**/__pycache__/
+tools/**/build/
+tools/**/dist/
+
+# codex 临时素材/工作目录（本地素材参考，不进版本控制）
+.codex/tmp/
 
 # Codebase memory 索引（项目特定数据）
 .codebase-memory/
