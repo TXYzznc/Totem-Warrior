@@ -1,0 +1,82 @@
+OpenAI Codex v0.142.0
+--------
+workdir: C:\Users\WIN10\AppData\Local\Temp\codex-art-gen-runner
+model: gpt-5.5
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR, D:\unity\UnityProject\GameDesinger\Assets\Resources\Sprite\Character, D:\unity\UnityProject\GameDesinger\openspec\changes\17-gameplay-character-art\art\raw]
+reasoning effort: medium
+reasoning summaries: none
+session id: 019f1808-9dc5-72c3-b043-40d14cee0670
+--------
+user
+你是图片生成执行器。
+
+任务：
+读取下面的 batch JSON,在同一个 Codex session 内批量生成所有 items。
+
+硬性规则：
+- 不要读取项目文档。
+- 不要解释、不要计划、不要询问。
+- 对 items 中的每个条目生成一张独立图片。
+- 每个 item 最多调用 1 次 image_gen。
+- 可以并行处理多个 item;即使内部不能并行,也必须在同一个 Codex session 内完成整批。
+- 单个 item 失败时跳过该项继续处理后续 item,不要自行重试。
+- **每张图片必须真实落盘到 item.file 指定的绝对路径**(image_gen 默认会输出到 .codex/generated_images/...,你必须用 exec 命令把它复制/移动到 item.file 的目标路径)。
+- 任务由调用方通过**磁盘文件是否存在 + 体积 > 1KB**来判定每张图是否成功,不依赖你的文字回复。
+
+背景规则（按 item.transparent 分流）：
+- 若 item.transparent=true:背景必须为纯色 chroma_key 底色(见 batch JSON 的 chroma_key 字段,默认 #00ff00),完全填满主体之外的所有空间(image_gen 的 transparent 在 gpt-image-2 上不可靠,本地会用 chroma-key 工具去键色)。主体本身**禁用**接近 chroma_key 的色调,避免被键出。不要渐变 / 阴影投射到键色底上。
+- 若 item.transparent=false:背景按 item.prompt 自身要求绘制(常见用于场景纹理 / 背景图)。
+
+通用规则：
+- 不要文字、数字、水印、签名、边框、标签。
+- 美术风格、配色由各 item.prompt 自带,本模板不规定。
+
+batch JSON:
+{
+  "mode": "L1_BATCH",
+  "batch_id": "char17_boss1_04",
+  "chroma_key": "#00ff00",
+  "items": [
+    {
+      "index": 1,
+      "name": "Boss1_Death_Down",
+      "file": "D:/unity/UnityProject/GameDesinger/Assets/Resources/Sprite/Character/Boss1/Death/Down.png",
+      "size": "1536x1024",
+      "transparent": true,
+      "prompt": "hand-painted dark fantasy 2D game character sprite, gothic occult tone, painterly textured brushwork (no pixel art, no cel-shading, no line-art outline), warm gold rim light edge highlight from upper-left, cool blue-purple ambient shadow underbelly, palette dominated by dark slate blue / deep crimson / aged gold / muted browns, top-down 3/4 perspective viewed from a camera tilted 55 degrees downward (slightly looking-down angle), character body forward-leaning to fit overhead readability.\n\n4-frame horizontal sprite sheet, 4 frames arranged left-to-right with EQUAL width, identical character bounding box per frame (character must NOT shift between frames), pure solid chroma-key green (#00ff00) gutter between subjects, no frame number labels, no border lines between frames, frames occupy the FULL width of the canvas equally.\n\nCanvas dimensions 1536x1024. The 4 frames occupy the full canvas width, each frame is 384px wide, arranged in a single horizontal row. Within each frame, the character body is centered horizontally and vertically, scaled large enough to fill ~75% of the frame height for player characters (~85% for boss). The 4 frames are visually separated by a thin (12-24px) solid #00ff00 vertical gutter, not a drawn line.\n\nCharacter (固定不变): colossal armored ancient tomb-guardian, 1.6x the size of a player character, full-plate rust-black armor with cracked aged-gold engraved runes covering every plate surface, twin-handed colossal greatsword, red-eye-slit helmet with glowing crimson eye-sockets, broken iron chains hanging from waist and gauntlets, hunched menacing silhouette, NO visible skin (fully armored).\n\nSubject: colossal armored ancient tomb-guardian, 1.6x the size of a player character, full-plate rust-black armor with cracked aged-gold engraved runes covering every plate surface, twin-handed colossal greatsword, red-eye-slit helmet with glowing crimson eye-sockets, broken iron chains hanging from waist and gauntlets, hunched menacing silhouette, NO visible skin (fully armored), DYING, originally facing camera. Frame 1: STAGGER -- helmet recoils backward, crimson eyes flicker, sword drops from one hand. Frame 2: KNEE-DOWN -- boss drops to one knee, greatsword stabs into the ground beside as support. Frame 3: COLLAPSE FORWARD -- boss falls forward, armor plates rattle. Frame 4: GROUNDED -- boss lies face-down toward camera, helmet eyes DIMMED (no glow), greatsword embedded in ground beside body, chains scattered. Final lifeless pose. One-shot. Final frame must look clearly DEAD (eyes dark).\n\nAvoid: text, signature, watermark, logo, UI elements, health bar, ground shadow, checkered background, frame number, left-right flipped duplicate (each frame independently drawn), pixel-art mosaic, cel-shading hard cell lines, anime line-art, realistic photo skin, nudity, blood splatter overflow, extra characters in the scene, weapon swap between frames.",
+      "negative": "Avoid: text, signature, watermark, logo, UI elements, health bar, ground shadow, checkered background, frame number, left-right flipped duplicate (each frame independently drawn), pixel-art mosaic, cel-shading hard cell lines, anime line-art, realistic photo skin, nudity, blood splatter overflow, extra characters in the scene, weapon swap between frames."
+    },
+    {
+      "index": 2,
+      "name": "Boss1_Death_Up",
+      "file": "D:/unity/UnityProject/GameDesinger/Assets/Resources/Sprite/Character/Boss1/Death/Up.png",
+      "size": "1536x1024",
+      "transparent": true,
+      "prompt": "hand-painted dark fantasy 2D game character sprite, gothic occult tone, painterly textured brushwork (no pixel art, no cel-shading, no line-art outline), warm gold rim light edge highlight from upper-left, cool blue-purple ambient shadow underbelly, palette dominated by dark slate blue / deep crimson / aged gold / muted browns, top-down 3/4 perspective viewed from a camera tilted 55 degrees downward (slightly looking-down angle), character body forward-leaning to fit overhead readability.\n\n4-frame horizontal sprite sheet, 4 frames arranged left-to-right with EQUAL width, identical character bounding box per frame (character must NOT shift between frames), pure solid chroma-key green (#00ff00) gutter between subjects, no frame number labels, no border lines between frames, frames occupy the FULL width of the canvas equally.\n\nCanvas dimensions 1536x1024. The 4 frames occupy the full canvas width, each frame is 384px wide, arranged in a single horizontal row. Within each frame, the character body is centered horizontally and vertically, scaled large enough to fill ~75% of the frame height for player characters (~85% for boss). The 4 frames are visually separated by a thin (12-24px) solid #00ff00 vertical gutter, not a drawn line.\n\nCharacter (固定不变): colossal armored ancient tomb-guardian, 1.6x the size of a player character, full-plate rust-black armor with cracked aged-gold engraved runes covering every plate surface, twin-handed colossal greatsword, red-eye-slit helmet with glowing crimson eye-sockets, broken iron chains hanging from waist and gauntlets, hunched menacing silhouette, NO visible skin (fully armored).\n\nSubject: colossal armored ancient tomb-guardian, 1.6x the size of a player character, full-plate rust-black armor with cracked aged-gold engraved runes covering every plate surface, twin-handed colossal greatsword, red-eye-slit helmet with glowing crimson eye-sockets, broken iron chains hanging from waist and gauntlets, hunched menacing silhouette, NO visible skin (fully armored), DYING, originally facing away from camera. Frame 1: STAGGER -- body arches backward toward viewer. Frame 2: KNEE-DOWN -- drops to one knee, viewed from behind. Frame 3: COLLAPSE BACKWARD -- body falls toward viewer. Frame 4: GROUNDED -- boss lies on back, face/helmet turned upward, eyes dimmed dark. Lifeless. One-shot.\n\nAvoid: text, signature, watermark, logo, UI elements, health bar, ground shadow, checkered background, frame number, left-right flipped duplicate (each frame independently drawn), pixel-art mosaic, cel-shading hard cell lines, anime line-art, realistic photo skin, nudity, blood splatter overflow, extra characters in the scene, weapon swap between frames.",
+      "negative": "Avoid: text, signature, watermark, logo, UI elements, health bar, ground shadow, checkered background, frame number, left-right flipped duplicate (each frame independently drawn), pixel-art mosaic, cel-shading hard cell lines, anime line-art, realistic photo skin, nudity, blood splatter overflow, extra characters in the scene, weapon swap between frames."
+    },
+    {
+      "index": 3,
+      "name": "Boss1_Death_Left",
+      "file": "D:/unity/UnityProject/GameDesinger/Assets/Resources/Sprite/Character/Boss1/Death/Left.png",
+      "size": "1536x1024",
+      "transparent": true,
+      "prompt": "hand-painted dark fantasy 2D game character sprite, gothic occult tone, painterly textured brushwork (no pixel art, no cel-shading, no line-art outline), warm gold rim light edge highlight from upper-left, cool blue-purple ambient shadow underbelly, palette dominated by dark slate blue / deep crimson / aged gold / muted browns, top-down 3/4 perspective viewed from a camera tilted 55 degrees downward (slightly looking-down angle), character body forward-leaning to fit overhead readability.\n\n4-frame horizontal sprite sheet, 4 frames arranged left-to-right with EQUAL width, identical character bounding box per frame (character must NOT shift between frames), pure solid chroma-key green (#00ff00) gutter between subjects, no frame number labels, no border lines between frames, frames occupy the FULL width of the canvas equally.\n\nCanvas dimensions 1536x1024. The 4 frames occupy the full canvas width, each frame is 384px wide, arranged in a single horizontal row. Within each frame, the character body is centered horizontally and vertically, scaled large enough to fill ~75% of the frame height for player characters (~85% for boss). The 4 frames are visually separated by a thin (12-24px) solid #00ff00 vertical gutter, not a drawn line.\n\nCharacter (固定不变): colossal armored ancient tomb-guardian, 1.6x the size of a player character, full-plate rust-black armor with cracked aged-gold engraved runes covering every plate surface, twin-handed colossal greatsword, red-eye-slit helmet with glowing crimson eye-sockets, broken iron chains hanging from waist and gauntlets, hunched menacing silhouette, NO visible skin (fully armored).\n\nSubject: colossal armored ancient tomb-guardian, 1.6x the size of a player character, full-plate rust-black armor with cracked aged-gold engraved runes covering every plate surface, twin-handed colossal greatsword, red-eye-slit helmet with glowing crimson eye-sockets, broken iron chains hanging from waist and gauntlets, hunched menacing silhouette, NO visible skin (fully armored), DYING, originally facing screen-left. Frame 1: STAGGER -- recoils toward screen-right. Frame 2: KNEE-DOWN -- drops to one knee facing left. Frame 3: COLLAPSE -- falls onto left side. Frame 4: GROUNDED -- boss lies on left side facing screen-left, helmet eyes dimmed. Lifeless. One-shot.\n\nAvoid: text, signature, watermark, logo, UI elements, health bar, ground shadow, checkered background, frame number, left-right flipped duplicate (each frame independently drawn), pixel-art mosaic, cel-shading hard cell lines, anime line-art, realistic photo skin, nudity, blood splatter overflow, extra characters in the scene, weapon swap between frames.",
+      "negative": "Avoid: text, signature, watermark, logo, UI elements, health bar, ground shadow, checkered background, frame number, left-right flipped duplicate (each frame independently drawn), pixel-art mosaic, cel-shading hard cell lines, anime line-art, realistic photo skin, nudity, blood splatter overflow, extra characters in the scene, weapon swap between frames."
+    },
+    {
+      "index": 4,
+      "name": "Boss1_Death_Right",
+      "file": "D:/unity/UnityProject/GameDesinger/Assets/Resources/Sprite/Character/Boss1/Death/Right.png",
+      "size": "1536x1024",
+      "transparent": true,
+      "prompt": "hand-painted dark fantasy 2D game character sprite, gothic occult tone, painterly textured brushwork (no pixel art, no cel-shading, no line-art outline), warm gold rim light edge highlight from upper-left, cool blue-purple ambient shadow underbelly, palette dominated by dark slate blue / deep crimson / aged gold / muted browns, top-down 3/4 perspective viewed from a camera tilted 55 degrees downward (slightly looking-down angle), character body forward-leaning to fit overhead readability.\n\n4-frame horizontal sprite sheet, 4 frames arranged left-to-right with EQUAL width, identical character bounding box per frame (character must NOT shift between frames), pure solid chroma-key green (#00ff00) gutter between subjects, no frame number labels, no border lines between frames, frames occupy the FULL width of the canvas equally.\n\nCanvas dimensions 1536x1024. The 4 frames occupy the full canvas width, each frame is 384px wide, arranged in a single horizontal row. Within each frame, the character body is centered horizontally and vertically, scaled large enough to fill ~75% of the frame height for player characters (~85% for boss). The 4 frames are visually separated by a thin (12-24px) solid #00ff00 vertical gutter, not a drawn line.\n\nCharacter (固定不变): colossal armored ancient tomb-guardian, 1.6x the size of a player character, full-plate rust-black armor with cracked aged-gold engraved runes covering every plate surface, twin-handed colossal greatsword, red-eye-slit helmet with glowing crimson eye-sockets, broken iron chains hanging from waist and gauntlets, hunched menacing silhouette, NO visible skin (fully armored).\n\nSubject: colossal armored ancient tomb-guardian, 1.6x the size of a player character, full-plate rust-black armor with cracked aged-gold engraved runes covering every plate surface, twin-handed colossal greatsword, red-eye-slit helmet with glowing crimson eye-sockets, broken iron chains hanging from waist and gauntlets, hunched menacing silhouette, NO visible skin (fully armored), DYING, originally facing screen-right. Frame 1: STAGGER -- recoils toward screen-left. Frame 2: KNEE-DOWN -- drops to one knee facing right. Frame 3: COLLAPSE -- falls onto right side. Frame 4: GROUNDED -- boss lies on right side facing screen-right, helmet eyes dimmed. Lifeless. One-shot. NOT mirror of Death_Left.\n\nAvoid: text, signature, watermark, logo, UI elements, health bar, ground shadow, checkered background, frame number, left-right flipped duplicate (each frame independently drawn), pixel-art mosaic, cel-shading hard cell lines, anime line-art, realistic photo skin, nudity, blood splatter overflow, extra characters in the scene, weapon swap between frames.",
+      "negative": "Avoid: text, signature, watermark, logo, UI elements, health bar, ground shadow, checkered background, frame number, left-right flipped duplicate (each frame independently drawn), pixel-art mosaic, cel-shading hard cell lines, anime line-art, realistic photo skin, nudity, blood splatter overflow, extra characters in the scene, weapon swap between frames."
+    }
+  ]
+}
+
+ERROR: You've hit your usage limit. Upgrade to Pro (https://chatgpt.com/explore/pro), visit https://chatgpt.com/codex/settings/usage to purchase more credits or try again at 7:30 PM.
+ERROR: You've hit your usage limit. Upgrade to Pro (https://chatgpt.com/explore/pro), visit https://chatgpt.com/codex/settings/usage to purchase more credits or try again at 7:30 PM.

@@ -1,0 +1,9 @@
+{
+  "batch_id": "char17_boss1_03",
+  "results": [
+    {"index": 1, "name": "Boss1_Attack_Down", "success": true, "bytes": 2189116},
+    {"index": 2, "name": "Boss1_Attack_Up", "success": true, "bytes": 2190518},
+    {"index": 3, "name": "Boss1_Attack_Left", "success": true, "bytes": 2141435},
+    {"index": 4, "name": "Boss1_Attack_Right", "success": true, "bytes": 2326900}
+  ]
+}

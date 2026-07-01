@@ -122,6 +122,7 @@ namespace Tattoo.Bot
                     _smartByActor[er.Target] = smart;
                     _smartHot.Add(smart); // 默认全进 Hot，下一帧 LOD 桶迁移
                     ctrl = smart;
+                    BotVisualBinder.ApplyColorAndOutline(go, isSmart: true, smartCount);
                     smartCount++;
                 }
                 else if (lightCount < targetLight)
@@ -131,6 +132,7 @@ namespace Tattoo.Bot
                     _lightByActor[er.Target] = light;
                     _lightHot.Add(light);
                     ctrl = light;
+                    BotVisualBinder.ApplyColorAndOutline(go, isSmart: false, lightCount);
                     lightCount++;
                 }
                 else break;
