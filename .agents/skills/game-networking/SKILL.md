@@ -1,7 +1,6 @@
 ---
 name: game-networking
-description: 擅长实时多人游戏网络、lag compensation（延迟补偿）及权威服务器架构，当提及“多人游戏、netcode、客户端-服务器游戏、P2P网络、lag
-  compensation、回滚网络、游戏服务器、matchmaking（匹配）、大厅系统、玩家同步、状态复制、专用服务器、权威服务器、tick rate（更新帧率）、网络预测、插值、外插、GGPO、lockstep（锁步）、实时多人、网络、多人游戏、游戏开发、实时、客户端-服务器、P2P、netcode、同步、lag-compensation、matchmaking”等内容时可使用。
+description: 多人游戏网络协议层。覆盖 lag compensation、回滚网络（GGPO）、lockstep、权威服务器、客户端预测/插值/外插、状态复制、专用服务器。触发：netcode、lag compensation、rollback、GGPO、lockstep、客户端预测、interpolation、authoritative server、网络预测。❌ 不适用：通用多人模式（匹配/AOI/游戏循环），请用 multiplayer-game。
 tags: game-networking, lag-compensation, authoritative-server, matchmaking, netcode
 tags_cn: 游戏网络技术, Lag补偿, 权威服务器架构, Matchmaking系统, Netcode开发
 ---

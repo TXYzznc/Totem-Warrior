@@ -1,6 +1,6 @@
 ---
 name: multiplayer-game
-description: 构建多人游戏的实用模式：匹配机制、游戏循环与Tick速率、实时状态同步、兴趣管理及验证
+description: 多人游戏通用模式。覆盖匹配机制、游戏循环与 tick 速率、实时状态同步、兴趣管理（AOI）、服务端验证、反作弊基础。触发：多人游戏、multiplayer、tick rate、AOI、兴趣管理、状态同步、匹配机制、反作弊。❌ 不适用：netcode/lag compensation/rollback 协议层细节，请用 game-networking。
 tags: multiplayer-game-development, rivetkit-patterns, game-server-architecture, matchmaking-system,
   anti-cheat-security
 tags_cn: 多人游戏开发, RivetKit模式, 游戏服务器架构, 匹配系统, 反作弊安全

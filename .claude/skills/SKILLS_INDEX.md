@@ -1,4 +1,4 @@
-# SKILL 系统索引（109 个）
+# SKILL 系统索引（110 个）
 
 > AI 每次任务开始时应先查阅本文档，确认是否有可复用的 SKILL；不要重复造轮子。
 >
@@ -73,6 +73,7 @@
 | [player-onboarding](./player-onboarding/SKILL.md) | FTUE / 教程 / 30 秒留存 |
 | [player-guidance](./player-guidance/SKILL.md) | 空间叙事、sightline、affordance |
 | [playtest-digital](./playtest-digital/SKILL.md) | 数字 playtest 方法论 |
+| [playtest-driver](./playtest-driver/SKILL.md) | Unity Editor 中自动驱动 playtest：键鼠/UI 注入 + Play Mode 控制 + 日志 + 报告 |
 
 ### 2.4 关卡设计
 
@@ -96,6 +97,7 @@
 | [font-selection-cjk](./font-selection-cjk/SKILL.md) | CJK 字体覆盖率检测 |
 | [font-subsetting](./font-subsetting/SKILL.md) | 字体子集化（woff2 / SDF / MSDF） |
 | [pixel-font-rendering](./pixel-font-rendering/SKILL.md) | 像素字体 / 点阵 / BMFont |
+| [image-compression](./image-compression/SKILL.md) | 压缩 PNG/JPEG/WEBP/TGA 美术素材，按 [美术资源规范.md](../美术资源规范.md) 控制各类型尺寸与体积上限 |
 
 ### 2.6 美术（3D / Rigging / Animation / VFX / Shader）
 
@@ -116,6 +118,7 @@
 |---|---|
 | [unity-foundations](./unity-foundations/SKILL.md) | Unity 6 核心：GameObject / Component / Scene / Prefab / SO |
 | [unity-ui](./unity-ui/SKILL.md) | UI Toolkit / uGUI / IMGUI |
+| [unity-rect-transform](./unity-rect-transform/SKILL.md) | UGUI 空间语言词典：anchor / pivot / sizeDelta / anchoredPosition / preserveAspect / Canvas Scaler + `prefab-layout.md` 模板（art-ui 阶段 1 + client-unity 阶段 5 共享） |
 | [unity-animation](./unity-animation/SKILL.md) | Animator / blend tree / Timeline / Cinemachine |
 | [unity-shaders-rendering](./unity-shaders-rendering/SKILL.md) | Shader Graph / HLSL / URP / HDRP / SRP |
 | [unity-lighting-vfx](./unity-lighting-vfx/SKILL.md) | 烘焙/实时光、APV、Particle、VFX Graph、后处理 |
@@ -199,6 +202,7 @@
 | GDD / 系统设计 / 平衡审稿 | `design-system`、`review-all-gdds`、`game-design-core`、`game-design-theory` |
 | 关卡 / 节奏 / 引导 | `level-design`、`player-guidance` |
 | UI / HUD / icon | `game-ui-design`、`unity-ui` |
+| UI 结构（prefab-layout / RectTransform） | `unity-rect-transform`（art-ui + client-unity 共享） |
 | 字体 / 排版 / CJK | `font-pairing-suggester`、`font-selection-cjk`、`font-subsetting`、`typeset`、`pixel-font-rendering` |
 | 3D 建模 / 贴图 / 拓扑 | `3d-modeling`、`texture-art`、`blender-mcp` |
 | 动画 / Rigging / 状态机 | `animation-systems`、`rigging`、`state-machine` |

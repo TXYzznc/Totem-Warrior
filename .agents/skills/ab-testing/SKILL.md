@@ -1,10 +1,6 @@
 ---
 name: ab-testing
-description: 当用户想要规划、设计或实施A/B测试（A/B test）、拆分测试（split test）或实验，或是构建增长实验项目时，可使用本指南。当用户提及“A/B
-  test”“split test”“experiment”“test this change”“variant copy”“multivariate test”“hypothesis”“should
-  I test this”“which version is better”“test two versions”“statistical significance”“how
-  long should I run this test”“growth experiments”“experiment velocity”“experiment
-  backlog”“ICE score”“experimentation program”或“experiment playbook”这些内容时，也适用本指南。当有人比较两种方法并想衡量哪种表现更好，或是想要建立系统化的实验实践时，同样可以使用本指南。如需跟踪实施情况，请查看analytics相关内容；如需页面级转化优化，请查看cro相关内容。
+description: A/B 测试与增长实验。覆盖假设设计、样本量计算、统计显著性、多变量测试（MVT）、实验积压（backlog）、ICE 评分、实验计划。触发：A/B test、split test、实验、experiment、hypothesis、统计显著性、growth experiment、ICE score、experiment backlog。
 metadata:
   version: 2.0.0
 tags: ab-testing, growth-experiments, statistical-rigor, experimentation-program,

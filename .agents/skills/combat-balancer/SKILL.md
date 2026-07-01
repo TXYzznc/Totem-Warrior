@@ -1,7 +1,7 @@
 ---
 name: combat-balancer
 version: 1.0.0
-description: 难度缩放、CR计算、行动经济、自适应遭遇战设计
+description: 战斗数值平衡。覆盖难度缩放、CR（挑战等级）计算、行动经济、自适应遭遇战、敌人血量/伤害曲线、resist/penetration 公式。触发：战斗平衡、combat balance、CR、挑战等级、难度缩放、遭遇战、encounter、敌人数值、boss 数值。
 author: Wilds AI
 namespace: wunderland
 category: game

@@ -1,6 +1,6 @@
 ---
 name: k6
-description: k6负载测试工具，用于性能测试。
+description: k6 负载测试与性能压测。覆盖 HTTP/WebSocket/gRPC 脚本、阶梯/峰值/spike 场景、阈值断言、Prometheus/Grafana 集成。触发：k6、负载测试、压测、load test、performance test、stress test、benchmark、API 性能、QPS、TPS。
 tags: k6, load-testing, performance-testing, ci-cd-integration, api-testing
 tags_cn: k6负载测试, 性能测试, CI/CD集成, API测试, 测试最佳实践
 ---

@@ -13,17 +13,74 @@ if sys.platform == 'win32':
     if hasattr(sys.stderr, 'buffer'):
         sys.stderr = codecs.getwriter('utf-8')(sys.stderr.buffer, 'replace')
 
+    # 14-mcp-encoding-fix: 通过 GetCommandLineW + CommandLineToArgvW 重写 sys.argv，
+    # 绕开 Python 默认的 ANSI(cp936) → Unicode 转换层，保证 CJK 参数完整。
+    # 现代 Python (3.6+) wmain 已经默认走 Unicode argv，本块在那之上 belt-and-suspenders；
+    # MSYS / Cygwin / WSL Python 的 ctypes.windll 不可用，try/except 兜底跳过。
+    #
+    # CommandLineToArgvW 返回 [exe_path, *python_flags, script, *script_args]，
+    # Python 自己的 sys.argv = [script, *script_args]，所以按尾部对齐覆盖。
+    try:
+        import ctypes
+        from ctypes import wintypes
+        _get_cmd_line_w = ctypes.windll.kernel32.GetCommandLineW
+        _get_cmd_line_w.restype = wintypes.LPCWSTR
+        _cmd_to_argv_w = ctypes.windll.shell32.CommandLineToArgvW
+        _cmd_to_argv_w.argtypes = [wintypes.LPCWSTR, ctypes.POINTER(ctypes.c_int)]
+        _cmd_to_argv_w.restype = ctypes.POINTER(wintypes.LPWSTR)
+        _argc = ctypes.c_int(0)
+        _argv_w = _cmd_to_argv_w(_get_cmd_line_w(), ctypes.byref(_argc))
+        if _argv_w and _argc.value >= len(sys.argv):
+            _full = [_argv_w[i] for i in range(_argc.value)]
+            sys.argv = _full[-len(sys.argv):]
+    except (OSError, AttributeError):
+        # MSYS / Cygwin / WSL Python：windll 不可用，保持原 sys.argv
+        pass
+
 import requests
 import time
 import json
 import os
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, Tuple
 
+# legacy 常量：外部脚本可能 import UNITY_URL；内部逻辑一律走 _default_client.url，不再引用此常量
 UNITY_URL = "http://localhost:8090"
 DEFAULT_PORT = 8090
 
 def get_registry_path():
     return os.path.join(os.path.expanduser("~"), ".unity_skills", "registry.json")
+
+def _load_registry() -> Dict[str, Any]:
+    reg_path = get_registry_path()
+    if not os.path.exists(reg_path):
+        return {}
+    try:
+        with open(reg_path, 'r', encoding='utf-8') as f:
+            return json.load(f)
+    except (OSError, json.JSONDecodeError):
+        return {}
+
+def _find_port_by_cwd() -> Optional[Tuple[int, str]]:
+    """按 cwd 反查 registry；命中返回 (port, "cwd-match(<name>)")，未命中返 None。
+
+    判定「cwd 是项目根本身或子目录」，用 os.path.commonpath 严格判断，
+    避免 D:\\proj 误匹配 D:\\proj_backup。Windows 大小写不敏感用 normcase 归一。
+    """
+    registry = _load_registry()
+    if not registry:
+        return None
+    cwd = os.path.normcase(os.path.normpath(os.getcwd()))
+    for path_key, entry in registry.items():
+        proj_path = os.path.normcase(os.path.normpath(path_key))
+        try:
+            if os.path.commonpath([cwd, proj_path]) == proj_path:
+                port = entry.get('port')
+                name = entry.get('name', path_key)
+                if port:
+                    return port, f"cwd-match({name})"
+        except ValueError:
+            continue  # 不同盘符（Windows）
+    return None
 
 class UnitySkills:
     """
@@ -38,7 +95,7 @@ class UnitySkills:
             url: Full URL override.
         """
         self.url = url
-        
+
         if not self.url:
             if port:
                 self.url = f"http://localhost:{port}"
@@ -52,24 +109,17 @@ class UnitySkills:
                 self.url = f"http://localhost:{DEFAULT_PORT}"
 
     def _find_port_by_target(self, target: str) -> Optional[int]:
-        reg_path = get_registry_path()
-        if not os.path.exists(reg_path):
-            return None
-        try:
-            with open(reg_path, 'r') as f:
-                data = json.load(f)
-                # target can be ID or Name
-                # 1. Exact ID match
-                for path, info in data.items():
-                    if info.get('id') == target:
-                        return info.get('port')
-                # 2. Exact Name match (if unique?) - return first found
-                for path, info in data.items():
-                    if info.get('name') == target:
-                        return info.get('port')
-                return None
-        except:
-            return None
+        data = _load_registry()
+        # target 可以是 ID 或 Name
+        # 1. Exact ID match
+        for path, info in data.items():
+            if info.get('id') == target:
+                return info.get('port')
+        # 2. Exact Name match（同名多项目取首个）
+        for path, info in data.items():
+            if info.get('name') == target:
+                return info.get('port')
+        return None
 
     def call(self, skill_name: str, verbose: bool = False, **kwargs) -> Dict[str, Any]:
         """
@@ -130,8 +180,43 @@ class UnitySkills:
     def delete_object(self, name): return self.call("delete_object", objectName=name)
 
 
-# Global Default Client
-_default_client = UnitySkills()
+# Global Default Client + 寻址来源（供 health() 排障输出）
+_default_client_source: str = ""
+_pending_default_warning: str = ""  # 延迟到 pre_parse 之后 / 首次入口调用再 flush，避免 --target 场景误打
+
+def _flush_pending_warning():
+    """把 build 阶段积攒的 default warning 一次性 flush 到 stderr。CLI --target/--port 覆盖后调用则本函数无副作用（pending 已被清空）。"""
+    global _pending_default_warning
+    if _pending_default_warning:
+        sys.stderr.write(_pending_default_warning)
+        _pending_default_warning = ""
+
+def _build_default_client() -> UnitySkills:
+    """按 env > cwd > 8090 优先级构造默认 client；写入 _default_client_source 记录来源。default 兜底的 warning 缓存到 _pending_default_warning，由入口点 flush。"""
+    global _default_client_source, _pending_default_warning
+    env_target = os.environ.get('UNITY_SKILLS_TARGET')
+    if env_target:
+        try:
+            client = UnitySkills(target=env_target)
+            _default_client_source = f"env({env_target})"
+            return client
+        except ValueError as e:
+            sys.stderr.write(
+                f"[unity-skills] UNITY_SKILLS_TARGET='{env_target}' 匹配失败: {e}，回退 cwd 匹配\n"
+            )
+    cwd_hit = _find_port_by_cwd()
+    if cwd_hit:
+        port, source = cwd_hit
+        _default_client_source = source
+        return UnitySkills(port=port)
+    _pending_default_warning = (
+        f"[unity-skills] cwd 未在 registry 匹配到 Unity 项目，回退 DEFAULT_PORT={DEFAULT_PORT}。"
+        f"多项目并存请设 UNITY_SKILLS_TARGET 或用 --target=<name>\n"
+    )
+    _default_client_source = "default"
+    return UnitySkills()
+
+_default_client = _build_default_client()
 
 # Auto-workflow configuration
 _auto_workflow_enabled = True  # Enable auto-workflow
@@ -194,6 +279,8 @@ def call_skill(skill_name: str, **kwargs) -> Dict[str, Any]:
     3. End the workflow task
     """
     global _current_workflow_active
+
+    _flush_pending_warning()  # 外部 import 场景：首次进入 API 时把 build 阶段的 default fallback warning 打出来
 
     # Check if we should track this call
     should_track = (
@@ -266,31 +353,101 @@ def call_skill_with_retry(skill_name: str, max_retries: int = 3, retry_delay: fl
 
 def get_skills() -> Dict[str, Any]:
     """Get list of all available skills."""
+    _flush_pending_warning()
     try:
-        response = requests.get(f"{UNITY_URL}/skills", timeout=5)
+        response = requests.get(f"{_default_client.url}/skills", timeout=5)
         response.encoding = 'utf-8'
         return response.json()
     except Exception as e:
         return {"status": "error", "error": str(e)}
 
-def health() -> bool:
-    """Check if Unity server is running."""
+def health() -> Dict[str, Any]:
+    """检查 Unity server 状态 + 报告寻址来源，便于多项目场景排障。"""
+    _flush_pending_warning()
+    info = {
+        'url': _default_client.url,
+        'source': _default_client_source,
+    }
     try:
-        response = requests.get(f"{UNITY_URL}/health", timeout=2)
+        response = requests.get(f"{_default_client.url}/health", timeout=2)
         response.encoding = 'utf-8'
-        return response.json().get("status") == "ok"
-    except:
-        return False
+        info['ok'] = response.json().get("status") == "ok"
+    except Exception as e:
+        info['ok'] = False
+        info['error'] = str(e)
+    return info
 
 # ============================================================
 # Main CLI Entry Point
 # ============================================================
+def _pre_parse_routing():
+    """从 sys.argv 抽取 --target=<x> / --target <x> / --port=<n> / --port <n>，剔除后重建 _default_client。
+
+    优先级：--port > --target。识别到任一即覆盖 env / cwd 匹配结果。
+    argv 剔除后，后续 skill_name / --stdin-json / key=value 解析不受影响。
+    """
+    global _default_client, _default_client_source
+    argv = sys.argv[1:]
+    cleaned = []
+    port_val: Optional[int] = None
+    target_val: Optional[str] = None
+    i = 0
+    while i < len(argv):
+        arg = argv[i]
+        if arg.startswith('--port='):
+            try:
+                port_val = int(arg.split('=', 1)[1])
+            except ValueError:
+                sys.stderr.write(f"[unity-skills] --port 需要整数，得到 '{arg}'，忽略\n")
+            i += 1
+            continue
+        if arg == '--port' and i + 1 < len(argv):
+            try:
+                port_val = int(argv[i + 1])
+            except ValueError:
+                sys.stderr.write(f"[unity-skills] --port 需要整数，得到 '{argv[i + 1]}'，忽略\n")
+            i += 2
+            continue
+        if arg.startswith('--target='):
+            target_val = arg.split('=', 1)[1]
+            i += 1
+            continue
+        if arg == '--target' and i + 1 < len(argv):
+            target_val = argv[i + 1]
+            i += 2
+            continue
+        cleaned.append(arg)
+        i += 1
+    sys.argv = [sys.argv[0]] + cleaned
+
+    global _pending_default_warning
+    if port_val is not None:
+        _default_client = UnitySkills(port=port_val)
+        _default_client_source = f"cli-port({port_val})"
+        _pending_default_warning = ""  # CLI 覆盖成功 → 撤销 build 阶段的 default fallback warning
+    elif target_val is not None:
+        try:
+            _default_client = UnitySkills(target=target_val)
+            _default_client_source = f"cli-target({target_val})"
+            _pending_default_warning = ""  # 同上
+        except ValueError as e:
+            sys.stderr.write(
+                f"[unity-skills] --target='{target_val}' 匹配失败: {e}，回退默认 client\n"
+            )
+
 def main():
     """Command-line interface for Unity Skills."""
+    _pre_parse_routing()
+    _flush_pending_warning()  # CLI 场景：pre_parse 已决定要不要保留 build 阶段的 warning
+
     if len(sys.argv) < 2:
-        print('用法: python unity_skills.py <skill_name> [param1=value1] [param2=value2] ...')
+        print('用法: python unity_skills.py <skill_name> [--target=<name>] [--port=<num>] [param1=value1] ...')
+        print('     python unity_skills.py <skill_name> --stdin-json   # 参数从 stdin 读 JSON（推荐 CJK 场景）')
+        print('     python unity_skills.py health                      # 查看当前寻址来源 + 端口连通性')
         print('示例: python unity_skills.py editor_get_selection')
         print('示例: python unity_skills.py gameobject_create name=MyCube primitiveType=Cube')
+        print('示例: python unity_skills.py gameobject_create --target=GameDesigner name=Cube')
+        print('示例: echo {"name":"T","text":"设置"} | python unity_skills.py ui_set_text --stdin-json')
         sys.exit(1)
 
     if sys.argv[1] == "--list":
@@ -299,10 +456,41 @@ def main():
     elif sys.argv[1] == "--list-instances":
         print(json.dumps(list_instances(), ensure_ascii=False, indent=2))
         return
+    elif sys.argv[1] == "health":
+        # 本地 health()：报告寻址来源 + 端口连通性；不打到 unity 服务端
+        print(json.dumps(health(), ensure_ascii=False, indent=2))
+        return
 
     skill_name = sys.argv[1]
 
-    # Parse parameters
+    # 14-mcp-encoding-fix: --stdin-json 模式从 stdin 读 JSON body
+    # 唯一保证 100% 编码安全的入口；CJK / emoji 参数必须用此模式
+    if '--stdin-json' in sys.argv[2:]:
+        try:
+            stdin_bytes = sys.stdin.buffer.read()
+        except AttributeError:
+            # 已被 codecs wrap：用文本读再转 utf-8
+            stdin_bytes = sys.stdin.read().encode('utf-8')
+        try:
+            params = json.loads(stdin_bytes.decode('utf-8'))
+        except (UnicodeDecodeError, json.JSONDecodeError) as e:
+            print(json.dumps({
+                "success": False,
+                "error": f"--stdin-json 模式 stdin 解析失败: {e}",
+                "hint": "stdin 必须是 UTF-8 编码的 JSON 对象。调用方推荐 subprocess.run(..., input=json.dumps(params).encode('utf-8'))"
+            }, ensure_ascii=False, indent=2))
+            sys.exit(2)
+        if not isinstance(params, dict):
+            print(json.dumps({
+                "success": False,
+                "error": f"--stdin-json 期望 JSON 对象，实际拿到 {type(params).__name__}",
+            }, ensure_ascii=False, indent=2))
+            sys.exit(2)
+        result = call_skill(skill_name, **params)
+        print(json.dumps(result, ensure_ascii=False, indent=2))
+        return
+
+    # Parse parameters from argv (legacy 模式)
     params = {}
     for arg in sys.argv[2:]:
         if '=' in arg:

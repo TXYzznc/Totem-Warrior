@@ -1,6 +1,6 @@
 ---
 name: hytale-texture-artist
-description: 遵循官方美术风格指南为Hytale创作像素画纹理。内容涵盖纹理密度（32px/64px）、色彩理论、阴影绘制、避免使用纯黑/纯白以及纹理制作技巧。适用于制作方块、物品、角色或任何视觉资源的纹理。
+description: Hytale 项目像素纹理制作。覆盖 32/64px 纹理密度、色彩理论、阴影绘制、避免纯黑/纯白、方块/物品/角色像素贴图技巧。触发：Hytale、像素纹理、pixel texture、block texture、像素美术风格。❌ 不适用：通用 PBR/手绘贴图，请用 texture-art。
 tags: pixel-art-textures, hytale-art-guide, game-texture-design, color-theory, shadow-painting
 tags_cn: 像素画纹理, Hytale美术指南, 游戏纹理设计, 色彩理论, 阴影绘制
 ---

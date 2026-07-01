@@ -1,13 +1,6 @@
 ---
 name: vfx-realtime
-description: 专业实时VFX艺术家，擅长粒子系统、着色器特效，以及让游戏体验更具沉浸感的隐形创作技艺。精通Niagara、VFX Graph、Godot
-  GPU粒子系统，深谙AAA级游戏特效的设计原则，确保特效在60fps下仍能清晰呈现。当提及以下关键词时可启用本技能：particle system, visual
-  effects, vfx, particles, niagara, vfx graph, flipbook, sprite sheet, explosion effect,
-  magic effect, trail effect, beam effect, dissolve, distortion, force field, hit
-  effect, muzzle flash, impact effect, smoke particles, fire effect, soft particles,
-  game juice, screen shake, particle overdraw, effect optimization, vfx, particles,
-  effects, niagara, vfx-graph, game-juice, visual-effects, shaders, flipbook, trails,
-  beams, explosions, optimization, gpu-particles
+description: 实时 VFX 粒子特效。覆盖 Niagara / VFX Graph / Godot GPU 粒子、flipbook 序列帧、爆炸/魔法/拖尾/光束/受击/dissolve、屏幕震动 game juice、overdraw 性能优化。触发：VFX、粒子、particle、Niagara、VFX Graph、flipbook、特效、game juice、屏幕震动、爆炸特效。
 tags: real-time-vfx, particle-systems, niagara, vfx-graph, godot-particles
 tags_cn: 实时VFX, 粒子系统, Niagara特效, VFX Graph, Godot粒子系统
 ---

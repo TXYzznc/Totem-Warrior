@@ -1,6 +1,6 @@
 ---
 name: setup-fastlane
-description: 为iOS/macOS应用自动化配置Fastlane
+description: Fastlane 安装与首轮配置（iOS/macOS）。覆盖 Gemfile、Appfile/Matchfile、证书初始化、lane 模板、TestFlight 上传、App Store 提交。触发：Fastlane、setup、安装 Fastlane、iOS 自动化、证书管理、match、TestFlight。❌ 不适用：完整 CI 流水线，请用 mobile-cicd。
 argument-hint:
 - project-path
 allowed-tools: Bash, Read, Write, Edit, Glob

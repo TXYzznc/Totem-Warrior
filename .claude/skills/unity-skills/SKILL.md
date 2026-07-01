@@ -327,6 +327,75 @@ animationType可选值：None、Legacy、Generic、Humanoid | meshCompression可
 - 建议使用`instanceId`（来自`editor_get_selection`/`editor_get_context`）确保对象唯一性
 - `name?`表示可使用名称、instanceId或路径来识别对象
 
+## 多项目路由（重要）
+
+Unity Editor REST 服务器**动态**分配端口——同时开多个 Unity 项目时端口按启动顺序递增（8090、8091、8092...）。服务端在 `~/.unity_skills/registry.json` 按项目路径登记 `{id, name, path, port, pid, ...}`。
+
+**客户端 (`unity_skills.py`) 按以下优先级链解析目标端口**：
+
+| 优先级 | 来源 | 场景 |
+|---|---|---|
+| 1 | `--port=<num>` CLI 参数 | 显式指定端口（最高优先级） |
+| 2 | `--target=<name-or-id>` CLI 参数 | 按项目名 / ID 反查 registry |
+| 3 | `UNITY_SKILLS_TARGET` 环境变量 | 会话级默认目标 |
+| 4 | **cwd 匹配**（默认） | 从项目目录（或其子目录）跑，自动落到该项目 |
+| 5 | `DEFAULT_PORT = 8090`（兜底 + stderr warning） | 未匹配任何 registry 条目 |
+
+### 排障：health 命令
+
+任何时候不清楚客户端打到哪个端口，跑：
+
+```bash
+python .claude/skills/unity-skills/scripts/unity_skills.py health
+```
+
+输出示例（当前项目命中）：
+```json
+{
+  "url": "http://localhost:8090",
+  "source": "cwd-match(GameDesinger)",
+  "ok": true
+}
+```
+
+- `source: "cwd-match(<name>)"` → cwd 匹配到 registry 项目
+- `source: "cli-target(<x>)"` / `"cli-port(<n>)"` → CLI 参数覆盖
+- `source: "env(<x>)"` → 环境变量覆盖
+- `source: "default"` → 未匹配，回退 8090（会在 stderr 打 warning）
+
+### 跨项目调用示例
+
+```bash
+# 从当前项目目录调其他项目（按项目名）
+python .claude/skills/unity-skills/scripts/unity_skills.py editor_get_selection --target=OtherProject
+
+# 显式指定端口
+python .claude/skills/unity-skills/scripts/unity_skills.py editor_get_selection --port=8091
+
+# 会话级绑定目标
+export UNITY_SKILLS_TARGET=OtherProject
+python .claude/skills/unity-skills/scripts/unity_skills.py editor_get_selection
+```
+
+### registry.json schema（只读消费）
+
+`~/.unity_skills/registry.json` 由服务端维护，客户端只读：
+
+```json
+{
+  "D:\\unity\\UnityProject\\GameDesinger": {
+    "id": "GameDesinger_A1B2",
+    "name": "GameDesinger",
+    "path": "D:\\unity\\UnityProject\\GameDesinger",
+    "port": 8090,
+    "pid": 12345
+  }
+}
+```
+
+- `path` / `name` / `id` 用于匹配；`port` 是目标
+- registry 缺失或损坏时静默回退 8090（不抛异常）
+
 ## 中文 / CJK 参数调用约定（强制）
 
 **任何参数包含 CJK / Emoji / Latin-1 范围外字符时，必须用 `--stdin-json` 模式调用**，绝不可走 `key=value` argv。

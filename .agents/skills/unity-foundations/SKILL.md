@@ -1,7 +1,6 @@
 ---
 name: unity-foundations
-description: Unity 6 核心概念与架构指南。在处理GameObjects、Components、Transforms、Scenes、Prefabs、ScriptableObjects或Unity项目结构时可参考使用。内容涵盖实体组件架构、对象层级、标签、图层和项目规范，基于Unity
-  6.3 LTS官方文档编写。
+description: Unity 6 核心概念入门。覆盖 GameObject/Component/Transform/Scene/Prefab/ScriptableObject、实体组件架构、对象层级、Tag/Layer、项目结构规范。触发：Unity 入门、GameObject、Component、Prefab、Scene、ScriptableObject、Tag、Layer。❌ 不适用：Editor REST API / DataTable / UI 全流程，请用 unity-dev。
 tags: unity6, unity-development, csharp-scripting, game-development, unity-architecture
 tags_cn: Unity 6, Unity开发, C#脚本, 游戏开发, Unity架构
 ---

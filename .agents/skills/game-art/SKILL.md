@@ -1,6 +1,6 @@
 ---
 name: game-art
-description: 游戏美术原则：视觉风格选择、资源管线、动画工作流
+description: 游戏美术总原则与跨子专家协调入口。覆盖视觉风格选型、美术资源管线、动画工作流、色彩理论。触发：美术风格、art style、美术管线、art pipeline、视觉方向。❌ 不适用：具体执行（UI/3D/动画/特效），请用 art-ui / art-3d / art-anim / art-vfx。
 allowed-tools: Read, Glob, Grep
 tags: game-art, art-style-selection, asset-pipeline, animation-workflow, color-theory
 tags_cn: 游戏美术, 美术风格选择, 资源管线, 动画工作流, 色彩理论

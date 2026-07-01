@@ -22,10 +22,10 @@
 1. **读取用户需求** — 提取绘图目标的核心描述
 2. **判断类型** — 根据上表匹配对应子模块
 3. **读取子模块** — 加载对应 `SKILL.md` 中的生成规范
-4. **⚠️ UI 类型前置门槛** — 若类型为 **UI**：
-   - 先检查 `art/requirements.md` 是否已含三表（页面清单 / 复用组件清单 / 组件状态表）
-   - 缺三表 → 主动起草骨架写入 requirements.md，明示用户审阅修订；用户确认后才进 Step 5
-   - 详见 `drawing-prompt-UI.md` 顶部「UI 出图前置：先定表（强制）」小节
+4. **⚠️ UI 类型前置门槛（v3 结构先行）** — 若类型为 **UI**：
+   - 先检查 `openspec/changes/<change>/art/prefab-layout.md` 是否存在且已用户确认（含全局约定 + 每页节点树 + RectTransform 数据 + 状态清单）
+   - **缺 layout → 立即阻塞并交回主对话**，按 [CLAUDE.md §六「UI 制作子流程 v3」](../../../CLAUDE.md) 阶段 1 重新走：delegate art-ui 用 `unity-rect-transform` SKILL 产出 layout；本 SKILL 只承担阶段 2（写 prompts.md 反哺结构约束段）
+   - 详见 `drawing-prompt-UI.md` 顶部「UI 出图前置：结构先行（强制）」小节
    - CHARACTER / ICON / SCENE / COMMON 类型**跳过本步**，直接进 Step 5
 5. **执行生成** — 按子模块规范进行推理并输出提示词
 6. **输出结果** — 结构化提示词 + 简要推理说明

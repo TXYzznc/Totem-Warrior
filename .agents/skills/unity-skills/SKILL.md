@@ -326,3 +326,129 @@ animationType可选值：None、Legacy、Generic、Humanoid | meshCompression可
 - 执行`script_create`后，请等待3-5秒，待Unity完成重新编译
 - 建议使用`instanceId`（来自`editor_get_selection`/`editor_get_context`）确保对象唯一性
 - `name?`表示可使用名称、instanceId或路径来识别对象
+
+## 多项目路由（重要）
+
+Unity Editor REST 服务器**动态**分配端口——同时开多个 Unity 项目时端口按启动顺序递增（8090、8091、8092...）。服务端在 `~/.unity_skills/registry.json` 按项目路径登记 `{id, name, path, port, pid, ...}`。
+
+**客户端 (`unity_skills.py`) 按以下优先级链解析目标端口**：
+
+| 优先级 | 来源 | 场景 |
+|---|---|---|
+| 1 | `--port=<num>` CLI 参数 | 显式指定端口（最高优先级） |
+| 2 | `--target=<name-or-id>` CLI 参数 | 按项目名 / ID 反查 registry |
+| 3 | `UNITY_SKILLS_TARGET` 环境变量 | 会话级默认目标 |
+| 4 | **cwd 匹配**（默认） | 从项目目录（或其子目录）跑，自动落到该项目 |
+| 5 | `DEFAULT_PORT = 8090`（兜底 + stderr warning） | 未匹配任何 registry 条目 |
+
+### 排障：health 命令
+
+任何时候不清楚客户端打到哪个端口，跑：
+
+```bash
+python .claude/skills/unity-skills/scripts/unity_skills.py health
+```
+
+输出示例（当前项目命中）：
+```json
+{
+  "url": "http://localhost:8090",
+  "source": "cwd-match(GameDesinger)",
+  "ok": true
+}
+```
+
+- `source: "cwd-match(<name>)"` → cwd 匹配到 registry 项目
+- `source: "cli-target(<x>)"` / `"cli-port(<n>)"` → CLI 参数覆盖
+- `source: "env(<x>)"` → 环境变量覆盖
+- `source: "default"` → 未匹配，回退 8090（会在 stderr 打 warning）
+
+### 跨项目调用示例
+
+```bash
+# 从当前项目目录调其他项目（按项目名）
+python .claude/skills/unity-skills/scripts/unity_skills.py editor_get_selection --target=OtherProject
+
+# 显式指定端口
+python .claude/skills/unity-skills/scripts/unity_skills.py editor_get_selection --port=8091
+
+# 会话级绑定目标
+export UNITY_SKILLS_TARGET=OtherProject
+python .claude/skills/unity-skills/scripts/unity_skills.py editor_get_selection
+```
+
+### registry.json schema（只读消费）
+
+`~/.unity_skills/registry.json` 由服务端维护，客户端只读：
+
+```json
+{
+  "D:\\unity\\UnityProject\\GameDesinger": {
+    "id": "GameDesinger_A1B2",
+    "name": "GameDesinger",
+    "path": "D:\\unity\\UnityProject\\GameDesinger",
+    "port": 8090,
+    "pid": 12345
+  }
+}
+```
+
+- `path` / `name` / `id` 用于匹配；`port` 是目标
+- registry 缺失或损坏时静默回退 8090（不抛异常）
+
+## 中文 / CJK 参数调用约定（强制）
+
+**任何参数包含 CJK / Emoji / Latin-1 范围外字符时，必须用 `--stdin-json` 模式调用**，绝不可走 `key=value` argv。
+
+### 背景
+
+Windows cp936 (GBK) 默认 code page 下，agent 胶水层 → Python CLI 之间的 `argv` 路径存在历史性编码隐患：UTF-8 字节流被按 Latin-1 / cp1252 重读会出现 `ȡ` / `ͣ` / `Ƴ` / `Ƴ` / U+FFFD 等残片字符（13 期 Prefab 损坏的根因签名）。即使 Python 3.6+ 已用 `wmain` 接 Unicode argv，下游胶水层、subprocess 包装层、跨版本 Python 仍可能再次损坏。
+
+`--stdin-json` 走 binary pipe，**完全绕开**任何 ANSI / argv / shell 解析层，**字节级 round-trip 100% 干净**。
+
+### 正确调用方式
+
+```bash
+# ✅ 正确：CJK / Emoji / 复杂参数走 --stdin-json
+echo '{"name":"TitleText","text":"设置"}' | python unity_skills.py ui_set_text --stdin-json
+
+echo '{"name":"纹身工作台","primitiveType":"Cube"}' | python unity_skills.py gameobject_create --stdin-json
+```
+
+```python
+# ✅ Python subprocess 调用（agent / 测试脚本）
+import subprocess, json
+params = {"name": "DescLabel", "text": "Settings 设置 ▶ 音量"}
+proc = subprocess.run(
+    [sys.executable, "unity_skills.py", "ui_set_text", "--stdin-json"],
+    input=json.dumps(params, ensure_ascii=False).encode('utf-8'),
+    capture_output=True,
+)
+```
+
+### 错误调用方式
+
+```bash
+# ❌ 错误：CJK 走 argv，存在跨版本 / 跨 shell 编码风险
+python unity_skills.py ui_set_text name=TitleText text=设置
+python unity_skills.py gameobject_create name=纹身工作台 primitiveType=Cube
+```
+
+### 何时可以用 argv（key=value）
+
+仅当**所有参数都是 ASCII**（英文 / 数字 / 常规符号）时，可继续用传统 `key=value` 写法：
+
+```bash
+# ✅ 纯 ASCII 参数，argv 模式 OK
+python unity_skills.py gameobject_create name=Cube primitiveType=Cube x=0 y=0 z=0
+```
+
+### MSYS / Cygwin / WSL / 非标准 Python 环境
+
+这些环境下 `ctypes.windll` 不可用，Python 3.14 之前的 wmain 防护可能缺失。**强制走 `--stdin-json`**——这是唯一跨环境 100% 安全的入口。
+
+### 设计依据
+
+- Phase 0 复现日志：[`openspec/changes/14-mcp-encoding-fix/tests/repro/repro-log.md`](../../../openspec/changes/14-mcp-encoding-fix/tests/repro/repro-log.md)
+- 设计文档（4 路防御）：[`openspec/changes/14-mcp-encoding-fix/design.md`](../../../openspec/changes/14-mcp-encoding-fix/design.md)
+- 13 期 Prefab 残片复盘：`openspec/changes/archive/2026-06-29-13-fix-broken-prefabs/art/raw/mcp-spike-report.md`

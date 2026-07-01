@@ -1,6 +1,6 @@
 ---
 name: redis-best-practices
-description: Redis开发最佳实践：缓存、数据结构与高性能键值操作
+description: Redis 入门最佳实践。覆盖键命名规范、TTL 策略、基本数据结构（String/Hash/List/Set/ZSet）、pipeline 批量操作、连接池、内存管理。触发：Redis 入门、最佳实践、键命名、TTL、pipeline、Redis 集群基础。❌ 不适用：分布式锁/pub-sub/限流/排行榜，请用 redis-specialist。
 tags: redis-best-practices, caching-patterns, data-structures, high-performance-redis,
   redis-cluster
 tags_cn: Redis开发最佳实践, 缓存模式, 数据结构, 高性能Redis, Redis集群

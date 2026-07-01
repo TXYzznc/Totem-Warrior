@@ -8,7 +8,7 @@ Use the Python helper script in `scripts/unity_skills.py` to execute Unity opera
 
 1. Unity Editor must be running with the UnitySkills package installed
 2. REST server must be started: **Window > UnitySkills > Start Server**
-3. Server endpoint: `http://localhost:8090`
+3. Server endpoint: 端口由 `~/.unity_skills/registry.json` 按项目 cwd 自动路由；同时开多个 Unity 项目时按启动顺序递增（8090、8091、8092...）。跑 `python scripts/unity_skills.py health` 查看当前生效端口 + 路由来源。跨项目用 `--target=<name>` 或 `--port=<num>` 显式覆盖。详见 `unity-skills` SKILL 的「多项目路由」章节。
 
 ## Quick Start
 
@@ -580,17 +580,25 @@ unity-skills/
     └── unity_skills.py  # Python helper with call_skill(), is_unity_running(), etc.
 ```
 
-## Direct REST API
+## CLI 调用（推荐——自动路由端口）
 
 ```bash
-# Health check
-curl http://localhost:8090/health
+# Health check + 显示当前路由来源
+python .claude/skills/unity-skills/scripts/unity_skills.py health
 
 # List all available skills
-curl http://localhost:8090/skills
+python .claude/skills/unity-skills/scripts/unity_skills.py --list
 
 # Execute a skill
-curl -X POST http://localhost:8090/skill/gameobject_create \
-  -H 'Content-Type: application/json' \
-  -d '{"name":"MyCube", "primitiveType":"Cube"}'
+python .claude/skills/unity-skills/scripts/unity_skills.py gameobject_create name=MyCube primitiveType=Cube
+
+# 跨项目：显式指定 target / port
+python .claude/skills/unity-skills/scripts/unity_skills.py gameobject_create --target=OtherProject name=Cube
+python .claude/skills/unity-skills/scripts/unity_skills.py gameobject_create --port=8091 name=Cube
+
+# 含 CJK / Emoji / 复杂 body → --stdin-json
+echo '{"name":"纹身工作台","primitiveType":"Cube"}' | \
+  python .claude/skills/unity-skills/scripts/unity_skills.py gameobject_create --stdin-json
 ```
+
+> 如果确实需要 curl，端口从 `~/.unity_skills/registry.json` 读取；本文档不再展示 curl 例，避免端口硬编码。

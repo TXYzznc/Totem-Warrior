@@ -1,6 +1,6 @@
 ---
 name: milestone-tracker
-description: 里程碑跟踪专家。用于进度跟踪、关键路径、状态报告和挣值管理。
+description: 项目里程碑跟踪。覆盖关键路径分析、状态周报、EVM 挣值管理、风险升级、燃尽图、敏捷项目集成。触发：里程碑、milestone、关键路径、critical path、EVM、挣值、状态报告、周报、燃尽图、burn down、敏捷跟踪。
 tags: milestone-tracking, critical-path-analysis, earned-value-management, project-status-reporting,
   agile-project-integration
 tags_cn: 里程碑跟踪, 关键路径分析, 挣值管理(EVM), 项目状态报告, 敏捷项目集成

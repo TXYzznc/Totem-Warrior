@@ -1,9 +1,6 @@
 ---
 name: player-onboarding
-description: 通过游戏化教学的首次用户体验（FTUE）设计，30秒内抓住玩家并实现终身留存。适用于提及“tutorial（教程）、onboarding（新用户引导）、teach
-  player（玩家教学）、first time user（首次用户）、FTUE、new player experience（新玩家体验）、how to teach（教学方法）、teaching
-  mechanics（教学机制）、tutorial level（教程关卡）、intro sequence（开场序列）、player retention（玩家留存）、drop-off（用户流失）、skip
-  tutorial（跳过教程）、contextual hints（情境提示）、help system（帮助系统）、onboarding、tutorial、ftue、first-time-user-experience、player-retention、teaching、learning、progressive-disclosure（渐进式信息披露）、difficulty-curve（难度曲线）、new-player-experience、hooks（钩子）、engagement（用户参与）”等术语的场景。
+description: 首次用户体验（FTUE）设计。覆盖教程关卡设计、开场 hook、情境化教学、渐进式信息披露、玩家留存与 drop-off 分析、帮助系统。触发：tutorial、教程、onboarding、新手引导、FTUE、首次用户、玩家留存、retention、drop-off、contextual hint。
 tags: ftue-design, player-onboarding, game-tutorial, player-retention, engagement-optimization
 tags_cn: FTUE设计, 玩家Onboarding, 游戏教程设计, 玩家留存优化, 情境化教学
 ---

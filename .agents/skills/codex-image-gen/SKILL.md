@@ -60,7 +60,7 @@ art/raw/*.png + 生成记录.md
 对每张图提取：
 - `资源名`（也作为文件名基础）
 - `提示词`（英文优先，imagegen 对英文响应更好）
-- `尺寸`（默认 1024×1024；横构图 1536×1024；竖构图 1024×1536）
+- `尺寸`：**优先**按 [美术资源规范.md](../../美术资源规范.md) §二 对应视觉类别的 Max 尺寸（如 UI 图标 256×256 / 角色全身 1024×2048 / 场景背景 1920×1080）。**目标是「生产即合规」**，让 imagegen 直接吐出符合规范的尺寸，避免事后 image-compression 兜底。仅当 prompts.md 明确指定其它尺寸或规范无对应类别时，才回退默认值（1024×1024 / 横 1536×1024 / 竖 1024×1536）
 - `透明背景`（是 / 否）
 - `负面提示词`（如有）
 - `候选数量`（默认 1；多候选用 `资源名_v01.png` / `_v02.png`）
@@ -298,7 +298,102 @@ sprites_sorted = sorted(manifest["sprites"], key=row_then_x)
 - 当前对话是 Claude → 用本 SKILL 替代该步
 - 当前对话是带绘图工具的模型（GPT-Image 系列） → 按 ai-art 原流程直接调
 
-## 七、Definition of Done
+## 七、踩坑实录（2026-06-26 实测 codex-art-gen MCP 时的教训）
+
+> 本节记录写新工具/调用 codex 时翻过的车。**写消费 codex 的代码前必读**。
+
+### 7.1 透明背景 — codex 内置 image_gen **不支持原生透明**
+
+- **症状**：让 codex `image_gen` 传 `transparent: true`，输出 PNG 是 `RGB` 模式（不是 RGBA），里面画了**仿 PS 棋盘格图案**冒充"透明"，alpha 全是 255。
+- **根因**：codex 内置 `image_gen` 工具底层是 `gpt-image-2`，按 imagegen SKILL.md 原文 "`gpt-image-2` does not support `background=transparent`"。真透明只能走 `gpt-image-1.5 --background transparent`（需付费 `OPENAI_API_KEY`，独立于 ChatGPT 订阅）。
+- **规避**：走 **chroma-key 工作流**（codex 推荐方案）：
+  1. prompt 里要求 `#00ff00` 纯绿背景，**并明确"主体不能含纯绿"避免误抠**
+  2. 本地用 `tools/chroma_key_tool/chroma_key.py` 去绿（threshold 80 / soft-edge 30 / despill 0.5 默认参数实测可用）
+  3. 再做切图等下游步骤
+
+### 7.2 prompt 工程 — 给完整 JSON 模板，模型会偷懒
+
+- **症状**：第一次 dispatch_l2 用 `gpt-5.4-mini`，**0 次 image_gen 调用**（codex 直接抄 prompt 末尾的 JSON 模板返回，假装"ok"）。
+- **根因**：mini 推理弱 + prompt 末尾给了完整 JSON 答案 → 走捷径 copy-paste。
+- **规避**：
+  - 末尾不要给完整答案模板，只给字段名 + 占位符
+  - 关键 tool call 用强约束：「**必须实际调用 image_gen 工具…如果跳过将被视为严重错误…生成结果会被本地校验**」
+  - 推理强度敏感的任务用 `gpt-5.5`，不用 `gpt-5.4-mini`
+
+### 7.3 Windows codex.cmd shim — Python subprocess 不能直接 exec
+
+- **症状**：`asyncio.create_subprocess_exec("codex", ...)` 报 `FileNotFoundError: [WinError 2]`。
+- **根因**：npm 装的 codex 是 `.cmd` shim（`%APPDATA%\npm\codex.CMD`），Windows `subprocess_exec` 不解析 PATH 也不能直接执行 .cmd。
+- **规避**：
+  ```python
+  import shutil
+  CODEX_EXE = shutil.which("codex")
+  USE_SHELL = CODEX_EXE.lower().endswith(".cmd")
+  real_args = ["cmd.exe", "/c", CODEX_EXE, *args] if USE_SHELL else [CODEX_EXE, *args]
+  # 用 create_subprocess_exec(real_args)，让 Python list2cmdline 自动转义参数
+  ```
+- **关键**：**不要用 `create_subprocess_shell` 手动拼 cmdline** —— TOML 数组 `["..."]` 的双引号会被 cmd.exe 吞掉，导致 `-c writable_roots=...` TOML 解析失败。
+
+### 7.4 消费外部工具前必须先看接口（最常翻车）
+
+- **症状**：sheet_cutter 报 `'list' object has no attribute 'get'` + `KeyError: 'path'`。
+- **根因**：`image_cut.py --json` 输出 `manifest_all.json`（不是 `<stem>.json`），结构是 `list[dict]`（不是 dict），sprite 字段叫 `file`（不是 `path`）。**没跑过它的 --json 输出就写了消费代码**。
+- **强制规避**：写消费外部工具的代码前，**必须先在终端跑一次实测**：
+  ```bash
+  .venv/Scripts/python tools/ImageCut_Tool/image_cut.py --help
+  .venv/Scripts/python tools/ImageCut_Tool/image_cut.py sample.png -o /tmp/cut --json
+  cat /tmp/cut/*.json | head -30
+  ```
+- **绝对不能凭印象写 manifest 解析代码。**
+
+### 7.5 prompts.md `file` 字段路径规约 — 必须 `raw/<cat>/<name>.png` 三段
+
+- **症状**：bucket 把每张图归到自己的"分类"（取了文件名当 category）。
+- **根因**：`raw/button_normal.png` 只两段，category 解析成 `button_normal.png`；需要 `raw/ui/button_normal.png` 三段才能识别出 `ui` 类别。
+- **规避**：prompts.md 写 file 字段时**必须三段**，批处理工具不会替你修正路径分类。
+
+### 7.6 MCP 通用工具不该硬编码业务
+
+- **症状**：`bucketizer.py` 写死 `L2_CATEGORIES = {"weapon",...,"ui"}`；`batch_parser.py` 写死项目 `STYLE_BASE`。每个新项目要 fork MCP 改硬编码。
+- **根因**：把项目业务逻辑塞进通用工具，违背 MCP 抽象。
+- **规避**：MCP 工具输入完全参数化（`l1_categories=[]` / `l2_categories=[]` / `style_base=""` / `neg_base=""`），由调用方注入项目业务。
+
+### 7.7 路径变量命名 confusion
+
+- **症状**：`rename_by_layout_order(art_raw_root=art_raw)` 路径重复 `raw/ui/raw/ui/...`。
+- **根因**：参数叫 `art_raw_root`，但 item.file 已含 `raw/` 前缀，根目录应传 `art_dir` 不是 `art/raw`。变量名跟实际语义不一致。
+- **规避**：路径拼接函数加最简单的 unit test：
+  ```python
+  def test_rename_path():
+      assert (Path("/proj/art") / "raw/ui/button.png") == Path("/proj/art/raw/ui/button.png")
+  ```
+
+### 7.8 MCP 测试别绕过 stdio 协议层
+
+- **症状**：用 `python -c "import server; tool_dispatch_l2(...)"` 直接调函数验证逻辑，绕过了 MCP stdio。
+- **根因**：图快走 Python import，但 MCP server 进程根本没启动，相当于"测了引擎没测车壳"。
+- **规避**：MCP 改动后**必须**让 Claude Code 重启加载 MCP，用 `mcp__<server>__<tool>` 工具走真实 stdio 协议测一次。
+
+### 7.9 MCP stdio 下 subprocess 必须 `stdin=DEVNULL`（不然死锁）
+
+- **症状**：`tools/codex-art-gen-mcp/sheet_cutter.py` 调 `chroma_key.py` 子进程在 Python `import server` 旁路测试下 1-2 秒完成；同样代码在 **stdio MCP 真测**下 hang 到 60s timeout 报 "chroma_key.py timeout 60s"。
+- **根因**：MCP stdio 模式下，server.py 父进程的 stdin 是 MCP 客户端协议管道。`subprocess.run(cmd, capture_output=True)` 不显式设 `stdin`，子进程**继承父进程的 stdin**，于是 chroma_key.py 子进程→父进程→MCP 客户端形成环形等待，Windows + asyncio 下 100% 复现死锁；import 旁路下 stdin 是 tty，所以测不出。
+- **规避**：MCP server 里**所有** `subprocess.run` / `subprocess.Popen` 必须显式 `stdin=subprocess.DEVNULL`。`asyncio.create_subprocess_exec` 同理。**只在 MCP server 里要这样**，普通 CLI 脚本不用。
+- **教训**：7.8 说"import 旁路 ≈ stdio 真测"是错的，stdio 模式有 subprocess 继承陷阱，import 旁路完全测不到。
+
+### 7.10 server.py 别强依赖 codex 返回 JSON，纯磁盘核验最稳
+
+- **症状**：dispatch_l2 在 stdio 真测下，**codex 6,653 tokens 直接返回 `{"size_bytes":123456,"status":"ok",...}`，画布根本没出**——codex 把 prompt 末尾的"返回格式"示例 JSON 当成答案原样吐回了，0 次 image_gen 调用。L1 同样模板曾经成功只是 gpt-5.5 随机性。
+- **根因**：7.2 已经警告过 prompt 不要给完整答案模板，但 server.py 当时仍**强依赖 `codex_result["result"]` 的 list/dict 结构来对齐 items**——codex 复读 → list 结构刚好"合法" → server.py 接受 → 假装成功。
+- **规避**（**两步连改**才能根治）：
+  1. **删 prompt 里的"返回格式"段**：不给字段名 + 不给占位数值。改成 `"任务由调用方通过磁盘文件是否存在 + 体积 > 1KB 判定"`，断 codex 复读路径。
+  2. **server.py 改纯磁盘核验**：不用 `codex_result["result"]`；遍历**原始** items，对每个 `item.file` 自己 `Path.exists()` + `stat().st_size > 1024`，再走 chroma_key。L2 同理：codex 完成后立即 `canvas_path.exists()` 早期检查，给清晰错误"codex 未真出图"。
+- **副作用**：`size_bytes` 永远是 server.py 本地 `stat()` 算出来的真值，不可能被伪造。出图失败也不会因为 codex 嘴硬"status:ok"而被误判成功。
+- **本次 v21 验证**：14 L1 + 8 L2 = 22 张一把过，0 失败。
+
+---
+
+## 八、Definition of Done
 
 - [ ] 每张需求条目都在 `art/raw/`（或子模块目录）有对应 PNG，size > 1KB
 - [ ] `生成记录.md` 完整覆盖所有条目（ok / failed 都要写）

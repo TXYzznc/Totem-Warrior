@@ -1,11 +1,6 @@
 ---
 name: animation-systems
-description: 实时游戏动画系统专家，涵盖skeletal animation、blend trees、状态机、inverse kinematics、root
-  motion、程序化动画以及animation retargeting。擅长创作流畅、响应迅速的角色动画，在视觉质量与性能限制之间取得平衡。当提及以下关键词时可使用本技能：animation
-  system、state machine、blend tree、skeletal animation、inverse kinematics、IK system、root
-  motion、animation blending、character animation、animator controller、motion matching、animation
-  retargeting、foot IK、look at IK、aim offset、animation montage、animation notify、additive
-  animation、animation layers、procedural animation、animation、game-dev、character、state-machine、unity、unreal、godot、skeletal、rigging、motion
+description: 实时角色动画系统。覆盖 skeletal animation、Animator state machine、blend tree、IK（foot/look-at/aim）、root motion、motion matching、动画重定向、additive 与 layers、程序化动画。触发：动画系统、animation、state machine、blend tree、IK、root motion、motion matching、animation retargeting、Animator。
 tags: game-animation-systems, skeletal-animation, blend-trees, inverse-kinematics,
   animation-retargeting
 tags_cn: 游戏动画系统, Skeletal动画, Blend Trees, 逆运动学(IK), 动画重定向
