@@ -6,7 +6,7 @@ using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace TotemWarrior.EditorTools
+namespace GameTemplate.EditorTools
 {
     /// <summary>
     /// 字体批量替换工具。

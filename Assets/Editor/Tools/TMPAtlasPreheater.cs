@@ -4,7 +4,7 @@ using TMPro;
 using UnityEditor;
 using UnityEngine;
 
-namespace TotemWarrior.EditorTools
+namespace GameTemplate.EditorTools
 {
     /// <summary>
     /// 给 Dynamic 模式的 TMP_FontAsset「预烘」atlas。
