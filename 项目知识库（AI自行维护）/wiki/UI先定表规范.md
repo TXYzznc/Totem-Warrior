@@ -1,13 +1,21 @@
 ---
-title: UI 先定表规范（先定表，再出图）
+title: UI 先定表规范（先定表，再出图）— 已废弃
 owner: art-director
 created: 2026-06-24
-last_updated: 2026-06-24
-status: active
-related_change: openspec/changes/04-ui-planning-first/
+last_updated: 2026-07-01
+status: superseded
+superseded_by: wiki/UI结构先行规范.md
+related_change: openspec/changes/archive/2026-06-29-04-ui-planning-first/
+supersession_change: openspec/changes/archive/2026-07-01-17-ui-structure-first/
 ---
 
 # UI 先定表规范
+
+> ⚠️ **本规范已于 2026-07-01 被 [UI 结构先行规范 v3](UI结构先行规范.md) 取代**。
+>
+> v2「三表」（页面清单 / 复用组件清单 / 组件状态表）暴露了 checklist 化 / 信息不能落地 / 效果图长宽全靠猜 三个问题，v3 用单文件 `prefab-layout.md`（含 RectTransform 数据）替代——同一份信息同时喂养阶段 2 效果图长宽反哺 / 阶段 4 素材拆分节点树 / 阶段 5 Prefab 层级搭建。
+>
+> 对应 openspec capability `ui-planning` 已废弃（2 条 Requirement 标 REMOVED），新 UI 走 [openspec/specs/ui-workflow/](../../openspec/specs/ui-workflow/) 6 阶段流程。**本文档仅保留作为历史记录，不再驱动流程。**
 
 > **核心方法论**：独立游戏做 UI，第一步不是出图，而是**先定表**。AI 可以帮你提高视觉效率，但前面的结构判断、页面取舍、状态规划还是要人先定。先定表，再出图，会稳很多。
 

@@ -24,22 +24,22 @@
 | **gd-lead** | lead | `game-design-core`, `game-design-theory`, `brainstorm`, `design-system`, `grill-me`, `openspec`, `deep-research` | `review-all-gdds`, `propagate-design-change`, `game-monetization`, `player-onboarding` |
 | **gd-system** | system | `balance-check`, `combat-balancer`, `progression-systems`, `difficulty-curve`, `quest-mission-design` | `achievement-design`, `puzzle-design`, `casino-math-balancer`, `game-monetization`, `xlsx` |
 | **level-designer** | system | `level-design`, `player-guidance`, `difficulty-curve` | `puzzle-design`, `playtest-digital` |
-| **art-director** | lead | `art-direction`, `game-art`, `grill-me`, `ai-art`, `codex-image-gen` | `gpt-image-2-style-library`, `find-skills` |
-| **art-ui** | impl | `game-ui-design`, `art-direction`, `ai-art`, `codex-image-gen`, `ui-asset-splitting` | `gpt-image-2-style-library`, `unity-ui` |
+| **art-director** | lead | `art-direction`, `game-art`, `grill-me`, `ai-art`, `codex-image-gen` | `gpt-image-2-style-library`, `find-skills`, `image-compression` |
+| **art-ui** | impl | `game-ui-design`, `art-direction`, `ai-art`, `codex-image-gen`, `ui-asset-splitting`, `unity-rect-transform` | `gpt-image-2-style-library`, `unity-ui`, `image-compression` |
 | **art-font** | impl | `typeset`, `font-pairing-suggester`, `font-selection-cjk`, `font-subsetting`, `pixel-font-rendering` | — |
 | **art-vfx** | impl | `vfx-realtime`, `shader-effects` | `agency-technical-artist`, `unity-lighting-vfx` |
-| **art-2d** | impl | `character-sprite`, `hytale-texture-artist`, `gpt-image-2-style-library`, `ai-art`, `codex-image-gen` | `art-direction`, `pixel-font-rendering` |
+| **art-2d** | impl | `character-sprite`, `hytale-texture-artist`, `gpt-image-2-style-library`, `ai-art`, `codex-image-gen` | `art-direction`, `pixel-font-rendering`, `image-compression` |
 | **art-3d** | impl | `3d-modeling`, `texture-art`, `blender-mcp` | `agency-technical-artist`, `rigging` |
 | **art-anim** | impl | `animation-systems`, `rigging` | `unity-animation`, `blender-mcp` |
 | **client-lead** | lead | `unity-foundations`, `unity-architecture-di`, `unity-async-patterns`, `grill-me`, `openspec` | `unity-ecs-patterns`, `addressables-hotfix`, `state-machine` |
-| **client-unity** | impl | `unity-foundations`, `unity-ui`, `unity-input-correctness`, `save-serialization`, `state-machine`, `physics-collision`, `localization-i18n`, `ui-asset-splitting` | `unity-animation`, `addressables-hotfix`, `uloop-execute-dynamic-code`, `uloop-run-tests` |
+| **client-unity** | impl | `unity-foundations`, `unity-ui`, `unity-input-correctness`, `save-serialization`, `state-machine`, `physics-collision`, `localization-i18n`, `ui-asset-splitting`, `unity-skills`, `unity-rect-transform` | `unity-animation`, `addressables-hotfix`, `uloop-execute-dynamic-code`, `uloop-run-tests` |
 | **client-ta** | impl | `unity-shaders-rendering`, `unity-lighting-vfx`, `shader-effects`, `agency-unity-shader-graph-artist` | `vfx-realtime`, `agency-technical-artist` |
 | **net-lead** | lead | `arch-api`, `game-networking`, `multiplayer-game`, `grill-me`, `openspec` | `algo-rank-trueskill`, `atomic-matchmaking` |
 | **net-backend** | impl | `arch-api`, `jwt-auth`, `oauth-implementation`, `backend-testing` | `redis-specialist`, `kafka-development`, `opentelemetry`, `prometheus` |
 | **net-db** | system | `database-schema-design`, `redis-best-practices` | `redis-specialist` |
-| **qa-engineer** | impl | `testing-strategies`, `backend-testing`, `crash-analytics`, `playtest-digital`, `k6` | `mobile-device-testing`, `uloop-run-tests`, `ab-testing` |
-| **devops-engineer** | impl | `devops-deployment`, `github-actions-docs`, `mobile-cicd`, `secrets-management`, `deploy-checklist`, `feature-flags` | `setup-fastlane`, `steam-deploy`, `asc-submission-health`, `cdn-setup`, `opentelemetry`, `prometheus`, `semver` |
-| **tools-engineer** | impl | `unity-editor-scripting`, `unity-skills`, `uloop-execute-dynamic-code`, `skill-creator`, `find-skills` | `moai-docs-generation`, `agent-browser` |
+| **qa-engineer** | impl | `testing-strategies`, `backend-testing`, `crash-analytics`, `playtest-digital`, `playtest-driver`, `k6` | `mobile-device-testing`, `uloop-run-tests`, `ab-testing` |
+| **devops-engineer** | impl | `devops-deployment`, `github-actions-docs`, `mobile-cicd`, `secrets-management`, `deploy-checklist`, `feature-flags` | `setup-fastlane`, `steam-deploy`, `asc-submission-health`, `cdn-setup`, `opentelemetry`, `prometheus`, `semver`, `image-compression` |
+| **tools-engineer** | impl | `unity-editor-scripting`, `unity-skills`, `uloop-execute-dynamic-code`, `skill-creator`, `find-skills` | `moai-docs-generation`, `agent-browser`, `image-compression` |
 
 ---
 
@@ -58,6 +58,8 @@
 | `ai-art` | 3 art-*（art-director / art-2d / art-ui） | 美术出图前置：提示词与需求沉淀；hook 自动唤起 |
 | `codex-image-gen` | 3 art-*（art-director / art-2d / art-ui） | 美术出图后置：调 codex exec 实际生图；出图关键词 hook 自动唤起 |
 | `ui-asset-splitting` | art-ui + client-unity | 效果图拆素材（更后置）：已确认 mockup 拆成背景+组件+状态变体，搬进 Resources；client-unity 搭 Prefab 时直接消费产物 |
+| `unity-rect-transform` | art-ui + client-unity | UI 结构先行 v3 共享词典：art-ui 阶段 1 产出 `prefab-layout.md`（含 RectTransform 数据）；client-unity 阶段 5 读同一份 layout 建 Prefab |
+| `unity-skills` | tools-engineer + client-unity | Unity Editor REST API：tools-engineer 用于工具/宏；client-unity 用于按 `prefab-layout.md` 自动建 UI Prefab（CJK 参数走 `--stdin-json`） |
 | `deep-research` | 2 lead（producer / gd-lead） | 竞品/玩法联网研究 |
 
 > 共享 SKILL 不需要独占归属。代码索引/架构理解类需求统一走 `codebase-memory` MCP（详见 [CLAUDE.md §八](./CLAUDE.md)），不进 SKILL 白名单。

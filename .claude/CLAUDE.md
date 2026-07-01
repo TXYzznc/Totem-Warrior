@@ -2,7 +2,7 @@
 
 > Unity 6.3 LTS 自研轻量模块化框架的 **AI 协作模板**。
 >
-> 核心配置：**20 人虚拟开发团队** + **109 个 Claude skills** + **8 个 MCP 工具（默认启 4，按需启 4）** + **openspec 一站式工作流** + **决策门槛 hook**。
+> 核心配置：**20 人虚拟开发团队** + **110 个 Claude skills** + **8 个 MCP 工具（默认启 4，按需启 4）** + **openspec 一站式工作流** + **决策门槛 hook**。
 
 ---
 
@@ -196,63 +196,68 @@ openspec/changes/<NN-name>/
 详见 [.claude/skills/ai-art/SKILL.md](./skills/ai-art/SKILL.md) 的「美术素材实现流程」。核心规则：
 
 1. 主对话识别意图后，**先定位当前 active openspec change**（`openspec status` / 用户上下文 / 询问用户）
-2. **⚠️ UI 类型前置**：若 change 含 UI 类型素材，`art/requirements.md` 必须先有三表（页面清单 / 复用组件清单 / 组件状态表）；缺三表 → ai-art 主动起草骨架供用户审阅修订，未确认不得进出图。详见 [drawing-prompt-UI.md](./skills/ai-art/references/drawing-prompt-UI.md) 顶部「UI 出图前置：先定表（强制）」
-3. 读取 `openspec/changes/<change-name>/art/requirements.md` + `art/prompts.md`
-4. 调绘图模型逐项生图，输出到 `openspec/changes/<change-name>/art/raw/`
-5. 同目录写 `生成记录.md`；更新 `art/requirements.md` 头部状态字段为「已处理」
+2. **⚠️ UI 类型前置**：若 change 含 UI 类型素材，`art/prefab-layout.md` 必须先由 art-ui 用 `unity-rect-transform` SKILL 产出并经用户确认；缺 layout → 阻塞并交回主对话按 §六 UI 子流程 v3 阶段 1 重新走，未确认不得进出图。ai-art 只承担阶段 2（写 prompts.md）+ 阶段 3（生 mockups）
+3. 读取 `openspec/changes/<change-name>/art/prompts.md`（提示词已由 art-ui 从 prefab-layout.md 反哺画布长宽与组件占比写好）
+4. 调绘图模型逐项生图，输出到 `openspec/changes/<change-name>/art/raw/` 或 `art/mockups/`
+5. 同目录写 `生成记录.md`；更新 `art/prompts.md` 头部状态字段为「已处理」
 6. 无可用绘图模型时明确阻塞，不能假装已生成
 
-### UI 制作子流程（强制时序，v2 — 2026-06-28 插入「素材拆分」阶段）
+### UI 制作子流程（强制时序，v3 — 2026-07-01 结构先行重构）
 
-> 适用于任何新建 / 重做的 UI 界面（HUD / 菜单 / 弹窗 / 表单 / 设置 / 商店 / 任务面板等）。**主对话作为 orchestrator 按下列 6 阶段顺序编排**，禁止跳阶段。
+> 适用于任何新建 / 重做的 UI 界面（HUD / 菜单 / 弹窗 / 表单 / 设置 / 商店 / 任务面板等）。**主对话作为 orchestrator 按下列 6 阶段顺序编排**，禁止跳阶段。**简单弹窗也走完整 6 阶段，无豁免**（历史归档 UI 不回溯）。
 
 ```
-1.需求设计  2.效果图设计  3.效果图生成  4.素材拆分(新)        5.Prefab+代码并行       6.联调微调
-(producer/ (art-ui 写   (codex-       (ui-asset-splitting,  ┌─art-ui出标注稿        (client-unity
- gd-system  prompts.md)  image-gen)    多张 mockup           │                        +用户对比
- +三表)                                Fan-Out 并行拆分)     ├─client-unity 用        效果图迭代)
-                                                              │ unity-skills MCP
-                                                              │ 自动建 Prefab
-                                                              │ +贴入拆分素材
-                                                              └─client-unity 写
-                                                                UIForm 脚本
-                                                              (Fan-Out 模式1,
-                                                               WhenAll 同步)
+1.结构设计           2.效果图设计         3.效果图生成    4.素材拆分            5.拼装实现         6.联调微调
+(art-ui +           (art-ui 从 layout   (codex-        (ui-asset-splitting,  (client-unity      (client-unity
+ unity-rect-        提取画布/占比→       image-gen)     多张 mockup           单线：unity-       +用户对比
+ transform SKILL,   写 prompts.md;                     Fan-Out 并行拆分,     skills MCP 建       效果图迭代)
+ 产出 prefab-       状态每态独立)                      每态独立生素材)       Prefab + 贴素材
+ layout.md)                                                                 + 写 UIForm)
 ```
 
 | 阶段 | 主导 | 产出物 | 通过条件 |
 |---|---|---|---|
-| **1. 需求设计** | producer / gd-system + 用户 | `proposal.md` / `design.md` + `art/requirements.md` 三表 | 三表齐全（页面清单 / 复用组件清单 / 组件状态表）+ 用户确认 |
-| **2. 效果图设计** | art-ui | `art/prompts.md` 中每个页面一条效果图提示词（风格 / 配色 / 字体 / 构图 / 信息层级 / 负面词） | 用户确认提示词 |
+| **1. 结构设计**🔄 | art-ui（用 `unity-rect-transform` SKILL） | `openspec/changes/<change>/art/prefab-layout.md`（含全局约定 + 每页节点树 + RectTransform 数据 + 状态清单 + 跨页复用组件） | layout 完整、用户确认所有页面结构；缺失即阻塞 |
+| **2. 效果图设计** | art-ui | `art/prompts.md`：每页一条效果图提示词，**开头必带「结构约束」段落**（画布尺寸 + 各节点占比，直接从 layout 提取） | 用户确认提示词；含结构约束段 |
 | **3. 效果图生成** | 主对话 → `codex-image-gen` | `art/mockups/<PageName>.png` + 同目录 `生成记录.md` | 用户确认效果图（**3 轮重试上限**：每轮调整提示词；3 轮仍不满意 → 阻塞通知用户人工介入） |
-| **4. 素材拆分**🆕 | 主对话 fan-out 子 Agent → `ui-asset-splitting` | `art/raw/<PageName>/`（背景 1 张 + 组件/状态变体若干张）→ 搬进 `Assets/Resources/Sprite/UI/<PageName>/` | 每页拆分清单产物齐全；`UISpriteImportProcessor` 自动设好导入参数（抽查 1 张 `.meta` 确认 `textureType: 8`） |
-| **5. Prefab + 代码** | art-ui ∥ client-unity（**Fan-Out 模式 1，并行**） | 标注稿 + Prefab 文件（unity-skills MCP 自动建，贴入阶段 4 产出的素材）+ UIForm 脚本 | 两个 Agent 都返回；UIForm 编译通过；Prefab 层级与标注稿一致 |
+| **4. 素材拆分** | 主对话 fan-out 子 Agent → `ui-asset-splitting` | `art/raw/<PageName>/`（背景 1 张 + 组件/状态变体若干张，layout 每个 states 独立成图；一张画布装不下拆多张 batch）→ 搬进 `Assets/Resources/Sprite/UI/<PageName>/` | 每页拆分清单与 layout 节点数一致；`UISpriteImportProcessor` 自动设好导入参数（抽查 1 张 `.meta` 确认 `textureType: 8`） |
+| **5. 拼装实现**🔄 | client-unity（单线，用 `unity-rect-transform` SKILL 读 layout） | Prefab 文件（unity-skills MCP 自动建，按 layout 节点树建层级 + 贴入阶段 4 素材 + 设 RectTransform 数据）+ UIForm 脚本 | Prefab 层级与 `prefab-layout.md` 一致；UIForm 编译通过 |
 | **6. 联调微调** | client-unity + 用户 | 运行时截图 vs 效果图对比 + 偏差修复 | 运行时与效果图视觉一致（间距 / 字号 / 配色） |
 
 #### 强制约束
 
-1. **不许跳阶段**：效果图未生成/未确认 → 禁止进入阶段 4；素材未拆分入库 → 禁止进入阶段 5
-2. **效果图位置固定**：`openspec/changes/<change-name>/art/mockups/<PageName>.png`，**与 `raw/`（拆分素材）严格分目录**
-3. **阶段 4 多页并行**：N 张已确认 mockup 互不依赖时，主对话直接 fan-out N 个 Agent 各自跑 `ui-asset-splitting`，不串行
-4. **导入设置不手动改**：`Assets/Resources/Sprite/UI/` 下贴图由 `Assets/Editor/UISpriteImportProcessor.cs` 自动设置 Texture Type 等参数，禁止在 Inspector 里手动调（改了也会在下次 reimport 被覆盖，应改脚本而非改单个贴图）
-5. **Prefab 优先 MCP 自动建**：阶段 5 由 client-unity 调用 `unity-skills` MCP 创建基础层级 + 贴入阶段 4 的素材；**MCP 不可用** → 回退到通知用户在 Unity Editor 手动搭（兼容 §十二「Prefab 必须手动建」原则）。**调用 unity-skills 时若参数含 CJK / Emoji（节点名、按钮文本、说明文字等），必须用 `--stdin-json` 模式**，详见 [skills/unity-skills/SKILL.md](./skills/unity-skills/SKILL.md) 「中文 / CJK 参数调用约定（强制）」。
-6. **阶段 5 必须并行**：标注稿（art-ui）与脚本+Prefab（client-unity）通过 Fan-Out 编排，`UniTask.WhenAll` 等待汇合，禁止顺序串行浪费时间
-7. **效果图重试上限 3 轮**：codex-image-gen 调用失败或用户不满意 → 调整提示词/加参考图重试，**累计 3 轮仍未通过即停下来交回用户决定**（手动找参考 / 跳过本页 / 重新设计），禁止无限重试
-8. **联调以效果图为准绳**：阶段 6 必须把运行时截图与 mockups 并排对比，列偏差清单后再迭代；client-unity 不许凭感觉调
+1. **不许跳阶段**：`prefab-layout.md` 未确认 → 禁止进入阶段 2；效果图未生成/未确认 → 禁止进入阶段 4；素材未拆分入库 → 禁止进入阶段 5
+2. **layout 是唯一 source of truth**：阶段 2 的提示词、阶段 4 的拆分清单、阶段 5 的 Prefab 层级，**全部**从 `prefab-layout.md` 读取，禁止任一阶段自行推断结构
+3. **效果图位置固定**：`openspec/changes/<change-name>/art/mockups/<PageName>.png`，**与 `raw/`（拆分素材）严格分目录**
+4. **阶段 4 多页并行**：N 张已确认 mockup 互不依赖时，主对话直接 fan-out N 个 Agent 各自跑 `ui-asset-splitting`，不串行
+5. **状态每态独立生成**：layout 中每个含 `states: [normal, pressed, disabled, ...]` 的节点，每态在阶段 3/4 各出一张，禁止一张图里画多态
+6. **画布不够就加新画布**：一张 1920×1080 mockup 装不下时拆 `<Page>_part1.png` / `<Page>_part2.png`；1024×1024 绿幕组件画布装不下时拆 `_merged/batch_1.png` / `_merged/batch_2.png`
+7. **导入设置不手动改**：`Assets/Resources/Sprite/UI/` 下贴图由 `Assets/Editor/UISpriteImportProcessor.cs` 自动设置 Texture Type 等参数，禁止在 Inspector 里手动调（改了也会在下次 reimport 被覆盖，应改脚本而非改单个贴图）
+8. **Prefab 优先 MCP 自动建**：阶段 5 由 client-unity 调用 `unity-skills` MCP 按 layout 建层级 + 贴入阶段 4 素材；**MCP 不可用** → 回退到通知用户在 Unity Editor 手动搭。**调用 unity-skills 时若参数含 CJK / Emoji（节点名、按钮文本、说明文字等），必须用 `--stdin-json` 模式**，详见 [skills/unity-skills/SKILL.md](./skills/unity-skills/SKILL.md) 「中文 / CJK 参数调用约定（强制）」
+9. **效果图重试上限 3 轮**：codex-image-gen 调用失败或用户不满意 → 调整提示词/加参考图重试，**累计 3 轮仍未通过即停下来交回用户决定**（手动找参考 / 跳过本页 / 重新设计），禁止无限重试
+10. **联调以效果图为准绳**：阶段 6 必须把运行时截图与 mockups 并排对比，列偏差清单后再迭代；client-unity 不许凭感觉调
+
+#### v2 → v3 变更要点（2026-07-01）
+
+- **删「三表」**（页面清单 / 复用组件清单 / 组件状态表）→ 换成 **单文件 `prefab-layout.md`**（含 RectTransform 数据），一份文档同时喂养阶段 2/4/5
+- **阶段 1 主导** producer/gd-system → **art-ui**（结构设计属于 UI 美术职责，用 `unity-rect-transform` SKILL 产出）
+- **阶段 5 取消标注稿**（原 art-ui ∥ client-unity Fan-Out）→ **单线 client-unity**（layout 已含 RectTransform，标注稿变成冗余中间层）
+- **新增 `unity-rect-transform` SKILL**（art-ui + client-unity 共享）：UGUI anchor / pivot / sizeDelta / anchoredPosition / preserveAspect / Canvas Scaler 完整词典 + `prefab-layout.md` 模板
+- **无豁免**：简单弹窗也走完整 6 阶段；历史归档 UI 不回溯改造
 
 #### Agent 编排速查
 
 ```
 主对话
- ├─ 阶段 1：delegate producer / gd-system + ai-art Step 0（三表）
- ├─ 阶段 2：delegate art-ui（写 prompts.md 效果图条目）
+ ├─ 阶段 1：delegate art-ui（用 unity-rect-transform SKILL 产出 prefab-layout.md）
+ │          用户确认
+ ├─ 阶段 2：delegate art-ui（读 prefab-layout.md → 反哺写 prompts.md 结构约束段）
+ │          用户确认
  ├─ 阶段 3：直接调 codex-image-gen SKILL（生 mockups + 重试循环）
- ├─ 阶段 4：fan-out（N 张 mockup → N 个 Agent，各自调 ui-asset-splitting）
+ │          用户确认
+ ├─ 阶段 4：fan-out（N 张 mockup → N 个 Agent，各自调 ui-asset-splitting，读 layout 每态独立）
  │          await WhenAll
- ├─ 阶段 5：fan-out
- │           ├─ Agent A：art-ui（标注稿）
- │           └─ Agent B：client-unity（unity-skills MCP 建 prefab + 贴素材 + 写脚本）
- │          await WhenAll
+ ├─ 阶段 5：delegate client-unity（unity-skills MCP 按 layout 建 prefab + 贴素材 + 写脚本）
  └─ 阶段 6：delegate client-unity 比对效果图，迭代到一致
 ```
 
@@ -306,6 +311,7 @@ openspec/changes/<NN-name>/
 ### 工程工具（[tools/](../tools/)）
 
 - `codebase-memory-mcp/` — codebase-memory MCP 二进制
+- `ImageCompression_Tool/` — 通用图片压缩 CLI（PNG/JPEG/WEBP/TGA），仅作兜底用（外部/历史素材超规时压一遍）；正常生产由 [美术资源规范.md](./美术资源规范.md) 前置约束，详见 [image-compression SKILL](./skills/image-compression/SKILL.md)
 - `ImageCut_Tool/` / `image-extender-main/` / `rembg-main/` — 图像处理
 
 > tools/ 较大，已加 `.gitignore`。新机器按 [setup.md](../setup.md) 重建。
@@ -343,7 +349,7 @@ ModuleRunner.GetModule<T>() — 高频数据查询缓存入口
 
 ## 十、SKILL 系统
 
-- **总数**：109 个，分组索引见 [skills/SKILLS_INDEX.md](./skills/SKILLS_INDEX.md)
+- **总数**：110 个，分组索引见 [skills/SKILLS_INDEX.md](./skills/SKILLS_INDEX.md)
 - **Agent ↔ SKILL 白名单**：见 [SKILL_MATRIX.md](./SKILL_MATRIX.md)
 - **大多数 skill 不进上下文**：仅在对应 agent 触发时按需读取 `SKILL.md` + `references/*.md`
 - **找不到合适 skill 时**：用 `find-skills` 语义检索；仍找不到则 escalate_to: main 由主对话决定
@@ -424,7 +430,8 @@ FrameworkLogger.Info("EventBus", $"Handler=CombatModule Subscribe=CombatEndEvent
 | [AGENTS.md](./AGENTS.md) | 多 Agent 协作 5 模式 |
 | [conventions.md](./conventions.md) | 编码规范 |
 | [资源配置规范.md](./资源配置规范.md) | ResourceModule + ResourceConfig |
-| [skills/SKILLS_INDEX.md](./skills/SKILLS_INDEX.md) | 123 SKILL 分组索引 |
+| [美术资源规范.md](./美术资源规范.md) | 2D 美术生产侧前置约束：各视觉类别的 Max 尺寸 / 格式 / 文件大小预算（ai-art / codex-image-gen 写提示词时必读，生产即合规） |
+| [skills/SKILLS_INDEX.md](./skills/SKILLS_INDEX.md) | 110 SKILL 分组索引 |
 | [01-框架核心设计概述.md](../AI友好型项目探讨/01-框架核心设计概述.md) | 框架架构 |
 | [02-AI友好型日志规范.md](../AI友好型项目探讨/02-AI友好型日志规范.md) | 结构化日志 |
 | [03-模块系统详细设计.md](../AI友好型项目探讨/03-模块系统详细设计.md) | IGameModule / ModuleRunner |
