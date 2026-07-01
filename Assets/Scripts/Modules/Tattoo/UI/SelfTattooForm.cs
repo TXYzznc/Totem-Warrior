@@ -16,7 +16,7 @@ namespace Tattoo.UI
     /// Prefab 落点：Assets/Resources/Prefab/UI/SelfTattoo.prefab
     /// 触发条件：玩家按 Tab 键（InputModule.IsSelfTattooTogglePressed），自行轮询开关，不走 NPC 互动事件。
     /// </summary>
-    public sealed class SelfTattooForm : MonoBehaviour, IExclusiveUIForm
+    public sealed class SelfTattooForm : MonoBehaviour, IExclusiveUIForm, IUIFormBootstrap
     {
         [Header("面板根节点")]
         [SerializeField] CanvasGroup _canvasGroup;
@@ -85,19 +85,12 @@ namespace Tattoo.UI
             gameObject.SetActive(false);
         }
 
-        async void Start()
+        public void Bootstrap(EventBus bus, ModuleRunner runner)
         {
-            GameApp app = null;
-            float timeout = Time.unscaledTime + 10f;
-            while (Time.unscaledTime < timeout)
-            {
-                app = FindObjectOfType<GameApp>();
-                if (app != null && app.TryGetRuntime(out _bus, out _runner)) break;
-                await UniTask.Yield();
-            }
-            if (_bus == null) return;
-
-            _runner.GetModule<UIModule>().Register(this);
+            // UIModule 在 EarlyRegister 之后同步调用：Form 起始 inactive，Start() / Update() 都不会跑，
+            // 所以 Tab 切换不能再走 Update 轮询，必须订阅 CombatModule 桥接的 SelfTattooToggleRequestedEvent。
+            _bus = bus;
+            _runner = runner;
 
             _closeBtn?.onClick.AddListener(Close);
             BindPartButtons();
@@ -108,17 +101,6 @@ namespace Tattoo.UI
 
             SubscribeEvents();
             RefreshPreview();
-        }
-
-        void Update()
-        {
-            // 系统级呼出/收起：不走业务事件，直接轮询 InputModule。
-            if (_runner == null) return;
-            if (_runner.GetModule<InputModule>().IsSelfTattooTogglePressed())
-            {
-                if (_isOpen) Close();
-                else Open();
-            }
         }
 
         void OnDestroy()
@@ -136,6 +118,7 @@ namespace Tattoo.UI
             _subs.Add(_bus.Subscribe<TattooInProgressEvent>(e => RefreshReadingState(true, e.DurationSec)));
             _subs.Add(_bus.Subscribe<TattooFinishedEvent>(_ => RefreshReadingState(false, 0f)));
             _subs.Add(_bus.Subscribe<TattooCancelledEvent>(_ => RefreshReadingState(false, 0f)));
+            _subs.Add(_bus.Subscribe<SelfTattooToggleRequestedEvent>(_ => { if (_isOpen) Close(); else Open(); }));
         }
 
         // ── 选择绑定 ──────────────────────────────────────────

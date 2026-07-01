@@ -1,6 +1,6 @@
 ﻿# Tattoo 336 穷举测试报告
 
-> 生成时间：2026-06-25 18:24:06
+> 生成时间：2026-07-01 03:19:29
 
 | 序号 | PartId | ColorId | PatternId | 部位 | 颜色 | 图案 | 触发事件 | ResultCount | Element | Shape | Part | Damage | HitCount | Status | Note |
 |------|--------|---------|-----------|------|------|------|----------|-------------|---------|-------|------|--------|----------|--------|------|
@@ -42,8 +42,8 @@
 | 36 | 1 | 5 | 4 | Head | Purple | Zigzag | CritHitEvent | 1 | Mutation | MultiHit | Head | 15.08 | 4 | x4/Mutate-虚弱 | - |
 | 37 | 1 | 5 | 5 | Head | Purple | Bolt | CritHitEvent | 1 | Mutation | ChainJump | Head | 14.91 | 1 | jumps1/Mutate-眩晕 | - |
 | 38 | 1 | 5 | 6 | Head | Purple | Star | CritHitEvent | 2 | Mutation | ProbBurst:Burst | Head | 33.07 | 1 | x2/Mutate-眩晕 | - |
-| 39 | 1 | 5 | 7 | Head | Purple | Stream | CritHitEvent | 1 | Mutation | TrailZone | Head | 17.85 | 3 | trail/Mutate-沉默 | - |
-| 40 | 1 | 5 | 8 | Head | Purple | Beast | CritHitEvent | 1 | Mutation | SummonForm | Head | 35.80 | 1 | summon/Mutate-虚弱 | - |
+| 39 | 1 | 5 | 7 | Head | Purple | Stream | CritHitEvent | 1 | Mutation | TrailZone | Head | 20.65 | 3 | trail/Mutate-沉默 | - |
+| 40 | 1 | 5 | 8 | Head | Purple | Beast | CritHitEvent | 1 | Mutation | SummonForm | Head | 46.94 | 1 | summon/Mutate-沉默 | - |
 | 41 | 1 | 6 | 1 | Head | Gold | Line | CritHitEvent | 1 | Holy | SingleHit | Head | 15.00 | 1 | 神圣印记(被命中暴伤+50%) | - |
 | 42 | 1 | 6 | 2 | Head | Gold | Ring | CritHitEvent | 1 | Holy | AOEBurst | Head | 9.00 | 1 | Holy:AOE | - |
 | 43 | 1 | 6 | 3 | Head | Gold | Spiral | CritHitEvent | 1 | Holy | StackingMark:Stack | Head | 0.00 | 0 | Stack1/5 | - |
@@ -92,14 +92,14 @@
 | 86 | 2 | 4 | 6 | Torso | Blue | Star | DamagedEvent | 1 | Frost | ProbBurst:Burst | Torso | 24.00 | 1 | x2/Slow(-30%,2s) | - |
 | 87 | 2 | 4 | 7 | Torso | Blue | Stream | DamagedEvent | 1 | Frost | TrailZone | Torso | 14.40 | 3 | trail/Slow(-30%,2s) | - |
 | 88 | 2 | 4 | 8 | Torso | Blue | Beast | DamagedEvent | 1 | Frost | SummonForm | Torso | 30.00 | 1 | summon/Slow(-30%,2s) | - |
-| 89 | 2 | 5 | 1 | Torso | Purple | Line | DamagedEvent | 1 | Mutation | SingleHit | Torso | 14.84 | 1 | Mutate-虚弱 | - |
-| 90 | 2 | 5 | 2 | Torso | Purple | Ring | DamagedEvent | 1 | Mutation | AOEBurst | Torso | 8.94 | 1 | Mutation:AOE | - |
+| 89 | 2 | 5 | 1 | Torso | Purple | Line | DamagedEvent | 1 | Mutation | SingleHit | Torso | 13.69 | 1 | Mutate-沉默 | - |
+| 90 | 2 | 5 | 2 | Torso | Purple | Ring | DamagedEvent | 1 | Mutation | AOEBurst | Torso | 7.16 | 1 | Mutation:AOE | - |
 | 91 | 2 | 5 | 3 | Torso | Purple | Spiral | DamagedEvent | 1 | Mutation | StackingMark:Stack | Torso | 0.00 | 0 | Stack1/5 | - |
-| 92 | 2 | 5 | 4 | Torso | Purple | Zigzag | DamagedEvent | 1 | Mutation | MultiHit | Torso | 15.00 | 4 | x4/Mutate-眩晕 | - |
-| 93 | 2 | 5 | 5 | Torso | Purple | Bolt | DamagedEvent | 1 | Mutation | ChainJump | Torso | 14.48 | 1 | jumps1/Mutate-虚弱 | - |
-| 94 | 2 | 5 | 6 | Torso | Purple | Star | DamagedEvent | 2 | Mutation | ProbBurst:Burst | Torso | 26.66 | 1 | x2/Mutate-沉默 | - |
-| 95 | 2 | 5 | 7 | Torso | Purple | Stream | DamagedEvent | 1 | Mutation | TrailZone | Torso | 14.54 | 3 | trail/Mutate-虚弱 | - |
-| 96 | 2 | 5 | 8 | Torso | Purple | Beast | DamagedEvent | 1 | Mutation | SummonForm | Torso | 27.48 | 1 | summon/Mutate-虚弱 | - |
+| 92 | 2 | 5 | 4 | Torso | Purple | Zigzag | DamagedEvent | 1 | Mutation | MultiHit | Torso | 15.46 | 4 | x4/Mutate-眩晕 | - |
+| 93 | 2 | 5 | 5 | Torso | Purple | Bolt | DamagedEvent | 1 | Mutation | ChainJump | Torso | 13.99 | 1 | jumps1/Mutate-虚弱 | - |
+| 94 | 2 | 5 | 6 | Torso | Purple | Star | DamagedEvent | 2 | Mutation | ProbBurst:Burst | Torso | 25.37 | 1 | x2/Mutate-虚弱 | - |
+| 95 | 2 | 5 | 7 | Torso | Purple | Stream | DamagedEvent | 1 | Mutation | TrailZone | Torso | 16.77 | 3 | trail/Mutate-虚弱 | - |
+| 96 | 2 | 5 | 8 | Torso | Purple | Beast | DamagedEvent | 1 | Mutation | SummonForm | Torso | 36.39 | 1 | summon/Mutate-沉默 | - |
 | 97 | 2 | 6 | 1 | Torso | Gold | Line | DamagedEvent | 1 | Holy | SingleHit | Torso | 12.00 | 1 | 神圣印记(被命中暴伤+50%) | - |
 | 98 | 2 | 6 | 2 | Torso | Gold | Ring | DamagedEvent | 1 | Holy | AOEBurst | Torso | 7.20 | 1 | Holy:AOE | - |
 | 99 | 2 | 6 | 3 | Torso | Gold | Spiral | DamagedEvent | 1 | Holy | StackingMark:Stack | Torso | 0.00 | 0 | Stack1/5 | - |
@@ -204,14 +204,14 @@
 | 198 | 4 | 4 | 6 | RightArm | Blue | Star | AttackHitEvent | 1 | Frost | ProbBurst:Burst | RightArm | 16.00 | 1 | x2/Slow(-30%,2s) | - |
 | 199 | 4 | 4 | 7 | RightArm | Blue | Stream | AttackHitEvent | 1 | Frost | TrailZone | RightArm | 9.60 | 3 | trail/Slow(-30%,2s) | - |
 | 200 | 4 | 4 | 8 | RightArm | Blue | Beast | AttackHitEvent | 1 | Frost | SummonForm | RightArm | 20.00 | 1 | summon/Slow(-30%,2s) | - |
-| 201 | 4 | 5 | 1 | RightArm | Purple | Line | AttackHitEvent | 1 | Mutation | SingleHit | RightArm | 8.07 | 1 | Mutate-眩晕 | - |
-| 202 | 4 | 5 | 2 | RightArm | Purple | Ring | AttackHitEvent | 1 | Mutation | AOEBurst | RightArm | 6.13 | 1 | Mutation:AOE | - |
+| 201 | 4 | 5 | 1 | RightArm | Purple | Line | AttackHitEvent | 1 | Mutation | SingleHit | RightArm | 7.45 | 1 | Mutate-眩晕 | - |
+| 202 | 4 | 5 | 2 | RightArm | Purple | Ring | AttackHitEvent | 1 | Mutation | AOEBurst | RightArm | 4.77 | 1 | Mutation:AOE | - |
 | 203 | 4 | 5 | 3 | RightArm | Purple | Spiral | AttackHitEvent | 1 | Mutation | StackingMark:Stack | RightArm | 0.00 | 0 | Stack1/5 | - |
-| 204 | 4 | 5 | 4 | RightArm | Purple | Zigzag | AttackHitEvent | 1 | Mutation | MultiHit | RightArm | 10.20 | 4 | x4/Mutate-虚弱 | - |
-| 205 | 4 | 5 | 5 | RightArm | Purple | Bolt | AttackHitEvent | 1 | Mutation | ChainJump | RightArm | 9.58 | 1 | jumps1/Mutate-沉默 | - |
-| 206 | 4 | 5 | 6 | RightArm | Purple | Star | AttackHitEvent | 2 | Mutation | ProbBurst:Burst | RightArm | 19.35 | 1 | x2/Mutate-沉默 | - |
-| 207 | 4 | 5 | 7 | RightArm | Purple | Stream | AttackHitEvent | 1 | Mutation | TrailZone | RightArm | 11.87 | 3 | trail/Mutate-沉默 | - |
-| 208 | 4 | 5 | 8 | RightArm | Purple | Beast | AttackHitEvent | 1 | Mutation | SummonForm | RightArm | 21.15 | 1 | summon/Mutate-沉默 | - |
+| 204 | 4 | 5 | 4 | RightArm | Purple | Zigzag | AttackHitEvent | 1 | Mutation | MultiHit | RightArm | 10.17 | 4 | x4/Mutate-眩晕 | - |
+| 205 | 4 | 5 | 5 | RightArm | Purple | Bolt | AttackHitEvent | 1 | Mutation | ChainJump | RightArm | 9.18 | 1 | jumps1/Mutate-眩晕 | - |
+| 206 | 4 | 5 | 6 | RightArm | Purple | Star | AttackHitEvent | 2 | Mutation | ProbBurst:Burst | RightArm | 18.07 | 1 | x2/Mutate-虚弱 | - |
+| 207 | 4 | 5 | 7 | RightArm | Purple | Stream | AttackHitEvent | 1 | Mutation | TrailZone | RightArm | 11.36 | 3 | trail/Mutate-眩晕 | - |
+| 208 | 4 | 5 | 8 | RightArm | Purple | Beast | AttackHitEvent | 1 | Mutation | SummonForm | RightArm | 23.48 | 1 | summon/Mutate-眩晕 | - |
 | 209 | 4 | 6 | 1 | RightArm | Gold | Line | AttackHitEvent | 1 | Holy | SingleHit | RightArm | 8.00 | 1 | 神圣印记(被命中暴伤+50%) | - |
 | 210 | 4 | 6 | 2 | RightArm | Gold | Ring | AttackHitEvent | 1 | Holy | AOEBurst | RightArm | 4.80 | 1 | Holy:AOE | - |
 | 211 | 4 | 6 | 3 | RightArm | Gold | Spiral | AttackHitEvent | 1 | Holy | StackingMark:Stack | RightArm | 0.00 | 0 | Stack1/5 | - |
@@ -316,14 +316,14 @@
 | 310 | 6 | 4 | 6 | RightLeg | Blue | Star | MoveTickEvent | 1 | Frost | ProbBurst:Burst | RightLeg | 16.00 | 1 | x2/Slow(-30%,2s) | - |
 | 311 | 6 | 4 | 7 | RightLeg | Blue | Stream | MoveTickEvent | 1 | Frost | TrailZone | RightLeg | 9.60 | 3 | trail/Slow(-30%,2s) | - |
 | 312 | 6 | 4 | 8 | RightLeg | Blue | Beast | MoveTickEvent | 1 | Frost | SummonForm | RightLeg | 20.00 | 1 | summon/Slow(-30%,2s) | - |
-| 313 | 6 | 5 | 1 | RightLeg | Purple | Line | MoveTickEvent | 1 | Mutation | SingleHit | RightLeg | 8.72 | 1 | Mutate-眩晕 | - |
-| 314 | 6 | 5 | 2 | RightLeg | Purple | Ring | MoveTickEvent | 1 | Mutation | AOEBurst | RightLeg | 5.99 | 1 | Mutation:AOE | - |
+| 313 | 6 | 5 | 1 | RightLeg | Purple | Line | MoveTickEvent | 1 | Mutation | SingleHit | RightLeg | 8.08 | 1 | Mutate-沉默 | - |
+| 314 | 6 | 5 | 2 | RightLeg | Purple | Ring | MoveTickEvent | 1 | Mutation | AOEBurst | RightLeg | 4.98 | 1 | Mutation:AOE | - |
 | 315 | 6 | 5 | 3 | RightLeg | Purple | Spiral | MoveTickEvent | 1 | Mutation | StackingMark:Stack | RightLeg | 0.00 | 0 | Stack1/5 | - |
-| 316 | 6 | 5 | 4 | RightLeg | Purple | Zigzag | MoveTickEvent | 1 | Mutation | MultiHit | RightLeg | 8.93 | 4 | x4/Mutate-眩晕 | - |
-| 317 | 6 | 5 | 5 | RightLeg | Purple | Bolt | MoveTickEvent | 1 | Mutation | ChainJump | RightLeg | 9.16 | 1 | jumps1/Mutate-眩晕 | - |
-| 318 | 6 | 5 | 6 | RightLeg | Purple | Star | MoveTickEvent | 2 | Mutation | ProbBurst:Burst | RightLeg | 18.01 | 1 | x2/Mutate-沉默 | - |
-| 319 | 6 | 5 | 7 | RightLeg | Purple | Stream | MoveTickEvent | 1 | Mutation | TrailZone | RightLeg | 10.21 | 3 | trail/Mutate-眩晕 | - |
-| 320 | 6 | 5 | 8 | RightLeg | Purple | Beast | MoveTickEvent | 1 | Mutation | SummonForm | RightLeg | 23.99 | 1 | summon/Mutate-虚弱 | - |
+| 316 | 6 | 5 | 4 | RightLeg | Purple | Zigzag | MoveTickEvent | 1 | Mutation | MultiHit | RightLeg | 7.89 | 4 | x4/Mutate-虚弱 | - |
+| 317 | 6 | 5 | 5 | RightLeg | Purple | Bolt | MoveTickEvent | 1 | Mutation | ChainJump | RightLeg | 7.28 | 1 | jumps1/Mutate-沉默 | - |
+| 318 | 6 | 5 | 6 | RightLeg | Purple | Star | MoveTickEvent | 2 | Mutation | ProbBurst:Burst | RightLeg | 17.00 | 1 | x2/Mutate-虚弱 | - |
+| 319 | 6 | 5 | 7 | RightLeg | Purple | Stream | MoveTickEvent | 1 | Mutation | TrailZone | RightLeg | 9.69 | 3 | trail/Mutate-虚弱 | - |
+| 320 | 6 | 5 | 8 | RightLeg | Purple | Beast | MoveTickEvent | 1 | Mutation | SummonForm | RightLeg | 18.32 | 1 | summon/Mutate-虚弱 | - |
 | 321 | 6 | 6 | 1 | RightLeg | Gold | Line | MoveTickEvent | 1 | Holy | SingleHit | RightLeg | 8.00 | 1 | 神圣印记(被命中暴伤+50%) | - |
 | 322 | 6 | 6 | 2 | RightLeg | Gold | Ring | MoveTickEvent | 1 | Holy | AOEBurst | RightLeg | 4.80 | 1 | Holy:AOE | - |
 | 323 | 6 | 6 | 3 | RightLeg | Gold | Spiral | MoveTickEvent | 1 | Holy | StackingMark:Stack | RightLeg | 0.00 | 0 | Stack1/5 | - |

@@ -6,6 +6,7 @@ using Cysharp.Threading.Tasks;
 using Economy;
 using Tattoo.Data;
 using Tattoo.Events;
+using Tattoo.Utils;
 using UnityEngine;
 
 namespace Tattoo
@@ -130,6 +131,9 @@ namespace Tattoo
             var mounter = pGo.AddComponent<PlayerWeaponMounter>();
             mounter.Init(_bus, _runner);
 
+            // change #22 子项 C：玩家脚下阴影
+            ActorShadowHelper.Attach(pGo, radius: 0.55f, yOffset: -0.4f);
+
             // v2.1：49 个 actor 占位（20 Smart + 29 Light）—— 分多圈布点避免重叠
             // 圈 1：半径 8m，14 个；圈 2：半径 13m，17 个；圈 3：半径 18m，18 个
             // Player1 prefab 实例化，shader 染色推 #19
@@ -162,6 +166,9 @@ namespace Tattoo
                     eRef.MaxHP = 50f;
                     eRef.Target = new Target { Name = isSmart ? $"智能{idx + 1}" : $"轻量{idx - 19}", Health = eRef.MaxHP };
 
+                    // change #22 子项 C：actor 脚下阴影
+                    ActorShadowHelper.Attach(eGo, radius: 0.5f, yOffset: -0.4f);
+
                     Enemies.Add(eGo);
                 }
             }
@@ -185,6 +192,9 @@ namespace Tattoo
             bossRef.Target = new Target { Name = "Boss", Health = 300f };
 
             BossGameObject = bossGo;
+
+            // change #22 子项 C：Boss 脚下阴影（更大半径）
+            ActorShadowHelper.Attach(bossGo, radius: 1.0f, yOffset: -0.4f);
         }
 
         // ── change#20 阶段 3 Agent F ────────────────────────────────────
