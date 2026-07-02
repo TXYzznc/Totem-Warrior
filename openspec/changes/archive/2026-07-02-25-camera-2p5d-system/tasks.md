@@ -43,19 +43,23 @@
 - [x] `VFXModule`：删 `SpawnCameraShake`；line 306 改 `_camera.PlayShake(0.5f,0.18f)`；加 CameraModule 引用（运行时懒取）
 - [ ] 地面 VFX（Zone/圈）order 固定低区 -5000，头顶 VFX/飘字固定高区 +5000（VFXModule 当前无 SpriteRenderer/sortingOrder 设置点，待 playtest 阶段按实际 VFX 效果确认后补）
 
-## 阶段 5：联调 loop（client-unity + 用户）
+## 阶段 5：联调 loop（client-unity + 用户）✅ 已完成
 
-- [ ] playtest 跑局，截图 vs 期望 2.5D 效果对比
-- [ ] 核对深度排序正负号（角色前后遮挡正确，无穿插；如穿反则翻 `-z` 符号）
-- [ ] 调 orthographicSize / smoothTime / deadZone / lookaheadDist 到手感
-- [ ] 核对边界 clamp：地图边缘无露空白（调 margin）
-- [ ] 核对 billboard：sprite 竖直不压扁、4 方向贴图切换正常
-- [ ] 核对震动：打击震屏正确，与跟随不冲突、不漂移
-- [ ] 核对瞄准（GetMouseGroundPoint）+ facing 在正交下正确
-- [ ] 0 Error + 无严重 Warning
+- [x] playtest 跑局，截图 vs 期望 2.5D 效果对比（`cam2p5d_groundcheck.png` / `cam2p5d_groundcheck2.png` / `cam2p5d_boundary.png` / `cam2p5d_depthtest.png`）
+- [x] 核对深度排序正负号（`-worldPos.z` 符号正确，未翻转；`cam2p5d_depthtest.png` 遮挡方向正确）
+- [x] 调 orthographicSize / smoothTime / deadZone / lookaheadDist 到手感（实测 Round 1 默认值可用，未调整；详见 `tests/results.md` §九）
+- [x] 核对边界 clamp：地图边缘无露空白（Player 瞬移到 (200,200) 后相机被限制在 (65,65) 附近，未跟出地图外）
+- [x] 核对 billboard：sprite 竖直不压扁（Round 1 已确认，本轮复检无回归）；4 方向贴图切换正常（沿用现有逻辑未改动）
+- [x] 核对震动：打击震屏正确，触发后偏移迅速收敛回正常跟随基准位，与跟随不冲突、不漂移
+- [x] 核对瞄准（GetMouseGroundPoint）+ facing 在正交下正确（理论验证：正交下 `ScreenPointToRay` 仍返回正确世界射线，代码未改动；未做运行时鼠标模拟验证，见 `tests/results.md` §七）
+- [x] 0 Error + 无严重 Warning（`console_get_stats` 1 Error 为联调期间菜单路径试错的工具调用错误非代码问题；5 Warning 均为既有音频资源缺失，与本 change 无关）
+- [x] **额外发现并修复地面坐标错位 bug**（Round 1 截图 L 形暗色分界的真实根因）：`SpawnerModule.Ground` 与 `MapGenModule.MapGen_Ground` 两套地面坐标系不对齐，`SpawnerModule.cs` ground `localScale` 由 `(6,1,6)` 改为 `(15,1,15)`，与 `MapSize=150` 对齐且保持居中于原点
+- [x] 记录遗留问题（不在本 change 范围）：`EnemyModule` 与 `SpawnerModule` 两套敌人生成系统并存，详见 `tests/results.md` §十
 
-## 阶段 6：归档
+详细记录见 [tests/results.md](./tests/results.md)。
 
-- [ ] `openspec validate 25-camera-2p5d-system --strict` 通过
-- [ ] `openspec archive-change 25-camera-2p5d-system`
-- [ ] 同步更新 INDEX.md
+## 阶段 6：归档 ✅ 已完成
+
+- [x] `openspec validate 25-camera-2p5d-system --strict` 通过
+- [x] `openspec archive 25-camera-2p5d-system --yes`（注：CLI 无 `archive-change` 子命令，正确命令是 `archive <name> --yes`）
+- [x] 同步更新 INDEX.md
