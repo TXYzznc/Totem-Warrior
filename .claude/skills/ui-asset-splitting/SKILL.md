@@ -25,6 +25,19 @@ art/raw/<FormName>/*.png → 搬进 Assets/Resources/Sprite/UI/<FormName>/
 client-unity 搭 Prefab（直接用这些 Sprite）
 ```
 
+## ⚠️ 一条铁律（最容易违反 — SettingsForm 2026-07-01 实测踩坑）
+
+**禁止从 mockup 直接裁矩形当素材。** 组件素材必须是**透明背景**的独立小图，合法来源只有两条：
+
+1. **Codex 绿幕重生成**（默认 — 带描边/高光/质感的视觉组件：图标、圆环、handle、面板边框）：§3.2/3.3 在 `#00ff00` 绿幕画布重画 → chroma_key 去绿 → image_cut 切割
+2. **程序化 PIL 生成**（仅限**纯色/纯几何极简元素**：纯色圆角矩形按钮底、纯色滑块轨道段、纯色分割条）：直接画透明底 PNG
+
+**判定该走哪条**：元素有描边/渐变/高光/质感 → 走 Codex 绿幕；元素是单色几何（矩形/圆/线，无质感）→ 可程序化 PIL。**两条路的产出四角 alpha 都必须为 0。**
+
+**为什么禁止裁 mockup**：mockup 里的组件画在深色面板底上（如 `#1A1C2E`），裁一块矩形下来 = 带面板底色的**不透明补丁**，贴到 UI 上就是一个个深色方块盖住面板。SettingsForm v2 第一次拆分正是犯此错：CloseIcon_X / RadioCircle_Normal / RadioCircle_Selected / SliderTrack / SliderFill 5 张全带 `#1A1C2E` 不透明底（PIL 采样 alpha 全 255）。
+
+**普通文字不进素材**：所有文案（标题/标签/数值/按钮文字/键名）在 Prefab 里走 **TMP_Text 独立节点**，素材只做纯色/纹理底。只有**特殊艺术字**（logo、标题美术字、带特效的字形）才作为图片素材拆分。
+
 ## 二、前置条件
 
 1. ✅ 目标 `art/mockups/<FormName>.png` 已存在，且 `art/prompts.md` 头部状态字段标记该图**已处理且用户已确认**（未确认先停手，回去问用户）
@@ -78,7 +91,24 @@ client-unity 搭 Prefab（直接用这些 Sprite）
 
 **为什么必须先抠图再切图**：去绿幕是按颜色距离做 alpha 计算，对单张大画布做一次即可；如果先切成小图再分别去绿，纯绿背景在切割阶段可能因为画布本身就是绿底而无法用 `--alpha` 连通域算法正确分割边界（连通域识别依赖前景与背景的 alpha 差异，没做 chroma-key 之前画布没有 alpha 通道）。**顺序错了 `image_cut.py` 直接没法工作**，这不是风格问题是技术依赖顺序。
 
-**验证**：切割完成后用 `Bash`/`Read` 检查每个目标文件存在、size > 1KB、PIL 能正常打开且 mode 含 alpha 通道；切出张数与清单数核对，若不一致按 [codex-image-gen SKILL §3.6 异常处理](../codex-image-gen/SKILL.md)做视觉校正。
+**验证**：切割完成后用 `Bash`/`Read` 检查每个目标文件存在、size > 1KB、PIL 能正常打开。**⚠️ alpha 透明硬检查（强制，不做等于没拆）**：对每张组件素材（非满铺背景 `_bg.png`）采样四角 + 网格点 alpha，**四角 alpha 必须 = 0，且存在 alpha < 40 的透明像素**——`mode == RGBA` 不代表真透明，从 mockup 裁出的深色矩形块同样是 RGBA 但 alpha 全 255。任一张四角不透明 = 该张走了"裁 mockup"歪路（违反 §一铁律），必须回 §3.2 用 Codex 绿幕重生成或程序化 PIL 重做，**不得入库**。检查脚本：
+
+```bash
+.venv/Scripts/python - <<'PY'
+import glob, os
+from PIL import Image
+for p in sorted(glob.glob('openspec/changes/<change>/art/raw/<FormName>/*.png')):
+    if p.endswith('_bg.png'): continue          # 满铺背景图豁免
+    img = Image.open(p).convert('RGBA'); w, h = img.size; px = img.load()
+    corners = [px[2,2][3], px[w-3,2][3], px[2,h-3][3], px[w-3,h-3][3]]
+    alphas = [px[x,y][3] for y in range(0,h,max(1,h//30)) for x in range(0,w,max(1,w//30))]
+    transp = sum(1 for a in alphas if a < 40)
+    ok = max(corners) == 0 and transp > 0
+    print(f"{'OK  ' if ok else 'FAIL'} {os.path.basename(p)} 四角alpha={corners} 透明采样={transp}/{len(alphas)}")
+PY
+```
+
+**任一行 FAIL 即禁止进入 §3.5 入库**。切出张数与清单数核对，若不一致按 [codex-image-gen SKILL §3.6 异常处理](../codex-image-gen/SKILL.md)做视觉校正。
 
 ### 3.5 搬运入库 + 自动导入设置
 
@@ -110,10 +140,18 @@ cp art/raw/<FormName>/*.png "Assets/Resources/Sprite/UI/<FormName>/"
    - 多个 Form 的背景图可以在一次 exec 里批量生成（如 §三 示例的多 index 清单），但**输出文件名要明确且不重复**，避免 codex 内部用"第几张最新"做索引映射时序错位
    - **每张 `_bg.png` 落盘后必须 `Read` 工具肉眼核验内容是场景图、不含 UI 元素**，不能只信任 `size > 1KB` 的机械校验，也不能信任 codex 自己汇报的"已核对内容正确"（实测 codex 嘴上说核对过，但文件内容其实是错的）
    - 全部 Form 拆分完成后，建议**收尾阶段统一抽查一遍全部 `_bg.png`**（哪怕之前单独验证过），这是本条踩坑被发现的方式
+8. **⚠️⚠️ 直接从 mockup 裁矩形当素材（实测 SettingsForm v2 中招 5/10 张，最典型的绕过规范）**：子 Agent 图省事，跳过 §3.2/3.3 的"Codex 绿幕重生成"，直接从已确认的整面板效果图上按 bbox 裁一块下来当素材。**后果**：mockup 里组件画在深色面板底上，裁下来 = 带 `#1A1C2E` 面板底色的不透明矩形块（alpha 全 255），贴到 UI 上是一个个深色方块盖住面板背景。CloseIcon_X / RadioCircle / SliderTrack / SliderFill 全中招，拖到阶段 6 用户肉眼才发现。**根因三连**：① SKILL 早期把"不是从原图抠图"埋在描述段没设硬门；② §3.4 旧验证只查"mode 含 alpha 通道"（深色矩形也是 RGBA，照样过）；③ 主对话 delegate 时用"MVP 只拆 default 态"简化，被子 Agent 顺手扩大成"连生成方式也省了"。**规避（本次已固化）**：
+   - §一「铁律」白纸黑字禁止裁 mockup，明确合法来源只有 Codex 绿幕重生成 + 程序化 PIL 两条
+   - §3.4 验证升级为 **alpha 硬检查**（四角 alpha 必须 = 0），跑脚本任一 FAIL 禁止入库
+   - **"MVP 简化"只能砍状态变体数量（如只拆 default 态），绝不能砍"透明背景重生成"这个生产方式** —— 简化的是"出几张"，不是"怎么出"
+   - 普通文字（标签/数值/按钮文案/键名）不进素材，走 Prefab 里 TMP_Text 独立节点；只有特殊艺术字（logo/标题美术字/带特效字形）才作为图片拆分
 
 ## 六、Definition of Done
 
 - [ ] 每个 mockup 拆出 1 张背景 + N 张组件（含必要状态变体），均落在 `art/raw/<FormName>/`
+- [ ] **每张组件素材都由 Codex 绿幕重生成或程序化 PIL 生成，无一从 mockup 直接裁矩形**（§一铁律 + §五踩坑 8）
+- [ ] **alpha 硬检查全 OK**：§3.4 脚本跑完所有组件素材（非 `_bg.png`）四角 alpha=0、有透明像素，无一行 FAIL
+- [ ] **无普通文字进素材**：标签/数值/按钮文案/键名走 TMP_Text 节点；仅特殊艺术字作图片
 - [ ] **每张 `_bg.png` 已用 Read 工具肉眼核验是干净场景图**（不含 UI 面板/图标/文字），不是别的 Form 串号过来的组件画布（参考 §五 踩坑 7）
 - [ ] 已搬运到 `Assets/Resources/Sprite/UI/<FormName>/`
 - [ ] `Assets/Editor/UISpriteImportProcessor.cs` 存在且生效（抽查 1 张素材的 `.meta` 确认 `textureType: 8`）

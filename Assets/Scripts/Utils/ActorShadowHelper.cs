@@ -33,7 +33,7 @@ namespace Tattoo.Utils
             var sr = shadow.AddComponent<SpriteRenderer>();
             sr.sprite = _shadowSprite;
             sr.color  = new Color(0f, 0f, 0f, 0.4f);
-            sr.sortingOrder = -100;
+            // sortingOrder 由宿主 actor 的 DepthSortedSprite 动态写（change #25）；初始留 0
         }
 
         static void EnsureSprite()

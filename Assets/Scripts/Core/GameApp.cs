@@ -59,6 +59,8 @@ public class GameApp : MonoBehaviour
             // SpawnerModule 后续会订阅 MapGeneratedEvent 才 spawn actor（v2.1 GDD §五交互序列）。
             _runner.AddModule(new MapGenModule(_runner, _bus));
             _runner.AddModule(new SpawnerModule(_runner, _bus));
+            // change #25：2.5D 相机（依赖 SpawnerModule + MapGenModule，放 Spawner 之后）
+            _runner.AddModule(new CameraModule(_runner, _bus));
             _runner.AddModule(new WeaponModule(_runner, _bus));
             // change#18 武器拾取与升级
             // 注册顺序：WeaponSpawnerModule(deps: Spawner+DataTable) → WeaponUpgradeModule(deps: Weapon+DataTable)
@@ -104,13 +106,15 @@ public class GameApp : MonoBehaviour
         }
     }
 
-    /// <summary>把所有实现 ITickable 的模块自动注册到 TickDriver。</summary>
+    /// <summary>把所有实现 ITickable / ILateTickable 的模块自动注册到 TickDriver。</summary>
     void RegisterTickables()
     {
         foreach (var module in _runner.GetAllModules())
         {
             if (module is ITickable tickable)
                 _tickDriver.Register(tickable);
+            if (module is ILateTickable lt)
+                _tickDriver.RegisterLate(lt);
         }
     }
 

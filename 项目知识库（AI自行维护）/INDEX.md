@@ -50,6 +50,7 @@ AI 输出 → outputs/ → 用户筛选 → raw/ → 用户指令 → AI 整理�
 - **[UI 结构先行规范 v3](wiki/UI结构先行规范.md)** — 2026-07-01 — v2「三表」升级为 v3「结构先行」：单文件 `prefab-layout.md`（含 RectTransform 数据）同时喂养效果图长宽反哺 / 素材拆分节点树 / Prefab 层级搭建；6 阶段流程（结构设计→效果图设计→效果图生成→素材拆分→拼装实现→联调微调），无豁免；新建 `unity-rect-transform` SKILL 承担阶段 1 结构产出与阶段 5 Prefab 读取。详见 [openspec/changes/archive/2026-07-01-17-ui-structure-first/](../openspec/changes/archive/2026-07-01-17-ui-structure-first/)
 - ~~[UI 先定表规范](wiki/UI先定表规范.md)~~ — 2026-06-24 — v2 三表规范，**已被上方 v3 结构先行取代**（2026-07-01）；仅保留作为历史记录。详见 [openspec/changes/archive/2026-06-29-04-ui-planning-first/](../openspec/changes/archive/2026-06-29-04-ui-planning-first/)
 - **gameplay-character-art** — 2026-06-30 — 4 角色 × 4 方向 × 4 帧 sprite 系统（Player1 16 + Player2 4 + Player3 4 + Boss1 16 = 40 张）+ 自动化 Animator/Controller/Prefab 生成（`Tools/Character/Reimport Then Generate All`）+ PlayerAnimatorBridge 接 InputModule。**关键决策**：1536×1024 横向 4 帧 + PPU=256；禁用 flipX 走 4 方向真贴图；AnyState 用 Dead Bool 网关防 Death 抢回 Idle；Down=0/Up=1/Left=2/Right=3 与 `PlayerAnimatorBridge.ComputeDirection` 严格对齐。详见 [openspec/specs/gameplay-character-art/](../openspec/specs/gameplay-character-art/) + [archive/2026-06-30-17-gameplay-character-art/](../openspec/changes/archive/2026-06-30-17-gameplay-character-art/)。**已知占位**：Player1/Walk × 4 + Player1/Death/Down 因 codex 配额耗尽用 Idle/Right 复制顶替，待补真图；BUG-17-01 reimport 后首帧 Animator runtime 引用 null（绕过：等 1-2s 再 Play）。
+- **SettingsForm v2 UI 重做（v3 6 阶段首例完整实践）** — 2026-07-01 — 10-settings-form 走 v3 UI 子流程 6 阶段从头重做 UI 表现层（v1 Prefab 结构混乱、走已废弃的 v2 三表流程）；数据层 SettingsModule 完全保留。产出：`prefab-layout.md` 544 行 35 节点 + `prompts.md` 3100 字符（严格从 layout §配色表复用 9/9 hex）+ codex 一次通过的 1920×1080 mockup + 10 张 sprite 入库（含 3 张 v2 无字纯色圆角矩形——**关键教训：mockup 里的普通文字必须走 TMP_Text 独立节点，不允许出现在美术素材上**）+ 180KB Settings.prefab（35 节点、SettingsForm 组件挂根 + AutoBindMissing 运行时按名匹配 19 SerializedField）+ SettingsForm.cs v2 327 行。**副产品修复**：`OutPackages/Unity-Skills-main/.../PrefabSkills.cs` 4 处 `InteractionMode.UserAction → AutomatedAction`，去除 Prefab 创建/覆盖时 Unity 系统确认弹窗（避免阻塞子 agent 自动化流程）。详见 [openspec/changes/archive/2026-07-01-10-settings-form/](../openspec/changes/archive/2026-07-01-10-settings-form/) + spec [openspec/specs/settings/](../openspec/specs/settings/)。
 
 ### 3.5 工具链 / DevOps（owner: tools-engineer / devops-engineer）
 
@@ -69,7 +70,7 @@ AI 输出 → outputs/ → 用户筛选 → raw/ → 用户指令 → AI 整理�
 
 | ID | 标题 | 阶段 | 负责 agents |
 |---|---|---|---|
-| **10-settings-form** | SettingsForm 走完整 5 阶段视觉流程（效果图设计 → 生成 → 联调），展示 MVP UI 制作完整链路 | 阶段 1 进行中（proposal/design 草稿已就位，等用户确认；阶段 2-5 未开启） | art-ui / codex-image-gen / client-unity / qa-engineer |
+| _（无活跃 change）_ | — | — | — |
 
 > 已归档：
 > - 05-codex-batch-art-protocol → `openspec/changes/archive/2026-06-25-05-codex-batch-art-protocol/`，详见 [wiki 条目](wiki/Codex批量出图协议.md)
@@ -142,4 +143,4 @@ related_skills:
 
 ---
 
-*最后更新：2026-07-01（追加归档 24-unity-skills-port-routing：`unity_skills.py` 客户端端口自动路由 —— `--port` > `--target` > env > cwd registry 反查 > 8090 fallback，配 `health` 排障命令 + 延迟 warning + 所有 SKILL 文档去硬编码。追加归档 17-ui-structure-first：UI 制作 v2 三表 → v3 结构先行 `prefab-layout.md`，6 阶段无豁免，新增 `unity-rect-transform` SKILL 与 `ui-workflow` capability，废弃 `ui-planning`。批量归档 06 / 15 / 16 / 23：v2.1 GDD 全套落地 + playtest-driver 基础设施 + 最小闭环 loop 首轮 13/13 PASS + 最小完整流程 loop 5 轮 21/22 PASS。活跃仅剩 10-settings-form。）*
+*最后更新：2026-07-01（追加归档 10-settings-form：SettingsForm v2 UI 重做走 v3 6 阶段完整流程首例——数据层保留 + UI 表现层原地重写；关键教训「普通文字走 TMP_Text 独立节点、不允许出现在美术 sprite 上」；副产品修复 `PrefabSkills.cs` UserAction→AutomatedAction 去除 Unity 系统弹窗；阶段 6 loop Round 1 一次通过。追加归档 24-unity-skills-port-routing：`unity_skills.py` 客户端端口自动路由 —— `--port` > `--target` > env > cwd registry 反查 > 8090 fallback，配 `health` 排障命令 + 延迟 warning + 所有 SKILL 文档去硬编码。追加归档 17-ui-structure-first：UI 制作 v2 三表 → v3 结构先行 `prefab-layout.md`，6 阶段无豁免，新增 `unity-rect-transform` SKILL 与 `ui-workflow` capability，废弃 `ui-planning`。批量归档 06 / 15 / 16 / 23：v2.1 GDD 全套落地 + playtest-driver 基础设施 + 最小闭环 loop 首轮 13/13 PASS + 最小完整流程 loop 5 轮 21/22 PASS。**活跃 openspec change 清零**。）*

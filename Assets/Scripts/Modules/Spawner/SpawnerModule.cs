@@ -67,23 +67,14 @@ namespace Tattoo
 
         void CreateScene()
         {
-            // 相机
-            var mainCam = Camera.main;
-            if (mainCam == null)
-            {
-                var camGo = new GameObject("MainCamera");
-                mainCam = camGo.AddComponent<Camera>();
-                camGo.tag = "MainCamera";
-            }
-            mainCam.transform.position    = new Vector3(0, 18, -10);
-            mainCam.transform.eulerAngles = new Vector3(55, 0, 0);
-            mainCam.backgroundColor       = new Color(0.18f, 0.18f, 0.22f);
-            mainCam.clearFlags            = CameraClearFlags.SolidColor;
+            // 相机由 CameraModule 接管（change #25），此处不再创建/配置相机
 
             // 地面
             var ground = GameObject.CreatePrimitive(PrimitiveType.Plane);
             ground.name = "Ground";
-            ground.transform.localScale = new Vector3(6, 1, 6);
+            // change #25：地面放大到覆盖 150m 地图（Unity Plane 默认 10x10，scale=15 → 150x150），
+            // 消除与 MapGen_Ground（居中于世界(75,0,75)）坐标系不对齐导致的 L 形暗色分界。
+            ground.transform.localScale = new Vector3(15, 1, 15);
             var groundRenderer = ground.GetComponent<Renderer>();
             if (groundRenderer != null) groundRenderer.material.color = new Color(0.3f, 0.3f, 0.34f);
 
@@ -134,6 +125,10 @@ namespace Tattoo
             // change #22 子项 C：玩家脚下阴影
             ActorShadowHelper.Attach(pGo, radius: 0.55f, yOffset: -0.4f);
 
+            // change #25：深度排序 + billboard（阴影由 DepthSortedSprite 联动写 order）
+            pGo.AddComponent<DepthSortedSprite>();
+            pGo.AddComponent<BillboardSprite>();
+
             // v2.1：49 个 actor 占位（20 Smart + 29 Light）—— 分多圈布点避免重叠
             // 圈 1：半径 8m，14 个；圈 2：半径 13m，17 个；圈 3：半径 18m，18 个
             // Player1 prefab 实例化，shader 染色推 #19
@@ -169,6 +164,10 @@ namespace Tattoo
                     // change #22 子项 C：actor 脚下阴影
                     ActorShadowHelper.Attach(eGo, radius: 0.5f, yOffset: -0.4f);
 
+                    // change #25：深度排序 + billboard
+                    eGo.AddComponent<DepthSortedSprite>();
+                    eGo.AddComponent<BillboardSprite>();
+
                     Enemies.Add(eGo);
                 }
             }
@@ -195,6 +194,10 @@ namespace Tattoo
 
             // change #22 子项 C：Boss 脚下阴影（更大半径）
             ActorShadowHelper.Attach(bossGo, radius: 1.0f, yOffset: -0.4f);
+
+            // change #25：深度排序 + billboard
+            bossGo.AddComponent<DepthSortedSprite>();
+            bossGo.AddComponent<BillboardSprite>();
         }
 
         // ── change#20 阶段 3 Agent F ────────────────────────────────────

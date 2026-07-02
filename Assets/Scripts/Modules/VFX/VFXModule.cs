@@ -35,6 +35,8 @@ namespace Tattoo.VFX
         readonly EventBus _bus;
 
         SpawnerModule _spawner;
+        // change #25：运行时懒取 CameraModule（不加 Dependencies 避免循环依赖序）
+        CameraModule _camera;
         IDisposable _sub;
 
         // v2.1：多事件订阅句柄
@@ -303,7 +305,9 @@ namespace Tattoo.VFX
         {
             SpawnBossShockwave(e.SpawnPosition);
             SpawnBossLightPillar(e.SpawnPosition, duration: 2f);
-            SpawnCameraShake(0.5f, magnitude: 0.18f);
+            // change #25：震动由 CameraModule 统一管理，运行时懒取（不加 Dependencies）
+            if (_camera == null) _camera = _runner.GetModule<CameraModule>();
+            _camera?.PlayShake(0.5f, 0.18f);
             FrameworkLogger.Info("VFXModule", $"Action=BossSpawned Boss={e.Boss} Pos={e.SpawnPosition}");
         }
 
@@ -621,62 +625,6 @@ namespace Tattoo.VFX
                     },
                 });
             }
-        }
-
-        /// <summary>
-        /// 屏幕震屏：不直接修改 Camera.transform，而是 spawn 一个临时 ShakeTarget GameObject，
-        /// Camera.main 的父节点设置为此 transform，完成后还原（仅在 Camera.main 无父节点时操作）。
-        /// 若 Camera.main 已有父节点则跳过（不破坏外部相机结构）。
-        /// </summary>
-        void SpawnCameraShake(float duration, float magnitude)
-        {
-            if (Camera.main == null) return;
-
-            // 只在 Camera 无父节点时才做父节点附加（安全约束）
-            if (Camera.main.transform.parent != null) return;
-
-            var shakeGo = new GameObject("VFX_ShakeAnchor");
-            shakeGo.transform.SetParent(_root, false);
-            shakeGo.transform.position = Camera.main.transform.position;
-
-            // 记录相机原始本地位置（应为 zero，因此处确认无父节点）
-            var camOriginalPos = Camera.main.transform.localPosition;
-            Camera.main.transform.SetParent(shakeGo.transform, true);
-
-            Push(new VFXInstance
-            {
-                Go = shakeGo,
-                Duration = duration,
-                Tick = (inst, dt) =>
-                {
-                    if (shakeGo == null || Camera.main == null) return;
-                    // 衰减正弦抖动，0 GC alloc（不用 Random.insideUnitSphere，用数学公式）
-                    float decay = 1f - inst.Elapsed / inst.Duration;
-                    float freq = 40f;
-                    float sx = Mathf.Sin(inst.Elapsed * freq * 1.1f) * magnitude * decay;
-                    float sy = Mathf.Sin(inst.Elapsed * freq * 0.9f + 1.3f) * magnitude * decay;
-                    Camera.main.transform.localPosition = new Vector3(sx, sy, camOriginalPos.z);
-                },
-                // 结束时还原并解除父节点，用匿名 lambda 通过 VFXInstance 生命周期末尾执行
-            });
-
-            // 使用一个额外 VFXInstance（Duration 略长）在 Tick 里等到主 shake 结束后做清理
-            Push(new VFXInstance
-            {
-                Go = null, // 无 Go，不会 Destroy
-                Duration = duration + 0.02f,
-                Tick = (inst, dt) =>
-                {
-                    if (inst.Elapsed < duration) return; // 等 shake 结束
-                    if (Camera.main == null) return;
-                    if (Camera.main.transform.parent == shakeGo.transform)
-                    {
-                        Camera.main.transform.SetParent(null, true);
-                        Camera.main.transform.localPosition = camOriginalPos;
-                    }
-                    if (shakeGo != null) UnityEngine.Object.Destroy(shakeGo);
-                },
-            });
         }
 
         // ===== v2.1 工具：Actor 位置辅助 =====

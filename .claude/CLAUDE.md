@@ -231,11 +231,12 @@ openspec/changes/<NN-name>/
 3. **效果图位置固定**：`openspec/changes/<change-name>/art/mockups/<PageName>.png`，**与 `raw/`（拆分素材）严格分目录**
 4. **阶段 4 多页并行**：N 张已确认 mockup 互不依赖时，主对话直接 fan-out N 个 Agent 各自跑 `ui-asset-splitting`，不串行
 5. **状态每态独立生成**：layout 中每个含 `states: [normal, pressed, disabled, ...]` 的节点，每态在阶段 3/4 各出一张，禁止一张图里画多态
-6. **画布不够就加新画布**：一张 1920×1080 mockup 装不下时拆 `<Page>_part1.png` / `<Page>_part2.png`；1024×1024 绿幕组件画布装不下时拆 `_merged/batch_1.png` / `_merged/batch_2.png`
-7. **导入设置不手动改**：`Assets/Resources/Sprite/UI/` 下贴图由 `Assets/Editor/UISpriteImportProcessor.cs` 自动设置 Texture Type 等参数，禁止在 Inspector 里手动调（改了也会在下次 reimport 被覆盖，应改脚本而非改单个贴图）
-8. **Prefab 优先 MCP 自动建**：阶段 5 由 client-unity 调用 `unity-skills` MCP 按 layout 建层级 + 贴入阶段 4 素材；**MCP 不可用** → 回退到通知用户在 Unity Editor 手动搭。**调用 unity-skills 时若参数含 CJK / Emoji（节点名、按钮文本、说明文字等），必须用 `--stdin-json` 模式**，详见 [skills/unity-skills/SKILL.md](./skills/unity-skills/SKILL.md) 「中文 / CJK 参数调用约定（强制）」
-9. **效果图重试上限 3 轮**：codex-image-gen 调用失败或用户不满意 → 调整提示词/加参考图重试，**累计 3 轮仍未通过即停下来交回用户决定**（手动找参考 / 跳过本页 / 重新设计），禁止无限重试
-10. **联调以效果图为准绳**：阶段 6 必须把运行时截图与 mockups 并排对比，列偏差清单后再迭代；client-unity 不许凭感觉调
+6. **阶段 4 素材必须透明背景 + 禁止裁 mockup**：组件素材只能由 Codex 绿幕重生成或程序化 PIL 生成（四角 alpha 必须 = 0），**严禁从已确认的 mockup 上直接裁矩形**（会带面板底色变成不透明方块）；普通文字（标签/数值/按钮文案/键名）走 Prefab 里 TMP_Text 独立节点，只有特殊艺术字才作为图片素材。"MVP 简化"只能砍状态变体数量，绝不能砍"透明重生成"这个生产方式。详见 [skills/ui-asset-splitting/SKILL.md](./skills/ui-asset-splitting/SKILL.md) §一铁律 + §3.4 alpha 硬检查（2026-07-01 SettingsForm v2 踩坑固化）
+7. **画布不够就加新画布**：一张 1920×1080 mockup 装不下时拆 `<Page>_part1.png` / `<Page>_part2.png`；1024×1024 绿幕组件画布装不下时拆 `_merged/batch_1.png` / `_merged/batch_2.png`
+8. **导入设置不手动改**：`Assets/Resources/Sprite/UI/` 下贴图由 `Assets/Editor/UISpriteImportProcessor.cs` 自动设置 Texture Type 等参数，禁止在 Inspector 里手动调（改了也会在下次 reimport 被覆盖，应改脚本而非改单个贴图）
+9. **Prefab 优先 MCP 自动建**：阶段 5 由 client-unity 调用 `unity-skills` MCP 按 layout 建层级 + 贴入阶段 4 素材；**MCP 不可用** → 回退到通知用户在 Unity Editor 手动搭。**调用 unity-skills 时若参数含 CJK / Emoji（节点名、按钮文本、说明文字等），必须用 `--stdin-json` 模式**，详见 [skills/unity-skills/SKILL.md](./skills/unity-skills/SKILL.md) 「中文 / CJK 参数调用约定（强制）」
+10. **效果图重试上限 3 轮**：codex-image-gen 调用失败或用户不满意 → 调整提示词/加参考图重试，**累计 3 轮仍未通过即停下来交回用户决定**（手动找参考 / 跳过本页 / 重新设计），禁止无限重试
+11. **联调以效果图为准绳**：阶段 6 必须把运行时截图与 mockups 并排对比，列偏差清单后再迭代；client-unity 不许凭感觉调
 
 #### v2 → v3 变更要点（2026-07-01）
 

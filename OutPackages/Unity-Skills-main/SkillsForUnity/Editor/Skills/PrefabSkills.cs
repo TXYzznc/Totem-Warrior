@@ -31,7 +31,7 @@ namespace UnitySkills
                 Directory.CreateDirectory(dir);
 
             // 使用 SaveAsPrefabAssetAndConnect 将场景物体连接为预制体实例
-            var prefab = PrefabUtility.SaveAsPrefabAssetAndConnect(go, savePath, InteractionMode.UserAction);
+            var prefab = PrefabUtility.SaveAsPrefabAssetAndConnect(go, savePath, InteractionMode.AutomatedAction);
 
             // 记录新创建的预制体资产
             WorkflowManager.SnapshotCreatedAsset(prefab);
@@ -184,7 +184,7 @@ namespace UnitySkills
 
             WorkflowManager.SnapshotObject(prefabRoot);
             var prefabPath = PrefabUtility.GetPrefabAssetPathOfNearestInstanceRoot(prefabRoot);
-            PrefabUtility.ApplyPrefabInstance(prefabRoot, InteractionMode.UserAction);
+            PrefabUtility.ApplyPrefabInstance(prefabRoot, InteractionMode.AutomatedAction);
 
             return new { success = true, appliedTo = prefabPath };
         }
@@ -203,7 +203,7 @@ namespace UnitySkills
 
             WorkflowManager.SnapshotObject(go);
             var mode = completely ? PrefabUnpackMode.Completely : PrefabUnpackMode.OutermostRoot;
-            PrefabUtility.UnpackPrefabInstance(go, mode, InteractionMode.UserAction);
+            PrefabUtility.UnpackPrefabInstance(go, mode, InteractionMode.AutomatedAction);
 
             return new { success = true, unpacked = go.name };
         }
@@ -269,7 +269,7 @@ namespace UnitySkills
 
             WorkflowManager.SnapshotObject(prefabRoot);
             Undo.RecordObject(prefabRoot, "Revert Prefab Overrides");
-            PrefabUtility.RevertPrefabInstance(prefabRoot, InteractionMode.UserAction);
+            PrefabUtility.RevertPrefabInstance(prefabRoot, InteractionMode.AutomatedAction);
 
             return new { success = true, reverted = prefabRoot.name };
         }
@@ -289,7 +289,7 @@ namespace UnitySkills
 
             WorkflowManager.SnapshotObject(prefabRoot);
             var prefabPath = PrefabUtility.GetPrefabAssetPathOfNearestInstanceRoot(prefabRoot);
-            PrefabUtility.ApplyPrefabInstance(prefabRoot, InteractionMode.UserAction);
+            PrefabUtility.ApplyPrefabInstance(prefabRoot, InteractionMode.AutomatedAction);
 
             return new { success = true, appliedTo = prefabPath };
         }

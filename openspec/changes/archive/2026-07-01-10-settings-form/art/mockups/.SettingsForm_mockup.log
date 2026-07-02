@@ -1,0 +1,73 @@
+OpenAI Codex v0.142.0
+--------
+workdir: C:\Users\WIN10\AppData\Local\Temp\codex-art-gen-runner
+model: gpt-5.5
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR, D:\unity\UnityProject\GameDesinger\openspec\changes\10-settings-form\art\mockups]
+reasoning effort: medium
+reasoning summaries: none
+session id: 019f1d21-b34d-7763-a603-506773a1166c
+--------
+user
+你是图片生成执行器。
+
+任务：
+读取下面的 batch JSON,在同一个 Codex session 内批量生成所有 items。
+
+硬性规则：
+- 不要读取项目文档。
+- 不要解释、不要计划、不要询问。
+- 对 items 中的每个条目生成一张独立图片。
+- 每个 item 最多调用 1 次 image_gen。
+- 可以并行处理多个 item;即使内部不能并行,也必须在同一个 Codex session 内完成整批。
+- 单个 item 失败时跳过该项继续处理后续 item,不要自行重试。
+- **每张图片必须真实落盘到 item.file 指定的绝对路径**(image_gen 默认会输出到 .codex/generated_images/...,你必须用 exec 命令把它复制/移动到 item.file 的目标路径)。
+- 任务由调用方通过**磁盘文件是否存在 + 体积 > 1KB**来判定每张图是否成功,不依赖你的文字回复。
+
+背景规则（按 item.transparent 分流）：
+- 若 item.transparent=true:背景必须为纯色 chroma_key 底色(见 batch JSON 的 chroma_key 字段,默认 #00ff00),完全填满主体之外的所有空间(image_gen 的 transparent 在 gpt-image-2 上不可靠,本地会用 chroma-key 工具去键色)。主体本身**禁用**接近 chroma_key 的色调,避免被键出。不要渐变 / 阴影投射到键色底上。
+- 若 item.transparent=false:背景按 item.prompt 自身要求绘制(常见用于场景纹理 / 背景图)。
+
+通用规则：
+- 不要文字、数字、水印、签名、边框、标签。
+- 美术风格、配色由各 item.prompt 自带,本模板不规定。
+
+batch JSON:
+{
+  "mode": "L1_BATCH",
+  "batch_id": "SettingsForm_mockup",
+  "chroma_key": "#00ff00",
+  "items": [
+    {
+      "index": 1,
+      "name": "SettingsForm",
+      "file": "D:/unity/UnityProject/GameDesinger/openspec/changes/10-settings-form/art/mockups/SettingsForm.png",
+      "size": "1920x1080",
+      "transparent": false,
+      "prompt": "A high-quality game UI mockup screenshot, resolution 1920x1080. The entire canvas background outside the central panel is filled with flat solid chroma-key green (#00FF00), no gradients, no shadows bleeding onto the green area.\n\nCentered on canvas: a dark fantasy settings menu panel, 1056x810 pixels, styled like Hades or Pyre — polished 2.5D dark RPG UI aesthetic with subtle inner glow on edges, refined metallic accents.\n\nSTRUCTURAL CONSTRAINTS (strictly follow these proportions):\n- Panel background color: deep navy-dark #1A1C2E at 90% opacity with a thin 1px border in #22243A\n- Panel has a very subtle inner top edge highlight suggesting depth (1-2px lighter rim, no strong 3D bevel)\n\nTITLE BAR (top 8.9% of panel, height 72px, full panel width):\n- Background: #22243A solid dark strip\n- Left side: bold white text 设置 (Settings in Chinese), font size ~32px, color #F8F9FA, left-aligned with 32px left margin\n- Right side: a close button [X] icon, 52x52px circle/square button, 16px from right edge, icon color #F8F9FA\n\nCONTENT AREA (fills 81.2% of panel height between title and footer, left-right inner margin 32px each side):\n\nSECTION 1 — Volume 音量, occupies top 24.2% of content area (196px tall):\n- Section header text 音量 in #A8A9C0, font size 20px, bold, left-aligned\n- Row 1 BGM: left label BGM in white #F8F9FA 18px; center-right: a horizontal slider track 640px wide x 12px tall in #3A3C58 with gold fill #FFB400 covering ~70% (value 0.70), a circular gold handle 32x32px at the 70% mark; far right: value text 0.70 in #A8A9C0 16px\n- Row 2 SFX: same layout as BGM, slider fill ~85% (value 0.85), handle at 85%, value text 0.85\n- Below SFX row: a thin 1px horizontal divider line in #2E3050\n\nSECTION 2 — Quality 画质, occupies next 14.8% of content area (120px tall):\n- Section header text 画质 in #A8A9C0, font size 20px, bold, left-aligned\n- Three radio buttons in a horizontal row with 48px spacing between them:\n  - RadioBtn 1: 性能优先 — outer circle 28x28px unfilled ring in #A8A9C0, no inner dot (unselected)\n  - RadioBtn 2: 均衡 — outer circle 28x28px ring in #FFB400, inner filled dot 14x14px solid #FFB400 (SELECTED)\n  - RadioBtn 3: 高画质 — outer circle 28x28px unfilled ring in #A8A9C0, no inner dot (unselected)\n  - Each radio button label: font size 17px, color #F8F9FA, right of its circle\n- Below radio row: a thin 1px horizontal divider line in #2E3050\n\nSECTION 3 — Key Bindings 按键, occupies next 31.6% of content area (256px tall):\n- Section header text 按键 in #A8A9C0, font size 20px, bold, left-aligned\n- Sub-notice text 即将推出 in italic, font size 14px, color #A8A9C0 at 70% opacity, just below header\n- Three key binding rows, each 64px tall:\n  - Row 1: left label 移动 in #A8A9C0 18px; right side: a rounded rectangle button 200x44px in #3A3C58 at 60% alpha (greyed/disabled appearance), button text WASD centered in #A8A9C0 16px\n  - Row 2: left label 攻击 in #A8A9C0 18px; right button 鼠标左键 same disabled style\n  - Row 3: left label 暂停 in #A8A9C0 18px; right button Esc same disabled style\n  - All three buttons appear visibly dimmed/disabled (no hover glow, muted colors)\n\nFOOTER (bottom 9.9% of panel, height 80px, full panel width):\n- Background: #22243A solid dark strip (matching TitleBar, creating a frame effect)\n- Right side: two buttons horizontally aligned\n  - CancelButton: 160x52px, background #2E3050 (secondary grey-blue), text 取消 in #F8F9FA 18px, centered; 232px from right edge\n  - SaveButton: 200x52px, background solid gold #FFB400 (the main CTA), text 保存 in dark #1A1C2E 18px bold, centered; 16px from right edge\n  - SaveButton should have a subtle inner glow / shine effect\n\nOVERALL AESTHETIC:\n- Dark, moody, fantasy RPG atmosphere\n- The gold #FFB400 appears only on: Slider fill + Slider handle, selected Radio dot, SaveButton background\n- Subtle ambient glow around the panel edges (very faint)\n- Clean typographic hierarchy: large bold title > medium bold section headers > regular row labels > small value text\n- No decorative patterns, no controller glyphs, no multi-language buttons, no Steam/Xbox logos\n- The panel should feel premium and polished, like a shipped AAA indie game UI",
+      "negative": "blurry, watermark, signature, text artifacts, extra panels, duplicate elements, lens flare, photorealistic render, 3D scene perspective, isometric view, cartoon flat design, neon glow overload, color bleeding onto green background, any color other than #00FF00 in the chroma-key border area, missing radio button labels, visible grid lines, Lorem ipsum placeholder text, English section headers (headers must be Chinese), crowded layout, elements outside panel boundaries, non-centered panel, panel touching canvas edge, gradient on chroma-key background, controller button icons, steam logo, xbox logo, language switch button, decorative floral pattern, border ornaments, tabs instead of radio buttons, horizontal scrollbar, slider showing value above 1.0, extra UI screens, multiple panels, split screen"
+    }
+  ]
+}
+
+exec
+"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command '$target = '"'D:\\unity\\UnityProject\\GameDesinger\\openspec\\changes\\10-settings-form\\art\\mockups\\SettingsForm.png'
+"'$roots = @(
+  (Join-Path (Get-Location) '"'.codex\\generated_images'),
+  (Join-Path "'$env:USERPROFILE '"'.codex\\generated_images')
+) | Where-Object { Test-Path "'$_ }
+$img = Get-ChildItem -Path $roots -Recurse -File -Include *.png,*.jpg,*.jpeg,*.webp | Sort-Object LastWriteTime -Descending | Select-Object -First 1
+if (-not $img) { throw '"'generated image not found' }
+New-Item -ItemType Directory -Force -Path (Split-Path -Parent "'$target) | Out-Null
+Copy-Item -LiteralPath $img.FullName -Destination $target -Force
+$result = Get-Item -LiteralPath $target
+[pscustomobject]@{source=$img.FullName; file=$result.FullName; bytes=$result.Length} | ConvertTo-Json -Compress' in C:\Users\WIN10\AppData\Local\Temp\codex-art-gen-runner
+ succeeded in 866ms:
+{"source":"C:\\Users\\WIN10\\.codex\\generated_images\\019f1d21-b34d-7763-a603-506773a1166c\\ig_0e8a9025f908e60e016a44e5d50f1c8191a99d03e4ea772ed4.png","file":"D:\\unity\\UnityProject\\GameDesinger\\openspec\\changes\\10-settings-form\\art\\mockups\\SettingsForm.png","bytes":1188526}
+
+codex
+{"batch_id":"SettingsForm_mockup","results":[{"index":1,"name":"SettingsForm","file":"D:/unity/UnityProject/GameDesinger/openspec/changes/10-settings-form/art/mockups/SettingsForm.png","success":true,"bytes":1188526}]}
+tokens used
+30,034
+{"batch_id":"SettingsForm_mockup","results":[{"index":1,"name":"SettingsForm","file":"D:/unity/UnityProject/GameDesinger/openspec/changes/10-settings-form/art/mockups/SettingsForm.png","success":true,"bytes":1188526}]}
