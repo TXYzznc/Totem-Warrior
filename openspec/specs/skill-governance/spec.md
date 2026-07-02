@@ -33,17 +33,17 @@ TBD - created by archiving change 11-skill-governance. Update Purpose after arch
 - **WHEN** 查阅 `.claude/skills/SKILLS_INDEX.md`
 - **THEN** 应能找到「候选淘汰区」段落 + 4 个 SKILL 名
 
-### Requirement: MCP 启用清单按频次分层
+### Requirement: MCP 启用清单按频次分层且不含 skill4agent
 
-`.claude/settings.local.json` 的 `enabledMcpjsonServers` MUST 仅含常驻 + 高频共 4 个：`skill4agent / codebase-memory / codex-art-gen / playwright`。其余 4 个（blender / godot / frame-ronin / atlassian）默认关闭，按需手动启用。
+`.claude/settings.local.json` 的 `enabledMcpjsonServers` MUST 仅含当前有效常驻/高频 MCP：`codebase-memory / codex-art-gen / playwright`。`skill4agent` MUST NOT 出现在 `.mcp.json`、`.codex/config.toml` 或 `.claude/settings.local.json` 中；其余 4 个（blender / godot / frame-ronin / atlassian）默认关闭，按需手动启用。
 
-#### Scenario: 默认启用清单 = 4 个
+#### Scenario: 默认启用清单 = 3 个
 - **WHEN** 读取 `.claude/settings.local.json` 的 `enabledMcpjsonServers`
-- **THEN** 长度 = 4，且不含 blender/godot/frame-ronin/atlassian
+- **THEN** 长度 = 3，且不含 skill4agent/blender/godot/frame-ronin/atlassian
 
 #### Scenario: CLAUDE.md MCP 表对齐
 - **WHEN** 查阅 `.claude/CLAUDE.md` §八 MCP 服务清单
-- **THEN** 应有 8 个 MCP 行，其中前 4 个标常驻/高频，后 4 个标按需
+- **THEN** 不应出现 skill4agent 行，且应说明 SKILL 直接从 `.claude/skills/` 读取
 
 ### Requirement: 月度防腐审计
 
@@ -56,4 +56,3 @@ TBD - created by archiving change 11-skill-governance. Update Purpose after arch
 #### Scenario: CLAUDE.md 引用防腐机制
 - **WHEN** 查阅 CLAUDE.md §十 SKILL 系统
 - **THEN** 应能找到「月度防腐机制」段落
-

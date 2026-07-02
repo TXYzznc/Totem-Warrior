@@ -1,7 +1,6 @@
 {
   "permissions": {
     "allow": [
-      "mcp__skill4agent__search_skills",
       "mcp__codebase-memory__search_code",
       "mcp__codebase-memory__query_graph",
       "mcp__codebase-memory__get_code_snippet",
@@ -15,13 +14,12 @@
     ]
   },
   "enabledMcpjsonServers": [
-    "skill4agent",
     "codebase-memory",
     "codex-art-gen",
     "playwright"
   ],
   "_comment": "本地配置：MCP 启用清单 + permissions 白名单。Hook 已在 settings.json 中统一管理（人格 + 决策门槛 + ai-art 触发）。",
-  "_mcp_governance_comment": "11-skill-governance：常驻 3（skill4agent / codebase-memory / codex-art-gen）+ 高频 1（playwright）。其余 4 个（blender/godot/frame-ronin/atlassian）默认关闭，需要时手动加回。",
+  "_mcp_governance_comment": "skill4agent 已移除；常驻 codebase-memory / codex-art-gen + 高频 playwright。其余 4 个（blender/godot/frame-ronin/atlassian）默认关闭，需要时手动加回。",
   "disabledMcpjsonServers": [
     "blender",
     "godot",

@@ -7,7 +7,7 @@
 | 依赖 | 检查命令 | 用途 |
 |---|---|---|
 | Python 3.10+ | `python --version` | frame-ronin-mcp 运行环境 |
-| Node.js 16+ | `node --version` | skill4agent、playwright、godot 等 |
+| Node.js 16+ | `node --version` | playwright、godot 等 Node MCP |
 | git | `git --version` | clone 项目 + pip 装 git 源依赖 |
 | uv | `uv --version` | blender / atlassian MCP |
 
@@ -43,9 +43,8 @@ python -m venv .venv
 
 打开 Claude Code 后会自动生效：
 
-- `.mcp.json` 中所有 MCP 服务
+- `.mcp.json` 中配置的 MCP 服务（实际启用见 `.claude/settings.local.json`）
 - `.claude/settings.json` 启用的 ponytail 插件（源在 `.claude/plugins/ponytail/`）
-- `.agents/skills/` 下的 11 个 skill4agent 技能
 - `.claude/skills/` 下的所有 Claude Code 原生技能
 
 ## 不应被同步的目录

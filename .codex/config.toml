@@ -40,9 +40,6 @@ GODOT_PATH = 'C:\path\to\Godot_v4.x.exe'
 command = "npx"
 args = ["@playwright/mcp@latest"]
 
-[mcp_servers.skill4agent]
-command = "npx"
-args = [
-    "-y",
-    "@skill4agent/mcp-server",
-]
+[mcp_servers.codex-art-gen]
+command = ".venv/Scripts/python.exe"
+args = ["tools/codex-art-gen-mcp/server.py"]

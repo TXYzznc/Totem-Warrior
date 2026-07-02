@@ -286,7 +286,6 @@ openspec/changes/<NN-name>/
 
 | MCP | 默认状态 | 说明 |
 |---|---|---|
-| skill4agent | 🟢 常驻 | SKILL 注册中心 |
 | codebase-memory | 🟢 常驻 | 代码结构索引（优先于 Read+Grep） |
 | codex-art-gen | 🟢 常驻 | 美术出图主入口（codex exec 调度） |
 | playwright | 🟡 高频 | Web E2E 测试 |
@@ -295,7 +294,7 @@ openspec/changes/<NN-name>/
 | frame-ronin | ⚪ 按需 | 帧/精灵/像素美术（特定批次手动启） |
 | atlassian | ⚪ 按需 | Jira / Confluence（外部协作时手动启） |
 
-> 启用清单见 [.claude/settings.local.json](./settings.local.json) 的 `enabledMcpjsonServers`。**按需 MCP** 不在默认启用列表里，使用时手动加入 → 重启会话生效。理由：每个 MCP 启动都注册 schema 占 token，4 个低频 MCP 常驻浪费上下文。
+> 启用清单见 [.claude/settings.local.json](./settings.local.json) 的 `enabledMcpjsonServers`。`skill4agent` 已移除；SKILL 直接从 `.claude/skills/` 读取。**按需 MCP** 不在默认启用列表里，使用时手动加入 → 重启会话生效。理由：每个 MCP 启动都注册 schema 占 token，低频 MCP 常驻浪费上下文。
 
 ### codebase-memory MCP 使用准则
 
@@ -446,7 +445,7 @@ FrameworkLogger.Info("EventBus", $"Handler=CombatModule Subscribe=CombatEndEvent
 - 不要绕过 agent 团队自己实现专家任务
 - 不要把 skill 移到子目录 —— Claude Code 不递归扫描
 - 不要在没有 `grill-me` / `grill-with-docs` 的情况下做大型设计决策（hook 会注入提醒）
-- 不要在 .codex/agents/ / .agents/skills/ 直接改文件 —— source of truth 是 `.claude/agents/` 与 `.claude/skills/`，跑 `tools/sync-agents.py` 同步
+- 不要直接改 `.codex/agents/` —— source of truth 是 `.claude/agents/`，跑 `tools/sync-agents.py` 同步；SKILL source of truth 是 `.claude/skills/`
 - 不要把业务示例代码混入框架核心 —— 模板需要长期保持纯净
 
 ---

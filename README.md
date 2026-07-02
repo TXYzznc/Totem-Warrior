@@ -9,7 +9,7 @@
 两层定位：
 
 1. **游戏框架** — 自研 `IGameModule` / `ModuleRunner` / `EventBus`，**无 DI 容器**，依赖显式声明。
-2. **AI 协作模板** — 20 人虚拟开发团队（lead / system / impl 三层）+ 124 SKILL + 11 MCP + 5 Phase 工作流 + OpenSpec + 决策门槛 hook。
+2. **AI 协作模板** — 20 人虚拟开发团队（lead / system / impl 三层）+ 124 SKILL + MCP 工具 + 5 Phase 工作流 + OpenSpec + 决策门槛 hook。
 
 ## 配置即开即用
 
@@ -17,8 +17,8 @@
 |---|---|
 | [.claude/](./.claude/) | Claude Code：20 agents（含 frontmatter / skill 白名单 / escalate_to）+ 124 skills + 行为准则 + 工作流 |
 | [.codex/](./.codex/) | OpenAI Codex：由 `.claude/` 经 `sync-agents.py` 自动生成 |
-| [.agents/](./.agents/) | skill4agent MCP 镜像（自动同步） |
-| [.mcp.json](./.mcp.json) | 7 MCP，凭据走 `${VAR}` + [.env.example](./.env.example) |
+| [.claude/skills/](./.claude/skills/) | 唯一 SKILL 源；Claude / Codex 均按需读取 |
+| [.mcp.json](./.mcp.json) | MCP 配置，凭据走 `${VAR}` + [.env.example](./.env.example) |
 | [tools/](./tools/) | codebase-memory-mcp + 图像工具 + `sync-agents.py` |
 
 ## 技术栈
@@ -68,7 +68,8 @@
 
 ## 维护准则
 
-- **agents 单源**：源是 `.claude/agents/*.md`；改完跑 `python tools/sync-agents.py` 同步到 `.codex/` 与 `.agents/`。
+- **agents 单源**：源是 `.claude/agents/*.md`；改完跑 `python tools/sync-agents.py` 同步到 `.codex/`。
+- **skills 单源**：源是 `.claude/skills/`；不再维护 `.agents/skills/` 镜像。
 - **凭据 .env 化**：不要把 token 直接写 `.mcp.json` / `.codex/config.toml`。
 - **大型决策三步**：grill-me → openspec new change → 更新知识库 INDEX。settings.json 的 hook 会自动提醒。
 - **业务清洁**：往 `Templates/` 里加新模式时用 `.cs.txt`；不要往框架核心混业务示例。

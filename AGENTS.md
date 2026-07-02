@@ -3,10 +3,51 @@
 > Codex（`.codex/`）以本文件为顶层指引；Claude Code 入口为 [.claude/CLAUDE.md](./.claude/CLAUDE.md)。两份保持语义一致。
 >
 > `.codex/agents/*.toml` 由 `.claude/agents/*.md` 经 [tools/sync-agents.py](./tools/sync-agents.py) 生成。不要直接改 .toml。
+>
+> **兼容目标**：Claude 继续按原 `.claude/` 工作流运行；Codex 在不改 Claude 源配置的前提下，按本文件把同一套 agent / skill / openspec 流程等价执行。
 
 Unity 6.3 LTS 自研轻量模块化框架的 **AI 协作模板**。主对话作为 **orchestrator**，把任务路由到 20 人虚拟开发团队；不亲自做专家活。
 
 ---
+
+## Codex 适配层（保持 Claude 原样）
+
+### Source of truth
+
+- `.claude/CLAUDE.md`、`.claude/agents/*.md`、`.claude/skills/` 仍是 Claude 工作流源文件。
+- `.codex/agents/*.toml` 是 `.claude/agents/*.md` 的镜像；更新 agent 时只改 `.claude/agents/*.md`，然后运行 `python tools/sync-agents.py`。
+- `.claude/skills/` 是唯一项目 skill 源；已移除 skill4agent 与 `.agents/skills/` 镜像。
+- `.codex/hooks.json` 只注入 Codex 侧提醒，不替代 `.claude/settings.json`。
+
+### Codex 执行语义
+
+- 本文件中的"delegate 给对应 agent"在 Codex 中解释为：先读取/遵循 `.codex/agents/<agent>.toml` 的职责、边界、skill 白名单与交回规则。
+- 如果当前 Codex 运行时提供可用的 sub-agent / delegate 工具，且用户明确要求使用子 agent、委派或并行 agent 工作，则可以按 `.codex/agents/*.toml` 委派。
+- 如果 Codex 当前不能原生调用这些项目 agent，或用户没有明确要求子 agent，则主对话必须按对应 agent 的 prompt 与白名单**等价执行**，而不是跳过路由规则。
+- 轻量任务（读文件、解释代码、小范围修复）可由主对话直接处理，但仍需遵守目标 agent 的边界和项目规范。
+- 多 agent 并行语义在 Codex 中可退化为主对话顺序执行；涉及互相引用的模块时仍必须先走"骨架先行"。
+
+### Codex 工具映射
+
+| Claude 语义 | Codex 等价做法 |
+|---|---|
+| `Agent` | 优先按 `.codex/agents/*.toml` 路由；可用且获授权时用 Codex sub-agent，否则主对话等价执行 |
+| `Skill` | 先用当前会话已暴露 skill；否则读取 `.claude/skills/<skill>/SKILL.md` |
+| `Read / Grep / Glob` | Codex shell / `rg` / 文件读取工具；查 `Assets/Scripts/` 结构时优先 codebase-memory MCP（若可用） |
+| `Edit / Write` | 使用 Codex 文件编辑工具；不要直接改 `.codex/agents/*.toml` 镜像 |
+| `WebSearch / WebFetch` | Codex web 工具；高时效、外部资料、OpenAI 文档等按 Codex 浏览规则执行 |
+| `TodoWrite` | Codex plan / 更新说明；不要求一比一工具名 |
+| `mcp__*` | 先确认当前 Codex 会话是否暴露对应 MCP；未暴露时降级为本地文件/脚本或明确阻塞 |
+
+### 决策门槛
+
+检测到 `设计 / 架构 / 重构 / 大改 / 重写 / GDD / PRD / 系统 / 范式 / 方案 / 思路` 时，Codex 必须照搬 Claude 的两阶段 FSM：
+
+1. 阶段 A：先用 `grill-me` / `grill-with-docs` 的问题框架澄清目标、关键决策、边界、验收标准、约束。
+2. 阶段 B：做任务规模评估；命中 openspec 信号则创建/推进 openspec change，否则走轻量路径。
+3. 阶段 B 只有遇到阶段 A 共识冲突、不可逆变更、或触及 `.claude/` / `openspec/` / `Assets/Scripts/Core/` 框架核心时才中断用户。
+
+Codex 若没有可调用的 `grill-me` 工具，也必须按该 skill 的反问模式执行，不能直接跳到方案。
 
 ## 路由规则（20 agents）
 
@@ -33,7 +74,7 @@ Unity 6.3 LTS 自研轻量模块化框架的 **AI 协作模板**。主对话作�
 | CI/CD / Unity 构建 / 发版 / 签名 | [`devops-engineer`](./.codex/agents/devops-engineer.toml) | impl |
 | Editor 扩展 / 内部工具 / 新建 skill | [`tools-engineer`](./.codex/agents/tools-engineer.toml) | impl |
 
-匹配以上任一类，**先 delegate 给对应 agent**。简单的"读文件 / 解释代码"轻量任务可自己处理。
+匹配以上任一类，**先按对应 agent 路由**。Claude Code 中直接 delegate；Codex 中按"Codex 执行语义"等价执行。简单的"读文件 / 解释代码"轻量任务可自己处理。
 
 ---
 
@@ -57,22 +98,24 @@ Unity 6.3 LTS 自研轻量模块化框架的 **AI 协作模板**。主对话作�
 
 - **总数**：124，分组索引见 [.claude/skills/SKILLS_INDEX.md](./.claude/skills/SKILLS_INDEX.md)
 - **agent ↔ skill 白名单**：[.claude/SKILL_MATRIX.md](./.claude/SKILL_MATRIX.md)
-- **skill4agent MCP 镜像**：`.agents/skills/`（由 sync 脚本生成）
+- **唯一来源**：`.claude/skills/<skill>/SKILL.md`
+- **Codex 使用**：触发 skill 时先读取该 skill 的 `SKILL.md`；若 skill 在当前 Codex skills 列表中已暴露，按 Codex skill 规则执行；否则从 `.claude/skills/` 读取源说明后执行。
+- **`/graphify`**：Codex 中映射到 `graphify-windows` skill。用户输入 `/graphify` 时，先读取并执行该 skill，再做其他事。
 
 ---
 
 ## 项目环境
 
 - **平台**：Unity 6.3 LTS
-- **OS**：Windows 10，shell 用 bash（不是 PowerShell）—— 路径用 `/`
+- **OS**：Windows 10。Claude Code 按原约定使用 bash、路径用 `/`；Codex 桌面当前可能运行在 PowerShell，执行命令时以当前 shell 为准，但输出和文档路径尽量使用 `/` 或明确的绝对路径。
 - **Python**：`.venv/`（frame-ronin MCP），见 [setup.md](./setup.md)
 - **凭据**：复制 [.env.example](./.env.example) 为 `.env` 后填值
 - **MCP**（[.mcp.json](./.mcp.json) + [.codex/config.toml](./.codex/config.toml)）：
-  skill4agent / codebase-memory / playwright / blender / godot / frame-ronin / atlassian
+  codebase-memory / codex-art-gen / playwright / blender / godot / frame-ronin / atlassian
 
 ### codebase-memory MCP 准则
 
-**优先**调用 `codebase-memory` 查询 `Assets/Scripts/` 代码结构；**不要**用 Read + Grep 逐文件扫。
+**优先**调用 `codebase-memory` 查询 `Assets/Scripts/` 代码结构；**不要**用 Read + Grep 逐文件扫。若当前 Codex 会话未暴露 codebase-memory 工具，先用 `rg` 做最小范围查询，并在结果中说明该 MCP 当前不可用。
 
 ---
 
@@ -92,7 +135,7 @@ Unity 6.3 LTS 自研轻量模块化框架的 **AI 协作模板**。主对话作�
 ## 不要
 
 - 不要绕过 agent 团队自己做专家活
-- 不要把 skill 移到子目录 —— Claude Code / Codex 都不递归扫描
+- 不要把 skill 移到子目录 —— `.claude/skills/<skill>/SKILL.md` 是统一入口
 - 不要在没有 `grill-me` / `grill-with-docs` 的情况下做大型设计决策
 - 不要再写"待装"标记的 skill —— 124 个已就位
 - 不要直接改 .codex/agents/*.toml —— source 是 .claude/agents/，跑 `tools/sync-agents.py`

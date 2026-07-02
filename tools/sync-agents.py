@@ -12,13 +12,12 @@
 - .claude/agents/<name>.md 的 frontmatter 与 body 是 source of truth
 - .codex/agents/<name>.toml 从 .md frontmatter 生成 + 把 body 写到 `instructions` 字段
 - 若 .claude/agents/ 删了某个 agent，.codex/agents/ 对应 toml 也会被删
-- .agents/skills/ 镜像简单复制 .claude/skills/ 的所有 SKILL.md 文件
+- .claude/skills/ 是唯一 skill 源；不再生成 .agents/skills/ 镜像
 """
 
 from __future__ import annotations
 
 import argparse
-import shutil
 import sys
 from pathlib import Path
 
@@ -32,8 +31,6 @@ except ImportError:
 ROOT = Path(__file__).resolve().parent.parent
 CLAUDE_AGENTS = ROOT / ".claude" / "agents"
 CODEX_AGENTS = ROOT / ".codex" / "agents"
-CLAUDE_SKILLS = ROOT / ".claude" / "skills"
-AGENTS_SKILLS = ROOT / ".agents" / "skills"
 
 
 def parse_md(path: Path) -> tuple[dict, str]:
@@ -132,49 +129,22 @@ def sync_agents(check: bool, verbose: bool) -> int:
     return 1 if (check and diff_count > 0) else 0
 
 
-def sync_skills_mirror(check: bool, verbose: bool) -> int:
-    """把 .claude/skills/ 镜像到 .agents/skills/（skill4agent MCP 用）"""
-    if not CLAUDE_SKILLS.exists():
-        return 0
-    AGENTS_SKILLS.mkdir(parents=True, exist_ok=True)
-
-    # 简单做：清空 .agents/skills/，重新整体复制
-    # 体积小（< 100MB）所以拷贝可接受
-    if check:
-        # check 模式只比对存在性
-        source_dirs = {p.name for p in CLAUDE_SKILLS.iterdir() if p.is_dir()}
-        mirror_dirs = {p.name for p in AGENTS_SKILLS.iterdir() if p.is_dir()}
-        diff = source_dirs.symmetric_difference(mirror_dirs)
-        if diff and verbose:
-            print(f"SKILLS DIFF: {sorted(diff)[:5]}{'...' if len(diff) > 5 else ''}")
-        return 1 if diff else 0
-
-    # 直接全量同步
-    if AGENTS_SKILLS.exists():
-        shutil.rmtree(AGENTS_SKILLS)
-    shutil.copytree(CLAUDE_SKILLS, AGENTS_SKILLS, ignore=shutil.ignore_patterns("SKILLS_INDEX.md"))
-    if verbose:
-        print(f"MIRRORED: .claude/skills/ → .agents/skills/")
-    return 0
-
-
 def main() -> int:
-    p = argparse.ArgumentParser(description="同步 .claude/agents/ → .codex/agents/ + .agents/skills/ 镜像")
+    p = argparse.ArgumentParser(description="同步 .claude/agents/ → .codex/agents/")
     p.add_argument("--check", action="store_true", help="仅校验，不写入；存在差异时退出码非 0")
     p.add_argument("--verbose", "-v", action="store_true", help="输出每个文件的处理结果")
-    p.add_argument("--skip-skills", action="store_true", help="跳过 .agents/skills 镜像")
+    p.add_argument("--skip-skills", action="store_true", help="兼容旧命令；skills 镜像已移除，此参数无效果")
     args = p.parse_args()
 
     rc1 = sync_agents(args.check, args.verbose)
-    rc2 = 0 if args.skip_skills else sync_skills_mirror(args.check, args.verbose)
 
     if args.check:
-        if rc1 or rc2:
+        if rc1:
             print("[FAIL] 存在差异。请运行 `python tools/sync-agents.py` 同步后重新提交。")
             return 1
-        print("[OK] 三处一致。")
+        print("[OK] agents 一致。")
     else:
-        print(f"[OK] sync 完成（agents rc={rc1}, skills mirror rc={rc2}）")
+        print(f"[OK] sync 完成（agents rc={rc1}）")
     return 0
 
 

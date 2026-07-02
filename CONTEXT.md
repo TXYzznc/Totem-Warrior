@@ -11,7 +11,7 @@
 两层定位：
 
 1. **游戏侧**：Unity 6.3 LTS 模块化框架。框架只做两件事——模块生命周期管理 + 模块间通信。**无 DI 容器**，依赖显式声明在模块本身。
-2. **AI 协作侧**：20 人虚拟开发团队（双轨 `.claude` / `.codex`）+ 124 SKILL + 11 MCP 工具 + 5 Phase 工作流 + OpenSpec 规范化变更 + 决策门槛 hook。
+2. **AI 协作侧**：20 人虚拟开发团队（双轨 `.claude` / `.codex`）+ 124 SKILL + MCP 工具 + 5 Phase 工作流 + OpenSpec 规范化变更 + 决策门槛 hook。
 
 **模板纯净**——清掉了所有飞机大战业务（飞机/敌人/子弹/关卡/玩家/UI），保留框架核心 + 模板 + 启动场景。
 
@@ -69,8 +69,6 @@ AI_Friendly_Project/
 │   ├── hooks.json
 │   └── agents/  (20)
 │
-├── .agents/skills/       ← skill4agent MCP 镜像（sync-agents.py 自动生成）
-│
 ├── tools/                ← 工程工具（.gitignore 排除大文件）
 │   ├── sync-agents.py    ← agents 同步脚本（source = .claude/agents/）
 │   ├── codebase-memory-mcp/
@@ -108,10 +106,10 @@ AI_Friendly_Project/
 | **Category 显式声明** | 强制模块自报家门 |
 | **Category × 100 - OutDegree** | 调度优先级公式 |
 | **20 人虚拟团队 orchestrator** | 主对话路由不亲自做 |
-| **双轨 .claude / .codex** | source = .claude/，.codex 自动同步 |
+| **双轨 .claude / .codex** | agents source = .claude/，.codex 自动同步；skills source = .claude/skills |
 | **agent 显式 frontmatter** | tier / skills 白名单 / escalate_to |
 | **决策门槛 hook** | 关键词触发 grill-me + openspec 提醒 |
-| **MCP 三档** | core 默认开 / middle 默认开 / optional 默认关 |
+| **MCP 分层** | 高频/常驻默认开，低频按需启 |
 | **codebase-memory 优先** | 代码结构查询不再用 Read+Grep |
 | **业务清洁** | 飞机大战业务全清，Launch.unity 残留 missing reference 需手动处理 |
 

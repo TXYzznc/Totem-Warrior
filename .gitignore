@@ -89,6 +89,9 @@ tools/**/dist/
 # codex 临时素材/工作目录（本地素材参考，不进版本控制）
 .codex/tmp/
 
+# Codex/Agent skills workspace cache. Project skills live in .claude/skills/.
+.agents/
+
 # Codebase memory 索引（项目特定数据）
 .codebase-memory/
 
@@ -107,8 +110,6 @@ ehthumbs.db
 # 11-skill-governance：tool 使用日志与审计中间产物，不进版本控制
 .claude/skills/_usage.log
 .claude/skills/_audit.json
-.agents/skills/_usage.log
-.agents/skills/_audit.json
 
 # 字体资源体积过大，不进版本控制（本地各自维护）
 /Assets/Resources/Font/
