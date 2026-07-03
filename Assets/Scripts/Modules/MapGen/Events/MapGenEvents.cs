@@ -21,10 +21,6 @@ namespace MapGen.Events
         public Vector2 InitialZoneCenter;
         /// <summary>地图根边界尺寸（单位 m）</summary>
         public float MapSize;
-        /// <summary>区域生长输出的纯数据网格。旧下游可忽略；渲染层与地形效果系统消费。</summary>
-        public MapGridData GridData;
-        /// <summary>逻辑格尺寸（单位 m）。GridData 为空时为 0。</summary>
-        public float CellSize;
     }
 
     /// <summary>

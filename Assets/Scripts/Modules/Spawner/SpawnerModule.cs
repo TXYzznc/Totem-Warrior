@@ -4,8 +4,6 @@ using System.Threading;
 using AttackSystem.Events;
 using Cysharp.Threading.Tasks;
 using Economy;
-using MapGen.Data;
-using MapGen.Events;
 using Tattoo.Data;
 using Tattoo.Events;
 using Tattoo.Utils;
@@ -205,90 +203,6 @@ namespace Tattoo
         // ── change#20 阶段 3 Agent F ────────────────────────────────────
         // TattooModule / WeaponModule 不在 Dependencies 中。
         // 必须在事件处理方法（运行时）调用 GetModule，不能在 InitializeAsync 缓存。
-
-        /// <summary>
-        /// 地图生成完成后，把初始化占位出生改为开放地图分散出生。
-        /// </summary>
-        [EventHandler]
-        void OnMapGenerated(MapGeneratedEvent e)
-        {
-            ApplyOpenMapSpawnCandidates(e);
-        }
-
-        void ApplyOpenMapSpawnCandidates(MapGeneratedEvent e)
-        {
-            var candidates = e?.GridData?.SpawnCandidates;
-            if (candidates == null || candidates.Count == 0)
-                return;
-
-            var occupied = new List<Vector3>(Enemies.Count + 2);
-            int cursor = 0;
-            if (Player != null)
-            {
-                Player.transform.position = ToActorPosition(candidates[cursor++ % candidates.Count].WorldPosition);
-                occupied.Add(Player.transform.position);
-            }
-
-            for (int i = 0; i < Enemies.Count; i++)
-            {
-                var enemy = Enemies[i];
-                if (enemy == null)
-                    continue;
-
-                var candidate = PickCandidate(candidates, ref cursor, occupied, minSpacing: 10f);
-                enemy.transform.position = ToActorPosition(candidate.WorldPosition);
-                occupied.Add(enemy.transform.position);
-            }
-
-            if (BossGameObject != null)
-                PlaceBossAtBossFeature(e.GridData);
-
-            FrameworkLogger.Info("SpawnerModule",
-                $"Action=OpenMapSpawnApplied Candidates={candidates.Count} Actors={occupied.Count}");
-        }
-
-        static MapSpawnCandidate PickCandidate(IReadOnlyList<MapSpawnCandidate> candidates, ref int cursor,
-            IReadOnlyList<Vector3> occupied, float minSpacing)
-        {
-            float minSpacingSqr = minSpacing * minSpacing;
-            for (int attempts = 0; attempts < candidates.Count; attempts++)
-            {
-                var candidate = candidates[cursor++ % candidates.Count];
-                if (IsFarEnough(candidate.WorldPosition, occupied, minSpacingSqr))
-                    return candidate;
-            }
-
-            return candidates[cursor++ % candidates.Count];
-        }
-
-        static bool IsFarEnough(Vector3 position, IReadOnlyList<Vector3> occupied, float minSpacingSqr)
-        {
-            for (int i = 0; i < occupied.Count; i++)
-            {
-                var delta = position - occupied[i];
-                delta.y = 0f;
-                if (delta.sqrMagnitude < minSpacingSqr)
-                    return false;
-            }
-            return true;
-        }
-
-        static Vector3 ToActorPosition(Vector3 groundPosition)
-        {
-            return new Vector3(groundPosition.x, 0.4f, groundPosition.z);
-        }
-
-        void PlaceBossAtBossFeature(MapGridData grid)
-        {
-            for (int i = 0; i < grid.FeaturePoints.Count; i++)
-            {
-                if (grid.FeaturePoints[i].PointType != FeaturePointType.Boss)
-                    continue;
-
-                BossGameObject.transform.position = ToActorPosition(grid.FeaturePoints[i].WorldPosition);
-                return;
-            }
-        }
 
         /// <summary>
         /// 起手三选确认后，装备玩家纹身与武器。

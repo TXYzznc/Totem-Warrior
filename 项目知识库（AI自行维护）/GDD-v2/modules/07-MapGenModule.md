@@ -1,16 +1,16 @@
 # 07-MapGenModule 模块详设
 
-> **版本**: v2.2 ｜ **修订日期**: 2026-07-02
+> **版本**: v2.1 ｜ **修订日期**: 2026-06-25
 > **主导 Agent**: client-lead（架构定调）+ client-unity（落地）
-> **对应系统 GDD**: [../systems/07-地图生成.md](../systems/07-地图生成.md) v2.2（400×400m / 区域生长 / Tilemap 地形 / 缩圈三段）+ [../systems/15-世界观与轻剧情.md](../systems/15-世界观与轻剧情.md)（主题驱动资源池）
-> **当前代码状态**: `MapGenModule` 已接入区域生长生成、Tilemap 地形渲染、billboard 物件与 `MapGeneratedEvent.GridData`。
+> **对应系统 GDD**: [../systems/07-地图生成.md](../systems/07-地图生成.md) v2.1（150×150m / 缩圈三段 / 去圈外稀有）+ [../systems/15-世界观与轻剧情.md](../systems/15-世界观与轻剧情.md)（主题驱动资源池）
+> **当前代码状态**: **新建**。`Assets/Scripts/Modules/MapGen/` 目录尚未存在，v1 无对应代码。
 > **CONTRACT**: [../../../openspec/changes/05-gdd-v2-full-design-docs/CONTRACT.md](../../../openspec/changes/05-gdd-v2-full-design-docs/CONTRACT.md)
 
 ---
 
 ## 一、模块职责一句话
 
-**Run 开始时一次性完成大地图生成**：执行区域生长（**400×400m，2m/格，200×200 逻辑网格**）→ 必需热点保底分配（Boss / 商人 / 纹身工作室）→ 生成开放式出生候选点 → 邻接约束填充地形 → 特征注入（河流 / 沼泽 / 废墟等）→ Tilemap 铺地面 + billboard 物件 → 缩圈中心计算（**地图中央 1/3 内**）→ 发布 `MapGeneratedEvent`；运行时仅维护"玩家进入了哪个功能区"和地形效果的轻量判定，不做任何 per-frame 几何生成。
+**Run 开始时一次性完成大地图生成**：执行 BSP 分割（**150×150m 根节点**）→ 房间/走廊几何 → 关键点位保底分配 → 缩圈中心计算（**地图中央 1/3 内**）→ 主题 tile 替换 → NavMesh 烘焙 → spawn 静态场景资源（地面 / 灯光 / 装饰）→ 发布 `MapGeneratedEvent`；运行时仅维护"玩家进入了哪个房间"的轻量判定，不做任何 per-frame 几何计算。
 
 > **不做的事**（边界）：不 spawn actor（→ SpawnerModule）/ 不 spawn 怪物或宝箱实体（→ Enemy/EconomyModule 订阅事件后做）/ 不实例化 NPC（→ NPCModule）/ 不管相机（v2 由 SceneModule 或既有 PlayerCamera 处理，本模块**显式不接管**，详见 §九 §9.3）/ 不驱动缩圈逻辑（只输出初始圈心 + 三段阶段配置，缩圈推进由独立 `ZoneModule` 负责）/ **不 spawn 圈外稀有节点**（v2.1 移除，详见 §4.1）。
 
@@ -36,7 +36,7 @@ public sealed class MapGenModule : IGameModule
 ### 生命周期
 
 - `InitializeAsync`：仅做结构初始化（生成 RNG 占位、清空房间表）。**不读 DataTable 数据、不发事件**（遵守"InitAsync 期间不发事件"约束）。
-- `OnRunStarted`（后续订阅 `RunStartedEvent`）：触发实际生成流程。当前实现仍在初始化后一帧生成默认地图，作为 v2.2 过渡路径。400m@2m 区域生长 + Tilemap 渲染的 EditMode 验收预算为 **≤ 3.0s（PC）**，超时降级（见 §六）。
+- `OnRunStarted`（订阅 `RunStartedEvent`）：触发实际生成流程。整个流程异步（`UniTask`），目标 **≤ 2.5s**（v2.1 受益于 150m 地图，比 v2.0 的 3.0s 更紧），超时降级（见 §六）。
 - `ShutdownAsync`：销毁所有 spawn 的场景 GameObject，释放 NavMeshData，清空 `RoomInfo` 缓存。
 
 ---
@@ -46,13 +46,12 @@ public sealed class MapGenModule : IGameModule
 ### 3.1 发布（已在 CONTRACT §1.6 / §1.9 锁死，不允许修改签名）
 
 ```csharp
-MapGeneratedEvent { int Seed; int ThemeId; List<RoomInfo> Rooms;
-                    Vector2 InitialZoneCenter; float MapSize;
-                    MapGridData GridData; float CellSize; }
+MapGeneratedEvent { int Seed; MapTheme Theme; List<RoomInfo> Rooms;
+                    Vector2 InitialZoneCenter; }   // 字段已在 CONTRACT 锁死
 RoomEnteredEvent  { Actor Enterer; RoomRef Room; } // 玩家/AI 跨房间触发
 ```
 
-- `MapGeneratedEvent` 在地图生成与渲染接入完成后**单次**发布，是 Run 内最关键的"地图就绪"信号。下游 SpawnerModule / EnemyModule / NPCModule / EconomyModule / EventModule / CombatModule / UIModule(MiniMap) 可继续消费旧字段，也可读取 `GridData`。
+- `MapGeneratedEvent` 在地图全流程结束（含 NavMesh bake 完成）后**单次**发布，是 Run 内最关键的"地图就绪"信号。下游 SpawnerModule / EnemyModule / NPCModule / EconomyModule / ZoneModule / UIModule(MiniMap) 全部订阅它。
 - `RoomEnteredEvent` 在运行时由 MapGenModule 内的轻量 `RoomTracker` 子组件检测发布——基于 actor 位置与 `RoomInfo.Bounds` AABB 判定，每 0.2s tick 一次（不是每帧）。
 
 ### 3.2 订阅
@@ -73,11 +72,9 @@ RoomEnteredEvent  { Actor Enterer; RoomRef Room; } // 玩家/AI 跨房间触发
 
 | DataTable | 用途 | 关键字段 |
 |---|---|---|
-| `MapTemplateConfig` | 地图主题入口。**v2.2**：`MapSize` 改为 **400**（单位 m）；`MinRoomSize` / `BspMaxDepth` 为 BSP 遗留字段，不再参与区域生长路径 | `MapSize=400`, `ThemeName`, `TerrainPoolId`, `PrefabPath` |
-| `TerrainTypeConfig` | TerrainType 到资源键、可行走性、移速倍率、区域生长权重的映射 | `Id`, `TypeName`, `TileAssetKey`, `IsWalkable`, `MoveSpeedMul`, `GrowthWeight` |
-| `TerrainAdjacencyRules` | 地形 4 邻接白名单，保证水→岸→陆等自然过渡 | `FromType`, `ToType`, `Allowed` |
-| `FeatureInjectionConfig` | 河流 / 沼泽 / 废墟等特征注入配置 | `FeatureName`, `TerrainType`, `SpreadMode`, `CountMin/Max`, `SizeMin/Max` |
-| `FeaturePointConfig` | 必需热点保底配置，不含出生点 | `PointType`, `Required`, `MinSpacing`, `SafeMargin`, `PreferredTerrain` |
+| `MapTemplateConfig` | BSP 叶节点填房时按 `ThemeId + SizeCategory + Weight` 加权随机采样 Room Prefab。**v2.1**：根节点尺寸字段 `MapSize` 从 200 改为 **150**（单位 m），同步影响所有按比例计算的 `MinRoomSize` 与 `BspMaxDepth` | `MapSize=150`, `PrefabPath`, `NodeSlots`, `NavMeshStatic`, `BspMaxDepth=4` |
+| `RoomConnectionRules` | 走廊生成时按 `FromSize × ToSize` 查表确定 `CorridorWidth` 与 `Allowed`（若 false → 中间插入过渡房间） | `CorridorWidth`, `MaxAngle`, `Allowed` |
+| `MapThemeConfig` | 读取 `TerrainPoolId` 决定 tile 替换池；读取 `DominantColors / HUDAccentColor` 仅做透传（写入 `RoomInfo.ThemeMetadata`），本模块不消费 | `TerrainPoolId`, `DominantColors` |
 | `ZoneShrinkConfig` | **v2.1 三段式**：读取 5 个阶段参数（初始 / Phase1@3min / Phase2@6min / Phase3@9min 急收 / Phase4@11:30 慢收死圈），转发给 ZoneModule；本模块仅消费**初始安全圈半径 65m + 阶段 1 圈心约束**用于内部校验 | `Phase`, `StartTime`, `Duration`, `TargetRadius`, `OutZoneDamage` |
 
 ### 4.1 v2.1 关键点位差异（去圈外稀有）
@@ -123,16 +120,16 @@ sequenceDiagram
 
     Run->>Bus: RunStartedEvent(Seed, Theme)
     Bus-->>Map: OnRunStarted
-    Note over Map: 阶段 A — 区域生长 (~1.9s EditMode 实测，400m@2m)
-    Map->>Map: 撒功能点 → 邻接约束区域生长 → 特征注入 → 功能区兼容 Rooms
+    Note over Map: 阶段 A — 几何生成 (~0.08s, 150m 比 200m 快 40%)
+    Map->>Map: BSP 分割（根 150×150） → 房间 → 走廊 → 关键点位保底
     Map->>Map: 圈心计算（地图中央 1/3 区域，v2.1 收紧）
     Note over Map: 阶段 B — 资源 spawn (~0.4s)
     Map->>Map: 加载 Room Prefab + tile 替换 + 灯光 spawn
-    Note over Map: 阶段 C — Tilemap / billboard 渲染（不逐格建 GameObject）
-    Map->>Map: Tilemap.SetTilesBlock + 物件 billboard
-    Map->>Bus: MapGeneratedEvent(Rooms, InitialZoneCenter, Seed, ThemeId, GridData)
+    Note over Map: 阶段 C — NavMesh bake (~0.8-1.5s, 150m 显著缩短)
+    Map->>Map: NavMeshSurface.BuildNavMeshAsync()
+    Map->>Bus: MapGeneratedEvent(Rooms, InitialZoneCenter, Seed, Theme)
     par 下游并行消费
-        Bus-->>Spawn: 读 GridData.SpawnCandidates → 分散 spawn 玩家与 AI
+        Bus-->>Spawn: 读 RoomInfo[0] 出生圈 → spawn 20-29 actor + 玩家
         Bus-->>Enemy: 遍历 SpawnerNodes → spawn 怪物（无圈外稀有）
         Bus-->>NPC: 遍历 NodeType==TattooStudio/Merchant → spawn NPC
         Bus-->>Econ: 遍历 ChestNodes → 实例化宝箱（无圈外稀有）
@@ -148,21 +145,21 @@ sequenceDiagram
     end
 ```
 
-**关键约束**：阶段 A/B/C 在单次生成流程内串行；当前 v2.2 不做运行时 NavMesh bake，地面走 Tilemap 批量铺设，物件只在有限放置点生成 billboard。下游订阅者一律在 `MapGeneratedEvent` 后读取地图状态，不允许中途 peek。
+**关键约束**：阶段 A/B/C 在单个 `UniTask` 内串行；阶段 C 内部使用 `NavMeshSurface.BuildNavMeshAsync()`（Unity 6 + AI Navigation 2.x）异步烘焙，期间主线程仍可渲染 loading 画面。下游订阅者一律在阶段 C 完成后才被唤醒，不允许中途 peek。
 
 ---
 
-## 六、性能预算（v2.2 — 400m 地图 + 20-29 AI + 玩家）
+## 六、性能预算（v2.1 — 150m 地图 + 20-29 AI + 玩家）
 
-| 指标 | v2.1 预算 | **v2.2 预算** | 实测/估算依据 |
+| 指标 | v2.0 预算 | **v2.1 预算** | 实测/估算依据 |
 |---|---|---|---|
-| **总生成耗时（loading 期）** | ≤ 2.5s（PC）/ ≤ 4.0s（移动） | **≤ 3.0s（PC）/ ≤ 5.0s（移动）** | 400m@2m EditMode 实测约 1.9s，无 warning |
-| 区域生长 + 特征注入 | 新增 | **≤ 3.0s（PC EditMode）** | 200×200 逻辑网格，O(格数) |
-| 关键点位保底分配 | ≤ 0.1s | ≤ 0.1s | Required 功能点数量很小 |
-| Tilemap 铺地 + billboard 物件 | 新增 | **不逐格建 GameObject** | 地面 40000 格走 Tilemap；物件数量受控 |
-| **NavMesh bake** | ≤ 1.5s | 后续阶段补 | 当前 v2.2 使用直线/Transform 占位移动，不在本 change 烘焙 |
+| **总生成耗时（loading 期）** | ≤ 3.0s（PC）/ ≤ 5.0s（移动） | **≤ 2.5s（PC）/ ≤ 4.0s（移动）** | 150m 面积 -44%，BSP / Bake 同步缩短 |
+| BSP 分割 + 房间/走廊数据结构 | ≤ 0.1s | **≤ 0.08s** | 50→约 30 个叶节点级别 |
+| 关键点位保底分配 | ≤ 0.1s | ≤ 0.1s | O(N) 遍历 + 象限选择 |
+| Room Prefab 加载 + tile 替换 | ≤ 0.5s | **≤ 0.4s** | 16-24 间房，比 v2.0 的 20-30 略少 |
+| **NavMesh bake** | ≤ 2.0s | **≤ 1.5s** | 150m 烘焙面积 22500m² vs 40000m²，约 -44% |
 | **运行时帧开销** | 0 ms / 帧 | 0 ms / 帧（不变） | 除 RoomTracker（0.2s tick） |
-| RoomTracker / TerrainEffect tick 开销 | < 0.03ms / 30 actor / tick | **0.2s tick，运行时 0 GC** | 地形效果按玩家当前位置查格，不逐帧分配 |
+| RoomTracker tick 开销 | < 0.05ms / 50 actor / tick | **< 0.03ms / 30 actor / tick** | AABB 包含判定次数减少 |
 | GC 分配（运行时） | 0 KB/s | 0 KB/s（不变） | `RoomEnteredEvent` 复用 struct payload |
 | GC 分配（生成期） | < 5 MB 一次性 | **< 4 MB 一次性** | 房间数与 tile mesh 同比减少 |
 | 内存常驻 | < 30 MB | **< 25 MB** | NavMeshData ~7MB + tile cache ~16MB |
@@ -184,7 +181,7 @@ sequenceDiagram
 |---|---|---|---|
 | **生成职责** | 客户端 MapGenModule 本地生成 | 主机/服务器生成 + 广播 | **低** — 把 `OnRunStarted` 改为：主机继续本地生成；客户端等待主机的 `MapDataSyncMessage`（含 seed + theme + 关键点位）后跳过几何生成、仅做 NavMesh bake |
 | **Seed 同步** | `RunStartedEvent.Seed` 本地生成 | 主机生成 seed → 网络广播 | **零** — Seed 已经在事件 payload 中，只需 NetworkPlayerController 注入 |
-| **区域生长算法** | 单机本地决定性算法（同 seed → 同地图） | 同 seed → 同地图（无需同步几何） | **低** — `RegionGrowthGenerator` 使用 `System.Random(seed)`，不要用 `UnityEngine.Random` |
+| **BSP 算法** | 单机本地决定性算法（同 seed → 同地图） | 同 seed → 同地图（无需同步几何） | **零** — BSP 算法已是确定性的（用 `System.Random(seed)`，不要用 `UnityEngine.Random`） |
 | **关键点位** | 同 seed 必定一致 | 同 seed 必定一致 | **零** |
 | **NavMesh** | 每客户端本地 bake | 仍每客户端本地 bake | **零** |
 | **RoomEnteredEvent** | 本地 actor 触发 | 仍本地触发（仅本玩家视角的雾战相关） | **零** |
@@ -199,30 +196,28 @@ sequenceDiagram
 
 | 测试用例 | 验证点 |
 |---|---|
-| `SameSeedProducesSameGridAndFeaturePoints` | 相同 seed 重复生成 100 次，`MapGridData.Grid` 和功能点完全一致 |
-| `RequiredFeaturePointsExistAndRespectBounds` | Required 热点（Boss / 商人 / 工作室）每局存在且不越界；出生不作为 FeaturePoint |
-| `SpawnCandidatesAreOpenMapWalkableAndAwayFromHotspots` | 出生候选点可行走、远离边界和热点，供玩家/AI 分散落地 |
+| `BSP_SameSeed_SameLayout_150m` | 相同 seed 重复生成 100 次，所有 `RoomInfo[].Bounds` 完全一致（确定性），且根边界 = 150×150 |
+| `KeyNodes_AllPresent` | 100 个随机 seed，每次生成都满足：≥2 工作室 / ≥1 商人 / =1 BossRoom / 5-10 EnemySpawner / 15-25 ChestNode |
 | `NoRareOutsideZone` | **v2.1 新增**：100 个 seed，验证 `RoomInfo.SpawnerNodes ∪ ChestNodes` 中**不存在** `Tier == Rare && IsOutsideInitialZone == true` 的节点 |
 | `Studios_DistributedAcrossQuadrants` | 工作室节点不全堆在同一象限（任意 2 个工作室的角度差 ≥ 60°） |
-| `NoIllegalAdjacencyAfterFeatureInjectionAndRepair` | 区域生长 + 特征注入后无非法邻接 |
-| `AllWalkableFeaturePointsAreConnected` | 任一出生候选点到所有可行走热点连通 |
-| `Generate400mMapCompletesWithinEditModeBudget` | 400m@2m 生成 3 秒内完成且无 warning |
-| `Render400mMapUsesTilemapAndLimitedBillboards` | 地面 40000 格走 Tilemap，场景中不出现 4 万个地面 GameObject |
+| `ZoneCenter_InCentralThird_v21` | **v2.1 收紧**：圈心 x/y 始终 ∈ [50, 100]（中央 1/3 区域，含扰动）；不再是 v2.0 的 [40, 160] |
+| `RoomConnections_Reachable` | BFS 验证从出生点能到达所有房间（连通性） |
+| `BossRoom_SizeConstraint` | Boss 房 `Size == Large` 且 `Bounds.size.x/y ≥ 30` |
 | `ZoneShrinkConfig_ThreePhases_v21` | **v2.1 新增**：读取 ZoneShrinkConfig 后，Phase 数组中存在 StartTime ∈ {0, 180, 360, 540, 690}（对应 0/3/6/9/11:30 min） |
 
 ### 8.2 PlayMode 集成测试（建议）
 
-- `Launch_PlayMode_Generates400mMap_WithoutErrors`：Launch 场景进 Play Mode 后 `GameApp` ready，`MapGeneratedEvent` 发布 `Grid=200x200 Cell=2 Size=400`，Console 0 Error。
+- `RunStarted_Triggers_MapGenerated_Within2_5s`：发 `RunStartedEvent`，**2.5 秒内**必须收到 `MapGeneratedEvent`（v2.1 收紧自 3s）
 - `RoomTracker_FiresOnce_PerEntry`：actor teleport 进出房间，每次进入只触发 1 次 `RoomEnteredEvent`（防抖）
-- `TerrainEffectTracker_SwampSlowAndRestore`：进入沼泽减速、离开恢复、普通地形无影响。
+- `NavMeshReady_BeforeMapGeneratedEvent`：订阅 `MapGeneratedEvent` 后立即 `NavMesh.CalculatePath` 必须成功（即事件发布前 NavMesh 已就绪）
 
 ---
 
 ## 九、风险与开放问题
 
-### 9.1 BSP vs WFC vs 区域生长 — 已修订
+### 9.1 BSP vs WFC — 已决策
 
-v2.2 改选 **区域生长 + 邻接约束 + 特征注入**。理由：[系统 GDD §2.2](../systems/07-地图生成.md) — 第一张地图需要拼图式地形过渡（水旁必须是岸、沼泽/废墟自然嵌入），同时保底 Boss / 商人 / 纹身工作室热点，并用开放式出生候选支持随机落地。BSP 适合房间切割，但会把地图表达推向方正房间；WFC 可留作未来离线预生成工具。
+选 BSP。理由：[系统 GDD §2.2](../systems/07-地图生成.md) — 单人项目需要稳定可控、关键点位保底逻辑天然契合 BSP 树。WFC 留作未来扩展（可作为离线工具预生成 seed 库）。
 
 ### 9.2 Room Prefab 池预加载策略 — 开放
 
@@ -249,7 +244,7 @@ v2.2 改选 **区域生长 + 邻接约束 + 特征注入**。理由：[系统 GD
 
 ### 9.5 v2.1 新增风险：早期碰面密度上升 — 已识别
 
-400m 开放地图早期（Phase 0 大圈）玩家与 AI 分散出生，碰面概率主要由 SpawnCandidates 的间距、候选密度和缩圈节奏决定。**应对**：出生候选点避开热点近旁并保持初始间距，纹身师工作室作为开放热点保底存在，但不再依赖“距出生圈 ≥ 30m”的线性缓冲规则。
+150m 地图早期（Phase 0 大圈 65m 半径）20-29 AI + 玩家碰面概率比 200m 显著上升，可能压缩玩家"刻纹身的安全窗口"。**应对**：纹身师工作室节点保底布在 BSP 树非根象限的不同分区，使得至少 1 间工作室距出生圈 ≥ 30m，作为玩家可以"先撤再刻"的缓冲区。详见系统 GDD §7.4。
 
 ### 9.6 开放问题（不阻塞 MVP）
 
