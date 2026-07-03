@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using MapGen.Events;
+using MapGen.Runtime;
 using Tattoo.Data;
 using Tattoo.Events;
 using UnityEngine;
@@ -29,6 +31,7 @@ namespace Tattoo
         TattooModule  _tattoo;
         SpawnerModule _spawner;
         InputModule   _input;
+        readonly TerrainEffectTracker _terrainEffectTracker = new();
 
         readonly List<Combat.IPlayerController> _controllers = new();
         readonly Dictionary<Combat.IPlayerController, float> _moveTickAccum = new();
@@ -68,6 +71,7 @@ namespace Tattoo
         public UniTask ShutdownAsync(CancellationToken ct = default)
         {
             _controllers.Clear();
+            _terrainEffectTracker.Clear();
             FrameworkLogger.Info("CombatModule", "Action=Shutdown");
             return UniTask.CompletedTask;
         }
@@ -99,6 +103,8 @@ namespace Tattoo
 
             if (_combatEnded) return;
 
+            UpdatePlayerTerrainEffect(dt);
+
             for (int i = 0; i < _controllers.Count; i++)
             {
                 var c = _controllers[i];
@@ -120,7 +126,10 @@ namespace Tattoo
             var go = ResolveGameObject(c);
             if (dir.sqrMagnitude > 0.001f && go != null)
             {
-                float speed = _tattoo.Stats.MoveSpeed + _tattoo.Player.Passive.MoveSpeedBonus;
+                float terrainMul = c.Type == Combat.PlayerControllerType.Human
+                    ? _terrainEffectTracker.CurrentMoveSpeedMultiplier
+                    : TerrainEffectTracker.DefaultMoveSpeedMultiplier;
+                float speed = (_tattoo.Stats.MoveSpeed + _tattoo.Player.Passive.MoveSpeedBonus) * terrainMul;
                 go.transform.position += new Vector3(dir.x, 0, dir.y) * speed * dt;
 
                 if (!_moveTickAccum.ContainsKey(c)) _moveTickAccum[c] = 0f;
@@ -197,6 +206,14 @@ namespace Tattoo
             return null;
         }
 
+        void UpdatePlayerTerrainEffect(float dt)
+        {
+            if (_spawner?.Player == null)
+                return;
+
+            _terrainEffectTracker.Tick(_spawner.Player.transform.position, dt);
+        }
+
         [EventHandler]
         void OnGameStateChanged(GameStateChangedEvent e)
         {
@@ -220,6 +237,12 @@ namespace Tattoo
             {
                 _runStarted = false;
             }
+        }
+
+        [EventHandler]
+        void OnMapGenerated(MapGeneratedEvent e)
+        {
+            _terrainEffectTracker.SetMap(e.GridData);
         }
 
         [EventHandler]

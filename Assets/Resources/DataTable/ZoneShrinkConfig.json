@@ -10,8 +10,8 @@
     { "name": "CenterOffsetMode", "type": "string", "desc": "圈心偏移模式（None / Drift / Fixed），MVP 仅 None" }
   ],
   "rows": [
-    { "Id": 0, "PhaseName": "Phase0_Slow",   "StartTime":   0.0, "Duration": 180.0, "TargetRadius": 65.0, "OutZoneDamage":  2.0, "CenterOffsetMode": "None"  },
-    { "Id": 1, "PhaseName": "Phase1_Offset", "StartTime": 180.0, "Duration": 360.0, "TargetRadius": 35.0, "OutZoneDamage":  6.0, "CenterOffsetMode": "Drift" },
-    { "Id": 2, "PhaseName": "Phase2_Rush",   "StartTime": 540.0, "Duration": 360.0, "TargetRadius":  5.0, "OutZoneDamage": 18.0, "CenterOffsetMode": "Fixed" }
+    { "Id": 0, "PhaseName": "Phase0_Slow",   "StartTime":   0.0, "Duration": 180.0, "TargetRadius": 175.0, "OutZoneDamage":  2.0, "CenterOffsetMode": "None"  },
+    { "Id": 1, "PhaseName": "Phase1_Offset", "StartTime": 180.0, "Duration": 360.0, "TargetRadius":  95.0, "OutZoneDamage":  6.0, "CenterOffsetMode": "Drift" },
+    { "Id": 2, "PhaseName": "Phase2_Rush",   "StartTime": 540.0, "Duration": 360.0, "TargetRadius":  18.0, "OutZoneDamage": 18.0, "CenterOffsetMode": "Fixed" }
   ]
 }

@@ -1,0 +1,16 @@
+{
+  "table": "FeaturePointConfig",
+  "fields": [
+    { "name": "Id", "type": "int", "desc": "功能点主键" },
+    { "name": "PointType", "type": "string", "desc": "Boss / Merchant / TattooStudio. Spawn is sampled separately from walkable candidates." },
+    { "name": "Required", "type": "bool", "desc": "是否每局必需" },
+    { "name": "MinSpacing", "type": "float", "desc": "与其他功能点的最小距离，米" },
+    { "name": "SafeMargin", "type": "float", "desc": "离地图边界安全距离，米" },
+    { "name": "PreferredTerrain", "type": "int", "desc": "功能点落点偏好的 TerrainType Id" }
+  ],
+  "rows": [
+    { "Id": 2, "PointType": "Boss", "Required": true, "MinSpacing": 120.0, "SafeMargin": 36.0, "PreferredTerrain": 2 },
+    { "Id": 3, "PointType": "Merchant", "Required": true, "MinSpacing": 80.0, "SafeMargin": 24.0, "PreferredTerrain": 2 },
+    { "Id": 4, "PointType": "TattooStudio", "Required": true, "MinSpacing": 80.0, "SafeMargin": 24.0, "PreferredTerrain": 2 }
+  ]
+}

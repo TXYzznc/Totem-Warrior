@@ -1,0 +1,22 @@
+{
+  "table": "TerrainTypeConfig",
+  "fields": [
+    { "name": "Id", "type": "int", "desc": "TerrainType 枚举值" },
+    { "name": "TypeName", "type": "string", "desc": "地形名" },
+    { "name": "TileAssetKey", "type": "string", "desc": "TerrainType 到 TileBase/资源键映射" },
+    { "name": "IsWalkable", "type": "bool", "desc": "是否可行走" },
+    { "name": "MoveSpeedMul", "type": "float", "desc": "地形移速倍率" },
+    { "name": "GrowthWeight", "type": "int", "desc": "区域生长权重" },
+    { "name": "IsFallback", "type": "bool", "desc": "堵死降级时使用的泛化地形" }
+  ],
+  "rows": [
+    { "Id": 1, "TypeName": "Grass", "TileAssetKey": "Sprite/Map/AI_RUINS_WETLAND/Terrain/Grass", "IsWalkable": true, "MoveSpeedMul": 1.0, "GrowthWeight": 60, "IsFallback": true },
+    { "Id": 2, "TypeName": "RuinFloor", "TileAssetKey": "Sprite/Map/AI_RUINS_WETLAND/Terrain/RuinFloor", "IsWalkable": true, "MoveSpeedMul": 1.0, "GrowthWeight": 35, "IsFallback": false },
+    { "Id": 3, "TypeName": "Shore", "TileAssetKey": "Sprite/Map/AI_RUINS_WETLAND/Terrain/Shore", "IsWalkable": true, "MoveSpeedMul": 0.95, "GrowthWeight": 24, "IsFallback": false },
+    { "Id": 4, "TypeName": "Water", "TileAssetKey": "Sprite/Map/AI_RUINS_WETLAND/Terrain/Water", "IsWalkable": false, "MoveSpeedMul": 0.0, "GrowthWeight": 8, "IsFallback": false },
+    { "Id": 5, "TypeName": "Swamp", "TileAssetKey": "Sprite/Map/AI_RUINS_WETLAND/Terrain/Swamp", "IsWalkable": true, "MoveSpeedMul": 0.65, "GrowthWeight": 16, "IsFallback": false },
+    { "Id": 6, "TypeName": "Wasteland", "TileAssetKey": "Sprite/Map/AI_RUINS_WETLAND/Terrain/Wasteland", "IsWalkable": true, "MoveSpeedMul": 0.9, "GrowthWeight": 20, "IsFallback": false },
+    { "Id": 7, "TypeName": "Mountain", "TileAssetKey": "Sprite/Map/AI_RUINS_WETLAND/Terrain/Mountain", "IsWalkable": false, "MoveSpeedMul": 0.0, "GrowthWeight": 6, "IsFallback": false },
+    { "Id": 8, "TypeName": "Forest", "TileAssetKey": "Sprite/Map/AI_RUINS_WETLAND/Terrain/Forest", "IsWalkable": true, "MoveSpeedMul": 0.85, "GrowthWeight": 16, "IsFallback": false }
+  ]
+}

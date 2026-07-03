@@ -9,6 +9,10 @@ public static class DataTableRegistry
     public static readonly DataTableEntry[] Entries =
     {
         new DataTableEntry("MapTemplateConfig", typeof(MapTemplateConfig)),
+        new DataTableEntry("TerrainTypeConfig", typeof(TerrainTypeConfig)),
+        new DataTableEntry("TerrainAdjacencyRules", typeof(TerrainAdjacencyRules)),
+        new DataTableEntry("FeatureInjectionConfig", typeof(FeatureInjectionConfig)),
+        new DataTableEntry("FeaturePointConfig", typeof(FeaturePointConfig)),
         new DataTableEntry("ResourceConfig", typeof(ResourceConfig)),
         new DataTableEntry("TattooColorConfig", typeof(TattooColorConfig)),
         new DataTableEntry("TattooElementConfig", typeof(TattooElementConfig)),
