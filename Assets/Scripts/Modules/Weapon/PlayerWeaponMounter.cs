@@ -67,12 +67,11 @@ namespace Tattoo
             {
                 // prefab 缺失时 fallback Cube + Warn，不阻断运行
                 FrameworkLogger.Warn("PlayerWeaponMounter",
-                    $"Action=FallbackCube WeaponId={e.WeaponId} Prefab={e.WeaponPrefabPath} missing");
-                var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                cube.transform.SetParent(_weaponSlot, worldPositionStays: false);
-                cube.transform.localPosition = Vector3.zero;
-                cube.transform.localScale    = new Vector3(0.15f, 0.4f, 0.08f);
-                _currentWeapon = cube;
+                    $"Action=FallbackWeapon WeaponId={e.WeaponId} Prefab={e.WeaponPrefabPath} missing");
+                _currentWeapon = BuildFallbackWeapon(e.WeaponId);
+                _currentWeapon.transform.SetParent(_weaponSlot, worldPositionStays: false);
+                _currentWeapon.transform.localPosition = Vector3.zero;
+                _currentWeapon.transform.localRotation = Quaternion.Euler(0f, 0f, -35f);
             }
         }
 
@@ -91,6 +90,49 @@ namespace Tattoo
                 if (found != null) return found;
             }
             return null;
+        }
+
+        static GameObject BuildFallbackWeapon(string weaponId)
+        {
+            var root = new GameObject("FallbackWeapon_" + weaponId);
+            var grip = AddPart(root.transform, "Grip", PrimitiveType.Cube,
+                new Vector3(0f, -0.08f, 0f), new Vector3(0.08f, 0.24f, 0.08f),
+                new Color(0.16f, 0.11f, 0.07f));
+            var blade = AddPart(root.transform, "Blade", PrimitiveType.Cube,
+                new Vector3(0f, 0.12f, 0f), new Vector3(0.12f, 0.38f, 0.04f),
+                new Color(0.75f, 0.82f, 0.9f));
+            var guard = AddPart(root.transform, "Guard", PrimitiveType.Cube,
+                new Vector3(0f, 0.01f, 0f), new Vector3(0.26f, 0.05f, 0.06f),
+                new Color(0.95f, 0.68f, 0.18f));
+
+            DisableCollider(grip);
+            DisableCollider(blade);
+            DisableCollider(guard);
+            return root;
+        }
+
+        static GameObject AddPart(Transform parent, string name, PrimitiveType type,
+            Vector3 localPos, Vector3 localScale, Color color)
+        {
+            var go = GameObject.CreatePrimitive(type);
+            go.name = name;
+            go.transform.SetParent(parent, false);
+            go.transform.localPosition = localPos;
+            go.transform.localScale = localScale;
+
+            var renderer = go.GetComponent<Renderer>();
+            if (renderer != null)
+            {
+                renderer.material = new Material(Shader.Find("Standard"));
+                renderer.material.color = color;
+            }
+            return go;
+        }
+
+        static void DisableCollider(GameObject go)
+        {
+            var collider = go != null ? go.GetComponent<Collider>() : null;
+            if (collider != null) collider.enabled = false;
         }
     }
 }

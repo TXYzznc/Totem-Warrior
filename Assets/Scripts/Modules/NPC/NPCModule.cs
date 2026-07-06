@@ -113,6 +113,9 @@ public sealed class NPCModule : IGameModule
             if (inst.Type == NPCType.Merchant && !string.IsNullOrEmpty(inst.ShopStockTableId))
                 RollInitialStock(inst);
 
+            // 占位 GameObject（Prefab 到位后替换为 Resources.Load<GameObject>）
+            SpawnPlaceholderNpc(inst);
+
             _instances[idx] = inst;
             idx++;
         }
@@ -122,6 +125,48 @@ public sealed class NPCModule : IGameModule
             $"Action=Initialized NPCCount={_instances.Length}");
 
         return UniTask.CompletedTask;
+    }
+
+    // ───────────────────────────────────────────────────────────────────────
+    // 占位 NPC 生成（Prefab 到位后替换）
+    // ───────────────────────────────────────────────────────────────────────
+
+    static void SpawnPlaceholderNpc(NPCInstance inst)
+    {
+        var go = GameObject.CreatePrimitive(PrimitiveType.Capsule);
+        go.name = $"[NPC]{inst.NPCId}";
+        go.transform.position = inst.Position;
+
+        // 纹身师 = 紫色，商人 = 黄色
+        Color color = inst.Type == NPCType.Merchant
+            ? new Color(1f, 0.85f, 0.1f)
+            : new Color(0.65f, 0.3f, 0.9f);
+
+        var rend = go.GetComponent<Renderer>();
+        if (rend != null)
+        {
+            var mat = new Material(Shader.Find("Universal Render Pipeline/Lit"));
+            mat.color = color;
+            rend.material = mat;
+        }
+
+        // 头顶标注（用 Cube 缩成扁块模拟标牌）
+        var label = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        label.name = "Label";
+        label.transform.SetParent(go.transform);
+        label.transform.localPosition = new Vector3(0f, 1.4f, 0f);
+        label.transform.localScale    = new Vector3(0.6f, 0.15f, 0.05f);
+        var labelRend = label.GetComponent<Renderer>();
+        if (labelRend != null)
+        {
+            var mat = new Material(Shader.Find("Universal Render Pipeline/Lit"));
+            mat.color = color;
+            labelRend.material = mat;
+        }
+        var labelCol = label.GetComponent<Collider>();
+        if (labelCol != null) labelCol.enabled = false;
+
+        inst.Go = go;
     }
 
     public UniTask ShutdownAsync(CancellationToken ct = default)
@@ -139,6 +184,11 @@ public sealed class NPCModule : IGameModule
             }
         }
 
+        for (int i = 0; i < _instances.Length; i++)
+        {
+            if (_instances[i]?.Go != null)
+                UnityEngine.Object.Destroy(_instances[i].Go);
+        }
         _instances = Array.Empty<NPCInstance>();
         FrameworkLogger.Info("NPCModule", "Action=Shutdown");
         return UniTask.CompletedTask;
@@ -652,6 +702,7 @@ public sealed class NPCInstance
     public int      ManualRefreshUsed;      // 0 | 1，每局上限 1 次（仅 Merchant）
     public Actor    CurrentInteractor;      // 当前正在交互的 Actor（IsBusy=true 时有效）
     public Dictionary<int, int> Stock;      // ItemId → 当前库存数量（仅 Merchant 有效）
+    public GameObject Go;                   // 场景中的占位/正式 GameObject
 }
 
 // ───────────────────────────────────────────────────────────────────────

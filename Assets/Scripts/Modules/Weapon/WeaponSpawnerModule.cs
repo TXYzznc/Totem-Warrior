@@ -2,7 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Threading;
+using AttackSystem.Events;
 using Cysharp.Threading.Tasks;
+using Economy;
+using Economy.Events;
 using MapGen;
 using Tattoo;
 using Tattoo.Events;
@@ -27,7 +30,7 @@ public sealed class WeaponSpawnerModule : IGameModule
 {
     // ─── 生命周期声明 ────────────────────────────────────────────────
     public int    ModuleCategory => 3;
-    public Type[] Dependencies   => new[] { typeof(SpawnerModule), typeof(DataTableModule) };
+    public Type[] Dependencies   => new[] { typeof(SpawnerModule), typeof(DataTableModule), typeof(InputModule) };
 
     readonly ModuleRunner _runner;
     readonly EventBus     _bus;
@@ -52,6 +55,8 @@ public sealed class WeaponSpawnerModule : IGameModule
     WeaponDropConfig _dropConfig;
     ChestConfig      _chestConfig;
     MerchantConfig   _merchantConfig;
+    InputModule      _input;
+    SpawnerModule    _spawner;
 
     // ─── 构造 ────────────────────────────────────────────────────────
     public WeaponSpawnerModule(ModuleRunner runner, EventBus bus)
@@ -64,6 +69,8 @@ public sealed class WeaponSpawnerModule : IGameModule
     public UniTask InitializeAsync(CancellationToken ct = default)
     {
         var dtModule = _runner.GetModule<DataTableModule>();
+        _input          = _runner.GetModule<InputModule>();
+        _spawner        = _runner.GetModule<SpawnerModule>();
         _dropConfig     = dtModule.GetTable<WeaponDropConfig>();
         _chestConfig    = dtModule.GetTable<ChestConfig>();
         _merchantConfig = dtModule.GetTable<MerchantConfig>();
@@ -132,10 +139,9 @@ public sealed class WeaponSpawnerModule : IGameModule
         else
         {
             // fallback：Cube + SphereCollider trigger，颜色 cyan 区分
-            go = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            go = BuildFallbackPickup(weaponId);
             go.name = "pickup_" + weaponId;
             go.transform.position = position;
-            go.transform.localScale = Vector3.one * 0.5f;
 
             var renderer = go.GetComponent<MeshRenderer>();
             if (renderer != null)
@@ -160,6 +166,9 @@ public sealed class WeaponSpawnerModule : IGameModule
         var trigger = go.AddComponent<WeaponPickupTrigger>();
         trigger.WeaponId = weaponId;
         trigger.Bus = _bus;
+        trigger.Input = _input;
+        trigger.PlayerTarget = _spawner?.PlayerTarget;
+        trigger.PlayerTransform = _spawner?.Player != null ? _spawner.Player.transform : null;
 
         _activePickups.Add(go);
 
@@ -184,10 +193,9 @@ public sealed class WeaponSpawnerModule : IGameModule
         }
         else
         {
-            go = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            go = BuildFallbackChest(chestId);
             go.name = "chest_" + chestId;
             go.transform.position = position;
-            go.transform.localScale = Vector3.one * 0.7f;
 
             var renderer = go.GetComponent<MeshRenderer>();
             if (renderer != null)
@@ -197,8 +205,9 @@ public sealed class WeaponSpawnerModule : IGameModule
             }
 
             var boxCol = go.GetComponent<BoxCollider>();
-            if (boxCol != null)
-                boxCol.isTrigger = true;
+            if (boxCol == null) boxCol = go.AddComponent<BoxCollider>();
+            boxCol.isTrigger = true;
+            boxCol.size = new Vector3(1.4f, 1.1f, 1.4f);
 
             FrameworkLogger.Warn("WeaponSpawnerModule",
                 $"Action=SpawnChest ChestId={chestId} Source=Fallback Position={position}");
@@ -207,6 +216,10 @@ public sealed class WeaponSpawnerModule : IGameModule
         var trigger = go.AddComponent<ChestInteractTrigger>();
         trigger.ChestId = chestId;
         trigger.Bus = _bus;
+        trigger.Cfg = _chestConfig;
+        trigger.Input = _input;
+        trigger.PlayerTarget = _spawner?.PlayerTarget;
+        trigger.PlayerTransform = _spawner?.Player != null ? _spawner.Player.transform : null;
 
         _activeChests.Add(go);
     }
@@ -226,10 +239,9 @@ public sealed class WeaponSpawnerModule : IGameModule
         }
         else
         {
-            go = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            go = BuildFallbackMerchant();
             go.name = "merchant";
             go.transform.position = position;
-            go.transform.localScale = new Vector3(0.7f, 1.4f, 0.7f);
 
             var renderer = go.GetComponent<MeshRenderer>();
             if (renderer != null)
@@ -239,8 +251,9 @@ public sealed class WeaponSpawnerModule : IGameModule
             }
 
             var boxCol = go.GetComponent<BoxCollider>();
-            if (boxCol != null)
-                boxCol.isTrigger = true;
+            if (boxCol == null) boxCol = go.AddComponent<BoxCollider>();
+            boxCol.isTrigger = true;
+            boxCol.size = new Vector3(1.2f, 2.2f, 1.2f);
 
             FrameworkLogger.Warn("WeaponSpawnerModule",
                 "Action=SpawnMerchant Source=Fallback");
@@ -250,6 +263,11 @@ public sealed class WeaponSpawnerModule : IGameModule
         // 注入槽位配置行列表（MerchantTrigger.Slots 类型为 IReadOnlyList<MerchantConfigRow>）
         trigger.Slots = BuildMerchantSlotRows();
         trigger.Bus = _bus;
+        trigger.Input = _input;
+        trigger.PlayerTarget = _spawner?.PlayerTarget;
+        trigger.PlayerActor = _spawner?.PlayerActor;
+        trigger.Economy = TryGetEconomyModule();
+        trigger.PlayerTransform = _spawner?.Player != null ? _spawner.Player.transform : null;
 
         _activeMerchants.Add(go);
     }
@@ -310,6 +328,9 @@ public sealed class WeaponSpawnerModule : IGameModule
     [EventHandler]
     void OnWeaponPickedUp(WeaponPickedUpEvent e)
     {
+        if (e.Source != "Pickup")
+            return;
+
         const float kMatchSqrDist = 0.5f * 0.5f;
         GameObject closest = null;
         float closestSqr = float.MaxValue;
@@ -380,6 +401,17 @@ public sealed class WeaponSpawnerModule : IGameModule
 
             case "Gold":
             {
+                if (TryGetEconomyActor(_spawner?.PlayerTarget, out var actor)
+                    && TryGetEconomyModule() is { } economy)
+                {
+                    economy.AddCoin(actor, e.RewardAmount, CoinChangeReason.ChestLoot);
+                }
+                else
+                {
+                    FrameworkLogger.Warn("WeaponSpawnerModule",
+                        $"Action=ChestGoldFailed ChestId={e.ChestId} Amount={e.RewardAmount} Reason=EconomyActorMissing");
+                }
+
                 _bus.Publish(new EconomyAddGoldEvent
                 {
                     Amount         = e.RewardAmount,
@@ -387,6 +419,28 @@ public sealed class WeaponSpawnerModule : IGameModule
                 });
                 FrameworkLogger.Info("WeaponSpawnerModule",
                     $"Action=ChestGoldPublish ChestId={e.ChestId} Amount={e.RewardAmount}");
+                break;
+            }
+
+            case "Potion":
+            {
+                var player = _spawner?.PlayerTarget;
+                if (player == null)
+                {
+                    FrameworkLogger.Warn("WeaponSpawnerModule",
+                        $"Action=ChestPotionFailed ChestId={e.ChestId} Amount={e.RewardAmount} Reason=PlayerTargetMissing");
+                    break;
+                }
+
+                float maxHp = _spawner.PlayerMaxHp > 0f ? _spawner.PlayerMaxHp : 100f;
+                float heal = Mathf.Max(1, e.RewardAmount) * 25f;
+                float oldHp = player.Health;
+                player.Health = Mathf.Min(maxHp, player.Health + heal);
+                float delta = player.Health - oldHp;
+
+                _bus.Publish(new PlayerHealthChangedEvent(player.Health, maxHp, delta));
+                FrameworkLogger.Info("WeaponSpawnerModule",
+                    $"Action=ChestPotionHeal ChestId={e.ChestId} Amount={e.RewardAmount} Heal={delta:F1} NewHp={player.Health:F1}/{maxHp:F1}");
                 break;
             }
 
@@ -398,19 +452,27 @@ public sealed class WeaponSpawnerModule : IGameModule
     }
 
     /// <summary>
-    /// 商人购买：扣金（通过反射检查 EconomyModule.DeductGold）+ 触发 WeaponPickedUpEvent。
+    /// 商人购买：扣金币后触发 WeaponPickedUpEvent。
     /// </summary>
     [EventHandler]
     void OnMerchantPurchase(MerchantPurchaseEvent e)
     {
-        // 尝试通过反射调用 EconomyModule.DeductGold(Target, int)
-        bool deducted = TryDeductGoldViaReflection(e.Actor, e.GoldCost);
-        if (!deducted)
+        if (!TryGetEconomyActor(e.Actor, out var buyer) || TryGetEconomyModule() is not { } economy)
         {
             FrameworkLogger.Warn("WeaponSpawnerModule",
-                $"Action=OnMerchantPurchase EconomyModule.DeductGold 不存在或调用失败，跳过扣金 " +
-                $"WeaponId={e.WeaponId} GoldCost={e.GoldCost}");
+                $"Action=MerchantPurchaseRejected Reason=EconomyActorMissing WeaponId={e.WeaponId} GoldCost={e.GoldCost}");
+            return;
         }
+
+        var inv = economy.GetInventory(buyer);
+        if (inv.Coins < e.GoldCost)
+        {
+            FrameworkLogger.Warn("WeaponSpawnerModule",
+                $"Action=MerchantPurchaseRejected Reason=InsufficientCoins WeaponId={e.WeaponId} Coins={inv.Coins} GoldCost={e.GoldCost}");
+            return;
+        }
+
+        economy.SpendCoin(buyer, e.GoldCost, CoinChangeReason.ShopBuy);
 
         // 取商人 GO 世界坐标
         Vector3 merchantPos = Vector3.zero;
@@ -424,7 +486,7 @@ public sealed class WeaponSpawnerModule : IGameModule
                 $"Action=OnMerchantPurchase 场上有 {_activeMerchants.Count} 个商人，无法精确定位，使用 Vector3.zero");
         }
 
-        _bus.Publish(new WeaponPickedUpEvent(e.Actor, e.WeaponId, merchantPos));
+        _bus.Publish(new WeaponPickedUpEvent(e.Actor, e.WeaponId, merchantPos, "Merchant"));
         FrameworkLogger.Info("WeaponSpawnerModule",
             $"Action=MerchantSold WeaponId={e.WeaponId} GoldCost={e.GoldCost} MerchantPos={merchantPos}");
     }
@@ -525,32 +587,94 @@ public sealed class WeaponSpawnerModule : IGameModule
     }
 
     /// <summary>
-    /// 通过反射在 EconomyModule 上查找 DeductGold(Target, int) 并尝试调用。
-    /// 方法不存在时返回 false，调用失败时记录 Error 并返回 false。
+    /// 运行时安全获取 EconomyModule。EconomyModule 在同一 category 中，可能晚于本模块初始化。
     /// </summary>
-    bool TryDeductGoldViaReflection(Tattoo.Data.Target actor, int amount)
+    EconomyModule TryGetEconomyModule()
     {
         try
         {
-            var econModule = _runner.GetModule<Economy.EconomyModule>();
-            if (econModule == null) return false;
-
-            var method = econModule.GetType().GetMethod("DeductGold",
-                BindingFlags.Public | BindingFlags.Instance,
-                null,
-                new[] { typeof(Tattoo.Data.Target), typeof(int) },
-                null);
-
-            if (method == null) return false;
-
-            method.Invoke(econModule, new object[] { actor, amount });
-            return true;
+            return _runner.GetModule<EconomyModule>();
         }
-        catch (Exception ex)
+        catch
         {
-            FrameworkLogger.Error("WeaponSpawnerModule",
-                $"Action=TryDeductGoldViaReflection Exception={ex.GetType().Name} Msg=\"{ex.Message}\"");
-            return false;
+            return null;
         }
+    }
+
+    bool TryGetEconomyActor(Tattoo.Data.Target target, out Actor actor)
+    {
+        actor = null;
+        if (target == null || _spawner?.PlayerActor == null) return false;
+        if (!ReferenceEquals(target, _spawner.PlayerTarget)) return false;
+
+        actor = _spawner.PlayerActor;
+        return true;
+    }
+
+    static GameObject BuildFallbackPickup(string weaponId)
+    {
+        var root = new GameObject("pickup_" + weaponId);
+        AddPart(root.transform, "GlowBase", PrimitiveType.Cylinder,
+            new Vector3(0f, -0.18f, 0f), new Vector3(0.7f, 0.04f, 0.7f),
+            new Color(0.05f, 0.55f, 0.75f, 0.7f));
+        var blade = AddPart(root.transform, "WeaponSilhouette", PrimitiveType.Cube,
+            new Vector3(0f, 0.12f, 0f), new Vector3(0.14f, 0.65f, 0.06f),
+            new Color(0.75f, 0.95f, 1f));
+        blade.transform.localRotation = Quaternion.Euler(0f, 0f, -35f);
+        AddPart(root.transform, "GoldGuard", PrimitiveType.Cube,
+            new Vector3(0f, -0.02f, 0f), new Vector3(0.36f, 0.06f, 0.08f),
+            new Color(1f, 0.72f, 0.22f));
+        return root;
+    }
+
+    static GameObject BuildFallbackChest(string chestId)
+    {
+        var root = new GameObject("chest_" + chestId);
+        AddPart(root.transform, "ChestBody", PrimitiveType.Cube,
+            new Vector3(0f, 0.25f, 0f), new Vector3(1.0f, 0.55f, 0.75f),
+            new Color(0.45f, 0.23f, 0.08f));
+        AddPart(root.transform, "ChestLid", PrimitiveType.Cube,
+            new Vector3(0f, 0.6f, 0f), new Vector3(1.08f, 0.22f, 0.82f),
+            new Color(0.62f, 0.34f, 0.12f));
+        AddPart(root.transform, "Lock", PrimitiveType.Cube,
+            new Vector3(0f, 0.38f, -0.42f), new Vector3(0.18f, 0.22f, 0.08f),
+            new Color(0.95f, 0.7f, 0.2f));
+        return root;
+    }
+
+    static GameObject BuildFallbackMerchant()
+    {
+        var root = new GameObject("merchant");
+        AddPart(root.transform, "Body", PrimitiveType.Capsule,
+            new Vector3(0f, 0.75f, 0f), new Vector3(0.55f, 0.95f, 0.55f),
+            new Color(0.48f, 0.18f, 0.58f));
+        AddPart(root.transform, "Head", PrimitiveType.Sphere,
+            new Vector3(0f, 1.55f, 0f), new Vector3(0.42f, 0.42f, 0.42f),
+            new Color(0.95f, 0.78f, 0.55f));
+        AddPart(root.transform, "ShopSign", PrimitiveType.Cube,
+            new Vector3(0f, 1.15f, -0.45f), new Vector3(0.8f, 0.28f, 0.08f),
+            new Color(0.95f, 0.72f, 0.2f));
+        return root;
+    }
+
+    static GameObject AddPart(Transform parent, string name, PrimitiveType type,
+        Vector3 localPos, Vector3 localScale, Color color)
+    {
+        var go = GameObject.CreatePrimitive(type);
+        go.name = name;
+        go.transform.SetParent(parent, false);
+        go.transform.localPosition = localPos;
+        go.transform.localScale = localScale;
+
+        var renderer = go.GetComponent<Renderer>();
+        if (renderer != null)
+        {
+            renderer.material = new Material(Shader.Find("Standard"));
+            renderer.material.color = color;
+        }
+
+        var collider = go.GetComponent<Collider>();
+        if (collider != null) collider.enabled = false;
+        return go;
     }
 }

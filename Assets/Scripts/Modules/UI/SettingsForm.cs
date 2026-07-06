@@ -25,7 +25,7 @@ namespace Tattoo.UI
     ///   SaveButton → Commit → Close
     ///   CancelButton / CloseButton → Rollback → Close
     /// </summary>
-    public sealed class SettingsForm : MonoBehaviour, IExclusiveUIForm
+    public sealed class SettingsForm : MonoBehaviour, IExclusiveUIForm, IUIFormBootstrap
     {
         // ── Inspector 引用（与 Settings.prefab 层级命名一一对应）──────
 
@@ -93,19 +93,10 @@ namespace Tattoo.UI
             gameObject.SetActive(false);
         }
 
-        async void Start()
+        public void Bootstrap(EventBus bus, ModuleRunner runner)
         {
-            GameApp app   = null;
-            float timeout = Time.unscaledTime + 10f;
-            while (Time.unscaledTime < timeout)
-            {
-                app = FindObjectOfType<GameApp>();
-                if (app != null && app.TryGetRuntime(out _bus, out _runner)) break;
-                await UniTask.Yield();
-            }
-            if (_bus == null) return;
-
-            _runner.GetModule<UIModule>().Register(this);
+            _bus = bus;
+            _runner = runner;
             BindControls();
         }
 

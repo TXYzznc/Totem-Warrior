@@ -14,7 +14,7 @@ namespace Tattoo.UI
     /// 触发条件：PauseRequestedEvent（由 InputModule 发出）
     /// 打开时 Time.timeScale = 0，关闭时恢复。
     /// </summary>
-    public sealed class PauseMenuForm : MonoBehaviour, IUIForm, IUIFormBootstrap
+    public sealed class PauseMenuForm : MonoBehaviour, IExclusiveUIForm, IUIFormBootstrap
     {
         [Header("按钮")]
         [SerializeField] Button _resumeBtn;
@@ -27,9 +27,20 @@ namespace Tattoo.UI
 
         readonly List<IDisposable> _subs = new();
 
+        bool _isOpen;
+
         // ── IUIForm ───────────────────────────────────────────
 
         public GameObject GameObject => gameObject;
+        public bool IsOpen => _isOpen;
+
+        public void ForceClose()
+        {
+            _isOpen = false;
+            gameObject.SetActive(false);
+            if (Time.timeScale == 0f) Time.timeScale = 1f;
+            FrameworkLogger.Info("PauseMenuForm", "Action=ForceClose");
+        }
 
         public void OnGameStateChanged(GameState oldState, GameState newState)
         {
@@ -86,6 +97,8 @@ namespace Tattoo.UI
 
         void Open()
         {
+            _runner.GetModule<UIModule>().RequestOpenExclusive(this);
+            _isOpen = true;
             gameObject.SetActive(true);
             Time.timeScale = 0f;
             FrameworkLogger.Info("PauseMenuForm", "Action=Open");
@@ -93,8 +106,10 @@ namespace Tattoo.UI
 
         void Close()
         {
+            _isOpen = false;
             gameObject.SetActive(false);
             Time.timeScale = 1f;
+            _runner?.GetModule<UIModule>().CloseCurrentExclusive();
             FrameworkLogger.Info("PauseMenuForm", "Action=Close");
         }
 
@@ -104,7 +119,14 @@ namespace Tattoo.UI
         /// <summary>设置按钮点击：打开设置面板（暂停时 timeScale=0，SettingsForm 用 SetUpdate(true) 不受影响）。</summary>
         void OnSettingsClicked()
         {
-            var settingsForm = UnityEngine.Object.FindObjectOfType<Tattoo.UI.SettingsForm>();
+            Tattoo.UI.SettingsForm settingsForm = null;
+            var forms = Resources.FindObjectsOfTypeAll<Tattoo.UI.SettingsForm>();
+            foreach (var f in forms)
+            {
+                if (f == null || f.gameObject.scene.name == null) continue;
+                settingsForm = f;
+                break;
+            }
             if (settingsForm != null)
             {
                 settingsForm.Open();

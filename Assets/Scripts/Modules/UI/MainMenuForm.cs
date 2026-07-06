@@ -12,7 +12,7 @@ namespace Tattoo.UI
     /// Prefab 落点：Assets/Resources/Prefab/UI/MainMenu.prefab
     /// 初始状态：SetActive(true)（游戏启动即显示）
     /// </summary>
-    public sealed class MainMenuForm : MonoBehaviour, IUIForm
+    public sealed class MainMenuForm : MonoBehaviour, IUIForm, IUIFormBootstrap
     {
         [Header("按钮")]
         [SerializeField] Button _startBtn;
@@ -59,6 +59,18 @@ namespace Tattoo.UI
             }
             if (_bus == null) return;
             _runner.GetModule<UIModule>().Register(this);
+            _startBtn?.onClick.RemoveListener(OnStartClicked);
+            _startBtn?.onClick.AddListener(OnStartClicked);
+            _settingsBtn?.onClick.RemoveListener(OnSettingsClicked);
+            _settingsBtn?.onClick.AddListener(OnSettingsClicked);
+        }
+
+        public void Bootstrap(EventBus bus, ModuleRunner runner)
+        {
+            _bus = bus;
+            _runner = runner;
+            _startBtn?.onClick.RemoveListener(OnStartClicked);
+            _settingsBtn?.onClick.RemoveListener(OnSettingsClicked);
             _startBtn?.onClick.AddListener(OnStartClicked);
             _settingsBtn?.onClick.AddListener(OnSettingsClicked);
         }
@@ -73,6 +85,7 @@ namespace Tattoo.UI
                 return;
             }
             charSel.Open();
+            gameObject.SetActive(false);
             FrameworkLogger.Info("MainMenuForm", "Action=StartClicked → CharacterSelectForm.Open");
         }
 

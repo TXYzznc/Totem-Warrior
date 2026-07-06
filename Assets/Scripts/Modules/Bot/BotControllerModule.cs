@@ -29,6 +29,7 @@ namespace Tattoo.Bot
             typeof(TattooModule),
             typeof(CombatModule),
             typeof(DataTableModule),
+            typeof(WeaponModule),
         };
 
         readonly ModuleRunner _runner;
@@ -37,6 +38,7 @@ namespace Tattoo.Bot
         SpawnerModule _spawner;
         TattooModule  _tattoo;
         CombatModule  _combat;
+        WeaponModule  _weapon;
         BotConfig _botCfg;
         BotBuildPresetConfig _presetCfg;
 
@@ -73,6 +75,7 @@ namespace Tattoo.Bot
             _spawner = _runner.GetModule<SpawnerModule>();
             _tattoo  = _runner.GetModule<TattooModule>();
             _combat  = _runner.GetModule<CombatModule>();
+            _weapon  = _runner.GetModule<WeaponModule>();
             var dt   = _runner.GetModule<DataTableModule>();
             _botCfg    = dt.GetTable<BotConfig>();
             _presetCfg = dt.GetTable<BotBuildPresetConfig>();
@@ -137,7 +140,12 @@ namespace Tattoo.Bot
                 }
                 else break;
 
-                if (ctrl != null) _combat.RegisterController(ctrl);
+                if (ctrl != null)
+                {
+                    _combat.RegisterController(ctrl);
+                    // Bot 统一装备 pistol_basic（远程武器），与玩家武器系统保持一致
+                    _weapon.EquipWeapon(er.Target, "pistol_basic");
+                }
             }
         }
 

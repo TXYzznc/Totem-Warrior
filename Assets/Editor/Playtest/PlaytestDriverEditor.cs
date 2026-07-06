@@ -56,6 +56,18 @@ namespace Playtest.EditorTools
         [MenuItem(Menu + "Press/F12 (Debug)", priority = 205)]
         static void PressF12() => PressKey(KeyCode.F12);
 
+        [MenuItem(Menu + "Press/F (Interact)", priority = 206)]
+        static void PressF() => PressKey(KeyCode.F);
+
+        [MenuItem(Menu + "Press/Alpha1 (Buy Slot 1)", priority = 207)]
+        static void PressAlpha1() => PressKey(KeyCode.Alpha1);
+
+        [MenuItem(Menu + "Press/Alpha2 (Buy Slot 2)", priority = 208)]
+        static void PressAlpha2() => PressKey(KeyCode.Alpha2);
+
+        [MenuItem(Menu + "Press/Alpha3 (Buy Slot 3)", priority = 209)]
+        static void PressAlpha3() => PressKey(KeyCode.Alpha3);
+
         [MenuItem(Menu + "Press/MouseLeft (Attack)", priority = 250)]
         static void PressMouse0() => PressMouse(0);
 
@@ -415,6 +427,39 @@ namespace Playtest.EditorTools
             Debug.Log($"[Playtest|INFO] Action=PublishWeaponAttackHit Target={hitTargetName}");
         }
 
+        [MenuItem(Menu + "Combat/ForcePlayerAttack", priority = 699)]
+        static void ForcePlayerAttack()
+        {
+            if (!TryGetRuntime(out var runner, out _)) return;
+
+            var spawner = runner.GetModule<Tattoo.SpawnerModule>();
+            var weapon = runner.GetModule<WeaponModule>();
+            if (spawner?.PlayerTarget == null || weapon == null)
+            {
+                Debug.LogWarning("[Playtest|WARN] Action=ForcePlayerAttack MissingRuntime");
+                return;
+            }
+
+            Tattoo.Data.Target target = null;
+            float minSqrDist = float.MaxValue;
+            var playerPos = spawner.Player != null ? spawner.Player.transform.position : Vector3.zero;
+            foreach (var go in spawner.Enemies)
+            {
+                if (go == null || !go.activeSelf) continue;
+                var er = go.GetComponent<Tattoo.EntityRef>();
+                if (er?.Target == null || er.Target.Health <= 0f) continue;
+                float sqr = (go.transform.position - playerPos).sqrMagnitude;
+                if (sqr < minSqrDist)
+                {
+                    minSqrDist = sqr;
+                    target = er.Target;
+                }
+            }
+
+            weapon.FireWeapon(spawner.PlayerTarget, target, isCharged: false);
+            Debug.Log($"[Playtest|INFO] Action=ForcePlayerAttack Target={(target != null ? target.Name : "none")}");
+        }
+
         // ===== TC-15/16/17：强制生成武器拾取 GO =====
 
         /// <summary>
@@ -444,7 +489,10 @@ namespace Playtest.EditorTools
             if (spawner != null && spawner.Player != null)
             {
                 var playerTr = spawner.Player.transform;
-                pos = playerTr.position + playerTr.forward * 2f;
+                var forward = Vector3.ProjectOnPlane(playerTr.forward, Vector3.up);
+                if (forward.sqrMagnitude < 0.001f) forward = Vector3.forward;
+                pos = playerTr.position + forward.normalized * 1f;
+                pos.y = playerTr.position.y;
             }
 
             weaponSpawner.SpawnDroppedWeapon(weaponId, pos);
@@ -461,6 +509,71 @@ namespace Playtest.EditorTools
         /// 本菜单绕过物理：直接发 WeaponPickedUpEvent + Destroy pickup GO，复现完整拾取链路。
         /// 配合 ForceSpawnWeaponPickup 连续调用可累计拾取次数，验证武器升级（TC-17）。
         /// </summary>
+        [MenuItem(Menu + "Combat/ForceSpawnChest", priority = 706)]
+        static void ForceSpawnChest()
+        {
+            if (!TryGetRuntime(out var runner, out _)) return;
+
+            var weaponSpawner = runner.GetModule<WeaponSpawnerModule>();
+            if (weaponSpawner == null)
+            {
+                Debug.LogWarning("[Playtest|WARN] Action=ForceSpawnChest WeaponSpawnerModule=null");
+                return;
+            }
+
+            Vector3 pos = GetPlayerFrontPos(runner, 1f);
+            weaponSpawner.SpawnChest(pos, "chest_common");
+            FrameworkLogger.Info("PlaytestDriver", $"Action=ForceSpawnChest ChestId=chest_common Pos={pos}");
+        }
+
+        [MenuItem(Menu + "Combat/ForceSpawnMerchant", priority = 707)]
+        static void ForceSpawnMerchant()
+        {
+            if (!TryGetRuntime(out var runner, out _)) return;
+
+            var weaponSpawner = runner.GetModule<WeaponSpawnerModule>();
+            if (weaponSpawner == null)
+            {
+                Debug.LogWarning("[Playtest|WARN] Action=ForceSpawnMerchant WeaponSpawnerModule=null");
+                return;
+            }
+
+            Vector3 pos = GetPlayerFrontPos(runner, 1f);
+            weaponSpawner.SpawnMerchant(pos);
+            FrameworkLogger.Info("PlaytestDriver", $"Action=ForceSpawnMerchant Pos={pos}");
+        }
+
+        [MenuItem(Menu + "Combat/AddPlayerGold200", priority = 708)]
+        static void AddPlayerGold200()
+        {
+            if (!TryGetRuntime(out var runner, out _)) return;
+
+            var spawner = runner.GetModule<Tattoo.SpawnerModule>();
+            var economy = runner.GetModule<Economy.EconomyModule>();
+            if (spawner?.PlayerActor == null || economy == null)
+            {
+                Debug.LogWarning("[Playtest|WARN] Action=AddPlayerGold200 MissingRuntime");
+                return;
+            }
+
+            economy.AddCoin(spawner.PlayerActor, 200, Economy.Events.CoinChangeReason.ChestLoot);
+            int coins = economy.GetInventory(spawner.PlayerActor).Coins;
+            Debug.Log($"[Playtest|INFO] Action=AddPlayerGold200 Coins={coins}");
+        }
+
+        static Vector3 GetPlayerFrontPos(ModuleRunner runner, float distance)
+        {
+            var spawner = runner.GetModule<Tattoo.SpawnerModule>();
+            if (spawner == null || spawner.Player == null) return Vector3.zero;
+
+            var playerTr = spawner.Player.transform;
+            var forward = Vector3.ProjectOnPlane(playerTr.forward, Vector3.up);
+            if (forward.sqrMagnitude < 0.001f) forward = Vector3.forward;
+            var pos = playerTr.position + forward.normalized * distance;
+            pos.y = playerTr.position.y;
+            return pos;
+        }
+
         [MenuItem(Menu + "Combat/ForcePickupNearestWeapon", priority = 705)]
         static void ForcePickupNearestWeapon()
         {
@@ -694,6 +807,11 @@ namespace Playtest.EditorTools
                 Debug.LogWarning("[Playtest|WARN] GameApp 尚未就绪（GameReadyEvent 未发）");
                 return false;
             }
+            if (runner == null || bus == null)
+            {
+                Debug.LogWarning("[Playtest|WARN] GameApp runtime incomplete (runner/bus null)");
+                return false;
+            }
             return true;
         }
 
@@ -756,6 +874,11 @@ namespace Playtest.EditorTools
             if (!app.TryGetRuntime(out _, out var runner))
             {
                 Debug.LogWarning("[Playtest|WARN] GameApp 尚未就绪（GameReadyEvent 未发）");
+                return false;
+            }
+            if (runner == null)
+            {
+                Debug.LogWarning("[Playtest|WARN] GameApp runtime incomplete (runner null)");
                 return false;
             }
             input = runner.GetModule<InputModule>();

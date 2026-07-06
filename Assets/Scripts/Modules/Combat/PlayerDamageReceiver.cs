@@ -5,6 +5,7 @@ using Cysharp.Threading.Tasks;
 using Tattoo;
 using Tattoo.Events;
 using UnityEngine;
+using Weapon.Events;
 
 /// <summary>
 /// change #20 D8 落地：敌人攻击玩家 → 扣 HP → 发战斗事件链。
@@ -92,13 +93,32 @@ public sealed class PlayerDamageReceiver : IGameModule
     // ─────────────────────────────────────────────────────────────
 
     [EventHandler]
+    void OnRunStarted(RunStartedEvent e)
+    {
+        _diedFired = false;
+        _dying     = false;
+    }
+
+    [EventHandler]
     void OnEnemyAttack(EnemyAttackEvent e)
     {
-        // 防抖复位：若 _dying 且超过 300ms，重置标志（允许后续伤害再次触发死亡检测）
         if (_dying && Time.realtimeSinceStartup - _dyingResetTime > DyingDebounceSeconds)
             _dying = false;
 
         ApplyDamage(e.Damage, e.Attacker?.EnemyId ?? "Enemy");
+    }
+
+    /// <summary>人机/玩家武器命中事件 → 若目标是本地玩家则扣血。</summary>
+    [EventHandler]
+    void OnWeaponAttackHit(WeaponAttackHitEvent e)
+    {
+        var playerTarget = _spawner?.PlayerTarget;
+        if (playerTarget == null || e.Target != playerTarget) return;
+
+        if (_dying && Time.realtimeSinceStartup - _dyingResetTime > DyingDebounceSeconds)
+            _dying = false;
+
+        ApplyDamage(e.BaseDamage, e.Attacker?.Name ?? "Bot");
     }
 
     // ─────────────────────────────────────────────────────────────

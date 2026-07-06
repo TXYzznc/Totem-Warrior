@@ -139,6 +139,9 @@ public sealed class InputModule : IGameModule
     /// </summary>
     public bool IsPickupPressed() => IsKeyDown(KeyCode.F);
 
+    /// <summary>通用一次性按键查询。仅给交互触发器等边界层复用，业务模块仍使用语义化 API。</summary>
+    public bool IsKeyPressed(KeyCode key) => IsKeyDown(key);
+
     // ===== 双源融合内部辅助 =====
 
     bool IsKeyDown(KeyCode k)

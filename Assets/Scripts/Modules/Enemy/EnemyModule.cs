@@ -183,7 +183,7 @@ namespace Tattoo
                 ctrl.Go.transform.position += intent.MoveDir * speed * dt;
             }
 
-            // 攻击：发 AttackHitEvent 到 EventBus，由 CombatModule / 玩家 HP 系统消费
+            // 攻击：发 EnemyAttackEvent 到 EventBus
             if (intent.Attack)
             {
                 if (!_attackCooldowns.TryGetValue(ctrl, out float cd) || cd <= 0f)

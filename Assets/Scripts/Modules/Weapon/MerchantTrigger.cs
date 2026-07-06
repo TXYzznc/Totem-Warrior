@@ -1,10 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Economy;
 using Tattoo.Data;
+using Tattoo;
 
-// TODO: 后续接 InputModule.IsPickupPressed() / IsAlpha1Pressed() 等，当前回退到 Unity 原生 Input
-// 因 MonoBehaviour 不许 GetModule，InputModule 访问点暂用 Input.GetKeyDown
+// Runtime dependencies are injected by WeaponSpawnerModule; no direct GetModule calls here.
 
 /// <summary>
 /// 商人交互触发器。挂在商人 GO 上。
@@ -23,8 +24,15 @@ public sealed class MerchantTrigger : MonoBehaviour
     /// <summary>玩家 Target，OnTriggerEnter 时从 collider 取，或 Spawn 时注入。</summary>
     public Target PlayerTarget;
 
+    /// <summary>输入入口。由 WeaponSpawnerModule 注入，保证商人购买按键走 InputModule。</summary>
+    public InputModule Input;
+    public EconomyModule Economy;
+    public Actor PlayerActor;
+    public Transform PlayerTransform;
+
     // ── 内部状态 ───────────────────────────────────────────────────────
     bool _playerInRange;
+    const float InteractRadius = 2.2f;
 
     /// <summary>每个槽位是否已购买（一局内每槽只能购买一次）。</summary>
     readonly bool[] _purchased = new bool[3];
@@ -48,10 +56,10 @@ public sealed class MerchantTrigger : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (!other.CompareTag("Player")) return;
+        if (!IsPlayerCollider(other)) return;
 
         if (PlayerTarget == null)
-            PlayerTarget = other.GetComponent<Target>();
+            PlayerTarget = other.GetComponentInParent<EntityRef>()?.Target;
 
         _playerInRange = true;
         RefreshHintUI();
@@ -61,27 +69,51 @@ public sealed class MerchantTrigger : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        if (!other.CompareTag("Player")) return;
+        if (!IsPlayerCollider(other)) return;
 
         _playerInRange = false;
         DisplayHint(false);
         FrameworkLogger.Info("MerchantTrigger", "Action=PlayerExited");
     }
 
+    static bool IsPlayerCollider(Collider other)
+    {
+        if (other == null) return false;
+        var entity = other.GetComponentInParent<EntityRef>();
+        if (entity != null) return entity.IsPlayer;
+        return other.CompareTag("Player");
+    }
+
     void Update()
     {
+        RefreshRangeByDistance();
         if (!_playerInRange) return;
 
         // 监听 1/2/3 键对应槽位购买
         for (int i = 0; i < 3; i++)
         {
-            if (!Input.GetKeyDown(SlotKeys[i])) continue;
+            if (Input == null || !Input.IsKeyPressed(SlotKeys[i])) continue;
             TryPurchase(i);
         }
 
         // Billboarding
         if (_hintGO != null && Camera.main != null)
             _hintGO.transform.rotation = Camera.main.transform.rotation;
+    }
+
+    void RefreshRangeByDistance()
+    {
+        if (PlayerTransform == null) return;
+        Vector3 delta = PlayerTransform.position - transform.position;
+        delta.y = 0f;
+        bool inRange = delta.sqrMagnitude <= InteractRadius * InteractRadius;
+        if (inRange == _playerInRange) return;
+
+        _playerInRange = inRange;
+        if (inRange) RefreshHintUI();
+        DisplayHint(inRange);
+        FrameworkLogger.Info("MerchantTrigger",
+            inRange ? "Action=PlayerEntered Source=Distance" : "Action=PlayerExited Source=Distance");
     }
 
     void TryPurchase(int slotIndex)
@@ -111,6 +143,20 @@ public sealed class MerchantTrigger : MonoBehaviour
         }
 
         var slot = Slots[slotIndex];
+        if (Economy == null || PlayerActor == null)
+        {
+            FrameworkLogger.Error("MerchantTrigger", $"Action=PurchaseFailed Reason=EconomyMissing SlotIndex={slotIndex}");
+            return;
+        }
+
+        int coins = Economy.GetInventory(PlayerActor).Coins;
+        if (coins < slot.GoldCost)
+        {
+            FrameworkLogger.Warn("MerchantTrigger",
+                $"Action=PurchaseRejected Reason=InsufficientCoins SlotIndex={slotIndex} WeaponId={slot.WeaponId} Coins={coins} GoldCost={slot.GoldCost}");
+            return;
+        }
+
         FrameworkLogger.Info("MerchantTrigger",
             $"Action=Purchase SlotIndex={slotIndex} WeaponId={slot.WeaponId} GoldCost={slot.GoldCost}");
 

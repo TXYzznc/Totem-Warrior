@@ -32,12 +32,15 @@ public sealed class WeaponPickedUpEvent
     public string  WeaponId;
     /// <summary>武器 GO 的世界坐标（用于特效定位，NOT 玩家坐标）。</summary>
     public Vector3 PickupPosition;
+    /// <summary>来源：Pickup / Merchant / Debug。默认 Pickup，用于区分是否需要销毁地面 GO。</summary>
+    public string Source;
 
-    public WeaponPickedUpEvent(Target actor, string weaponId, Vector3 pickupPosition)
+    public WeaponPickedUpEvent(Target actor, string weaponId, Vector3 pickupPosition, string source = "Pickup")
     {
         Actor          = actor;
         WeaponId       = weaponId;
         PickupPosition = pickupPosition;
+        Source         = source;
     }
 }
 

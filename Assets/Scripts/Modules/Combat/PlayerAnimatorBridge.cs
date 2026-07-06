@@ -32,6 +32,7 @@ namespace Tattoo
             }
             _subs.Add(_bus.Subscribe<AttackHitEvent>(OnAttack));
             _subs.Add(_bus.Subscribe<PlayerDiedEvent>(OnDie));
+            _subs.Add(_bus.Subscribe<RunStartedEvent>(OnRunStarted));
         }
 
         void Update()
@@ -58,6 +59,16 @@ namespace Tattoo
         void OnAttack(AttackHitEvent e)
         {
             if (_anim != null) _anim.SetTrigger("AttackTrigger");
+        }
+
+        void OnRunStarted(RunStartedEvent e)
+        {
+            _isDead = false;
+            if (_anim != null)
+            {
+                _anim.SetBool("Dead", false);
+                _anim.ResetTrigger("Die");
+            }
         }
 
         void OnDie(PlayerDiedEvent e)

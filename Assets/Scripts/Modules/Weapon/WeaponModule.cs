@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading;
+using AttackSystem.Events;
 using Cysharp.Threading.Tasks;
 using Economy.Events;
 using Skill.Events;
@@ -116,6 +117,8 @@ public sealed class WeaponModule : IGameModule, ITickable
         FrameworkLogger.Info("WeaponModule",
             $"Action=WeaponEquipped Actor={actor.Name} WeaponId={weaponId} Ammo={state.CurrentAmmo}");
 
+        _bus.Publish(new WeaponEquippedEvent(actor, weaponId, row.WeaponPrefabPath));
+
         if (row.MaxAmmo > 0)
             _bus.Publish(new AmmoChangedEvent(actor, weaponId, oldAmmo, state.CurrentAmmo));
     }
@@ -164,6 +167,12 @@ public sealed class WeaponModule : IGameModule, ITickable
         var row   = state.Weapon;
         if (row == null) return;
 
+        // 冷却检查（普攻和蓄力共用同一个冷却槽）
+        // 冷却 = (前摇 + 伤害帧 + 后摇) / 60f 秒（60fps 基准帧数换算）
+        float fireCooldown = (row.BaseStartup + row.BaseActive + row.BaseRecovery) / 60f;
+        if (fireCooldown > 0f && Time.time - state.LastFireTime < fireCooldown)
+            return;
+
         // 蓄力武器未蓄力时不产生有效命中（弓的 RequiresCharge 逻辑）
         if (row.RequiresCharge && !isCharged)
         {
@@ -186,6 +195,12 @@ public sealed class WeaponModule : IGameModule, ITickable
 
         float finalDamage = row.BaseDamage * mul.DamageMul;
         if (isCharged) finalDamage *= row.ChargedMul;
+
+        // 更新冷却时间戳（struct 拷贝必须写回字典）
+        state.LastFireTime = Time.time;
+        _states[actor] = state;
+
+        SpawnAttackProjectileVisual(actor, aimTarget, row, isCharged);
 
         if (row.Class == "Melee" || row.Class == "Special")
         {
@@ -375,6 +390,44 @@ public sealed class WeaponModule : IGameModule, ITickable
         }
         return Vector3.zero;
     }
+
+    void SpawnAttackProjectileVisual(Target actor, Target aimTarget, WeaponConfigRow row, bool isCharged)
+    {
+        var spawner = _runner.GetModule<SpawnerModule>();
+        if (spawner == null) return;
+
+        Vector3 start = FindActorPosition(spawner, actor);
+        if (start == Vector3.zero) return;
+        start += Vector3.up * 0.75f;
+
+        Vector3 target;
+        if (aimTarget != null)
+        {
+            target = FindActorPosition(spawner, aimTarget) + Vector3.up * 0.75f;
+        }
+        else
+        {
+            target = start + Vector3.forward * Mathf.Max(3f, row.Range);
+        }
+
+        bool isPlayer = ReferenceEquals(actor, spawner.PlayerTarget);
+        Color color;
+        if (isPlayer)
+        {
+            // 玩家：蓝色（普攻）/ 金色（蓄力）
+            color = isCharged ? new Color(1f, 0.75f, 0.2f, 1f) : new Color(0.35f, 0.85f, 1f, 1f);
+        }
+        else
+        {
+            // 人机：统一红色
+            color = new Color(1f, 0.2f, 0.2f, 1f);
+        }
+
+        float radius = isCharged ? 0.28f : 0.18f;
+        AttackProjectileView.Spawn(start, target, color, speed: 14f, life: 0.9f, radius);
+        FrameworkLogger.Info("WeaponModule",
+            $"Action=AttackProjectileSpawn Actor={actor.Name} IsPlayer={isPlayer} WeaponId={row.WeaponId} Start={start} Target={target}");
+    }
 }
 
 // ─── 数据结构 ──────────────────────────────────────────────────────────
@@ -389,6 +442,8 @@ public struct EquippedWeaponState
     public WeaponConfigRow Weapon;
     /// <summary>当前弹药数，-1 = 无限。</summary>
     public int CurrentAmmo;
+    /// <summary>上次实际开火的 Time.time，用于冷却检测。</summary>
+    public float LastFireTime;
 }
 
 /// <summary>

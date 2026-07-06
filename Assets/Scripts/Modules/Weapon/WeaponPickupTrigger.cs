@@ -1,9 +1,9 @@
 using UnityEngine;
 using TMPro;
 using Tattoo.Data;
+using Tattoo;
 
-// TODO: 后续接 InputModule.GetKeyDown("Pickup")，当前回退到 Unity 原生 Input
-// 因 MonoBehaviour 不许 GetModule，InputModule 访问点暂用 Input.GetKeyDown(KeyCode.F)
+// Runtime dependencies are injected by WeaponSpawnerModule; no direct GetModule calls here.
 
 /// <summary>
 /// 武器拾取触发器。挂在武器 Pickup GO 上。
@@ -22,8 +22,13 @@ public sealed class WeaponPickupTrigger : MonoBehaviour
     /// <summary>玩家 Target，OnTriggerEnter 时从 collider.GetComponent 取，或 Spawn 时注入。</summary>
     public Target PlayerTarget;
 
+    /// <summary>输入入口。由 WeaponSpawnerModule 注入，保证拾取按键走 InputModule。</summary>
+    public InputModule Input;
+    public Transform PlayerTransform;
+
     // ── 内部状态 ───────────────────────────────────────────────────────
     bool _playerInRange;
+    const float InteractRadius = 1.6f;
 
     // ── 世界 UI 提示 ───────────────────────────────────────────────────
     GameObject _hintGO;
@@ -42,11 +47,11 @@ public sealed class WeaponPickupTrigger : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (!other.CompareTag("Player")) return;
+        if (!IsPlayerCollider(other)) return;
 
         // 若未注入 PlayerTarget，尝试从 collider 取
         if (PlayerTarget == null)
-            PlayerTarget = other.GetComponent<Target>();
+            PlayerTarget = other.GetComponent<EntityRef>()?.Target;
 
         _playerInRange = true;
         DisplayHint(true);
@@ -55,18 +60,26 @@ public sealed class WeaponPickupTrigger : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        if (!other.CompareTag("Player")) return;
+        if (!IsPlayerCollider(other)) return;
         _playerInRange = false;
         DisplayHint(false);
         FrameworkLogger.Info("WeaponPickupTrigger", $"Action=PlayerExited WeaponId={WeaponId}");
     }
 
+    static bool IsPlayerCollider(Collider other)
+    {
+        if (other == null) return false;
+        var entity = other.GetComponentInParent<EntityRef>();
+        if (entity != null) return entity.IsPlayer;
+        return other.CompareTag("Player");
+    }
+
     void Update()
     {
+        RefreshRangeByDistance();
         if (!_playerInRange) return;
 
-        // TODO: 后续改为 InputModule.IsPickupPressed()
-        if (Input.GetKeyDown(KeyCode.F))
+        if (Input != null && Input.IsPickupPressed())
         {
             if (Bus == null)
             {
@@ -92,6 +105,22 @@ public sealed class WeaponPickupTrigger : MonoBehaviour
         // Billboarding：UI 朝向 Camera
         if (_hintGO != null && Camera.main != null)
             _hintGO.transform.rotation = Camera.main.transform.rotation;
+    }
+
+    void RefreshRangeByDistance()
+    {
+        if (PlayerTransform == null) return;
+        Vector3 delta = PlayerTransform.position - transform.position;
+        delta.y = 0f;
+        bool inRange = delta.sqrMagnitude <= InteractRadius * InteractRadius;
+        if (inRange == _playerInRange) return;
+
+        _playerInRange = inRange;
+        DisplayHint(inRange);
+        FrameworkLogger.Info("WeaponPickupTrigger",
+            inRange
+                ? $"Action=PlayerEntered WeaponId={WeaponId} Source=Distance"
+                : $"Action=PlayerExited WeaponId={WeaponId} Source=Distance");
     }
 
     // ── 世界 UI 构造 ──────────────────────────────────────────────────

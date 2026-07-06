@@ -5,6 +5,7 @@ using DG.Tweening;          // DOTween.To / SetUpdate
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using AttackSystem.Events;  // PlayerHealthChangedEvent
 using Tattoo.Data;          // EffectResult / TattooSlot
 using Tattoo.Events;        // BossSpawnedEvent / BossPhaseChangedEvent / DamagedEvent / SkillCastEvent
 using Economy.Events;       // ItemPickedEvent / ActorDiedEvent / CoinChangedEvent
@@ -128,6 +129,10 @@ namespace Tattoo.UI
                 _maxHp = maxHp > 0 ? maxHp : 100f;
                 _curHp = _maxHp;
                 UpdateHpBar();
+                // 弹药文本初始化为 "--"（武器装备后会通过 ItemPickedEvent 更新）
+                if (_ammoText != null) _ammoText.SetText("--");
+                // Boss HP 默认隐藏（Awake 已处理，此处确保一致）
+                if (_bossHpRoot != null) _bossHpRoot.SetActive(false);
                 gameObject.SetActive(true);
                 FrameworkLogger.Info("CombatHUDForm",
                     $"Action=LateInit MaxHp={_maxHp} Reason=RunStartedEvent_missed_before_Subscribe");
@@ -160,6 +165,7 @@ namespace Tattoo.UI
         {
             _subs.Add(_bus.Subscribe<RunStartedEvent>(OnRunStarted));
             _subs.Add(_bus.Subscribe<DamagedEvent>(OnDamaged));
+            _subs.Add(_bus.Subscribe<PlayerHealthChangedEvent>(OnPlayerHealthChanged));
             _subs.Add(_bus.Subscribe<EffectAppliedEvent>(e => AppendEffectLog(e.Results)));
             _subs.Add(_bus.Subscribe<TargetKilledEvent>(e => AppendLog($"<击杀> {e.Target.Name}")));
             _subs.Add(_bus.Subscribe<ActorDiedEvent>(OnActorDied));
@@ -187,6 +193,13 @@ namespace Tattoo.UI
         {
             _curHp = e.NewHp;
             _maxHp = e.MaxHp > 0 ? e.MaxHp : _maxHp;
+            UpdateHpBar();
+        }
+
+        void OnPlayerHealthChanged(PlayerHealthChangedEvent e)
+        {
+            _curHp = e.Current;
+            _maxHp = e.Max > 0 ? e.Max : _maxHp;
             UpdateHpBar();
         }
 

@@ -1,8 +1,9 @@
 using UnityEngine;
 using TMPro;
+using Tattoo.Data;
+using Tattoo;
 
-// TODO: 后续接 InputModule.GetKeyDown("Pickup")，当前回退到 Unity 原生 Input
-// 因 MonoBehaviour 不许 GetModule，InputModule 访问点暂用 Input.GetKeyDown(KeyCode.F)
+// Runtime dependencies are injected by WeaponSpawnerModule; no direct GetModule calls here.
 
 /// <summary>
 /// 宝箱交互触发器。挂在宝箱 GO 上。
@@ -21,9 +22,15 @@ public sealed class ChestInteractTrigger : MonoBehaviour
     /// <summary>ChestConfig 引用，Spawn 时注入（MonoBehaviour 不许 GetModule）。</summary>
     public ChestConfig Cfg;
 
+    /// <summary>输入入口。由 WeaponSpawnerModule 注入，保证宝箱交互走 InputModule。</summary>
+    public InputModule Input;
+    public Target PlayerTarget;
+    public Transform PlayerTransform;
+
     // ── 内部状态 ───────────────────────────────────────────────────────
     bool _playerInRange;
     bool _isOpened;
+    const float InteractRadius = 1.8f;
 
     // ── 世界 UI 提示 ───────────────────────────────────────────────────
     GameObject _hintGO;
@@ -45,7 +52,7 @@ public sealed class ChestInteractTrigger : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (!other.CompareTag("Player")) return;
+        if (!IsPlayerCollider(other)) return;
         if (_isOpened) return;
 
         _playerInRange = true;
@@ -55,19 +62,27 @@ public sealed class ChestInteractTrigger : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        if (!other.CompareTag("Player")) return;
+        if (!IsPlayerCollider(other)) return;
 
         _playerInRange = false;
         DisplayHint(false);
         FrameworkLogger.Info("ChestInteractTrigger", $"Action=PlayerExited ChestId={ChestId}");
     }
 
+    static bool IsPlayerCollider(Collider other)
+    {
+        if (other == null) return false;
+        var entity = other.GetComponentInParent<EntityRef>();
+        if (entity != null) return entity.IsPlayer;
+        return other.CompareTag("Player");
+    }
+
     void Update()
     {
+        RefreshRangeByDistance();
         if (!_playerInRange || _isOpened) return;
 
-        // TODO: 后续改为 InputModule.IsPickupPressed()
-        if (Input.GetKeyDown(KeyCode.F))
+        if (Input != null && Input.IsPickupPressed())
         {
             OnInteract();
         }
@@ -75,6 +90,22 @@ public sealed class ChestInteractTrigger : MonoBehaviour
         // Billboarding
         if (_hintGO != null && Camera.main != null)
             _hintGO.transform.rotation = Camera.main.transform.rotation;
+    }
+
+    void RefreshRangeByDistance()
+    {
+        if (_isOpened || PlayerTransform == null) return;
+        Vector3 delta = PlayerTransform.position - transform.position;
+        delta.y = 0f;
+        bool inRange = delta.sqrMagnitude <= InteractRadius * InteractRadius;
+        if (inRange == _playerInRange) return;
+
+        _playerInRange = inRange;
+        DisplayHint(inRange);
+        FrameworkLogger.Info("ChestInteractTrigger",
+            inRange
+                ? $"Action=PlayerEntered ChestId={ChestId} Source=Distance"
+                : $"Action=PlayerExited ChestId={ChestId} Source=Distance");
     }
 
     void OnInteract()

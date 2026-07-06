@@ -74,9 +74,9 @@ public class GameApp : MonoBehaviour
             _runner.AddModule(new CombatModule(_runner, _bus));
             _runner.AddModule(new VFXModule(_runner, _bus));
             _runner.AddModule(new EconomyModule(_runner, _bus));
-            // v2.1 怪物与 Boss 系统（依赖 DataTableModule，Boss 依赖 EnemyModule）
-            _runner.AddModule(new EnemyModule(_runner, _bus));
-            _runner.AddModule(new BossModule(_bus));
+            // v2.1 怪物与 Boss 系统暂时关闭（当前阶段只有玩家和人机，无敌人 NPC）
+            // _runner.AddModule(new EnemyModule(_runner, _bus));
+            // _runner.AddModule(new BossModule(_bus));
             // v2.1 NPC 系统（依赖 DataTableModule，运行时懒获取 EconomyModule / TattooModule）
             _runner.AddModule(new NPCModule(_runner, _bus));
             // v2.1 Bot AI（依赖 SpawnerModule + TattooModule + CombatModule + DataTableModule）

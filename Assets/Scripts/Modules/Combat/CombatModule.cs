@@ -5,6 +5,7 @@ using Cysharp.Threading.Tasks;
 using Tattoo.Data;
 using Tattoo.Events;
 using UnityEngine;
+using Weapon.Events;
 
 namespace Tattoo
 {
@@ -223,7 +224,31 @@ namespace Tattoo
         }
 
         [EventHandler]
+        void OnPlayerDied(PlayerDiedEvent e)
+        {
+            if (!_combatEnded)
+                EndCombat(false);
+        }
+
+        /// <summary>玩家/Bot 武器命中 → 扣 Bot HP → 触发击杀判定。</summary>
+        [EventHandler]
+        void OnWeaponAttackHit(WeaponAttackHitEvent e)
+        {
+            if (e.Target == null || e.Target == _spawner.PlayerTarget) return;
+
+            // 扣减目标 HP
+            e.Target.Health = Mathf.Max(0f, e.Target.Health - e.BaseDamage);
+
+            CheckBotDeaths();
+        }
+
+        [EventHandler]
         void OnEffectApplied(EffectAppliedEvent e)
+        {
+            CheckBotDeaths();
+        }
+
+        void CheckBotDeaths()
         {
             // 击杀判定
             foreach (var go in _spawner.Enemies)
@@ -236,15 +261,6 @@ namespace Tattoo
                     go.SetActive(false);
                     _bus.Publish(new TargetKilledEvent(er.Target));
                 }
-            }
-
-            // 玩家死亡
-            var pt = _spawner.PlayerTarget;
-            if (pt != null && pt.Health <= 0f)
-            {
-                _bus.Publish(new PlayerDiedEvent());
-                EndCombat(false);
-                return;
             }
 
             // 所有敌人死亡

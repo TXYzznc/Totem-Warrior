@@ -142,6 +142,11 @@ namespace Tattoo.UI
 
         public void Open()
         {
+            if (_runner == null)
+            {
+                FrameworkLogger.Error("StartupSelectForm", "Action=Open Failed=RunnerNull");
+                return;
+            }
             gameObject.SetActive(true);
             BuildOptions();
             FrameworkLogger.Info("StartupSelectForm", "Action=Open");

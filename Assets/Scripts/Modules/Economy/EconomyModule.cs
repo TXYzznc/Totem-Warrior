@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Economy.Events;
+using Tattoo;
 using UnityEngine;
 
 namespace Economy
@@ -117,7 +118,7 @@ namespace Economy
         public int ModuleCategory => 3;
 
         /// <summary>仅依赖 DataTableModule 读取 ItemConfig。其他模块通过事件单向通知本模块。</summary>
-        public Type[] Dependencies => new[] { typeof(DataTableModule) };
+        public Type[] Dependencies => new[] { typeof(DataTableModule), typeof(SpawnerModule) };
 
         // ───── 外部依赖 ─────
 
@@ -167,9 +168,13 @@ namespace Economy
         public UniTask InitializeAsync(CancellationToken ct = default)
         {
             _dtModule = _runner.GetModule<DataTableModule>();
+            var spawner = _runner.GetModule<SpawnerModule>();
 
             // 验证 ItemConfig 已加载（DataTableModule 保证，此处做防御性断言）
             var itemCfg = _dtModule.GetTable<ItemConfig>();
+            if (spawner?.PlayerActor != null)
+                RegisterActor(spawner.PlayerActor);
+
             FrameworkLogger.Info("EconomyModule",
                 $"Action=Initialized ItemConfigRows={itemCfg.All.Count}");
 
