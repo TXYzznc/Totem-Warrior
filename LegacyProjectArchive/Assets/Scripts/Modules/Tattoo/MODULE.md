@@ -23,8 +23,8 @@ source: tools/ai_index/build_ai_manifests.py
 
 ## 关联 GDD / Wiki
 
-- `项目知识库（AI自行维护）/GDD-v2/modules/01-TattooModule.md`
-- `项目知识库（AI自行维护）/GDD-v2/systems/01-纹身构筑系统.md`
+- `项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/modules/01-TattooModule.md`
+- `项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/systems/01-纹身构筑系统.md`
 
 ## 关联 OpenSpec
 

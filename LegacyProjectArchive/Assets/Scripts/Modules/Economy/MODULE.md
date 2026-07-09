@@ -23,9 +23,9 @@ source: tools/ai_index/build_ai_manifests.py
 
 ## 关联 GDD / Wiki
 
-- `项目知识库（AI自行维护）/GDD-v2/modules/11-EconomyModule.md`
-- `项目知识库（AI自行维护）/GDD-v2/systems/08-宝箱与探财节奏.md`
-- `项目知识库（AI自行维护）/GDD-v2/systems/09-纹身师与商人NPC.md`
+- `项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/modules/11-EconomyModule.md`
+- `项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/systems/08-宝箱与探财节奏.md`
+- `项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/systems/09-纹身师与商人NPC.md`
 
 ## 关联 OpenSpec
 

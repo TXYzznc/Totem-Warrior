@@ -23,8 +23,8 @@ source: tools/ai_index/build_ai_manifests.py
 
 ## 关联 GDD / Wiki
 
-- `项目知识库（AI自行维护）/GDD-v2/modules/08-EnemyModule+BossModule.md`
-- `项目知识库（AI自行维护）/GDD-v2/systems/11-怪物与Boss.md`
+- `项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/modules/08-EnemyModule+BossModule.md`
+- `项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/systems/11-怪物与Boss.md`
 
 ## 关联 OpenSpec
 

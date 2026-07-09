@@ -25,7 +25,7 @@
 
 ## AI 索引
 
-- 项目总地图：`项目知识库（AI自行维护）/PROJECT_MAP.md`
-- 当前上下文：`项目知识库（AI自行维护）/ACTIVE_CONTEXT.md`
-- 模块 manifest：`项目知识库（AI自行维护）/manifests/modules.json`
+- 项目总地图：`项目知识库（AI自行维护）/wiki/PROJECT_MAP.md`
+- 当前上下文：`项目知识库（AI自行维护）/wiki/ACTIVE_CONTEXT.md`
+- 模块 manifest：`项目知识库（AI自行维护）/wiki/manifests/modules.json`
 - 生成命令：`python tools/ai_index/build_ai_manifests.py`

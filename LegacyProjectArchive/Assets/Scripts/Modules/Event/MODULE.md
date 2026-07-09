@@ -23,8 +23,8 @@ source: tools/ai_index/build_ai_manifests.py
 
 ## 关联 GDD / Wiki
 
-- `项目知识库（AI自行维护）/GDD-v2/modules/10-EventModule.md`
-- `项目知识库（AI自行维护）/GDD-v2/systems/10-事件与三选一.md`
+- `项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/modules/10-EventModule.md`
+- `项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/systems/10-事件与三选一.md`
 
 ## 关联 OpenSpec
 

@@ -23,8 +23,8 @@ UGUI Form、HUD、菜单、运行结果、商店、纹身界面与 UI 数据绑�
 
 ## 关联 GDD / Wiki
 
-- `项目知识库（AI自行维护）/GDD-v2/modules/12-UIModule+各UIForm.md`
-- `项目知识库（AI自行维护）/GDD-v2/systems/13-UI与HUD.md`
+- `项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/modules/12-UIModule+各UIForm.md`
+- `项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/systems/13-UI与HUD.md`
 
 ## 关联 OpenSpec
 

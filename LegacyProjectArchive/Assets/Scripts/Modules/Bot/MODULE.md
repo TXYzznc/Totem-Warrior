@@ -23,8 +23,8 @@ AI 对手控制、Bot 配置、构筑预设与战斗行为入口。
 
 ## 关联 GDD / Wiki
 
-- `项目知识库（AI自行维护）/GDD-v2/modules/16-BotControllerModule.md`
-- `项目知识库（AI自行维护）/GDD-v2/systems/12-数值平衡与曲线.md`
+- `项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/modules/16-BotControllerModule.md`
+- `项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/systems/12-数值平衡与曲线.md`
 
 ## 关联 OpenSpec
 
