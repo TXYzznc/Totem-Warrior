@@ -266,7 +266,7 @@ namespace UGF.EditorTools
 
         private static void CheckAppConfigs(GFDiagnosticReportItem item)
         {
-            var appConfig = AppConfigs.GetInstanceEditor();
+            var appConfig = AppConfigs.ReloadInstanceEditor();
             if (appConfig == null)
             {
                 item.Fail("AppConfigs asset can not be loaded.");

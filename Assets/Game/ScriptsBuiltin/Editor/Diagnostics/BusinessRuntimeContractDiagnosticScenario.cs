@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using UnityEditor;
 
 namespace UGF.EditorTools
@@ -59,7 +60,7 @@ namespace UGF.EditorTools
 
         private static void CheckAppConfigs(GFDiagnosticScenarioContext context)
         {
-            var appConfig = AppConfigs.GetInstanceEditor();
+            var appConfig = AppConfigs.ReloadInstanceEditor();
             if (appConfig == null)
             {
                 context.Fail("AppConfigs asset can not be loaded.");
@@ -152,7 +153,7 @@ namespace UGF.EditorTools
             var hits = new List<string>();
             foreach (string file in Directory.GetFiles(gfRuntimeRoot, "*.cs", SearchOption.AllDirectories))
             {
-                string text = File.ReadAllText(file);
+                string text = StripCSharpComments(File.ReadAllText(file));
                 foreach (string forbiddenToken in forbiddenTokens)
                 {
                     if (text.Contains(forbiddenToken, StringComparison.Ordinal))
@@ -167,6 +168,17 @@ namespace UGF.EditorTools
             {
                 context.Fail("GF_X runtime scripts must not directly reference old runtime hosts: " + string.Join(",", hits));
             }
+        }
+
+        private static string StripCSharpComments(string text)
+        {
+            if (string.IsNullOrEmpty(text))
+            {
+                return string.Empty;
+            }
+
+            text = Regex.Replace(text, @"/\*.*?\*/", string.Empty, RegexOptions.Singleline);
+            return Regex.Replace(text, @"^\s*//.*$", string.Empty, RegexOptions.Multiline);
         }
 
         private static void CheckNoDirectInputBypass(GFDiagnosticScenarioContext context)

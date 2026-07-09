@@ -21,13 +21,18 @@ namespace UGF.EditorTools
             "GameData/AIData/DataTables",
             "GameData/Diagnostics",
             "GameData/Diagnostics/Reports",
+            "项目知识库（AI自行维护）",
+            "项目知识库（AI自行维护）/raw",
+            "项目知识库（AI自行维护）/outputs",
+            "项目知识库（AI自行维护）/wiki",
+            "项目知识库（AI自行维护）/wiki/manifests",
         };
 
         private static readonly string[] ScanRoots =
         {
             "Assets/Game",
             "GameData",
-            "Docs",
+            "项目知识库（AI自行维护）/wiki",
         };
 
         private static readonly string[] TextExtensions =

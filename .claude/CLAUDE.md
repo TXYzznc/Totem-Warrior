@@ -47,7 +47,7 @@ python .claude/skills/unity-skills/scripts/unity_skills.py totem_diagnostics_run
 - 回复尽量简洁，不要加无关的客套话。
 - 优先用简单方案，不要过度工程。
 - 涉及项目代码和业务开发时，必须先遵循本 CLAUDE.md 与 [conventions.md](./conventions.md)。
-- 查找具体系统/问题文档时，先查阅[项目知识库索引 INDEX.md](../项目知识库（AI自行维护）/INDEX.md)。
+- 查找具体系统/问题文档时，先查阅[项目知识库索引 INDEX.md](../项目知识库（AI自行维护）/wiki/INDEX.md)。
 - 所有按键输入必须走 `TotemInputService` / `ITotemInputProvider`。
 
 ---
@@ -158,7 +158,7 @@ python .claude/skills/unity-skills/scripts/unity_skills.py totem_diagnostics_run
 1. `openspec new change <NN-功能名>` → 写 proposal/design/tasks/specs
 2. 按 tasks.md 顺序实现（client-unity / art-director 等 agent 落地）
 3. 中途遇到模糊点：**优先按阶段 A 的共识自决**，写日志/spec 备注
-4. 完成后 `openspec archive-change <NN-name>` + 同步更新 [项目知识库（AI自行维护）/INDEX.md](../项目知识库（AI自行维护）/INDEX.md)
+4. 完成后 `openspec archive-change <NN-name>` + 同步更新 [项目知识库（AI自行维护）/wiki/INDEX.md](../项目知识库（AI自行维护）/wiki/INDEX.md)
 
 #### B2. 轻量路径（跳过 openspec）
 
