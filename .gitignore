@@ -113,3 +113,5 @@ ehthumbs.db
 
 # 字体资源体积过大，不进版本控制（本地各自维护）
 /Assets/Resources/Font/
+tools/LocalizationStringScanner/LocalizationCodeScanner
+tools/Jenkins/jenkins.war
