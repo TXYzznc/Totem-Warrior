@@ -4,8 +4,8 @@
   "tableName": "ThreeChoiceOptionConfig",
   "relativePath": "Business/ThreeChoiceOptionConfig",
   "sourceExcel": "GameData/DataTables/Business/ThreeChoiceOptionConfig.xlsx",
-  "sourceExcelLastWriteUtc": "2026-07-08T14:56:09.5061377Z",
-  "generatedAtUtc": "2026-07-08T14:56:09.7241379Z",
+  "sourceExcelLastWriteUtc": "2026-07-09T10:01:03.3659506Z",
+  "generatedAtUtc": "2026-07-09T10:01:03.5329507Z",
   "tableComment": "Business table migrated from LegacyProjectArchive/Assets/Resources/DataTable/ThreeChoiceOptionConfig.json. GF_X Id is numeric; original business keys are preserved as data columns.",
   "columns": [
     {

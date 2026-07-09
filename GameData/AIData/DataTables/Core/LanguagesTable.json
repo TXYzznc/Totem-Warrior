@@ -4,8 +4,8 @@
   "tableName": "LanguagesTable",
   "relativePath": "Core/LanguagesTable",
   "sourceExcel": "GameData/DataTables/Core/LanguagesTable.xlsx",
-  "sourceExcelLastWriteUtc": "2026-07-07T07:34:26.1944618Z",
-  "generatedAtUtc": "2026-07-07T07:34:26.4279615Z",
+  "sourceExcelLastWriteUtc": "2026-07-09T10:01:06.0284520Z",
+  "generatedAtUtc": "2026-07-09T10:01:06.1954509Z",
   "tableComment": "LanguagesTable",
   "columns": [
     {

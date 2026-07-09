@@ -4,8 +4,8 @@
   "tableName": "EntityGroupTable",
   "relativePath": "Core/EntityGroupTable",
   "sourceExcel": "GameData/DataTables/Core/EntityGroupTable.xlsx",
-  "sourceExcelLastWriteUtc": "2026-07-07T07:34:25.6699616Z",
-  "generatedAtUtc": "2026-07-07T07:34:25.8574613Z",
+  "sourceExcelLastWriteUtc": "2026-07-09T10:01:05.4534510Z",
+  "generatedAtUtc": "2026-07-09T10:01:05.6219507Z",
   "tableComment": "EntityGroup",
   "columns": [
     {

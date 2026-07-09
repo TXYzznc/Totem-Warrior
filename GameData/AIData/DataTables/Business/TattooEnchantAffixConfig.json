@@ -4,8 +4,8 @@
   "tableName": "TattooEnchantAffixConfig",
   "relativePath": "Business/TattooEnchantAffixConfig",
   "sourceExcel": "GameData/DataTables/Business/TattooEnchantAffixConfig.xlsx",
-  "sourceExcelLastWriteUtc": "2026-07-08T14:56:07.0596370Z",
-  "generatedAtUtc": "2026-07-08T14:56:07.2511373Z",
+  "sourceExcelLastWriteUtc": "2026-07-09T10:01:01.2129511Z",
+  "generatedAtUtc": "2026-07-09T10:01:01.3769511Z",
   "tableComment": "Business table migrated from LegacyProjectArchive/Assets/Resources/DataTable/TattooEnchantAffixConfig.json. GF_X Id is numeric; original business keys are preserved as data columns.",
   "columns": [
     {

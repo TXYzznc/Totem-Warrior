@@ -4,8 +4,8 @@
   "tableName": "NPCConfig",
   "relativePath": "Business/NPCConfig",
   "sourceExcel": "GameData/DataTables/Business/NPCConfig.xlsx",
-  "sourceExcelLastWriteUtc": "2026-07-08T14:56:04.1586375Z",
-  "generatedAtUtc": "2026-07-08T14:56:04.3626384Z",
+  "sourceExcelLastWriteUtc": "2026-07-09T10:00:58.6324508Z",
+  "generatedAtUtc": "2026-07-09T10:00:58.8044517Z",
   "tableComment": "Business table migrated from LegacyProjectArchive/Assets/Resources/DataTable/NPCConfig.json. GF_X Id is numeric; original business keys are preserved as data columns.",
   "columns": [
     {

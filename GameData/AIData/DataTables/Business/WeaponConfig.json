@@ -4,8 +4,8 @@
   "tableName": "WeaponConfig",
   "relativePath": "Business/WeaponConfig",
   "sourceExcel": "GameData/DataTables/Business/WeaponConfig.xlsx",
-  "sourceExcelLastWriteUtc": "2026-07-08T14:56:10.5206376Z",
-  "generatedAtUtc": "2026-07-08T14:56:10.7736373Z",
+  "sourceExcelLastWriteUtc": "2026-07-09T10:01:04.0759507Z",
+  "generatedAtUtc": "2026-07-09T10:01:04.2414511Z",
   "tableComment": "Business table migrated from LegacyProjectArchive/Assets/Resources/DataTable/WeaponConfig.json. GF_X Id is numeric; original business keys are preserved as data columns.",
   "columns": [
     {

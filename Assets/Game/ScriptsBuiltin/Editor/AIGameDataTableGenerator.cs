@@ -895,15 +895,16 @@ namespace UGF.EditorTools
 
             bool excelExisted = File.Exists(excelFile);
             string backupFile = CreateExcelBackup(excelFile, relativePath);
-            item.backupFile = backupFile;
 
             try
             {
                 WriteExcelFile(excelFile, rows);
+                DeleteExcelBackup(backupFile);
+                backupFile = null;
                 GFTrace.Success("AIDataTable", "Excel.Write", null, GFTrace.Data(
                     "table", relativePath,
                     "excel", excelFile,
-                    "backup", backupFile,
+                    "backup", "temporary",
                     "changedCells", diff.changedCellCount.ToString(),
                     "changedRows", diff.changedRowCount.ToString()));
             }
@@ -911,8 +912,13 @@ namespace UGF.EditorTools
             {
                 RestoreExcelBackup(excelFile, backupFile, excelExisted);
                 item.rollbackRestored = true;
+                item.backupFile = backupFile;
                 GFTrace.Failure("AIDataTable", "Excel.Write.Rollback", null, GFTrace.Data("table", relativePath, "excel", excelFile, "backup", backupFile));
                 throw;
+            }
+            finally
+            {
+                DeleteExcelBackup(backupFile);
             }
         }
 
@@ -1000,9 +1006,10 @@ namespace UGF.EditorTools
                 return null;
             }
 
+            string projectRoot = Directory.GetParent(Application.dataPath).FullName;
             string backupFile = UtilityBuiltin.AssetsPath.GetCombinePath(
-                ConstEditor.AIDataPath,
-                "Backups/DataTables",
+                projectRoot,
+                "Temp/AIDataExcelBackups/DataTables",
                 $"{ToRelativePathWithoutExtension(relativePath)}.{DateTime.Now:yyyyMMdd_HHmmss}.xlsx");
             EnsureFileDirectory(backupFile);
             File.Copy(excelFile, backupFile, true);
@@ -1019,6 +1026,14 @@ namespace UGF.EditorTools
             else if (!excelExisted && File.Exists(excelFile))
             {
                 File.Delete(excelFile);
+            }
+        }
+
+        private static void DeleteExcelBackup(string backupFile)
+        {
+            if (!string.IsNullOrWhiteSpace(backupFile) && File.Exists(backupFile))
+            {
+                File.Delete(backupFile);
             }
         }
 

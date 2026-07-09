@@ -4,8 +4,8 @@
   "tableName": "EnemyConfig",
   "relativePath": "Business/EnemyConfig",
   "sourceExcel": "GameData/DataTables/Business/EnemyConfig.xlsx",
-  "sourceExcelLastWriteUtc": "2026-07-08T14:56:02.1066372Z",
-  "generatedAtUtc": "2026-07-08T14:56:02.3111374Z",
+  "sourceExcelLastWriteUtc": "2026-07-09T10:00:56.9094507Z",
+  "generatedAtUtc": "2026-07-09T10:00:57.0804511Z",
   "tableComment": "Business table migrated from LegacyProjectArchive/Assets/Resources/DataTable/EnemyConfig.json. GF_X Id is numeric; original business keys are preserved as data columns.",
   "columns": [
     {

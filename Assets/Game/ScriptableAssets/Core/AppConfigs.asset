@@ -14,6 +14,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_LoadFromBytes: 0
   mDataTables:
+  - Business/BossPhaseConfig
+  - Business/BotBuildPreset
+  - Business/BotConfig
+  - Business/ChestConfig
+  - Business/EnemyConfig
+  - Business/EventConfig
+  - Business/ItemConfig
+  - Business/MapTemplateConfig
+  - Business/MerchantConfig
+  - Business/NPCConfig
+  - Business/ProjectileConfig
+  - Business/ResourceConfig
+  - Business/ShopStockConfig
+  - Business/SkillConfig
+  - Business/TattooColorConfig
+  - Business/TattooElementConfig
+  - Business/TattooEnchantAffixConfig
+  - Business/TattooEnchantRecipeConfig
+  - Business/TattooPartConfig
+  - Business/TattooPatternConfig
+  - Business/TattooReadingTimeConfig
+  - Business/TattooShapeConfig
+  - Business/ThreeChoiceOptionConfig
+  - Business/UIFormConfig
+  - Business/WeaponConfig
+  - Business/WeaponDropConfig
+  - Business/WeaponTraitConfig
+  - Business/ZoneShrinkConfig
   - Core/EntityGroupTable
   - Core/LanguagesTable
   - Core/SoundGroupTable

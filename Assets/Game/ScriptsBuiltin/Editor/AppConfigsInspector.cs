@@ -372,7 +372,12 @@ namespace UGF.EditorTools
             }
 
             EditorGUILayout.Space(10);
+            EditorGUI.BeginChangeCheck();
             appConfig.LoadFromBytes = EditorGUILayout.ToggleLeft(loadFromBytesContent, appConfig.LoadFromBytes);
+            if (EditorGUI.EndChangeCheck())
+            {
+                SaveConfig(appConfig);
+            }
             procedureFoldout = EditorGUILayout.Foldout(procedureFoldout, procedureTitleContent);
             var perItemWidth = GUILayout.Width(Mathf.Max(EditorGUIUtility.currentViewWidth / ONE_LINE_SHOW_COUNT - 20, 100));
             if (procedureFoldout)
@@ -460,6 +465,7 @@ namespace UGF.EditorTools
                 cfg.GetType().GetField("mProcedures", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).SetValue(cfg, selectedProcedures.ToArray());
             }
             EditorUtility.SetDirty(cfg);
+            AssetDatabase.SaveAssetIfDirty(cfg);
         }
         private void ReloadScrollView(AppConfigs cfg)
         {
