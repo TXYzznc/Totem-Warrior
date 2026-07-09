@@ -255,12 +255,12 @@ namespace UGF.EditorTools
 
             if (Directory.Exists("Assets/Game/Examples/DemoGame"))
             {
-                item.Detail("exampleAssets", "Assets/Game/Examples/DemoGame");
+                item.Fail("GF_X DemoGame example assets must not remain in the active project: Assets/Game/Examples/DemoGame");
             }
 
             if (Directory.Exists("GameData/Examples/DemoGame"))
             {
-                item.Detail("exampleGameData", "GameData/Examples/DemoGame");
+                item.Fail("GF_X DemoGame example data must not remain in the active project: GameData/Examples/DemoGame");
             }
         }
 

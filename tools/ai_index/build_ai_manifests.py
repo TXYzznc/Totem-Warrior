@@ -1575,7 +1575,7 @@ def build_art_assets_manifest() -> dict[str, Any]:
         "assets": assets,
         "notes": [
             "Purpose fields are inferred from path/name and must be corrected when the user confirms a resource is obsolete, duplicated, or reserved.",
-            "Assets under Assets/Game/Examples are indexed as reference/example only and must not enter the clean startup runtime flow.",
+            "GF_X DemoGame example assets are removed from the active project; do not recreate Assets/Game/Examples for runtime work.",
             "Assets under Assets/Resources are reuse candidates, but loading/lifecycle must be rewritten through GF_X.",
             "runtime_usages links an asset back to GameData/AIData/GameplayCatalogs/totem_runtime_assets.json so AI can see where the asset is used before editing or replacing it.",
             "ui_form_usages links UI prefabs back to GameData/AIData/DataTables/Business/UIFormConfig.json and the GF_X UI form lifecycle.",

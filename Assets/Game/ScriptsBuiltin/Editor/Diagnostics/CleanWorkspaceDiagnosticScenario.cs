@@ -13,14 +13,11 @@ namespace UGF.EditorTools
 
         public override void Run(GFDiagnosticScenarioContext context)
         {
-            context.TraceInfo("Arrange", "Check active workspace and centralized examples.");
+            context.TraceInfo("Arrange", "Check active workspace and removed GF_X examples.");
 
             RequireDirectory(context, "Assets/Game/Scene");
             RequireDirectory(context, "Assets/Game/Prefabs/Entity");
             RequireDirectory(context, "Assets/Game/Prefabs/UI");
-            RequireDirectory(context, "Assets/Game/Examples/DemoGame");
-            RequireDirectory(context, "GameData/Examples/DemoGame");
-
             RequireFile(context, "Assets/Game/Scene/Launch.unity");
             RequireFile(context, "Assets/Game/Scripts/Procedures/WorkspaceProcedure.cs");
             RequireFile(context, "Assets/Game/ScriptableAssets/Core/AppConfigs.asset");
@@ -28,7 +25,9 @@ namespace UGF.EditorTools
             RequireFile(context, "GameData/DataTables/Core/LanguagesTable.xlsx");
             RequireFile(context, "GameData/Languages/English.xlsx");
 
-            ForbidFile(context, "Assets/Game/Scene/Game.unity", "Demo scene must stay under Assets/Game/Examples/DemoGame.");
+            ForbidDirectory(context, "Assets/Game/Examples/DemoGame", "GF_X DemoGame example assets must not remain in the active project.");
+            ForbidDirectory(context, "GameData/Examples/DemoGame", "GF_X DemoGame example data must not remain in the active project.");
+            ForbidFile(context, "Assets/Game/Scene/Game.unity", "Demo scene must not be present in the active scene folder.");
             ForbidFile(context, "Assets/Game/Scripts/Procedures/MenuProcedure.cs", "Demo MenuProcedure must not be compiled in active workspace.");
             ForbidFile(context, "Assets/Game/Scripts/Procedures/GameProcedure.cs", "Demo GameProcedure must not be compiled in active workspace.");
             ForbidFile(context, "Assets/Game/Scripts/Procedures/GameOverProcedure.cs", "Demo GameOverProcedure must not be compiled in active workspace.");
@@ -48,7 +47,7 @@ namespace UGF.EditorTools
             ForbidRuntimeResidues(context);
             ForbidPrefabMissingScripts(context);
 
-            context.Detail("contract", "Active workspace starts from Launch -> Preload -> Workspace; examples stay centralized.");
+            context.Detail("contract", "Active workspace starts from Launch -> Preload -> Workspace; GF_X DemoGame examples are removed.");
         }
 
         private static void RequireDirectory(GFDiagnosticScenarioContext context, string directoryName)

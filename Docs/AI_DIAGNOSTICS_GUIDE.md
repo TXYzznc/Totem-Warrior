@@ -146,4 +146,4 @@ public sealed class ItemTableDiagnosticScenario : GFDiagnosticScenarioBase
 
 ## 当前内置场景
 
-- `Scenario/Core/Clean Workspace Contract`：保证当前启动工作区干净，示例项目集中在 `Assets/Game/Examples/DemoGame` 和 `GameData/Examples/DemoGame`，不会混入默认启动流程。
+- `Scenario/Core/Clean Workspace Contract`：保证当前启动工作区干净，GF_X DemoGame 示例内容不再保留在当前工程，且不会混入默认启动流程。
