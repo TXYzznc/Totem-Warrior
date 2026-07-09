@@ -1,12 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using PCGMap;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public sealed class TotemMapService : TotemRuntimeServiceBase
 {
     public const float DefaultMapSize = 400f;
     public const int TerrainCellSize = 4;
     public const int TerrainGridResolution = 100;
+    public const int PcgMapWidth = 64;
+    public const int PcgMapHeight = 64;
+    public const float PcgEdgeMatchTolerance = 0.18f;
 
     private readonly List<GameObject> spawnedObjects = new List<GameObject>(16);
     private GameObject mapRoot;
@@ -21,6 +26,17 @@ public sealed class TotemMapService : TotemRuntimeServiceBase
     private int materialFallbackCount;
     private string lastMaterialAssetKey = string.Empty;
     private string lastMaterialFallbackAssetKey = string.Empty;
+    private int pcgCellObjectCount;
+    private int pcgVisualObjectCount;
+    private int pcgMissingSpriteCount;
+    private int pcgSpriteLoadCount;
+    private int pcgSpriteCreateCount;
+
+    private static PCGAssetIndex cachedPcgAssetIndex;
+    private static string cachedPcgAssetIndexError = string.Empty;
+    private static readonly Dictionary<string, TotemMapSnapshot> pcgSnapshotCache = new Dictionary<string, TotemMapSnapshot>(32);
+    private static readonly Dictionary<string, Sprite> pcgSpriteCache = new Dictionary<string, Sprite>(512);
+    private static readonly Dictionary<string, Tile> pcgTileCache = new Dictionary<string, Tile>(512);
 
     public override string ServiceName => "Map";
 
@@ -95,6 +111,13 @@ public sealed class TotemMapService : TotemRuntimeServiceBase
             lastMaterialFallbackAssetKey = lastMaterialFallbackAssetKey,
             mapSize = CurrentMap?.MapSize ?? 0f,
             themeName = CurrentMap?.ThemeName ?? string.Empty,
+            isPcgGenerated = CurrentMap?.IsPcgGenerated ?? false,
+            pcgCellObjectCount = pcgCellObjectCount,
+            pcgVisualObjectCount = pcgVisualObjectCount,
+            pcgMissingSpriteCount = pcgMissingSpriteCount,
+            pcgSpriteLoadCount = pcgSpriteLoadCount,
+            pcgSpriteCreateCount = pcgSpriteCreateCount,
+            pcgContentHash = CurrentMap?.PcgContentHash ?? 0UL,
         };
     }
 
@@ -112,6 +135,14 @@ public sealed class TotemMapService : TotemRuntimeServiceBase
         float zoneX = (float)rng.NextDouble() * third + third;
         float zoneY = (float)rng.NextDouble() * third + third;
         float roomFootprint = Mathf.Max(30f, template.MinRoomSize * 2f);
+
+        if (TryBuildPcgLayout(seed, template, zoneX, zoneY, roomFootprint, out var pcgMap, out string pcgError))
+        {
+            return pcgMap;
+        }
+
+        GFTrace.Warning("TotemMap", "PCG.FallbackToLegacyLayout", null, GFTrace.Data("error", pcgError ?? string.Empty));
+
         var rooms = BuildThemeRooms(template.Id, mapSize, roomFootprint);
         var terrainGrid = BuildTerrainGrid(template.Id, mapSize, rooms, out int groundCount, out int slowCount, out int blockedCount, out int coverCount, out int hazardCount);
 
@@ -142,6 +173,372 @@ public sealed class TotemMapService : TotemRuntimeServiceBase
 
         map.AnchorPlacements = BuildAnchorPlacements(map);
         return map;
+    }
+
+    private static bool TryBuildPcgLayout(
+        int seed,
+        TotemMapTemplateDefinition template,
+        float initialZoneX,
+        float initialZoneY,
+        float roomFootprint,
+        out TotemMapSnapshot map,
+        out string error)
+    {
+        map = null;
+        error = string.Empty;
+        if (template == null)
+        {
+            error = "Missing map template.";
+            return false;
+        }
+
+        string cacheKey = BuildPcgCacheKey(seed, template);
+        if (pcgSnapshotCache.TryGetValue(cacheKey, out var cached))
+        {
+            map = CloneMapSnapshot(cached);
+            return true;
+        }
+
+        try
+        {
+            if (!TryGetPcgAssetIndex(out var assetIndex, out error))
+            {
+                return false;
+            }
+
+            int pcgSeed = unchecked(seed * 1009 + template.Id * 9176);
+            var generator = new PCGMapGenerator(assetIndex);
+            var pcgMap = generator.Generate(new PCGMapGenerateRequest
+            {
+                Seed = pcgSeed,
+                Width = PcgMapWidth,
+                Height = PcgMapHeight,
+                ObjectBudget = 160,
+                StampBudget = 24,
+                DecalBudget = 180,
+                EdgeMatchTolerance = PcgEdgeMatchTolerance,
+                TeamSpawnZoneWeight = 100,
+                LootZoneWeight = 100,
+                CombatZoneWeight = 100,
+                DangerZoneWeight = 100,
+            });
+
+            if (pcgMap == null || pcgMap.Cells == null || pcgMap.Cells.Length <= 0)
+            {
+                error = "PCG generator returned an empty map.";
+                return false;
+            }
+
+            var rooms = BuildPcgRooms(pcgMap, template.MapSize, roomFootprint);
+            var terrainGrid = BuildTerrainGridFromPcg(pcgMap, template.MapSize, out int groundCount, out int slowCount, out int blockedCount, out int coverCount, out int hazardCount);
+            map = new TotemMapSnapshot
+            {
+                Seed = seed,
+                ThemeId = template.Id,
+                ThemeName = template.ThemeName,
+                MapSize = template.MapSize,
+                MinRoomSize = template.MinRoomSize,
+                BspMaxDepth = template.BspMaxDepth,
+                TerrainPoolId = template.TerrainPoolId,
+                PrefabPath = template.PrefabPath,
+                HudAccentColor = template.HudAccentColor,
+                DominantColor = template.DominantColor,
+                InitialZoneCenter = new Vector2(initialZoneX, initialZoneY),
+                Rooms = rooms,
+                TerrainCellSize = TerrainCellSize,
+                TerrainGridWidth = TerrainGridResolution,
+                TerrainGridHeight = TerrainGridResolution,
+                TerrainGrid = terrainGrid,
+                GroundCellCount = groundCount,
+                SlowCellCount = slowCount,
+                BlockedCellCount = blockedCount,
+                CoverCellCount = coverCount,
+                HazardCellCount = hazardCount,
+                IsPcgGenerated = true,
+                PcgWidth = pcgMap.Width,
+                PcgHeight = pcgMap.Height,
+                PcgVisualCount = pcgMap.Visuals.Count,
+                PcgReachableCells = pcgMap.Validation?.ReachableCells ?? 0,
+                PcgUnreachableCells = pcgMap.Validation?.UnreachableCells ?? 0,
+                PcgContentHash = pcgMap.ContentHash,
+                PcgValidationSummary = BuildPcgValidationSummary(pcgMap),
+                PcgMapData = pcgMap,
+            };
+
+            map.AnchorPlacements = BuildAnchorPlacements(map);
+            pcgSnapshotCache[cacheKey] = CloneMapSnapshot(map);
+            return true;
+        }
+        catch (Exception ex)
+        {
+            error = ex.Message;
+            return false;
+        }
+    }
+
+    private static string BuildPcgCacheKey(int seed, TotemMapTemplateDefinition template)
+    {
+        return $"{seed}|{template.Id}|{template.MapSize:0.###}|{template.MinRoomSize:0.###}|{template.BspMaxDepth}|{template.TerrainPoolId}|{template.ThemeName}";
+    }
+
+    private static TotemMapSnapshot CloneMapSnapshot(TotemMapSnapshot source)
+    {
+        if (source == null)
+        {
+            return null;
+        }
+
+        return new TotemMapSnapshot
+        {
+            Seed = source.Seed,
+            ThemeId = source.ThemeId,
+            ThemeName = source.ThemeName,
+            MapSize = source.MapSize,
+            MinRoomSize = source.MinRoomSize,
+            BspMaxDepth = source.BspMaxDepth,
+            TerrainPoolId = source.TerrainPoolId,
+            PrefabPath = source.PrefabPath,
+            HudAccentColor = source.HudAccentColor,
+            DominantColor = source.DominantColor,
+            InitialZoneCenter = source.InitialZoneCenter,
+            Rooms = CloneRooms(source.Rooms),
+            AnchorPlacements = CloneAnchors(source.AnchorPlacements),
+            TerrainCellSize = source.TerrainCellSize,
+            TerrainGridWidth = source.TerrainGridWidth,
+            TerrainGridHeight = source.TerrainGridHeight,
+            TerrainGrid = source.TerrainGrid == null ? Array.Empty<byte>() : (byte[])source.TerrainGrid.Clone(),
+            GroundCellCount = source.GroundCellCount,
+            SlowCellCount = source.SlowCellCount,
+            BlockedCellCount = source.BlockedCellCount,
+            CoverCellCount = source.CoverCellCount,
+            HazardCellCount = source.HazardCellCount,
+            IsPcgGenerated = source.IsPcgGenerated,
+            PcgWidth = source.PcgWidth,
+            PcgHeight = source.PcgHeight,
+            PcgVisualCount = source.PcgVisualCount,
+            PcgReachableCells = source.PcgReachableCells,
+            PcgUnreachableCells = source.PcgUnreachableCells,
+            PcgContentHash = source.PcgContentHash,
+            PcgValidationSummary = source.PcgValidationSummary,
+            PcgMapData = source.PcgMapData,
+        };
+    }
+
+    private static TotemRoomInfo[] CloneRooms(TotemRoomInfo[] rooms)
+    {
+        if (rooms == null || rooms.Length <= 0)
+        {
+            return Array.Empty<TotemRoomInfo>();
+        }
+
+        var clone = new TotemRoomInfo[rooms.Length];
+        for (int i = 0; i < rooms.Length; i++)
+        {
+            var room = rooms[i];
+            if (room == null)
+            {
+                continue;
+            }
+
+            clone[i] = new TotemRoomInfo
+            {
+                RoomId = room.RoomId,
+                Label = room.Label,
+                RoomType = room.RoomType,
+                Bounds = room.Bounds,
+                CenterWorld = room.CenterWorld,
+                Footprint = room.Footprint,
+            };
+        }
+
+        return clone;
+    }
+
+    private static TotemMapAnchor[] CloneAnchors(TotemMapAnchor[] anchors)
+    {
+        if (anchors == null || anchors.Length <= 0)
+        {
+            return Array.Empty<TotemMapAnchor>();
+        }
+
+        var clone = new TotemMapAnchor[anchors.Length];
+        for (int i = 0; i < anchors.Length; i++)
+        {
+            var anchor = anchors[i];
+            if (anchor == null)
+            {
+                continue;
+            }
+
+            clone[i] = new TotemMapAnchor
+            {
+                AnchorId = anchor.AnchorId,
+                Kind = anchor.Kind,
+                RoomType = anchor.RoomType,
+                Position = anchor.Position,
+                Order = anchor.Order,
+                PayloadId = anchor.PayloadId,
+            };
+        }
+
+        return clone;
+    }
+
+    private static bool TryGetPcgAssetIndex(out PCGAssetIndex index, out string error)
+    {
+        index = cachedPcgAssetIndex;
+        error = string.Empty;
+        if (index != null)
+        {
+            return true;
+        }
+
+        try
+        {
+            cachedPcgAssetIndex = PCGAssetIndex.LoadFromResources();
+            cachedPcgAssetIndexError = string.Empty;
+            index = cachedPcgAssetIndex;
+            return index != null;
+        }
+        catch (Exception ex)
+        {
+            cachedPcgAssetIndexError = ex.Message;
+            error = cachedPcgAssetIndexError;
+            index = null;
+            return false;
+        }
+    }
+
+    private static TotemRoomInfo[] BuildPcgRooms(PCGMapData pcgMap, float mapSize, float roomFootprint)
+    {
+        return new[]
+        {
+            CreateRoom(0, "PCG_TeamSpawn", TotemRoomType.SpawnRoom, FindPcgZoneWorldPosition(pcgMap, mapSize, "team_spawn", new Vector2(0.18f, 0.18f)), roomFootprint),
+            CreateRoom(1, "PCG_TattooStudio", TotemRoomType.TattooStudio, FindPcgZoneWorldPosition(pcgMap, mapSize, "loot_zone", new Vector2(0.28f, 0.72f)), roomFootprint),
+            CreateRoom(2, "PCG_Merchant", TotemRoomType.Merchant, FindPcgZoneWorldPosition(pcgMap, mapSize, "combat_zone", new Vector2(0.68f, 0.52f)), roomFootprint),
+            CreateRoom(3, "PCG_BossRoom", TotemRoomType.BossRoom, FindPcgZoneWorldPosition(pcgMap, mapSize, "danger_zone", new Vector2(0.80f, 0.80f)), roomFootprint),
+        };
+    }
+
+    private static Vector2 FindPcgZoneWorldPosition(PCGMapData pcgMap, float mapSize, string zoneId, Vector2 normalizedTarget)
+    {
+        int bestX = -1;
+        int bestY = -1;
+        float bestScore = float.MaxValue;
+        float targetX = normalizedTarget.x * pcgMap.Width;
+        float targetY = normalizedTarget.y * pcgMap.Height;
+
+        for (int y = 0; y < pcgMap.Height; y++)
+        {
+            for (int x = 0; x < pcgMap.Width; x++)
+            {
+                var cell = pcgMap.GetCell(x, y);
+                if (!cell.Walkable || cell.Occupied || !string.Equals(cell.ZoneId, zoneId, StringComparison.Ordinal))
+                {
+                    continue;
+                }
+
+                float dx = x - targetX;
+                float dy = y - targetY;
+                float score = dx * dx + dy * dy;
+                if (score < bestScore)
+                {
+                    bestScore = score;
+                    bestX = x;
+                    bestY = y;
+                }
+            }
+        }
+
+        if (bestX < 0)
+        {
+            bestX = Mathf.Clamp(Mathf.RoundToInt(targetX), 1, Math.Max(1, pcgMap.Width - 2));
+            bestY = Mathf.Clamp(Mathf.RoundToInt(targetY), 1, Math.Max(1, pcgMap.Height - 2));
+        }
+
+        return new Vector2(
+            (bestX + 0.5f) / Mathf.Max(1, pcgMap.Width) * mapSize,
+            (bestY + 0.5f) / Mathf.Max(1, pcgMap.Height) * mapSize);
+    }
+
+    private static byte[] BuildTerrainGridFromPcg(
+        PCGMapData pcgMap,
+        float mapSize,
+        out int groundCount,
+        out int slowCount,
+        out int blockedCount,
+        out int coverCount,
+        out int hazardCount)
+    {
+        var grid = new byte[TerrainGridResolution * TerrainGridResolution];
+        float worldCellSize = mapSize / TerrainGridResolution;
+        for (int z = 0; z < TerrainGridResolution; z++)
+        {
+            float worldZ = (z + 0.5f) * worldCellSize;
+            int pcgY = Mathf.Clamp(Mathf.FloorToInt(worldZ / mapSize * pcgMap.Height), 0, pcgMap.Height - 1);
+            for (int x = 0; x < TerrainGridResolution; x++)
+            {
+                float worldX = (x + 0.5f) * worldCellSize;
+                int pcgX = Mathf.Clamp(Mathf.FloorToInt(worldX / mapSize * pcgMap.Width), 0, pcgMap.Width - 1);
+                var cell = pcgMap.GetCell(pcgX, pcgY);
+                grid[z * TerrainGridResolution + x] = (byte)ResolvePcgTerrainType(cell, pcgMap.Seed);
+            }
+        }
+
+        CountTerrainCells(grid, out groundCount, out slowCount, out blockedCount, out coverCount, out hazardCount);
+        return grid;
+    }
+
+    private static TotemTerrainType ResolvePcgTerrainType(PCGMapCell cell, int seed)
+    {
+        if (!cell.Walkable || string.Equals(cell.Terrain, "water", StringComparison.Ordinal))
+        {
+            return TotemTerrainType.Blocked;
+        }
+
+        if (cell.Occupied)
+        {
+            return TotemTerrainType.Blocked;
+        }
+
+        if (string.Equals(cell.ZoneId, "danger_zone", StringComparison.Ordinal) && IsPcgHazardCell(cell.X, cell.Y, seed))
+        {
+            return TotemTerrainType.Hazard;
+        }
+
+        switch (cell.Terrain)
+        {
+            case "mud":
+                return TotemTerrainType.Slow;
+            case "forest_ground":
+                return TotemTerrainType.Cover;
+            case "corruption":
+                return TotemTerrainType.Hazard;
+            default:
+                return TotemTerrainType.Ground;
+        }
+    }
+
+    private static bool IsPcgHazardCell(int x, int y, int seed)
+    {
+        unchecked
+        {
+            int hash = seed;
+            hash = hash * 397 ^ x * 73856093;
+            hash = hash * 397 ^ y * 19349663;
+            return (hash & 0x0F) == 0;
+        }
+    }
+
+    private static string BuildPcgValidationSummary(PCGMapData pcgMap)
+    {
+        var report = pcgMap.Validation;
+        if (report == null)
+        {
+            return "ValidationMissing";
+        }
+
+        return $"valid={report.IsValid};walkable={report.WalkableCells};reachable={report.ReachableCells};unreachable={report.UnreachableCells};warnings={report.Warnings.Count}";
     }
 
     public TotemTerrainType QueryTerrain(Vector3 worldPos)
@@ -378,21 +775,66 @@ public sealed class TotemMapService : TotemRuntimeServiceBase
     private static Vector3 ResolveWalkableAnchorPosition(TotemMapSnapshot map, TotemRoomInfo room, Vector3 preferred, Vector3 fallback)
     {
         preferred = ClampToMap(preferred, map);
-        if (IsTerrainWalkable(QueryTerrain(map, preferred)))
+        if (IsGroundTerrain(QueryTerrain(map, preferred)))
         {
             return preferred;
+        }
+
+        if (TryFindNearbyAnchorPosition(map, preferred, requireGround: true, out var groundNearPreferred))
+        {
+            return groundNearPreferred;
+        }
+
+        Vector3 walkableFallback = default;
+        bool hasWalkableFallback = false;
+        if (IsTerrainWalkable(QueryTerrain(map, preferred)))
+        {
+            walkableFallback = preferred;
+            hasWalkableFallback = true;
         }
 
         Vector3 roomCenter = room?.CenterWorld ?? fallback;
         roomCenter.y = 0.5f;
         roomCenter = ClampToMap(roomCenter, map);
+        if (IsGroundTerrain(QueryTerrain(map, roomCenter)))
+        {
+            return roomCenter;
+        }
+
+        if (TryFindNearbyAnchorPosition(map, roomCenter, requireGround: true, out var groundNearRoom))
+        {
+            return groundNearRoom;
+        }
+
+        if (hasWalkableFallback)
+        {
+            return walkableFallback;
+        }
+
         if (IsTerrainWalkable(QueryTerrain(map, roomCenter)))
         {
             return roomCenter;
         }
 
+        if (TryFindNearbyAnchorPosition(map, preferred, requireGround: false, out var walkableNearPreferred))
+        {
+            return walkableNearPreferred;
+        }
+
+        if (TryFindNearbyAnchorPosition(map, roomCenter, requireGround: false, out var walkableNearRoom))
+        {
+            return walkableNearRoom;
+        }
+
+        return roomCenter;
+    }
+
+    private static bool TryFindNearbyAnchorPosition(TotemMapSnapshot map, Vector3 origin, bool requireGround, out Vector3 position)
+    {
+        position = default;
+        origin = ClampToMap(origin, map);
         float step = Mathf.Max(1f, map?.TerrainCellSize ?? TerrainCellSize);
-        for (int radius = 1; radius <= 4; radius++)
+        for (int radius = 1; radius <= 8; radius++)
         {
             for (int dz = -radius; dz <= radius; dz++)
             {
@@ -403,17 +845,24 @@ public sealed class TotemMapService : TotemRuntimeServiceBase
                         continue;
                     }
 
-                    var candidate = ClampToMap(roomCenter + new Vector3(dx * step, 0f, dz * step), map);
+                    var candidate = ClampToMap(origin + new Vector3(dx * step, 0f, dz * step), map);
                     candidate.y = 0.5f;
-                    if (IsTerrainWalkable(QueryTerrain(map, candidate)))
+                    var terrain = QueryTerrain(map, candidate);
+                    if (requireGround ? IsGroundTerrain(terrain) : IsTerrainWalkable(terrain))
                     {
-                        return candidate;
+                        position = candidate;
+                        return true;
                     }
                 }
             }
         }
 
-        return roomCenter;
+        return false;
+    }
+
+    private static bool IsGroundTerrain(TotemTerrainType terrainType)
+    {
+        return terrainType == TotemTerrainType.Ground;
     }
 
     private static Vector3 ClampToMap(Vector3 position, TotemMapSnapshot map)
@@ -789,6 +1238,13 @@ public sealed class TotemMapService : TotemRuntimeServiceBase
         mapRoot = new GameObject("[TotemMap]");
         spawnedObjects.Add(mapRoot);
 
+        if (map.PcgMapData != null)
+        {
+            CreatePcgMapObjects(map);
+            CreateBoundaryWalls(map.MapSize);
+            return;
+        }
+
         float planeScale = map.MapSize / 10f;
         var ground = GameObject.CreatePrimitive(PrimitiveType.Plane);
         ground.name = "TotemMap_Ground";
@@ -803,6 +1259,320 @@ public sealed class TotemMapService : TotemRuntimeServiceBase
         {
             CreateRoomMarker(map.Rooms[i], GetRoomColor(map.Rooms[i].RoomType));
         }
+    }
+
+    private void CreatePcgMapObjects(TotemMapSnapshot map)
+    {
+        var pcgMap = map.PcgMapData;
+        float cellSize = map.MapSize / Mathf.Max(1, pcgMap.Width);
+        var tileRoot = CreatePcgTileRoot(cellSize);
+        var underlayTilemap = CreatePcgTilemap(tileRoot, "PCG_UnderlayTilemap", -5);
+        var groundTilemap = CreatePcgTilemap(tileRoot, "PCG_GroundTilemap", 0);
+
+        for (int y = 0; y < pcgMap.Height; y++)
+        {
+            for (int x = 0; x < pcgMap.Width; x++)
+            {
+                var cell = pcgMap.GetCell(x, y);
+                if (!string.IsNullOrEmpty(cell.UnderlayAsset))
+                {
+                    SetPcgTile(underlayTilemap, cell.UnderlayAsset, x, y, 0f, false, false);
+                }
+
+                bool useEdgeBase = !string.IsNullOrEmpty(cell.EdgeBaseAsset);
+                if (SetPcgTile(
+                    groundTilemap,
+                    useEdgeBase ? cell.EdgeBaseAsset : cell.BaseAsset,
+                    x,
+                    y,
+                    useEdgeBase ? 0f : cell.BaseRotationDegrees,
+                    !useEdgeBase && cell.BaseFlipX,
+                    true))
+                {
+                    pcgCellObjectCount++;
+                }
+            }
+        }
+
+        for (int i = 0; i < pcgMap.Visuals.Count; i++)
+        {
+            CreatePcgVisualSprite(pcgMap.Visuals[i], cellSize);
+        }
+    }
+
+    private Transform CreatePcgTileRoot(float cellSize)
+    {
+        var go = new GameObject("PCG_TileRoot");
+        go.transform.SetParent(mapRoot.transform, false);
+        go.transform.position = new Vector3(0f, 0.02f, 0f);
+        go.transform.rotation = Quaternion.Euler(90f, 0f, 0f);
+
+        var grid = go.AddComponent<Grid>();
+        grid.cellSize = new Vector3(cellSize, cellSize, 1f);
+        return go.transform;
+    }
+
+    private static Tilemap CreatePcgTilemap(Transform parent, string objectName, int sortingOrder)
+    {
+        var go = new GameObject(objectName);
+        go.transform.SetParent(parent, false);
+        var tilemap = go.AddComponent<Tilemap>();
+        tilemap.tileAnchor = new Vector3(0.5f, 0.5f, 0f);
+        var renderer = go.AddComponent<TilemapRenderer>();
+        renderer.sortingOrder = sortingOrder;
+        return tilemap;
+    }
+
+    private bool SetPcgTile(Tilemap tilemap, string assetPath, int x, int y, float rotationDegrees, bool flipX, bool countMissing)
+    {
+        var sprite = GetPcgSprite(assetPath, new Vector2(0.5f, 0.5f), countMissing);
+        if (sprite == null)
+        {
+            return false;
+        }
+
+        var tile = GetPcgTile(assetPath, sprite);
+        var position = new Vector3Int(x, y, 0);
+        tilemap.SetTile(position, tile);
+
+        if (Mathf.Abs(rotationDegrees) > 0.01f || flipX)
+        {
+            var scale = flipX ? new Vector3(-1f, 1f, 1f) : Vector3.one;
+            tilemap.SetTransformMatrix(position, Matrix4x4.TRS(Vector3.zero, Quaternion.Euler(0f, 0f, rotationDegrees), scale));
+        }
+
+        return true;
+    }
+
+    private static Tile GetPcgTile(string assetPath, Sprite sprite)
+    {
+        string key = assetPath ?? string.Empty;
+        if (pcgTileCache.TryGetValue(key, out var tile) && tile != null)
+        {
+            return tile;
+        }
+
+        tile = ScriptableObject.CreateInstance<Tile>();
+        tile.sprite = sprite;
+        tile.colliderType = Tile.ColliderType.None;
+        pcgTileCache[key] = tile;
+        return tile;
+    }
+
+    private void CreatePcgVisualSprite(PCGPlacedVisual visual, float cellSize)
+    {
+        if (visual == null)
+        {
+            return;
+        }
+
+        int sorting = visual.Kind switch
+        {
+            PCGPlacedVisualKind.TransitionMask => 40,
+            PCGPlacedVisualKind.TransitionDetail => 50,
+            PCGPlacedVisualKind.Stamp => 20,
+            PCGPlacedVisualKind.Decal => 30,
+            PCGPlacedVisualKind.Poi => 9000 - visual.Y * 10,
+            PCGPlacedVisualKind.Object => 10000 - visual.Y * 10,
+            _ => 100,
+        };
+
+        if (visual.HasSortingOrder)
+        {
+            sorting = visual.SortingOrder;
+        }
+
+        string safeId = string.IsNullOrEmpty(visual.Id) ? "unnamed" : visual.Id;
+        if (visual.Kind == PCGPlacedVisualKind.Object || visual.Kind == PCGPlacedVisualKind.Poi)
+        {
+            CreatePcgStandingSprite(
+                $"PCG_{visual.Kind}_{safeId}_{visual.X}_{visual.Y}",
+                visual.Asset,
+                visual.X,
+                visual.Y,
+                Mathf.Max(1, visual.Width),
+                cellSize,
+                sorting,
+                visual.Kind == PCGPlacedVisualKind.Poi ? 1f : 1.35f);
+            return;
+        }
+
+        float width = Mathf.Max(1, visual.Width);
+        float height = Mathf.Max(1, visual.Height);
+        CreatePcgGroundSprite(
+            $"PCG_{visual.Kind}_{safeId}_{visual.X}_{visual.Y}",
+            visual.Asset,
+            visual.X + width * 0.5f - 0.5f,
+            visual.Y + height * 0.5f - 0.5f,
+            width,
+            height,
+            cellSize,
+            sorting,
+            visual.RotationDegrees,
+            false,
+            true);
+    }
+
+    private void CreatePcgGroundSprite(
+        string objectName,
+        string assetPath,
+        float cellX,
+        float cellY,
+        float widthCells,
+        float heightCells,
+        float cellSize,
+        int sortingOrder,
+        float rotationDegrees,
+        bool flipX,
+        bool countAsVisual = false)
+    {
+        var go = new GameObject(objectName);
+        go.transform.SetParent(mapRoot.transform, false);
+        go.transform.position = new Vector3((cellX + 0.5f) * cellSize, 0.02f, (cellY + 0.5f) * cellSize);
+        go.transform.rotation = Quaternion.Euler(90f, 0f, rotationDegrees);
+
+        var renderer = go.AddComponent<SpriteRenderer>();
+        renderer.sortingOrder = sortingOrder;
+        renderer.flipX = flipX;
+
+        var sprite = GetPcgSprite(assetPath, new Vector2(0.5f, 0.5f), !countAsVisual);
+        if (sprite != null)
+        {
+            renderer.sprite = sprite;
+            Vector2 size = sprite.bounds.size;
+            if (size.x > 0f && size.y > 0f)
+            {
+                go.transform.localScale = new Vector3(widthCells * cellSize / size.x, heightCells * cellSize / size.y, 1f);
+            }
+        }
+        else
+        {
+            if (countAsVisual)
+            {
+                DestroyObject(go);
+                return;
+            }
+
+            renderer.sprite = CreateMissingPcgSprite(new Vector2(0.5f, 0.5f));
+            renderer.color = Color.magenta;
+            go.transform.localScale = new Vector3(widthCells * cellSize, heightCells * cellSize, 1f);
+        }
+
+        if (countAsVisual)
+        {
+            pcgVisualObjectCount++;
+        }
+        else
+        {
+            pcgCellObjectCount++;
+        }
+    }
+
+    private void CreatePcgStandingSprite(
+        string objectName,
+        string assetPath,
+        float cellX,
+        float cellY,
+        float footprintWidth,
+        float cellSize,
+        int sortingOrder,
+        float scaleMultiplier)
+    {
+        var go = new GameObject(objectName);
+        go.transform.SetParent(mapRoot.transform, false);
+        go.transform.position = new Vector3((cellX + footprintWidth * 0.5f - 0.5f) * cellSize, 0.08f, cellY * cellSize);
+        go.transform.rotation = Quaternion.identity;
+
+        var renderer = go.AddComponent<SpriteRenderer>();
+        renderer.sortingOrder = sortingOrder;
+
+        var sprite = GetPcgSprite(assetPath, new Vector2(0.5f, 0f), true);
+        if (sprite != null)
+        {
+            renderer.sprite = sprite;
+            Vector2 size = sprite.bounds.size;
+            if (size.x > 0f)
+            {
+                float scale = footprintWidth * cellSize / size.x * scaleMultiplier;
+                go.transform.localScale = new Vector3(scale, scale, 1f);
+            }
+        }
+        else
+        {
+            renderer.sprite = CreateMissingPcgSprite(new Vector2(0.5f, 0f));
+            renderer.color = Color.magenta;
+            go.transform.localScale = new Vector3(footprintWidth * cellSize, footprintWidth * cellSize, 1f);
+        }
+
+        pcgVisualObjectCount++;
+    }
+
+    private Sprite GetPcgSprite(string assetPath, Vector2 pivot, bool countMissing)
+    {
+        if (string.IsNullOrEmpty(assetPath))
+        {
+            if (countMissing)
+            {
+                pcgMissingSpriteCount++;
+            }
+
+            return null;
+        }
+
+        string cacheKey = $"{assetPath}|{pivot.x:0.###},{pivot.y:0.###}";
+        if (pcgSpriteCache.TryGetValue(cacheKey, out var cached))
+        {
+            return cached;
+        }
+
+        var sprite = Resources.Load<Sprite>(assetPath);
+        if (sprite != null)
+        {
+            pcgSpriteLoadCount++;
+            pcgSpriteCache[cacheKey] = sprite;
+            return sprite;
+        }
+
+        var texture = Resources.Load<Texture2D>(assetPath);
+        if (texture != null)
+        {
+            sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), pivot, 128f, 0, SpriteMeshType.FullRect);
+            pcgSpriteLoadCount++;
+            pcgSpriteCreateCount++;
+            pcgSpriteCache[cacheKey] = sprite;
+            return sprite;
+        }
+
+        if (countMissing)
+        {
+            pcgMissingSpriteCount++;
+            GFTrace.Warning("TotemMap", "PCG.SpriteMissing", null, GFTrace.Data("asset", assetPath));
+        }
+
+        pcgSpriteCache[cacheKey] = null;
+        return null;
+    }
+
+    private Sprite CreateMissingPcgSprite(Vector2 pivot)
+    {
+        string key = $"__missing|{pivot.x:0.###},{pivot.y:0.###}";
+        if (pcgSpriteCache.TryGetValue(key, out var sprite) && sprite != null)
+        {
+            return sprite;
+        }
+
+        var texture = new Texture2D(4, 4, TextureFormat.RGBA32, false);
+        var pixels = new Color32[16];
+        for (int i = 0; i < pixels.Length; i++)
+        {
+            pixels[i] = new Color32(255, 0, 255, 255);
+        }
+
+        texture.SetPixels32(pixels);
+        texture.Apply(false, true);
+        sprite = Sprite.Create(texture, new Rect(0, 0, 4, 4), pivot, 4f);
+        pcgSpriteCache[key] = sprite;
+        return sprite;
     }
 
     private void CreateBoundaryWalls(float mapSize)
@@ -858,6 +1628,11 @@ public sealed class TotemMapService : TotemRuntimeServiceBase
         materialFallbackCount = 0;
         lastMaterialAssetKey = string.Empty;
         lastMaterialFallbackAssetKey = string.Empty;
+        pcgCellObjectCount = 0;
+        pcgVisualObjectCount = 0;
+        pcgMissingSpriteCount = 0;
+        pcgSpriteLoadCount = 0;
+        pcgSpriteCreateCount = 0;
     }
 
     private static void DestroyObject(UnityEngine.Object obj)

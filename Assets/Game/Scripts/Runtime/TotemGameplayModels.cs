@@ -225,6 +225,15 @@ public sealed class TotemMapSnapshot
     public int BlockedCellCount;
     public int CoverCellCount;
     public int HazardCellCount;
+    public bool IsPcgGenerated;
+    public int PcgWidth;
+    public int PcgHeight;
+    public int PcgVisualCount;
+    public int PcgReachableCells;
+    public int PcgUnreachableCells;
+    public ulong PcgContentHash;
+    public string PcgValidationSummary;
+    public PCGMap.PCGMapData PcgMapData;
 }
 
 public sealed class TotemMapRuntimeSnapshot
@@ -242,6 +251,13 @@ public sealed class TotemMapRuntimeSnapshot
     public string lastMaterialFallbackAssetKey;
     public float mapSize;
     public string themeName;
+    public bool isPcgGenerated;
+    public int pcgCellObjectCount;
+    public int pcgVisualObjectCount;
+    public int pcgMissingSpriteCount;
+    public int pcgSpriteLoadCount;
+    public int pcgSpriteCreateCount;
+    public ulong pcgContentHash;
 }
 
 public sealed class TotemMapTemplateDefinition

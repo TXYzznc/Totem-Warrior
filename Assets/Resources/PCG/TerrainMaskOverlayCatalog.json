@@ -1,0 +1,209 @@
+{
+  "schemaVersion": 1,
+  "catalogId": "terrain_mask_overlay_catalog",
+  "assetPathMode": "resources_path",
+  "pixelsPerUnit": 128,
+  "draft": true,
+  "masks": [
+    {
+      "id": "mask_noise_soft_blob_128_01",
+      "asset": "Sprite/PCG/Terrain/Mask/mask_noise_soft_blob_128_01",
+      "resolution": {
+        "width": 128,
+        "height": 128
+      },
+      "channel": "grayscale",
+      "intendedUse": [
+        "terrain_edge_blend",
+        "detail_density"
+      ],
+      "noise": {
+        "source": "generated_value_fbm",
+        "seed": 2101,
+        "octaves": 5,
+        "thresholdHint": 0.52,
+        "featherHint": 0.18
+      },
+      "tags": [
+        "generic",
+        "soft_edge",
+        "blob"
+      ]
+    },
+    {
+      "id": "mask_noise_patch_breakup_128_01",
+      "asset": "Sprite/PCG/Terrain/Mask/mask_noise_patch_breakup_128_01",
+      "resolution": {
+        "width": 128,
+        "height": 128
+      },
+      "channel": "grayscale",
+      "intendedUse": [
+        "terrain_edge_blend",
+        "detail_density"
+      ],
+      "noise": {
+        "source": "generated_value_fbm",
+        "seed": 2102,
+        "octaves": 5,
+        "thresholdHint": 0.58,
+        "featherHint": 0.1
+      },
+      "tags": [
+        "generic",
+        "density",
+        "breakup"
+      ]
+    },
+    {
+      "id": "mask_noise_bank_edge_128_01",
+      "asset": "Sprite/PCG/Terrain/Mask/mask_noise_bank_edge_128_01",
+      "resolution": {
+        "width": 128,
+        "height": 128
+      },
+      "channel": "grayscale",
+      "intendedUse": [
+        "terrain_edge_blend",
+        "detail_density"
+      ],
+      "noise": {
+        "source": "generated_value_fbm",
+        "seed": 2103,
+        "octaves": 5,
+        "thresholdHint": 0.5,
+        "featherHint": 0.16
+      },
+      "tags": [
+        "grass_water",
+        "edge",
+        "bank"
+      ]
+    }
+  ],
+  "detailOverlays": [
+    {
+      "id": "overlay_grass_water_reeds_128_01",
+      "asset": "Sprite/PCG/Terrain/Overlay/overlay_grass_water_reeds_128_01",
+      "terrainPair": [
+        "grass",
+        "water"
+      ],
+      "applyOn": [
+        "grass_water_edge",
+        "shallow_water_bank"
+      ],
+      "maskRefs": [
+        "mask_noise_bank_edge_128_01",
+        "mask_noise_patch_breakup_128_01"
+      ],
+      "resolution": {
+        "width": 128,
+        "height": 128
+      },
+      "opacityHint": 0.75,
+      "sortingHint": 32,
+      "tags": [
+        "grass_water",
+        "reeds",
+        "shoreline"
+      ]
+    },
+    {
+      "id": "overlay_grass_water_ripples_128_01",
+      "asset": "Sprite/PCG/Terrain/Overlay/overlay_grass_water_ripples_128_01",
+      "terrainPair": [
+        "grass",
+        "water"
+      ],
+      "applyOn": [
+        "grass_water_edge",
+        "shallow_water_bank"
+      ],
+      "maskRefs": [
+        "mask_noise_bank_edge_128_01",
+        "mask_noise_patch_breakup_128_01"
+      ],
+      "resolution": {
+        "width": 128,
+        "height": 128
+      },
+      "opacityHint": 0.65,
+      "sortingHint": 31,
+      "tags": [
+        "grass_water",
+        "ripples",
+        "water"
+      ]
+    },
+    {
+      "id": "overlay_grass_water_bank_speckles_128_01",
+      "asset": "Sprite/PCG/Terrain/Overlay/overlay_grass_water_bank_speckles_128_01",
+      "terrainPair": [
+        "grass",
+        "water"
+      ],
+      "applyOn": [
+        "grass_water_edge",
+        "shallow_water_bank"
+      ],
+      "maskRefs": [
+        "mask_noise_bank_edge_128_01",
+        "mask_noise_patch_breakup_128_01"
+      ],
+      "resolution": {
+        "width": 128,
+        "height": 128
+      },
+      "opacityHint": 0.55,
+      "sortingHint": 30,
+      "tags": [
+        "grass_water",
+        "mud",
+        "shoreline"
+      ]
+    }
+  ],
+  "recipes": [
+    {
+      "id": "grass_water_detail_overlay_v1",
+      "terrainPair": [
+        "grass",
+        "water"
+      ],
+      "maskStack": [
+        {
+          "maskRef": "mask_noise_bank_edge_128_01",
+          "blend": "edge_feather"
+        },
+        {
+          "maskRef": "mask_noise_patch_breakup_128_01",
+          "blend": "density_breakup"
+        }
+      ],
+      "overlayStack": [
+        {
+          "overlayRef": "overlay_grass_water_bank_speckles_128_01",
+          "role": "wet_bank_grit"
+        },
+        {
+          "overlayRef": "overlay_grass_water_reeds_128_01",
+          "role": "grass_side_detail"
+        },
+        {
+          "overlayRef": "overlay_grass_water_ripples_128_01",
+          "role": "water_side_detail"
+        }
+      ],
+      "placementHints": {
+        "minEdgeRun": 3,
+        "maxPerChunk": 12,
+        "avoidTerrains": [
+          "road"
+        ],
+        "allowRotation90": true,
+        "allowMirrorX": true
+      }
+    }
+  ]
+}

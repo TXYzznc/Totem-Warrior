@@ -943,7 +943,7 @@ namespace UGF.EditorTools
                 context.AssertEqual($"weapon_pickup_{duplicate.InstanceId}", interaction.CaptureSnapshot().lastInteraction, "weaponPickup.lastInteraction");
 
                 var smart = actor.Actors.First(item => item.Kind == TotemActorKind.SmartAi && item.IsAlive);
-                smart.Position = player.Position + new Vector3(8f, 0f, 0f);
+                smart.Position = player.Position + new Vector3(TotemActorService.CoverMeleeBypassDistance * 0.5f, 0f, 0f);
                 context.Assert(actor.ApplyDamage(smart, smart.Health + 1f, player, "DiagnosticEliteWeaponDrop"), "Smart AI should die for elite weapon drop.");
                 var afterKill = weapon.CapturePickupSnapshot();
                 context.Assert(afterKill.activePickupCount > mapResourcePickupCount, "Smart AI death should spawn an Elite weapon pickup.");

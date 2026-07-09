@@ -1,0 +1,1424 @@
+{
+  "schemaVersion": 1,
+  "catalogId": "world_object_catalog",
+  "assetPathMode": "resources_path",
+  "pixelsPerUnit": 128,
+  "objects": [
+    {
+      "id": "obj_tree_round_s",
+      "asset": "Sprite/PCG/Objects/obj_tree_round_s",
+      "objectRole": "vegetation",
+      "combatRole": "soft_sight_cover",
+      "allowedBiomes": [
+        "forest",
+        "grassland"
+      ],
+      "allowedTerrains": [
+        "grass",
+        "forest_ground"
+      ],
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "blocksMovement": true,
+      "blocksSight": true,
+      "minSpacing": 1,
+      "density": 1.0,
+      "placementPriority": 40,
+      "placement": {
+        "forbiddenZones": [
+          "team_spawn"
+        ],
+        "minDistanceToSpawn": 2,
+        "requiresEmptyArea": true
+      },
+      "weight": 80,
+      "tags": [
+        "imagegen",
+        "shallow_river_totem_wetland",
+        "vegetation_sheet_01"
+      ]
+    },
+    {
+      "id": "obj_tree_round_l",
+      "asset": "Sprite/PCG/Objects/obj_tree_round_l",
+      "objectRole": "vegetation",
+      "combatRole": "hard_sight_blocker",
+      "allowedBiomes": [
+        "forest"
+      ],
+      "allowedTerrains": [
+        "grass",
+        "forest_ground"
+      ],
+      "footprint": {
+        "width": 2,
+        "height": 2
+      },
+      "blocksMovement": true,
+      "blocksSight": true,
+      "minSpacing": 1,
+      "density": 1.0,
+      "placementPriority": 40,
+      "placement": {
+        "forbiddenZones": [
+          "team_spawn"
+        ],
+        "minDistanceToSpawn": 2,
+        "requiresEmptyArea": true
+      },
+      "weight": 70,
+      "tags": [
+        "imagegen",
+        "shallow_river_totem_wetland",
+        "vegetation_sheet_01"
+      ]
+    },
+    {
+      "id": "obj_tree_pine",
+      "asset": "Sprite/PCG/Objects/obj_tree_pine",
+      "objectRole": "vegetation",
+      "combatRole": "vertical_sight_blocker",
+      "allowedBiomes": [
+        "forest"
+      ],
+      "allowedTerrains": [
+        "forest_ground"
+      ],
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "blocksMovement": true,
+      "blocksSight": true,
+      "minSpacing": 1,
+      "density": 1.0,
+      "placementPriority": 40,
+      "placement": {
+        "forbiddenZones": [
+          "team_spawn"
+        ],
+        "minDistanceToSpawn": 2,
+        "requiresEmptyArea": true
+      },
+      "weight": 60,
+      "tags": [
+        "imagegen",
+        "shallow_river_totem_wetland",
+        "vegetation_sheet_01"
+      ]
+    },
+    {
+      "id": "obj_tree_dead",
+      "asset": "Sprite/PCG/Objects/obj_tree_dead",
+      "objectRole": "dead_vegetation",
+      "combatRole": "landmark_cover",
+      "allowedBiomes": [
+        "danger",
+        "ruin",
+        "swamp"
+      ],
+      "allowedTerrains": [
+        "grass",
+        "mud",
+        "corruption"
+      ],
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "blocksMovement": true,
+      "blocksSight": true,
+      "minSpacing": 1,
+      "density": 1.0,
+      "placementPriority": 40,
+      "placement": {
+        "forbiddenZones": [
+          "team_spawn"
+        ],
+        "minDistanceToSpawn": 2,
+        "requiresEmptyArea": true
+      },
+      "weight": 35,
+      "tags": [
+        "imagegen",
+        "shallow_river_totem_wetland",
+        "vegetation_sheet_01"
+      ]
+    },
+    {
+      "id": "obj_stump",
+      "asset": "Sprite/PCG/Objects/obj_stump",
+      "objectRole": "stump",
+      "combatRole": "low_obstacle",
+      "allowedBiomes": [
+        "forest"
+      ],
+      "allowedTerrains": [
+        "grass",
+        "forest_ground"
+      ],
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "blocksMovement": true,
+      "blocksSight": false,
+      "minSpacing": 1,
+      "density": 1.0,
+      "placementPriority": 40,
+      "placement": {
+        "forbiddenZones": [
+          "team_spawn"
+        ],
+        "minDistanceToSpawn": 2,
+        "requiresEmptyArea": true
+      },
+      "weight": 45,
+      "tags": [
+        "imagegen",
+        "shallow_river_totem_wetland",
+        "vegetation_sheet_01"
+      ]
+    },
+    {
+      "id": "obj_fallen_log",
+      "asset": "Sprite/PCG/Objects/obj_fallen_log",
+      "objectRole": "fallen_log",
+      "combatRole": "linear_obstacle",
+      "allowedBiomes": [
+        "forest",
+        "grassland"
+      ],
+      "allowedTerrains": [
+        "grass",
+        "forest_ground"
+      ],
+      "footprint": {
+        "width": 2,
+        "height": 1
+      },
+      "blocksMovement": true,
+      "blocksSight": false,
+      "minSpacing": 1,
+      "density": 1.0,
+      "placementPriority": 40,
+      "placement": {
+        "forbiddenZones": [
+          "team_spawn"
+        ],
+        "minDistanceToSpawn": 2,
+        "requiresEmptyArea": true
+      },
+      "weight": 45,
+      "tags": [
+        "imagegen",
+        "shallow_river_totem_wetland",
+        "vegetation_sheet_01"
+      ]
+    },
+    {
+      "id": "obj_log_pile",
+      "asset": "Sprite/PCG/Objects/obj_log_pile",
+      "objectRole": "wood_pile",
+      "combatRole": "resource_point",
+      "allowedBiomes": [
+        "forest",
+        "grassland"
+      ],
+      "allowedTerrains": [
+        "grass",
+        "forest_ground"
+      ],
+      "footprint": {
+        "width": 2,
+        "height": 1
+      },
+      "blocksMovement": true,
+      "blocksSight": false,
+      "minSpacing": 1,
+      "density": 1.0,
+      "placementPriority": 40,
+      "placement": {
+        "forbiddenZones": [
+          "team_spawn"
+        ],
+        "minDistanceToSpawn": 2,
+        "requiresEmptyArea": true
+      },
+      "weight": 35,
+      "tags": [
+        "imagegen",
+        "shallow_river_totem_wetland",
+        "vegetation_sheet_01"
+      ]
+    },
+    {
+      "id": "obj_bush_round",
+      "asset": "Sprite/PCG/Objects/obj_bush_round",
+      "objectRole": "bush",
+      "combatRole": "soft_cover",
+      "allowedBiomes": [
+        "forest",
+        "grassland"
+      ],
+      "allowedTerrains": [
+        "grass",
+        "forest_ground"
+      ],
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "blocksMovement": false,
+      "blocksSight": false,
+      "minSpacing": 1,
+      "density": 1.0,
+      "placementPriority": 40,
+      "placement": {
+        "forbiddenZones": [
+          "team_spawn"
+        ],
+        "minDistanceToSpawn": 2,
+        "requiresEmptyArea": true
+      },
+      "weight": 70,
+      "tags": [
+        "imagegen",
+        "shallow_river_totem_wetland",
+        "vegetation_sheet_01"
+      ]
+    },
+    {
+      "id": "obj_bush_dense",
+      "asset": "Sprite/PCG/Objects/obj_bush_dense",
+      "objectRole": "bush",
+      "combatRole": "concealment",
+      "allowedBiomes": [
+        "forest",
+        "grassland"
+      ],
+      "allowedTerrains": [
+        "grass",
+        "forest_ground"
+      ],
+      "footprint": {
+        "width": 2,
+        "height": 1
+      },
+      "blocksMovement": false,
+      "blocksSight": true,
+      "minSpacing": 1,
+      "density": 1.0,
+      "placementPriority": 40,
+      "placement": {
+        "forbiddenZones": [
+          "team_spawn"
+        ],
+        "minDistanceToSpawn": 2,
+        "requiresEmptyArea": true
+      },
+      "weight": 55,
+      "tags": [
+        "imagegen",
+        "shallow_river_totem_wetland",
+        "vegetation_sheet_01"
+      ]
+    },
+    {
+      "id": "obj_grass_tall",
+      "asset": "Sprite/PCG/Objects/obj_grass_tall",
+      "objectRole": "tall_grass",
+      "combatRole": "concealment_marker",
+      "allowedBiomes": [
+        "grassland",
+        "swamp"
+      ],
+      "allowedTerrains": [
+        "grass",
+        "mud"
+      ],
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "blocksMovement": false,
+      "blocksSight": false,
+      "minSpacing": 1,
+      "density": 1.0,
+      "placementPriority": 40,
+      "placement": {
+        "forbiddenZones": [
+          "team_spawn"
+        ],
+        "minDistanceToSpawn": 2,
+        "requiresEmptyArea": true
+      },
+      "weight": 65,
+      "tags": [
+        "imagegen",
+        "shallow_river_totem_wetland",
+        "vegetation_sheet_01"
+      ]
+    },
+    {
+      "id": "obj_grass_patch_l",
+      "asset": "Sprite/PCG/Objects/obj_grass_patch_l",
+      "objectRole": "tall_grass_patch",
+      "combatRole": "soft_concealment_field",
+      "allowedBiomes": [
+        "swamp",
+        "grassland"
+      ],
+      "allowedTerrains": [
+        "mud",
+        "grass"
+      ],
+      "footprint": {
+        "width": 2,
+        "height": 1
+      },
+      "blocksMovement": false,
+      "blocksSight": false,
+      "minSpacing": 1,
+      "density": 1.0,
+      "placementPriority": 40,
+      "placement": {
+        "forbiddenZones": [
+          "team_spawn"
+        ],
+        "minDistanceToSpawn": 2,
+        "requiresEmptyArea": true
+      },
+      "weight": 50,
+      "tags": [
+        "imagegen",
+        "shallow_river_totem_wetland",
+        "vegetation_sheet_01"
+      ]
+    },
+    {
+      "id": "obj_mushroom_cluster",
+      "asset": "Sprite/PCG/Objects/obj_mushroom_cluster",
+      "objectRole": "gatherable",
+      "combatRole": "minor_resource",
+      "allowedBiomes": [
+        "forest",
+        "swamp"
+      ],
+      "allowedTerrains": [
+        "forest_ground",
+        "mud"
+      ],
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "blocksMovement": false,
+      "blocksSight": false,
+      "minSpacing": 1,
+      "density": 1.0,
+      "placementPriority": 40,
+      "placement": {
+        "forbiddenZones": [
+          "team_spawn"
+        ],
+        "minDistanceToSpawn": 2,
+        "requiresEmptyArea": true
+      },
+      "weight": 35,
+      "tags": [
+        "imagegen",
+        "shallow_river_totem_wetland",
+        "vegetation_sheet_01"
+      ]
+    },
+    {
+      "id": "obj_rock_s",
+      "asset": "Sprite/PCG/Objects/obj_rock_s",
+      "objectRole": "rock",
+      "combatRole": "low_cover",
+      "allowedBiomes": [
+        "grassland",
+        "swamp",
+        "ruin"
+      ],
+      "allowedTerrains": [
+        "grass",
+        "mud",
+        "forest_ground"
+      ],
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "blocksMovement": true,
+      "blocksSight": false,
+      "minSpacing": 1,
+      "density": 1.0,
+      "placementPriority": 40,
+      "placement": {
+        "forbiddenZones": [
+          "team_spawn"
+        ],
+        "minDistanceToSpawn": 2,
+        "requiresEmptyArea": true
+      },
+      "weight": 65,
+      "tags": [
+        "imagegen",
+        "shallow_river_totem_wetland",
+        "rock_resource_sheet_01"
+      ]
+    },
+    {
+      "id": "obj_rock_l",
+      "asset": "Sprite/PCG/Objects/obj_rock_l",
+      "objectRole": "rock",
+      "combatRole": "hard_cover",
+      "allowedBiomes": [
+        "grassland",
+        "ruin"
+      ],
+      "allowedTerrains": [
+        "grass",
+        "mud",
+        "road",
+        "forest_ground"
+      ],
+      "footprint": {
+        "width": 2,
+        "height": 1
+      },
+      "blocksMovement": true,
+      "blocksSight": true,
+      "minSpacing": 1,
+      "density": 1.0,
+      "placementPriority": 40,
+      "placement": {
+        "forbiddenZones": [
+          "team_spawn"
+        ],
+        "minDistanceToSpawn": 2,
+        "requiresEmptyArea": true
+      },
+      "weight": 55,
+      "tags": [
+        "imagegen",
+        "shallow_river_totem_wetland",
+        "rock_resource_sheet_01"
+      ]
+    },
+    {
+      "id": "obj_rock_pair",
+      "asset": "Sprite/PCG/Objects/obj_rock_pair",
+      "objectRole": "rock",
+      "combatRole": "hard_cover",
+      "allowedBiomes": [
+        "grassland",
+        "ruin"
+      ],
+      "allowedTerrains": [
+        "grass",
+        "mud"
+      ],
+      "footprint": {
+        "width": 2,
+        "height": 1
+      },
+      "blocksMovement": true,
+      "blocksSight": true,
+      "minSpacing": 1,
+      "density": 1.0,
+      "placementPriority": 40,
+      "placement": {
+        "forbiddenZones": [
+          "team_spawn"
+        ],
+        "minDistanceToSpawn": 2,
+        "requiresEmptyArea": true
+      },
+      "weight": 40,
+      "tags": [
+        "imagegen",
+        "shallow_river_totem_wetland",
+        "rock_resource_sheet_01"
+      ]
+    },
+    {
+      "id": "obj_rock_cluster",
+      "asset": "Sprite/PCG/Objects/obj_rock_cluster",
+      "objectRole": "rock_cluster",
+      "combatRole": "area_blocker",
+      "allowedBiomes": [
+        "ruin",
+        "swamp"
+      ],
+      "allowedTerrains": [
+        "grass",
+        "mud"
+      ],
+      "footprint": {
+        "width": 2,
+        "height": 2
+      },
+      "blocksMovement": true,
+      "blocksSight": true,
+      "minSpacing": 1,
+      "density": 1.0,
+      "placementPriority": 40,
+      "placement": {
+        "forbiddenZones": [
+          "team_spawn"
+        ],
+        "minDistanceToSpawn": 2,
+        "requiresEmptyArea": true
+      },
+      "weight": 45,
+      "tags": [
+        "imagegen",
+        "shallow_river_totem_wetland",
+        "rock_resource_sheet_01"
+      ]
+    },
+    {
+      "id": "obj_ore_node",
+      "asset": "Sprite/PCG/Objects/obj_ore_node",
+      "objectRole": "gatherable",
+      "combatRole": "mining_resource_cover",
+      "allowedBiomes": [
+        "ruin",
+        "swamp"
+      ],
+      "allowedTerrains": [
+        "grass",
+        "mud",
+        "road"
+      ],
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "blocksMovement": true,
+      "blocksSight": false,
+      "minSpacing": 1,
+      "density": 1.0,
+      "placementPriority": 40,
+      "placement": {
+        "forbiddenZones": [
+          "team_spawn"
+        ],
+        "minDistanceToSpawn": 2,
+        "requiresEmptyArea": true
+      },
+      "weight": 35,
+      "tags": [
+        "imagegen",
+        "shallow_river_totem_wetland",
+        "rock_resource_sheet_01"
+      ]
+    },
+    {
+      "id": "obj_rune_stone",
+      "asset": "Sprite/PCG/Objects/obj_rune_stone",
+      "objectRole": "landmark",
+      "combatRole": "sight_marker",
+      "allowedBiomes": [
+        "ruin",
+        "grassland"
+      ],
+      "allowedTerrains": [
+        "grass",
+        "road",
+        "mud"
+      ],
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "blocksMovement": true,
+      "blocksSight": true,
+      "minSpacing": 1,
+      "density": 1.0,
+      "placementPriority": 40,
+      "placement": {
+        "forbiddenZones": [
+          "team_spawn"
+        ],
+        "minDistanceToSpawn": 2,
+        "requiresEmptyArea": true
+      },
+      "weight": 25,
+      "tags": [
+        "imagegen",
+        "shallow_river_totem_wetland",
+        "rock_resource_sheet_01"
+      ]
+    },
+    {
+      "id": "obj_totem_shard",
+      "asset": "Sprite/PCG/Objects/obj_totem_shard",
+      "objectRole": "landmark",
+      "combatRole": "sight_marker",
+      "allowedBiomes": [
+        "ruin"
+      ],
+      "allowedTerrains": [
+        "grass",
+        "road",
+        "mud"
+      ],
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "blocksMovement": true,
+      "blocksSight": false,
+      "minSpacing": 1,
+      "density": 1.0,
+      "placementPriority": 40,
+      "placement": {
+        "forbiddenZones": [
+          "team_spawn"
+        ],
+        "minDistanceToSpawn": 2,
+        "requiresEmptyArea": true
+      },
+      "weight": 20,
+      "tags": [
+        "imagegen",
+        "shallow_river_totem_wetland",
+        "rock_resource_sheet_01"
+      ]
+    },
+    {
+      "id": "obj_resource_stones",
+      "asset": "Sprite/PCG/Objects/obj_resource_stones",
+      "objectRole": "gatherable",
+      "combatRole": "minor_resource",
+      "allowedBiomes": [
+        "grassland",
+        "swamp"
+      ],
+      "allowedTerrains": [
+        "grass",
+        "mud"
+      ],
+      "footprint": {
+        "width": 2,
+        "height": 1
+      },
+      "blocksMovement": false,
+      "blocksSight": false,
+      "minSpacing": 1,
+      "density": 1.0,
+      "placementPriority": 40,
+      "placement": {
+        "forbiddenZones": [
+          "team_spawn"
+        ],
+        "minDistanceToSpawn": 2,
+        "requiresEmptyArea": true
+      },
+      "weight": 30,
+      "tags": [
+        "imagegen",
+        "shallow_river_totem_wetland",
+        "rock_resource_sheet_01"
+      ]
+    },
+    {
+      "id": "obj_corrupt_crystal",
+      "asset": "Sprite/PCG/Objects/obj_corrupt_crystal",
+      "objectRole": "danger_resource",
+      "combatRole": "danger_cover",
+      "allowedBiomes": [
+        "danger",
+        "ruin"
+      ],
+      "allowedTerrains": [
+        "corruption",
+        "mud",
+        "grass"
+      ],
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "blocksMovement": true,
+      "blocksSight": true,
+      "minSpacing": 1,
+      "density": 1.0,
+      "placementPriority": 40,
+      "placement": {
+        "forbiddenZones": [
+          "team_spawn"
+        ],
+        "minDistanceToSpawn": 2,
+        "requiresEmptyArea": true
+      },
+      "weight": 25,
+      "tags": [
+        "imagegen",
+        "shallow_river_totem_wetland",
+        "rock_resource_sheet_01"
+      ]
+    },
+    {
+      "id": "obj_ruin_wall_low",
+      "asset": "Sprite/PCG/Objects/obj_ruin_wall_low",
+      "objectRole": "ruin_wall",
+      "combatRole": "linear_cover",
+      "allowedBiomes": [
+        "ruin"
+      ],
+      "allowedTerrains": [
+        "road",
+        "grass",
+        "mud"
+      ],
+      "footprint": {
+        "width": 3,
+        "height": 1
+      },
+      "blocksMovement": true,
+      "blocksSight": true,
+      "minSpacing": 1,
+      "density": 1.0,
+      "placementPriority": 40,
+      "placement": {
+        "forbiddenZones": [
+          "team_spawn"
+        ],
+        "minDistanceToSpawn": 2,
+        "requiresEmptyArea": true
+      },
+      "weight": 25,
+      "tags": [
+        "imagegen",
+        "shallow_river_totem_wetland",
+        "rock_resource_sheet_01"
+      ]
+    },
+    {
+      "id": "obj_supply_crate",
+      "asset": "Sprite/PCG/Objects/obj_supply_crate",
+      "objectRole": "loot_container",
+      "combatRole": "contest_point",
+      "allowedBiomes": [
+        "grassland",
+        "forest",
+        "swamp"
+      ],
+      "allowedTerrains": [
+        "grass",
+        "forest_ground",
+        "road"
+      ],
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "blocksMovement": true,
+      "blocksSight": false,
+      "minSpacing": 1,
+      "density": 1.0,
+      "placementPriority": 40,
+      "placement": {
+        "forbiddenZones": [
+          "team_spawn"
+        ],
+        "minDistanceToSpawn": 2,
+        "requiresEmptyArea": true
+      },
+      "weight": 45,
+      "tags": [
+        "imagegen",
+        "shallow_river_totem_wetland",
+        "camp_poi_sheet_01"
+      ]
+    },
+    {
+      "id": "obj_log_bundle",
+      "asset": "Sprite/PCG/Objects/obj_log_bundle",
+      "objectRole": "wood_pile",
+      "combatRole": "resource_point",
+      "allowedBiomes": [
+        "forest",
+        "grassland"
+      ],
+      "allowedTerrains": [
+        "grass",
+        "forest_ground",
+        "road"
+      ],
+      "footprint": {
+        "width": 2,
+        "height": 1
+      },
+      "blocksMovement": true,
+      "blocksSight": false,
+      "minSpacing": 1,
+      "density": 1.0,
+      "placementPriority": 40,
+      "placement": {
+        "forbiddenZones": [
+          "team_spawn"
+        ],
+        "minDistanceToSpawn": 2,
+        "requiresEmptyArea": true
+      },
+      "weight": 35,
+      "tags": [
+        "imagegen",
+        "shallow_river_totem_wetland",
+        "camp_poi_sheet_01"
+      ]
+    },
+    {
+      "id": "obj_totem_marker",
+      "asset": "Sprite/PCG/Objects/obj_totem_marker",
+      "objectRole": "totem_marker",
+      "combatRole": "landmark_cover",
+      "allowedBiomes": [
+        "grassland",
+        "swamp",
+        "ruin"
+      ],
+      "allowedTerrains": [
+        "grass",
+        "mud",
+        "road"
+      ],
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "blocksMovement": true,
+      "blocksSight": true,
+      "minSpacing": 1,
+      "density": 1.0,
+      "placementPriority": 40,
+      "placement": {
+        "forbiddenZones": [
+          "team_spawn"
+        ],
+        "minDistanceToSpawn": 2,
+        "requiresEmptyArea": true
+      },
+      "weight": 25,
+      "tags": [
+        "imagegen",
+        "shallow_river_totem_wetland",
+        "camp_poi_sheet_01"
+      ]
+    },
+    {
+      "id": "obj_campfire_ring",
+      "asset": "Sprite/PCG/Objects/obj_campfire_ring",
+      "objectRole": "camp_marker",
+      "combatRole": "soft_cover",
+      "allowedBiomes": [
+        "grassland",
+        "forest",
+        "swamp"
+      ],
+      "allowedTerrains": [
+        "grass",
+        "mud",
+        "road"
+      ],
+      "footprint": {
+        "width": 2,
+        "height": 2
+      },
+      "blocksMovement": true,
+      "blocksSight": false,
+      "minSpacing": 1,
+      "density": 1.0,
+      "placementPriority": 40,
+      "placement": {
+        "forbiddenZones": [
+          "team_spawn"
+        ],
+        "minDistanceToSpawn": 2,
+        "requiresEmptyArea": true
+      },
+      "weight": 25,
+      "tags": [
+        "imagegen",
+        "shallow_river_totem_wetland",
+        "camp_poi_sheet_01"
+      ]
+    },
+    {
+      "id": "obj_hanging_totem_sign",
+      "asset": "Sprite/PCG/Objects/obj_hanging_totem_sign",
+      "objectRole": "totem_marker",
+      "combatRole": "sight_marker",
+      "allowedBiomes": [
+        "grassland",
+        "swamp"
+      ],
+      "allowedTerrains": [
+        "grass",
+        "mud",
+        "road"
+      ],
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "blocksMovement": true,
+      "blocksSight": true,
+      "minSpacing": 1,
+      "density": 1.0,
+      "placementPriority": 40,
+      "placement": {
+        "forbiddenZones": [
+          "team_spawn"
+        ],
+        "minDistanceToSpawn": 2,
+        "requiresEmptyArea": true
+      },
+      "weight": 20,
+      "tags": [
+        "imagegen",
+        "shallow_river_totem_wetland",
+        "camp_poi_sheet_01"
+      ]
+    },
+    {
+      "id": "obj_swamp_hut_small",
+      "asset": "Sprite/PCG/Objects/obj_swamp_hut_small",
+      "objectRole": "small_building",
+      "combatRole": "hard_sight_blocker",
+      "allowedBiomes": [
+        "swamp",
+        "grassland"
+      ],
+      "allowedTerrains": [
+        "grass",
+        "mud",
+        "road"
+      ],
+      "footprint": {
+        "width": 3,
+        "height": 3
+      },
+      "blocksMovement": true,
+      "blocksSight": true,
+      "minSpacing": 1,
+      "density": 1.0,
+      "placementPriority": 40,
+      "placement": {
+        "forbiddenZones": [
+          "team_spawn"
+        ],
+        "minDistanceToSpawn": 2,
+        "requiresEmptyArea": true
+      },
+      "weight": 20,
+      "tags": [
+        "imagegen",
+        "shallow_river_totem_wetland",
+        "camp_poi_sheet_01"
+      ]
+    },
+    {
+      "id": "obj_supply_barrel",
+      "asset": "Sprite/PCG/Objects/obj_supply_barrel",
+      "objectRole": "loot_container",
+      "combatRole": "contest_point",
+      "allowedBiomes": [
+        "grassland",
+        "forest",
+        "swamp"
+      ],
+      "allowedTerrains": [
+        "grass",
+        "forest_ground",
+        "road"
+      ],
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "blocksMovement": true,
+      "blocksSight": false,
+      "minSpacing": 1,
+      "density": 1.0,
+      "placementPriority": 40,
+      "placement": {
+        "forbiddenZones": [
+          "team_spawn"
+        ],
+        "minDistanceToSpawn": 2,
+        "requiresEmptyArea": true
+      },
+      "weight": 35,
+      "tags": [
+        "imagegen",
+        "shallow_river_totem_wetland",
+        "camp_poi_sheet_01"
+      ]
+    },
+    {
+      "id": "obj_broken_arch",
+      "asset": "Sprite/PCG/Objects/obj_broken_arch",
+      "objectRole": "ruin",
+      "combatRole": "hard_cover",
+      "allowedBiomes": [
+        "ruin"
+      ],
+      "allowedTerrains": [
+        "road",
+        "grass",
+        "mud"
+      ],
+      "footprint": {
+        "width": 2,
+        "height": 2
+      },
+      "blocksMovement": true,
+      "blocksSight": true,
+      "minSpacing": 1,
+      "density": 1.0,
+      "placementPriority": 40,
+      "placement": {
+        "forbiddenZones": [
+          "team_spawn"
+        ],
+        "minDistanceToSpawn": 2,
+        "requiresEmptyArea": true
+      },
+      "weight": 25,
+      "tags": [
+        "imagegen",
+        "shallow_river_totem_wetland",
+        "ruin_danger_sheet_01"
+      ]
+    },
+    {
+      "id": "obj_ruin_pillar",
+      "asset": "Sprite/PCG/Objects/obj_ruin_pillar",
+      "objectRole": "ruin",
+      "combatRole": "vertical_sight_blocker",
+      "allowedBiomes": [
+        "ruin"
+      ],
+      "allowedTerrains": [
+        "road",
+        "grass",
+        "mud"
+      ],
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "blocksMovement": true,
+      "blocksSight": true,
+      "minSpacing": 1,
+      "density": 1.0,
+      "placementPriority": 40,
+      "placement": {
+        "forbiddenZones": [
+          "team_spawn"
+        ],
+        "minDistanceToSpawn": 2,
+        "requiresEmptyArea": true
+      },
+      "weight": 30,
+      "tags": [
+        "imagegen",
+        "shallow_river_totem_wetland",
+        "ruin_danger_sheet_01"
+      ]
+    },
+    {
+      "id": "obj_corrupt_roots",
+      "asset": "Sprite/PCG/Objects/obj_corrupt_roots",
+      "objectRole": "danger_growth",
+      "combatRole": "danger_cover",
+      "allowedBiomes": [
+        "danger"
+      ],
+      "allowedTerrains": [
+        "corruption",
+        "mud",
+        "grass"
+      ],
+      "footprint": {
+        "width": 2,
+        "height": 2
+      },
+      "blocksMovement": true,
+      "blocksSight": true,
+      "minSpacing": 1,
+      "density": 1.0,
+      "placementPriority": 40,
+      "placement": {
+        "forbiddenZones": [
+          "team_spawn"
+        ],
+        "minDistanceToSpawn": 2,
+        "requiresEmptyArea": true
+      },
+      "weight": 25,
+      "tags": [
+        "imagegen",
+        "shallow_river_totem_wetland",
+        "ruin_danger_sheet_01"
+      ]
+    },
+    {
+      "id": "obj_corrupt_mound",
+      "asset": "Sprite/PCG/Objects/obj_corrupt_mound",
+      "objectRole": "danger_growth",
+      "combatRole": "danger_cover",
+      "allowedBiomes": [
+        "danger"
+      ],
+      "allowedTerrains": [
+        "corruption",
+        "mud",
+        "grass"
+      ],
+      "footprint": {
+        "width": 2,
+        "height": 2
+      },
+      "blocksMovement": true,
+      "blocksSight": true,
+      "minSpacing": 1,
+      "density": 1.0,
+      "placementPriority": 40,
+      "placement": {
+        "forbiddenZones": [
+          "team_spawn"
+        ],
+        "minDistanceToSpawn": 2,
+        "requiresEmptyArea": true
+      },
+      "weight": 25,
+      "tags": [
+        "imagegen",
+        "shallow_river_totem_wetland",
+        "ruin_danger_sheet_01"
+      ]
+    },
+    {
+      "id": "obj_ruin_altar",
+      "asset": "Sprite/PCG/Objects/obj_ruin_altar",
+      "objectRole": "ruin_landmark",
+      "combatRole": "contest_point",
+      "allowedBiomes": [
+        "ruin",
+        "danger"
+      ],
+      "allowedTerrains": [
+        "road",
+        "grass",
+        "mud",
+        "corruption"
+      ],
+      "footprint": {
+        "width": 2,
+        "height": 2
+      },
+      "blocksMovement": true,
+      "blocksSight": true,
+      "minSpacing": 1,
+      "density": 1.0,
+      "placementPriority": 40,
+      "placement": {
+        "forbiddenZones": [
+          "team_spawn"
+        ],
+        "minDistanceToSpawn": 2,
+        "requiresEmptyArea": true
+      },
+      "weight": 20,
+      "tags": [
+        "imagegen",
+        "shallow_river_totem_wetland",
+        "ruin_danger_sheet_01"
+      ]
+    },
+    {
+      "id": "obj_spike_barricade",
+      "asset": "Sprite/PCG/Objects/obj_spike_barricade",
+      "objectRole": "barricade",
+      "combatRole": "linear_obstacle",
+      "allowedBiomes": [
+        "danger",
+        "ruin"
+      ],
+      "allowedTerrains": [
+        "grass",
+        "mud",
+        "corruption"
+      ],
+      "footprint": {
+        "width": 2,
+        "height": 1
+      },
+      "blocksMovement": true,
+      "blocksSight": true,
+      "minSpacing": 1,
+      "density": 1.0,
+      "placementPriority": 40,
+      "placement": {
+        "forbiddenZones": [
+          "team_spawn"
+        ],
+        "minDistanceToSpawn": 2,
+        "requiresEmptyArea": true
+      },
+      "weight": 25,
+      "tags": [
+        "imagegen",
+        "shallow_river_totem_wetland",
+        "ruin_danger_sheet_01"
+      ]
+    }
+  ],
+  "pois": [
+    {
+      "id": "poi_cabin_wood_01",
+      "asset": "Sprite/PCG/POI/poi_cabin_wood_01",
+      "zoneRole": "low_risk_loot",
+      "footprint": {
+        "width": 7,
+        "height": 6
+      },
+      "lootRole": "landmark_loot",
+      "coverRole": "hard_cover",
+      "monsterRole": "encounter_anchor",
+      "placement": {
+        "allowedZones": [
+          "loot_zone",
+          "combat_zone",
+          "danger_zone"
+        ],
+        "requiresEmptyArea": true,
+        "requiredEscapeGaps": 2
+      },
+      "weight": 100,
+      "tags": [
+        "imagegen",
+        "shallow_river_totem_wetland",
+        "camp_poi_sheet_01"
+      ]
+    },
+    {
+      "id": "poi_totem_camp_01",
+      "asset": "Sprite/PCG/POI/poi_totem_camp_01",
+      "zoneRole": "medium_risk_landmark",
+      "footprint": {
+        "width": 9,
+        "height": 9
+      },
+      "lootRole": "landmark_loot",
+      "coverRole": "hard_cover",
+      "monsterRole": "encounter_anchor",
+      "placement": {
+        "allowedZones": [
+          "loot_zone",
+          "combat_zone",
+          "danger_zone"
+        ],
+        "requiresEmptyArea": true,
+        "requiredEscapeGaps": 2
+      },
+      "weight": 100,
+      "tags": [
+        "imagegen",
+        "shallow_river_totem_wetland",
+        "camp_poi_sheet_01"
+      ]
+    },
+    {
+      "id": "poi_stone_gate_ruin_01",
+      "asset": "Sprite/PCG/POI/poi_stone_gate_ruin_01",
+      "zoneRole": "high_risk_ruin_gate",
+      "footprint": {
+        "width": 10,
+        "height": 6
+      },
+      "lootRole": "landmark_loot",
+      "coverRole": "hard_cover",
+      "monsterRole": "encounter_anchor",
+      "placement": {
+        "allowedZones": [
+          "loot_zone",
+          "combat_zone",
+          "danger_zone"
+        ],
+        "requiresEmptyArea": true,
+        "requiredEscapeGaps": 2
+      },
+      "weight": 100,
+      "tags": [
+        "imagegen",
+        "shallow_river_totem_wetland",
+        "ruin_danger_sheet_01"
+      ]
+    },
+    {
+      "id": "poi_monster_camp_01",
+      "asset": "Sprite/PCG/POI/poi_monster_camp_01",
+      "zoneRole": "high_risk_monster_camp",
+      "footprint": {
+        "width": 11,
+        "height": 9
+      },
+      "lootRole": "landmark_loot",
+      "coverRole": "hard_cover",
+      "monsterRole": "encounter_anchor",
+      "placement": {
+        "allowedZones": [
+          "loot_zone",
+          "combat_zone",
+          "danger_zone"
+        ],
+        "requiresEmptyArea": true,
+        "requiredEscapeGaps": 2
+      },
+      "weight": 100,
+      "tags": [
+        "imagegen",
+        "shallow_river_totem_wetland",
+        "ruin_danger_sheet_01"
+      ]
+    },
+    {
+      "id": "poi_danger_nest_01",
+      "asset": "Sprite/PCG/POI/poi_danger_nest_01",
+      "zoneRole": "danger_nest_core",
+      "footprint": {
+        "width": 12,
+        "height": 10
+      },
+      "lootRole": "landmark_loot",
+      "coverRole": "hard_cover",
+      "monsterRole": "encounter_anchor",
+      "placement": {
+        "allowedZones": [
+          "loot_zone",
+          "combat_zone",
+          "danger_zone"
+        ],
+        "requiresEmptyArea": true,
+        "requiredEscapeGaps": 2
+      },
+      "weight": 100,
+      "tags": [
+        "imagegen",
+        "shallow_river_totem_wetland",
+        "ruin_danger_sheet_01"
+      ]
+    }
+  ]
+}

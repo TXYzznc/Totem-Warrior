@@ -71,8 +71,9 @@ public sealed class TotemInteractionService : TotemRuntimeServiceBase, ITotemRun
         var deathChest = FindNearestDeathChest(actorService.Player.Position);
         var weaponPickup = deathChest == null ? weaponService?.FindNearestPickup(actorService.Player.Position, TotemWeaponService.PickupInteractRadius) : null;
         var chest = deathChest == null && weaponPickup == null ? chestService?.FindNearestClosedChest(actorService.Player.Position, TotemChestService.ChestInteractRadius) : null;
+        var npc = deathChest == null && weaponPickup == null && chest == null ? npcService?.FindNearestInteractable(actorService.Player.Position) : null;
         var mapEvent = deathChest == null && weaponPickup == null && chest == null ? FindNearestMapEventAnchor(actorService.Player.Position) : null;
-        var npc = deathChest == null && weaponPickup == null && chest == null && mapEvent == null ? npcService?.FindNearestInteractable(actorService.Player.Position) : null;
+        ResolveNpcMapEventFocus(actorService.Player.Position, ref npc, ref mapEvent);
         SetCurrentFocus(deathChest, weaponPickup, chest, npc, mapEvent);
         var input = inputService?.Current ?? TotemInputSnapshot.Empty;
         if (input.interactPressed)
@@ -200,9 +201,9 @@ public sealed class TotemInteractionService : TotemRuntimeServiceBase, ITotemRun
                 ? BuildWeaponPickupPrompt(currentWeaponPickup)
                 : currentChest != null
                     ? BuildChestPrompt(currentChest)
-                    : currentMapEventAnchor != null
-                        ? BuildMapEventPrompt(currentMapEventAnchor)
-                        : BuildPrompt(npc);
+                    : currentNpc != null
+                        ? BuildPrompt(currentNpc)
+                        : BuildMapEventPrompt(currentMapEventAnchor);
         GFTrace.Info("TotemInteraction", "FocusChanged", null, GFTrace.Data(
             "deathChestActorId", (currentDeathChestActor?.ActorId ?? 0).ToString(),
             "weaponPickupId", (currentWeaponPickup?.InstanceId ?? 0).ToString(),
@@ -407,9 +408,36 @@ public sealed class TotemInteractionService : TotemRuntimeServiceBase, ITotemRun
 
         var weaponPickup = weaponService?.FindNearestPickup(player.Position, TotemWeaponService.PickupInteractRadius);
         var chest = weaponPickup == null ? chestService?.FindNearestClosedChest(player.Position, TotemChestService.ChestInteractRadius) : null;
+        var npc = weaponPickup == null && chest == null ? npcService?.FindNearestInteractable(player.Position) : null;
         var mapEvent = weaponPickup == null && chest == null ? FindNearestMapEventAnchor(player.Position) : null;
-        var npc = weaponPickup == null && chest == null && mapEvent == null ? npcService?.FindNearestInteractable(player.Position) : null;
+        ResolveNpcMapEventFocus(player.Position, ref npc, ref mapEvent);
         SetCurrentFocus(null, weaponPickup, chest, npc, mapEvent);
+    }
+
+    private static void ResolveNpcMapEventFocus(Vector3 playerPosition, ref TotemNpcModel npc, ref TotemMapAnchor mapEvent)
+    {
+        if (npc == null || mapEvent == null)
+        {
+            return;
+        }
+
+        float npcDistance = FlatDistanceSq(playerPosition, npc.Position);
+        float eventDistance = FlatDistanceSq(playerPosition, mapEvent.Position);
+        if (eventDistance + 0.0001f < npcDistance)
+        {
+            npc = null;
+        }
+        else
+        {
+            mapEvent = null;
+        }
+    }
+
+    private static float FlatDistanceSq(Vector3 a, Vector3 b)
+    {
+        float dx = a.x - b.x;
+        float dz = a.z - b.z;
+        return dx * dx + dz * dz;
     }
 
     private TotemMapAnchor FindNearestMapEventAnchor(Vector3 position)
