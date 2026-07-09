@@ -1,0 +1,262 @@
+{
+  "schemaVersion": 1,
+  "kind": "GF_X.DataTable.AI",
+  "tableName": "TestTable",
+  "relativePath": "TestTable",
+  "sourceExcel": "GameData/DataTables/TestTable.xlsx",
+  "sourceExcelLastWriteUtc": "2026-05-21T14:00:35.0000000Z",
+  "generatedAtUtc": "2026-07-06T09:50:27.7043380Z",
+  "tableComment": "TestTable",
+  "columns": [
+    {
+      "index": 1,
+      "key": "Note1",
+      "name": "#",
+      "type": "#",
+      "comment": "#",
+      "role": "comment"
+    },
+    {
+      "index": 2,
+      "key": "Id",
+      "name": "ID",
+      "type": "int",
+      "comment": "",
+      "role": "id"
+    },
+    {
+      "index": 3,
+      "key": "Note3",
+      "name": "",
+      "type": "",
+      "comment": "备注",
+      "role": "comment"
+    },
+    {
+      "index": 4,
+      "key": "StringArr",
+      "name": "StringArr",
+      "type": "string[]",
+      "comment": "请添加字段, 字段名首字母大写",
+      "role": "data"
+    },
+    {
+      "index": 5,
+      "key": "EnumValue",
+      "name": "EnumValue",
+      "type": "enum",
+      "comment": "",
+      "role": "data"
+    },
+    {
+      "index": 6,
+      "key": "Vec3",
+      "name": "Vec3",
+      "type": "Vector3",
+      "comment": "",
+      "role": "data"
+    },
+    {
+      "index": 7,
+      "key": "Vec3Int",
+      "name": "Vec3Int",
+      "type": "Vector3Int",
+      "comment": "",
+      "role": "data"
+    },
+    {
+      "index": 8,
+      "key": "Vec2",
+      "name": "Vec2",
+      "type": "Vector2",
+      "comment": "",
+      "role": "data"
+    },
+    {
+      "index": 9,
+      "key": "Vec2Arr",
+      "name": "Vec2Arr",
+      "type": "Vector2[]",
+      "comment": "",
+      "role": "data"
+    },
+    {
+      "index": 10,
+      "key": "Vec4Arr",
+      "name": "Vec4Arr",
+      "type": "Vector4[]",
+      "comment": "",
+      "role": "data"
+    },
+    {
+      "index": 11,
+      "key": "Vec3Arr",
+      "name": "Vec3Arr",
+      "type": "Vector3[]",
+      "comment": "",
+      "role": "data"
+    },
+    {
+      "index": 12,
+      "key": "BoolArr",
+      "name": "BoolArr",
+      "type": "bool[]",
+      "comment": "",
+      "role": "data"
+    },
+    {
+      "index": 13,
+      "key": "Float2DArr",
+      "name": "Float2DArr",
+      "type": "float[][]",
+      "comment": "",
+      "role": "data"
+    },
+    {
+      "index": 14,
+      "key": "Bool2DArr",
+      "name": "Bool2DArr",
+      "type": "bool[][]",
+      "comment": "",
+      "role": "data"
+    },
+    {
+      "index": 15,
+      "key": "BoolValue",
+      "name": "BoolValue",
+      "type": "bool",
+      "comment": "",
+      "role": "data"
+    },
+    {
+      "index": 16,
+      "key": "DateTimeValue",
+      "name": "DateTimeValue",
+      "type": "DateTime",
+      "comment": "",
+      "role": "data"
+    }
+  ],
+  "rows": [
+    {
+      "row": 5,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "1",
+        "StringArr": "你好,Hello",
+        "EnumValue": "CombatFlag.Enemy",
+        "Vec3": "1,2,3.5",
+        "Vec3Int": "1,2,3",
+        "Vec2": "1,2",
+        "Vec2Arr": "[1,2],[3,5]",
+        "Vec4Arr": "[1,2,3,4],[6,4,3,2],[4,2,2,5]",
+        "Vec3Arr": "[2,3,4],[4,3,2],[2,2,5]",
+        "BoolArr": "false,true,true,false",
+        "Float2DArr": "[5,2,1,5,7,8],[4,2,1,5],[5,2,4]",
+        "Bool2DArr": "[false,true,false],[true,true,false]",
+        "BoolValue": "False",
+        "DateTimeValue": "26/11/2024 15:06:49"
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "1",
+        "",
+        "你好,Hello",
+        "CombatFlag.Enemy",
+        "1,2,3.5",
+        "1,2,3",
+        "1,2",
+        "[1,2],[3,5]",
+        "[1,2,3,4],[6,4,3,2],[4,2,2,5]",
+        "[2,3,4],[4,3,2],[2,2,5]",
+        "false,true,true,false",
+        "[5,2,1,5,7,8],[4,2,1,5],[5,2,4]",
+        "[false,true,false],[true,true,false]",
+        "False",
+        "26/11/2024 15:06:49"
+      ]
+    },
+    {
+      "row": 6,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "2",
+        "StringArr": "数据表,类型,测试",
+        "EnumValue": "CombatFlag.Player",
+        "Vec3": "1.5,2.3,5.1",
+        "Vec3Int": "4,5,6",
+        "Vec2": "3,5",
+        "Vec2Arr": "[4,6],[2,8],[6,7]",
+        "Vec4Arr": "[1,2,3,4],[6,4,3,3]",
+        "Vec3Arr": "[1,3,4],[4,3,3]",
+        "BoolArr": "false,true,true,false",
+        "Float2DArr": "[5,2,1,5,7,8],[4,2,1,5],[5,2,5]",
+        "Bool2DArr": "[false,true,false],[true,true,false]",
+        "BoolValue": "True",
+        "DateTimeValue": "26/11/2024 15:06:50"
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "2",
+        "",
+        "数据表,类型,测试",
+        "CombatFlag.Player",
+        "1.5,2.3,5.1",
+        "4,5,6",
+        "3,5",
+        "[4,6],[2,8],[6,7]",
+        "[1,2,3,4],[6,4,3,3]",
+        "[1,3,4],[4,3,3]",
+        "false,true,true,false",
+        "[5,2,1,5,7,8],[4,2,1,5],[5,2,5]",
+        "[false,true,false],[true,true,false]",
+        "True",
+        "26/11/2024 15:06:50"
+      ]
+    },
+    {
+      "row": 7,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "3",
+        "StringArr": "",
+        "EnumValue": "CombatFlag.Player",
+        "Vec3": "",
+        "Vec3Int": "",
+        "Vec2": "",
+        "Vec2Arr": "",
+        "Vec4Arr": "",
+        "Vec3Arr": "",
+        "BoolArr": "",
+        "Float2DArr": "",
+        "Bool2DArr": "",
+        "BoolValue": "True",
+        "DateTimeValue": "26/11/2024 15:06:51"
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "3",
+        "",
+        "",
+        "CombatFlag.Player",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "True",
+        "26/11/2024 15:06:51"
+      ]
+    }
+  ]
+}

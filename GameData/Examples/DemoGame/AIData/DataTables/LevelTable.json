@@ -1,0 +1,180 @@
+{
+  "schemaVersion": 1,
+  "kind": "GF_X.DataTable.AI",
+  "tableName": "LevelTable",
+  "relativePath": "LevelTable",
+  "sourceExcel": "GameData/DataTables/LevelTable.xlsx",
+  "sourceExcelLastWriteUtc": "2026-05-21T14:00:35.0000000Z",
+  "generatedAtUtc": "2026-07-06T09:50:27.3253392Z",
+  "tableComment": "关卡表",
+  "columns": [
+    {
+      "index": 1,
+      "key": "Note1",
+      "name": "#",
+      "type": "#",
+      "comment": "#",
+      "role": "comment"
+    },
+    {
+      "index": 2,
+      "key": "Id",
+      "name": "ID",
+      "type": "int",
+      "comment": "",
+      "role": "id"
+    },
+    {
+      "index": 3,
+      "key": "Note3",
+      "name": "",
+      "type": "",
+      "comment": "备注",
+      "role": "comment"
+    },
+    {
+      "index": 4,
+      "key": "LvPfbName",
+      "name": "LvPfbName",
+      "type": "string",
+      "comment": "关卡prefab名",
+      "role": "data"
+    },
+    {
+      "index": 5,
+      "key": "InitMoney",
+      "name": "InitMoney",
+      "type": "int",
+      "comment": "玩家初始钱数",
+      "role": "data"
+    },
+    {
+      "index": 6,
+      "key": "MoneyColorId",
+      "name": "MoneyColorId",
+      "type": "int",
+      "comment": "取值1-6",
+      "role": "data"
+    },
+    {
+      "index": 7,
+      "key": "LvDisplayName",
+      "name": "LvDisplayName",
+      "type": "string",
+      "comment": "关卡显示名(多语言)",
+      "role": "data"
+    }
+  ],
+  "rows": [
+    {
+      "row": 5,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "1",
+        "LvPfbName": "Lv_1",
+        "InitMoney": "200",
+        "MoneyColorId": "1",
+        "LvDisplayName": "Level.DisplayName1"
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "1",
+        "",
+        "Lv_1",
+        "200",
+        "1",
+        "Level.DisplayName1"
+      ]
+    },
+    {
+      "row": 6,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "2",
+        "LvPfbName": "Lv_1",
+        "InitMoney": "160",
+        "MoneyColorId": "5",
+        "LvDisplayName": "Level.DisplayName2"
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "2",
+        "",
+        "Lv_1",
+        "160",
+        "5",
+        "Level.DisplayName2"
+      ]
+    },
+    {
+      "row": 7,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "3",
+        "LvPfbName": "Lv_1",
+        "InitMoney": "315",
+        "MoneyColorId": "6",
+        "LvDisplayName": "Level.DisplayName3"
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "3",
+        "",
+        "Lv_1",
+        "315",
+        "6",
+        "Level.DisplayName3"
+      ]
+    },
+    {
+      "row": 8,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "4",
+        "LvPfbName": "Lv_1",
+        "InitMoney": "210",
+        "MoneyColorId": "6",
+        "LvDisplayName": "Level.DisplayName4"
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "4",
+        "",
+        "Lv_1",
+        "210",
+        "6",
+        "Level.DisplayName4"
+      ]
+    },
+    {
+      "row": 9,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "5",
+        "LvPfbName": "Lv_1",
+        "InitMoney": "315",
+        "MoneyColorId": "3",
+        "LvDisplayName": "Level.DisplayName5"
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "5",
+        "",
+        "Lv_1",
+        "315",
+        "3",
+        "Level.DisplayName5"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,182 @@
+{
+  "schemaVersion": 1,
+  "kind": "GF_X.DataTable.AI",
+  "tableName": "SoundGroupTable",
+  "relativePath": "Core/SoundGroupTable",
+  "sourceExcel": "GameData/DataTables/Core/SoundGroupTable.xlsx",
+  "sourceExcelLastWriteUtc": "2026-07-07T07:34:26.6474615Z",
+  "generatedAtUtc": "2026-07-07T07:34:26.8474615Z",
+  "tableComment": "SoundGroup",
+  "columns": [
+    {
+      "index": 1,
+      "key": "Note1",
+      "name": "#",
+      "type": "#",
+      "comment": "#",
+      "role": "comment"
+    },
+    {
+      "index": 2,
+      "key": "Id",
+      "name": "ID",
+      "type": "int",
+      "comment": "",
+      "role": "id"
+    },
+    {
+      "index": 3,
+      "key": "Note3",
+      "name": "",
+      "type": "",
+      "comment": "备注",
+      "role": "comment"
+    },
+    {
+      "index": 4,
+      "key": "Name",
+      "name": "Name",
+      "type": "string",
+      "comment": "",
+      "role": "data"
+    },
+    {
+      "index": 5,
+      "key": "SoundAgentCount",
+      "name": "SoundAgentCount",
+      "type": "int",
+      "comment": "",
+      "role": "data"
+    },
+    {
+      "index": 6,
+      "key": "AvoidBeingReplacedBySamePriority",
+      "name": "AvoidBeingReplacedBySamePriority",
+      "type": "bool",
+      "comment": "",
+      "role": "data"
+    },
+    {
+      "index": 7,
+      "key": "Mute",
+      "name": "Mute",
+      "type": "bool",
+      "comment": "",
+      "role": "data"
+    },
+    {
+      "index": 8,
+      "key": "Volume",
+      "name": "Volume",
+      "type": "float",
+      "comment": "",
+      "role": "data"
+    }
+  ],
+  "rows": [
+    {
+      "row": 5,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "1",
+        "Name": "Music",
+        "SoundAgentCount": "1",
+        "AvoidBeingReplacedBySamePriority": "False",
+        "Mute": "False",
+        "Volume": "1"
+      },
+      "notes": {
+        "Note3": "背景音乐"
+      },
+      "_cells": [
+        "",
+        "1",
+        "背景音乐",
+        "Music",
+        "1",
+        "False",
+        "False",
+        "1"
+      ]
+    },
+    {
+      "row": 6,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "2",
+        "Name": "Sound",
+        "SoundAgentCount": "1",
+        "AvoidBeingReplacedBySamePriority": "False",
+        "Mute": "False",
+        "Volume": "1"
+      },
+      "notes": {
+        "Note3": "音效"
+      },
+      "_cells": [
+        "",
+        "2",
+        "音效",
+        "Sound",
+        "1",
+        "False",
+        "False",
+        "1"
+      ]
+    },
+    {
+      "row": 7,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "3",
+        "Name": "Vibrate",
+        "SoundAgentCount": "1",
+        "AvoidBeingReplacedBySamePriority": "False",
+        "Mute": "False",
+        "Volume": "1"
+      },
+      "notes": {
+        "Note3": "震动"
+      },
+      "_cells": [
+        "",
+        "3",
+        "震动",
+        "Vibrate",
+        "1",
+        "False",
+        "False",
+        "1"
+      ]
+    },
+    {
+      "row": 8,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "4",
+        "Name": "Joystick",
+        "SoundAgentCount": "1",
+        "AvoidBeingReplacedBySamePriority": "False",
+        "Mute": "False",
+        "Volume": "1"
+      },
+      "notes": {
+        "Note3": "摇杆"
+      },
+      "_cells": [
+        "",
+        "4",
+        "摇杆",
+        "Joystick",
+        "1",
+        "False",
+        "False",
+        "1"
+      ]
+    }
+  ]
+}

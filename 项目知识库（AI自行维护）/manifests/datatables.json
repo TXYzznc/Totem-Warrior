@@ -1,0 +1,2365 @@
+{
+  "generated_at": "2026-07-09",
+  "source": "tools/ai_index/build_ai_manifests.py",
+  "registry": "LegacyProjectArchive/Assets/Scripts/DataTable/DataTableRegistry.cs",
+  "count": 28,
+  "ai_datatable_bridge": {
+    "target_workflow": "28 legacy business tables -> GameData/AIData/DataTables/Business JSON -> GameData/DataTables/Business xlsx -> GF_X DataTable export",
+    "legacy_business_count": 28,
+    "business_ai_json_count": 28,
+    "business_xlsx_count": 28,
+    "schema_bridge_table_count": 28,
+    "schema_bridge_valid_table_count": 28,
+    "schema_bridge_missing_legacy_field_table_count": 0,
+    "schema_bridge_added_business_field_table_count": 1,
+    "schema_bridge_missing_legacy_fields": {},
+    "schema_bridge_added_business_fields": {
+      "BotConfig": [
+        "Personality",
+        "ReadingTargetWeight",
+        "RiskTolerance",
+        "ShopPreference",
+        "TargetBossWeight",
+        "TargetHumanoidAiWeight",
+        "TargetPlayerWeight",
+        "TargetResourceWeight"
+      ]
+    },
+    "business_ai_jsons": [
+      "GameData/AIData/DataTables/Business/BossPhaseConfig.json",
+      "GameData/AIData/DataTables/Business/BotBuildPreset.json",
+      "GameData/AIData/DataTables/Business/BotConfig.json",
+      "GameData/AIData/DataTables/Business/ChestConfig.json",
+      "GameData/AIData/DataTables/Business/EnemyConfig.json",
+      "GameData/AIData/DataTables/Business/EventConfig.json",
+      "GameData/AIData/DataTables/Business/ItemConfig.json",
+      "GameData/AIData/DataTables/Business/MapTemplateConfig.json",
+      "GameData/AIData/DataTables/Business/MerchantConfig.json",
+      "GameData/AIData/DataTables/Business/NPCConfig.json",
+      "GameData/AIData/DataTables/Business/ProjectileConfig.json",
+      "GameData/AIData/DataTables/Business/ResourceConfig.json",
+      "GameData/AIData/DataTables/Business/ShopStockConfig.json",
+      "GameData/AIData/DataTables/Business/SkillConfig.json",
+      "GameData/AIData/DataTables/Business/TattooColorConfig.json",
+      "GameData/AIData/DataTables/Business/TattooElementConfig.json",
+      "GameData/AIData/DataTables/Business/TattooEnchantAffixConfig.json",
+      "GameData/AIData/DataTables/Business/TattooEnchantRecipeConfig.json",
+      "GameData/AIData/DataTables/Business/TattooPartConfig.json",
+      "GameData/AIData/DataTables/Business/TattooPatternConfig.json",
+      "GameData/AIData/DataTables/Business/TattooReadingTimeConfig.json",
+      "GameData/AIData/DataTables/Business/TattooShapeConfig.json",
+      "GameData/AIData/DataTables/Business/ThreeChoiceOptionConfig.json",
+      "GameData/AIData/DataTables/Business/UIFormConfig.json",
+      "GameData/AIData/DataTables/Business/WeaponConfig.json",
+      "GameData/AIData/DataTables/Business/WeaponDropConfig.json",
+      "GameData/AIData/DataTables/Business/WeaponTraitConfig.json",
+      "GameData/AIData/DataTables/Business/ZoneShrinkConfig.json"
+    ],
+    "business_xlsx": [
+      "GameData/DataTables/Business/BossPhaseConfig.xlsx",
+      "GameData/DataTables/Business/BotBuildPreset.xlsx",
+      "GameData/DataTables/Business/BotConfig.xlsx",
+      "GameData/DataTables/Business/ChestConfig.xlsx",
+      "GameData/DataTables/Business/EnemyConfig.xlsx",
+      "GameData/DataTables/Business/EventConfig.xlsx",
+      "GameData/DataTables/Business/ItemConfig.xlsx",
+      "GameData/DataTables/Business/MapTemplateConfig.xlsx",
+      "GameData/DataTables/Business/MerchantConfig.xlsx",
+      "GameData/DataTables/Business/NPCConfig.xlsx",
+      "GameData/DataTables/Business/ProjectileConfig.xlsx",
+      "GameData/DataTables/Business/ResourceConfig.xlsx",
+      "GameData/DataTables/Business/ShopStockConfig.xlsx",
+      "GameData/DataTables/Business/SkillConfig.xlsx",
+      "GameData/DataTables/Business/TattooColorConfig.xlsx",
+      "GameData/DataTables/Business/TattooElementConfig.xlsx",
+      "GameData/DataTables/Business/TattooEnchantAffixConfig.xlsx",
+      "GameData/DataTables/Business/TattooEnchantRecipeConfig.xlsx",
+      "GameData/DataTables/Business/TattooPartConfig.xlsx",
+      "GameData/DataTables/Business/TattooPatternConfig.xlsx",
+      "GameData/DataTables/Business/TattooReadingTimeConfig.xlsx",
+      "GameData/DataTables/Business/TattooShapeConfig.xlsx",
+      "GameData/DataTables/Business/ThreeChoiceOptionConfig.xlsx",
+      "GameData/DataTables/Business/UIFormConfig.xlsx",
+      "GameData/DataTables/Business/WeaponConfig.xlsx",
+      "GameData/DataTables/Business/WeaponDropConfig.xlsx",
+      "GameData/DataTables/Business/WeaponTraitConfig.xlsx",
+      "GameData/DataTables/Business/ZoneShrinkConfig.xlsx"
+    ],
+    "missing_business_ai_json": [],
+    "missing_business_xlsx": []
+  },
+  "tables": [
+    {
+      "name": "BossPhaseConfig",
+      "json": "LegacyProjectArchive/Assets/Resources/DataTable/BossPhaseConfig.json",
+      "table_field": "BossPhaseConfig",
+      "registered": true,
+      "csharp_type": "BossPhaseConfig",
+      "csharp": "LegacyProjectArchive/Assets/Scripts/DataTable/BossPhaseConfig.cs",
+      "primary_field": {
+        "name": "BossId",
+        "type": "string",
+        "desc": "对应 EnemyConfig.EnemyId"
+      },
+      "uses_standard_id_primary_key": false,
+      "field_count": 8,
+      "row_count": 3,
+      "business_schema_bridge": {
+        "business_json": "GameData/AIData/DataTables/Business/BossPhaseConfig.json",
+        "business_exists": true,
+        "legacy_field_count": 8,
+        "business_column_count": 9,
+        "business_data_field_count": 8,
+        "business_row_count": 3,
+        "id_column_role": "id",
+        "legacy_fields_preserved_count": 8,
+        "missing_legacy_fields": [],
+        "added_business_fields": [],
+        "valid": true
+      },
+      "fields": [
+        {
+          "name": "BossId",
+          "type": "string",
+          "desc": "对应 EnemyConfig.EnemyId",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "PhaseIndex",
+          "type": "int",
+          "desc": "阶段编号：1 / 2 / 3",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "HPThreshold",
+          "type": "float",
+          "desc": "进入本阶段的 HP 百分比：1.0=满血，0.6=60%HP",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "NewSkillIds",
+          "type": "string",
+          "desc": "本阶段解锁技能 ID，逗号分隔，叠加不替换",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "EnrageMultiplier",
+          "type": "float",
+          "desc": "本阶段伤害倍率，1.0=无变化",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "PhaseVFXId",
+          "type": "string",
+          "desc": "阶段转换特效 ID",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "PhaseBGMCueId",
+          "type": "string",
+          "desc": "阶段 BGM cue ID",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "DeathPatternRecipeId",
+          "type": "string",
+          "desc": "v2.1 新增：Boss 死亡时必掉的主题配方 ID（仅 PhaseIndex=3 有效，其余填空）",
+          "desc_source": "Business AI DataTable"
+        }
+      ]
+    },
+    {
+      "name": "BotBuildPreset",
+      "json": "LegacyProjectArchive/Assets/Resources/DataTable/BotBuildPreset.json",
+      "table_field": "BotBuildPreset",
+      "registered": true,
+      "csharp_type": "BotBuildPresetConfig",
+      "csharp": "LegacyProjectArchive/Assets/Scripts/DataTable/BotBuildPresetConfig.cs",
+      "primary_field": {
+        "name": "PresetId",
+        "type": "int",
+        "desc": "主键 1-7"
+      },
+      "uses_standard_id_primary_key": false,
+      "field_count": 10,
+      "row_count": 7,
+      "business_schema_bridge": {
+        "business_json": "GameData/AIData/DataTables/Business/BotBuildPreset.json",
+        "business_exists": true,
+        "legacy_field_count": 10,
+        "business_column_count": 11,
+        "business_data_field_count": 10,
+        "business_row_count": 7,
+        "id_column_role": "id",
+        "legacy_fields_preserved_count": 10,
+        "missing_legacy_fields": [],
+        "added_business_fields": [],
+        "valid": true
+      },
+      "fields": [
+        {
+          "name": "PresetId",
+          "type": "int",
+          "desc": "主键 1-7",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "Name",
+          "type": "string",
+          "desc": "如 火爆右臂流",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "Tendency",
+          "type": "string",
+          "desc": "7 元素倾向 vector JSON：[Fire,Lightning,Nature,Frost,Mutation,Holy,Pure] sum=1.0",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "PreferredParts",
+          "type": "string",
+          "desc": "推荐刻的部位 ID 序列 JSON，按优先级排",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "RecommendedSeq",
+          "type": "string",
+          "desc": "推荐 build 序列 JSON：[{partId,colorId,patternId},...] 长度1..6",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "EarlyGameWeapon",
+          "type": "int",
+          "desc": "WeaponId 默认起手武器",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "BehaviorMacro",
+          "type": "string",
+          "desc": "Rush / Camp / Pivot / Hybrid",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "PreferredSkillQ",
+          "type": "int",
+          "desc": "起手 Q 槽推荐技能 SkillId",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "PreferredSkillE",
+          "type": "int",
+          "desc": "起手 E 槽推荐技能 SkillId",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "TargetEnchantAffixes",
+          "type": "string",
+          "desc": "希望最终叠到的词缀 ID 列表 JSON",
+          "desc_source": "Business AI DataTable"
+        }
+      ]
+    },
+    {
+      "name": "BotConfig",
+      "json": "LegacyProjectArchive/Assets/Resources/DataTable/BotConfig.json",
+      "table_field": "BotConfig",
+      "registered": true,
+      "csharp_type": "BotConfig",
+      "csharp": "LegacyProjectArchive/Assets/Scripts/DataTable/BotConfig.cs",
+      "primary_field": {
+        "name": "BotId",
+        "type": "int",
+        "desc": "Primary profile id"
+      },
+      "uses_standard_id_primary_key": false,
+      "field_count": 13,
+      "row_count": 10,
+      "business_schema_bridge": {
+        "business_json": "GameData/AIData/DataTables/Business/BotConfig.json",
+        "business_exists": true,
+        "legacy_field_count": 13,
+        "business_column_count": 22,
+        "business_data_field_count": 21,
+        "business_row_count": 23,
+        "id_column_role": "id",
+        "legacy_fields_preserved_count": 13,
+        "missing_legacy_fields": [],
+        "added_business_fields": [
+          "Personality",
+          "ReadingTargetWeight",
+          "RiskTolerance",
+          "ShopPreference",
+          "TargetBossWeight",
+          "TargetHumanoidAiWeight",
+          "TargetPlayerWeight",
+          "TargetResourceWeight"
+        ],
+        "valid": true
+      },
+      "fields": [
+        {
+          "name": "BotId",
+          "type": "int",
+          "desc": "Primary profile id",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "Type",
+          "type": "string",
+          "desc": "Smart or Light",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "DisplayName",
+          "type": "string",
+          "desc": "Runtime/debug display name",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "RethinkInterval",
+          "type": "float",
+          "desc": "Build planner rethink interval in seconds",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "AttackCooldown",
+          "type": "float",
+          "desc": "Minimum normal attack cooldown",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "VisionRadius",
+          "type": "float",
+          "desc": "Target search radius",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "AggroRadius",
+          "type": "float",
+          "desc": "Preferred combat/chase radius",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "DodgeReactionMs",
+          "type": "int",
+          "desc": "Threat reaction latency in milliseconds",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "Confidence",
+          "type": "float",
+          "desc": "Decision confidence 0..1",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "PreferredPreset",
+          "type": "int",
+          "desc": "BotBuildPreset.PresetId",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "LootGreedFactor",
+          "type": "float",
+          "desc": "Death chest/resource greed 0..2",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "SelfTattooBoldness",
+          "type": "float",
+          "desc": "Smart self-tattoo boldness 0..1",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "EnchantGreed",
+          "type": "float",
+          "desc": "Enchant/shop upgrade preference 0..1",
+          "desc_source": "Business AI DataTable"
+        }
+      ]
+    },
+    {
+      "name": "ChestConfig",
+      "json": "LegacyProjectArchive/Assets/Resources/DataTable/ChestConfig.json",
+      "table_field": "ChestConfig",
+      "registered": true,
+      "csharp_type": "ChestConfig",
+      "csharp": "LegacyProjectArchive/Assets/Scripts/DataTable/ChestConfig.cs",
+      "primary_field": {
+        "name": "ChestId",
+        "type": "string",
+        "desc": "宝箱类型主键，如 chest_common / chest_rare"
+      },
+      "uses_standard_id_primary_key": false,
+      "field_count": 5,
+      "row_count": 6,
+      "business_schema_bridge": {
+        "business_json": "GameData/AIData/DataTables/Business/ChestConfig.json",
+        "business_exists": true,
+        "legacy_field_count": 5,
+        "business_column_count": 6,
+        "business_data_field_count": 5,
+        "business_row_count": 6,
+        "id_column_role": "id",
+        "legacy_fields_preserved_count": 5,
+        "missing_legacy_fields": [],
+        "added_business_fields": [],
+        "valid": true
+      },
+      "fields": [
+        {
+          "name": "ChestId",
+          "type": "string",
+          "desc": "宝箱类型主键，如 chest_common / chest_rare",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "RewardType",
+          "type": "string",
+          "desc": "枚举：Weapon / Gold / Potion",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "RewardId",
+          "type": "string",
+          "desc": "Weapon 时填 WeaponId（从 WeaponDropConfig 随机选）；Gold/Potion 时留空字符串",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "RewardAmount",
+          "type": "int",
+          "desc": "Gold 时为金币数量（单位 coin）；Weapon 时恒为 1；Potion 时为药水数量",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "Probability",
+          "type": "int",
+          "desc": "同 ChestId 内概率（整数百分比），同 ChestId 所有行之和必须 = 100（DataTableModule Assert）",
+          "desc_source": "Business AI DataTable"
+        }
+      ]
+    },
+    {
+      "name": "EnemyConfig",
+      "json": "LegacyProjectArchive/Assets/Resources/DataTable/EnemyConfig.json",
+      "table_field": "EnemyConfig",
+      "registered": true,
+      "csharp_type": "EnemyConfig",
+      "csharp": "LegacyProjectArchive/Assets/Scripts/DataTable/EnemyConfig.cs",
+      "primary_field": {
+        "name": "EnemyId",
+        "type": "string",
+        "desc": "怪物唯一 ID，如 enemy_ai_servo_light"
+      },
+      "uses_standard_id_primary_key": false,
+      "field_count": 18,
+      "row_count": 3,
+      "business_schema_bridge": {
+        "business_json": "GameData/AIData/DataTables/Business/EnemyConfig.json",
+        "business_exists": true,
+        "legacy_field_count": 18,
+        "business_column_count": 19,
+        "business_data_field_count": 18,
+        "business_row_count": 3,
+        "id_column_role": "id",
+        "legacy_fields_preserved_count": 18,
+        "missing_legacy_fields": [],
+        "added_business_fields": [],
+        "valid": true
+      },
+      "fields": [
+        {
+          "name": "EnemyId",
+          "type": "string",
+          "desc": "怪物唯一 ID，如 enemy_ai_servo_light",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "DisplayName",
+          "type": "string",
+          "desc": "本地化键，如 enemy.ai_servo",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "ThemeId",
+          "type": "string",
+          "desc": "AI_RUINS | ALIEN_HIVE | VIRUS_SWAMP | common",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "Tier",
+          "type": "string",
+          "desc": "Light | Elite | Boss",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "BaseHP",
+          "type": "float",
+          "desc": "Run 第 0 分钟基础 HP",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "HPCurveK",
+          "type": "float",
+          "desc": "HP 线性增长系数，HP_t = BaseHP × (1 + K × t_min)",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "BaseDamage",
+          "type": "float",
+          "desc": "基础攻击伤害 (point)",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "DamageCurveK",
+          "type": "float",
+          "desc": "伤害随时间增长系数",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "MoveSpeed",
+          "type": "float",
+          "desc": "移动速度 (m/s)",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "AttackRange",
+          "type": "float",
+          "desc": "攻击判定范围 (m)",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "DetectRange",
+          "type": "float",
+          "desc": "感知半径 (m)；失追距离 = DetectRange × 2",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "SkillIds",
+          "type": "string",
+          "desc": "技能 ID 逗号分隔；Light 通常空",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "LootTableId",
+          "type": "string",
+          "desc": "随机掉落表 ID",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "GuaranteedLootIds",
+          "type": "string",
+          "desc": "v2.1 新增：必掉物品 ID 逗号分隔；Elite 必含稀有颜料 ID",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "ElitePaintDropRare",
+          "type": "int",
+          "desc": "v2.1 新增：精英必掉稀有颜料标记；1=必掉，0=不掉",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "XPReward",
+          "type": "int",
+          "desc": "击杀奖励 XP",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "CoinReward",
+          "type": "string",
+          "desc": "击杀掉落金币范围，格式 min-max",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "PoolIds",
+          "type": "string",
+          "desc": "所属怪物池 ID，逗号分隔",
+          "desc_source": "Business AI DataTable"
+        }
+      ]
+    },
+    {
+      "name": "EventConfig",
+      "json": "LegacyProjectArchive/Assets/Resources/DataTable/EventConfig.json",
+      "table_field": "EventConfig",
+      "registered": true,
+      "csharp_type": "EventConfig",
+      "csharp": "LegacyProjectArchive/Assets/Scripts/DataTable/EventConfig.cs",
+      "primary_field": {
+        "name": "EventId",
+        "type": "string",
+        "desc": "事件唯一 ID，格式 event_<type>_<序号>"
+      },
+      "uses_standard_id_primary_key": false,
+      "field_count": 10,
+      "row_count": 6,
+      "business_schema_bridge": {
+        "business_json": "GameData/AIData/DataTables/Business/EventConfig.json",
+        "business_exists": true,
+        "legacy_field_count": 10,
+        "business_column_count": 11,
+        "business_data_field_count": 10,
+        "business_row_count": 6,
+        "id_column_role": "id",
+        "legacy_fields_preserved_count": 10,
+        "missing_legacy_fields": [],
+        "added_business_fields": [],
+        "valid": true
+      },
+      "fields": [
+        {
+          "name": "EventId",
+          "type": "string",
+          "desc": "事件唯一 ID，格式 event_<type>_<序号>",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "EventType",
+          "type": "string",
+          "desc": "枚举：combat_event / choice_event / puzzle_event / merchant_event / boss_event / lore_event / curse_event",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "DisplayName",
+          "type": "string",
+          "desc": "玩家可见名称（本地化 Key）",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "TriggerCondition",
+          "type": "string",
+          "desc": "前置条件 JSON：{ minElapsedSec, minRoomCleared, requiredFlag }；空字符串=无条件",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "BaseRewardCoin",
+          "type": "int",
+          "desc": "完成时发放基础金币；0=不发",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "RewardPoolId",
+          "type": "string",
+          "desc": "额外掉落池 ID，引用 LootPoolConfig；空=无额外掉落",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "TimeoutSec",
+          "type": "float",
+          "desc": "超时时间(s)；choice_event 填 20(v2.1)；-1=不超时(merchant_event)",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "CurseDebuffId",
+          "type": "string",
+          "desc": "仅 curse_event 用：施加的 Debuff ID；其余留空",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "WeightBase",
+          "type": "int",
+          "desc": "地图生成时随机选取事件类型的基础权重 (1–100)",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "IsRepeatAllowed",
+          "type": "bool",
+          "desc": "同一 Run 内是否允许同一 EventId 重复出现",
+          "desc_source": "Business AI DataTable"
+        }
+      ]
+    },
+    {
+      "name": "ItemConfig",
+      "json": "LegacyProjectArchive/Assets/Resources/DataTable/ItemConfig.json",
+      "table_field": "ItemConfig",
+      "registered": true,
+      "csharp_type": "ItemConfig",
+      "csharp": "LegacyProjectArchive/Assets/Scripts/DataTable/ItemConfig.cs",
+      "primary_field": {
+        "name": "ItemId",
+        "type": "int",
+        "desc": "物品唯一 ID，全局不重复"
+      },
+      "uses_standard_id_primary_key": false,
+      "field_count": 9,
+      "row_count": 31,
+      "business_schema_bridge": {
+        "business_json": "GameData/AIData/DataTables/Business/ItemConfig.json",
+        "business_exists": true,
+        "legacy_field_count": 9,
+        "business_column_count": 10,
+        "business_data_field_count": 9,
+        "business_row_count": 31,
+        "id_column_role": "id",
+        "legacy_fields_preserved_count": 9,
+        "missing_legacy_fields": [],
+        "added_business_fields": [],
+        "valid": true
+      },
+      "fields": [
+        {
+          "name": "ItemId",
+          "type": "int",
+          "desc": "物品唯一 ID，全局不重复",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "ItemType",
+          "type": "string",
+          "desc": "枚举：Coin | InkBottle | RecipeShard | RecipeFull | Equipment | Antidote",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "SubType",
+          "type": "string",
+          "desc": "细分类型：颜料填 ColorId（1–7）；武器填品质（Common/Uncommon/Rare/Legendary）；其他留空",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "Tier",
+          "type": "int",
+          "desc": "颜料档位：1=Basic / 2=Standard / 3=Premium；非颜料物品填 0",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "DisplayName",
+          "type": "string",
+          "desc": "本地化显示名（中文，运行时替换为 LocalizationKey）",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "Rarity",
+          "type": "string",
+          "desc": "枚举：Common | Uncommon | Rare | Epic | Legendary",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "MaxStack",
+          "type": "int",
+          "desc": "单槽最大堆叠数；金币 = 9999，颜料 = 99，其他 = 1",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "BasePrice",
+          "type": "int",
+          "desc": "基础定价（coin）；供商人 ShopStockConfig 引用计算实际价格",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "SellRatio",
+          "type": "float",
+          "desc": "玩家出售时的回收比例（× BasePrice）；默认 0.4",
+          "desc_source": "Business AI DataTable"
+        }
+      ]
+    },
+    {
+      "name": "MapTemplateConfig",
+      "json": "LegacyProjectArchive/Assets/Resources/DataTable/MapTemplateConfig.json",
+      "table_field": "MapTemplateConfig",
+      "registered": true,
+      "csharp_type": "MapTemplateConfig",
+      "csharp": "LegacyProjectArchive/Assets/Scripts/DataTable/MapTemplateConfig.cs",
+      "primary_field": {
+        "name": "Id",
+        "type": "int",
+        "desc": "GF_X numeric row id. Original business key is preserved as a data column when its name is not Id."
+      },
+      "uses_standard_id_primary_key": true,
+      "field_count": 9,
+      "row_count": 3,
+      "business_schema_bridge": {
+        "business_json": "GameData/AIData/DataTables/Business/MapTemplateConfig.json",
+        "business_exists": true,
+        "legacy_field_count": 9,
+        "business_column_count": 9,
+        "business_data_field_count": 8,
+        "business_row_count": 3,
+        "id_column_role": "id",
+        "legacy_fields_preserved_count": 9,
+        "missing_legacy_fields": [],
+        "added_business_fields": [],
+        "valid": true
+      },
+      "fields": [
+        {
+          "name": "Id",
+          "type": "int",
+          "desc": "GF_X numeric row id. Original business key is preserved as a data column when its name is not Id.",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "ThemeName",
+          "type": "string",
+          "desc": "主题枚举名（AI_RUINS / ALIEN_HIVE / VIRUS_SWAMP）",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "MapSize",
+          "type": "float",
+          "desc": "固定手工地图边界尺寸（单位 m，固定 400）",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "MinRoomSize",
+          "type": "float",
+          "desc": "BSP 最小房间尺寸（单位 m）",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "BspMaxDepth",
+          "type": "int",
+          "desc": "BSP 最大递归深度（v2.1 = 4）",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "TerrainPoolId",
+          "type": "int",
+          "desc": "地块池 ID，用于 tile 替换。MVP 暂未消费",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "PrefabPath",
+          "type": "string",
+          "desc": "房间 Prefab 路径前缀（相对 Resources/Prefab/Map/）。MVP 留空",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "HudAccentColor",
+          "type": "string",
+          "desc": "HUD 强调色（hex，如 #66CCFF）。透传字段",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "DominantColor",
+          "type": "string",
+          "desc": "主色调（hex）。透传字段",
+          "desc_source": "Business AI DataTable"
+        }
+      ]
+    },
+    {
+      "name": "MerchantConfig",
+      "json": "LegacyProjectArchive/Assets/Resources/DataTable/MerchantConfig.json",
+      "table_field": "MerchantConfig",
+      "registered": true,
+      "csharp_type": "MerchantConfig",
+      "csharp": "LegacyProjectArchive/Assets/Scripts/DataTable/MerchantConfig.cs",
+      "primary_field": {
+        "name": "SlotIndex",
+        "type": "int",
+        "desc": "商人展示槽位索引，范围 0~2（每局刷新时按 RefreshWeight 随机选定该槽武器）"
+      },
+      "uses_standard_id_primary_key": false,
+      "field_count": 4,
+      "row_count": 9,
+      "business_schema_bridge": {
+        "business_json": "GameData/AIData/DataTables/Business/MerchantConfig.json",
+        "business_exists": true,
+        "legacy_field_count": 4,
+        "business_column_count": 5,
+        "business_data_field_count": 4,
+        "business_row_count": 9,
+        "id_column_role": "id",
+        "legacy_fields_preserved_count": 4,
+        "missing_legacy_fields": [],
+        "added_business_fields": [],
+        "valid": true
+      },
+      "fields": [
+        {
+          "name": "SlotIndex",
+          "type": "int",
+          "desc": "商人展示槽位索引，范围 0~2（每局刷新时按 RefreshWeight 随机选定该槽武器）",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "WeaponId",
+          "type": "string",
+          "desc": "候选武器 ID，对应 WeaponConfig.WeaponId",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "GoldCost",
+          "type": "int",
+          "desc": "购买所需金币（单位 coin），范围 [50, 200]",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "RefreshWeight",
+          "type": "int",
+          "desc": "商人每局刷新时该候选被选中的概率权重（同 SlotIndex 内竞争）",
+          "desc_source": "Business AI DataTable"
+        }
+      ]
+    },
+    {
+      "name": "NPCConfig",
+      "json": "LegacyProjectArchive/Assets/Resources/DataTable/NPCConfig.json",
+      "table_field": "NPCConfig",
+      "registered": true,
+      "csharp_type": "NPCConfig",
+      "csharp": "LegacyProjectArchive/Assets/Scripts/DataTable/NPCConfig.cs",
+      "primary_field": {
+        "name": "Id",
+        "type": "int",
+        "desc": "GF_X numeric row id. Original business key is preserved as a data column when its name is not Id."
+      },
+      "uses_standard_id_primary_key": true,
+      "field_count": 12,
+      "row_count": 5,
+      "business_schema_bridge": {
+        "business_json": "GameData/AIData/DataTables/Business/NPCConfig.json",
+        "business_exists": true,
+        "legacy_field_count": 12,
+        "business_column_count": 12,
+        "business_data_field_count": 11,
+        "business_row_count": 5,
+        "id_column_role": "id",
+        "legacy_fields_preserved_count": 12,
+        "missing_legacy_fields": [],
+        "added_business_fields": [],
+        "valid": true
+      },
+      "fields": [
+        {
+          "name": "Id",
+          "type": "int",
+          "desc": "GF_X numeric row id. Original business key is preserved as a data column when its name is not Id.",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "NPCId",
+          "type": "string",
+          "desc": "实例唯一字符串 ID（如 tattooist_default）",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "Type",
+          "type": "string",
+          "desc": "Tattooist | Merchant",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "MapTheme",
+          "type": "string",
+          "desc": "适用地图主题：All / Slum / Lab / Alien",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "ThemePriceMul",
+          "type": "float",
+          "desc": "主题价格倍率（普通 1.0 / 实验室 1.1 / 外星 1.2）",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "ShopStockTable",
+          "type": "string",
+          "desc": "关联 ShopStockConfig 中的 TableId；纹身师留空字符串",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "InteractRadius",
+          "type": "float",
+          "desc": "触发交互提示距离（m）",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "GuardRadius",
+          "type": "float",
+          "desc": "警卫怪巡逻半径（m）",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "ServiceCooldown",
+          "type": "float",
+          "desc": "被攻击后关闭服务时长（s）",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "GuardSpawnId",
+          "type": "string",
+          "desc": "被攻击时生成的警卫怪 PrefabId",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "GuardCount1",
+          "type": "int",
+          "desc": "首次警告警卫数量",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "GuardCount2",
+          "type": "int",
+          "desc": "升级警告警卫数量",
+          "desc_source": "Business AI DataTable"
+        }
+      ]
+    },
+    {
+      "name": "ProjectileConfig",
+      "json": "LegacyProjectArchive/Assets/Resources/DataTable/ProjectileConfig.json",
+      "table_field": "ProjectileConfig",
+      "registered": true,
+      "csharp_type": "ProjectileConfig",
+      "csharp": "LegacyProjectArchive/Assets/Scripts/DataTable/ProjectileConfig.cs",
+      "primary_field": {
+        "name": "ProjectileId",
+        "type": "string",
+        "desc": "主键，与 WeaponConfig.ProjectileId 关联"
+      },
+      "uses_standard_id_primary_key": false,
+      "field_count": 7,
+      "row_count": 2,
+      "business_schema_bridge": {
+        "business_json": "GameData/AIData/DataTables/Business/ProjectileConfig.json",
+        "business_exists": true,
+        "legacy_field_count": 7,
+        "business_column_count": 8,
+        "business_data_field_count": 7,
+        "business_row_count": 2,
+        "id_column_role": "id",
+        "legacy_fields_preserved_count": 7,
+        "missing_legacy_fields": [],
+        "added_business_fields": [],
+        "valid": true
+      },
+      "fields": [
+        {
+          "name": "ProjectileId",
+          "type": "string",
+          "desc": "主键，与 WeaponConfig.ProjectileId 关联",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "Speed",
+          "type": "float",
+          "desc": "飞行速度 (m/s)",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "MaxRange",
+          "type": "float",
+          "desc": "最大飞行距离，超出后回池 (m)",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "Piercing",
+          "type": "bool",
+          "desc": "true=穿透，命中后继续飞行可触发多次 AttackHitEvent",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "AoeRadius",
+          "type": "float",
+          "desc": ">0=着弹点范围判定半径 (m)",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "VisualPrefabPath",
+          "type": "string",
+          "desc": "Resources/Prefabs/Projectiles/ 下的 Prefab 路径名",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "PoolSize",
+          "type": "int",
+          "desc": "对象池预分配容量",
+          "desc_source": "Business AI DataTable"
+        }
+      ]
+    },
+    {
+      "name": "ResourceConfig",
+      "json": "LegacyProjectArchive/Assets/Resources/DataTable/ResourceConfig.json",
+      "table_field": "ResourceConfig",
+      "registered": true,
+      "csharp_type": "ResourceConfig",
+      "csharp": "LegacyProjectArchive/Assets/Scripts/DataTable/ResourceConfig.cs",
+      "primary_field": {
+        "name": "Id",
+        "type": "int",
+        "desc": "GF_X numeric row id. Original business key is preserved as a data column when its name is not Id."
+      },
+      "uses_standard_id_primary_key": true,
+      "field_count": 4,
+      "row_count": 14,
+      "business_schema_bridge": {
+        "business_json": "GameData/AIData/DataTables/Business/ResourceConfig.json",
+        "business_exists": true,
+        "legacy_field_count": 4,
+        "business_column_count": 4,
+        "business_data_field_count": 3,
+        "business_row_count": 14,
+        "id_column_role": "id",
+        "legacy_fields_preserved_count": 4,
+        "missing_legacy_fields": [],
+        "added_business_fields": [],
+        "valid": true
+      },
+      "fields": [
+        {
+          "name": "Id",
+          "type": "int",
+          "desc": "GF_X numeric row id. Original business key is preserved as a data column when its name is not Id.",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "Name",
+          "type": "string",
+          "desc": "资源标识名",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "Type",
+          "type": "string",
+          "desc": "资源类型，对应 Resources 下子目录名",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "LoadPath",
+          "type": "string",
+          "desc": "相对 Resources/{Type}/ 的加载路径，不含扩展名",
+          "desc_source": "Business AI DataTable"
+        }
+      ]
+    },
+    {
+      "name": "ShopStockConfig",
+      "json": "LegacyProjectArchive/Assets/Resources/DataTable/ShopStockConfig.json",
+      "table_field": "ShopStockConfig",
+      "registered": true,
+      "csharp_type": "ShopStockConfig",
+      "csharp": "LegacyProjectArchive/Assets/Scripts/DataTable/ShopStockConfig.cs",
+      "primary_field": {
+        "name": "Id",
+        "type": "int",
+        "desc": "GF_X numeric row id. Original business key is preserved as a data column when its name is not Id."
+      },
+      "uses_standard_id_primary_key": true,
+      "field_count": 9,
+      "row_count": 15,
+      "business_schema_bridge": {
+        "business_json": "GameData/AIData/DataTables/Business/ShopStockConfig.json",
+        "business_exists": true,
+        "legacy_field_count": 9,
+        "business_column_count": 9,
+        "business_data_field_count": 8,
+        "business_row_count": 15,
+        "id_column_role": "id",
+        "legacy_fields_preserved_count": 9,
+        "missing_legacy_fields": [],
+        "added_business_fields": [],
+        "valid": true
+      },
+      "fields": [
+        {
+          "name": "Id",
+          "type": "int",
+          "desc": "GF_X numeric row id. Original business key is preserved as a data column when its name is not Id.",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "TableId",
+          "type": "string",
+          "desc": "被 NPCConfig.ShopStockTable 引用的表段 ID",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "ItemId",
+          "type": "int",
+          "desc": "物品 ID",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "Category",
+          "type": "string",
+          "desc": "Weapon / Skill / Ink / Antidote / Remover / RareInk",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "Weight",
+          "type": "float",
+          "desc": "同 TableId 内归一化抽取权重",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "MinCount",
+          "type": "int",
+          "desc": "本局库存最小数量",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "MaxCount",
+          "type": "int",
+          "desc": "本局库存最大数量",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "BasePrice",
+          "type": "int",
+          "desc": "基础售价（× ThemePriceMul = 实际售价）",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "SellRatio",
+          "type": "float",
+          "desc": "玩家出售回收比例（× BasePrice）",
+          "desc_source": "Business AI DataTable"
+        }
+      ]
+    },
+    {
+      "name": "SkillConfig",
+      "json": "LegacyProjectArchive/Assets/Resources/DataTable/SkillConfig.json",
+      "table_field": "SkillConfig",
+      "registered": true,
+      "csharp_type": "SkillConfig",
+      "csharp": "LegacyProjectArchive/Assets/Scripts/DataTable/SkillConfig.cs",
+      "primary_field": {
+        "name": "SkillId",
+        "type": "string",
+        "desc": "唯一技能 ID，如 skill_fireball_01"
+      },
+      "uses_standard_id_primary_key": false,
+      "field_count": 17,
+      "row_count": 8,
+      "business_schema_bridge": {
+        "business_json": "GameData/AIData/DataTables/Business/SkillConfig.json",
+        "business_exists": true,
+        "legacy_field_count": 17,
+        "business_column_count": 18,
+        "business_data_field_count": 17,
+        "business_row_count": 8,
+        "id_column_role": "id",
+        "legacy_fields_preserved_count": 17,
+        "missing_legacy_fields": [],
+        "added_business_fields": [],
+        "valid": true
+      },
+      "fields": [
+        {
+          "name": "SkillId",
+          "type": "string",
+          "desc": "唯一技能 ID，如 skill_fireball_01",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "Name",
+          "type": "string",
+          "desc": "显示名称",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "ChargeModel",
+          "type": "int",
+          "desc": "0=纯冷却 / 1=充能 / 2=蓄力释放",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "Cooldown",
+          "type": "float",
+          "desc": "冷却时长(s)，ChargeModel=0 时生效",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "MaxCharges",
+          "type": "int",
+          "desc": "最大充能层数，ChargeModel=1 时生效",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "ChargeRegenTime",
+          "type": "float",
+          "desc": "单层恢复时间(s)，ChargeModel=1 时生效",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "HoldDuration",
+          "type": "float",
+          "desc": "蓄力满充时长(s)，ChargeModel=2 时生效",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "OverchargeWindow",
+          "type": "float",
+          "desc": "过载窗口时长(s)，ChargeModel=2 时生效",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "StartupFrames",
+          "type": "int",
+          "desc": "预备帧 (60fps 基准)",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "ActiveFrames",
+          "type": "int",
+          "desc": "激活帧 (60fps 基准)",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "RecoveryFrames",
+          "type": "int",
+          "desc": "恢复帧 (60fps 基准)",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "DamageMul",
+          "type": "float",
+          "desc": "伤害倍率，乘以 BaseDamage",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "HitShape",
+          "type": "string",
+          "desc": "single / circle / line / cone",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "HitRadius",
+          "type": "float",
+          "desc": "命中范围半径(m)，single 时忽略",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "Element",
+          "type": "string",
+          "desc": "元素染色：Fire / Frost / Lightning / Holy / Nature / None",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "CancelableByDodge",
+          "type": "bool",
+          "desc": "Startup 帧内是否允许闪避取消",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "ItemId",
+          "type": "int",
+          "desc": "商人出售 ItemId，0 表示非商品",
+          "desc_source": "Business AI DataTable"
+        }
+      ]
+    },
+    {
+      "name": "TattooColorConfig",
+      "json": "LegacyProjectArchive/Assets/Resources/DataTable/TattooColorConfig.json",
+      "table_field": "TattooColorConfig",
+      "registered": true,
+      "csharp_type": "TattooColorConfig",
+      "csharp": "LegacyProjectArchive/Assets/Scripts/DataTable/TattooColorConfig.cs",
+      "primary_field": {
+        "name": "Id",
+        "type": "int",
+        "desc": "GF_X numeric row id. Original business key is preserved as a data column when its name is not Id."
+      },
+      "uses_standard_id_primary_key": true,
+      "field_count": 4,
+      "row_count": 7,
+      "business_schema_bridge": {
+        "business_json": "GameData/AIData/DataTables/Business/TattooColorConfig.json",
+        "business_exists": true,
+        "legacy_field_count": 4,
+        "business_column_count": 4,
+        "business_data_field_count": 3,
+        "business_row_count": 7,
+        "id_column_role": "id",
+        "legacy_fields_preserved_count": 4,
+        "missing_legacy_fields": [],
+        "added_business_fields": [],
+        "valid": true
+      },
+      "fields": [
+        {
+          "name": "Id",
+          "type": "int",
+          "desc": "GF_X numeric row id. Original business key is preserved as a data column when its name is not Id.",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "Name",
+          "type": "string",
+          "desc": "Red / Yellow / Green / Blue / Purple / Gold / White",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "Element",
+          "type": "string",
+          "desc": "ElementType enum 名：Fire / Lightning / Nature / Frost / Mutation / Holy / Pure",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "ColorMultiplier",
+          "type": "float",
+          "desc": "颜色级倍率（基础 1.0）",
+          "desc_source": "Business AI DataTable"
+        }
+      ]
+    },
+    {
+      "name": "TattooElementConfig",
+      "json": "LegacyProjectArchive/Assets/Resources/DataTable/TattooElementConfig.json",
+      "table_field": "TattooElementConfig",
+      "registered": true,
+      "csharp_type": "TattooElementConfig",
+      "csharp": "LegacyProjectArchive/Assets/Scripts/DataTable/TattooElementConfig.cs",
+      "primary_field": {
+        "name": "Id",
+        "type": "int",
+        "desc": "GF_X numeric row id. Original business key is preserved as a data column when its name is not Id."
+      },
+      "uses_standard_id_primary_key": true,
+      "field_count": 6,
+      "row_count": 7,
+      "business_schema_bridge": {
+        "business_json": "GameData/AIData/DataTables/Business/TattooElementConfig.json",
+        "business_exists": true,
+        "legacy_field_count": 6,
+        "business_column_count": 6,
+        "business_data_field_count": 5,
+        "business_row_count": 7,
+        "id_column_role": "id",
+        "legacy_fields_preserved_count": 6,
+        "missing_legacy_fields": [],
+        "added_business_fields": [],
+        "valid": true
+      },
+      "fields": [
+        {
+          "name": "Id",
+          "type": "int",
+          "desc": "GF_X numeric row id. Original business key is preserved as a data column when its name is not Id.",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "Name",
+          "type": "string",
+          "desc": "Fire / Lightning / Nature / Frost / Mutation / Holy / Pure",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "BaseMultiplier",
+          "type": "float",
+          "desc": "元素基础倍率",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "Param1",
+          "type": "float",
+          "desc": "元素参数 1（Fire: BurnDPS / Frost: SlowFactor / Holy: HealPercent / Pure: MagnitudeBonus / Lightning: ParalyzeDuration / Nature: PoisonDPS）",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "Param2",
+          "type": "float",
+          "desc": "元素参数 2（Fire: BurnDuration / Frost: SlowDuration / Pure: FocusStackBonus / Nature: PoisonDuration）",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "Param3",
+          "type": "float",
+          "desc": "元素参数 3（Frost/Pure: 最大叠层数；Mutation: 随机种子）",
+          "desc_source": "Business AI DataTable"
+        }
+      ]
+    },
+    {
+      "name": "TattooEnchantAffixConfig",
+      "json": "LegacyProjectArchive/Assets/Resources/DataTable/TattooEnchantAffixConfig.json",
+      "table_field": "TattooEnchantAffixConfig",
+      "registered": true,
+      "csharp_type": "TattooEnchantAffixConfig",
+      "csharp": "LegacyProjectArchive/Assets/Scripts/DataTable/TattooEnchantAffixConfig.cs",
+      "primary_field": {
+        "name": "Id",
+        "type": "int",
+        "desc": "GF_X numeric row id. Original business key is preserved as a data column when its name is not Id."
+      },
+      "uses_standard_id_primary_key": true,
+      "field_count": 10,
+      "row_count": 24,
+      "business_schema_bridge": {
+        "business_json": "GameData/AIData/DataTables/Business/TattooEnchantAffixConfig.json",
+        "business_exists": true,
+        "legacy_field_count": 10,
+        "business_column_count": 10,
+        "business_data_field_count": 9,
+        "business_row_count": 24,
+        "id_column_role": "id",
+        "legacy_fields_preserved_count": 10,
+        "missing_legacy_fields": [],
+        "added_business_fields": [],
+        "valid": true
+      },
+      "fields": [
+        {
+          "name": "Id",
+          "type": "int",
+          "desc": "GF_X numeric row id. Original business key is preserved as a data column when its name is not Id.",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "PartId",
+          "type": "int",
+          "desc": "适用部位：0=全部位 1=Head 2=Torso 3=LeftArm 4=RightArm 5=LeftLeg 6=RightLeg",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "ColorTier",
+          "type": "string",
+          "desc": "适用颜料档：Common / Rare / Legendary / Any",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "AffixType",
+          "type": "string",
+          "desc": "效果类型：ElementDamageBonus / CooldownReduction / AttackSpeed / CritChance / CritDamage / RangeBonus / StatusChance / SelfHealOnHit",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "StatKey",
+          "type": "string",
+          "desc": "影响的数值 Key（ElementDmg / CritRate / CooldownPct 等）",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "Value",
+          "type": "float",
+          "desc": "词缀数值（百分比类已存储为小数，0.15 = 15%）",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "ConditionKey",
+          "type": "string",
+          "desc": "条件 Key（无条件留空字符串；如 DistanceGt8m / AfterDodge）",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "ConditionVal",
+          "type": "float",
+          "desc": "条件阈值（ConditionKey 为空时填 0）",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "DisplayText",
+          "type": "string",
+          "desc": "UI 展示文案（如 距离>8m 攻击 +30%）",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "Weight",
+          "type": "float",
+          "desc": "同 PartId+ColorTier 池内的抽取权重（归一化前原始值）",
+          "desc_source": "Business AI DataTable"
+        }
+      ]
+    },
+    {
+      "name": "TattooEnchantRecipeConfig",
+      "json": "LegacyProjectArchive/Assets/Resources/DataTable/TattooEnchantRecipeConfig.json",
+      "table_field": "TattooEnchantRecipeConfig",
+      "registered": true,
+      "csharp_type": "TattooEnchantRecipeConfig",
+      "csharp": "LegacyProjectArchive/Assets/Scripts/DataTable/TattooEnchantRecipeConfig.cs",
+      "primary_field": {
+        "name": "Id",
+        "type": "int",
+        "desc": "GF_X numeric row id. Original business key is preserved as a data column when its name is not Id."
+      },
+      "uses_standard_id_primary_key": true,
+      "field_count": 5,
+      "row_count": 3,
+      "business_schema_bridge": {
+        "business_json": "GameData/AIData/DataTables/Business/TattooEnchantRecipeConfig.json",
+        "business_exists": true,
+        "legacy_field_count": 5,
+        "business_column_count": 5,
+        "business_data_field_count": 4,
+        "business_row_count": 3,
+        "id_column_role": "id",
+        "legacy_fields_preserved_count": 5,
+        "missing_legacy_fields": [],
+        "added_business_fields": [],
+        "valid": true
+      },
+      "fields": [
+        {
+          "name": "Id",
+          "type": "int",
+          "desc": "GF_X numeric row id. Original business key is preserved as a data column when its name is not Id.",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "ColorTier",
+          "type": "string",
+          "desc": "颜料档：Common / Rare / Legendary",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "CoinCost",
+          "type": "int",
+          "desc": "附魔金币花费",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "RarePigmentCost",
+          "type": "int",
+          "desc": "附魔稀有颜料花费（固定 1 瓶）",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "MaxAffixPerSlot",
+          "type": "int",
+          "desc": "每个纹身槽最大词缀数（固定 2）",
+          "desc_source": "Business AI DataTable"
+        }
+      ]
+    },
+    {
+      "name": "TattooPartConfig",
+      "json": "LegacyProjectArchive/Assets/Resources/DataTable/TattooPartConfig.json",
+      "table_field": "TattooPartConfig",
+      "registered": true,
+      "csharp_type": "TattooPartConfig",
+      "csharp": "LegacyProjectArchive/Assets/Scripts/DataTable/TattooPartConfig.cs",
+      "primary_field": {
+        "name": "Id",
+        "type": "int",
+        "desc": "GF_X numeric row id. Original business key is preserved as a data column when its name is not Id."
+      },
+      "uses_standard_id_primary_key": true,
+      "field_count": 7,
+      "row_count": 6,
+      "business_schema_bridge": {
+        "business_json": "GameData/AIData/DataTables/Business/TattooPartConfig.json",
+        "business_exists": true,
+        "legacy_field_count": 7,
+        "business_column_count": 7,
+        "business_data_field_count": 6,
+        "business_row_count": 6,
+        "id_column_role": "id",
+        "legacy_fields_preserved_count": 7,
+        "missing_legacy_fields": [],
+        "added_business_fields": [],
+        "valid": true
+      },
+      "fields": [
+        {
+          "name": "Id",
+          "type": "int",
+          "desc": "GF_X numeric row id. Original business key is preserved as a data column when its name is not Id.",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "Name",
+          "type": "string",
+          "desc": "Head / Torso / LeftArm / RightArm / LeftLeg / RightLeg",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "TriggerEvent",
+          "type": "string",
+          "desc": "事件类名：AttackHitEvent / CritHitEvent / DamagedEvent / SkillCastEvent / DodgePressedEvent / MoveTickEvent",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "ScaleStat",
+          "type": "string",
+          "desc": "StatType enum 名",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "SymmetryGroup",
+          "type": "string",
+          "desc": "None / Arms / Legs",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "ScaleFactor",
+          "type": "float",
+          "desc": "缩放系数",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "PassiveDimension",
+          "type": "string",
+          "desc": "被动维度标签（暴击/抗性/技能/武器/闪避/移速）",
+          "desc_source": "Business AI DataTable"
+        }
+      ]
+    },
+    {
+      "name": "TattooPatternConfig",
+      "json": "LegacyProjectArchive/Assets/Resources/DataTable/TattooPatternConfig.json",
+      "table_field": "TattooPatternConfig",
+      "registered": true,
+      "csharp_type": "TattooPatternConfig",
+      "csharp": "LegacyProjectArchive/Assets/Scripts/DataTable/TattooPatternConfig.cs",
+      "primary_field": {
+        "name": "Id",
+        "type": "int",
+        "desc": "GF_X numeric row id. Original business key is preserved as a data column when its name is not Id."
+      },
+      "uses_standard_id_primary_key": true,
+      "field_count": 4,
+      "row_count": 8,
+      "business_schema_bridge": {
+        "business_json": "GameData/AIData/DataTables/Business/TattooPatternConfig.json",
+        "business_exists": true,
+        "legacy_field_count": 4,
+        "business_column_count": 4,
+        "business_data_field_count": 3,
+        "business_row_count": 8,
+        "id_column_role": "id",
+        "legacy_fields_preserved_count": 4,
+        "missing_legacy_fields": [],
+        "added_business_fields": [],
+        "valid": true
+      },
+      "fields": [
+        {
+          "name": "Id",
+          "type": "int",
+          "desc": "GF_X numeric row id. Original business key is preserved as a data column when its name is not Id.",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "Name",
+          "type": "string",
+          "desc": "Line / Ring / Spiral / Zigzag / Bolt / Star / Stream / Beast",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "Shape",
+          "type": "string",
+          "desc": "ShapeBehavior 名：SingleHit / AOEBurst / StackingMark / MultiHit / ChainJump / ProbBurst / TrailZone / SummonForm",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "PatternMultiplier",
+          "type": "float",
+          "desc": "图案级倍率",
+          "desc_source": "Business AI DataTable"
+        }
+      ]
+    },
+    {
+      "name": "TattooReadingTimeConfig",
+      "json": "LegacyProjectArchive/Assets/Resources/DataTable/TattooReadingTimeConfig.json",
+      "table_field": "TattooReadingTimeConfig",
+      "registered": true,
+      "csharp_type": "TattooReadingTimeConfig",
+      "csharp": "LegacyProjectArchive/Assets/Scripts/DataTable/TattooReadingTimeConfig.cs",
+      "primary_field": {
+        "name": "PartId",
+        "type": "int",
+        "desc": "主键，对齐 TattooPartConfig.Id（1-6）"
+      },
+      "uses_standard_id_primary_key": false,
+      "field_count": 3,
+      "row_count": 6,
+      "business_schema_bridge": {
+        "business_json": "GameData/AIData/DataTables/Business/TattooReadingTimeConfig.json",
+        "business_exists": true,
+        "legacy_field_count": 3,
+        "business_column_count": 4,
+        "business_data_field_count": 3,
+        "business_row_count": 6,
+        "id_column_role": "id",
+        "legacy_fields_preserved_count": 3,
+        "missing_legacy_fields": [],
+        "added_business_fields": [],
+        "valid": true
+      },
+      "fields": [
+        {
+          "name": "PartId",
+          "type": "int",
+          "desc": "主键，对齐 TattooPartConfig.Id（1-6）",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "PartName",
+          "type": "string",
+          "desc": "部位名（仅作可读冗余）",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "DurationSec",
+          "type": "float",
+          "desc": "自纹身读条秒数（v2.1）",
+          "desc_source": "Business AI DataTable"
+        }
+      ]
+    },
+    {
+      "name": "TattooShapeConfig",
+      "json": "LegacyProjectArchive/Assets/Resources/DataTable/TattooShapeConfig.json",
+      "table_field": "TattooShapeConfig",
+      "registered": true,
+      "csharp_type": "TattooShapeConfig",
+      "csharp": "LegacyProjectArchive/Assets/Scripts/DataTable/TattooShapeConfig.cs",
+      "primary_field": {
+        "name": "Id",
+        "type": "int",
+        "desc": "GF_X numeric row id. Original business key is preserved as a data column when its name is not Id."
+      },
+      "uses_standard_id_primary_key": true,
+      "field_count": 5,
+      "row_count": 8,
+      "business_schema_bridge": {
+        "business_json": "GameData/AIData/DataTables/Business/TattooShapeConfig.json",
+        "business_exists": true,
+        "legacy_field_count": 5,
+        "business_column_count": 5,
+        "business_data_field_count": 4,
+        "business_row_count": 8,
+        "id_column_role": "id",
+        "legacy_fields_preserved_count": 5,
+        "missing_legacy_fields": [],
+        "added_business_fields": [],
+        "valid": true
+      },
+      "fields": [
+        {
+          "name": "Id",
+          "type": "int",
+          "desc": "GF_X numeric row id. Original business key is preserved as a data column when its name is not Id.",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "Name",
+          "type": "string",
+          "desc": "ShapeBehavior 名",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "Param1",
+          "type": "float",
+          "desc": "形状参数 1（AOEBurst: AreaFactor / StackingMark: Threshold / MultiHit: Segments / ChainJump: MaxJumps / ProbBurst: Probability / TrailZone: TickFactor / SummonForm: SummonMultiplier）",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "Param2",
+          "type": "float",
+          "desc": "形状参数 2（AOEBurst: MaxTargets / StackingMark: BurstMul / ChainJump: Decay / ProbBurst: BurstMultiplier / TrailZone: Ticks）",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "Param3",
+          "type": "float",
+          "desc": "形状参数 3（ProbBurst: Seed）",
+          "desc_source": "Business AI DataTable"
+        }
+      ]
+    },
+    {
+      "name": "ThreeChoiceOptionConfig",
+      "json": "LegacyProjectArchive/Assets/Resources/DataTable/ThreeChoiceOptionConfig.json",
+      "table_field": "ThreeChoiceOptionConfig",
+      "registered": true,
+      "csharp_type": "ThreeChoiceOptionConfig",
+      "csharp": "LegacyProjectArchive/Assets/Scripts/DataTable/ThreeChoiceOptionConfig.cs",
+      "primary_field": {
+        "name": "OptionId",
+        "type": "string",
+        "desc": "选项唯一 ID"
+      },
+      "uses_standard_id_primary_key": false,
+      "field_count": 11,
+      "row_count": 11,
+      "business_schema_bridge": {
+        "business_json": "GameData/AIData/DataTables/Business/ThreeChoiceOptionConfig.json",
+        "business_exists": true,
+        "legacy_field_count": 11,
+        "business_column_count": 12,
+        "business_data_field_count": 11,
+        "business_row_count": 11,
+        "id_column_role": "id",
+        "legacy_fields_preserved_count": 11,
+        "missing_legacy_fields": [],
+        "added_business_fields": [],
+        "valid": true
+      },
+      "fields": [
+        {
+          "name": "OptionId",
+          "type": "string",
+          "desc": "选项唯一 ID",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "OptionType",
+          "type": "string",
+          "desc": "枚举：tattoo_recipe / pattern_recipe / weapon_upgrade / skill_upgrade / skill_acquire / coin_bonus / heal / one_time_scroll",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "DisplayName",
+          "type": "string",
+          "desc": "选项标题（本地化 Key）",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "DescKey",
+          "type": "string",
+          "desc": "选项描述（本地化 Key）",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "ContentRef",
+          "type": "string",
+          "desc": "内容引用：tattoo_recipe/pattern_recipe=配方ID；weapon_upgrade=升级配置ID；skill_upgrade=技能升级ID；skill_acquire=技能ID；其余为空",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "SkillSlot",
+          "type": "int",
+          "desc": "仅 skill_upgrade 用：目标技能槽编号，值域 {0, 1}；其余类型填 -1",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "ValueInt",
+          "type": "int",
+          "desc": "数值型内容（金币量/治疗量/百分比）；非数值型填 0",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "WeightBase",
+          "type": "int",
+          "desc": "基础抽取权重 (1–100)",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "WeightBuildBonus",
+          "type": "string",
+          "desc": "Build 联动加权 JSON：{ elementTag: bonusWeight }；与 Build 元素匹配时额外叠加",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "MinRunElapsedSec",
+          "type": "float",
+          "desc": "最早出现时间(s)；0=无限制",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "IsUnique",
+          "type": "bool",
+          "desc": "同一 Run 内只能出现一次（pattern_recipe = true）",
+          "desc_source": "Business AI DataTable"
+        }
+      ]
+    },
+    {
+      "name": "UIFormConfig",
+      "json": "LegacyProjectArchive/Assets/Resources/DataTable/UIFormConfig.json",
+      "table_field": "UIFormConfig",
+      "registered": true,
+      "csharp_type": "UIFormConfig",
+      "csharp": "LegacyProjectArchive/Assets/Scripts/DataTable/UIFormConfig.cs",
+      "primary_field": {
+        "name": "Id",
+        "type": "int",
+        "desc": "GF_X numeric row id. Original business key is preserved as a data column when its name is not Id."
+      },
+      "uses_standard_id_primary_key": true,
+      "field_count": 5,
+      "row_count": 12,
+      "business_schema_bridge": {
+        "business_json": "GameData/AIData/DataTables/Business/UIFormConfig.json",
+        "business_exists": true,
+        "legacy_field_count": 5,
+        "business_column_count": 5,
+        "business_data_field_count": 4,
+        "business_row_count": 12,
+        "id_column_role": "id",
+        "legacy_fields_preserved_count": 5,
+        "missing_legacy_fields": [],
+        "added_business_fields": [],
+        "valid": true
+      },
+      "fields": [
+        {
+          "name": "Id",
+          "type": "int",
+          "desc": "GF_X numeric row id. Original business key is preserved as a data column when its name is not Id.",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "FormName",
+          "type": "string",
+          "desc": null,
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "PrefabPath",
+          "type": "string",
+          "desc": null,
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "SortOrder",
+          "type": "int",
+          "desc": null,
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "IsExclusive",
+          "type": "bool",
+          "desc": null,
+          "desc_source": "Business AI DataTable"
+        }
+      ]
+    },
+    {
+      "name": "WeaponConfig",
+      "json": "LegacyProjectArchive/Assets/Resources/DataTable/WeaponConfig.json",
+      "table_field": "WeaponConfig",
+      "registered": true,
+      "csharp_type": "WeaponConfig",
+      "csharp": "LegacyProjectArchive/Assets/Scripts/DataTable/WeaponConfig.cs",
+      "primary_field": {
+        "name": "WeaponId",
+        "type": "string",
+        "desc": "主键，如 knife_basic / hammer_heavy / pistol_basic / bow_charge / energy_fist"
+      },
+      "uses_standard_id_primary_key": false,
+      "field_count": 18,
+      "row_count": 5,
+      "business_schema_bridge": {
+        "business_json": "GameData/AIData/DataTables/Business/WeaponConfig.json",
+        "business_exists": true,
+        "legacy_field_count": 18,
+        "business_column_count": 19,
+        "business_data_field_count": 18,
+        "business_row_count": 5,
+        "id_column_role": "id",
+        "legacy_fields_preserved_count": 18,
+        "missing_legacy_fields": [],
+        "added_business_fields": [],
+        "valid": true
+      },
+      "fields": [
+        {
+          "name": "WeaponId",
+          "type": "string",
+          "desc": "主键，如 knife_basic / hammer_heavy / pistol_basic / bow_charge / energy_fist",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "Name",
+          "type": "string",
+          "desc": "显示名称",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "Class",
+          "type": "string",
+          "desc": "Melee / Ranged / Special",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "BaseDamage",
+          "type": "float",
+          "desc": "基础伤害，TattooModule scaleStat 基准",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "AttackSpeed",
+          "type": "float",
+          "desc": "AttackSpeedModifier，叠加到 PassiveStats.AttackSpeed",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "Range",
+          "type": "float",
+          "desc": "近战 Hitbox 球形半径（米），远程为最大有效距离",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "ChargedMul",
+          "type": "float",
+          "desc": "蓄力伤害倍率，覆盖默认 1.5x",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "ProjectileId",
+          "type": "string",
+          "desc": "远程武器对应飞行物 ID，近战留空",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "Rarity",
+          "type": "int",
+          "desc": "稀有度 0=普通 1=精良 2=稀有 3=史诗",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "MaxAmmo",
+          "type": "int",
+          "desc": "-1=无限（近战），远程为弹匣容量",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "BaseStartup",
+          "type": "int",
+          "desc": "前摇帧数（60fps 基准）",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "BaseActive",
+          "type": "int",
+          "desc": "伤害帧数（Hitbox 开启区间）",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "BaseRecovery",
+          "type": "int",
+          "desc": "后摇帧数",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "RequiresCharge",
+          "type": "bool",
+          "desc": "true=需蓄力才激活伤害判定（弓）",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "AimSpreadHalfDeg",
+          "type": "float",
+          "desc": "change#20: 鼠标射击半角(度)，0=Raycast严格 / 180=自动锁定最近敌 / 中间=SphereCast锥形",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "NormalTraitId",
+          "type": "string",
+          "desc": "change#20: 普攻 trait，引用 WeaponTraitConfig.TraitId",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "ChargedTraitId",
+          "type": "string",
+          "desc": "change#20: 蓄力 trait，引用 WeaponTraitConfig.TraitId",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "WeaponPrefabPath",
+          "type": "string",
+          "desc": "change#20: 武器 prefab 在 Resources 下的相对路径（不含扩展名），元气骑士范式动画用",
+          "desc_source": "Business AI DataTable"
+        }
+      ]
+    },
+    {
+      "name": "WeaponDropConfig",
+      "json": "LegacyProjectArchive/Assets/Resources/DataTable/WeaponDropConfig.json",
+      "table_field": "WeaponDropConfig",
+      "registered": true,
+      "csharp_type": "WeaponDropConfig",
+      "csharp": "LegacyProjectArchive/Assets/Scripts/DataTable/WeaponDropConfig.cs",
+      "primary_field": {
+        "name": "DropId",
+        "type": "string",
+        "desc": "主键，全局唯一掉落记录 ID"
+      },
+      "uses_standard_id_primary_key": false,
+      "field_count": 6,
+      "row_count": 15,
+      "business_schema_bridge": {
+        "business_json": "GameData/AIData/DataTables/Business/WeaponDropConfig.json",
+        "business_exists": true,
+        "legacy_field_count": 6,
+        "business_column_count": 7,
+        "business_data_field_count": 6,
+        "business_row_count": 15,
+        "id_column_role": "id",
+        "legacy_fields_preserved_count": 6,
+        "missing_legacy_fields": [],
+        "added_business_fields": [],
+        "valid": true
+      },
+      "fields": [
+        {
+          "name": "DropId",
+          "type": "string",
+          "desc": "主键，全局唯一掉落记录 ID",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "WeaponId",
+          "type": "string",
+          "desc": "对应 WeaponConfig.WeaponId",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "DropSource",
+          "type": "string",
+          "desc": "枚举：Elite / Chest / Merchant",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "Weight",
+          "type": "int",
+          "desc": "同 DropSource 内加权随机权重，越高越易出",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "MinRoomIndex",
+          "type": "int",
+          "desc": "该武器最早可出现的房间序号（关卡进度门控，1=起始房）",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "MaxRoomIndex",
+          "type": "int",
+          "desc": "该武器最晚可出现的房间序号（10=最终Boss前一房）",
+          "desc_source": "Business AI DataTable"
+        }
+      ]
+    },
+    {
+      "name": "WeaponTraitConfig",
+      "json": "LegacyProjectArchive/Assets/Resources/DataTable/WeaponTraitConfig.json",
+      "table_field": "WeaponTraitConfig",
+      "registered": true,
+      "csharp_type": "WeaponTraitConfig",
+      "csharp": "LegacyProjectArchive/Assets/Scripts/DataTable/WeaponTraitConfig.cs",
+      "primary_field": {
+        "name": "TraitId",
+        "type": "string",
+        "desc": "主键，如 trait_quickslash / trait_pierce"
+      },
+      "uses_standard_id_primary_key": false,
+      "field_count": 6,
+      "row_count": 10,
+      "business_schema_bridge": {
+        "business_json": "GameData/AIData/DataTables/Business/WeaponTraitConfig.json",
+        "business_exists": true,
+        "legacy_field_count": 6,
+        "business_column_count": 7,
+        "business_data_field_count": 6,
+        "business_row_count": 10,
+        "id_column_role": "id",
+        "legacy_fields_preserved_count": 6,
+        "missing_legacy_fields": [],
+        "added_business_fields": [],
+        "valid": true
+      },
+      "fields": [
+        {
+          "name": "TraitId",
+          "type": "string",
+          "desc": "主键，如 trait_quickslash / trait_pierce",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "Name",
+          "type": "string",
+          "desc": "显示名称",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "Description",
+          "type": "string",
+          "desc": "UI tooltip（含具体数值，无占位）",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "EffectType",
+          "type": "string",
+          "desc": "枚举：Status / Pierce / Stun / Chain / Explosive / MultiShot / Pull / Quick",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "EffectParam1",
+          "type": "float",
+          "desc": "主参数（见各条目说明）",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "EffectParam2",
+          "type": "float",
+          "desc": "副参数（见各条目说明）",
+          "desc_source": "Business AI DataTable"
+        }
+      ]
+    },
+    {
+      "name": "ZoneShrinkConfig",
+      "json": "LegacyProjectArchive/Assets/Resources/DataTable/ZoneShrinkConfig.json",
+      "table_field": "ZoneShrinkConfig",
+      "registered": true,
+      "csharp_type": "ZoneShrinkConfig",
+      "csharp": "LegacyProjectArchive/Assets/Scripts/DataTable/ZoneShrinkConfig.cs",
+      "primary_field": {
+        "name": "Id",
+        "type": "int",
+        "desc": "GF_X numeric row id. Original business key is preserved as a data column when its name is not Id."
+      },
+      "uses_standard_id_primary_key": true,
+      "field_count": 7,
+      "row_count": 3,
+      "business_schema_bridge": {
+        "business_json": "GameData/AIData/DataTables/Business/ZoneShrinkConfig.json",
+        "business_exists": true,
+        "legacy_field_count": 7,
+        "business_column_count": 7,
+        "business_data_field_count": 6,
+        "business_row_count": 3,
+        "id_column_role": "id",
+        "legacy_fields_preserved_count": 7,
+        "missing_legacy_fields": [],
+        "added_business_fields": [],
+        "valid": true
+      },
+      "fields": [
+        {
+          "name": "Id",
+          "type": "int",
+          "desc": "GF_X numeric row id. Original business key is preserved as a data column when its name is not Id.",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "PhaseName",
+          "type": "string",
+          "desc": "阶段名（Phase0_Slow / Phase1_Offset / Phase2_Rush）",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "StartTime",
+          "type": "float",
+          "desc": "本阶段进入时刻（秒，Run 启动 0 起）",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "Duration",
+          "type": "float",
+          "desc": "本阶段持续时长（秒）",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "TargetRadius",
+          "type": "float",
+          "desc": "本阶段结束时的目标半径（米）",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "OutZoneDamage",
+          "type": "float",
+          "desc": "圈外伤害（HP/s）",
+          "desc_source": "Business AI DataTable"
+        },
+        {
+          "name": "CenterOffsetMode",
+          "type": "string",
+          "desc": "圈心偏移模式（None / Drift / Fixed），MVP 仅 None",
+          "desc_source": "Business AI DataTable"
+        }
+      ]
+    }
+  ],
+  "warnings": [
+    "旧版证据表使用业务主键而不是 Id:int；当前 Business AI DataTables 已补 GF_X Id:int。只有重跑旧生成器或改旧证据表时才需要处理这些主键: BossPhaseConfig.BossId:string, BotBuildPreset.PresetId:int, BotConfig.BotId:int, ChestConfig.ChestId:string, EnemyConfig.EnemyId:string, EventConfig.EventId:string, ItemConfig.ItemId:int, MerchantConfig.SlotIndex:int, ProjectileConfig.ProjectileId:string, SkillConfig.SkillId:string, TattooReadingTimeConfig.PartId:int, ThreeChoiceOptionConfig.OptionId:string, WeaponConfig.WeaponId:string, WeaponDropConfig.DropId:string, WeaponTraitConfig.TraitId:string"
+  ]
+}

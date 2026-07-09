@@ -1,0 +1,118 @@
+{
+  "schemaVersion": 1,
+  "kind": "GF_X.DataTable.AI",
+  "tableName": "ColorTable",
+  "relativePath": "ColorTable",
+  "sourceExcel": "GameData/DataTables/ColorTable.xlsx",
+  "sourceExcelLastWriteUtc": "2026-05-21T14:00:35.0000000Z",
+  "generatedAtUtc": "2026-07-06T09:50:26.7598380Z",
+  "tableComment": "颜色表",
+  "columns": [
+    {
+      "index": 1,
+      "key": "Note1",
+      "name": "#",
+      "type": "#",
+      "comment": "#",
+      "role": "comment"
+    },
+    {
+      "index": 2,
+      "key": "Id",
+      "name": "Id",
+      "type": "int",
+      "comment": "",
+      "role": "id"
+    },
+    {
+      "index": 3,
+      "key": "Note3",
+      "name": "",
+      "type": "",
+      "comment": "备注",
+      "role": "comment"
+    },
+    {
+      "index": 4,
+      "key": "ColorHex",
+      "name": "ColorHex",
+      "type": "string",
+      "comment": "",
+      "role": "data"
+    }
+  ],
+  "rows": [
+    {
+      "row": 5,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "1",
+        "ColorHex": "#61F34A"
+      },
+      "notes": {
+        "Note3": "Green"
+      },
+      "_cells": [
+        "",
+        "1",
+        "Green",
+        "#61F34A"
+      ]
+    },
+    {
+      "row": 6,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "2",
+        "ColorHex": "#F3AA38"
+      },
+      "notes": {
+        "Note3": "Orange"
+      },
+      "_cells": [
+        "",
+        "2",
+        "Orange",
+        "#F3AA38"
+      ]
+    },
+    {
+      "row": 7,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "3",
+        "ColorHex": "#F3534B"
+      },
+      "notes": {
+        "Note3": "Red"
+      },
+      "_cells": [
+        "",
+        "3",
+        "Red",
+        "#F3534B"
+      ]
+    },
+    {
+      "row": 8,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "4",
+        "ColorHex": "#A100FF"
+      },
+      "notes": {
+        "Note3": "Purple"
+      },
+      "_cells": [
+        "",
+        "4",
+        "Purple",
+        "#A100FF"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,410 @@
+{
+  "schemaVersion": 1,
+  "kind": "GF_X.DataTable.AI",
+  "tableName": "UITable",
+  "relativePath": "Core/UITable",
+  "sourceExcel": "GameData/DataTables/Core/UITable.xlsx",
+  "sourceExcelLastWriteUtc": "2026-05-21T14:00:35.0000000Z",
+  "generatedAtUtc": "2026-07-06T09:50:28.6063383Z",
+  "tableComment": "UI界面表",
+  "columns": [
+    {
+      "index": 1,
+      "key": "Note1",
+      "name": "#",
+      "type": "#",
+      "comment": "#",
+      "role": "comment"
+    },
+    {
+      "index": 2,
+      "key": "Id",
+      "name": "Id",
+      "type": "int",
+      "comment": "",
+      "role": "id"
+    },
+    {
+      "index": 3,
+      "key": "Note3",
+      "name": "",
+      "type": "",
+      "comment": "备注",
+      "role": "comment"
+    },
+    {
+      "index": 4,
+      "key": "SortOrder",
+      "name": "SortOrder",
+      "type": "int",
+      "comment": "显示顺序,相对于Group,每个Group间隔100",
+      "role": "data"
+    },
+    {
+      "index": 5,
+      "key": "UIPrefab",
+      "name": "UIPrefab",
+      "type": "string",
+      "comment": "",
+      "role": "data"
+    },
+    {
+      "index": 6,
+      "key": "PauseCoveredUI",
+      "name": "PauseCoveredUI",
+      "type": "bool",
+      "comment": "同组界面被覆盖时是否隐藏",
+      "role": "data"
+    },
+    {
+      "index": 7,
+      "key": "UIGroupId",
+      "name": "UIGroupId",
+      "type": "int",
+      "comment": "UI组Id",
+      "role": "data"
+    },
+    {
+      "index": 8,
+      "key": "EscapeClose",
+      "name": "EscapeClose",
+      "type": "bool",
+      "comment": "返回键触发关闭界面",
+      "role": "data"
+    }
+  ],
+  "rows": [
+    {
+      "row": 5,
+      "enabled": false,
+      "comment": "主界面(顶层)",
+      "values": {
+        "Id": "主界面(顶层)",
+        "SortOrder": "",
+        "UIPrefab": "",
+        "PauseCoveredUI": "",
+        "UIGroupId": "",
+        "EscapeClose": ""
+      },
+      "notes": {},
+      "_cells": [
+        "#",
+        "主界面(顶层)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "row": 6,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "1",
+        "SortOrder": "1",
+        "UIPrefab": "MenuUIForm",
+        "PauseCoveredUI": "True",
+        "UIGroupId": "1",
+        "EscapeClose": "False"
+      },
+      "notes": {
+        "Note3": "主菜单"
+      },
+      "_cells": [
+        "",
+        "1",
+        "主菜单",
+        "1",
+        "MenuUIForm",
+        "True",
+        "1",
+        "False"
+      ]
+    },
+    {
+      "row": 7,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "2",
+        "SortOrder": "1",
+        "UIPrefab": "GameUIForm",
+        "PauseCoveredUI": "True",
+        "UIGroupId": "1",
+        "EscapeClose": "False"
+      },
+      "notes": {
+        "Note3": "游戏界面"
+      },
+      "_cells": [
+        "",
+        "2",
+        "游戏界面",
+        "1",
+        "GameUIForm",
+        "True",
+        "1",
+        "False"
+      ]
+    },
+    {
+      "row": 8,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "3",
+        "SortOrder": "1",
+        "UIPrefab": "GameOverUIForm",
+        "PauseCoveredUI": "True",
+        "UIGroupId": "1",
+        "EscapeClose": "False"
+      },
+      "notes": {
+        "Note3": "游戏结算"
+      },
+      "_cells": [
+        "",
+        "3",
+        "游戏结算",
+        "1",
+        "GameOverUIForm",
+        "True",
+        "1",
+        "False"
+      ]
+    },
+    {
+      "row": 9,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "4",
+        "SortOrder": "2",
+        "UIPrefab": "Topbar",
+        "PauseCoveredUI": "False",
+        "UIGroupId": "1",
+        "EscapeClose": "False"
+      },
+      "notes": {
+        "Note3": "顶部资源栏"
+      },
+      "_cells": [
+        "",
+        "4",
+        "顶部资源栏",
+        "2",
+        "Topbar",
+        "False",
+        "1",
+        "False"
+      ]
+    },
+    {
+      "row": 10,
+      "enabled": false,
+      "comment": "对话框(中层)",
+      "values": {
+        "Id": "对话框(中层)",
+        "SortOrder": "",
+        "UIPrefab": "",
+        "PauseCoveredUI": "",
+        "UIGroupId": "",
+        "EscapeClose": ""
+      },
+      "notes": {},
+      "_cells": [
+        "#",
+        "对话框(中层)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "row": 11,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "5",
+        "SortOrder": "1",
+        "UIPrefab": "SettingDialog",
+        "PauseCoveredUI": "True",
+        "UIGroupId": "2",
+        "EscapeClose": "True"
+      },
+      "notes": {
+        "Note3": "设置"
+      },
+      "_cells": [
+        "",
+        "5",
+        "设置",
+        "1",
+        "SettingDialog",
+        "True",
+        "2",
+        "True"
+      ]
+    },
+    {
+      "row": 12,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "6",
+        "SortOrder": "2",
+        "UIPrefab": "RatingDialog",
+        "PauseCoveredUI": "True",
+        "UIGroupId": "2",
+        "EscapeClose": "True"
+      },
+      "notes": {
+        "Note3": "评分"
+      },
+      "_cells": [
+        "",
+        "6",
+        "评分",
+        "2",
+        "RatingDialog",
+        "True",
+        "2",
+        "True"
+      ]
+    },
+    {
+      "row": 13,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "7",
+        "SortOrder": "2",
+        "UIPrefab": "TermsOfServiceDialog",
+        "PauseCoveredUI": "True",
+        "UIGroupId": "2",
+        "EscapeClose": "True"
+      },
+      "notes": {
+        "Note3": "服务条款"
+      },
+      "_cells": [
+        "",
+        "7",
+        "服务条款",
+        "2",
+        "TermsOfServiceDialog",
+        "True",
+        "2",
+        "True"
+      ]
+    },
+    {
+      "row": 14,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "8",
+        "SortOrder": "3",
+        "UIPrefab": "CommonDialog",
+        "PauseCoveredUI": "True",
+        "UIGroupId": "2",
+        "EscapeClose": "False"
+      },
+      "notes": {
+        "Note3": "通用提示对话框"
+      },
+      "_cells": [
+        "",
+        "8",
+        "通用提示对话框",
+        "3",
+        "CommonDialog",
+        "True",
+        "2",
+        "False"
+      ]
+    },
+    {
+      "row": 15,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "9",
+        "SortOrder": "2",
+        "UIPrefab": "LanguagesDialog",
+        "PauseCoveredUI": "False",
+        "UIGroupId": "2",
+        "EscapeClose": "True"
+      },
+      "notes": {
+        "Note3": "语言设置"
+      },
+      "_cells": [
+        "",
+        "9",
+        "语言设置",
+        "2",
+        "LanguagesDialog",
+        "False",
+        "2",
+        "True"
+      ]
+    },
+    {
+      "row": 16,
+      "enabled": false,
+      "comment": "提示(顶层)",
+      "values": {
+        "Id": "提示(顶层)",
+        "SortOrder": "",
+        "UIPrefab": "",
+        "PauseCoveredUI": "",
+        "UIGroupId": "",
+        "EscapeClose": ""
+      },
+      "notes": {},
+      "_cells": [
+        "#",
+        "提示(顶层)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "row": 17,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "10",
+        "SortOrder": "1",
+        "UIPrefab": "ToastTips",
+        "PauseCoveredUI": "False",
+        "UIGroupId": "3",
+        "EscapeClose": "False"
+      },
+      "notes": {
+        "Note3": "吐司提示"
+      },
+      "_cells": [
+        "",
+        "10",
+        "吐司提示",
+        "1",
+        "ToastTips",
+        "False",
+        "3",
+        "False"
+      ]
+    }
+  ]
+}

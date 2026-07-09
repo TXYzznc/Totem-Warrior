@@ -1,0 +1,114 @@
+{
+  "generated_at": "2026-07-09",
+  "source": "tools/ai_index/build_ai_manifests.py",
+  "unity_tests": [],
+  "playtest_reports": [
+    "tools/playtest/reports/2026-07-08-0229-PM-01-gf-x-launch-smoke.md",
+    "tools/playtest/reports/2026-07-08-0241-PM-02-ui-flow-main-to-combat.md",
+    "tools/playtest/reports/2026-07-08-0404-PM-04-gf-x-launch-after-prefab-cleanup.md",
+    "tools/playtest/reports/2026-07-08-1204-PM-03-gf-x-launch-service-registry.md",
+    "tools/playtest/reports/2026-07-09-1225-PM-05-combathud-input-playmode.md",
+    "tools/playtest/reports/_TEMPLATE.md"
+  ],
+  "openspec_specs": [
+    "openspec/specs/camera-system/spec.md",
+    "openspec/specs/core-ui-screens/spec.md",
+    "openspec/specs/fix-broken-prefabs/spec.md",
+    "openspec/specs/gameplay-character-art/spec.md",
+    "openspec/specs/main-menu-flow/spec.md",
+    "openspec/specs/mcp-encoding-fix/spec.md",
+    "openspec/specs/player-attack-system/spec.md",
+    "openspec/specs/playtest-driver/spec.md",
+    "openspec/specs/settings/spec.md",
+    "openspec/specs/skill-governance/spec.md",
+    "openspec/specs/skill-routing/spec.md",
+    "openspec/specs/tattoo/spec.md",
+    "openspec/specs/ui-planning/spec.md",
+    "openspec/specs/ui-workflow/spec.md",
+    "openspec/specs/unity-skills-routing/spec.md",
+    "openspec/specs/visual-polish/spec.md",
+    "openspec/specs/weapon-pickup/spec.md",
+    "openspec/specs/workflow/spec.md"
+  ],
+  "active_changes": [
+    {
+      "id": "25-camera-2p5d-system",
+      "path": "openspec/changes/25-camera-2p5d-system",
+      "has_proposal": false,
+      "has_design": false,
+      "has_tasks": false,
+      "artifacts": []
+    },
+    {
+      "id": "26-fixed-map-three-themes",
+      "path": "openspec/changes/26-fixed-map-three-themes",
+      "has_proposal": true,
+      "has_design": true,
+      "has_tasks": true,
+      "artifacts": [
+        ".openspec.yaml",
+        "CONTRACT.md",
+        "design.md",
+        "proposal.md",
+        "tasks.md"
+      ]
+    },
+    {
+      "id": "27-ai-information-contract",
+      "path": "openspec/changes/27-ai-information-contract",
+      "has_proposal": true,
+      "has_design": true,
+      "has_tasks": true,
+      "artifacts": [
+        ".openspec.yaml",
+        "CONTRACT.md",
+        "design.md",
+        "proposal.md",
+        "tasks.md"
+      ]
+    },
+    {
+      "id": "gf-x-business-runtime-refactor",
+      "path": "openspec/changes/gf-x-business-runtime-refactor",
+      "has_proposal": true,
+      "has_design": true,
+      "has_tasks": true,
+      "artifacts": [
+        "BASELINE.md",
+        "COMPLETION_AUDIT.md",
+        "DATATABLE_MIGRATION_MANIFEST.md",
+        "DECISIONS_NEEDED.md",
+        "GAMEPLAY_RUNTIME_SLICE.md",
+        "GF_X_TOOL_MIGRATION_MANIFEST.md",
+        "LEGACY_EFFECT_COVERAGE.md",
+        "LEGACY_OPENSPEC_SPEC_STATUS.md",
+        "REQUIREMENTS_INVENTORY.md",
+        "SMART_AI_PERSONALITY_DRAFT.md",
+        "T9F7_FIRST_TUNING_REPORT.md",
+        "T9F7_START_CONFIRMATION.md",
+        "design.md",
+        "proposal.md",
+        "tasks.md"
+      ]
+    },
+    {
+      "id": "gf-x-framework-migration-phase1",
+      "path": "openspec/changes/gf-x-framework-migration-phase1",
+      "has_proposal": true,
+      "has_design": true,
+      "has_tasks": true,
+      "artifacts": [
+        ".openspec.yaml",
+        "CONTRACT.md",
+        "MIGRATION_INVENTORY.md",
+        "MIGRATION_RECORD.md",
+        "design.md",
+        "proposal.md",
+        "tasks.md"
+      ]
+    }
+  ],
+  "warnings": [
+    "25-camera-2p5d-system 缺少 proposal/design/tasks 中的一个或多个 artifact"
+  ]
+}

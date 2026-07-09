@@ -1,0 +1,246 @@
+{
+  "schemaVersion": 1,
+  "kind": "GF_X.DataTable.AI",
+  "tableName": "TattooShapeConfig",
+  "relativePath": "Business/TattooShapeConfig",
+  "sourceExcel": "GameData/DataTables/Business/TattooShapeConfig.xlsx",
+  "sourceExcelLastWriteUtc": "2026-07-08T14:56:09.0851375Z",
+  "generatedAtUtc": "2026-07-08T14:56:09.2871372Z",
+  "tableComment": "Business table migrated from LegacyProjectArchive/Assets/Resources/DataTable/TattooShapeConfig.json. GF_X Id is numeric; original business keys are preserved as data columns.",
+  "columns": [
+    {
+      "index": 1,
+      "key": "Note1",
+      "name": "#",
+      "type": "#",
+      "comment": "#",
+      "role": "comment"
+    },
+    {
+      "index": 2,
+      "key": "Id",
+      "name": "Id",
+      "type": "int",
+      "comment": "GF_X numeric row id. Original business key is preserved as a data column when its name is not Id.",
+      "role": "id"
+    },
+    {
+      "index": 3,
+      "key": "Note3",
+      "name": "",
+      "type": "",
+      "comment": "Note",
+      "role": "comment"
+    },
+    {
+      "index": 4,
+      "key": "Name",
+      "name": "Name",
+      "type": "string",
+      "comment": "ShapeBehavior 名",
+      "role": "data"
+    },
+    {
+      "index": 5,
+      "key": "Param1",
+      "name": "Param1",
+      "type": "float",
+      "comment": "形状参数 1（AOEBurst: AreaFactor / StackingMark: Threshold / MultiHit: Segments / ChainJump: MaxJumps / ProbBurst: Probability / TrailZone: TickFactor / SummonForm: SummonMultiplier）",
+      "role": "data"
+    },
+    {
+      "index": 6,
+      "key": "Param2",
+      "name": "Param2",
+      "type": "float",
+      "comment": "形状参数 2（AOEBurst: MaxTargets / StackingMark: BurstMul / ChainJump: Decay / ProbBurst: BurstMultiplier / TrailZone: Ticks）",
+      "role": "data"
+    },
+    {
+      "index": 7,
+      "key": "Param3",
+      "name": "Param3",
+      "type": "float",
+      "comment": "形状参数 3（ProbBurst: Seed）",
+      "role": "data"
+    }
+  ],
+  "rows": [
+    {
+      "row": 5,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "1",
+        "Name": "SingleHit",
+        "Param1": "0.0",
+        "Param2": "0.0",
+        "Param3": "0.0"
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "1",
+        "",
+        "SingleHit",
+        "0.0",
+        "0.0",
+        "0.0"
+      ]
+    },
+    {
+      "row": 6,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "2",
+        "Name": "AOEBurst",
+        "Param1": "0.6",
+        "Param2": "5.0",
+        "Param3": "0.0"
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "2",
+        "",
+        "AOEBurst",
+        "0.6",
+        "5.0",
+        "0.0"
+      ]
+    },
+    {
+      "row": 7,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "3",
+        "Name": "StackingMark",
+        "Param1": "5.0",
+        "Param2": "4.0",
+        "Param3": "0.0"
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "3",
+        "",
+        "StackingMark",
+        "5.0",
+        "4.0",
+        "0.0"
+      ]
+    },
+    {
+      "row": 8,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "4",
+        "Name": "MultiHit",
+        "Param1": "4.0",
+        "Param2": "0.0",
+        "Param3": "0.0"
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "4",
+        "",
+        "MultiHit",
+        "4.0",
+        "0.0",
+        "0.0"
+      ]
+    },
+    {
+      "row": 9,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "5",
+        "Name": "ChainJump",
+        "Param1": "3.0",
+        "Param2": "0.7",
+        "Param3": "0.0"
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "5",
+        "",
+        "ChainJump",
+        "3.0",
+        "0.7",
+        "0.0"
+      ]
+    },
+    {
+      "row": 10,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "6",
+        "Name": "ProbBurst",
+        "Param1": "1.0",
+        "Param2": "2.0",
+        "Param3": "12345.0"
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "6",
+        "",
+        "ProbBurst",
+        "1.0",
+        "2.0",
+        "12345.0"
+      ]
+    },
+    {
+      "row": 11,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "7",
+        "Name": "TrailZone",
+        "Param1": "0.4",
+        "Param2": "3.0",
+        "Param3": "0.0"
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "7",
+        "",
+        "TrailZone",
+        "0.4",
+        "3.0",
+        "0.0"
+      ]
+    },
+    {
+      "row": 12,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "8",
+        "Name": "SummonForm",
+        "Param1": "2.5",
+        "Param2": "0.0",
+        "Param3": "0.0"
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "8",
+        "",
+        "SummonForm",
+        "2.5",
+        "0.0",
+        "0.0"
+      ]
+    }
+  ]
+}

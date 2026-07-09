@@ -1,0 +1,95 @@
+{
+  "action": "import-data-tables-json",
+  "createdAtUtc": "2026-07-07T07:32:14.3484615Z",
+  "successCount": 5,
+  "failureCount": 0,
+  "warningCount": 5,
+  "warnings": [],
+  "items": [
+    {
+      "success": true,
+      "tableName": "Core/EntityGroupTable",
+      "sourceFile": "D:/unity/UnityProject/GameDesinger_2/Totem-Warrior/GameData/DataTables/Core/EntityGroupTable.xlsx",
+      "jsonFile": "D:/unity/UnityProject/GameDesinger_2/Totem-Warrior/GameData/AIData/DataTables\\Core\\EntityGroupTable.json",
+      "outputFile": "Assets/Game/DataTable/Core/EntityGroupTable.txt",
+      "backupFile": "D:/unity/UnityProject/GameDesinger_2/Totem-Warrior/GameData/AIData/Backups/DataTables/Core/EntityGroupTable.20260707_153214.xlsx",
+      "changedCellCount": 0,
+      "changedRowCount": 0,
+      "oldRowCount": 11,
+      "newRowCount": 11,
+      "rollbackRestored": false,
+      "warnings": [
+        "Excel is newer than AI json. Import will still use json: D:/unity/UnityProject/GameDesinger_2/Totem-Warrior/GameData/DataTables/Core/EntityGroupTable.xlsx"
+      ],
+      "errors": []
+    },
+    {
+      "success": true,
+      "tableName": "Core/LanguagesTable",
+      "sourceFile": "D:/unity/UnityProject/GameDesinger_2/Totem-Warrior/GameData/DataTables/Core/LanguagesTable.xlsx",
+      "jsonFile": "D:/unity/UnityProject/GameDesinger_2/Totem-Warrior/GameData/AIData/DataTables\\Core\\LanguagesTable.json",
+      "outputFile": "Assets/Game/DataTable/Core/LanguagesTable.txt",
+      "backupFile": "D:/unity/UnityProject/GameDesinger_2/Totem-Warrior/GameData/AIData/Backups/DataTables/Core/LanguagesTable.20260707_153215.xlsx",
+      "changedCellCount": 0,
+      "changedRowCount": 0,
+      "oldRowCount": 5,
+      "newRowCount": 5,
+      "rollbackRestored": false,
+      "warnings": [
+        "Excel is newer than AI json. Import will still use json: D:/unity/UnityProject/GameDesinger_2/Totem-Warrior/GameData/DataTables/Core/LanguagesTable.xlsx"
+      ],
+      "errors": []
+    },
+    {
+      "success": true,
+      "tableName": "Core/SoundGroupTable",
+      "sourceFile": "D:/unity/UnityProject/GameDesinger_2/Totem-Warrior/GameData/DataTables/Core/SoundGroupTable.xlsx",
+      "jsonFile": "D:/unity/UnityProject/GameDesinger_2/Totem-Warrior/GameData/AIData/DataTables\\Core\\SoundGroupTable.json",
+      "outputFile": "Assets/Game/DataTable/Core/SoundGroupTable.txt",
+      "backupFile": "D:/unity/UnityProject/GameDesinger_2/Totem-Warrior/GameData/AIData/Backups/DataTables/Core/SoundGroupTable.20260707_153215.xlsx",
+      "changedCellCount": 0,
+      "changedRowCount": 0,
+      "oldRowCount": 8,
+      "newRowCount": 8,
+      "rollbackRestored": false,
+      "warnings": [
+        "Excel is newer than AI json. Import will still use json: D:/unity/UnityProject/GameDesinger_2/Totem-Warrior/GameData/DataTables/Core/SoundGroupTable.xlsx"
+      ],
+      "errors": []
+    },
+    {
+      "success": true,
+      "tableName": "Core/UIGroupTable",
+      "sourceFile": "D:/unity/UnityProject/GameDesinger_2/Totem-Warrior/GameData/DataTables/Core/UIGroupTable.xlsx",
+      "jsonFile": "D:/unity/UnityProject/GameDesinger_2/Totem-Warrior/GameData/AIData/DataTables\\Core\\UIGroupTable.json",
+      "outputFile": "Assets/Game/DataTable/Core/UIGroupTable.txt",
+      "backupFile": "D:/unity/UnityProject/GameDesinger_2/Totem-Warrior/GameData/AIData/Backups/DataTables/Core/UIGroupTable.20260707_153216.xlsx",
+      "changedCellCount": 0,
+      "changedRowCount": 0,
+      "oldRowCount": 7,
+      "newRowCount": 7,
+      "rollbackRestored": false,
+      "warnings": [
+        "Excel is newer than AI json. Import will still use json: D:/unity/UnityProject/GameDesinger_2/Totem-Warrior/GameData/DataTables/Core/UIGroupTable.xlsx"
+      ],
+      "errors": []
+    },
+    {
+      "success": true,
+      "tableName": "Core/UITable",
+      "sourceFile": "D:/unity/UnityProject/GameDesinger_2/Totem-Warrior/GameData/DataTables/Core/UITable.xlsx",
+      "jsonFile": "D:/unity/UnityProject/GameDesinger_2/Totem-Warrior/GameData/AIData/DataTables\\Core\\UITable.json",
+      "outputFile": "Assets/Game/DataTable/Core/UITable.txt",
+      "backupFile": "D:/unity/UnityProject/GameDesinger_2/Totem-Warrior/GameData/AIData/Backups/DataTables/Core/UITable.20260707_153216.xlsx",
+      "changedCellCount": 0,
+      "changedRowCount": 0,
+      "oldRowCount": 8,
+      "newRowCount": 8,
+      "rollbackRestored": false,
+      "warnings": [
+        "Excel is newer than AI json. Import will still use json: D:/unity/UnityProject/GameDesinger_2/Totem-Warrior/GameData/DataTables/Core/UITable.xlsx"
+      ],
+      "errors": []
+    }
+  ]
+}

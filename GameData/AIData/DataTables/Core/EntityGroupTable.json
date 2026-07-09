@@ -1,0 +1,246 @@
+{
+  "schemaVersion": 1,
+  "kind": "GF_X.DataTable.AI",
+  "tableName": "EntityGroupTable",
+  "relativePath": "Core/EntityGroupTable",
+  "sourceExcel": "GameData/DataTables/Core/EntityGroupTable.xlsx",
+  "sourceExcelLastWriteUtc": "2026-07-07T07:34:25.6699616Z",
+  "generatedAtUtc": "2026-07-07T07:34:25.8574613Z",
+  "tableComment": "EntityGroup",
+  "columns": [
+    {
+      "index": 1,
+      "key": "Note1",
+      "name": "#",
+      "type": "#",
+      "comment": "#",
+      "role": "comment"
+    },
+    {
+      "index": 2,
+      "key": "Id",
+      "name": "ID",
+      "type": "int",
+      "comment": "",
+      "role": "id"
+    },
+    {
+      "index": 3,
+      "key": "Note3",
+      "name": "",
+      "type": "",
+      "comment": "备注",
+      "role": "comment"
+    },
+    {
+      "index": 4,
+      "key": "Name",
+      "name": "Name",
+      "type": "string",
+      "comment": "",
+      "role": "data"
+    },
+    {
+      "index": 5,
+      "key": "ReleaseInterval",
+      "name": "ReleaseInterval",
+      "type": "float",
+      "comment": "",
+      "role": "data"
+    },
+    {
+      "index": 6,
+      "key": "Capacity",
+      "name": "Capacity",
+      "type": "int",
+      "comment": "",
+      "role": "data"
+    },
+    {
+      "index": 7,
+      "key": "ExpireTime",
+      "name": "ExpireTime",
+      "type": "float",
+      "comment": "",
+      "role": "data"
+    },
+    {
+      "index": 8,
+      "key": "Priority",
+      "name": "Priority",
+      "type": "int",
+      "comment": "",
+      "role": "data"
+    }
+  ],
+  "rows": [
+    {
+      "row": 5,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "1",
+        "Name": "Default",
+        "ReleaseInterval": "60",
+        "Capacity": "60",
+        "ExpireTime": "60",
+        "Priority": "0"
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "1",
+        "",
+        "Default",
+        "60",
+        "60",
+        "60",
+        "0"
+      ]
+    },
+    {
+      "row": 6,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "2",
+        "Name": "Player",
+        "ReleaseInterval": "60",
+        "Capacity": "60",
+        "ExpireTime": "60",
+        "Priority": "0"
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "2",
+        "",
+        "Player",
+        "60",
+        "60",
+        "60",
+        "0"
+      ]
+    },
+    {
+      "row": 7,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "3",
+        "Name": "Effect",
+        "ReleaseInterval": "10",
+        "Capacity": "200",
+        "ExpireTime": "30",
+        "Priority": "0"
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "3",
+        "",
+        "Effect",
+        "10",
+        "200",
+        "30",
+        "0"
+      ]
+    },
+    {
+      "row": 8,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "4",
+        "Name": "Item",
+        "ReleaseInterval": "60",
+        "Capacity": "60",
+        "ExpireTime": "60",
+        "Priority": "0"
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "4",
+        "",
+        "Item",
+        "60",
+        "60",
+        "60",
+        "0"
+      ]
+    },
+    {
+      "row": 9,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "5",
+        "Name": "Level",
+        "ReleaseInterval": "60",
+        "Capacity": "1",
+        "ExpireTime": "60",
+        "Priority": "0"
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "5",
+        "",
+        "Level",
+        "60",
+        "1",
+        "60",
+        "0"
+      ]
+    },
+    {
+      "row": 10,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "6",
+        "Name": "Bullet",
+        "ReleaseInterval": "60",
+        "Capacity": "60",
+        "ExpireTime": "60",
+        "Priority": "0"
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "6",
+        "",
+        "Bullet",
+        "60",
+        "60",
+        "60",
+        "0"
+      ]
+    },
+    {
+      "row": 11,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "7",
+        "Name": "Unrecycle",
+        "ReleaseInterval": "60",
+        "Capacity": "0",
+        "ExpireTime": "60",
+        "Priority": "0"
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "7",
+        "",
+        "Unrecycle",
+        "60",
+        "0",
+        "60",
+        "0"
+      ]
+    }
+  ]
+}

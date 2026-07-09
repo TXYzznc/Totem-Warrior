@@ -1,0 +1,476 @@
+{
+  "schemaVersion": 1,
+  "kind": "GF_X.DataTable.AI",
+  "tableName": "WeaponDropConfig",
+  "relativePath": "Business/WeaponDropConfig",
+  "sourceExcel": "GameData/DataTables/Business/WeaponDropConfig.xlsx",
+  "sourceExcelLastWriteUtc": "2026-07-08T14:56:11.0516371Z",
+  "generatedAtUtc": "2026-07-08T14:56:11.3136374Z",
+  "tableComment": "Business table migrated from LegacyProjectArchive/Assets/Resources/DataTable/WeaponDropConfig.json. GF_X Id is numeric; original business keys are preserved as data columns.",
+  "columns": [
+    {
+      "index": 1,
+      "key": "Note1",
+      "name": "#",
+      "type": "#",
+      "comment": "#",
+      "role": "comment"
+    },
+    {
+      "index": 2,
+      "key": "Id",
+      "name": "Id",
+      "type": "int",
+      "comment": "GF_X numeric row id. Original business key is preserved as a data column when its name is not Id.",
+      "role": "id"
+    },
+    {
+      "index": 3,
+      "key": "Note3",
+      "name": "",
+      "type": "",
+      "comment": "Note",
+      "role": "comment"
+    },
+    {
+      "index": 4,
+      "key": "DropId",
+      "name": "DropId",
+      "type": "string",
+      "comment": "主键，全局唯一掉落记录 ID",
+      "role": "data"
+    },
+    {
+      "index": 5,
+      "key": "WeaponId",
+      "name": "WeaponId",
+      "type": "string",
+      "comment": "对应 WeaponConfig.WeaponId",
+      "role": "data"
+    },
+    {
+      "index": 6,
+      "key": "DropSource",
+      "name": "DropSource",
+      "type": "string",
+      "comment": "枚举：Elite / Chest / Merchant",
+      "role": "data"
+    },
+    {
+      "index": 7,
+      "key": "Weight",
+      "name": "Weight",
+      "type": "int",
+      "comment": "同 DropSource 内加权随机权重，越高越易出",
+      "role": "data"
+    },
+    {
+      "index": 8,
+      "key": "MinRoomIndex",
+      "name": "MinRoomIndex",
+      "type": "int",
+      "comment": "该武器最早可出现的房间序号（关卡进度门控，1=起始房）",
+      "role": "data"
+    },
+    {
+      "index": 9,
+      "key": "MaxRoomIndex",
+      "name": "MaxRoomIndex",
+      "type": "int",
+      "comment": "该武器最晚可出现的房间序号（10=最终Boss前一房）",
+      "role": "data"
+    }
+  ],
+  "rows": [
+    {
+      "row": 5,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "1",
+        "DropId": "drop_elite_001",
+        "WeaponId": "knife_basic",
+        "DropSource": "Elite",
+        "Weight": "35",
+        "MinRoomIndex": "1",
+        "MaxRoomIndex": "10"
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "1",
+        "",
+        "drop_elite_001",
+        "knife_basic",
+        "Elite",
+        "35",
+        "1",
+        "10"
+      ]
+    },
+    {
+      "row": 6,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "2",
+        "DropId": "drop_elite_002",
+        "WeaponId": "hammer_heavy",
+        "DropSource": "Elite",
+        "Weight": "25",
+        "MinRoomIndex": "2",
+        "MaxRoomIndex": "10"
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "2",
+        "",
+        "drop_elite_002",
+        "hammer_heavy",
+        "Elite",
+        "25",
+        "2",
+        "10"
+      ]
+    },
+    {
+      "row": 7,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "3",
+        "DropId": "drop_elite_003",
+        "WeaponId": "pistol_basic",
+        "DropSource": "Elite",
+        "Weight": "20",
+        "MinRoomIndex": "1",
+        "MaxRoomIndex": "10"
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "3",
+        "",
+        "drop_elite_003",
+        "pistol_basic",
+        "Elite",
+        "20",
+        "1",
+        "10"
+      ]
+    },
+    {
+      "row": 8,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "4",
+        "DropId": "drop_elite_004",
+        "WeaponId": "bow_charge",
+        "DropSource": "Elite",
+        "Weight": "10",
+        "MinRoomIndex": "3",
+        "MaxRoomIndex": "10"
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "4",
+        "",
+        "drop_elite_004",
+        "bow_charge",
+        "Elite",
+        "10",
+        "3",
+        "10"
+      ]
+    },
+    {
+      "row": 9,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "5",
+        "DropId": "drop_elite_005",
+        "WeaponId": "energy_fist",
+        "DropSource": "Elite",
+        "Weight": "10",
+        "MinRoomIndex": "3",
+        "MaxRoomIndex": "10"
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "5",
+        "",
+        "drop_elite_005",
+        "energy_fist",
+        "Elite",
+        "10",
+        "3",
+        "10"
+      ]
+    },
+    {
+      "row": 10,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "6",
+        "DropId": "drop_chest_001",
+        "WeaponId": "knife_basic",
+        "DropSource": "Chest",
+        "Weight": "30",
+        "MinRoomIndex": "1",
+        "MaxRoomIndex": "10"
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "6",
+        "",
+        "drop_chest_001",
+        "knife_basic",
+        "Chest",
+        "30",
+        "1",
+        "10"
+      ]
+    },
+    {
+      "row": 11,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "7",
+        "DropId": "drop_chest_002",
+        "WeaponId": "hammer_heavy",
+        "DropSource": "Chest",
+        "Weight": "20",
+        "MinRoomIndex": "1",
+        "MaxRoomIndex": "10"
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "7",
+        "",
+        "drop_chest_002",
+        "hammer_heavy",
+        "Chest",
+        "20",
+        "1",
+        "10"
+      ]
+    },
+    {
+      "row": 12,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "8",
+        "DropId": "drop_chest_003",
+        "WeaponId": "pistol_basic",
+        "DropSource": "Chest",
+        "Weight": "25",
+        "MinRoomIndex": "1",
+        "MaxRoomIndex": "10"
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "8",
+        "",
+        "drop_chest_003",
+        "pistol_basic",
+        "Chest",
+        "25",
+        "1",
+        "10"
+      ]
+    },
+    {
+      "row": 13,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "9",
+        "DropId": "drop_chest_004",
+        "WeaponId": "bow_charge",
+        "DropSource": "Chest",
+        "Weight": "15",
+        "MinRoomIndex": "2",
+        "MaxRoomIndex": "10"
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "9",
+        "",
+        "drop_chest_004",
+        "bow_charge",
+        "Chest",
+        "15",
+        "2",
+        "10"
+      ]
+    },
+    {
+      "row": 14,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "10",
+        "DropId": "drop_chest_005",
+        "WeaponId": "energy_fist",
+        "DropSource": "Chest",
+        "Weight": "10",
+        "MinRoomIndex": "2",
+        "MaxRoomIndex": "10"
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "10",
+        "",
+        "drop_chest_005",
+        "energy_fist",
+        "Chest",
+        "10",
+        "2",
+        "10"
+      ]
+    },
+    {
+      "row": 15,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "11",
+        "DropId": "drop_merchant_001",
+        "WeaponId": "knife_basic",
+        "DropSource": "Merchant",
+        "Weight": "20",
+        "MinRoomIndex": "1",
+        "MaxRoomIndex": "10"
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "11",
+        "",
+        "drop_merchant_001",
+        "knife_basic",
+        "Merchant",
+        "20",
+        "1",
+        "10"
+      ]
+    },
+    {
+      "row": 16,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "12",
+        "DropId": "drop_merchant_002",
+        "WeaponId": "hammer_heavy",
+        "DropSource": "Merchant",
+        "Weight": "25",
+        "MinRoomIndex": "1",
+        "MaxRoomIndex": "10"
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "12",
+        "",
+        "drop_merchant_002",
+        "hammer_heavy",
+        "Merchant",
+        "25",
+        "1",
+        "10"
+      ]
+    },
+    {
+      "row": 17,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "13",
+        "DropId": "drop_merchant_003",
+        "WeaponId": "pistol_basic",
+        "DropSource": "Merchant",
+        "Weight": "30",
+        "MinRoomIndex": "1",
+        "MaxRoomIndex": "10"
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "13",
+        "",
+        "drop_merchant_003",
+        "pistol_basic",
+        "Merchant",
+        "30",
+        "1",
+        "10"
+      ]
+    },
+    {
+      "row": 18,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "14",
+        "DropId": "drop_merchant_004",
+        "WeaponId": "bow_charge",
+        "DropSource": "Merchant",
+        "Weight": "15",
+        "MinRoomIndex": "2",
+        "MaxRoomIndex": "10"
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "14",
+        "",
+        "drop_merchant_004",
+        "bow_charge",
+        "Merchant",
+        "15",
+        "2",
+        "10"
+      ]
+    },
+    {
+      "row": 19,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "15",
+        "DropId": "drop_merchant_005",
+        "WeaponId": "energy_fist",
+        "DropSource": "Merchant",
+        "Weight": "10",
+        "MinRoomIndex": "2",
+        "MaxRoomIndex": "10"
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "15",
+        "",
+        "drop_merchant_005",
+        "energy_fist",
+        "Merchant",
+        "10",
+        "2",
+        "10"
+      ]
+    }
+  ]
+}

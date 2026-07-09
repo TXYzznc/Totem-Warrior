@@ -1,0 +1,242 @@
+{
+  "schemaVersion": 1,
+  "kind": "GF_X.DataTable.AI",
+  "tableName": "TattooPartConfig",
+  "relativePath": "Business/TattooPartConfig",
+  "sourceExcel": "GameData/DataTables/Business/TattooPartConfig.xlsx",
+  "sourceExcelLastWriteUtc": "2026-07-08T14:56:07.8646375Z",
+  "generatedAtUtc": "2026-07-08T14:56:08.0621376Z",
+  "tableComment": "Business table migrated from LegacyProjectArchive/Assets/Resources/DataTable/TattooPartConfig.json. GF_X Id is numeric; original business keys are preserved as data columns.",
+  "columns": [
+    {
+      "index": 1,
+      "key": "Note1",
+      "name": "#",
+      "type": "#",
+      "comment": "#",
+      "role": "comment"
+    },
+    {
+      "index": 2,
+      "key": "Id",
+      "name": "Id",
+      "type": "int",
+      "comment": "GF_X numeric row id. Original business key is preserved as a data column when its name is not Id.",
+      "role": "id"
+    },
+    {
+      "index": 3,
+      "key": "Note3",
+      "name": "",
+      "type": "",
+      "comment": "Note",
+      "role": "comment"
+    },
+    {
+      "index": 4,
+      "key": "Name",
+      "name": "Name",
+      "type": "string",
+      "comment": "Head / Torso / LeftArm / RightArm / LeftLeg / RightLeg",
+      "role": "data"
+    },
+    {
+      "index": 5,
+      "key": "TriggerEvent",
+      "name": "TriggerEvent",
+      "type": "string",
+      "comment": "事件类名：AttackHitEvent / CritHitEvent / DamagedEvent / SkillCastEvent / DodgePressedEvent / MoveTickEvent",
+      "role": "data"
+    },
+    {
+      "index": 6,
+      "key": "ScaleStat",
+      "name": "ScaleStat",
+      "type": "string",
+      "comment": "StatType enum 名",
+      "role": "data"
+    },
+    {
+      "index": 7,
+      "key": "SymmetryGroup",
+      "name": "SymmetryGroup",
+      "type": "string",
+      "comment": "None / Arms / Legs",
+      "role": "data"
+    },
+    {
+      "index": 8,
+      "key": "ScaleFactor",
+      "name": "ScaleFactor",
+      "type": "float",
+      "comment": "缩放系数",
+      "role": "data"
+    },
+    {
+      "index": 9,
+      "key": "PassiveDimension",
+      "name": "PassiveDimension",
+      "type": "string",
+      "comment": "被动维度标签（暴击/抗性/技能/武器/闪避/移速）",
+      "role": "data"
+    }
+  ],
+  "rows": [
+    {
+      "row": 5,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "1",
+        "Name": "Head",
+        "TriggerEvent": "CritHitEvent",
+        "ScaleStat": "CritMultiplier",
+        "SymmetryGroup": "None",
+        "ScaleFactor": "10.0",
+        "PassiveDimension": "暴击率/暴伤"
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "1",
+        "",
+        "Head",
+        "CritHitEvent",
+        "CritMultiplier",
+        "None",
+        "10.0",
+        "暴击率/暴伤"
+      ]
+    },
+    {
+      "row": 6,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "2",
+        "Name": "Torso",
+        "TriggerEvent": "DamagedEvent",
+        "ScaleStat": "MaxHealth",
+        "SymmetryGroup": "None",
+        "ScaleFactor": "0.12",
+        "PassiveDimension": "抗性/最大生命"
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "2",
+        "",
+        "Torso",
+        "DamagedEvent",
+        "MaxHealth",
+        "None",
+        "0.12",
+        "抗性/最大生命"
+      ]
+    },
+    {
+      "row": 7,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "3",
+        "Name": "LeftArm",
+        "TriggerEvent": "SkillCastEvent",
+        "ScaleStat": "SkillPower",
+        "SymmetryGroup": "Arms",
+        "ScaleFactor": "0.6",
+        "PassiveDimension": "技能强度"
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "3",
+        "",
+        "LeftArm",
+        "SkillCastEvent",
+        "SkillPower",
+        "Arms",
+        "0.6",
+        "技能强度"
+      ]
+    },
+    {
+      "row": 8,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "4",
+        "Name": "RightArm",
+        "TriggerEvent": "AttackHitEvent",
+        "ScaleStat": "WeaponDamage",
+        "SymmetryGroup": "Arms",
+        "ScaleFactor": "0.8",
+        "PassiveDimension": "武器伤害"
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "4",
+        "",
+        "RightArm",
+        "AttackHitEvent",
+        "WeaponDamage",
+        "Arms",
+        "0.8",
+        "武器伤害"
+      ]
+    },
+    {
+      "row": 9,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "5",
+        "Name": "LeftLeg",
+        "TriggerEvent": "DodgePressedEvent",
+        "ScaleStat": "DodgeFrames",
+        "SymmetryGroup": "Legs",
+        "ScaleFactor": "40.0",
+        "PassiveDimension": "闪避帧"
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "5",
+        "",
+        "LeftLeg",
+        "DodgePressedEvent",
+        "DodgeFrames",
+        "Legs",
+        "40.0",
+        "闪避帧"
+      ]
+    },
+    {
+      "row": 10,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "6",
+        "Name": "RightLeg",
+        "TriggerEvent": "MoveTickEvent",
+        "ScaleStat": "MoveSpeed",
+        "SymmetryGroup": "Legs",
+        "ScaleFactor": "1.6",
+        "PassiveDimension": "移速"
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "6",
+        "",
+        "RightLeg",
+        "MoveTickEvent",
+        "MoveSpeed",
+        "Legs",
+        "1.6",
+        "移速"
+      ]
+    }
+  ]
+}

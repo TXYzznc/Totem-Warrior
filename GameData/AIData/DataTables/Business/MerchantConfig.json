@@ -1,0 +1,268 @@
+{
+  "schemaVersion": 1,
+  "kind": "GF_X.DataTable.AI",
+  "tableName": "MerchantConfig",
+  "relativePath": "Business/MerchantConfig",
+  "sourceExcel": "GameData/DataTables/Business/MerchantConfig.xlsx",
+  "sourceExcelLastWriteUtc": "2026-07-08T14:56:03.7581370Z",
+  "generatedAtUtc": "2026-07-08T14:56:03.9501376Z",
+  "tableComment": "Business table migrated from LegacyProjectArchive/Assets/Resources/DataTable/MerchantConfig.json. GF_X Id is numeric; original business keys are preserved as data columns.",
+  "columns": [
+    {
+      "index": 1,
+      "key": "Note1",
+      "name": "#",
+      "type": "#",
+      "comment": "#",
+      "role": "comment"
+    },
+    {
+      "index": 2,
+      "key": "Id",
+      "name": "Id",
+      "type": "int",
+      "comment": "GF_X numeric row id. Original business key is preserved as a data column when its name is not Id.",
+      "role": "id"
+    },
+    {
+      "index": 3,
+      "key": "Note3",
+      "name": "",
+      "type": "",
+      "comment": "Note",
+      "role": "comment"
+    },
+    {
+      "index": 4,
+      "key": "SlotIndex",
+      "name": "SlotIndex",
+      "type": "int",
+      "comment": "商人展示槽位索引，范围 0~2（每局刷新时按 RefreshWeight 随机选定该槽武器）",
+      "role": "data"
+    },
+    {
+      "index": 5,
+      "key": "WeaponId",
+      "name": "WeaponId",
+      "type": "string",
+      "comment": "候选武器 ID，对应 WeaponConfig.WeaponId",
+      "role": "data"
+    },
+    {
+      "index": 6,
+      "key": "GoldCost",
+      "name": "GoldCost",
+      "type": "int",
+      "comment": "购买所需金币（单位 coin），范围 [50, 200]",
+      "role": "data"
+    },
+    {
+      "index": 7,
+      "key": "RefreshWeight",
+      "name": "RefreshWeight",
+      "type": "int",
+      "comment": "商人每局刷新时该候选被选中的概率权重（同 SlotIndex 内竞争）",
+      "role": "data"
+    }
+  ],
+  "rows": [
+    {
+      "row": 5,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "1",
+        "SlotIndex": "0",
+        "WeaponId": "knife_basic",
+        "GoldCost": "50",
+        "RefreshWeight": "40"
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "1",
+        "",
+        "0",
+        "knife_basic",
+        "50",
+        "40"
+      ]
+    },
+    {
+      "row": 6,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "2",
+        "SlotIndex": "0",
+        "WeaponId": "pistol_basic",
+        "GoldCost": "75",
+        "RefreshWeight": "35"
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "2",
+        "",
+        "0",
+        "pistol_basic",
+        "75",
+        "35"
+      ]
+    },
+    {
+      "row": 7,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "3",
+        "SlotIndex": "0",
+        "WeaponId": "energy_fist",
+        "GoldCost": "90",
+        "RefreshWeight": "25"
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "3",
+        "",
+        "0",
+        "energy_fist",
+        "90",
+        "25"
+      ]
+    },
+    {
+      "row": 8,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "4",
+        "SlotIndex": "1",
+        "WeaponId": "hammer_heavy",
+        "GoldCost": "80",
+        "RefreshWeight": "40"
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "4",
+        "",
+        "1",
+        "hammer_heavy",
+        "80",
+        "40"
+      ]
+    },
+    {
+      "row": 9,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "5",
+        "SlotIndex": "1",
+        "WeaponId": "pistol_basic",
+        "GoldCost": "85",
+        "RefreshWeight": "35"
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "5",
+        "",
+        "1",
+        "pistol_basic",
+        "85",
+        "35"
+      ]
+    },
+    {
+      "row": 10,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "6",
+        "SlotIndex": "1",
+        "WeaponId": "bow_charge",
+        "GoldCost": "120",
+        "RefreshWeight": "25"
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "6",
+        "",
+        "1",
+        "bow_charge",
+        "120",
+        "25"
+      ]
+    },
+    {
+      "row": 11,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "7",
+        "SlotIndex": "2",
+        "WeaponId": "bow_charge",
+        "GoldCost": "140",
+        "RefreshWeight": "35"
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "7",
+        "",
+        "2",
+        "bow_charge",
+        "140",
+        "35"
+      ]
+    },
+    {
+      "row": 12,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "8",
+        "SlotIndex": "2",
+        "WeaponId": "energy_fist",
+        "GoldCost": "130",
+        "RefreshWeight": "35"
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "8",
+        "",
+        "2",
+        "energy_fist",
+        "130",
+        "35"
+      ]
+    },
+    {
+      "row": 13,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "9",
+        "SlotIndex": "2",
+        "WeaponId": "hammer_heavy",
+        "GoldCost": "100",
+        "RefreshWeight": "30"
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "9",
+        "",
+        "2",
+        "hammer_heavy",
+        "100",
+        "30"
+      ]
+    }
+  ]
+}

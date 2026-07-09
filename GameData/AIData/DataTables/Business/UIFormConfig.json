@@ -1,0 +1,334 @@
+{
+  "schemaVersion": 1,
+  "kind": "GF_X.DataTable.AI",
+  "tableName": "UIFormConfig",
+  "relativePath": "Business/UIFormConfig",
+  "sourceExcel": "GameData/DataTables/Business/UIFormConfig.xlsx",
+  "sourceExcelLastWriteUtc": "2026-07-08T14:56:09.9961371Z",
+  "generatedAtUtc": "2026-07-08T14:56:10.2451372Z",
+  "tableComment": "Business table migrated from LegacyProjectArchive/Assets/Resources/DataTable/UIFormConfig.json. GF_X Id is numeric; original business keys are preserved as data columns.",
+  "columns": [
+    {
+      "index": 1,
+      "key": "Note1",
+      "name": "#",
+      "type": "#",
+      "comment": "#",
+      "role": "comment"
+    },
+    {
+      "index": 2,
+      "key": "Id",
+      "name": "Id",
+      "type": "int",
+      "comment": "GF_X numeric row id. Original business key is preserved as a data column when its name is not Id.",
+      "role": "id"
+    },
+    {
+      "index": 3,
+      "key": "Note3",
+      "name": "",
+      "type": "",
+      "comment": "Note",
+      "role": "comment"
+    },
+    {
+      "index": 4,
+      "key": "FormName",
+      "name": "FormName",
+      "type": "string",
+      "comment": "",
+      "role": "data"
+    },
+    {
+      "index": 5,
+      "key": "PrefabPath",
+      "name": "PrefabPath",
+      "type": "string",
+      "comment": "",
+      "role": "data"
+    },
+    {
+      "index": 6,
+      "key": "SortOrder",
+      "name": "SortOrder",
+      "type": "int",
+      "comment": "",
+      "role": "data"
+    },
+    {
+      "index": 7,
+      "key": "IsExclusive",
+      "name": "IsExclusive",
+      "type": "bool",
+      "comment": "",
+      "role": "data"
+    }
+  ],
+  "rows": [
+    {
+      "row": 5,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "1",
+        "FormName": "CombatHUDForm",
+        "PrefabPath": "UI/CombatHUD",
+        "SortOrder": "0",
+        "IsExclusive": "false"
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "1",
+        "",
+        "CombatHUDForm",
+        "UI/CombatHUD",
+        "0",
+        "false"
+      ]
+    },
+    {
+      "row": 6,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "2",
+        "FormName": "TattooStudioForm",
+        "PrefabPath": "UI/TattooStudio",
+        "SortOrder": "10",
+        "IsExclusive": "true"
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "2",
+        "",
+        "TattooStudioForm",
+        "UI/TattooStudio",
+        "10",
+        "true"
+      ]
+    },
+    {
+      "row": 7,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "3",
+        "FormName": "TattooEnchantForm",
+        "PrefabPath": "UI/TattooEnchant",
+        "SortOrder": "10",
+        "IsExclusive": "true"
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "3",
+        "",
+        "TattooEnchantForm",
+        "UI/TattooEnchant",
+        "10",
+        "true"
+      ]
+    },
+    {
+      "row": 8,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "4",
+        "FormName": "ShopForm",
+        "PrefabPath": "UI/Shop",
+        "SortOrder": "10",
+        "IsExclusive": "true"
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "4",
+        "",
+        "ShopForm",
+        "UI/Shop",
+        "10",
+        "true"
+      ]
+    },
+    {
+      "row": 9,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "5",
+        "FormName": "ThreeChoiceForm",
+        "PrefabPath": "UI/ThreeChoice",
+        "SortOrder": "10",
+        "IsExclusive": "true"
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "5",
+        "",
+        "ThreeChoiceForm",
+        "UI/ThreeChoice",
+        "10",
+        "true"
+      ]
+    },
+    {
+      "row": 10,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "6",
+        "FormName": "PauseMenuForm",
+        "PrefabPath": "UI/PauseMenu",
+        "SortOrder": "20",
+        "IsExclusive": "false"
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "6",
+        "",
+        "PauseMenuForm",
+        "UI/PauseMenu",
+        "20",
+        "false"
+      ]
+    },
+    {
+      "row": 11,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "7",
+        "FormName": "RunResultForm",
+        "PrefabPath": "UI/RunResult",
+        "SortOrder": "20",
+        "IsExclusive": "false"
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "7",
+        "",
+        "RunResultForm",
+        "UI/RunResult",
+        "20",
+        "false"
+      ]
+    },
+    {
+      "row": 12,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "8",
+        "FormName": "MainMenuForm",
+        "PrefabPath": "UI/MainMenu",
+        "SortOrder": "30",
+        "IsExclusive": "false"
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "8",
+        "",
+        "MainMenuForm",
+        "UI/MainMenu",
+        "30",
+        "false"
+      ]
+    },
+    {
+      "row": 13,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "9",
+        "FormName": "CharacterSelectForm",
+        "PrefabPath": "UI/CharacterSelect",
+        "SortOrder": "30",
+        "IsExclusive": "false"
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "9",
+        "",
+        "CharacterSelectForm",
+        "UI/CharacterSelect",
+        "30",
+        "false"
+      ]
+    },
+    {
+      "row": 14,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "10",
+        "FormName": "SettingsForm",
+        "PrefabPath": "UI/Settings",
+        "SortOrder": "20",
+        "IsExclusive": "true"
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "10",
+        "",
+        "SettingsForm",
+        "UI/Settings",
+        "20",
+        "true"
+      ]
+    },
+    {
+      "row": 15,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "11",
+        "FormName": "SelfTattooForm",
+        "PrefabPath": "UI/SelfTattoo",
+        "SortOrder": "10",
+        "IsExclusive": "true"
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "11",
+        "",
+        "SelfTattooForm",
+        "UI/SelfTattoo",
+        "10",
+        "true"
+      ]
+    },
+    {
+      "row": 16,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "12",
+        "FormName": "StartupSelectForm",
+        "PrefabPath": "UI/StartupSelect",
+        "SortOrder": "30",
+        "IsExclusive": "false"
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "12",
+        "",
+        "StartupSelectForm",
+        "UI/StartupSelect",
+        "30",
+        "false"
+      ]
+    }
+  ]
+}

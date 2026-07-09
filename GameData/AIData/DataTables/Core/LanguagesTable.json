@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "kind": "GF_X.DataTable.AI",
+  "tableName": "LanguagesTable",
+  "relativePath": "Core/LanguagesTable",
+  "sourceExcel": "GameData/DataTables/Core/LanguagesTable.xlsx",
+  "sourceExcelLastWriteUtc": "2026-07-07T07:34:26.1944618Z",
+  "generatedAtUtc": "2026-07-07T07:34:26.4279615Z",
+  "tableComment": "LanguagesTable",
+  "columns": [
+    {
+      "index": 1,
+      "key": "Note1",
+      "name": "#",
+      "type": "#",
+      "comment": "#",
+      "role": "comment"
+    },
+    {
+      "index": 2,
+      "key": "Id",
+      "name": "ID",
+      "type": "int",
+      "comment": "",
+      "role": "id"
+    },
+    {
+      "index": 3,
+      "key": "Note3",
+      "name": "",
+      "type": "",
+      "comment": "备注",
+      "role": "comment"
+    },
+    {
+      "index": 4,
+      "key": "LanguageKey",
+      "name": "LanguageKey",
+      "type": "string",
+      "comment": "多语言文件名",
+      "role": "data"
+    },
+    {
+      "index": 5,
+      "key": "AssetName",
+      "name": "AssetName",
+      "type": "string",
+      "comment": "多语言资源名(相对路径)",
+      "role": "data"
+    },
+    {
+      "index": 6,
+      "key": "LanguageDisplay",
+      "name": "LanguageDisplay",
+      "type": "string",
+      "comment": "用于显示的语言名",
+      "role": "data"
+    },
+    {
+      "index": 7,
+      "key": "LanguageIcon",
+      "name": "LanguageIcon",
+      "type": "string",
+      "comment": "语言图标",
+      "role": "data"
+    }
+  ],
+  "rows": [
+    {
+      "row": 5,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "1",
+        "LanguageKey": "English",
+        "AssetName": "English",
+        "LanguageDisplay": "English",
+        "LanguageIcon": ""
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "1",
+        "",
+        "English",
+        "English",
+        "English",
+        ""
+      ]
+    }
+  ]
+}

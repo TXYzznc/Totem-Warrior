@@ -1,0 +1,1222 @@
+{
+  "generated_at": "2026-07-09",
+  "source": "tools/ai_index/build_ai_manifests.py",
+  "purpose": "Feature-slice index for design/art/program/QA handoffs during the GF_X rewrite.",
+  "count": 13,
+  "discipline_columns": [
+    "design",
+    "art",
+    "program",
+    "qa"
+  ],
+  "legacy_module_coverage_count": 24,
+  "business_table_coverage_count": 28,
+  "runtime_service_coverage_count": 26,
+  "runtime_asset_key_coverage_count": 38,
+  "diagnostic_scenario_coverage_count": 16,
+  "modules": [
+    "Audio",
+    "Bot",
+    "Camera",
+    "Combat",
+    "DataTable",
+    "Economy",
+    "Enemy",
+    "Event",
+    "Flow",
+    "GameState",
+    "Input",
+    "MapGen",
+    "NPC",
+    "Resource",
+    "Save",
+    "Scene",
+    "Settings",
+    "Skill",
+    "Spawner",
+    "Status",
+    "Tattoo",
+    "UI",
+    "VFX",
+    "Weapon"
+  ],
+  "business_tables": [
+    "BossPhaseConfig",
+    "BotBuildPreset",
+    "BotConfig",
+    "ChestConfig",
+    "EnemyConfig",
+    "EventConfig",
+    "ItemConfig",
+    "MapTemplateConfig",
+    "MerchantConfig",
+    "NPCConfig",
+    "ProjectileConfig",
+    "ResourceConfig",
+    "ShopStockConfig",
+    "SkillConfig",
+    "TattooColorConfig",
+    "TattooElementConfig",
+    "TattooEnchantAffixConfig",
+    "TattooEnchantRecipeConfig",
+    "TattooPartConfig",
+    "TattooPatternConfig",
+    "TattooReadingTimeConfig",
+    "TattooShapeConfig",
+    "ThreeChoiceOptionConfig",
+    "UIFormConfig",
+    "WeaponConfig",
+    "WeaponDropConfig",
+    "WeaponTraitConfig",
+    "ZoneShrinkConfig"
+  ],
+  "runtime_services": [
+    "TotemAIService",
+    "TotemActorService",
+    "TotemAssetService",
+    "TotemAudioService",
+    "TotemBossService",
+    "TotemCameraService",
+    "TotemChestService",
+    "TotemChoiceService",
+    "TotemCombatService",
+    "TotemDataService",
+    "TotemEconomyService",
+    "TotemGameFlowService",
+    "TotemInputService",
+    "TotemInteractionService",
+    "TotemMapService",
+    "TotemMetaProgressService",
+    "TotemNpcService",
+    "TotemRunStatsService",
+    "TotemSettingsService",
+    "TotemSkillService",
+    "TotemStatusService",
+    "TotemTattooService",
+    "TotemUIService",
+    "TotemVfxService",
+    "TotemWeaponService",
+    "TotemZoneService"
+  ],
+  "runtime_asset_keys": [
+    "actor.boss",
+    "actor.lightAi",
+    "actor.player",
+    "actor.smartAi",
+    "chest.chest_common",
+    "chest.chest_rare",
+    "effect.attack.hit",
+    "effect.boss.bolt",
+    "effect.projectile.arrow_bow",
+    "effect.projectile.bullet_pistol",
+    "effect.skill.burst",
+    "map.floor.ruins",
+    "map.wall.ruins",
+    "npc.merchant",
+    "npc.tattooist",
+    "skill.skill_beam",
+    "skill.skill_enrage_aoe",
+    "skill.skill_fireball_01",
+    "skill.skill_phase_dash",
+    "skill.skill_stomp",
+    "skill.skill_summon",
+    "tattoo.part.head",
+    "tattoo.part.left_arm",
+    "tattoo.part.left_leg",
+    "tattoo.part.right_arm",
+    "tattoo.part.right_leg",
+    "tattoo.part.torso",
+    "tattoo.pattern.beast",
+    "tattoo.pattern.line",
+    "ui.character.1",
+    "ui.character.2",
+    "ui.character.3",
+    "ui.character.card.unlocked",
+    "weapon.bow_charge",
+    "weapon.energy_fist",
+    "weapon.hammer_heavy",
+    "weapon.knife_basic",
+    "weapon.pistol_basic"
+  ],
+  "diagnostic_scenarios": [
+    "Scenario/BusinessRuntime/GF_X Rewrite Inventory Contract",
+    "Scenario/BusinessRuntime/Totem AI Runtime",
+    "Scenario/BusinessRuntime/Totem Audio Runtime",
+    "Scenario/BusinessRuntime/Totem Balance Envelope",
+    "Scenario/BusinessRuntime/Totem Choice Runtime",
+    "Scenario/BusinessRuntime/Totem Extended Gameplay",
+    "Scenario/BusinessRuntime/Totem First Round Contract",
+    "Scenario/BusinessRuntime/Totem First Slice UI",
+    "Scenario/BusinessRuntime/Totem Gameplay Catalog",
+    "Scenario/BusinessRuntime/Totem Gameplay Runtime",
+    "Scenario/BusinessRuntime/Totem Meta Progress",
+    "Scenario/BusinessRuntime/Totem Runtime Assets",
+    "Scenario/BusinessRuntime/Totem Runtime Catalog Binding",
+    "Scenario/BusinessRuntime/Totem Runtime Causality Smoke",
+    "Scenario/BusinessRuntime/Totem VFX Runtime",
+    "Scenario/Startup/Launch To Totem Runtime Smoke"
+  ],
+  "validation": {
+    "missing_modules": {},
+    "uncovered_legacy_modules": [],
+    "missing_business_tables": {},
+    "missing_runtime_services": {},
+    "uncovered_runtime_services": [],
+    "missing_runtime_asset_keys": {},
+    "missing_required_fields": {},
+    "valid": true
+  },
+  "slices": [
+    {
+      "id": "ui_entry_flow",
+      "name": "主菜单 -> 角色选择 -> 启动选择 -> 战斗 HUD",
+      "status": "covered_with_manual_visual_boundary",
+      "product_goal": "首屏启动链路干净进入当前 GF_X 工作区，旧 UI 只作为视觉/需求证据。",
+      "modules": [
+        "Flow",
+        "Scene",
+        "UI",
+        "Input",
+        "GameState"
+      ],
+      "business_tables": [
+        "UIFormConfig"
+      ],
+      "runtime_services": [
+        "TotemGameFlowService",
+        "TotemUIService",
+        "TotemInputService"
+      ],
+      "ui_forms": [
+        "MainMenu",
+        "CharacterSelect",
+        "StartupSelect",
+        "CombatHUD"
+      ],
+      "runtime_asset_keys": [
+        "ui.character.1",
+        "ui.character.2",
+        "ui.character.3",
+        "ui.character.card.unlocked"
+      ],
+      "docs": [
+        "openspec/specs/main-menu-flow/spec.md",
+        "项目知识库（AI自行维护）/GDD-v2/modules/12-UIModule+各UIForm.md"
+      ],
+      "diagnostic_scenarios": [
+        "Scenario/Startup/Launch To Totem Runtime Smoke",
+        "Scenario/BusinessRuntime/Totem First Slice UI",
+        "Scenario/BusinessRuntime/Totem Runtime Causality Smoke"
+      ],
+      "discipline_handoff": {
+        "design": "确认首轮流程状态、按钮语义、角色选择和启动选择的可见规则。",
+        "art": "按 runtime_usages 检查角色头像、卡框和 UI 占位图，后续替换仍保持相同 runtime key。",
+        "program": "流程只走 TotemGameFlowService/TotemUIService/TotemInputService，不回接旧 GameApp/UIModule。",
+        "qa": "用 First Slice UI 和 Causality Smoke 证明状态流、输入流和 HUD 进入点。"
+      },
+      "business_json_paths": [
+        "GameData/AIData/DataTables/Business/UIFormConfig.json"
+      ],
+      "business_xlsx_paths": [
+        "GameData/DataTables/Business/UIFormConfig.xlsx"
+      ],
+      "art_lookup": {
+        "manifest": "项目知识库（AI自行维护）/manifests/art_assets.json",
+        "query": "Find assets whose runtime_keys contains any runtime_asset_keys listed by this feature."
+      },
+      "runtime_asset_catalog": "GameData/AIData/GameplayCatalogs/totem_runtime_assets.json",
+      "validation": {
+        "missing_modules": [],
+        "missing_business_tables": [],
+        "missing_runtime_services": [],
+        "missing_runtime_asset_keys": [],
+        "missing_required_fields": [],
+        "valid": true
+      }
+    },
+    {
+      "id": "first_round_population",
+      "name": "首轮 50 actor 战斗人口",
+      "status": "covered",
+      "product_goal": "复现 1 玩家 + 20 Smart AI + 29 Light AI + Boss 的首轮规模模型。",
+      "modules": [
+        "Spawner",
+        "Bot",
+        "Enemy",
+        "Combat",
+        "GameState"
+      ],
+      "business_tables": [
+        "BotConfig",
+        "BotBuildPreset",
+        "EnemyConfig"
+      ],
+      "runtime_services": [
+        "TotemActorService",
+        "TotemAIService",
+        "TotemGameFlowService"
+      ],
+      "ui_forms": [
+        "CombatHUD"
+      ],
+      "runtime_asset_keys": [
+        "actor.player",
+        "actor.smartAi",
+        "actor.lightAi",
+        "actor.boss"
+      ],
+      "docs": [
+        "openspec/changes/gf-x-business-runtime-refactor/REQUIREMENTS_INVENTORY.md",
+        "openspec/changes/gf-x-business-runtime-refactor/SMART_AI_PERSONALITY_DRAFT.md"
+      ],
+      "diagnostic_scenarios": [
+        "Scenario/BusinessRuntime/Totem First Round Contract",
+        "Scenario/BusinessRuntime/Totem AI Runtime",
+        "Scenario/BusinessRuntime/Totem Runtime Causality Smoke"
+      ],
+      "discipline_handoff": {
+        "design": "维护 Smart/Light 数量、个性分配、Boss 同场规则和首轮目标。",
+        "art": "检查 actor.* runtime key 对应的临时角色/Boss 视觉，后续替换保持 key 不漂移。",
+        "program": "人口创建、状态和 AI 决策归 TotemActorService/TotemAIService，不挂旧 ModuleRunner。",
+        "qa": "用 First Round Contract 和 AI Runtime 证明数量、状态、性格和首轮模型。"
+      },
+      "business_json_paths": [
+        "GameData/AIData/DataTables/Business/BotConfig.json",
+        "GameData/AIData/DataTables/Business/BotBuildPreset.json",
+        "GameData/AIData/DataTables/Business/EnemyConfig.json"
+      ],
+      "business_xlsx_paths": [
+        "GameData/DataTables/Business/BotConfig.xlsx",
+        "GameData/DataTables/Business/BotBuildPreset.xlsx",
+        "GameData/DataTables/Business/EnemyConfig.xlsx"
+      ],
+      "art_lookup": {
+        "manifest": "项目知识库（AI自行维护）/manifests/art_assets.json",
+        "query": "Find assets whose runtime_keys contains any runtime_asset_keys listed by this feature."
+      },
+      "runtime_asset_catalog": "GameData/AIData/GameplayCatalogs/totem_runtime_assets.json",
+      "validation": {
+        "missing_modules": [],
+        "missing_business_tables": [],
+        "missing_runtime_services": [],
+        "missing_runtime_asset_keys": [],
+        "missing_required_fields": [],
+        "valid": true
+      }
+    },
+    {
+      "id": "combat_weapon_skill",
+      "name": "武器、技能、弹道与状态",
+      "status": "covered_with_tuning_boundary",
+      "product_goal": "GF_X 原生重写攻击、命中、技能、武器冷却、状态概率和伤害结算。",
+      "modules": [
+        "Combat",
+        "Weapon",
+        "Skill",
+        "Status",
+        "VFX"
+      ],
+      "business_tables": [
+        "WeaponConfig",
+        "WeaponTraitConfig",
+        "WeaponDropConfig",
+        "ProjectileConfig",
+        "SkillConfig"
+      ],
+      "runtime_services": [
+        "TotemCombatService",
+        "TotemWeaponService",
+        "TotemSkillService",
+        "TotemStatusService",
+        "TotemVfxService"
+      ],
+      "ui_forms": [
+        "CombatHUD",
+        "SkillAcquire"
+      ],
+      "runtime_asset_keys": [
+        "weapon.knife_basic",
+        "weapon.hammer_heavy",
+        "weapon.pistol_basic",
+        "weapon.bow_charge",
+        "weapon.energy_fist",
+        "skill.skill_fireball_01",
+        "skill.skill_phase_dash",
+        "effect.attack.hit",
+        "effect.projectile.bullet_pistol",
+        "effect.projectile.arrow_bow"
+      ],
+      "docs": [
+        "项目知识库（AI自行维护）/GDD-v2/modules/02-CombatModule.md",
+        "项目知识库（AI自行维护）/GDD-v2/modules/03-WeaponModule.md",
+        "项目知识库（AI自行维护）/GDD-v2/modules/04-SkillModule.md"
+      ],
+      "diagnostic_scenarios": [
+        "Scenario/BusinessRuntime/Totem Gameplay Runtime",
+        "Scenario/BusinessRuntime/Totem Extended Gameplay",
+        "Scenario/BusinessRuntime/Totem Balance Envelope",
+        "Scenario/BusinessRuntime/Totem VFX Runtime"
+      ],
+      "discipline_handoff": {
+        "design": "数值先改 Business JSON，再同步 xlsx 和 runtime catalog；最终手感仍是 T9f7 后续调试边界。",
+        "art": "武器、技能、命中特效通过 runtime asset key 管理；替换前先查 art_assets.runtime_usages。",
+        "program": "攻击/技能命中必须通过 TotemCombatService 和关联服务，状态概率用当前 StatusChance helper。",
+        "qa": "用 Gameplay Runtime、Extended Gameplay、Balance Envelope 和 VFX Runtime 验证非 UI 效果。"
+      },
+      "business_json_paths": [
+        "GameData/AIData/DataTables/Business/WeaponConfig.json",
+        "GameData/AIData/DataTables/Business/WeaponTraitConfig.json",
+        "GameData/AIData/DataTables/Business/WeaponDropConfig.json",
+        "GameData/AIData/DataTables/Business/ProjectileConfig.json",
+        "GameData/AIData/DataTables/Business/SkillConfig.json"
+      ],
+      "business_xlsx_paths": [
+        "GameData/DataTables/Business/WeaponConfig.xlsx",
+        "GameData/DataTables/Business/WeaponTraitConfig.xlsx",
+        "GameData/DataTables/Business/WeaponDropConfig.xlsx",
+        "GameData/DataTables/Business/ProjectileConfig.xlsx",
+        "GameData/DataTables/Business/SkillConfig.xlsx"
+      ],
+      "art_lookup": {
+        "manifest": "项目知识库（AI自行维护）/manifests/art_assets.json",
+        "query": "Find assets whose runtime_keys contains any runtime_asset_keys listed by this feature."
+      },
+      "runtime_asset_catalog": "GameData/AIData/GameplayCatalogs/totem_runtime_assets.json",
+      "validation": {
+        "missing_modules": [],
+        "missing_business_tables": [],
+        "missing_runtime_services": [],
+        "missing_runtime_asset_keys": [],
+        "missing_required_fields": [],
+        "valid": true
+      }
+    },
+    {
+      "id": "tattoo_builds",
+      "name": "336 纹身组合、自纹身与附魔",
+      "status": "covered_with_placeholder_art_boundary",
+      "product_goal": "复现部位/颜色/元素/图案/形状/读条/附魔的 GF_X 原生构筑链路。",
+      "modules": [
+        "Tattoo",
+        "NPC",
+        "Economy",
+        "UI",
+        "Status"
+      ],
+      "business_tables": [
+        "TattooColorConfig",
+        "TattooElementConfig",
+        "TattooPartConfig",
+        "TattooPatternConfig",
+        "TattooShapeConfig",
+        "TattooReadingTimeConfig",
+        "TattooEnchantAffixConfig",
+        "TattooEnchantRecipeConfig"
+      ],
+      "runtime_services": [
+        "TotemTattooService",
+        "TotemEconomyService",
+        "TotemNpcService",
+        "TotemStatusService"
+      ],
+      "ui_forms": [
+        "SelfTattoo",
+        "TattooEnchant",
+        "TattooStudio",
+        "CombatHUD"
+      ],
+      "runtime_asset_keys": [
+        "tattoo.part.head",
+        "tattoo.part.torso",
+        "tattoo.part.left_arm",
+        "tattoo.part.right_arm",
+        "tattoo.part.left_leg",
+        "tattoo.part.right_leg",
+        "tattoo.pattern.line",
+        "tattoo.pattern.beast"
+      ],
+      "docs": [
+        "项目知识库（AI自行维护）/GDD-v2/modules/01-TattooModule.md",
+        "openspec/specs/tattoo/spec.md"
+      ],
+      "diagnostic_scenarios": [
+        "Scenario/BusinessRuntime/Totem Gameplay Catalog",
+        "Scenario/BusinessRuntime/Totem Gameplay Runtime",
+        "Scenario/BusinessRuntime/Totem Extended Gameplay"
+      ],
+      "discipline_handoff": {
+        "design": "维护 336 组合、读条、中断扣费、AfterDodge、StatusChance 与附魔规则。",
+        "art": "当前纹身图标/部位/图案多为占位；正式替换时优先保持 tattoo.* runtime key。",
+        "program": "自纹身、附魔、触发和状态效果集中在 TotemTattooService，经济扣费通过 TotemEconomyService。",
+        "qa": "用 Gameplay Catalog/Runtime/Extended Gameplay 证明组合数、触发、附魔和中断经济。"
+      },
+      "business_json_paths": [
+        "GameData/AIData/DataTables/Business/TattooColorConfig.json",
+        "GameData/AIData/DataTables/Business/TattooElementConfig.json",
+        "GameData/AIData/DataTables/Business/TattooPartConfig.json",
+        "GameData/AIData/DataTables/Business/TattooPatternConfig.json",
+        "GameData/AIData/DataTables/Business/TattooShapeConfig.json",
+        "GameData/AIData/DataTables/Business/TattooReadingTimeConfig.json",
+        "GameData/AIData/DataTables/Business/TattooEnchantAffixConfig.json",
+        "GameData/AIData/DataTables/Business/TattooEnchantRecipeConfig.json"
+      ],
+      "business_xlsx_paths": [
+        "GameData/DataTables/Business/TattooColorConfig.xlsx",
+        "GameData/DataTables/Business/TattooElementConfig.xlsx",
+        "GameData/DataTables/Business/TattooPartConfig.xlsx",
+        "GameData/DataTables/Business/TattooPatternConfig.xlsx",
+        "GameData/DataTables/Business/TattooShapeConfig.xlsx",
+        "GameData/DataTables/Business/TattooReadingTimeConfig.xlsx",
+        "GameData/DataTables/Business/TattooEnchantAffixConfig.xlsx",
+        "GameData/DataTables/Business/TattooEnchantRecipeConfig.xlsx"
+      ],
+      "art_lookup": {
+        "manifest": "项目知识库（AI自行维护）/manifests/art_assets.json",
+        "query": "Find assets whose runtime_keys contains any runtime_asset_keys listed by this feature."
+      },
+      "runtime_asset_catalog": "GameData/AIData/GameplayCatalogs/totem_runtime_assets.json",
+      "validation": {
+        "missing_modules": [],
+        "missing_business_tables": [],
+        "missing_runtime_services": [],
+        "missing_runtime_asset_keys": [],
+        "missing_required_fields": [],
+        "valid": true
+      }
+    },
+    {
+      "id": "smart_ai_roster",
+      "name": "Smart AI 五性格与 Light AI",
+      "status": "covered_with_tuning_boundary",
+      "product_goal": "20 Smart AI 采用激进、保守、资源获取、Boss 优先、玩家优先五性格，29 Light AI 保持轻量压力。",
+      "modules": [
+        "Bot",
+        "Combat",
+        "Weapon",
+        "Tattoo",
+        "Enemy"
+      ],
+      "business_tables": [
+        "BotConfig",
+        "BotBuildPreset",
+        "WeaponConfig",
+        "SkillConfig",
+        "TattooPartConfig"
+      ],
+      "runtime_services": [
+        "TotemAIService",
+        "TotemActorService",
+        "TotemWeaponService",
+        "TotemTattooService"
+      ],
+      "ui_forms": [
+        "CombatHUD"
+      ],
+      "runtime_asset_keys": [
+        "actor.smartAi",
+        "actor.lightAi",
+        "weapon.knife_basic",
+        "weapon.pistol_basic"
+      ],
+      "docs": [
+        "openspec/changes/gf-x-business-runtime-refactor/SMART_AI_PERSONALITY_DRAFT.md",
+        "项目知识库（AI自行维护）/GDD-v2/modules/16-BotControllerModule.md"
+      ],
+      "diagnostic_scenarios": [
+        "Scenario/BusinessRuntime/Totem AI Runtime",
+        "Scenario/BusinessRuntime/Totem Runtime Causality Smoke",
+        "Scenario/BusinessRuntime/Totem Balance Envelope"
+      ],
+      "discipline_handoff": {
+        "design": "调整性格数量、权重、Boss/玩家/资源优先级时先改 BotConfig/BotBuildPreset。",
+        "art": "AI 视觉当前复用 actor.* 临时资源，正式角色生产前保持 runtime key 稳定。",
+        "program": "AI 行为差异应来自数据和 TotemAIService 决策，不写散落硬编码性格。",
+        "qa": "用 AI Runtime、Causality Smoke 和 Balance Envelope 验证决策输出和压力边界。"
+      },
+      "business_json_paths": [
+        "GameData/AIData/DataTables/Business/BotConfig.json",
+        "GameData/AIData/DataTables/Business/BotBuildPreset.json",
+        "GameData/AIData/DataTables/Business/WeaponConfig.json",
+        "GameData/AIData/DataTables/Business/SkillConfig.json",
+        "GameData/AIData/DataTables/Business/TattooPartConfig.json"
+      ],
+      "business_xlsx_paths": [
+        "GameData/DataTables/Business/BotConfig.xlsx",
+        "GameData/DataTables/Business/BotBuildPreset.xlsx",
+        "GameData/DataTables/Business/WeaponConfig.xlsx",
+        "GameData/DataTables/Business/SkillConfig.xlsx",
+        "GameData/DataTables/Business/TattooPartConfig.xlsx"
+      ],
+      "art_lookup": {
+        "manifest": "项目知识库（AI自行维护）/manifests/art_assets.json",
+        "query": "Find assets whose runtime_keys contains any runtime_asset_keys listed by this feature."
+      },
+      "runtime_asset_catalog": "GameData/AIData/GameplayCatalogs/totem_runtime_assets.json",
+      "validation": {
+        "missing_modules": [],
+        "missing_business_tables": [],
+        "missing_runtime_services": [],
+        "missing_runtime_asset_keys": [],
+        "missing_required_fields": [],
+        "valid": true
+      }
+    },
+    {
+      "id": "economy_shop_chest",
+      "name": "金币、宝箱、商店与掉落",
+      "status": "covered_with_tuning_boundary",
+      "product_goal": "复现战斗内经济、死亡宝箱、普通/稀有宝箱、商店库存和购买消耗。",
+      "modules": [
+        "Economy",
+        "Spawner",
+        "NPC",
+        "Weapon",
+        "UI"
+      ],
+      "business_tables": [
+        "ResourceConfig",
+        "ItemConfig",
+        "ChestConfig",
+        "MerchantConfig",
+        "ShopStockConfig",
+        "WeaponDropConfig"
+      ],
+      "runtime_services": [
+        "TotemEconomyService",
+        "TotemChestService",
+        "TotemNpcService",
+        "TotemWeaponService"
+      ],
+      "ui_forms": [
+        "Shop",
+        "CombatHUD"
+      ],
+      "runtime_asset_keys": [
+        "chest.chest_common",
+        "chest.chest_rare",
+        "npc.merchant"
+      ],
+      "docs": [
+        "项目知识库（AI自行维护）/GDD-v2/modules/11-EconomyModule.md",
+        "项目知识库（AI自行维护）/GDD-v2/systems/08-宝箱与探财节奏.md",
+        "项目知识库（AI自行维护）/GDD-v2/systems/09-纹身师与商人NPC.md"
+      ],
+      "diagnostic_scenarios": [
+        "Scenario/BusinessRuntime/Totem Gameplay Runtime",
+        "Scenario/BusinessRuntime/Totem Runtime Causality Smoke",
+        "Scenario/BusinessRuntime/Totem Runtime Catalog Binding"
+      ],
+      "discipline_handoff": {
+        "design": "经济数值、库存、掉落范围和价格优先改 Business JSON，再同步 xlsx。",
+        "art": "宝箱、商人视觉通过 chest.* 和 npc.merchant key 查询和替换。",
+        "program": "交易、掉落和宝箱逻辑归 Economy/Chest/Npc 服务，UI 只展示和提交请求。",
+        "qa": "用 Gameplay Runtime、Causality Smoke 和 Catalog Binding 验证购买、奖励和表绑定。"
+      },
+      "business_json_paths": [
+        "GameData/AIData/DataTables/Business/ResourceConfig.json",
+        "GameData/AIData/DataTables/Business/ItemConfig.json",
+        "GameData/AIData/DataTables/Business/ChestConfig.json",
+        "GameData/AIData/DataTables/Business/MerchantConfig.json",
+        "GameData/AIData/DataTables/Business/ShopStockConfig.json",
+        "GameData/AIData/DataTables/Business/WeaponDropConfig.json"
+      ],
+      "business_xlsx_paths": [
+        "GameData/DataTables/Business/ResourceConfig.xlsx",
+        "GameData/DataTables/Business/ItemConfig.xlsx",
+        "GameData/DataTables/Business/ChestConfig.xlsx",
+        "GameData/DataTables/Business/MerchantConfig.xlsx",
+        "GameData/DataTables/Business/ShopStockConfig.xlsx",
+        "GameData/DataTables/Business/WeaponDropConfig.xlsx"
+      ],
+      "art_lookup": {
+        "manifest": "项目知识库（AI自行维护）/manifests/art_assets.json",
+        "query": "Find assets whose runtime_keys contains any runtime_asset_keys listed by this feature."
+      },
+      "runtime_asset_catalog": "GameData/AIData/GameplayCatalogs/totem_runtime_assets.json",
+      "validation": {
+        "missing_modules": [],
+        "missing_business_tables": [],
+        "missing_runtime_services": [],
+        "missing_runtime_asset_keys": [],
+        "missing_required_fields": [],
+        "valid": true
+      }
+    },
+    {
+      "id": "npc_interactions",
+      "name": "纹身师、商人与交互",
+      "status": "covered",
+      "product_goal": "NPC 生成、交互、纹身附魔交易、商店入口都走 GF_X 生命周期。",
+      "modules": [
+        "NPC",
+        "Tattoo",
+        "Economy",
+        "UI"
+      ],
+      "business_tables": [
+        "NPCConfig",
+        "MerchantConfig",
+        "ShopStockConfig",
+        "TattooEnchantRecipeConfig",
+        "TattooEnchantAffixConfig"
+      ],
+      "runtime_services": [
+        "TotemNpcService",
+        "TotemInteractionService",
+        "TotemTattooService",
+        "TotemEconomyService",
+        "TotemUIService"
+      ],
+      "ui_forms": [
+        "Shop",
+        "TattooEnchant",
+        "TattooStudio"
+      ],
+      "runtime_asset_keys": [
+        "npc.tattooist",
+        "npc.merchant"
+      ],
+      "docs": [
+        "项目知识库（AI自行维护）/GDD-v2/modules/09-NPCModule.md",
+        "项目知识库（AI自行维护）/GDD-v2/systems/09-纹身师与商人NPC.md"
+      ],
+      "diagnostic_scenarios": [
+        "Scenario/BusinessRuntime/Totem Gameplay Runtime",
+        "Scenario/BusinessRuntime/Totem Runtime Causality Smoke"
+      ],
+      "discipline_handoff": {
+        "design": "确认 NPC 类型、交互范围、交易成本和拒绝原因文案。",
+        "art": "NPC 临时视觉由 npc.* key 管理，替换时同步 art_assets 和 runtime catalog。",
+        "program": "交互请求进入 TotemNpcService，交易扣费必须经过 Economy 服务。",
+        "qa": "用 Runtime/Causality 证明 NPC 生成、商店购买和纹身附魔交易。"
+      },
+      "business_json_paths": [
+        "GameData/AIData/DataTables/Business/NPCConfig.json",
+        "GameData/AIData/DataTables/Business/MerchantConfig.json",
+        "GameData/AIData/DataTables/Business/ShopStockConfig.json",
+        "GameData/AIData/DataTables/Business/TattooEnchantRecipeConfig.json",
+        "GameData/AIData/DataTables/Business/TattooEnchantAffixConfig.json"
+      ],
+      "business_xlsx_paths": [
+        "GameData/DataTables/Business/NPCConfig.xlsx",
+        "GameData/DataTables/Business/MerchantConfig.xlsx",
+        "GameData/DataTables/Business/ShopStockConfig.xlsx",
+        "GameData/DataTables/Business/TattooEnchantRecipeConfig.xlsx",
+        "GameData/DataTables/Business/TattooEnchantAffixConfig.xlsx"
+      ],
+      "art_lookup": {
+        "manifest": "项目知识库（AI自行维护）/manifests/art_assets.json",
+        "query": "Find assets whose runtime_keys contains any runtime_asset_keys listed by this feature."
+      },
+      "runtime_asset_catalog": "GameData/AIData/GameplayCatalogs/totem_runtime_assets.json",
+      "validation": {
+        "missing_modules": [],
+        "missing_business_tables": [],
+        "missing_runtime_services": [],
+        "missing_runtime_asset_keys": [],
+        "missing_required_fields": [],
+        "valid": true
+      }
+    },
+    {
+      "id": "three_choice_events",
+      "name": "事件与三选一",
+      "status": "covered",
+      "product_goal": "复现三选一事件选项、奖励、反误触和 UI 数据绑定。",
+      "modules": [
+        "Event",
+        "UI",
+        "Economy",
+        "Tattoo",
+        "Weapon"
+      ],
+      "business_tables": [
+        "EventConfig",
+        "ThreeChoiceOptionConfig",
+        "ItemConfig",
+        "WeaponConfig",
+        "TattooEnchantAffixConfig"
+      ],
+      "runtime_services": [
+        "TotemChoiceService",
+        "TotemUIService",
+        "TotemEconomyService",
+        "TotemTattooService"
+      ],
+      "ui_forms": [
+        "ThreeChoice"
+      ],
+      "runtime_asset_keys": [],
+      "docs": [
+        "项目知识库（AI自行维护）/GDD-v2/modules/10-EventModule.md",
+        "项目知识库（AI自行维护）/GDD-v2/systems/10-事件与三选一.md"
+      ],
+      "diagnostic_scenarios": [
+        "Scenario/BusinessRuntime/Totem Choice Runtime",
+        "Scenario/BusinessRuntime/Totem First Slice UI"
+      ],
+      "discipline_handoff": {
+        "design": "三选一内容、权重、奖励和反误触时间优先由表和 ChoiceService 规则表达。",
+        "art": "当前没有专属 runtime key；新增图标或背景时先补 runtime asset catalog 再替换 UI。",
+        "program": "选择结算集中在 TotemChoiceService，UI 表单不直接发奖励。",
+        "qa": "用 Choice Runtime 和 First Slice UI 验证选项、奖励和反误触窗口。"
+      },
+      "business_json_paths": [
+        "GameData/AIData/DataTables/Business/EventConfig.json",
+        "GameData/AIData/DataTables/Business/ThreeChoiceOptionConfig.json",
+        "GameData/AIData/DataTables/Business/ItemConfig.json",
+        "GameData/AIData/DataTables/Business/WeaponConfig.json",
+        "GameData/AIData/DataTables/Business/TattooEnchantAffixConfig.json"
+      ],
+      "business_xlsx_paths": [
+        "GameData/DataTables/Business/EventConfig.xlsx",
+        "GameData/DataTables/Business/ThreeChoiceOptionConfig.xlsx",
+        "GameData/DataTables/Business/ItemConfig.xlsx",
+        "GameData/DataTables/Business/WeaponConfig.xlsx",
+        "GameData/DataTables/Business/TattooEnchantAffixConfig.xlsx"
+      ],
+      "art_lookup": {
+        "manifest": "项目知识库（AI自行维护）/manifests/art_assets.json",
+        "query": "Find assets whose runtime_keys contains any runtime_asset_keys listed by this feature."
+      },
+      "runtime_asset_catalog": "GameData/AIData/GameplayCatalogs/totem_runtime_assets.json",
+      "validation": {
+        "missing_modules": [],
+        "missing_business_tables": [],
+        "missing_runtime_services": [],
+        "missing_runtime_asset_keys": [],
+        "missing_required_fields": [],
+        "valid": true
+      }
+    },
+    {
+      "id": "map_zone",
+      "name": "地图主题、地形与缩圈",
+      "status": "covered_with_future_map_art_boundary",
+      "product_goal": "当前以表驱动地图模板和缩圈伤害，后续地图/地形美术再生产。",
+      "modules": [
+        "MapGen",
+        "Spawner",
+        "Camera",
+        "Combat"
+      ],
+      "business_tables": [
+        "MapTemplateConfig",
+        "ZoneShrinkConfig",
+        "ChestConfig",
+        "NPCConfig"
+      ],
+      "runtime_services": [
+        "TotemMapService",
+        "TotemZoneService",
+        "TotemCameraService",
+        "TotemActorService"
+      ],
+      "ui_forms": [
+        "CombatHUD"
+      ],
+      "runtime_asset_keys": [
+        "map.floor.ruins",
+        "map.wall.ruins"
+      ],
+      "docs": [
+        "项目知识库（AI自行维护）/GDD-v2/modules/07-MapGenModule.md",
+        "项目知识库（AI自行维护）/GDD-v2/systems/07-地图生成.md",
+        "openspec/changes/26-fixed-map-three-themes/specs/map-fixed-terrain/spec.md"
+      ],
+      "diagnostic_scenarios": [
+        "Scenario/BusinessRuntime/Totem Gameplay Runtime",
+        "Scenario/BusinessRuntime/Totem Runtime Causality Smoke",
+        "Scenario/BusinessRuntime/Totem Balance Envelope"
+      ],
+      "discipline_handoff": {
+        "design": "地图模板、缩圈阶段、伤害和资源分布从 MapTemplate/ZoneShrink 表维护。",
+        "art": "当前 map.* key 是临时地形纹理入口；正式三主题地形需要扩展 runtime asset catalog。",
+        "program": "地图、缩圈和相机边界归 Map/Zone/Camera 服务，不在 UI 或 Actor 里散写。",
+        "qa": "用 Gameplay Runtime、Causality Smoke 和 Balance Envelope 验证缩圈和地图表绑定。"
+      },
+      "business_json_paths": [
+        "GameData/AIData/DataTables/Business/MapTemplateConfig.json",
+        "GameData/AIData/DataTables/Business/ZoneShrinkConfig.json",
+        "GameData/AIData/DataTables/Business/ChestConfig.json",
+        "GameData/AIData/DataTables/Business/NPCConfig.json"
+      ],
+      "business_xlsx_paths": [
+        "GameData/DataTables/Business/MapTemplateConfig.xlsx",
+        "GameData/DataTables/Business/ZoneShrinkConfig.xlsx",
+        "GameData/DataTables/Business/ChestConfig.xlsx",
+        "GameData/DataTables/Business/NPCConfig.xlsx"
+      ],
+      "art_lookup": {
+        "manifest": "项目知识库（AI自行维护）/manifests/art_assets.json",
+        "query": "Find assets whose runtime_keys contains any runtime_asset_keys listed by this feature."
+      },
+      "runtime_asset_catalog": "GameData/AIData/GameplayCatalogs/totem_runtime_assets.json",
+      "validation": {
+        "missing_modules": [],
+        "missing_business_tables": [],
+        "missing_runtime_services": [],
+        "missing_runtime_asset_keys": [],
+        "missing_required_fields": [],
+        "valid": true
+      }
+    },
+    {
+      "id": "boss_phase",
+      "name": "Boss 阶段与掉落",
+      "status": "covered_with_tuning_boundary",
+      "product_goal": "Boss 生成、阶段切换、技能、死亡掉落和 AI Boss 优先策略都可被诊断追踪。",
+      "modules": [
+        "Enemy",
+        "Bot",
+        "Combat",
+        "Skill",
+        "Economy",
+        "VFX"
+      ],
+      "business_tables": [
+        "EnemyConfig",
+        "BossPhaseConfig",
+        "SkillConfig",
+        "ChestConfig",
+        "BotConfig"
+      ],
+      "runtime_services": [
+        "TotemBossService",
+        "TotemAIService",
+        "TotemCombatService",
+        "TotemSkillService",
+        "TotemVfxService"
+      ],
+      "ui_forms": [
+        "CombatHUD"
+      ],
+      "runtime_asset_keys": [
+        "actor.boss",
+        "skill.skill_stomp",
+        "skill.skill_beam",
+        "skill.skill_summon",
+        "skill.skill_enrage_aoe",
+        "effect.boss.bolt"
+      ],
+      "docs": [
+        "项目知识库（AI自行维护）/GDD-v2/modules/08-EnemyModule+BossModule.md",
+        "项目知识库（AI自行维护）/GDD-v2/systems/11-怪物与Boss.md"
+      ],
+      "diagnostic_scenarios": [
+        "Scenario/BusinessRuntime/Totem AI Runtime",
+        "Scenario/BusinessRuntime/Totem Runtime Causality Smoke",
+        "Scenario/BusinessRuntime/Totem Runtime Catalog Binding"
+      ],
+      "discipline_handoff": {
+        "design": "Boss 阶段阈值、倍率、技能、掉落和 BossPriority 权重优先由表维护。",
+        "art": "Boss、BossPhaseConfig 技能和特效通过 actor.boss、skill.skill_stomp、skill.skill_beam、skill.skill_summon、skill.skill_enrage_aoe 和 effect.boss.bolt key 管理。",
+        "program": "Boss 阶段归 TotemBossService，技能释放走 Skill/VFX，AI 只消费 Boss 目标信息。",
+        "qa": "用 AI Runtime、Causality Smoke 和 Catalog Binding 验证阶段、技能和优先策略。"
+      },
+      "business_json_paths": [
+        "GameData/AIData/DataTables/Business/EnemyConfig.json",
+        "GameData/AIData/DataTables/Business/BossPhaseConfig.json",
+        "GameData/AIData/DataTables/Business/SkillConfig.json",
+        "GameData/AIData/DataTables/Business/ChestConfig.json",
+        "GameData/AIData/DataTables/Business/BotConfig.json"
+      ],
+      "business_xlsx_paths": [
+        "GameData/DataTables/Business/EnemyConfig.xlsx",
+        "GameData/DataTables/Business/BossPhaseConfig.xlsx",
+        "GameData/DataTables/Business/SkillConfig.xlsx",
+        "GameData/DataTables/Business/ChestConfig.xlsx",
+        "GameData/DataTables/Business/BotConfig.xlsx"
+      ],
+      "art_lookup": {
+        "manifest": "项目知识库（AI自行维护）/manifests/art_assets.json",
+        "query": "Find assets whose runtime_keys contains any runtime_asset_keys listed by this feature."
+      },
+      "runtime_asset_catalog": "GameData/AIData/GameplayCatalogs/totem_runtime_assets.json",
+      "validation": {
+        "missing_modules": [],
+        "missing_business_tables": [],
+        "missing_runtime_services": [],
+        "missing_runtime_asset_keys": [],
+        "missing_required_fields": [],
+        "valid": true
+      }
+    },
+    {
+      "id": "audio_vfx_feedback",
+      "name": "战斗反馈、VFX 与音频",
+      "status": "covered_with_external_audio_noise_boundary",
+      "product_goal": "命中特效、伤害飘字、Boss/技能反馈和音频 cue 都能通过 GF_X 诊断定位。",
+      "modules": [
+        "VFX",
+        "Audio",
+        "Combat",
+        "Skill",
+        "Enemy"
+      ],
+      "business_tables": [
+        "SkillConfig",
+        "BossPhaseConfig"
+      ],
+      "runtime_services": [
+        "TotemVfxService",
+        "TotemAudioService",
+        "TotemCombatService",
+        "TotemBossService"
+      ],
+      "ui_forms": [
+        "CombatHUD"
+      ],
+      "runtime_asset_keys": [
+        "effect.attack.hit",
+        "effect.projectile.bullet_pistol",
+        "effect.projectile.arrow_bow",
+        "effect.skill.burst",
+        "effect.boss.bolt"
+      ],
+      "docs": [
+        "项目知识库（AI自行维护）/GDD-v2/modules/15-VFXModule.md",
+        "项目知识库（AI自行维护）/GDD-v2/modules/13-AudioModule.md",
+        ".claude/skills/playtest-driver/SKILL.md"
+      ],
+      "diagnostic_scenarios": [
+        "Scenario/BusinessRuntime/Totem VFX Runtime",
+        "Scenario/BusinessRuntime/Totem Audio Runtime",
+        "Scenario/BusinessRuntime/Totem Runtime Causality Smoke"
+      ],
+      "discipline_handoff": {
+        "design": "反馈节奏和音频触发先用表/服务事件表达，最终手感留给后续 playtest 调整。",
+        "art": "VFX 占位资源通过 effect.* key 管理；替换时检查残留清理和 runtime_usages。",
+        "program": "临时对象必须归 TotemVfxService 生命周期管理，音频噪声按 ExternalAudioDeviceNoise 分类。",
+        "qa": "用 VFX Runtime、Audio Runtime、Causality Smoke 和 Console 过滤验证反馈链路。"
+      },
+      "business_json_paths": [
+        "GameData/AIData/DataTables/Business/SkillConfig.json",
+        "GameData/AIData/DataTables/Business/BossPhaseConfig.json"
+      ],
+      "business_xlsx_paths": [
+        "GameData/DataTables/Business/SkillConfig.xlsx",
+        "GameData/DataTables/Business/BossPhaseConfig.xlsx"
+      ],
+      "art_lookup": {
+        "manifest": "项目知识库（AI自行维护）/manifests/art_assets.json",
+        "query": "Find assets whose runtime_keys contains any runtime_asset_keys listed by this feature."
+      },
+      "runtime_asset_catalog": "GameData/AIData/GameplayCatalogs/totem_runtime_assets.json",
+      "validation": {
+        "missing_modules": [],
+        "missing_business_tables": [],
+        "missing_runtime_services": [],
+        "missing_runtime_asset_keys": [],
+        "missing_required_fields": [],
+        "valid": true
+      }
+    },
+    {
+      "id": "save_meta_settings",
+      "name": "新存档、Meta 与设置",
+      "status": "covered_new_save_only",
+      "product_goal": "不兼容旧存档；当前只维护 GF_X 新运行记录、Meta 状态和设置入口。",
+      "modules": [
+        "Save",
+        "Settings",
+        "GameState",
+        "UI"
+      ],
+      "business_tables": [
+        "UIFormConfig"
+      ],
+      "runtime_services": [
+        "TotemRunStatsService",
+        "TotemSettingsService",
+        "TotemMetaProgressService",
+        "TotemUIService"
+      ],
+      "ui_forms": [
+        "Settings",
+        "RunResult"
+      ],
+      "runtime_asset_keys": [],
+      "docs": [
+        "项目知识库（AI自行维护）/GDD-v2/modules/14-SaveModule.md",
+        "openspec/specs/settings/spec.md"
+      ],
+      "diagnostic_scenarios": [
+        "Scenario/BusinessRuntime/Totem Meta Progress",
+        "Scenario/BusinessRuntime/Totem First Slice UI"
+      ],
+      "discipline_handoff": {
+        "design": "旧存档不兼容是已确认边界；新增持久化字段前先定义新存档语义。",
+        "art": "Settings/RunResult 仍使用当前 UI 占位资源，正式 UI 生产时补 runtime key。",
+        "program": "存档和设置写入由对应服务集中处理，UI 只提交命令。",
+        "qa": "用 Meta Progress 和 First Slice UI 验证新存档/设置状态，不测旧存档迁移。"
+      },
+      "business_json_paths": [
+        "GameData/AIData/DataTables/Business/UIFormConfig.json"
+      ],
+      "business_xlsx_paths": [
+        "GameData/DataTables/Business/UIFormConfig.xlsx"
+      ],
+      "art_lookup": {
+        "manifest": "项目知识库（AI自行维护）/manifests/art_assets.json",
+        "query": "Find assets whose runtime_keys contains any runtime_asset_keys listed by this feature."
+      },
+      "runtime_asset_catalog": "GameData/AIData/GameplayCatalogs/totem_runtime_assets.json",
+      "validation": {
+        "missing_modules": [],
+        "missing_business_tables": [],
+        "missing_runtime_services": [],
+        "missing_runtime_asset_keys": [],
+        "missing_required_fields": [],
+        "valid": true
+      }
+    },
+    {
+      "id": "data_resource_contracts",
+      "name": "业务数据与资源生命周期契约",
+      "status": "covered",
+      "product_goal": "把旧 DataTable/Resource 模块的职责收束到 AI 友好 Business 表、runtime catalog、资源索引和 GF_X 服务生命周期里。",
+      "modules": [
+        "DataTable",
+        "Resource"
+      ],
+      "business_tables": [
+        "BossPhaseConfig",
+        "BotBuildPreset",
+        "BotConfig",
+        "ChestConfig",
+        "EnemyConfig",
+        "EventConfig",
+        "ItemConfig",
+        "MapTemplateConfig",
+        "MerchantConfig",
+        "NPCConfig",
+        "ProjectileConfig",
+        "ResourceConfig",
+        "ShopStockConfig",
+        "SkillConfig",
+        "TattooColorConfig",
+        "TattooElementConfig",
+        "TattooEnchantAffixConfig",
+        "TattooEnchantRecipeConfig",
+        "TattooPartConfig",
+        "TattooPatternConfig",
+        "TattooReadingTimeConfig",
+        "TattooShapeConfig",
+        "ThreeChoiceOptionConfig",
+        "UIFormConfig",
+        "WeaponConfig",
+        "WeaponDropConfig",
+        "WeaponTraitConfig",
+        "ZoneShrinkConfig"
+      ],
+      "runtime_services": [
+        "TotemDataService",
+        "TotemAssetService"
+      ],
+      "ui_forms": [],
+      "runtime_asset_keys": [
+        "ui.character.1",
+        "weapon.knife_basic",
+        "tattoo.part.head",
+        "map.floor.ruins"
+      ],
+      "docs": [
+        "openspec/changes/gf-x-business-runtime-refactor/DATATABLE_MIGRATION_MANIFEST.md",
+        "openspec/changes/gf-x-business-runtime-refactor/GAMEPLAY_RUNTIME_SLICE.md",
+        "项目知识库（AI自行维护）/manifests/datatables.json",
+        "项目知识库（AI自行维护）/manifests/art_assets.json"
+      ],
+      "diagnostic_scenarios": [
+        "Scenario/BusinessRuntime/Totem Gameplay Catalog",
+        "Scenario/BusinessRuntime/Totem Runtime Catalog Binding",
+        "Scenario/BusinessRuntime/Totem Runtime Assets",
+        "Scenario/BusinessRuntime/GF_X Rewrite Inventory Contract"
+      ],
+      "discipline_handoff": {
+        "design": "业务配置先改 Business JSON，策划可读 xlsx 由逆向导表同步，runtime catalog 由生成器产出。",
+        "art": "资源使用先查 art_assets.runtime_usages，替换资源时保持或同步 runtime asset key。",
+        "program": "数据入口归 TotemDataService，资源入口归 TotemAssetService，不恢复旧 DataTableModule/ResourceModule。",
+        "qa": "用 Gameplay Catalog、Runtime Catalog Binding、Runtime Assets 和 Rewrite Inventory 证明表、资源和索引没有漂移。"
+      },
+      "business_json_paths": [
+        "GameData/AIData/DataTables/Business/BossPhaseConfig.json",
+        "GameData/AIData/DataTables/Business/BotBuildPreset.json",
+        "GameData/AIData/DataTables/Business/BotConfig.json",
+        "GameData/AIData/DataTables/Business/ChestConfig.json",
+        "GameData/AIData/DataTables/Business/EnemyConfig.json",
+        "GameData/AIData/DataTables/Business/EventConfig.json",
+        "GameData/AIData/DataTables/Business/ItemConfig.json",
+        "GameData/AIData/DataTables/Business/MapTemplateConfig.json",
+        "GameData/AIData/DataTables/Business/MerchantConfig.json",
+        "GameData/AIData/DataTables/Business/NPCConfig.json",
+        "GameData/AIData/DataTables/Business/ProjectileConfig.json",
+        "GameData/AIData/DataTables/Business/ResourceConfig.json",
+        "GameData/AIData/DataTables/Business/ShopStockConfig.json",
+        "GameData/AIData/DataTables/Business/SkillConfig.json",
+        "GameData/AIData/DataTables/Business/TattooColorConfig.json",
+        "GameData/AIData/DataTables/Business/TattooElementConfig.json",
+        "GameData/AIData/DataTables/Business/TattooEnchantAffixConfig.json",
+        "GameData/AIData/DataTables/Business/TattooEnchantRecipeConfig.json",
+        "GameData/AIData/DataTables/Business/TattooPartConfig.json",
+        "GameData/AIData/DataTables/Business/TattooPatternConfig.json",
+        "GameData/AIData/DataTables/Business/TattooReadingTimeConfig.json",
+        "GameData/AIData/DataTables/Business/TattooShapeConfig.json",
+        "GameData/AIData/DataTables/Business/ThreeChoiceOptionConfig.json",
+        "GameData/AIData/DataTables/Business/UIFormConfig.json",
+        "GameData/AIData/DataTables/Business/WeaponConfig.json",
+        "GameData/AIData/DataTables/Business/WeaponDropConfig.json",
+        "GameData/AIData/DataTables/Business/WeaponTraitConfig.json",
+        "GameData/AIData/DataTables/Business/ZoneShrinkConfig.json"
+      ],
+      "business_xlsx_paths": [
+        "GameData/DataTables/Business/BossPhaseConfig.xlsx",
+        "GameData/DataTables/Business/BotBuildPreset.xlsx",
+        "GameData/DataTables/Business/BotConfig.xlsx",
+        "GameData/DataTables/Business/ChestConfig.xlsx",
+        "GameData/DataTables/Business/EnemyConfig.xlsx",
+        "GameData/DataTables/Business/EventConfig.xlsx",
+        "GameData/DataTables/Business/ItemConfig.xlsx",
+        "GameData/DataTables/Business/MapTemplateConfig.xlsx",
+        "GameData/DataTables/Business/MerchantConfig.xlsx",
+        "GameData/DataTables/Business/NPCConfig.xlsx",
+        "GameData/DataTables/Business/ProjectileConfig.xlsx",
+        "GameData/DataTables/Business/ResourceConfig.xlsx",
+        "GameData/DataTables/Business/ShopStockConfig.xlsx",
+        "GameData/DataTables/Business/SkillConfig.xlsx",
+        "GameData/DataTables/Business/TattooColorConfig.xlsx",
+        "GameData/DataTables/Business/TattooElementConfig.xlsx",
+        "GameData/DataTables/Business/TattooEnchantAffixConfig.xlsx",
+        "GameData/DataTables/Business/TattooEnchantRecipeConfig.xlsx",
+        "GameData/DataTables/Business/TattooPartConfig.xlsx",
+        "GameData/DataTables/Business/TattooPatternConfig.xlsx",
+        "GameData/DataTables/Business/TattooReadingTimeConfig.xlsx",
+        "GameData/DataTables/Business/TattooShapeConfig.xlsx",
+        "GameData/DataTables/Business/ThreeChoiceOptionConfig.xlsx",
+        "GameData/DataTables/Business/UIFormConfig.xlsx",
+        "GameData/DataTables/Business/WeaponConfig.xlsx",
+        "GameData/DataTables/Business/WeaponDropConfig.xlsx",
+        "GameData/DataTables/Business/WeaponTraitConfig.xlsx",
+        "GameData/DataTables/Business/ZoneShrinkConfig.xlsx"
+      ],
+      "art_lookup": {
+        "manifest": "项目知识库（AI自行维护）/manifests/art_assets.json",
+        "query": "Find assets whose runtime_keys contains any runtime_asset_keys listed by this feature."
+      },
+      "runtime_asset_catalog": "GameData/AIData/GameplayCatalogs/totem_runtime_assets.json",
+      "validation": {
+        "missing_modules": [],
+        "missing_business_tables": [],
+        "missing_runtime_services": [],
+        "missing_runtime_asset_keys": [],
+        "missing_required_fields": [],
+        "valid": true
+      }
+    }
+  ],
+  "notes": [
+    "Use this manifest before feature work to identify which Business JSON/xlsx, runtime service, UI form, art runtime key, and diagnostic evidence belong together.",
+    "Art replacement should preserve runtime_asset_keys or UI form bindings, or update both the source config and art_assets.json through build_ai_manifests.py.",
+    "Design changes should start from Business AI JSON, then synchronize xlsx and regenerate runtime catalogs before GF_X diagnostics."
+  ]
+}

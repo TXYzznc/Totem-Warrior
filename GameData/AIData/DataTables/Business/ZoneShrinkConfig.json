@@ -1,0 +1,164 @@
+{
+  "schemaVersion": 1,
+  "kind": "GF_X.DataTable.AI",
+  "tableName": "ZoneShrinkConfig",
+  "relativePath": "Business/ZoneShrinkConfig",
+  "sourceExcel": "GameData/DataTables/Business/ZoneShrinkConfig.xlsx",
+  "sourceExcelLastWriteUtc": "2026-07-08T14:56:12.1026378Z",
+  "generatedAtUtc": "2026-07-08T14:56:12.3531373Z",
+  "tableComment": "Business table migrated from LegacyProjectArchive/Assets/Resources/DataTable/ZoneShrinkConfig.json. GF_X Id is numeric; original business keys are preserved as data columns.",
+  "columns": [
+    {
+      "index": 1,
+      "key": "Note1",
+      "name": "#",
+      "type": "#",
+      "comment": "#",
+      "role": "comment"
+    },
+    {
+      "index": 2,
+      "key": "Id",
+      "name": "Id",
+      "type": "int",
+      "comment": "GF_X numeric row id. Original business key is preserved as a data column when its name is not Id.",
+      "role": "id"
+    },
+    {
+      "index": 3,
+      "key": "Note3",
+      "name": "",
+      "type": "",
+      "comment": "Note",
+      "role": "comment"
+    },
+    {
+      "index": 4,
+      "key": "PhaseName",
+      "name": "PhaseName",
+      "type": "string",
+      "comment": "阶段名（Phase0_Slow / Phase1_Offset / Phase2_Rush）",
+      "role": "data"
+    },
+    {
+      "index": 5,
+      "key": "StartTime",
+      "name": "StartTime",
+      "type": "float",
+      "comment": "本阶段进入时刻（秒，Run 启动 0 起）",
+      "role": "data"
+    },
+    {
+      "index": 6,
+      "key": "Duration",
+      "name": "Duration",
+      "type": "float",
+      "comment": "本阶段持续时长（秒）",
+      "role": "data"
+    },
+    {
+      "index": 7,
+      "key": "TargetRadius",
+      "name": "TargetRadius",
+      "type": "float",
+      "comment": "本阶段结束时的目标半径（米）",
+      "role": "data"
+    },
+    {
+      "index": 8,
+      "key": "OutZoneDamage",
+      "name": "OutZoneDamage",
+      "type": "float",
+      "comment": "圈外伤害（HP/s）",
+      "role": "data"
+    },
+    {
+      "index": 9,
+      "key": "CenterOffsetMode",
+      "name": "CenterOffsetMode",
+      "type": "string",
+      "comment": "圈心偏移模式（None / Drift / Fixed），MVP 仅 None",
+      "role": "data"
+    }
+  ],
+  "rows": [
+    {
+      "row": 5,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "0",
+        "PhaseName": "Phase0_Slow",
+        "StartTime": "0.0",
+        "Duration": "180.0",
+        "TargetRadius": "65.0",
+        "OutZoneDamage": "2.0",
+        "CenterOffsetMode": "None"
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "0",
+        "",
+        "Phase0_Slow",
+        "0.0",
+        "180.0",
+        "65.0",
+        "2.0",
+        "None"
+      ]
+    },
+    {
+      "row": 6,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "1",
+        "PhaseName": "Phase1_Offset",
+        "StartTime": "180.0",
+        "Duration": "360.0",
+        "TargetRadius": "35.0",
+        "OutZoneDamage": "5.0",
+        "CenterOffsetMode": "Drift"
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "1",
+        "",
+        "Phase1_Offset",
+        "180.0",
+        "360.0",
+        "35.0",
+        "5.0",
+        "Drift"
+      ]
+    },
+    {
+      "row": 7,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "2",
+        "PhaseName": "Phase2_Rush",
+        "StartTime": "540.0",
+        "Duration": "360.0",
+        "TargetRadius": "5.0",
+        "OutZoneDamage": "12.0",
+        "CenterOffsetMode": "Fixed"
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "2",
+        "",
+        "Phase2_Rush",
+        "540.0",
+        "360.0",
+        "5.0",
+        "12.0",
+        "Fixed"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,390 @@
+{
+  "schemaVersion": 1,
+  "kind": "GF_X.DataTable.AI",
+  "tableName": "UITable",
+  "relativePath": "Core/UITable",
+  "sourceExcel": "GameData/DataTables/Core/UITable.xlsx",
+  "sourceExcelLastWriteUtc": "2026-07-07T07:34:27.4769613Z",
+  "generatedAtUtc": "2026-07-07T07:34:27.6709622Z",
+  "tableComment": "UI table",
+  "columns": [
+    {
+      "index": 1,
+      "key": "Note1",
+      "name": "#",
+      "type": "#",
+      "comment": "#",
+      "role": "comment"
+    },
+    {
+      "index": 2,
+      "key": "Id",
+      "name": "Id",
+      "type": "int",
+      "comment": "",
+      "role": "id"
+    },
+    {
+      "index": 3,
+      "key": "Note3",
+      "name": "",
+      "type": "",
+      "comment": "Note",
+      "role": "comment"
+    },
+    {
+      "index": 4,
+      "key": "SortOrder",
+      "name": "SortOrder",
+      "type": "int",
+      "comment": "Display order relative to group",
+      "role": "data"
+    },
+    {
+      "index": 5,
+      "key": "UIPrefab",
+      "name": "UIPrefab",
+      "type": "string",
+      "comment": "UI prefab name",
+      "role": "data"
+    },
+    {
+      "index": 6,
+      "key": "PauseCoveredUI",
+      "name": "PauseCoveredUI",
+      "type": "bool",
+      "comment": "Hide covered UI in the same group",
+      "role": "data"
+    },
+    {
+      "index": 7,
+      "key": "UIGroupId",
+      "name": "UIGroupId",
+      "type": "int",
+      "comment": "UI group id",
+      "role": "data"
+    },
+    {
+      "index": 8,
+      "key": "EscapeClose",
+      "name": "EscapeClose",
+      "type": "bool",
+      "comment": "Allow close by back input",
+      "role": "data"
+    }
+  ],
+  "rows": [
+    {
+      "row": 5,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "1",
+        "SortOrder": "0",
+        "UIPrefab": "MainMenu",
+        "PauseCoveredUI": "true",
+        "UIGroupId": "1",
+        "EscapeClose": "false"
+      },
+      "notes": {
+        "Note3": "Totem first slice: main menu"
+      },
+      "_cells": [
+        "",
+        "1",
+        "Totem first slice: main menu",
+        "0",
+        "MainMenu",
+        "true",
+        "1",
+        "false"
+      ]
+    },
+    {
+      "row": 6,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "2",
+        "SortOrder": "10",
+        "UIPrefab": "CharacterSelect",
+        "PauseCoveredUI": "true",
+        "UIGroupId": "1",
+        "EscapeClose": "true"
+      },
+      "notes": {
+        "Note3": "Totem first slice: character select"
+      },
+      "_cells": [
+        "",
+        "2",
+        "Totem first slice: character select",
+        "10",
+        "CharacterSelect",
+        "true",
+        "1",
+        "true"
+      ]
+    },
+    {
+      "row": 7,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "3",
+        "SortOrder": "20",
+        "UIPrefab": "StartupSelect",
+        "PauseCoveredUI": "true",
+        "UIGroupId": "1",
+        "EscapeClose": "true"
+      },
+      "notes": {
+        "Note3": "Totem first slice: startup selection"
+      },
+      "_cells": [
+        "",
+        "3",
+        "Totem first slice: startup selection",
+        "20",
+        "StartupSelect",
+        "true",
+        "1",
+        "true"
+      ]
+    },
+    {
+      "row": 8,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "4",
+        "SortOrder": "30",
+        "UIPrefab": "CombatHUD",
+        "PauseCoveredUI": "false",
+        "UIGroupId": "1",
+        "EscapeClose": "false"
+      },
+      "notes": {
+        "Note3": "Totem first slice: combat HUD"
+      },
+      "_cells": [
+        "",
+        "4",
+        "Totem first slice: combat HUD",
+        "30",
+        "CombatHUD",
+        "false",
+        "1",
+        "false"
+      ]
+    },
+    {
+      "row": 9,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "5",
+        "SortOrder": "100",
+        "UIPrefab": "Shop",
+        "PauseCoveredUI": "false",
+        "UIGroupId": "1",
+        "EscapeClose": "true"
+      },
+      "notes": {
+        "Note3": "Totem overlay: shop"
+      },
+      "_cells": [
+        "",
+        "5",
+        "Totem overlay: shop",
+        "100",
+        "Shop",
+        "false",
+        "1",
+        "true"
+      ]
+    },
+    {
+      "row": 10,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "6",
+        "SortOrder": "110",
+        "UIPrefab": "ThreeChoice",
+        "PauseCoveredUI": "false",
+        "UIGroupId": "1",
+        "EscapeClose": "true"
+      },
+      "notes": {
+        "Note3": "Totem overlay: three choices"
+      },
+      "_cells": [
+        "",
+        "6",
+        "Totem overlay: three choices",
+        "110",
+        "ThreeChoice",
+        "false",
+        "1",
+        "true"
+      ]
+    },
+    {
+      "row": 11,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "7",
+        "SortOrder": "100",
+        "UIPrefab": "TattooStudio",
+        "PauseCoveredUI": "false",
+        "UIGroupId": "1",
+        "EscapeClose": "true"
+      },
+      "notes": {
+        "Note3": "Totem overlay: tattoo studio"
+      },
+      "_cells": [
+        "",
+        "7",
+        "Totem overlay: tattoo studio",
+        "100",
+        "TattooStudio",
+        "false",
+        "1",
+        "true"
+      ]
+    },
+    {
+      "row": 12,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "8",
+        "SortOrder": "120",
+        "UIPrefab": "PauseMenu",
+        "PauseCoveredUI": "false",
+        "UIGroupId": "1",
+        "EscapeClose": "true"
+      },
+      "notes": {
+        "Note3": "Totem overlay: pause menu"
+      },
+      "_cells": [
+        "",
+        "8",
+        "Totem overlay: pause menu",
+        "120",
+        "PauseMenu",
+        "false",
+        "1",
+        "true"
+      ]
+    },
+    {
+      "row": 13,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "9",
+        "SortOrder": "130",
+        "UIPrefab": "RunResult",
+        "PauseCoveredUI": "false",
+        "UIGroupId": "1",
+        "EscapeClose": "false"
+      },
+      "notes": {
+        "Note3": "Totem overlay: run result"
+      },
+      "_cells": [
+        "",
+        "9",
+        "Totem overlay: run result",
+        "130",
+        "RunResult",
+        "false",
+        "1",
+        "false"
+      ]
+    },
+    {
+      "row": 14,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "10",
+        "SortOrder": "140",
+        "UIPrefab": "Settings",
+        "PauseCoveredUI": "false",
+        "UIGroupId": "1",
+        "EscapeClose": "true"
+      },
+      "notes": {
+        "Note3": "Totem overlay: settings"
+      },
+      "_cells": [
+        "",
+        "10",
+        "Totem overlay: settings",
+        "140",
+        "Settings",
+        "false",
+        "1",
+        "true"
+      ]
+    },
+    {
+      "row": 15,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "11",
+        "SortOrder": "120",
+        "UIPrefab": "SelfTattoo",
+        "PauseCoveredUI": "false",
+        "UIGroupId": "1",
+        "EscapeClose": "true"
+      },
+      "notes": {
+        "Note3": "Totem overlay: self tattoo"
+      },
+      "_cells": [
+        "",
+        "11",
+        "Totem overlay: self tattoo",
+        "120",
+        "SelfTattoo",
+        "false",
+        "1",
+        "true"
+      ]
+    },
+    {
+      "row": 16,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "12",
+        "SortOrder": "150",
+        "UIPrefab": "TattooEnchant",
+        "PauseCoveredUI": "false",
+        "UIGroupId": "1",
+        "EscapeClose": "true"
+      },
+      "notes": {
+        "Note3": "Totem overlay: tattoo enchant"
+      },
+      "_cells": [
+        "",
+        "12",
+        "Totem overlay: tattoo enchant",
+        "150",
+        "TattooEnchant",
+        "false",
+        "1",
+        "true"
+      ]
+    }
+  ]
+}

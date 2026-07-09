@@ -1,0 +1,3476 @@
+{
+  "schemaVersion": 1,
+  "source": "GameData/AIData/DataTables/Business",
+  "generation": {
+    "generatedBy": "tools/ai_index/build_gameplay_catalog_from_business_tables.py",
+    "sourceRoot": "GameData/AIData/DataTables/Business",
+    "sourceFileCount": 28,
+    "sourceContentHash": "cd07729db7edb933b3fb0274b0d1694ed46ff93c8c662244c320b7e19519f86d"
+  },
+  "items": [
+    {
+      "itemId": 1,
+      "itemType": "Coin",
+      "subType": "",
+      "tier": 0,
+      "displayName": "金币",
+      "rarity": "Common",
+      "maxStack": 9999,
+      "basePrice": 1,
+      "sellRatio": 0.0
+    },
+    {
+      "itemId": 2101,
+      "itemType": "InkBottle",
+      "subType": "1",
+      "tier": 1,
+      "displayName": "红色颜料·基础",
+      "rarity": "Common",
+      "maxStack": 99,
+      "basePrice": 40,
+      "sellRatio": 0.4
+    },
+    {
+      "itemId": 2102,
+      "itemType": "InkBottle",
+      "subType": "1",
+      "tier": 2,
+      "displayName": "红色颜料·标准",
+      "rarity": "Uncommon",
+      "maxStack": 99,
+      "basePrice": 60,
+      "sellRatio": 0.4
+    },
+    {
+      "itemId": 2103,
+      "itemType": "InkBottle",
+      "subType": "1",
+      "tier": 3,
+      "displayName": "红色颜料·精品",
+      "rarity": "Rare",
+      "maxStack": 99,
+      "basePrice": 100,
+      "sellRatio": 0.4
+    },
+    {
+      "itemId": 2201,
+      "itemType": "InkBottle",
+      "subType": "2",
+      "tier": 1,
+      "displayName": "黄色颜料·基础",
+      "rarity": "Common",
+      "maxStack": 99,
+      "basePrice": 40,
+      "sellRatio": 0.4
+    },
+    {
+      "itemId": 2202,
+      "itemType": "InkBottle",
+      "subType": "2",
+      "tier": 2,
+      "displayName": "黄色颜料·标准",
+      "rarity": "Uncommon",
+      "maxStack": 99,
+      "basePrice": 60,
+      "sellRatio": 0.4
+    },
+    {
+      "itemId": 2203,
+      "itemType": "InkBottle",
+      "subType": "2",
+      "tier": 3,
+      "displayName": "黄色颜料·精品",
+      "rarity": "Rare",
+      "maxStack": 99,
+      "basePrice": 100,
+      "sellRatio": 0.4
+    },
+    {
+      "itemId": 2301,
+      "itemType": "InkBottle",
+      "subType": "3",
+      "tier": 1,
+      "displayName": "绿色颜料·基础",
+      "rarity": "Common",
+      "maxStack": 99,
+      "basePrice": 40,
+      "sellRatio": 0.4
+    },
+    {
+      "itemId": 2302,
+      "itemType": "InkBottle",
+      "subType": "3",
+      "tier": 2,
+      "displayName": "绿色颜料·标准",
+      "rarity": "Uncommon",
+      "maxStack": 99,
+      "basePrice": 60,
+      "sellRatio": 0.4
+    },
+    {
+      "itemId": 2303,
+      "itemType": "InkBottle",
+      "subType": "3",
+      "tier": 3,
+      "displayName": "绿色颜料·精品",
+      "rarity": "Rare",
+      "maxStack": 99,
+      "basePrice": 100,
+      "sellRatio": 0.4
+    },
+    {
+      "itemId": 2401,
+      "itemType": "InkBottle",
+      "subType": "4",
+      "tier": 1,
+      "displayName": "蓝色颜料·基础",
+      "rarity": "Common",
+      "maxStack": 99,
+      "basePrice": 50,
+      "sellRatio": 0.4
+    },
+    {
+      "itemId": 2402,
+      "itemType": "InkBottle",
+      "subType": "4",
+      "tier": 2,
+      "displayName": "蓝色颜料·标准",
+      "rarity": "Uncommon",
+      "maxStack": 99,
+      "basePrice": 70,
+      "sellRatio": 0.4
+    },
+    {
+      "itemId": 2403,
+      "itemType": "InkBottle",
+      "subType": "4",
+      "tier": 3,
+      "displayName": "蓝色颜料·精品",
+      "rarity": "Rare",
+      "maxStack": 99,
+      "basePrice": 120,
+      "sellRatio": 0.4
+    },
+    {
+      "itemId": 2501,
+      "itemType": "InkBottle",
+      "subType": "5",
+      "tier": 1,
+      "displayName": "紫色颜料·基础",
+      "rarity": "Uncommon",
+      "maxStack": 99,
+      "basePrice": 60,
+      "sellRatio": 0.4
+    },
+    {
+      "itemId": 2502,
+      "itemType": "InkBottle",
+      "subType": "5",
+      "tier": 2,
+      "displayName": "紫色颜料·标准",
+      "rarity": "Rare",
+      "maxStack": 99,
+      "basePrice": 90,
+      "sellRatio": 0.4
+    },
+    {
+      "itemId": 2503,
+      "itemType": "InkBottle",
+      "subType": "5",
+      "tier": 3,
+      "displayName": "紫色颜料·精品",
+      "rarity": "Epic",
+      "maxStack": 99,
+      "basePrice": 150,
+      "sellRatio": 0.4
+    },
+    {
+      "itemId": 2601,
+      "itemType": "InkBottle",
+      "subType": "6",
+      "tier": 1,
+      "displayName": "金色颜料·基础",
+      "rarity": "Uncommon",
+      "maxStack": 99,
+      "basePrice": 70,
+      "sellRatio": 0.4
+    },
+    {
+      "itemId": 2602,
+      "itemType": "InkBottle",
+      "subType": "6",
+      "tier": 2,
+      "displayName": "金色颜料·标准",
+      "rarity": "Rare",
+      "maxStack": 99,
+      "basePrice": 110,
+      "sellRatio": 0.4
+    },
+    {
+      "itemId": 2603,
+      "itemType": "InkBottle",
+      "subType": "6",
+      "tier": 3,
+      "displayName": "金色颜料·精品",
+      "rarity": "Epic",
+      "maxStack": 99,
+      "basePrice": 180,
+      "sellRatio": 0.4
+    },
+    {
+      "itemId": 2701,
+      "itemType": "InkBottle",
+      "subType": "7",
+      "tier": 1,
+      "displayName": "白色颜料·基础",
+      "rarity": "Rare",
+      "maxStack": 99,
+      "basePrice": 100,
+      "sellRatio": 0.4
+    },
+    {
+      "itemId": 2702,
+      "itemType": "InkBottle",
+      "subType": "7",
+      "tier": 2,
+      "displayName": "白色颜料·标准",
+      "rarity": "Epic",
+      "maxStack": 99,
+      "basePrice": 150,
+      "sellRatio": 0.4
+    },
+    {
+      "itemId": 2703,
+      "itemType": "InkBottle",
+      "subType": "7",
+      "tier": 3,
+      "displayName": "白色颜料·精品",
+      "rarity": "Legendary",
+      "maxStack": 99,
+      "basePrice": 220,
+      "sellRatio": 0.4
+    },
+    {
+      "itemId": 3001,
+      "itemType": "RecipeShard",
+      "subType": "",
+      "tier": 0,
+      "displayName": "配方碎片",
+      "rarity": "Uncommon",
+      "maxStack": 99,
+      "basePrice": 60,
+      "sellRatio": 0.3
+    },
+    {
+      "itemId": 3100,
+      "itemType": "RecipeFull",
+      "subType": "",
+      "tier": 0,
+      "displayName": "完整配方",
+      "rarity": "Rare",
+      "maxStack": 10,
+      "basePrice": 200,
+      "sellRatio": 0.3
+    },
+    {
+      "itemId": 4001,
+      "itemType": "Equipment",
+      "subType": "Common",
+      "tier": 0,
+      "displayName": "普通武器",
+      "rarity": "Common",
+      "maxStack": 1,
+      "basePrice": 80,
+      "sellRatio": 0.4
+    },
+    {
+      "itemId": 4002,
+      "itemType": "Equipment",
+      "subType": "Uncommon",
+      "tier": 0,
+      "displayName": "绿色武器",
+      "rarity": "Uncommon",
+      "maxStack": 1,
+      "basePrice": 150,
+      "sellRatio": 0.4
+    },
+    {
+      "itemId": 4003,
+      "itemType": "Equipment",
+      "subType": "Rare",
+      "tier": 0,
+      "displayName": "蓝色武器",
+      "rarity": "Rare",
+      "maxStack": 1,
+      "basePrice": 250,
+      "sellRatio": 0.4
+    },
+    {
+      "itemId": 4004,
+      "itemType": "Equipment",
+      "subType": "Legendary",
+      "tier": 0,
+      "displayName": "传奇武器",
+      "rarity": "Legendary",
+      "maxStack": 1,
+      "basePrice": 500,
+      "sellRatio": 0.4
+    },
+    {
+      "itemId": 5001,
+      "itemType": "Antidote",
+      "subType": "Detox",
+      "tier": 0,
+      "displayName": "解毒剂",
+      "rarity": "Common",
+      "maxStack": 5,
+      "basePrice": 70,
+      "sellRatio": 0.3
+    },
+    {
+      "itemId": 5002,
+      "itemType": "Antidote",
+      "subType": "Thaw",
+      "tier": 0,
+      "displayName": "解冻剂",
+      "rarity": "Common",
+      "maxStack": 5,
+      "basePrice": 70,
+      "sellRatio": 0.3
+    },
+    {
+      "itemId": 5003,
+      "itemType": "Antidote",
+      "subType": "Unstun",
+      "tier": 0,
+      "displayName": "解麻剂",
+      "rarity": "Common",
+      "maxStack": 5,
+      "basePrice": 70,
+      "sellRatio": 0.3
+    }
+  ],
+  "resources": [
+    {
+      "id": 1001,
+      "name": "Tattoo.Part.Head",
+      "resourceType": "Sprite",
+      "loadPath": "Tattoo/Part/Head",
+      "assetKey": "tattoo.part.head",
+      "activeAssetPath": "Assets/Resources/Sprite/Tattoo/Part/Head.png"
+    },
+    {
+      "id": 1002,
+      "name": "Tattoo.Part.Torso",
+      "resourceType": "Sprite",
+      "loadPath": "Tattoo/Part/Torso",
+      "assetKey": "tattoo.part.torso",
+      "activeAssetPath": "Assets/Resources/Sprite/Tattoo/Part/Torso.png"
+    },
+    {
+      "id": 1003,
+      "name": "Tattoo.Part.LeftArm",
+      "resourceType": "Sprite",
+      "loadPath": "Tattoo/Part/LeftArm",
+      "assetKey": "tattoo.part.leftarm",
+      "activeAssetPath": "Assets/Resources/Sprite/Tattoo/Part/LeftArm.png"
+    },
+    {
+      "id": 1004,
+      "name": "Tattoo.Part.RightArm",
+      "resourceType": "Sprite",
+      "loadPath": "Tattoo/Part/RightArm",
+      "assetKey": "tattoo.part.rightarm",
+      "activeAssetPath": "Assets/Resources/Sprite/Tattoo/Part/RightArm.png"
+    },
+    {
+      "id": 1005,
+      "name": "Tattoo.Part.LeftLeg",
+      "resourceType": "Sprite",
+      "loadPath": "Tattoo/Part/LeftLeg",
+      "assetKey": "tattoo.part.leftleg",
+      "activeAssetPath": "Assets/Resources/Sprite/Tattoo/Part/LeftLeg.png"
+    },
+    {
+      "id": 1006,
+      "name": "Tattoo.Part.RightLeg",
+      "resourceType": "Sprite",
+      "loadPath": "Tattoo/Part/RightLeg",
+      "assetKey": "tattoo.part.rightleg",
+      "activeAssetPath": "Assets/Resources/Sprite/Tattoo/Part/RightLeg.png"
+    },
+    {
+      "id": 1201,
+      "name": "Tattoo.Pattern.Line",
+      "resourceType": "Sprite",
+      "loadPath": "Tattoo/Pattern/Line",
+      "assetKey": "tattoo.pattern.line",
+      "activeAssetPath": "Assets/Resources/Sprite/Tattoo/Pattern/Line.png"
+    },
+    {
+      "id": 1202,
+      "name": "Tattoo.Pattern.Ring",
+      "resourceType": "Sprite",
+      "loadPath": "Tattoo/Pattern/Ring",
+      "assetKey": "tattoo.pattern.ring",
+      "activeAssetPath": "Assets/Resources/Sprite/Tattoo/Pattern/Ring.png"
+    },
+    {
+      "id": 1203,
+      "name": "Tattoo.Pattern.Spiral",
+      "resourceType": "Sprite",
+      "loadPath": "Tattoo/Pattern/Spiral",
+      "assetKey": "tattoo.pattern.spiral",
+      "activeAssetPath": "Assets/Resources/Sprite/Tattoo/Pattern/Spiral.png"
+    },
+    {
+      "id": 1204,
+      "name": "Tattoo.Pattern.Zigzag",
+      "resourceType": "Sprite",
+      "loadPath": "Tattoo/Pattern/Zigzag",
+      "assetKey": "tattoo.pattern.zigzag",
+      "activeAssetPath": "Assets/Resources/Sprite/Tattoo/Pattern/Zigzag.png"
+    },
+    {
+      "id": 1205,
+      "name": "Tattoo.Pattern.Bolt",
+      "resourceType": "Sprite",
+      "loadPath": "Tattoo/Pattern/Bolt",
+      "assetKey": "tattoo.pattern.bolt",
+      "activeAssetPath": "Assets/Resources/Sprite/Tattoo/Pattern/Bolt.png"
+    },
+    {
+      "id": 1206,
+      "name": "Tattoo.Pattern.Star",
+      "resourceType": "Sprite",
+      "loadPath": "Tattoo/Pattern/Star",
+      "assetKey": "tattoo.pattern.star",
+      "activeAssetPath": "Assets/Resources/Sprite/Tattoo/Pattern/Star.png"
+    },
+    {
+      "id": 1207,
+      "name": "Tattoo.Pattern.Stream",
+      "resourceType": "Sprite",
+      "loadPath": "Tattoo/Pattern/Stream",
+      "assetKey": "tattoo.pattern.stream",
+      "activeAssetPath": "Assets/Resources/Sprite/Tattoo/Pattern/Stream.png"
+    },
+    {
+      "id": 1208,
+      "name": "Tattoo.Pattern.Beast",
+      "resourceType": "Sprite",
+      "loadPath": "Tattoo/Pattern/Beast",
+      "assetKey": "tattoo.pattern.beast",
+      "activeAssetPath": "Assets/Resources/Sprite/Tattoo/Pattern/Beast.png"
+    }
+  ],
+  "weapons": [
+    {
+      "weaponId": "knife_basic",
+      "displayName": "短刀",
+      "className": "Melee",
+      "baseDamage": 18.0,
+      "cooldown": 0.6,
+      "range": 1.2,
+      "attackSpeed": 0.05,
+      "chargedMul": 1.4,
+      "projectileId": "",
+      "rarity": 0,
+      "requiresCharge": false,
+      "maxAmmo": -1,
+      "baseStartup": 6,
+      "baseActive": 4,
+      "baseRecovery": 26,
+      "aimSpreadHalfDeg": 120.0,
+      "normalTraitId": "trait_quickslash",
+      "chargedTraitId": "trait_pierce",
+      "weaponPrefabPath": "Prefab/Weapon/Knife"
+    },
+    {
+      "weaponId": "hammer_heavy",
+      "displayName": "重锤",
+      "className": "Melee",
+      "baseDamage": 48.0,
+      "cooldown": 1.0,
+      "range": 1.8,
+      "attackSpeed": -0.15,
+      "chargedMul": 2.0,
+      "projectileId": "",
+      "rarity": 1,
+      "requiresCharge": false,
+      "maxAmmo": -1,
+      "baseStartup": 14,
+      "baseActive": 6,
+      "baseRecovery": 40,
+      "aimSpreadHalfDeg": 90.0,
+      "normalTraitId": "trait_stun",
+      "chargedTraitId": "trait_explosive",
+      "weaponPrefabPath": "Prefab/Weapon/Hammer"
+    },
+    {
+      "weaponId": "pistol_basic",
+      "displayName": "手枪",
+      "className": "Ranged",
+      "baseDamage": 16.0,
+      "cooldown": 0.5,
+      "range": 20.0,
+      "attackSpeed": 0.0,
+      "chargedMul": 1.4,
+      "projectileId": "bullet_pistol",
+      "rarity": 1,
+      "requiresCharge": false,
+      "maxAmmo": 18,
+      "baseStartup": 6,
+      "baseActive": 2,
+      "baseRecovery": 22,
+      "aimSpreadHalfDeg": 12.0,
+      "normalTraitId": "trait_pierce",
+      "chargedTraitId": "trait_multishot",
+      "weaponPrefabPath": "Prefab/Weapon/Pistol"
+    },
+    {
+      "weaponId": "bow_charge",
+      "displayName": "蓄力弓",
+      "className": "Ranged",
+      "baseDamage": 30.0,
+      "cooldown": 1.0,
+      "range": 30.0,
+      "attackSpeed": -0.05,
+      "chargedMul": 2.4,
+      "projectileId": "arrow_bow",
+      "rarity": 2,
+      "requiresCharge": true,
+      "maxAmmo": 24,
+      "baseStartup": 16,
+      "baseActive": 4,
+      "baseRecovery": 40,
+      "aimSpreadHalfDeg": 4.0,
+      "normalTraitId": "trait_pierce",
+      "chargedTraitId": "trait_chain",
+      "weaponPrefabPath": "Prefab/Weapon/Bow"
+    },
+    {
+      "weaponId": "energy_fist",
+      "displayName": "能量拳",
+      "className": "Special",
+      "baseDamage": 24.0,
+      "cooldown": 0.666667,
+      "range": 2.5,
+      "attackSpeed": 0.1,
+      "chargedMul": 1.7,
+      "projectileId": "",
+      "rarity": 2,
+      "requiresCharge": false,
+      "maxAmmo": -1,
+      "baseStartup": 8,
+      "baseActive": 5,
+      "baseRecovery": 27,
+      "aimSpreadHalfDeg": 35.0,
+      "normalTraitId": "trait_quickslash",
+      "chargedTraitId": "trait_pull",
+      "weaponPrefabPath": "Prefab/Weapon/Fist"
+    }
+  ],
+  "projectiles": [
+    {
+      "projectileId": "bullet_pistol",
+      "speed": 30.0,
+      "maxRange": 20.0,
+      "piercing": false,
+      "aoeRadius": 0.0,
+      "visualPrefabPath": "BulletPistol",
+      "poolSize": 60
+    },
+    {
+      "projectileId": "arrow_bow",
+      "speed": 22.0,
+      "maxRange": 30.0,
+      "piercing": true,
+      "aoeRadius": 0.0,
+      "visualPrefabPath": "ArrowBow",
+      "poolSize": 30
+    }
+  ],
+  "weaponTraits": [
+    {
+      "traitId": "trait_quickslash",
+      "displayName": "快斩",
+      "description": "普攻后摇缩短 30%；连续命中同一目标时，第 3 刀起每刀附加 4 点灼烧伤害（0.5s tick，持续 1.5s）",
+      "effectType": "Quick",
+      "effectParam1": 0.3,
+      "effectParam2": 4.0
+    },
+    {
+      "traitId": "trait_pierce",
+      "displayName": "穿透",
+      "description": "攻击穿透最多 3 个目标（每穿一个衰减 20% 伤害）；弓蓄力满后穿透数上限提升至 5",
+      "effectType": "Pierce",
+      "effectParam1": 3.0,
+      "effectParam2": 0.2
+    },
+    {
+      "traitId": "trait_stun",
+      "displayName": "震晕",
+      "description": "命中后令目标眩晕 0.8s，眩晕期间受到的伤害提升 25%；蓄力攻击眩晕时长翻倍（1.6s）",
+      "effectType": "Stun",
+      "effectParam1": 0.8,
+      "effectParam2": 0.25
+    },
+    {
+      "traitId": "trait_chain",
+      "displayName": "连锁",
+      "description": "命中后在 4m 范围内跳传给最多 3 个敌人，每跳衰减 30% 伤害；跳传目标也能触发刺青",
+      "effectType": "Chain",
+      "effectParam1": 3.0,
+      "effectParam2": 0.3
+    },
+    {
+      "traitId": "trait_explosive",
+      "displayName": "爆震",
+      "description": "蓄力命中后在目标位置爆炸，2.5m 范围内敌人各受 60% 基础伤害；爆炸不穿透，但可触发目标身上现有 DoT 立即爆发（1 次 tick 伤害）",
+      "effectType": "Explosive",
+      "effectParam1": 2.5,
+      "effectParam2": 0.6
+    },
+    {
+      "traitId": "trait_multishot",
+      "displayName": "多重射击",
+      "description": "蓄力后扇形同时发射 3 发，扇形半角 18°；附加弹消耗各自弹药但伤害乘 0.7，合计约 2.1 倍等效伤害",
+      "effectType": "MultiShot",
+      "effectParam1": 3.0,
+      "effectParam2": 18.0
+    },
+    {
+      "traitId": "trait_pull",
+      "displayName": "拉扯",
+      "description": "蓄力命中后将敌人强制拖拽至玩家 1.5m 内；拖拽过程中敌人每 0.1s 受 5 点物理碰撞伤害（最多 3 次）",
+      "effectType": "Pull",
+      "effectParam1": 1.5,
+      "effectParam2": 5.0
+    },
+    {
+      "traitId": "trait_dot_burn",
+      "displayName": "灼烧附加",
+      "description": "命中附加灼烧状态：每 0.5s 造成 4 点伤害（约 BaseDamage 的 22%），持续 2.5s（共 5 tick，总计 20 点）；灼烧可被新命中刷新但不叠层",
+      "effectType": "Status",
+      "effectParam1": 4.0,
+      "effectParam2": 2.5
+    },
+    {
+      "traitId": "trait_dot_poison",
+      "displayName": "中毒附加",
+      "description": "命中附加中毒状态：每 0.5s 造成 3 点伤害（约 BaseDamage 的 17%），持续 3s（共 6 tick，总计 18 点）；中毒可叠层最多 2 层（同时中毒总 DPS 6/s）",
+      "effectType": "Status",
+      "effectParam1": 3.0,
+      "effectParam2": 3.0
+    },
+    {
+      "traitId": "trait_lifesteal",
+      "displayName": "微吸血",
+      "description": "每次命中回复最终伤害的 8% 为 HP（含刺青触发链，上限每次命中回 12 HP）；该 trait 当前未分配给任何武器，预留给 #18 掉落系统",
+      "effectType": "Quick",
+      "effectParam1": 0.08,
+      "effectParam2": 12.0
+    }
+  ],
+  "weaponDrops": [
+    {
+      "dropId": "drop_elite_001",
+      "weaponId": "knife_basic",
+      "dropSource": "Elite",
+      "weight": 35,
+      "minRoomIndex": 1,
+      "maxRoomIndex": 10
+    },
+    {
+      "dropId": "drop_elite_002",
+      "weaponId": "hammer_heavy",
+      "dropSource": "Elite",
+      "weight": 25,
+      "minRoomIndex": 2,
+      "maxRoomIndex": 10
+    },
+    {
+      "dropId": "drop_elite_003",
+      "weaponId": "pistol_basic",
+      "dropSource": "Elite",
+      "weight": 20,
+      "minRoomIndex": 1,
+      "maxRoomIndex": 10
+    },
+    {
+      "dropId": "drop_elite_004",
+      "weaponId": "bow_charge",
+      "dropSource": "Elite",
+      "weight": 10,
+      "minRoomIndex": 3,
+      "maxRoomIndex": 10
+    },
+    {
+      "dropId": "drop_elite_005",
+      "weaponId": "energy_fist",
+      "dropSource": "Elite",
+      "weight": 10,
+      "minRoomIndex": 3,
+      "maxRoomIndex": 10
+    },
+    {
+      "dropId": "drop_chest_001",
+      "weaponId": "knife_basic",
+      "dropSource": "Chest",
+      "weight": 30,
+      "minRoomIndex": 1,
+      "maxRoomIndex": 10
+    },
+    {
+      "dropId": "drop_chest_002",
+      "weaponId": "hammer_heavy",
+      "dropSource": "Chest",
+      "weight": 20,
+      "minRoomIndex": 1,
+      "maxRoomIndex": 10
+    },
+    {
+      "dropId": "drop_chest_003",
+      "weaponId": "pistol_basic",
+      "dropSource": "Chest",
+      "weight": 25,
+      "minRoomIndex": 1,
+      "maxRoomIndex": 10
+    },
+    {
+      "dropId": "drop_chest_004",
+      "weaponId": "bow_charge",
+      "dropSource": "Chest",
+      "weight": 15,
+      "minRoomIndex": 2,
+      "maxRoomIndex": 10
+    },
+    {
+      "dropId": "drop_chest_005",
+      "weaponId": "energy_fist",
+      "dropSource": "Chest",
+      "weight": 10,
+      "minRoomIndex": 2,
+      "maxRoomIndex": 10
+    },
+    {
+      "dropId": "drop_merchant_001",
+      "weaponId": "knife_basic",
+      "dropSource": "Merchant",
+      "weight": 20,
+      "minRoomIndex": 1,
+      "maxRoomIndex": 10
+    },
+    {
+      "dropId": "drop_merchant_002",
+      "weaponId": "hammer_heavy",
+      "dropSource": "Merchant",
+      "weight": 25,
+      "minRoomIndex": 1,
+      "maxRoomIndex": 10
+    },
+    {
+      "dropId": "drop_merchant_003",
+      "weaponId": "pistol_basic",
+      "dropSource": "Merchant",
+      "weight": 30,
+      "minRoomIndex": 1,
+      "maxRoomIndex": 10
+    },
+    {
+      "dropId": "drop_merchant_004",
+      "weaponId": "bow_charge",
+      "dropSource": "Merchant",
+      "weight": 15,
+      "minRoomIndex": 2,
+      "maxRoomIndex": 10
+    },
+    {
+      "dropId": "drop_merchant_005",
+      "weaponId": "energy_fist",
+      "dropSource": "Merchant",
+      "weight": 10,
+      "minRoomIndex": 2,
+      "maxRoomIndex": 10
+    }
+  ],
+  "chestRewards": [
+    {
+      "chestId": "chest_common",
+      "rewardType": "Weapon",
+      "rewardId": "",
+      "rewardAmount": 1,
+      "probability": 45
+    },
+    {
+      "chestId": "chest_common",
+      "rewardType": "Gold",
+      "rewardId": "",
+      "rewardAmount": 45,
+      "probability": 40
+    },
+    {
+      "chestId": "chest_common",
+      "rewardType": "Potion",
+      "rewardId": "",
+      "rewardAmount": 1,
+      "probability": 15
+    },
+    {
+      "chestId": "chest_rare",
+      "rewardType": "Weapon",
+      "rewardId": "",
+      "rewardAmount": 1,
+      "probability": 60
+    },
+    {
+      "chestId": "chest_rare",
+      "rewardType": "Gold",
+      "rewardId": "",
+      "rewardAmount": 95,
+      "probability": 30
+    },
+    {
+      "chestId": "chest_rare",
+      "rewardType": "Potion",
+      "rewardId": "",
+      "rewardAmount": 2,
+      "probability": 10
+    }
+  ],
+  "mapTemplates": [
+    {
+      "id": 1,
+      "themeName": "AI_RUINS",
+      "mapSize": 400.0,
+      "minRoomSize": 40.0,
+      "bspMaxDepth": 4,
+      "terrainPoolId": 101,
+      "prefabPath": "",
+      "hudAccentColor": "#66CCFF",
+      "dominantColor": "#3A4858"
+    },
+    {
+      "id": 2,
+      "themeName": "ALIEN_HIVE",
+      "mapSize": 400.0,
+      "minRoomSize": 40.0,
+      "bspMaxDepth": 4,
+      "terrainPoolId": 102,
+      "prefabPath": "",
+      "hudAccentColor": "#7DFF88",
+      "dominantColor": "#273A22"
+    },
+    {
+      "id": 3,
+      "themeName": "VIRUS_SWAMP",
+      "mapSize": 400.0,
+      "minRoomSize": 40.0,
+      "bspMaxDepth": 4,
+      "terrainPoolId": 103,
+      "prefabPath": "",
+      "hudAccentColor": "#B6FF3C",
+      "dominantColor": "#233A35"
+    }
+  ],
+  "tattooParts": [
+    {
+      "id": 1,
+      "name": "Head",
+      "triggerEvent": "CritHitEvent",
+      "scaleStat": "CritMultiplier",
+      "symmetryGroup": "None",
+      "scaleFactor": 10.0,
+      "passiveDimension": "暴击率/暴伤"
+    },
+    {
+      "id": 2,
+      "name": "Torso",
+      "triggerEvent": "DamagedEvent",
+      "scaleStat": "MaxHealth",
+      "symmetryGroup": "None",
+      "scaleFactor": 0.12,
+      "passiveDimension": "抗性/最大生命"
+    },
+    {
+      "id": 3,
+      "name": "LeftArm",
+      "triggerEvent": "SkillCastEvent",
+      "scaleStat": "SkillPower",
+      "symmetryGroup": "Arms",
+      "scaleFactor": 0.6,
+      "passiveDimension": "技能强度"
+    },
+    {
+      "id": 4,
+      "name": "RightArm",
+      "triggerEvent": "AttackHitEvent",
+      "scaleStat": "WeaponDamage",
+      "symmetryGroup": "Arms",
+      "scaleFactor": 0.8,
+      "passiveDimension": "武器伤害"
+    },
+    {
+      "id": 5,
+      "name": "LeftLeg",
+      "triggerEvent": "DodgePressedEvent",
+      "scaleStat": "DodgeFrames",
+      "symmetryGroup": "Legs",
+      "scaleFactor": 40.0,
+      "passiveDimension": "闪避帧"
+    },
+    {
+      "id": 6,
+      "name": "RightLeg",
+      "triggerEvent": "MoveTickEvent",
+      "scaleStat": "MoveSpeed",
+      "symmetryGroup": "Legs",
+      "scaleFactor": 1.6,
+      "passiveDimension": "移速"
+    }
+  ],
+  "tattooColors": [
+    {
+      "id": 1,
+      "name": "Red",
+      "element": "Fire",
+      "multiplier": 1.0
+    },
+    {
+      "id": 2,
+      "name": "Yellow",
+      "element": "Lightning",
+      "multiplier": 1.0
+    },
+    {
+      "id": 3,
+      "name": "Green",
+      "element": "Nature",
+      "multiplier": 1.0
+    },
+    {
+      "id": 4,
+      "name": "Blue",
+      "element": "Frost",
+      "multiplier": 1.0
+    },
+    {
+      "id": 5,
+      "name": "Purple",
+      "element": "Mutation",
+      "multiplier": 1.0
+    },
+    {
+      "id": 6,
+      "name": "Gold",
+      "element": "Holy",
+      "multiplier": 1.0
+    },
+    {
+      "id": 7,
+      "name": "White",
+      "element": "Pure",
+      "multiplier": 1.0
+    }
+  ],
+  "tattooElements": [
+    {
+      "id": 1,
+      "name": "Fire",
+      "baseMultiplier": 1.0,
+      "param1": 2.0,
+      "param2": 3.0,
+      "param3": 0.0
+    },
+    {
+      "id": 2,
+      "name": "Lightning",
+      "baseMultiplier": 1.0,
+      "param1": 1.0,
+      "param2": 0.0,
+      "param3": 0.0
+    },
+    {
+      "id": 3,
+      "name": "Nature",
+      "baseMultiplier": 1.0,
+      "param1": 1.5,
+      "param2": 4.0,
+      "param3": 5.0
+    },
+    {
+      "id": 4,
+      "name": "Frost",
+      "baseMultiplier": 1.0,
+      "param1": 0.3,
+      "param2": 2.0,
+      "param3": 5.0
+    },
+    {
+      "id": 5,
+      "name": "Mutation",
+      "baseMultiplier": 1.0,
+      "param1": 0.0,
+      "param2": 0.0,
+      "param3": 42.0
+    },
+    {
+      "id": 6,
+      "name": "Holy",
+      "baseMultiplier": 1.0,
+      "param1": 0.15,
+      "param2": 0.0,
+      "param3": 0.0
+    },
+    {
+      "id": 7,
+      "name": "Pure",
+      "baseMultiplier": 1.0,
+      "param1": 0.2,
+      "param2": 0.01,
+      "param3": 5.0
+    }
+  ],
+  "tattooPatterns": [
+    {
+      "id": 1,
+      "name": "Line",
+      "shape": "SingleHit",
+      "multiplier": 1.0
+    },
+    {
+      "id": 2,
+      "name": "Ring",
+      "shape": "AOEBurst",
+      "multiplier": 1.0
+    },
+    {
+      "id": 3,
+      "name": "Spiral",
+      "shape": "StackingMark",
+      "multiplier": 1.0
+    },
+    {
+      "id": 4,
+      "name": "Zigzag",
+      "shape": "MultiHit",
+      "multiplier": 1.0
+    },
+    {
+      "id": 5,
+      "name": "Bolt",
+      "shape": "ChainJump",
+      "multiplier": 1.0
+    },
+    {
+      "id": 6,
+      "name": "Star",
+      "shape": "ProbBurst",
+      "multiplier": 1.0
+    },
+    {
+      "id": 7,
+      "name": "Stream",
+      "shape": "TrailZone",
+      "multiplier": 1.0
+    },
+    {
+      "id": 8,
+      "name": "Beast",
+      "shape": "SummonForm",
+      "multiplier": 1.0
+    }
+  ],
+  "tattooShapes": [
+    {
+      "id": 1,
+      "name": "SingleHit",
+      "param1": 0.0,
+      "param2": 0.0,
+      "param3": 0.0
+    },
+    {
+      "id": 2,
+      "name": "AOEBurst",
+      "param1": 0.6,
+      "param2": 5.0,
+      "param3": 0.0
+    },
+    {
+      "id": 3,
+      "name": "StackingMark",
+      "param1": 5.0,
+      "param2": 4.0,
+      "param3": 0.0
+    },
+    {
+      "id": 4,
+      "name": "MultiHit",
+      "param1": 4.0,
+      "param2": 0.0,
+      "param3": 0.0
+    },
+    {
+      "id": 5,
+      "name": "ChainJump",
+      "param1": 3.0,
+      "param2": 0.7,
+      "param3": 0.0
+    },
+    {
+      "id": 6,
+      "name": "ProbBurst",
+      "param1": 1.0,
+      "param2": 2.0,
+      "param3": 12345.0
+    },
+    {
+      "id": 7,
+      "name": "TrailZone",
+      "param1": 0.4,
+      "param2": 3.0,
+      "param3": 0.0
+    },
+    {
+      "id": 8,
+      "name": "SummonForm",
+      "param1": 2.5,
+      "param2": 0.0,
+      "param3": 0.0
+    }
+  ],
+  "tattooReadingTimes": [
+    {
+      "partId": 1,
+      "partName": "Head",
+      "durationSec": 8.0
+    },
+    {
+      "partId": 2,
+      "partName": "Torso",
+      "durationSec": 8.0
+    },
+    {
+      "partId": 3,
+      "partName": "LeftArm",
+      "durationSec": 5.0
+    },
+    {
+      "partId": 4,
+      "partName": "RightArm",
+      "durationSec": 5.0
+    },
+    {
+      "partId": 5,
+      "partName": "LeftLeg",
+      "durationSec": 3.0
+    },
+    {
+      "partId": 6,
+      "partName": "RightLeg",
+      "durationSec": 3.0
+    }
+  ],
+  "tattooEnchantAffixes": [
+    {
+      "id": 1,
+      "partId": 0,
+      "colorTier": "Common",
+      "affixType": "ElementDamageBonus",
+      "statKey": "ElementDmg",
+      "value": 0.1,
+      "conditionKey": "",
+      "conditionVal": 0.0,
+      "displayText": "元素伤害 +10%",
+      "weight": 5.0
+    },
+    {
+      "id": 2,
+      "partId": 0,
+      "colorTier": "Common",
+      "affixType": "AttackSpeed",
+      "statKey": "AttackSpeed",
+      "value": 0.08,
+      "conditionKey": "",
+      "conditionVal": 0.0,
+      "displayText": "攻速 +8%",
+      "weight": 4.0
+    },
+    {
+      "id": 3,
+      "partId": 0,
+      "colorTier": "Common",
+      "affixType": "CritChance",
+      "statKey": "CritRate",
+      "value": 0.05,
+      "conditionKey": "",
+      "conditionVal": 0.0,
+      "displayText": "暴击率 +5%",
+      "weight": 4.0
+    },
+    {
+      "id": 4,
+      "partId": 0,
+      "colorTier": "Common",
+      "affixType": "CooldownReduction",
+      "statKey": "CooldownPct",
+      "value": 0.1,
+      "conditionKey": "",
+      "conditionVal": 0.0,
+      "displayText": "技能冷却 -10%",
+      "weight": 3.5
+    },
+    {
+      "id": 5,
+      "partId": 0,
+      "colorTier": "Common",
+      "affixType": "SelfHealOnHit",
+      "statKey": "HealOnHit",
+      "value": 5.0,
+      "conditionKey": "",
+      "conditionVal": 0.0,
+      "displayText": "命中回血 5",
+      "weight": 3.0
+    },
+    {
+      "id": 6,
+      "partId": 0,
+      "colorTier": "Common",
+      "affixType": "StatusChance",
+      "statKey": "StatusChance",
+      "value": 0.08,
+      "conditionKey": "",
+      "conditionVal": 0.0,
+      "displayText": "状态命中率 +8%",
+      "weight": 3.5
+    },
+    {
+      "id": 7,
+      "partId": 0,
+      "colorTier": "Common",
+      "affixType": "RangeBonus",
+      "statKey": "Range",
+      "value": 0.1,
+      "conditionKey": "",
+      "conditionVal": 0.0,
+      "displayText": "射程 +10%",
+      "weight": 3.0
+    },
+    {
+      "id": 8,
+      "partId": 0,
+      "colorTier": "Common",
+      "affixType": "CritDamage",
+      "statKey": "CritDmg",
+      "value": 0.15,
+      "conditionKey": "",
+      "conditionVal": 0.0,
+      "displayText": "暴击伤害 +15%",
+      "weight": 3.0
+    },
+    {
+      "id": 9,
+      "partId": 0,
+      "colorTier": "Rare",
+      "affixType": "ElementDamageBonus",
+      "statKey": "ElementDmg",
+      "value": 0.2,
+      "conditionKey": "",
+      "conditionVal": 0.0,
+      "displayText": "元素伤害 +20%",
+      "weight": 5.0
+    },
+    {
+      "id": 10,
+      "partId": 0,
+      "colorTier": "Rare",
+      "affixType": "CritChance",
+      "statKey": "CritRate",
+      "value": 0.1,
+      "conditionKey": "",
+      "conditionVal": 0.0,
+      "displayText": "暴击率 +10%",
+      "weight": 4.0
+    },
+    {
+      "id": 11,
+      "partId": 0,
+      "colorTier": "Rare",
+      "affixType": "CritDamage",
+      "statKey": "CritDmg",
+      "value": 0.25,
+      "conditionKey": "",
+      "conditionVal": 0.0,
+      "displayText": "暴击伤害 +25%",
+      "weight": 4.0
+    },
+    {
+      "id": 12,
+      "partId": 0,
+      "colorTier": "Rare",
+      "affixType": "ElementDamageBonus",
+      "statKey": "ElementDmg",
+      "value": 0.3,
+      "conditionKey": "DistanceGt8m",
+      "conditionVal": 8.0,
+      "displayText": "距离>8m 时元素伤害 +30%",
+      "weight": 3.5
+    },
+    {
+      "id": 13,
+      "partId": 0,
+      "colorTier": "Rare",
+      "affixType": "AttackSpeed",
+      "statKey": "AttackSpeed",
+      "value": 0.15,
+      "conditionKey": "",
+      "conditionVal": 0.0,
+      "displayText": "攻速 +15%",
+      "weight": 3.5
+    },
+    {
+      "id": 14,
+      "partId": 0,
+      "colorTier": "Rare",
+      "affixType": "SelfHealOnHit",
+      "statKey": "HealOnHit",
+      "value": 12.0,
+      "conditionKey": "",
+      "conditionVal": 0.0,
+      "displayText": "命中回血 12",
+      "weight": 3.0
+    },
+    {
+      "id": 15,
+      "partId": 0,
+      "colorTier": "Rare",
+      "affixType": "CooldownReduction",
+      "statKey": "CooldownPct",
+      "value": 0.18,
+      "conditionKey": "",
+      "conditionVal": 0.0,
+      "displayText": "技能冷却 -18%",
+      "weight": 3.0
+    },
+    {
+      "id": 16,
+      "partId": 0,
+      "colorTier": "Rare",
+      "affixType": "StatusChance",
+      "statKey": "StatusChance",
+      "value": 0.15,
+      "conditionKey": "",
+      "conditionVal": 0.0,
+      "displayText": "状态命中率 +15%",
+      "weight": 3.0
+    },
+    {
+      "id": 17,
+      "partId": 0,
+      "colorTier": "Legendary",
+      "affixType": "ElementDamageBonus",
+      "statKey": "ElementDmg",
+      "value": 0.35,
+      "conditionKey": "",
+      "conditionVal": 0.0,
+      "displayText": "元素伤害 +35%",
+      "weight": 5.0
+    },
+    {
+      "id": 18,
+      "partId": 0,
+      "colorTier": "Legendary",
+      "affixType": "CritChance",
+      "statKey": "CritRate",
+      "value": 0.18,
+      "conditionKey": "",
+      "conditionVal": 0.0,
+      "displayText": "暴击率 +18%",
+      "weight": 4.0
+    },
+    {
+      "id": 19,
+      "partId": 0,
+      "colorTier": "Legendary",
+      "affixType": "CritDamage",
+      "statKey": "CritDmg",
+      "value": 0.4,
+      "conditionKey": "",
+      "conditionVal": 0.0,
+      "displayText": "暴击伤害 +40%",
+      "weight": 4.0
+    },
+    {
+      "id": 20,
+      "partId": 0,
+      "colorTier": "Legendary",
+      "affixType": "ElementDamageBonus",
+      "statKey": "ElementDmg",
+      "value": 0.45,
+      "conditionKey": "AfterDodge",
+      "conditionVal": 0.0,
+      "displayText": "闪避后下次攻击元素伤害 +45%",
+      "weight": 3.5
+    },
+    {
+      "id": 21,
+      "partId": 0,
+      "colorTier": "Legendary",
+      "affixType": "AttackSpeed",
+      "statKey": "AttackSpeed",
+      "value": 0.25,
+      "conditionKey": "",
+      "conditionVal": 0.0,
+      "displayText": "攻速 +25%",
+      "weight": 3.5
+    },
+    {
+      "id": 22,
+      "partId": 0,
+      "colorTier": "Legendary",
+      "affixType": "CooldownReduction",
+      "statKey": "CooldownPct",
+      "value": 0.3,
+      "conditionKey": "",
+      "conditionVal": 0.0,
+      "displayText": "技能冷却 -30%",
+      "weight": 3.0
+    },
+    {
+      "id": 23,
+      "partId": 0,
+      "colorTier": "Legendary",
+      "affixType": "SelfHealOnHit",
+      "statKey": "HealOnHit",
+      "value": 25.0,
+      "conditionKey": "",
+      "conditionVal": 0.0,
+      "displayText": "命中回血 25",
+      "weight": 3.0
+    },
+    {
+      "id": 24,
+      "partId": 0,
+      "colorTier": "Legendary",
+      "affixType": "StatusChance",
+      "statKey": "StatusChance",
+      "value": 0.25,
+      "conditionKey": "",
+      "conditionVal": 0.0,
+      "displayText": "状态命中率 +25%",
+      "weight": 3.0
+    }
+  ],
+  "tattooEnchantRecipes": [
+    {
+      "id": 1,
+      "colorTier": "Common",
+      "coinCost": 200,
+      "rarePigmentCost": 1,
+      "maxAffixPerSlot": 2
+    },
+    {
+      "id": 2,
+      "colorTier": "Rare",
+      "coinCost": 350,
+      "rarePigmentCost": 1,
+      "maxAffixPerSlot": 2
+    },
+    {
+      "id": 3,
+      "colorTier": "Legendary",
+      "coinCost": 500,
+      "rarePigmentCost": 1,
+      "maxAffixPerSlot": 2
+    }
+  ],
+  "skills": [
+    {
+      "skillId": "skill_fireball_01",
+      "displayName": "火球术",
+      "chargeModel": 0,
+      "cooldown": 7.0,
+      "maxCharges": 1,
+      "chargeRegenTime": 0.0,
+      "holdDuration": 0.0,
+      "overchargeWindow": 0.0,
+      "startupFrames": 8,
+      "activeFrames": 4,
+      "recoveryFrames": 12,
+      "damageMul": 2.4,
+      "hitShape": "circle",
+      "hitRadius": 3.0,
+      "element": "Fire",
+      "cancelableByDodge": false,
+      "itemId": 1001
+    },
+    {
+      "skillId": "skill_frost_field_01",
+      "displayName": "寒冰阵",
+      "chargeModel": 0,
+      "cooldown": 10.0,
+      "maxCharges": 1,
+      "chargeRegenTime": 0.0,
+      "holdDuration": 0.0,
+      "overchargeWindow": 0.0,
+      "startupFrames": 12,
+      "activeFrames": 6,
+      "recoveryFrames": 18,
+      "damageMul": 1.6,
+      "hitShape": "circle",
+      "hitRadius": 4.0,
+      "element": "Frost",
+      "cancelableByDodge": false,
+      "itemId": 1002
+    },
+    {
+      "skillId": "skill_chain_lightning_01",
+      "displayName": "雷链",
+      "chargeModel": 1,
+      "cooldown": 0.0,
+      "maxCharges": 3,
+      "chargeRegenTime": 8.0,
+      "holdDuration": 0.0,
+      "overchargeWindow": 0.0,
+      "startupFrames": 6,
+      "activeFrames": 3,
+      "recoveryFrames": 9,
+      "damageMul": 1.35,
+      "hitShape": "single",
+      "hitRadius": 0.0,
+      "element": "Lightning",
+      "cancelableByDodge": true,
+      "itemId": 1003
+    },
+    {
+      "skillId": "skill_heal_aura_01",
+      "displayName": "治疗光环",
+      "chargeModel": 0,
+      "cooldown": 12.0,
+      "maxCharges": 1,
+      "chargeRegenTime": 0.0,
+      "holdDuration": 0.0,
+      "overchargeWindow": 0.0,
+      "startupFrames": 6,
+      "activeFrames": 60,
+      "recoveryFrames": 6,
+      "damageMul": 0.0,
+      "hitShape": "circle",
+      "hitRadius": 5.0,
+      "element": "Holy",
+      "cancelableByDodge": true,
+      "itemId": 1004
+    },
+    {
+      "skillId": "skill_shield_01",
+      "displayName": "护盾",
+      "chargeModel": 0,
+      "cooldown": 12.0,
+      "maxCharges": 1,
+      "chargeRegenTime": 0.0,
+      "holdDuration": 0.0,
+      "overchargeWindow": 0.0,
+      "startupFrames": 4,
+      "activeFrames": 120,
+      "recoveryFrames": 6,
+      "damageMul": 0.0,
+      "hitShape": "single",
+      "hitRadius": 0.0,
+      "element": "None",
+      "cancelableByDodge": false,
+      "itemId": 1005
+    },
+    {
+      "skillId": "skill_stealth_01",
+      "displayName": "短暂隐身",
+      "chargeModel": 2,
+      "cooldown": 0.0,
+      "maxCharges": 1,
+      "chargeRegenTime": 0.0,
+      "holdDuration": 1.5,
+      "overchargeWindow": 0.8,
+      "startupFrames": 3,
+      "activeFrames": 180,
+      "recoveryFrames": 6,
+      "damageMul": 0.0,
+      "hitShape": "single",
+      "hitRadius": 0.0,
+      "element": "None",
+      "cancelableByDodge": true,
+      "itemId": 1006
+    },
+    {
+      "skillId": "skill_summon_01",
+      "displayName": "召唤兽",
+      "chargeModel": 0,
+      "cooldown": 15.0,
+      "maxCharges": 1,
+      "chargeRegenTime": 0.0,
+      "holdDuration": 0.0,
+      "overchargeWindow": 0.0,
+      "startupFrames": 18,
+      "activeFrames": 600,
+      "recoveryFrames": 12,
+      "damageMul": 1.2,
+      "hitShape": "single",
+      "hitRadius": 0.0,
+      "element": "Nature",
+      "cancelableByDodge": false,
+      "itemId": 1007
+    },
+    {
+      "skillId": "skill_time_slow_01",
+      "displayName": "时间慢放",
+      "chargeModel": 0,
+      "cooldown": 20.0,
+      "maxCharges": 1,
+      "chargeRegenTime": 0.0,
+      "holdDuration": 0.0,
+      "overchargeWindow": 0.0,
+      "startupFrames": 6,
+      "activeFrames": 300,
+      "recoveryFrames": 6,
+      "damageMul": 0.0,
+      "hitShape": "circle",
+      "hitRadius": 8.0,
+      "element": "None",
+      "cancelableByDodge": false,
+      "itemId": 1008
+    },
+    {
+      "skillId": "skill_phase_dash",
+      "displayName": "Phase Dash",
+      "chargeModel": 0,
+      "cooldown": 5.0,
+      "maxCharges": 1,
+      "chargeRegenTime": 0.0,
+      "holdDuration": 0.0,
+      "overchargeWindow": 0.0,
+      "startupFrames": 3,
+      "activeFrames": 8,
+      "recoveryFrames": 10,
+      "damageMul": 0.8,
+      "hitShape": "single",
+      "hitRadius": 0.0,
+      "element": "Pure",
+      "cancelableByDodge": true,
+      "itemId": 1009
+    },
+    {
+      "skillId": "skill_ink_shield",
+      "displayName": "Ink Shield",
+      "chargeModel": 0,
+      "cooldown": 10.0,
+      "maxCharges": 1,
+      "chargeRegenTime": 0.0,
+      "holdDuration": 0.0,
+      "overchargeWindow": 0.0,
+      "startupFrames": 4,
+      "activeFrames": 120,
+      "recoveryFrames": 8,
+      "damageMul": 0.0,
+      "hitShape": "circle",
+      "hitRadius": 4.0,
+      "element": "Pure",
+      "cancelableByDodge": true,
+      "itemId": 1010
+    },
+    {
+      "skillId": "skill_stomp",
+      "displayName": "Boss Stomp",
+      "chargeModel": 0,
+      "cooldown": 4.0,
+      "maxCharges": 1,
+      "chargeRegenTime": 0.0,
+      "holdDuration": 0.0,
+      "overchargeWindow": 0.0,
+      "startupFrames": 10,
+      "activeFrames": 8,
+      "recoveryFrames": 18,
+      "damage": 26.0,
+      "damageMul": 0.0,
+      "hitShape": "circle",
+      "hitRadius": 4.5,
+      "element": "Pure",
+      "cancelableByDodge": false,
+      "itemId": 0
+    },
+    {
+      "skillId": "skill_beam",
+      "displayName": "Boss Beam",
+      "chargeModel": 0,
+      "cooldown": 4.0,
+      "maxCharges": 1,
+      "chargeRegenTime": 0.0,
+      "holdDuration": 0.0,
+      "overchargeWindow": 0.0,
+      "startupFrames": 14,
+      "activeFrames": 12,
+      "recoveryFrames": 20,
+      "damage": 22.0,
+      "damageMul": 0.0,
+      "hitShape": "single",
+      "hitRadius": 8.0,
+      "element": "Lightning",
+      "cancelableByDodge": false,
+      "itemId": 0
+    },
+    {
+      "skillId": "skill_summon",
+      "displayName": "Boss Summon",
+      "chargeModel": 0,
+      "cooldown": 6.0,
+      "maxCharges": 1,
+      "chargeRegenTime": 0.0,
+      "holdDuration": 0.0,
+      "overchargeWindow": 0.0,
+      "startupFrames": 18,
+      "activeFrames": 60,
+      "recoveryFrames": 18,
+      "damage": 14.0,
+      "damageMul": 0.0,
+      "hitShape": "circle",
+      "hitRadius": 5.0,
+      "element": "Nature",
+      "cancelableByDodge": false,
+      "itemId": 0
+    },
+    {
+      "skillId": "skill_enrage_aoe",
+      "displayName": "Boss Enrage AOE",
+      "chargeModel": 0,
+      "cooldown": 4.0,
+      "maxCharges": 1,
+      "chargeRegenTime": 0.0,
+      "holdDuration": 0.0,
+      "overchargeWindow": 0.0,
+      "startupFrames": 16,
+      "activeFrames": 14,
+      "recoveryFrames": 24,
+      "damage": 30.0,
+      "damageMul": 0.0,
+      "hitShape": "circle",
+      "hitRadius": 7.0,
+      "element": "Fire",
+      "cancelableByDodge": false,
+      "itemId": 0
+    }
+  ],
+  "enemies": [
+    {
+      "enemyId": "enemy_common_light_01",
+      "displayName": "enemy.common_light",
+      "themeId": "common",
+      "tier": "Light",
+      "baseHP": 55.0,
+      "hpCurveK": 0.1,
+      "baseDamage": 8.0,
+      "damageCurveK": 0.05,
+      "moveSpeed": 3.5,
+      "attackRange": 1.5,
+      "detectRange": 10.0,
+      "skillIds": "",
+      "lootTableId": "loot_light_common",
+      "guaranteedLootIds": "",
+      "elitePaintDropRare": 0,
+      "xpReward": 5,
+      "coinReward": "2-6",
+      "poolIds": "pool_common"
+    },
+    {
+      "enemyId": "enemy_common_elite_01",
+      "displayName": "enemy.common_elite",
+      "themeId": "common",
+      "tier": "Elite",
+      "baseHP": 150.0,
+      "hpCurveK": 0.12,
+      "baseDamage": 18.0,
+      "damageCurveK": 0.07,
+      "moveSpeed": 4.0,
+      "attackRange": 2.0,
+      "detectRange": 14.0,
+      "skillIds": "skill_slash",
+      "lootTableId": "loot_elite_common",
+      "guaranteedLootIds": "paint_rare_001",
+      "elitePaintDropRare": 1,
+      "xpReward": 20,
+      "coinReward": "10-20",
+      "poolIds": "pool_common,pool_elite"
+    },
+    {
+      "enemyId": "enemy_ai_ruins_boss_01",
+      "displayName": "enemy.ai_ruins_boss",
+      "themeId": "AI_RUINS",
+      "tier": "Boss",
+      "baseHP": 900.0,
+      "hpCurveK": 0.0,
+      "baseDamage": 35.0,
+      "damageCurveK": 0.0,
+      "moveSpeed": 5.0,
+      "attackRange": 3.0,
+      "detectRange": 30.0,
+      "skillIds": "skill_stomp,skill_beam,skill_summon",
+      "lootTableId": "loot_boss_ai_ruins",
+      "guaranteedLootIds": "",
+      "elitePaintDropRare": 0,
+      "xpReward": 200,
+      "coinReward": "80-120",
+      "poolIds": "pool_boss"
+    }
+  ],
+  "zonePhases": [
+    {
+      "id": 0,
+      "phaseName": "Phase0_Slow",
+      "startTime": 0.0,
+      "duration": 180.0,
+      "targetRadius": 65.0,
+      "outZoneDamage": 2.0,
+      "centerOffsetMode": "None"
+    },
+    {
+      "id": 1,
+      "phaseName": "Phase1_Offset",
+      "startTime": 180.0,
+      "duration": 360.0,
+      "targetRadius": 35.0,
+      "outZoneDamage": 5.0,
+      "centerOffsetMode": "Drift"
+    },
+    {
+      "id": 2,
+      "phaseName": "Phase2_Rush",
+      "startTime": 540.0,
+      "duration": 360.0,
+      "targetRadius": 5.0,
+      "outZoneDamage": 12.0,
+      "centerOffsetMode": "Fixed"
+    }
+  ],
+  "bossPhases": [
+    {
+      "bossId": "enemy_ai_ruins_boss_01",
+      "phaseIndex": 1,
+      "hpThreshold": 1.0,
+      "skillIds": "skill_stomp,skill_beam",
+      "enrageMultiplier": 1.0,
+      "phaseVFXId": "vfx_boss_enter",
+      "phaseBGMCueId": "bgm_boss_phase1",
+      "deathPatternRecipeId": ""
+    },
+    {
+      "bossId": "enemy_ai_ruins_boss_01",
+      "phaseIndex": 2,
+      "hpThreshold": 0.6,
+      "skillIds": "skill_summon",
+      "enrageMultiplier": 1.18,
+      "phaseVFXId": "vfx_boss_phase2",
+      "phaseBGMCueId": "bgm_boss_phase2",
+      "deathPatternRecipeId": ""
+    },
+    {
+      "bossId": "enemy_ai_ruins_boss_01",
+      "phaseIndex": 3,
+      "hpThreshold": 0.3,
+      "skillIds": "skill_enrage_aoe",
+      "enrageMultiplier": 1.35,
+      "phaseVFXId": "vfx_boss_phase3",
+      "phaseBGMCueId": "bgm_boss_phase3",
+      "deathPatternRecipeId": "recipe_ai_ruins_boss"
+    }
+  ],
+  "audioCues": [
+    {
+      "cueId": "bgm_main_menu",
+      "kind": "Bgm",
+      "assetName": "BGM/main_menu.ogg",
+      "volume": 1.0,
+      "loop": true,
+      "minIntervalSec": 0.0,
+      "usage": "Main menu and non-combat front-end flow.",
+      "legacySource": "GameState.MainMenu"
+    },
+    {
+      "cueId": "bgm_in_game",
+      "kind": "Bgm",
+      "assetName": "BGM/in_game.ogg",
+      "volume": 1.0,
+      "loop": true,
+      "minIntervalSec": 0.0,
+      "usage": "Combat baseline BGM before Boss phase override.",
+      "legacySource": "GameState.InGame"
+    },
+    {
+      "cueId": "bgm_boss_phase1",
+      "kind": "Bgm",
+      "assetName": "BGM/boss_phase1.ogg",
+      "volume": 1.0,
+      "loop": true,
+      "minIntervalSec": 0.0,
+      "usage": "Boss phase 1 BGM.",
+      "legacySource": "BossPhaseConfig.phaseBGMCueId"
+    },
+    {
+      "cueId": "bgm_boss_phase2",
+      "kind": "Bgm",
+      "assetName": "BGM/boss_phase2.ogg",
+      "volume": 1.0,
+      "loop": true,
+      "minIntervalSec": 0.0,
+      "usage": "Boss phase 2 BGM.",
+      "legacySource": "BossPhaseConfig.phaseBGMCueId"
+    },
+    {
+      "cueId": "bgm_boss_phase3",
+      "kind": "Bgm",
+      "assetName": "BGM/boss_phase3.ogg",
+      "volume": 1.0,
+      "loop": true,
+      "minIntervalSec": 0.0,
+      "usage": "Boss phase 3 BGM.",
+      "legacySource": "BossPhaseConfig.phaseBGMCueId"
+    },
+    {
+      "cueId": "sfx_hit_melee",
+      "kind": "Sfx",
+      "assetName": "SFX/hit_melee.wav",
+      "volume": 1.0,
+      "loop": false,
+      "minIntervalSec": 0.05,
+      "usage": "Melee weapon hit.",
+      "legacySource": "WeaponClass.Melee"
+    },
+    {
+      "cueId": "sfx_hit_ranged",
+      "kind": "Sfx",
+      "assetName": "SFX/hit_ranged.wav",
+      "volume": 1.0,
+      "loop": false,
+      "minIntervalSec": 0.05,
+      "usage": "Ranged weapon hit.",
+      "legacySource": "WeaponClass.Ranged"
+    },
+    {
+      "cueId": "sfx_hit_special",
+      "kind": "Sfx",
+      "assetName": "SFX/hit_special.wav",
+      "volume": 1.0,
+      "loop": false,
+      "minIntervalSec": 0.05,
+      "usage": "Special weapon hit.",
+      "legacySource": "WeaponClass.Special"
+    },
+    {
+      "cueId": "sfx_hit_default",
+      "kind": "Sfx",
+      "assetName": "SFX/hit_default.wav",
+      "volume": 1.0,
+      "loop": false,
+      "minIntervalSec": 0.05,
+      "usage": "Fallback hit cue when weapon class is unknown.",
+      "legacySource": "WeaponClass.Unknown"
+    },
+    {
+      "cueId": "sfx_skill_cast",
+      "kind": "Sfx",
+      "assetName": "SFX/skill_cast.wav",
+      "volume": 1.0,
+      "loop": false,
+      "minIntervalSec": 0.08,
+      "usage": "Player or AI skill cast.",
+      "legacySource": "SkillCastEvent"
+    },
+    {
+      "cueId": "sfx_kill",
+      "kind": "Sfx",
+      "assetName": "SFX/kill.wav",
+      "volume": 1.0,
+      "loop": false,
+      "minIntervalSec": 0.08,
+      "usage": "Enemy killed.",
+      "legacySource": "TargetKilledEvent"
+    },
+    {
+      "cueId": "sfx_player_died",
+      "kind": "Sfx",
+      "assetName": "SFX/player_died.wav",
+      "volume": 1.0,
+      "loop": false,
+      "minIntervalSec": 0.0,
+      "usage": "Player death.",
+      "legacySource": "PlayerDiedEvent"
+    },
+    {
+      "cueId": "sfx_dodge",
+      "kind": "Sfx",
+      "assetName": "SFX/dodge.wav",
+      "volume": 0.8,
+      "loop": false,
+      "minIntervalSec": 0.12,
+      "usage": "Dodge input feedback.",
+      "legacySource": "DodgePressedEvent"
+    },
+    {
+      "cueId": "sfx_ui_click",
+      "kind": "Sfx",
+      "assetName": "ui/ui_click.wav",
+      "volume": 0.8,
+      "loop": false,
+      "minIntervalSec": 0.05,
+      "usage": "Shared UI click feedback.",
+      "legacySource": "GF UIFormBase"
+    }
+  ],
+  "npcs": [
+    {
+      "configId": 1,
+      "npcId": "tattooist_default",
+      "type": "Tattooist",
+      "mapTheme": "All",
+      "roomType": "TattooStudio",
+      "shopStockTable": "",
+      "offsetX": -2.0,
+      "offsetY": 0.0,
+      "offsetZ": 0.0,
+      "interactRadius": 2.5,
+      "themePriceMultiplier": 1.0,
+      "guardRadius": 8.0,
+      "serviceCooldown": 30.0,
+      "guardSpawnId": "guard_basic",
+      "guardCount1": 1,
+      "guardCount2": 2,
+      "offers": []
+    },
+    {
+      "configId": 2,
+      "npcId": "tattooist_advanced",
+      "type": "Tattooist",
+      "mapTheme": "Lab",
+      "roomType": "TattooStudio",
+      "shopStockTable": "",
+      "offsetX": 2.0,
+      "offsetY": 0.0,
+      "offsetZ": 0.0,
+      "interactRadius": 2.5,
+      "themePriceMultiplier": 1.1,
+      "guardRadius": 8.0,
+      "serviceCooldown": 30.0,
+      "guardSpawnId": "guard_lab",
+      "guardCount1": 2,
+      "guardCount2": 3,
+      "offers": []
+    },
+    {
+      "configId": 3,
+      "npcId": "tattooist_alien",
+      "type": "Tattooist",
+      "mapTheme": "Alien",
+      "roomType": "TattooStudio",
+      "shopStockTable": "",
+      "offsetX": 0.0,
+      "offsetY": 0.0,
+      "offsetZ": 2.0,
+      "interactRadius": 2.5,
+      "themePriceMultiplier": 1.2,
+      "guardRadius": 8.0,
+      "serviceCooldown": 30.0,
+      "guardSpawnId": "guard_alien",
+      "guardCount1": 2,
+      "guardCount2": 4,
+      "offers": []
+    },
+    {
+      "configId": 4,
+      "npcId": "merchant_general",
+      "type": "Merchant",
+      "mapTheme": "All",
+      "roomType": "Merchant",
+      "shopStockTable": "general_shop",
+      "offsetX": -2.0,
+      "offsetY": 0.0,
+      "offsetZ": 0.0,
+      "interactRadius": 2.5,
+      "themePriceMultiplier": 1.0,
+      "guardRadius": 6.0,
+      "serviceCooldown": 20.0,
+      "guardSpawnId": "guard_basic",
+      "guardCount1": 1,
+      "guardCount2": 2,
+      "offers": [
+        {
+          "itemId": 101,
+          "displayName": "Red Ink",
+          "price": 30,
+          "stock": 3,
+          "weight": 40,
+          "rewardType": "Ink",
+          "rewardId": "red",
+          "rewardAmount": 1,
+          "rewardSlot": -1
+        },
+        {
+          "itemId": 201,
+          "displayName": "Knife Upgrade",
+          "price": 50,
+          "stock": 1,
+          "weight": 30,
+          "rewardType": "WeaponUpgrade",
+          "rewardId": "knife_basic",
+          "rewardAmount": 1,
+          "rewardSlot": -1
+        },
+        {
+          "itemId": 301,
+          "displayName": "Skill Core",
+          "price": 80,
+          "stock": 1,
+          "weight": 20,
+          "rewardType": "SkillCore",
+          "rewardId": "skill_fireball_01",
+          "rewardAmount": 1,
+          "rewardSlot": 0
+        }
+      ]
+    },
+    {
+      "configId": 5,
+      "npcId": "merchant_alien",
+      "type": "Merchant",
+      "mapTheme": "Alien",
+      "roomType": "Merchant",
+      "shopStockTable": "alien_shop",
+      "offsetX": 2.0,
+      "offsetY": 0.0,
+      "offsetZ": 0.0,
+      "interactRadius": 2.5,
+      "themePriceMultiplier": 1.2,
+      "guardRadius": 6.0,
+      "serviceCooldown": 20.0,
+      "guardSpawnId": "guard_alien",
+      "guardCount1": 2,
+      "guardCount2": 3,
+      "offers": [
+        {
+          "itemId": 102,
+          "displayName": "Pure Ink",
+          "price": 90,
+          "stock": 2,
+          "weight": 20,
+          "rewardType": "Ink",
+          "rewardId": "pure",
+          "rewardAmount": 2,
+          "rewardSlot": -1
+        },
+        {
+          "itemId": 202,
+          "displayName": "Bow Upgrade",
+          "price": 120,
+          "stock": 1,
+          "weight": 20,
+          "rewardType": "WeaponUpgrade",
+          "rewardId": "bow_charge",
+          "rewardAmount": 1,
+          "rewardSlot": -1
+        },
+        {
+          "itemId": 302,
+          "displayName": "Boss Charm",
+          "price": 160,
+          "stock": 1,
+          "weight": 10,
+          "rewardType": "SkillCore",
+          "rewardId": "skill_stealth_01",
+          "rewardAmount": 1,
+          "rewardSlot": 1
+        }
+      ]
+    }
+  ],
+  "shopStocks": [
+    {
+      "id": 1,
+      "tableId": "general_shop",
+      "itemId": 101,
+      "category": "Ink",
+      "weight": 3.0,
+      "minCount": 1,
+      "maxCount": 3,
+      "basePrice": 70,
+      "sellRatio": 0.5
+    },
+    {
+      "id": 2,
+      "tableId": "general_shop",
+      "itemId": 102,
+      "category": "Ink",
+      "weight": 3.0,
+      "minCount": 1,
+      "maxCount": 3,
+      "basePrice": 70,
+      "sellRatio": 0.5
+    },
+    {
+      "id": 3,
+      "tableId": "general_shop",
+      "itemId": 103,
+      "category": "Ink",
+      "weight": 3.0,
+      "minCount": 1,
+      "maxCount": 3,
+      "basePrice": 70,
+      "sellRatio": 0.5
+    },
+    {
+      "id": 4,
+      "tableId": "general_shop",
+      "itemId": 104,
+      "category": "Ink",
+      "weight": 3.0,
+      "minCount": 1,
+      "maxCount": 3,
+      "basePrice": 70,
+      "sellRatio": 0.5
+    },
+    {
+      "id": 5,
+      "tableId": "general_shop",
+      "itemId": 201,
+      "category": "Weapon",
+      "weight": 2.0,
+      "minCount": 1,
+      "maxCount": 1,
+      "basePrice": 260,
+      "sellRatio": 0.4
+    },
+    {
+      "id": 6,
+      "tableId": "general_shop",
+      "itemId": 202,
+      "category": "Weapon",
+      "weight": 2.0,
+      "minCount": 1,
+      "maxCount": 1,
+      "basePrice": 260,
+      "sellRatio": 0.4
+    },
+    {
+      "id": 7,
+      "tableId": "general_shop",
+      "itemId": 301,
+      "category": "Skill",
+      "weight": 1.5,
+      "minCount": 1,
+      "maxCount": 1,
+      "basePrice": 180,
+      "sellRatio": 0.4
+    },
+    {
+      "id": 8,
+      "tableId": "general_shop",
+      "itemId": 302,
+      "category": "Skill",
+      "weight": 1.5,
+      "minCount": 1,
+      "maxCount": 1,
+      "basePrice": 180,
+      "sellRatio": 0.4
+    },
+    {
+      "id": 9,
+      "tableId": "general_shop",
+      "itemId": 401,
+      "category": "Antidote",
+      "weight": 2.0,
+      "minCount": 1,
+      "maxCount": 2,
+      "basePrice": 90,
+      "sellRatio": 0.3
+    },
+    {
+      "id": 10,
+      "tableId": "general_shop",
+      "itemId": 402,
+      "category": "Remover",
+      "weight": 1.5,
+      "minCount": 1,
+      "maxCount": 2,
+      "basePrice": 140,
+      "sellRatio": 0.3
+    },
+    {
+      "id": 11,
+      "tableId": "alien_shop",
+      "itemId": 501,
+      "category": "RareInk",
+      "weight": 5.0,
+      "minCount": 1,
+      "maxCount": 2,
+      "basePrice": 360,
+      "sellRatio": 0.5
+    },
+    {
+      "id": 12,
+      "tableId": "alien_shop",
+      "itemId": 502,
+      "category": "RareInk",
+      "weight": 3.0,
+      "minCount": 1,
+      "maxCount": 1,
+      "basePrice": 520,
+      "sellRatio": 0.5
+    },
+    {
+      "id": 13,
+      "tableId": "alien_shop",
+      "itemId": 503,
+      "category": "RareInk",
+      "weight": 1.0,
+      "minCount": 1,
+      "maxCount": 1,
+      "basePrice": 720,
+      "sellRatio": 0.5
+    },
+    {
+      "id": 14,
+      "tableId": "alien_shop",
+      "itemId": 201,
+      "category": "Weapon",
+      "weight": 1.5,
+      "minCount": 1,
+      "maxCount": 1,
+      "basePrice": 310,
+      "sellRatio": 0.4
+    },
+    {
+      "id": 15,
+      "tableId": "alien_shop",
+      "itemId": 301,
+      "category": "Skill",
+      "weight": 1.5,
+      "minCount": 1,
+      "maxCount": 1,
+      "basePrice": 220,
+      "sellRatio": 0.4
+    }
+  ],
+  "merchantSlots": [
+    {
+      "slotIndex": 0,
+      "weaponId": "knife_basic",
+      "goldCost": 50,
+      "refreshWeight": 40
+    },
+    {
+      "slotIndex": 0,
+      "weaponId": "pistol_basic",
+      "goldCost": 75,
+      "refreshWeight": 35
+    },
+    {
+      "slotIndex": 0,
+      "weaponId": "energy_fist",
+      "goldCost": 90,
+      "refreshWeight": 25
+    },
+    {
+      "slotIndex": 1,
+      "weaponId": "hammer_heavy",
+      "goldCost": 80,
+      "refreshWeight": 40
+    },
+    {
+      "slotIndex": 1,
+      "weaponId": "pistol_basic",
+      "goldCost": 85,
+      "refreshWeight": 35
+    },
+    {
+      "slotIndex": 1,
+      "weaponId": "bow_charge",
+      "goldCost": 120,
+      "refreshWeight": 25
+    },
+    {
+      "slotIndex": 2,
+      "weaponId": "bow_charge",
+      "goldCost": 140,
+      "refreshWeight": 35
+    },
+    {
+      "slotIndex": 2,
+      "weaponId": "energy_fist",
+      "goldCost": 130,
+      "refreshWeight": 35
+    },
+    {
+      "slotIndex": 2,
+      "weaponId": "hammer_heavy",
+      "goldCost": 100,
+      "refreshWeight": 30
+    }
+  ],
+  "events": [
+    {
+      "eventId": "event_choice_001",
+      "eventType": "choice_event",
+      "displayName": "event.choice.mysterious_altar",
+      "triggerCondition": "",
+      "baseRewardCoin": 0,
+      "rewardPoolId": "",
+      "timeoutSec": 20.0,
+      "curseDebuffId": "",
+      "weightBase": 40,
+      "isRepeatAllowed": true
+    },
+    {
+      "eventId": "event_choice_002",
+      "eventType": "choice_event",
+      "displayName": "event.choice.old_forge",
+      "triggerCondition": "{\"minElapsedSec\":120}",
+      "baseRewardCoin": 0,
+      "rewardPoolId": "",
+      "timeoutSec": 20.0,
+      "curseDebuffId": "",
+      "weightBase": 30,
+      "isRepeatAllowed": true
+    },
+    {
+      "eventId": "event_combat_001",
+      "eventType": "combat_event",
+      "displayName": "event.combat.ambush",
+      "triggerCondition": "",
+      "baseRewardCoin": 50,
+      "rewardPoolId": "pool_combat_basic",
+      "timeoutSec": -1.0,
+      "curseDebuffId": "",
+      "weightBase": 35,
+      "isRepeatAllowed": true
+    },
+    {
+      "eventId": "event_merchant_001",
+      "eventType": "merchant_event",
+      "displayName": "event.merchant.wandering_trader",
+      "triggerCondition": "",
+      "baseRewardCoin": 0,
+      "rewardPoolId": "",
+      "timeoutSec": -1.0,
+      "curseDebuffId": "",
+      "weightBase": 20,
+      "isRepeatAllowed": true
+    },
+    {
+      "eventId": "event_curse_001",
+      "eventType": "curse_event",
+      "displayName": "event.curse.ink_corruption",
+      "triggerCondition": "{\"minElapsedSec\":180}",
+      "baseRewardCoin": 120,
+      "rewardPoolId": "pool_curse_reward",
+      "timeoutSec": 20.0,
+      "curseDebuffId": "debuff_ink_slow",
+      "weightBase": 15,
+      "isRepeatAllowed": false
+    },
+    {
+      "eventId": "event_lore_001",
+      "eventType": "lore_event",
+      "displayName": "event.lore.ancient_inscription",
+      "triggerCondition": "",
+      "baseRewardCoin": 20,
+      "rewardPoolId": "",
+      "timeoutSec": -1.0,
+      "curseDebuffId": "",
+      "weightBase": 10,
+      "isRepeatAllowed": false
+    }
+  ],
+  "choiceOptions": [
+    {
+      "optionId": "opt_tattoo_recipe_fire_001",
+      "optionType": "tattoo_recipe",
+      "displayName": "option.tattoo_recipe.fire_brand",
+      "descKey": "option.tattoo_recipe.fire_brand.desc",
+      "contentRef": "recipe_fire_001",
+      "skillSlot": -1,
+      "valueInt": 0,
+      "weightBase": 20,
+      "weightBuildBonus": "{\"fire\":15}",
+      "minRunElapsedSec": 0.0,
+      "isUnique": false
+    },
+    {
+      "optionId": "opt_pattern_recipe_straight_001",
+      "optionType": "pattern_recipe",
+      "displayName": "option.pattern_recipe.straight_line",
+      "descKey": "option.pattern_recipe.straight_line.desc",
+      "contentRef": "pattern_straight",
+      "skillSlot": -1,
+      "valueInt": 0,
+      "weightBase": 12,
+      "weightBuildBonus": "{}",
+      "minRunElapsedSec": 0.0,
+      "isUnique": true
+    },
+    {
+      "optionId": "opt_pattern_recipe_circle_001",
+      "optionType": "pattern_recipe",
+      "displayName": "option.pattern_recipe.circle",
+      "descKey": "option.pattern_recipe.circle.desc",
+      "contentRef": "pattern_circle",
+      "skillSlot": -1,
+      "valueInt": 0,
+      "weightBase": 10,
+      "weightBuildBonus": "{}",
+      "minRunElapsedSec": 60.0,
+      "isUnique": true
+    },
+    {
+      "optionId": "opt_weapon_upgrade_damage_001",
+      "optionType": "weapon_upgrade",
+      "displayName": "option.weapon_upgrade.sharpen",
+      "descKey": "option.weapon_upgrade.sharpen.desc",
+      "contentRef": "wupgrade_sharpen_001",
+      "skillSlot": -1,
+      "valueInt": 0,
+      "weightBase": 18,
+      "weightBuildBonus": "{}",
+      "minRunElapsedSec": 0.0,
+      "isUnique": false
+    },
+    {
+      "optionId": "opt_skill_upgrade_slot0_001",
+      "optionType": "skill_upgrade",
+      "displayName": "option.skill_upgrade.enhance_slot0",
+      "descKey": "option.skill_upgrade.enhance_slot0.desc",
+      "contentRef": "supgrade_power_001",
+      "skillSlot": 0,
+      "valueInt": 0,
+      "weightBase": 16,
+      "weightBuildBonus": "{}",
+      "minRunElapsedSec": 60.0,
+      "isUnique": false
+    },
+    {
+      "optionId": "opt_skill_upgrade_slot1_001",
+      "optionType": "skill_upgrade",
+      "displayName": "option.skill_upgrade.enhance_slot1",
+      "descKey": "option.skill_upgrade.enhance_slot1.desc",
+      "contentRef": "supgrade_power_002",
+      "skillSlot": 1,
+      "valueInt": 0,
+      "weightBase": 16,
+      "weightBuildBonus": "{}",
+      "minRunElapsedSec": 60.0,
+      "isUnique": false
+    },
+    {
+      "optionId": "opt_skill_acquire_dash_001",
+      "optionType": "skill_acquire",
+      "displayName": "option.skill_acquire.phase_dash",
+      "descKey": "option.skill_acquire.phase_dash.desc",
+      "contentRef": "skill_phase_dash",
+      "skillSlot": -1,
+      "valueInt": 0,
+      "weightBase": 16,
+      "weightBuildBonus": "{}",
+      "minRunElapsedSec": 0.0,
+      "isUnique": false
+    },
+    {
+      "optionId": "opt_skill_acquire_shield_001",
+      "optionType": "skill_acquire",
+      "displayName": "option.skill_acquire.ink_shield",
+      "descKey": "option.skill_acquire.ink_shield.desc",
+      "contentRef": "skill_ink_shield",
+      "skillSlot": -1,
+      "valueInt": 0,
+      "weightBase": 14,
+      "weightBuildBonus": "{}",
+      "minRunElapsedSec": 0.0,
+      "isUnique": false
+    },
+    {
+      "optionId": "opt_coin_bonus_small",
+      "optionType": "coin_bonus",
+      "displayName": "option.coin_bonus.small",
+      "descKey": "option.coin_bonus.small.desc",
+      "contentRef": "",
+      "skillSlot": -1,
+      "valueInt": 80,
+      "weightBase": 22,
+      "weightBuildBonus": "{}",
+      "minRunElapsedSec": 0.0,
+      "isUnique": false
+    },
+    {
+      "optionId": "opt_heal_moderate",
+      "optionType": "heal",
+      "displayName": "option.heal.moderate",
+      "descKey": "option.heal.moderate.desc",
+      "contentRef": "",
+      "skillSlot": -1,
+      "valueInt": 30,
+      "weightBase": 20,
+      "weightBuildBonus": "{}",
+      "minRunElapsedSec": 0.0,
+      "isUnique": false
+    },
+    {
+      "optionId": "opt_one_time_scroll_001",
+      "optionType": "one_time_scroll",
+      "displayName": "option.scroll.ink_burst",
+      "descKey": "option.scroll.ink_burst.desc",
+      "contentRef": "scroll_ink_burst",
+      "skillSlot": -1,
+      "valueInt": 0,
+      "weightBase": 12,
+      "weightBuildBonus": "{}",
+      "minRunElapsedSec": 120.0,
+      "isUnique": false
+    }
+  ],
+  "botProfiles": [
+    {
+      "botId": 1,
+      "type": "Smart",
+      "displayName": "Smart Aggressive Fire",
+      "rethinkInterval": 20.0,
+      "attackCooldown": 0.85,
+      "visionRadius": 20.0,
+      "aggroRadius": 18.0,
+      "dodgeReactionMs": 210,
+      "confidence": 0.88,
+      "preferredPreset": 1,
+      "lootGreedFactor": 0.95,
+      "selfTattooBoldness": 0.62,
+      "enchantGreed": 0.65,
+      "personality": "Aggressive",
+      "targetPlayerWeight": 1.0,
+      "targetHumanoidAiWeight": 1.0,
+      "targetBossWeight": 0.2,
+      "targetResourceWeight": 0.25,
+      "readingTargetWeight": 0.8,
+      "shopPreference": 0.35,
+      "riskTolerance": 0.82
+    },
+    {
+      "botId": 2,
+      "type": "Smart",
+      "displayName": "Smart Aggressive Lightning",
+      "rethinkInterval": 20.0,
+      "attackCooldown": 0.85,
+      "visionRadius": 20.0,
+      "aggroRadius": 18.0,
+      "dodgeReactionMs": 220,
+      "confidence": 0.86,
+      "preferredPreset": 2,
+      "lootGreedFactor": 1.0,
+      "selfTattooBoldness": 0.58,
+      "enchantGreed": 0.6,
+      "personality": "Aggressive",
+      "targetPlayerWeight": 1.0,
+      "targetHumanoidAiWeight": 1.0,
+      "targetBossWeight": 0.2,
+      "targetResourceWeight": 0.25,
+      "readingTargetWeight": 0.8,
+      "shopPreference": 0.35,
+      "riskTolerance": 0.82
+    },
+    {
+      "botId": 3,
+      "type": "Smart",
+      "displayName": "Smart Aggressive Mutation",
+      "rethinkInterval": 20.0,
+      "attackCooldown": 0.9,
+      "visionRadius": 20.0,
+      "aggroRadius": 18.0,
+      "dodgeReactionMs": 240,
+      "confidence": 0.82,
+      "preferredPreset": 5,
+      "lootGreedFactor": 0.9,
+      "selfTattooBoldness": 0.64,
+      "enchantGreed": 0.58,
+      "personality": "Aggressive",
+      "targetPlayerWeight": 1.0,
+      "targetHumanoidAiWeight": 1.0,
+      "targetBossWeight": 0.2,
+      "targetResourceWeight": 0.25,
+      "readingTargetWeight": 0.8,
+      "shopPreference": 0.35,
+      "riskTolerance": 0.82
+    },
+    {
+      "botId": 4,
+      "type": "Smart",
+      "displayName": "Smart Aggressive Pure",
+      "rethinkInterval": 20.0,
+      "attackCooldown": 0.85,
+      "visionRadius": 20.0,
+      "aggroRadius": 18.0,
+      "dodgeReactionMs": 215,
+      "confidence": 0.87,
+      "preferredPreset": 7,
+      "lootGreedFactor": 0.85,
+      "selfTattooBoldness": 0.6,
+      "enchantGreed": 0.62,
+      "personality": "Aggressive",
+      "targetPlayerWeight": 1.0,
+      "targetHumanoidAiWeight": 1.0,
+      "targetBossWeight": 0.2,
+      "targetResourceWeight": 0.25,
+      "readingTargetWeight": 0.8,
+      "shopPreference": 0.35,
+      "riskTolerance": 0.82
+    },
+    {
+      "botId": 5,
+      "type": "Smart",
+      "displayName": "Smart Aggressive Flanker",
+      "rethinkInterval": 20.0,
+      "attackCooldown": 0.9,
+      "visionRadius": 21.0,
+      "aggroRadius": 18.0,
+      "dodgeReactionMs": 230,
+      "confidence": 0.84,
+      "preferredPreset": 1,
+      "lootGreedFactor": 1.05,
+      "selfTattooBoldness": 0.55,
+      "enchantGreed": 0.7,
+      "personality": "Aggressive",
+      "targetPlayerWeight": 1.0,
+      "targetHumanoidAiWeight": 1.0,
+      "targetBossWeight": 0.2,
+      "targetResourceWeight": 0.25,
+      "readingTargetWeight": 0.8,
+      "shopPreference": 0.35,
+      "riskTolerance": 0.82
+    },
+    {
+      "botId": 6,
+      "type": "Smart",
+      "displayName": "Smart Conservative Nature",
+      "rethinkInterval": 20.0,
+      "attackCooldown": 1.1,
+      "visionRadius": 22.0,
+      "aggroRadius": 13.0,
+      "dodgeReactionMs": 320,
+      "confidence": 0.72,
+      "preferredPreset": 3,
+      "lootGreedFactor": 0.45,
+      "selfTattooBoldness": 0.35,
+      "enchantGreed": 0.35,
+      "personality": "Conservative",
+      "targetPlayerWeight": 0.45,
+      "targetHumanoidAiWeight": 0.3,
+      "targetBossWeight": 0.15,
+      "targetResourceWeight": 0.25,
+      "readingTargetWeight": 0.8,
+      "shopPreference": 0.45,
+      "riskTolerance": 0.25
+    },
+    {
+      "botId": 7,
+      "type": "Smart",
+      "displayName": "Smart Conservative Frost",
+      "rethinkInterval": 20.0,
+      "attackCooldown": 1.1,
+      "visionRadius": 22.0,
+      "aggroRadius": 13.0,
+      "dodgeReactionMs": 300,
+      "confidence": 0.75,
+      "preferredPreset": 4,
+      "lootGreedFactor": 0.4,
+      "selfTattooBoldness": 0.3,
+      "enchantGreed": 0.4,
+      "personality": "Conservative",
+      "targetPlayerWeight": 0.45,
+      "targetHumanoidAiWeight": 0.3,
+      "targetBossWeight": 0.15,
+      "targetResourceWeight": 0.25,
+      "readingTargetWeight": 0.8,
+      "shopPreference": 0.45,
+      "riskTolerance": 0.25
+    },
+    {
+      "botId": 8,
+      "type": "Smart",
+      "displayName": "Smart Conservative Holy",
+      "rethinkInterval": 20.0,
+      "attackCooldown": 1.15,
+      "visionRadius": 24.0,
+      "aggroRadius": 14.0,
+      "dodgeReactionMs": 310,
+      "confidence": 0.78,
+      "preferredPreset": 6,
+      "lootGreedFactor": 0.5,
+      "selfTattooBoldness": 0.38,
+      "enchantGreed": 0.45,
+      "personality": "Conservative",
+      "targetPlayerWeight": 0.45,
+      "targetHumanoidAiWeight": 0.3,
+      "targetBossWeight": 0.15,
+      "targetResourceWeight": 0.25,
+      "readingTargetWeight": 0.8,
+      "shopPreference": 0.45,
+      "riskTolerance": 0.25
+    },
+    {
+      "botId": 9,
+      "type": "Smart",
+      "displayName": "Smart Resource Lightning",
+      "rethinkInterval": 20.0,
+      "attackCooldown": 1.0,
+      "visionRadius": 21.0,
+      "aggroRadius": 16.0,
+      "dodgeReactionMs": 260,
+      "confidence": 0.78,
+      "preferredPreset": 2,
+      "lootGreedFactor": 1.6,
+      "selfTattooBoldness": 0.48,
+      "enchantGreed": 0.75,
+      "personality": "ResourceAcquisition",
+      "targetPlayerWeight": 0.25,
+      "targetHumanoidAiWeight": 0.2,
+      "targetBossWeight": 0.25,
+      "targetResourceWeight": 1.8,
+      "readingTargetWeight": 0.8,
+      "shopPreference": 1.25,
+      "riskTolerance": 0.5
+    },
+    {
+      "botId": 10,
+      "type": "Smart",
+      "displayName": "Smart Resource Nature",
+      "rethinkInterval": 20.0,
+      "attackCooldown": 1.0,
+      "visionRadius": 21.0,
+      "aggroRadius": 16.0,
+      "dodgeReactionMs": 280,
+      "confidence": 0.74,
+      "preferredPreset": 3,
+      "lootGreedFactor": 1.65,
+      "selfTattooBoldness": 0.44,
+      "enchantGreed": 0.8,
+      "personality": "ResourceAcquisition",
+      "targetPlayerWeight": 0.25,
+      "targetHumanoidAiWeight": 0.2,
+      "targetBossWeight": 0.25,
+      "targetResourceWeight": 1.8,
+      "readingTargetWeight": 0.8,
+      "shopPreference": 1.25,
+      "riskTolerance": 0.5
+    },
+    {
+      "botId": 11,
+      "type": "Smart",
+      "displayName": "Smart Resource Mutation",
+      "rethinkInterval": 20.0,
+      "attackCooldown": 1.0,
+      "visionRadius": 22.0,
+      "aggroRadius": 17.0,
+      "dodgeReactionMs": 270,
+      "confidence": 0.76,
+      "preferredPreset": 5,
+      "lootGreedFactor": 1.7,
+      "selfTattooBoldness": 0.5,
+      "enchantGreed": 0.85,
+      "personality": "ResourceAcquisition",
+      "targetPlayerWeight": 0.25,
+      "targetHumanoidAiWeight": 0.2,
+      "targetBossWeight": 0.25,
+      "targetResourceWeight": 1.8,
+      "readingTargetWeight": 0.8,
+      "shopPreference": 1.25,
+      "riskTolerance": 0.5
+    },
+    {
+      "botId": 12,
+      "type": "Smart",
+      "displayName": "Smart Resource Holy",
+      "rethinkInterval": 20.0,
+      "attackCooldown": 1.0,
+      "visionRadius": 22.0,
+      "aggroRadius": 17.0,
+      "dodgeReactionMs": 265,
+      "confidence": 0.79,
+      "preferredPreset": 6,
+      "lootGreedFactor": 1.75,
+      "selfTattooBoldness": 0.46,
+      "enchantGreed": 0.9,
+      "personality": "ResourceAcquisition",
+      "targetPlayerWeight": 0.25,
+      "targetHumanoidAiWeight": 0.2,
+      "targetBossWeight": 0.25,
+      "targetResourceWeight": 1.8,
+      "readingTargetWeight": 0.8,
+      "shopPreference": 1.25,
+      "riskTolerance": 0.5
+    },
+    {
+      "botId": 13,
+      "type": "Smart",
+      "displayName": "Smart Boss Fire",
+      "rethinkInterval": 20.0,
+      "attackCooldown": 0.95,
+      "visionRadius": 24.0,
+      "aggroRadius": 18.0,
+      "dodgeReactionMs": 250,
+      "confidence": 0.82,
+      "preferredPreset": 1,
+      "lootGreedFactor": 0.55,
+      "selfTattooBoldness": 0.5,
+      "enchantGreed": 0.6,
+      "personality": "BossPriority",
+      "targetPlayerWeight": 0.2,
+      "targetHumanoidAiWeight": 0.2,
+      "targetBossWeight": 2.2,
+      "targetResourceWeight": 0.45,
+      "readingTargetWeight": 0.8,
+      "shopPreference": 0.55,
+      "riskTolerance": 0.65
+    },
+    {
+      "botId": 14,
+      "type": "Smart",
+      "displayName": "Smart Boss Frost",
+      "rethinkInterval": 20.0,
+      "attackCooldown": 0.95,
+      "visionRadius": 24.0,
+      "aggroRadius": 18.0,
+      "dodgeReactionMs": 255,
+      "confidence": 0.8,
+      "preferredPreset": 4,
+      "lootGreedFactor": 0.5,
+      "selfTattooBoldness": 0.5,
+      "enchantGreed": 0.62,
+      "personality": "BossPriority",
+      "targetPlayerWeight": 0.2,
+      "targetHumanoidAiWeight": 0.2,
+      "targetBossWeight": 2.2,
+      "targetResourceWeight": 0.45,
+      "readingTargetWeight": 0.8,
+      "shopPreference": 0.55,
+      "riskTolerance": 0.65
+    },
+    {
+      "botId": 15,
+      "type": "Smart",
+      "displayName": "Smart Boss Pure",
+      "rethinkInterval": 20.0,
+      "attackCooldown": 1.0,
+      "visionRadius": 25.0,
+      "aggroRadius": 19.0,
+      "dodgeReactionMs": 245,
+      "confidence": 0.84,
+      "preferredPreset": 7,
+      "lootGreedFactor": 0.45,
+      "selfTattooBoldness": 0.52,
+      "enchantGreed": 0.65,
+      "personality": "BossPriority",
+      "targetPlayerWeight": 0.2,
+      "targetHumanoidAiWeight": 0.2,
+      "targetBossWeight": 2.2,
+      "targetResourceWeight": 0.45,
+      "readingTargetWeight": 0.8,
+      "shopPreference": 0.55,
+      "riskTolerance": 0.65
+    },
+    {
+      "botId": 16,
+      "type": "Smart",
+      "displayName": "Smart Boss Mutation",
+      "rethinkInterval": 20.0,
+      "attackCooldown": 1.0,
+      "visionRadius": 24.0,
+      "aggroRadius": 18.0,
+      "dodgeReactionMs": 265,
+      "confidence": 0.78,
+      "preferredPreset": 5,
+      "lootGreedFactor": 0.6,
+      "selfTattooBoldness": 0.48,
+      "enchantGreed": 0.58,
+      "personality": "BossPriority",
+      "targetPlayerWeight": 0.2,
+      "targetHumanoidAiWeight": 0.2,
+      "targetBossWeight": 2.2,
+      "targetResourceWeight": 0.45,
+      "readingTargetWeight": 0.8,
+      "shopPreference": 0.55,
+      "riskTolerance": 0.65
+    },
+    {
+      "botId": 17,
+      "type": "Smart",
+      "displayName": "Smart Player Lightning",
+      "rethinkInterval": 20.0,
+      "attackCooldown": 0.85,
+      "visionRadius": 22.0,
+      "aggroRadius": 19.0,
+      "dodgeReactionMs": 220,
+      "confidence": 0.86,
+      "preferredPreset": 2,
+      "lootGreedFactor": 0.7,
+      "selfTattooBoldness": 0.55,
+      "enchantGreed": 0.65,
+      "personality": "PlayerPriority",
+      "targetPlayerWeight": 1.25,
+      "targetHumanoidAiWeight": 1.25,
+      "targetBossWeight": 0.25,
+      "targetResourceWeight": 0.3,
+      "readingTargetWeight": 1.5,
+      "shopPreference": 0.45,
+      "riskTolerance": 0.8
+    },
+    {
+      "botId": 18,
+      "type": "Smart",
+      "displayName": "Smart Player Pure",
+      "rethinkInterval": 20.0,
+      "attackCooldown": 0.85,
+      "visionRadius": 22.0,
+      "aggroRadius": 19.0,
+      "dodgeReactionMs": 225,
+      "confidence": 0.88,
+      "preferredPreset": 7,
+      "lootGreedFactor": 0.65,
+      "selfTattooBoldness": 0.58,
+      "enchantGreed": 0.62,
+      "personality": "PlayerPriority",
+      "targetPlayerWeight": 1.25,
+      "targetHumanoidAiWeight": 1.25,
+      "targetBossWeight": 0.25,
+      "targetResourceWeight": 0.3,
+      "readingTargetWeight": 1.5,
+      "shopPreference": 0.45,
+      "riskTolerance": 0.8
+    },
+    {
+      "botId": 19,
+      "type": "Smart",
+      "displayName": "Smart Player Fire",
+      "rethinkInterval": 20.0,
+      "attackCooldown": 0.85,
+      "visionRadius": 22.0,
+      "aggroRadius": 19.0,
+      "dodgeReactionMs": 215,
+      "confidence": 0.87,
+      "preferredPreset": 1,
+      "lootGreedFactor": 0.68,
+      "selfTattooBoldness": 0.56,
+      "enchantGreed": 0.66,
+      "personality": "PlayerPriority",
+      "targetPlayerWeight": 1.25,
+      "targetHumanoidAiWeight": 1.25,
+      "targetBossWeight": 0.25,
+      "targetResourceWeight": 0.3,
+      "readingTargetWeight": 1.5,
+      "shopPreference": 0.45,
+      "riskTolerance": 0.8
+    },
+    {
+      "botId": 20,
+      "type": "Smart",
+      "displayName": "Smart Player Mutation",
+      "rethinkInterval": 20.0,
+      "attackCooldown": 0.9,
+      "visionRadius": 23.0,
+      "aggroRadius": 19.0,
+      "dodgeReactionMs": 235,
+      "confidence": 0.83,
+      "preferredPreset": 5,
+      "lootGreedFactor": 0.72,
+      "selfTattooBoldness": 0.54,
+      "enchantGreed": 0.68,
+      "personality": "PlayerPriority",
+      "targetPlayerWeight": 1.25,
+      "targetHumanoidAiWeight": 1.25,
+      "targetBossWeight": 0.25,
+      "targetResourceWeight": 0.3,
+      "readingTargetWeight": 1.5,
+      "shopPreference": 0.45,
+      "riskTolerance": 0.8
+    },
+    {
+      "botId": 101,
+      "type": "Light",
+      "displayName": "Light Scout A",
+      "rethinkInterval": 45.0,
+      "attackCooldown": 1.0,
+      "visionRadius": 14.0,
+      "aggroRadius": 12.0,
+      "dodgeReactionMs": 350,
+      "confidence": 0.45,
+      "preferredPreset": 1,
+      "lootGreedFactor": 0.3,
+      "selfTattooBoldness": 0.0,
+      "enchantGreed": 0.0,
+      "personality": "Hybrid",
+      "targetPlayerWeight": 0.9,
+      "targetHumanoidAiWeight": 0.9,
+      "targetBossWeight": 0.2,
+      "targetResourceWeight": 0.4,
+      "readingTargetWeight": 0.8,
+      "shopPreference": 0.4,
+      "riskTolerance": 0.6
+    },
+    {
+      "botId": 102,
+      "type": "Light",
+      "displayName": "Light Scout B",
+      "rethinkInterval": 45.0,
+      "attackCooldown": 1.0,
+      "visionRadius": 14.0,
+      "aggroRadius": 12.0,
+      "dodgeReactionMs": 380,
+      "confidence": 0.4,
+      "preferredPreset": 2,
+      "lootGreedFactor": 0.3,
+      "selfTattooBoldness": 0.0,
+      "enchantGreed": 0.0,
+      "personality": "Hybrid",
+      "targetPlayerWeight": 0.9,
+      "targetHumanoidAiWeight": 0.9,
+      "targetBossWeight": 0.2,
+      "targetResourceWeight": 0.4,
+      "readingTargetWeight": 0.8,
+      "shopPreference": 0.4,
+      "riskTolerance": 0.6
+    },
+    {
+      "botId": 103,
+      "type": "Light",
+      "displayName": "Light Scout C",
+      "rethinkInterval": 45.0,
+      "attackCooldown": 1.1,
+      "visionRadius": 14.0,
+      "aggroRadius": 12.0,
+      "dodgeReactionMs": 400,
+      "confidence": 0.4,
+      "preferredPreset": 3,
+      "lootGreedFactor": 0.3,
+      "selfTattooBoldness": 0.0,
+      "enchantGreed": 0.0,
+      "personality": "Hybrid",
+      "targetPlayerWeight": 0.9,
+      "targetHumanoidAiWeight": 0.9,
+      "targetBossWeight": 0.2,
+      "targetResourceWeight": 0.4,
+      "readingTargetWeight": 0.8,
+      "shopPreference": 0.4,
+      "riskTolerance": 0.6
+    }
+  ],
+  "botBuildPresets": [
+    {
+      "presetId": 1,
+      "name": "火爆右臂流",
+      "tendency": [
+        0.55,
+        0.05,
+        0.05,
+        0.05,
+        0.05,
+        0.1,
+        0.15
+      ],
+      "preferredParts": [
+        4,
+        1,
+        2,
+        5,
+        6,
+        3
+      ],
+      "recommendedSeq": [
+        {
+          "partId": 4,
+          "colorId": 1,
+          "patternId": 2
+        },
+        {
+          "partId": 1,
+          "colorId": 1,
+          "patternId": 6
+        },
+        {
+          "partId": 2,
+          "colorId": 1,
+          "patternId": 1
+        }
+      ],
+      "earlyGameWeapon": 1,
+      "behaviorMacro": "Rush",
+      "preferredSkillQ": 1,
+      "preferredSkillE": 2,
+      "targetEnchantAffixes": [
+        101,
+        102
+      ]
+    },
+    {
+      "presetId": 2,
+      "name": "雷电链式流",
+      "tendency": [
+        0.05,
+        0.55,
+        0.05,
+        0.05,
+        0.05,
+        0.1,
+        0.15
+      ],
+      "preferredParts": [
+        3,
+        4,
+        1,
+        5,
+        6,
+        2
+      ],
+      "recommendedSeq": [
+        {
+          "partId": 3,
+          "colorId": 2,
+          "patternId": 5
+        },
+        {
+          "partId": 4,
+          "colorId": 2,
+          "patternId": 2
+        }
+      ],
+      "earlyGameWeapon": 1,
+      "behaviorMacro": "Pivot",
+      "preferredSkillQ": 3,
+      "preferredSkillE": 4,
+      "targetEnchantAffixes": [
+        103
+      ]
+    },
+    {
+      "presetId": 3,
+      "name": "毒木持久流",
+      "tendency": [
+        0.05,
+        0.05,
+        0.55,
+        0.05,
+        0.05,
+        0.1,
+        0.15
+      ],
+      "preferredParts": [
+        6,
+        2,
+        4,
+        5,
+        1,
+        3
+      ],
+      "recommendedSeq": [
+        {
+          "partId": 6,
+          "colorId": 3,
+          "patternId": 7
+        },
+        {
+          "partId": 2,
+          "colorId": 3,
+          "patternId": 3
+        }
+      ],
+      "earlyGameWeapon": 1,
+      "behaviorMacro": "Camp",
+      "preferredSkillQ": 5,
+      "preferredSkillE": 6,
+      "targetEnchantAffixes": [
+        104
+      ]
+    },
+    {
+      "presetId": 4,
+      "name": "寒冰防御流",
+      "tendency": [
+        0.05,
+        0.05,
+        0.05,
+        0.55,
+        0.05,
+        0.1,
+        0.15
+      ],
+      "preferredParts": [
+        2,
+        5,
+        4,
+        6,
+        1,
+        3
+      ],
+      "recommendedSeq": [
+        {
+          "partId": 2,
+          "colorId": 4,
+          "patternId": 3
+        },
+        {
+          "partId": 5,
+          "colorId": 4,
+          "patternId": 7
+        }
+      ],
+      "earlyGameWeapon": 1,
+      "behaviorMacro": "Camp",
+      "preferredSkillQ": 7,
+      "preferredSkillE": 8,
+      "targetEnchantAffixes": [
+        105,
+        106
+      ]
+    },
+    {
+      "presetId": 5,
+      "name": "变异乱斗流",
+      "tendency": [
+        0.05,
+        0.05,
+        0.05,
+        0.05,
+        0.55,
+        0.1,
+        0.15
+      ],
+      "preferredParts": [
+        1,
+        4,
+        3,
+        5,
+        6,
+        2
+      ],
+      "recommendedSeq": [
+        {
+          "partId": 1,
+          "colorId": 5,
+          "patternId": 6
+        },
+        {
+          "partId": 4,
+          "colorId": 5,
+          "patternId": 5
+        }
+      ],
+      "earlyGameWeapon": 1,
+      "behaviorMacro": "Hybrid",
+      "preferredSkillQ": 9,
+      "preferredSkillE": 10,
+      "targetEnchantAffixes": [
+        107
+      ]
+    },
+    {
+      "presetId": 6,
+      "name": "圣光奶妈流",
+      "tendency": [
+        0.05,
+        0.05,
+        0.05,
+        0.05,
+        0.05,
+        0.55,
+        0.2
+      ],
+      "preferredParts": [
+        2,
+        3,
+        1,
+        6,
+        5,
+        4
+      ],
+      "recommendedSeq": [
+        {
+          "partId": 2,
+          "colorId": 6,
+          "patternId": 4
+        },
+        {
+          "partId": 3,
+          "colorId": 6,
+          "patternId": 1
+        }
+      ],
+      "earlyGameWeapon": 1,
+      "behaviorMacro": "Camp",
+      "preferredSkillQ": 11,
+      "preferredSkillE": 12,
+      "targetEnchantAffixes": [
+        108
+      ]
+    },
+    {
+      "presetId": 7,
+      "name": "纯白控场流",
+      "tendency": [
+        0.05,
+        0.05,
+        0.05,
+        0.05,
+        0.05,
+        0.2,
+        0.55
+      ],
+      "preferredParts": [
+        3,
+        1,
+        4,
+        5,
+        6,
+        2
+      ],
+      "recommendedSeq": [
+        {
+          "partId": 3,
+          "colorId": 7,
+          "patternId": 4
+        },
+        {
+          "partId": 1,
+          "colorId": 7,
+          "patternId": 1
+        }
+      ],
+      "earlyGameWeapon": 1,
+      "behaviorMacro": "Pivot",
+      "preferredSkillQ": 13,
+      "preferredSkillE": 14,
+      "targetEnchantAffixes": [
+        109
+      ]
+    }
+  ],
+  "aiTuning": {
+    "lodRadius": 20.0,
+    "lodScanInterval": 0.2,
+    "smartColdInterval": 0.5,
+    "lightHotInterval": 0.2,
+    "lightColdInterval": 2.0,
+    "smartAttackRange": 4.0,
+    "lightAttackRange": 3.0,
+    "bossAttackRange": 5.0,
+    "smartMoveSpeed": 4.2,
+    "lightMoveSpeed": 2.4,
+    "bossMoveSpeed": 3.0,
+    "smartAttackCooldown": 1.0,
+    "lightAttackCooldown": 1.5,
+    "bossAttackCooldown": 1.5,
+    "smartVisionRadius": 22.0,
+    "lightVisionRadius": 16.0,
+    "smartSkillRadius": 8.0,
+    "smartSkillCooldown": 3.0,
+    "dodgeReactionSec": 0.18,
+    "smartDamage": 8.0,
+    "lightDamage": 5.0,
+    "bossDamage": 18.0
+  }
+}

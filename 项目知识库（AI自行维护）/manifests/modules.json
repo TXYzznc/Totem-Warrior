@@ -1,0 +1,639 @@
+{
+  "generated_at": "2026-07-09",
+  "source": "tools/ai_index/build_ai_manifests.py",
+  "module_root": "LegacyProjectArchive/Assets/Scripts/Modules",
+  "count": 24,
+  "modules": [
+    {
+      "name": "Audio",
+      "path": "LegacyProjectArchive/Assets/Scripts/Modules/Audio",
+      "owner": "client-unity",
+      "purpose": "音效、BGM、事件驱动的一次性播放与运行时音频桥接。",
+      "script_count": 2,
+      "main_scripts": [
+        "LegacyProjectArchive/Assets/Scripts/Modules/Audio/AudioBridge.cs",
+        "LegacyProjectArchive/Assets/Scripts/Modules/Audio/AudioModule.cs"
+      ],
+      "module_card": "LegacyProjectArchive/Assets/Scripts/Modules/Audio/MODULE.md",
+      "gdd_module": "项目知识库（AI自行维护）/GDD-v2/modules/13-AudioModule.md",
+      "gdd_module_exists": true,
+      "gdd_systems": [
+        "项目知识库（AI自行维护）/GDD-v2/systems/14-音效与环境音.md"
+      ],
+      "datatables": [],
+      "resources": [
+        "Assets/Resources/Audio"
+      ],
+      "specs": [],
+      "notes": []
+    },
+    {
+      "name": "Bot",
+      "path": "LegacyProjectArchive/Assets/Scripts/Modules/Bot",
+      "owner": "client-unity",
+      "purpose": "AI 对手控制、Bot 配置、构筑预设与战斗行为入口。",
+      "script_count": 5,
+      "main_scripts": [
+        "LegacyProjectArchive/Assets/Scripts/Modules/Bot/BotBuildPlanner.cs",
+        "LegacyProjectArchive/Assets/Scripts/Modules/Bot/BotControllerModule.cs",
+        "LegacyProjectArchive/Assets/Scripts/Modules/Bot/BotVisualBinder.cs",
+        "LegacyProjectArchive/Assets/Scripts/Modules/Bot/LightBotPlayerController.cs",
+        "LegacyProjectArchive/Assets/Scripts/Modules/Bot/SmartBotPlayerController.cs"
+      ],
+      "module_card": "LegacyProjectArchive/Assets/Scripts/Modules/Bot/MODULE.md",
+      "gdd_module": "项目知识库（AI自行维护）/GDD-v2/modules/16-BotControllerModule.md",
+      "gdd_module_exists": true,
+      "gdd_systems": [
+        "项目知识库（AI自行维护）/GDD-v2/systems/12-数值平衡与曲线.md"
+      ],
+      "datatables": [
+        "BotConfig",
+        "BotBuildPreset"
+      ],
+      "resources": [],
+      "specs": [
+        "openspec/specs/playtest-driver/spec.md"
+      ],
+      "notes": []
+    },
+    {
+      "name": "Camera",
+      "path": "LegacyProjectArchive/Assets/Scripts/Modules/Camera",
+      "owner": "client-unity",
+      "purpose": "2.5D 正交相机、LateUpdate 跟随、边界 clamp、震动整合。",
+      "script_count": 1,
+      "main_scripts": [
+        "LegacyProjectArchive/Assets/Scripts/Modules/Camera/CameraModule.cs"
+      ],
+      "module_card": "LegacyProjectArchive/Assets/Scripts/Modules/Camera/MODULE.md",
+      "gdd_module": null,
+      "gdd_module_exists": false,
+      "gdd_systems": [],
+      "datatables": [],
+      "resources": [],
+      "specs": [
+        "openspec/specs/camera-system/spec.md"
+      ],
+      "notes": [
+        "依赖 GameTickDriver 的 ILateTickable；避免在 Update/LateUpdate 中分配 GC。"
+      ]
+    },
+    {
+      "name": "Combat",
+      "path": "LegacyProjectArchive/Assets/Scripts/Modules/Combat",
+      "owner": "client-unity",
+      "purpose": "战斗意图、命中、伤害、攻击事件与玩家/敌人战斗流程。",
+      "script_count": 5,
+      "main_scripts": [
+        "LegacyProjectArchive/Assets/Scripts/Modules/Combat/CombatModule.cs",
+        "LegacyProjectArchive/Assets/Scripts/Modules/Combat/HumanPlayerController.cs",
+        "LegacyProjectArchive/Assets/Scripts/Modules/Combat/IPlayerController.cs",
+        "LegacyProjectArchive/Assets/Scripts/Modules/Combat/PlayerAnimatorBridge.cs",
+        "LegacyProjectArchive/Assets/Scripts/Modules/Combat/PlayerDamageReceiver.cs"
+      ],
+      "module_card": "LegacyProjectArchive/Assets/Scripts/Modules/Combat/MODULE.md",
+      "gdd_module": "项目知识库（AI自行维护）/GDD-v2/modules/02-CombatModule.md",
+      "gdd_module_exists": true,
+      "gdd_systems": [
+        "项目知识库（AI自行维护）/GDD-v2/systems/02-战斗手感.md"
+      ],
+      "datatables": [
+        "ProjectileConfig",
+        "WeaponConfig",
+        "SkillConfig"
+      ],
+      "resources": [],
+      "specs": [
+        "openspec/specs/player-attack-system/spec.md"
+      ],
+      "notes": []
+    },
+    {
+      "name": "DataTable",
+      "path": "LegacyProjectArchive/Assets/Scripts/Modules/DataTable",
+      "owner": "client-unity",
+      "purpose": "配置表加载、注册表消费、JSON 到强类型表的运行时入口。",
+      "script_count": 4,
+      "main_scripts": [
+        "LegacyProjectArchive/Assets/Scripts/Modules/DataTable/DataTableFile.cs",
+        "LegacyProjectArchive/Assets/Scripts/Modules/DataTable/DataTableModule.cs",
+        "LegacyProjectArchive/Assets/Scripts/Modules/DataTable/IDataTable.cs"
+      ],
+      "module_card": "LegacyProjectArchive/Assets/Scripts/Modules/DataTable/MODULE.md",
+      "gdd_module": null,
+      "gdd_module_exists": false,
+      "gdd_systems": [],
+      "datatables": [],
+      "resources": [],
+      "specs": [],
+      "notes": [
+        "旧表结构源已归档为证据；当前业务数据先改 GameData/AIData/DataTables/Business/*.json，再逆向生成 GameData/DataTables/Business/*.xlsx 和 runtime catalog。"
+      ]
+    },
+    {
+      "name": "Economy",
+      "path": "LegacyProjectArchive/Assets/Scripts/Modules/Economy",
+      "owner": "client-unity",
+      "purpose": "货币、资源、商店库存、宝箱奖励与经济消耗。",
+      "script_count": 3,
+      "main_scripts": [
+        "LegacyProjectArchive/Assets/Scripts/Modules/Economy/Actor.cs",
+        "LegacyProjectArchive/Assets/Scripts/Modules/Economy/EconomyEvents.cs",
+        "LegacyProjectArchive/Assets/Scripts/Modules/Economy/EconomyModule.cs"
+      ],
+      "module_card": "LegacyProjectArchive/Assets/Scripts/Modules/Economy/MODULE.md",
+      "gdd_module": "项目知识库（AI自行维护）/GDD-v2/modules/11-EconomyModule.md",
+      "gdd_module_exists": true,
+      "gdd_systems": [
+        "项目知识库（AI自行维护）/GDD-v2/systems/08-宝箱与探财节奏.md",
+        "项目知识库（AI自行维护）/GDD-v2/systems/09-纹身师与商人NPC.md"
+      ],
+      "datatables": [
+        "ResourceConfig",
+        "ItemConfig",
+        "ChestConfig",
+        "MerchantConfig",
+        "ShopStockConfig"
+      ],
+      "resources": [],
+      "specs": [],
+      "notes": []
+    },
+    {
+      "name": "Enemy",
+      "path": "LegacyProjectArchive/Assets/Scripts/Modules/Enemy",
+      "owner": "client-unity",
+      "purpose": "敌人、Boss、怪物属性、死亡与相关战斗接入。",
+      "script_count": 5,
+      "main_scripts": [
+        "LegacyProjectArchive/Assets/Scripts/Modules/Enemy/BossAIController.cs",
+        "LegacyProjectArchive/Assets/Scripts/Modules/Enemy/BossModule.cs",
+        "LegacyProjectArchive/Assets/Scripts/Modules/Enemy/EnemyAIController.cs",
+        "LegacyProjectArchive/Assets/Scripts/Modules/Enemy/EnemyEvents.cs",
+        "LegacyProjectArchive/Assets/Scripts/Modules/Enemy/EnemyModule.cs"
+      ],
+      "module_card": "LegacyProjectArchive/Assets/Scripts/Modules/Enemy/MODULE.md",
+      "gdd_module": "项目知识库（AI自行维护）/GDD-v2/modules/08-EnemyModule+BossModule.md",
+      "gdd_module_exists": true,
+      "gdd_systems": [
+        "项目知识库（AI自行维护）/GDD-v2/systems/11-怪物与Boss.md"
+      ],
+      "datatables": [
+        "EnemyConfig",
+        "BossPhaseConfig"
+      ],
+      "resources": [
+        "Assets/Resources/Prefab/Enemy",
+        "Assets/Resources/Sprite/Characters/Enemies"
+      ],
+      "specs": [],
+      "notes": []
+    },
+    {
+      "name": "Event",
+      "path": "LegacyProjectArchive/Assets/Scripts/Modules/Event",
+      "owner": "client-unity",
+      "purpose": "三选一事件、事件配置与事件 UI/奖励流程。",
+      "script_count": 3,
+      "main_scripts": [
+        "LegacyProjectArchive/Assets/Scripts/Modules/Event/EventEvents.cs",
+        "LegacyProjectArchive/Assets/Scripts/Modules/Event/EventModule.cs"
+      ],
+      "module_card": "LegacyProjectArchive/Assets/Scripts/Modules/Event/MODULE.md",
+      "gdd_module": "项目知识库（AI自行维护）/GDD-v2/modules/10-EventModule.md",
+      "gdd_module_exists": true,
+      "gdd_systems": [
+        "项目知识库（AI自行维护）/GDD-v2/systems/10-事件与三选一.md"
+      ],
+      "datatables": [
+        "EventConfig",
+        "ThreeChoiceOptionConfig"
+      ],
+      "resources": [],
+      "specs": [],
+      "notes": []
+    },
+    {
+      "name": "Flow",
+      "path": "LegacyProjectArchive/Assets/Scripts/Modules/Flow",
+      "owner": "client-lead",
+      "purpose": "流程编排、启动/运行阶段切换和模块间流程上下文。",
+      "script_count": 4,
+      "main_scripts": [
+        "LegacyProjectArchive/Assets/Scripts/Modules/Flow/FlowContext.cs",
+        "LegacyProjectArchive/Assets/Scripts/Modules/Flow/FlowModule.cs",
+        "LegacyProjectArchive/Assets/Scripts/Modules/Flow/IFlow.cs"
+      ],
+      "module_card": "LegacyProjectArchive/Assets/Scripts/Modules/Flow/MODULE.md",
+      "gdd_module": null,
+      "gdd_module_exists": false,
+      "gdd_systems": [],
+      "datatables": [],
+      "resources": [],
+      "specs": [
+        "openspec/specs/main-menu-flow/spec.md"
+      ],
+      "notes": [
+        "流程层只编排，不承载具体业务规则。"
+      ]
+    },
+    {
+      "name": "GameState",
+      "path": "LegacyProjectArchive/Assets/Scripts/Modules/GameState",
+      "owner": "client-unity",
+      "purpose": "游戏状态机、RunStarted/GameOver 等状态转换事件来源。",
+      "script_count": 1,
+      "main_scripts": [
+        "LegacyProjectArchive/Assets/Scripts/Modules/GameState/GameStateModule.cs"
+      ],
+      "module_card": "LegacyProjectArchive/Assets/Scripts/Modules/GameState/MODULE.md",
+      "gdd_module": null,
+      "gdd_module_exists": false,
+      "gdd_systems": [],
+      "datatables": [],
+      "resources": [],
+      "specs": [
+        "openspec/specs/main-menu-flow/spec.md"
+      ],
+      "notes": []
+    },
+    {
+      "name": "Input",
+      "path": "LegacyProjectArchive/Assets/Scripts/Modules/Input",
+      "owner": "client-unity",
+      "purpose": "玩家输入、测试输入注入与所有按键入口。",
+      "script_count": 3,
+      "main_scripts": [
+        "LegacyProjectArchive/Assets/Scripts/Modules/Input/IInputSimulator.cs",
+        "LegacyProjectArchive/Assets/Scripts/Modules/Input/InputModule.cs",
+        "LegacyProjectArchive/Assets/Scripts/Modules/Input/InputSimulator.cs"
+      ],
+      "module_card": "LegacyProjectArchive/Assets/Scripts/Modules/Input/MODULE.md",
+      "gdd_module": "项目知识库（AI自行维护）/GDD-v2/modules/05-InputModule.md",
+      "gdd_module_exists": true,
+      "gdd_systems": [
+        "项目知识库（AI自行维护）/GDD-v2/systems/05-闪避与身法.md"
+      ],
+      "datatables": [],
+      "resources": [],
+      "specs": [
+        "openspec/specs/playtest-driver/spec.md"
+      ],
+      "notes": [
+        "所有按键输入必须走 TotemInputService / ITotemInputProvider，不允许业务代码直接读 Input。"
+      ]
+    },
+    {
+      "name": "MapGen",
+      "path": "LegacyProjectArchive/Assets/Scripts/Modules/MapGen",
+      "owner": "client-unity",
+      "purpose": "地图生成/加载、缩圈、地形与交互物布点。",
+      "script_count": 3,
+      "main_scripts": [
+        "LegacyProjectArchive/Assets/Scripts/Modules/MapGen/MapGenModule.cs"
+      ],
+      "module_card": "LegacyProjectArchive/Assets/Scripts/Modules/MapGen/MODULE.md",
+      "gdd_module": "项目知识库（AI自行维护）/GDD-v2/modules/07-MapGenModule.md",
+      "gdd_module_exists": true,
+      "gdd_systems": [
+        "项目知识库（AI自行维护）/GDD-v2/systems/07-地图生成.md"
+      ],
+      "datatables": [
+        "MapTemplateConfig",
+        "ZoneShrinkConfig"
+      ],
+      "resources": [],
+      "specs": [
+        "openspec/changes/26-fixed-map-three-themes/specs/map-fixed-terrain/spec.md",
+        "openspec/changes/26-fixed-map-three-themes/specs/map-interactive-spawn/spec.md"
+      ],
+      "notes": []
+    },
+    {
+      "name": "NPC",
+      "path": "LegacyProjectArchive/Assets/Scripts/Modules/NPC",
+      "owner": "client-unity",
+      "purpose": "纹身师、商人等 NPC 的生成、交互与 UI 接入。",
+      "script_count": 4,
+      "main_scripts": [
+        "LegacyProjectArchive/Assets/Scripts/Modules/NPC/NPCModule.cs"
+      ],
+      "module_card": "LegacyProjectArchive/Assets/Scripts/Modules/NPC/MODULE.md",
+      "gdd_module": "项目知识库（AI自行维护）/GDD-v2/modules/09-NPCModule.md",
+      "gdd_module_exists": true,
+      "gdd_systems": [
+        "项目知识库（AI自行维护）/GDD-v2/systems/09-纹身师与商人NPC.md"
+      ],
+      "datatables": [
+        "NPCConfig",
+        "MerchantConfig",
+        "ShopStockConfig"
+      ],
+      "resources": [
+        "Assets/Resources/Prefab/NPC",
+        "Assets/Resources/Sprite/Characters/NPCs"
+      ],
+      "specs": [],
+      "notes": []
+    },
+    {
+      "name": "Resource",
+      "path": "LegacyProjectArchive/Assets/Scripts/Modules/Resource",
+      "owner": "client-unity",
+      "purpose": "资源定义和轻量资源查询入口。",
+      "script_count": 1,
+      "main_scripts": [
+        "LegacyProjectArchive/Assets/Scripts/Modules/Resource/ResourceModule.cs"
+      ],
+      "module_card": "LegacyProjectArchive/Assets/Scripts/Modules/Resource/MODULE.md",
+      "gdd_module": null,
+      "gdd_module_exists": false,
+      "gdd_systems": [],
+      "datatables": [
+        "ResourceConfig"
+      ],
+      "resources": [
+        "Assets/Resources"
+      ],
+      "specs": [],
+      "notes": []
+    },
+    {
+      "name": "Save",
+      "path": "LegacyProjectArchive/Assets/Scripts/Modules/Save",
+      "owner": "client-unity",
+      "purpose": "存档、序列化、运行记录保存与恢复。",
+      "script_count": 6,
+      "main_scripts": [
+        "LegacyProjectArchive/Assets/Scripts/Modules/Save/ISaveProvider.cs",
+        "LegacyProjectArchive/Assets/Scripts/Modules/Save/LocalFileSaveProvider.cs",
+        "LegacyProjectArchive/Assets/Scripts/Modules/Save/SaveData.cs",
+        "LegacyProjectArchive/Assets/Scripts/Modules/Save/SaveEvents.cs",
+        "LegacyProjectArchive/Assets/Scripts/Modules/Save/SaveMigrator.cs",
+        "LegacyProjectArchive/Assets/Scripts/Modules/Save/SaveModule.cs"
+      ],
+      "module_card": "LegacyProjectArchive/Assets/Scripts/Modules/Save/MODULE.md",
+      "gdd_module": "项目知识库（AI自行维护）/GDD-v2/modules/14-SaveModule.md",
+      "gdd_module_exists": true,
+      "gdd_systems": [],
+      "datatables": [],
+      "resources": [],
+      "specs": [
+        "openspec/specs/workflow/spec.md"
+      ],
+      "notes": []
+    },
+    {
+      "name": "Scene",
+      "path": "LegacyProjectArchive/Assets/Scripts/Modules/Scene",
+      "owner": "client-unity",
+      "purpose": "GF_X Launch 场景入口、场景切换和旧场景证据边界。",
+      "script_count": 2,
+      "main_scripts": [
+        "LegacyProjectArchive/Assets/Scripts/Modules/Scene/SceneModule.cs"
+      ],
+      "module_card": "LegacyProjectArchive/Assets/Scripts/Modules/Scene/MODULE.md",
+      "gdd_module": null,
+      "gdd_module_exists": false,
+      "gdd_systems": [],
+      "datatables": [],
+      "resources": [
+        "Assets/Game/Scene",
+        "LegacyProjectArchive/Assets/Scenes"
+      ],
+      "specs": [
+        "openspec/specs/main-menu-flow/spec.md"
+      ],
+      "notes": []
+    },
+    {
+      "name": "Settings",
+      "path": "LegacyProjectArchive/Assets/Scripts/Modules/Settings",
+      "owner": "client-unity",
+      "purpose": "设置项、设置 UI 数据接入与运行时选项。",
+      "script_count": 1,
+      "main_scripts": [
+        "LegacyProjectArchive/Assets/Scripts/Modules/Settings/SettingsModule.cs"
+      ],
+      "module_card": "LegacyProjectArchive/Assets/Scripts/Modules/Settings/MODULE.md",
+      "gdd_module": null,
+      "gdd_module_exists": false,
+      "gdd_systems": [],
+      "datatables": [],
+      "resources": [
+        "Assets/Resources/Prefab/UI/Settings.prefab"
+      ],
+      "specs": [
+        "openspec/specs/settings/spec.md"
+      ],
+      "notes": []
+    },
+    {
+      "name": "Skill",
+      "path": "LegacyProjectArchive/Assets/Scripts/Modules/Skill",
+      "owner": "client-unity",
+      "purpose": "主动技能配置、释放、命中效果与技能 UI 数据。",
+      "script_count": 2,
+      "main_scripts": [
+        "LegacyProjectArchive/Assets/Scripts/Modules/Skill/SkillHitResolver.cs",
+        "LegacyProjectArchive/Assets/Scripts/Modules/Skill/SkillModule.cs"
+      ],
+      "module_card": "LegacyProjectArchive/Assets/Scripts/Modules/Skill/MODULE.md",
+      "gdd_module": "项目知识库（AI自行维护）/GDD-v2/modules/04-SkillModule.md",
+      "gdd_module_exists": true,
+      "gdd_systems": [
+        "项目知识库（AI自行维护）/GDD-v2/systems/04-主动技能.md"
+      ],
+      "datatables": [
+        "SkillConfig"
+      ],
+      "resources": [
+        "Assets/Resources/Sprite/Skills"
+      ],
+      "specs": [],
+      "notes": []
+    },
+    {
+      "name": "Spawner",
+      "path": "LegacyProjectArchive/Assets/Scripts/Modules/Spawner",
+      "owner": "client-unity",
+      "purpose": "玩家、敌人、Bot、掉落物等运行时生成入口。",
+      "script_count": 2,
+      "main_scripts": [
+        "LegacyProjectArchive/Assets/Scripts/Modules/Spawner/EntityRef.cs",
+        "LegacyProjectArchive/Assets/Scripts/Modules/Spawner/SpawnerModule.cs"
+      ],
+      "module_card": "LegacyProjectArchive/Assets/Scripts/Modules/Spawner/MODULE.md",
+      "gdd_module": "项目知识库（AI自行维护）/GDD-v2/modules/06-SpawnerModule.md",
+      "gdd_module_exists": true,
+      "gdd_systems": [],
+      "datatables": [
+        "EnemyConfig",
+        "WeaponDropConfig",
+        "ChestConfig"
+      ],
+      "resources": [
+        "Assets/Resources/Prefab"
+      ],
+      "specs": [],
+      "notes": []
+    },
+    {
+      "name": "Status",
+      "path": "LegacyProjectArchive/Assets/Scripts/Modules/Status",
+      "owner": "client-unity",
+      "purpose": "状态效果、DoT、控制、叠层与状态图标事件来源。",
+      "script_count": 1,
+      "main_scripts": [
+        "LegacyProjectArchive/Assets/Scripts/Modules/Status/StatusEffectModule.cs"
+      ],
+      "module_card": "LegacyProjectArchive/Assets/Scripts/Modules/Status/MODULE.md",
+      "gdd_module": null,
+      "gdd_module_exists": false,
+      "gdd_systems": [],
+      "datatables": [],
+      "resources": [],
+      "specs": [
+        "openspec/specs/player-attack-system/spec.md"
+      ],
+      "notes": []
+    },
+    {
+      "name": "Tattoo",
+      "path": "LegacyProjectArchive/Assets/Scripts/Modules/Tattoo",
+      "owner": "client-unity",
+      "purpose": "纹身构筑、部位/颜色/元素/形状、附魔、读条与构筑策略。",
+      "script_count": 37,
+      "main_scripts": [
+        "LegacyProjectArchive/Assets/Scripts/Modules/Tattoo/TattooModule.cs"
+      ],
+      "module_card": "LegacyProjectArchive/Assets/Scripts/Modules/Tattoo/MODULE.md",
+      "gdd_module": "项目知识库（AI自行维护）/GDD-v2/modules/01-TattooModule.md",
+      "gdd_module_exists": true,
+      "gdd_systems": [
+        "项目知识库（AI自行维护）/GDD-v2/systems/01-纹身构筑系统.md"
+      ],
+      "datatables": [
+        "TattooColorConfig",
+        "TattooElementConfig",
+        "TattooPartConfig",
+        "TattooPatternConfig",
+        "TattooShapeConfig",
+        "TattooReadingTimeConfig",
+        "TattooEnchantAffixConfig",
+        "TattooEnchantRecipeConfig"
+      ],
+      "resources": [
+        "Assets/Resources/Sprite/Tattoo"
+      ],
+      "specs": [
+        "openspec/specs/tattoo/spec.md"
+      ],
+      "notes": []
+    },
+    {
+      "name": "UI",
+      "path": "LegacyProjectArchive/Assets/Scripts/Modules/UI",
+      "owner": "client-unity",
+      "purpose": "UGUI Form、HUD、菜单、运行结果、商店、纹身界面与 UI 数据绑定。",
+      "script_count": 10,
+      "main_scripts": [
+        "LegacyProjectArchive/Assets/Scripts/Modules/UI/CharacterSelectForm.cs",
+        "LegacyProjectArchive/Assets/Scripts/Modules/UI/CombatHUDForm.cs",
+        "LegacyProjectArchive/Assets/Scripts/Modules/UI/DamageFloatTextBehaviour.cs",
+        "LegacyProjectArchive/Assets/Scripts/Modules/UI/MainMenuForm.cs",
+        "LegacyProjectArchive/Assets/Scripts/Modules/UI/PauseMenuForm.cs",
+        "LegacyProjectArchive/Assets/Scripts/Modules/UI/RunResultForm.cs",
+        "LegacyProjectArchive/Assets/Scripts/Modules/UI/SettingsForm.cs",
+        "LegacyProjectArchive/Assets/Scripts/Modules/UI/StartupSelectForm.cs",
+        "LegacyProjectArchive/Assets/Scripts/Modules/UI/StatusIconController.cs",
+        "LegacyProjectArchive/Assets/Scripts/Modules/UI/UIModule.cs"
+      ],
+      "module_card": "LegacyProjectArchive/Assets/Scripts/Modules/UI/MODULE.md",
+      "gdd_module": "项目知识库（AI自行维护）/GDD-v2/modules/12-UIModule+各UIForm.md",
+      "gdd_module_exists": true,
+      "gdd_systems": [
+        "项目知识库（AI自行维护）/GDD-v2/systems/13-UI与HUD.md"
+      ],
+      "datatables": [
+        "UIFormConfig"
+      ],
+      "resources": [
+        "Assets/Resources/Prefab/UI",
+        "Assets/Resources/Sprite/UI"
+      ],
+      "specs": [
+        "openspec/specs/ui-workflow/spec.md",
+        "openspec/specs/core-ui-screens/spec.md"
+      ],
+      "notes": [
+        "新 UI 必须走结构先行 6 阶段流程。"
+      ]
+    },
+    {
+      "name": "VFX",
+      "path": "LegacyProjectArchive/Assets/Scripts/Modules/VFX",
+      "owner": "client-unity",
+      "purpose": "命中特效、粒子、镜头抖动、战斗视觉反馈。",
+      "script_count": 4,
+      "main_scripts": [
+        "LegacyProjectArchive/Assets/Scripts/Modules/VFX/CameraShakeBehaviour.cs",
+        "LegacyProjectArchive/Assets/Scripts/Modules/VFX/HitsparkBehaviour.cs",
+        "LegacyProjectArchive/Assets/Scripts/Modules/VFX/VFXModule.cs",
+        "LegacyProjectArchive/Assets/Scripts/Modules/VFX/VignettePulseBehaviour.cs"
+      ],
+      "module_card": "LegacyProjectArchive/Assets/Scripts/Modules/VFX/MODULE.md",
+      "gdd_module": "项目知识库（AI自行维护）/GDD-v2/modules/15-VFXModule.md",
+      "gdd_module_exists": true,
+      "gdd_systems": [],
+      "datatables": [],
+      "resources": [
+        "Assets/Resources/Effect",
+        "Assets/Resources/Sprite/Effects"
+      ],
+      "specs": [
+        "openspec/specs/visual-polish/spec.md"
+      ],
+      "notes": []
+    },
+    {
+      "name": "Weapon",
+      "path": "LegacyProjectArchive/Assets/Scripts/Modules/Weapon",
+      "owner": "client-unity",
+      "purpose": "武器配置、攻击、拾取、升级、特性和弹道接入。",
+      "script_count": 8,
+      "main_scripts": [
+        "LegacyProjectArchive/Assets/Scripts/Modules/Weapon/AttackProjectileView.cs",
+        "LegacyProjectArchive/Assets/Scripts/Modules/Weapon/ChestInteractTrigger.cs",
+        "LegacyProjectArchive/Assets/Scripts/Modules/Weapon/MerchantTrigger.cs",
+        "LegacyProjectArchive/Assets/Scripts/Modules/Weapon/PlayerWeaponMounter.cs",
+        "LegacyProjectArchive/Assets/Scripts/Modules/Weapon/WeaponModule.cs",
+        "LegacyProjectArchive/Assets/Scripts/Modules/Weapon/WeaponPickupTrigger.cs",
+        "LegacyProjectArchive/Assets/Scripts/Modules/Weapon/WeaponSpawnerModule.cs",
+        "LegacyProjectArchive/Assets/Scripts/Modules/Weapon/WeaponUpgradeModule.cs"
+      ],
+      "module_card": "LegacyProjectArchive/Assets/Scripts/Modules/Weapon/MODULE.md",
+      "gdd_module": "项目知识库（AI自行维护）/GDD-v2/modules/03-WeaponModule.md",
+      "gdd_module_exists": true,
+      "gdd_systems": [
+        "项目知识库（AI自行维护）/GDD-v2/systems/03-武器系统.md"
+      ],
+      "datatables": [
+        "WeaponConfig",
+        "WeaponDropConfig",
+        "WeaponTraitConfig",
+        "ProjectileConfig"
+      ],
+      "resources": [
+        "Assets/Resources/Prefab/Weapon",
+        "Assets/Resources/Sprite/Weapons"
+      ],
+      "specs": [
+        "openspec/specs/weapon-pickup/spec.md",
+        "openspec/specs/player-attack-system/spec.md"
+      ],
+      "notes": []
+    }
+  ],
+  "warnings": []
+}

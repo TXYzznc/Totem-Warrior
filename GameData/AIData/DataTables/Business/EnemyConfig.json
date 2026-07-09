@@ -1,0 +1,332 @@
+{
+  "schemaVersion": 1,
+  "kind": "GF_X.DataTable.AI",
+  "tableName": "EnemyConfig",
+  "relativePath": "Business/EnemyConfig",
+  "sourceExcel": "GameData/DataTables/Business/EnemyConfig.xlsx",
+  "sourceExcelLastWriteUtc": "2026-07-08T14:56:02.1066372Z",
+  "generatedAtUtc": "2026-07-08T14:56:02.3111374Z",
+  "tableComment": "Business table migrated from LegacyProjectArchive/Assets/Resources/DataTable/EnemyConfig.json. GF_X Id is numeric; original business keys are preserved as data columns.",
+  "columns": [
+    {
+      "index": 1,
+      "key": "Note1",
+      "name": "#",
+      "type": "#",
+      "comment": "#",
+      "role": "comment"
+    },
+    {
+      "index": 2,
+      "key": "Id",
+      "name": "Id",
+      "type": "int",
+      "comment": "GF_X numeric row id. Original business key is preserved as a data column when its name is not Id.",
+      "role": "id"
+    },
+    {
+      "index": 3,
+      "key": "Note3",
+      "name": "",
+      "type": "",
+      "comment": "Note",
+      "role": "comment"
+    },
+    {
+      "index": 4,
+      "key": "EnemyId",
+      "name": "EnemyId",
+      "type": "string",
+      "comment": "怪物唯一 ID，如 enemy_ai_servo_light",
+      "role": "data"
+    },
+    {
+      "index": 5,
+      "key": "DisplayName",
+      "name": "DisplayName",
+      "type": "string",
+      "comment": "本地化键，如 enemy.ai_servo",
+      "role": "data"
+    },
+    {
+      "index": 6,
+      "key": "ThemeId",
+      "name": "ThemeId",
+      "type": "string",
+      "comment": "AI_RUINS | ALIEN_HIVE | VIRUS_SWAMP | common",
+      "role": "data"
+    },
+    {
+      "index": 7,
+      "key": "Tier",
+      "name": "Tier",
+      "type": "string",
+      "comment": "Light | Elite | Boss",
+      "role": "data"
+    },
+    {
+      "index": 8,
+      "key": "BaseHP",
+      "name": "BaseHP",
+      "type": "float",
+      "comment": "Run 第 0 分钟基础 HP",
+      "role": "data"
+    },
+    {
+      "index": 9,
+      "key": "HPCurveK",
+      "name": "HPCurveK",
+      "type": "float",
+      "comment": "HP 线性增长系数，HP_t = BaseHP × (1 + K × t_min)",
+      "role": "data"
+    },
+    {
+      "index": 10,
+      "key": "BaseDamage",
+      "name": "BaseDamage",
+      "type": "float",
+      "comment": "基础攻击伤害 (point)",
+      "role": "data"
+    },
+    {
+      "index": 11,
+      "key": "DamageCurveK",
+      "name": "DamageCurveK",
+      "type": "float",
+      "comment": "伤害随时间增长系数",
+      "role": "data"
+    },
+    {
+      "index": 12,
+      "key": "MoveSpeed",
+      "name": "MoveSpeed",
+      "type": "float",
+      "comment": "移动速度 (m/s)",
+      "role": "data"
+    },
+    {
+      "index": 13,
+      "key": "AttackRange",
+      "name": "AttackRange",
+      "type": "float",
+      "comment": "攻击判定范围 (m)",
+      "role": "data"
+    },
+    {
+      "index": 14,
+      "key": "DetectRange",
+      "name": "DetectRange",
+      "type": "float",
+      "comment": "感知半径 (m)；失追距离 = DetectRange × 2",
+      "role": "data"
+    },
+    {
+      "index": 15,
+      "key": "SkillIds",
+      "name": "SkillIds",
+      "type": "string",
+      "comment": "技能 ID 逗号分隔；Light 通常空",
+      "role": "data"
+    },
+    {
+      "index": 16,
+      "key": "LootTableId",
+      "name": "LootTableId",
+      "type": "string",
+      "comment": "随机掉落表 ID",
+      "role": "data"
+    },
+    {
+      "index": 17,
+      "key": "GuaranteedLootIds",
+      "name": "GuaranteedLootIds",
+      "type": "string",
+      "comment": "v2.1 新增：必掉物品 ID 逗号分隔；Elite 必含稀有颜料 ID",
+      "role": "data"
+    },
+    {
+      "index": 18,
+      "key": "ElitePaintDropRare",
+      "name": "ElitePaintDropRare",
+      "type": "int",
+      "comment": "v2.1 新增：精英必掉稀有颜料标记；1=必掉，0=不掉",
+      "role": "data"
+    },
+    {
+      "index": 19,
+      "key": "XPReward",
+      "name": "XPReward",
+      "type": "int",
+      "comment": "击杀奖励 XP",
+      "role": "data"
+    },
+    {
+      "index": 20,
+      "key": "CoinReward",
+      "name": "CoinReward",
+      "type": "string",
+      "comment": "击杀掉落金币范围，格式 min-max",
+      "role": "data"
+    },
+    {
+      "index": 21,
+      "key": "PoolIds",
+      "name": "PoolIds",
+      "type": "string",
+      "comment": "所属怪物池 ID，逗号分隔",
+      "role": "data"
+    }
+  ],
+  "rows": [
+    {
+      "row": 5,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "1",
+        "EnemyId": "enemy_common_light_01",
+        "DisplayName": "enemy.common_light",
+        "ThemeId": "common",
+        "Tier": "Light",
+        "BaseHP": "55.0",
+        "HPCurveK": "0.1",
+        "BaseDamage": "8.0",
+        "DamageCurveK": "0.05",
+        "MoveSpeed": "3.5",
+        "AttackRange": "1.5",
+        "DetectRange": "10.0",
+        "SkillIds": "",
+        "LootTableId": "loot_light_common",
+        "GuaranteedLootIds": "",
+        "ElitePaintDropRare": "0",
+        "XPReward": "5",
+        "CoinReward": "2-6",
+        "PoolIds": "pool_common"
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "1",
+        "",
+        "enemy_common_light_01",
+        "enemy.common_light",
+        "common",
+        "Light",
+        "55.0",
+        "0.1",
+        "8.0",
+        "0.05",
+        "3.5",
+        "1.5",
+        "10.0",
+        "",
+        "loot_light_common",
+        "",
+        "0",
+        "5",
+        "2-6",
+        "pool_common"
+      ]
+    },
+    {
+      "row": 6,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "2",
+        "EnemyId": "enemy_common_elite_01",
+        "DisplayName": "enemy.common_elite",
+        "ThemeId": "common",
+        "Tier": "Elite",
+        "BaseHP": "150.0",
+        "HPCurveK": "0.12",
+        "BaseDamage": "18.0",
+        "DamageCurveK": "0.07",
+        "MoveSpeed": "4.0",
+        "AttackRange": "2.0",
+        "DetectRange": "14.0",
+        "SkillIds": "skill_slash",
+        "LootTableId": "loot_elite_common",
+        "GuaranteedLootIds": "paint_rare_001",
+        "ElitePaintDropRare": "1",
+        "XPReward": "20",
+        "CoinReward": "10-20",
+        "PoolIds": "pool_common,pool_elite"
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "2",
+        "",
+        "enemy_common_elite_01",
+        "enemy.common_elite",
+        "common",
+        "Elite",
+        "150.0",
+        "0.12",
+        "18.0",
+        "0.07",
+        "4.0",
+        "2.0",
+        "14.0",
+        "skill_slash",
+        "loot_elite_common",
+        "paint_rare_001",
+        "1",
+        "20",
+        "10-20",
+        "pool_common,pool_elite"
+      ]
+    },
+    {
+      "row": 7,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "3",
+        "EnemyId": "enemy_ai_ruins_boss_01",
+        "DisplayName": "enemy.ai_ruins_boss",
+        "ThemeId": "AI_RUINS",
+        "Tier": "Boss",
+        "BaseHP": "900.0",
+        "HPCurveK": "0.0",
+        "BaseDamage": "35.0",
+        "DamageCurveK": "0.0",
+        "MoveSpeed": "5.0",
+        "AttackRange": "3.0",
+        "DetectRange": "30.0",
+        "SkillIds": "skill_stomp,skill_beam,skill_summon",
+        "LootTableId": "loot_boss_ai_ruins",
+        "GuaranteedLootIds": "",
+        "ElitePaintDropRare": "0",
+        "XPReward": "200",
+        "CoinReward": "80-120",
+        "PoolIds": "pool_boss"
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "3",
+        "",
+        "enemy_ai_ruins_boss_01",
+        "enemy.ai_ruins_boss",
+        "AI_RUINS",
+        "Boss",
+        "900.0",
+        "0.0",
+        "35.0",
+        "0.0",
+        "5.0",
+        "3.0",
+        "30.0",
+        "skill_stomp,skill_beam,skill_summon",
+        "loot_boss_ai_ruins",
+        "",
+        "0",
+        "200",
+        "80-120",
+        "pool_boss"
+      ]
+    }
+  ]
+}

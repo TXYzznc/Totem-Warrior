@@ -1,0 +1,192 @@
+{
+  "schemaVersion": 1,
+  "kind": "GF_X.DataTable.AI",
+  "tableName": "BossPhaseConfig",
+  "relativePath": "Business/BossPhaseConfig",
+  "sourceExcel": "GameData/DataTables/Business/BossPhaseConfig.xlsx",
+  "sourceExcelLastWriteUtc": "2026-07-08T14:56:00.4276372Z",
+  "generatedAtUtc": "2026-07-08T14:56:00.6306386Z",
+  "tableComment": "Business table migrated from LegacyProjectArchive/Assets/Resources/DataTable/BossPhaseConfig.json. GF_X Id is numeric; original business keys are preserved as data columns.",
+  "columns": [
+    {
+      "index": 1,
+      "key": "Note1",
+      "name": "#",
+      "type": "#",
+      "comment": "#",
+      "role": "comment"
+    },
+    {
+      "index": 2,
+      "key": "Id",
+      "name": "Id",
+      "type": "int",
+      "comment": "GF_X numeric row id. Original business key is preserved as a data column when its name is not Id.",
+      "role": "id"
+    },
+    {
+      "index": 3,
+      "key": "Note3",
+      "name": "",
+      "type": "",
+      "comment": "Note",
+      "role": "comment"
+    },
+    {
+      "index": 4,
+      "key": "BossId",
+      "name": "BossId",
+      "type": "string",
+      "comment": "对应 EnemyConfig.EnemyId",
+      "role": "data"
+    },
+    {
+      "index": 5,
+      "key": "PhaseIndex",
+      "name": "PhaseIndex",
+      "type": "int",
+      "comment": "阶段编号：1 / 2 / 3",
+      "role": "data"
+    },
+    {
+      "index": 6,
+      "key": "HPThreshold",
+      "name": "HPThreshold",
+      "type": "float",
+      "comment": "进入本阶段的 HP 百分比：1.0=满血，0.6=60%HP",
+      "role": "data"
+    },
+    {
+      "index": 7,
+      "key": "NewSkillIds",
+      "name": "NewSkillIds",
+      "type": "string",
+      "comment": "本阶段解锁技能 ID，逗号分隔，叠加不替换",
+      "role": "data"
+    },
+    {
+      "index": 8,
+      "key": "EnrageMultiplier",
+      "name": "EnrageMultiplier",
+      "type": "float",
+      "comment": "本阶段伤害倍率，1.0=无变化",
+      "role": "data"
+    },
+    {
+      "index": 9,
+      "key": "PhaseVFXId",
+      "name": "PhaseVFXId",
+      "type": "string",
+      "comment": "阶段转换特效 ID",
+      "role": "data"
+    },
+    {
+      "index": 10,
+      "key": "PhaseBGMCueId",
+      "name": "PhaseBGMCueId",
+      "type": "string",
+      "comment": "阶段 BGM cue ID",
+      "role": "data"
+    },
+    {
+      "index": 11,
+      "key": "DeathPatternRecipeId",
+      "name": "DeathPatternRecipeId",
+      "type": "string",
+      "comment": "v2.1 新增：Boss 死亡时必掉的主题配方 ID（仅 PhaseIndex=3 有效，其余填空）",
+      "role": "data"
+    }
+  ],
+  "rows": [
+    {
+      "row": 5,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "1",
+        "BossId": "enemy_ai_ruins_boss_01",
+        "PhaseIndex": "1",
+        "HPThreshold": "1.0",
+        "NewSkillIds": "skill_stomp,skill_beam",
+        "EnrageMultiplier": "1.0",
+        "PhaseVFXId": "vfx_boss_enter",
+        "PhaseBGMCueId": "bgm_boss_phase1",
+        "DeathPatternRecipeId": ""
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "1",
+        "",
+        "enemy_ai_ruins_boss_01",
+        "1",
+        "1.0",
+        "skill_stomp,skill_beam",
+        "1.0",
+        "vfx_boss_enter",
+        "bgm_boss_phase1",
+        ""
+      ]
+    },
+    {
+      "row": 6,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "2",
+        "BossId": "enemy_ai_ruins_boss_01",
+        "PhaseIndex": "2",
+        "HPThreshold": "0.6",
+        "NewSkillIds": "skill_summon",
+        "EnrageMultiplier": "1.18",
+        "PhaseVFXId": "vfx_boss_phase2",
+        "PhaseBGMCueId": "bgm_boss_phase2",
+        "DeathPatternRecipeId": ""
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "2",
+        "",
+        "enemy_ai_ruins_boss_01",
+        "2",
+        "0.6",
+        "skill_summon",
+        "1.18",
+        "vfx_boss_phase2",
+        "bgm_boss_phase2",
+        ""
+      ]
+    },
+    {
+      "row": 7,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "3",
+        "BossId": "enemy_ai_ruins_boss_01",
+        "PhaseIndex": "3",
+        "HPThreshold": "0.3",
+        "NewSkillIds": "skill_enrage_aoe",
+        "EnrageMultiplier": "1.35",
+        "PhaseVFXId": "vfx_boss_phase3",
+        "PhaseBGMCueId": "bgm_boss_phase3",
+        "DeathPatternRecipeId": "recipe_ai_ruins_boss"
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "3",
+        "",
+        "enemy_ai_ruins_boss_01",
+        "3",
+        "0.3",
+        "skill_enrage_aoe",
+        "1.35",
+        "vfx_boss_phase3",
+        "bgm_boss_phase3",
+        "recipe_ai_ruins_boss"
+      ]
+    }
+  ]
+}
