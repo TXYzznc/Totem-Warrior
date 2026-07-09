@@ -2697,7 +2697,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "右臂"
+  m_text: "\u53F3\u81C2"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f1db6bb75db0cd045a37b72cae95b787, type: 2}
   m_sharedMaterial: {fileID: 1551785620450567033, guid: f1db6bb75db0cd045a37b72cae95b787,
@@ -3088,7 +3088,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "取消"
+  m_text: "\u53D6\u6D88"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f1db6bb75db0cd045a37b72cae95b787, type: 2}
   m_sharedMaterial: {fileID: 1551785620450567033, guid: f1db6bb75db0cd045a37b72cae95b787,
@@ -3223,7 +3223,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "纹身工作台"
+  m_text: "\u7EB9\u8EAB\u5DE5\u4F5C\u53F0"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f1db6bb75db0cd045a37b72cae95b787, type: 2}
   m_sharedMaterial: {fileID: 1551785620450567033, guid: f1db6bb75db0cd045a37b72cae95b787,
@@ -3614,7 +3614,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "右臂 / 黄 / 直线"
+  m_text: "\u53F3\u81C2 / \u9EC4 / \u76F4\u7EBF"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f1db6bb75db0cd045a37b72cae95b787, type: 2}
   m_sharedMaterial: {fileID: 1551785620450567033, guid: f1db6bb75db0cd045a37b72cae95b787,
@@ -4105,7 +4105,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "开始绘制"
+  m_text: "\u5F00\u59CB\u7ED8\u5236"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f1db6bb75db0cd045a37b72cae95b787, type: 2}
   m_sharedMaterial: {fileID: 1551785620450567033, guid: f1db6bb75db0cd045a37b72cae95b787,
@@ -7183,7 +7183,6 @@ GameObject:
   - component: {fileID: 3842913136586690709}
   - component: {fileID: 3893439296074192935}
   - component: {fileID: 5107700421236127753}
-  - component: {fileID: 6821643036369825376}
   m_Layer: 0
   m_Name: SelfTattoo
   m_TagString: Untagged
@@ -7297,53 +7296,6 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &6821643036369825376
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8437537185760700946}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 327ac0a83d892a5448782d34013d4486, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _canvasGroup: {fileID: 5107700421236127753}
-  _titleText: {fileID: 7813166332939592089}
-  _closeBtn: {fileID: 4467418902443776540}
-  _partButtons:
-  - {fileID: 6158841362645145143}
-  - {fileID: 751634446750039513}
-  - {fileID: 527514537026377205}
-  - {fileID: 3978410720580965714}
-  - {fileID: 4032835654191797788}
-  - {fileID: 7979050353641197812}
-  _selectedPartText: {fileID: 3726639170984854629}
-  _colorButtons:
-  - {fileID: 965950593097788106}
-  - {fileID: 8112148387828176901}
-  - {fileID: 2728875862425989243}
-  - {fileID: 5379071362955814958}
-  - {fileID: 4538101393152778322}
-  - {fileID: 564896640067651726}
-  - {fileID: 7978828886866103108}
-  _colorSelectedGlow: {fileID: 2043761998874989005}
-  _patternButtons:
-  - {fileID: 4637598474674279291}
-  - {fileID: 6781187035088415303}
-  - {fileID: 8060028655351165702}
-  - {fileID: 7222625322088799455}
-  - {fileID: 241496555475409313}
-  - {fileID: 8373481619101600765}
-  - {fileID: 5018727597569777098}
-  - {fileID: 8379402251351260414}
-  _previewText: {fileID: 7769485260397846302}
-  _readingTimeText: {fileID: 4523376940318151629}
-  _hourglassIcon: {fileID: 1670305787111603349}
-  _startButton: {fileID: 8991716258432086876}
-  _startButtonText: {fileID: 6248093749926691486}
-  _cancelButton: {fileID: 5860058193708304641}
 --- !u!1 &8716513423930268299
 GameObject:
   m_ObjectHideFlags: 0

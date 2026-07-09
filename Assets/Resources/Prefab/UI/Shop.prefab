@@ -52,8 +52,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   m_Padding:
     m_Left: 10
     m_Right: 10
@@ -1770,7 +1770,6 @@ GameObject:
   - component: {fileID: 6981346844967047291}
   - component: {fileID: 3801114696468507827}
   - component: {fileID: 1503512285159410525}
-  - component: {fileID: 2140794415946599037}
   m_Layer: 0
   m_Name: Shop
   m_TagString: Untagged
@@ -1879,22 +1878,6 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &2140794415946599037
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3815810466502269191}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5dc240a8de36d9b479b5b5817ef300b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _canvasGroup: {fileID: 1503512285159410525}
-  _coinText: {fileID: 3412715985459921462}
-  _inventoryRoot: {fileID: 6956261068329736128}
-  _closeBtn: {fileID: 1685234799238190098}
 --- !u!1 &4411085005284737989
 GameObject:
   m_ObjectHideFlags: 0

@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 2288702799349849410}
   - component: {fileID: 4497088725489145635}
   - component: {fileID: 120840070463002781}
-  - component: {fileID: 1942776296425026573}
   m_Layer: 0
   m_Name: StartupSelect
   m_TagString: Untagged
@@ -103,23 +102,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &1942776296425026573
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 395005129993631285}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39300e4c432a98141860be3ca76b50af, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _colorRoot: {fileID: 0}
-  _weaponRoot: {fileID: 0}
-  _patternRoot: {fileID: 0}
-  _confirmBtn: {fileID: 0}
-  _cancelBtn: {fileID: 0}
 --- !u!1 &803170966882038318
 GameObject:
   m_ObjectHideFlags: 0

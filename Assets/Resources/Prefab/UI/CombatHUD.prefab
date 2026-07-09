@@ -88,7 +88,6 @@ GameObject:
   - component: {fileID: 5359823867435340343}
   - component: {fileID: 2665014489894641177}
   - component: {fileID: 4796279950584907832}
-  - component: {fileID: 1865467278135516168}
   m_Layer: 0
   m_Name: CombatHUD
   m_TagString: Untagged
@@ -187,32 +186,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &1865467278135516168
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 796038501294459473}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a386bfcf91ee6d4ba55061216fbe3f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _hpBar: {fileID: 707198332730018713}
-  _skillQ: {fileID: 243546851744806776}
-  _cdMaskQ: {fileID: 2039280923631709083}
-  _skillE: {fileID: 3029755407100609862}
-  _cdMaskE: {fileID: 283113839277027965}
-  _weaponIcon: {fileID: 2567425158920152970}
-  _ammoText: {fileID: 1876881071641506774}
-  _buildListRoot: {fileID: 7155344466081968757}
-  _logListRoot: {fileID: 889308846823722543}
-  _logRowTemplate: {fileID: 4755882994610205234}
-  _zoneTimerText: {fileID: 4559217988681849768}
-  _minimapImage: {fileID: 8120350485393979839}
-  _bossHpRoot: {fileID: 622407027909257193}
-  _bossHpBar: {fileID: 3902812254215417361}
 --- !u!1 &956880142953498244
 GameObject:
   m_ObjectHideFlags: 0
@@ -702,8 +675,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
@@ -712,7 +685,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text:
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f1db6bb75db0cd045a37b72cae95b787, type: 2}
   m_sharedMaterial: {fileID: 1551785620450567033, guid: f1db6bb75db0cd045a37b72cae95b787,
@@ -1063,8 +1036,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 0.8784314, b: 0.2, a: 1}
   m_RaycastTarget: 1
@@ -1073,7 +1046,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text:
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f1db6bb75db0cd045a37b72cae95b787, type: 2}
   m_sharedMaterial: {fileID: 1551785620450567033, guid: f1db6bb75db0cd045a37b72cae95b787,

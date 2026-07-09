@@ -5025,7 +5025,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2645613937017615856}
   - component: {fileID: 1453536834789232076}
-  - component: {fileID: 3948651000000000001}
   m_Layer: 0
   m_Name: Settings
   m_TagString: Untagged
@@ -5066,37 +5065,6 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &3948651000000000001
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7083053541227461109}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e48651c665e13b48ade59a194a00cd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _canvasGroup: {fileID: 0}
-  _sliderBGM: {fileID: 0}
-  _valueTextBGM: {fileID: 0}
-  _sliderSFX: {fileID: 0}
-  _valueTextSFX: {fileID: 0}
-  _togglePerformant: {fileID: 0}
-  _circlePerformant: {fileID: 0}
-  _toggleBalanced: {fileID: 0}
-  _circleBalanced: {fileID: 0}
-  _toggleHighFidelity: {fileID: 0}
-  _circleHighFidelity: {fileID: 0}
-  _spriteRadioNormal: {fileID: 0}
-  _spriteRadioSelected: {fileID: 0}
-  _keyBindTextMove: {fileID: 0}
-  _keyBindTextAttack: {fileID: 0}
-  _keyBindTextPause: {fileID: 0}
-  _cancelButton: {fileID: 0}
-  _saveButton: {fileID: 0}
-  _closeButton: {fileID: 0}
 --- !u!1 &7120973065151255098
 GameObject:
   m_ObjectHideFlags: 0
