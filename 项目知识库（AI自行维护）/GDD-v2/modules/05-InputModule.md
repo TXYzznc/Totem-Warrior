@@ -204,7 +204,7 @@ sequenceDiagram
    由 `HumanPlayerController.ShouldChargedAttack()` 消费，对接 CONTRACT §1.1 `ChargedAttackEvent`。本期落 API 不落实现，留给 02-CombatModule 详设决定蓄力进度 UI 是否走事件。
 2. **手柄死区配置**：`InputBindingConfig.GamepadDeadzone` 默认 0.15，但 Xbox 与 PS 手柄死区特性不同（Xbox 摇杆漂移更明显）。**推荐**：本期硬编码 0.15 单值，未来按手柄类型分两档（Xbox 0.18 / PS 0.12）。该决策与新输入系统（Input System Package）的 Processors 机制紧密绑定，是否升级新输入系统留作开放问题。
 3. **移动端虚拟摇杆死区**：触屏摇杆需要「外圈死区（防误触移出激活区）」+「内圈死区（防抖动）」两档。`InputBindingConfig.TouchAreaRect` 仅描述按钮位置，**死区参数缺失**。建议追加 `TouchInnerDeadzone / TouchOuterDeadzone` 两字段，留待 14-移动端适配 GDD 决定。
-4. **是否引入新输入系统 Package**：Unity 6 LTS 推荐 `com.unity.inputsystem`，但本模块当前用旧 `UnityEngine.Input`。**取舍**：
+4. **是否引入新输入系统 Package**：Unity 2022.3.62f3 可选 `com.unity.inputsystem`，但本模块当前用旧 `UnityEngine.Input`。**取舍**：
    - 升级新输入系统 → 重绑定 / 设备热插拔 / 联机回放更顺，但本期工作量 ≈ 2 人日，且需要 PlayMode 测试 fixture 改造。
    - 保持旧 Input → 本期零成本，但蓄力 / 重绑定 / 手柄全得手写。
    **建议**：本期保留旧 Input，2.0 阶段（真联机）一并升级。开放给 client-lead 评审。

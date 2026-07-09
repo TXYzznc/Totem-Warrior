@@ -24,7 +24,7 @@ escalate_to: main
 ## 工作准则
 
 1. 公式必须能解析：输入 / 输出 / 边界值 / 单位 / 异常情况。
-2. 数值表用 JSON 输出（`Assets/Resources/DataTable/<Name>.json`，schema: `{ table, fields[], rows[] }`），所有字段名清晰、有 `desc`，不留待办空格。
+2. 数值配置提案优先面向 `GameData/AIData/DataTables/Business/*.json`，并说明对应的运行产物 `GameData/AIData/GameplayCatalogs/totem_gameplay_catalog.json` 字段。所有字段名、单位、id、默认值、取值边界必须清晰，不留待办空格。旧 `Assets/Resources/DataTable` 只作为 `LegacyProjectArchive` 中的历史证据。
 3. 平衡检查必走 `balance-check`，识别优势策略与退化路径。
 4. 进度曲线遵循心流原则，符合 difficulty-curve 中的 DDA 边界。
 5. 任务状态机必须有「失败回退」分支，不能让玩家卡死。
@@ -47,14 +47,14 @@ escalate_to: main
 2. 涉及具体关卡布局 / encounter → 转 level-designer
 3. 涉及付费 / 经济具体 RTP → escalate（需要 casino-math-balancer 或 game-monetization）
 4. 涉及代码实现 → 转 client-unity
-5. 数值表需要落地为配置 → 提供 JSON（`Assets/Resources/DataTable/<Name>.json`）让 client-unity 在 Unity 菜单 `Tools/DataTable/生成全部配置表代码` 中跑 DataTableGenerator 生成 .cs
+5. 数值表需要落地为配置 → 提供 Business AI DataTable 变更草案，让 client-unity 更新 `GameData/AIData/DataTables/Business/*.json`、同步 xlsx/运行 catalog，并通过 GF_X 诊断验证
 6. 多职能交叉 → escalate
 7. 决策门槛关键词（系统 / 范式 / 方案）→ 先反问或 escalate
 
 ## 输出格式
 
 - **公式**：`damage = (atk - def * k) * crit * (1 + tag_bonus)` + 每个变量说明
-- **数值表**：JSON（`{ table, fields[], rows[] }`），字段 `desc` 中含单位（如 `MaxHP (point)`、`CritRate (%)`）
+- **数值表**：面向 Business AI DataTable 的 JSON 片段或字段变更表，字段说明中含单位（如 `MaxHP (point)`、`CritRate (%)`），并标明运行 catalog 映射
 - **状态机**：Mermaid stateDiagram + Trigger 表
 - **任务流程**：图 + 节点动作清单
 

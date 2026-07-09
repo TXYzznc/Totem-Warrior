@@ -1,56 +1,57 @@
 # main-menu-flow Specification
 
 ## Purpose
-TBD - created by archiving change 07-main-menu-flow. Update Purpose after archive.
+
+记录迁移后的 GF_X 原生前端流程。旧 `Assets/Scenes/MainMenu.unity` + `GameApp` + `ModuleRunner` 启动链只作为历史证据保存在 archive 和 `LegacyProjectArchive`，不再作为当前运行规格。
+
 ## Requirements
-### Requirement: MainMenu.unity MUST 作为启动场景且不挂 GameApp
 
-`Assets/Scenes/MainMenu.unity` MUST 在 `EditorBuildSettings` 中位于 Launch.unity 之前作为启动场景。MainMenu 场景 MUST NOT 含 `GameApp` 组件 — 此时 `ModuleRunner` MUST NOT 启动，21 业务模块 MUST NOT 实例化（避免 SpawnerModule 提前 spawn 50 actor、BotControllerModule 提前空跑 AI、缩圈倒计时空跑）。MainMenu 场景 MUST 含 MainCamera + EventSystem + MenuCanvas（StartButton + QuitButton + 标题）+ MainMenuRoot（挂 `MainMenuLauncher`）。
+### Requirement: GF_X Launch MUST own the front-end flow
 
-#### Scenario: 启动游戏第一帧是主菜单
+项目 MUST 使用 `Assets/Game/Scene/Launch.unity` 作为默认启动场景，并通过 GF_X Procedure/runtime service 打开前端 UI，而不是切换到旧 `Assets/Scenes/MainMenu.unity`。
 
-- **GIVEN** 用户启动游戏可执行文件
-- **WHEN** Unity 加载第一个场景
-- **THEN** MUST 是 `MainMenu.unity`，不是 `Launch.unity`
-- **AND** `GameApp` MUST NOT 被实例化
-- **AND** `ModuleRunner.StartAsync` MUST NOT 被调用
-- **AND** Console MUST 输出 `[MainMenuLauncher] Action=Ready` 日志
-- **AND** Console MUST NOT 含任何异常
+#### Scenario: 默认启动进入 GF_X 主菜单
 
-### Requirement: MainMenuLauncher MUST 处理开始/退出按钮并切换到 Launch 场景
+- **GIVEN** Unity 从 EditorBuildSettings 的默认场景启动
+- **WHEN** GF_X 完成 Preload 并进入 Workspace/TotemGameProcedure
+- **THEN** `TotemGameRuntime` MUST 启动
+- **AND** `TotemUIService` MUST 打开 `MainMenu`
+- **AND** `GameApp`、`ModuleRunner`、`EventBus`、`UIModule`、旧 `DataTableModule` MUST NOT 作为运行时依赖被挂载
 
-`MainMenuLauncher.cs` MUST 在 `Awake` 时注册 `StartButton.onClick` → `SceneManager.LoadScene("Launch")`、`QuitButton.onClick` → `Application.Quit()`。状态转换 MUST 由 UI 按钮 `onClick` 驱动，MUST NOT 走 `InputModule` 的按键事件路径（`InputModule` 仅用于战斗内操作）。
+### Requirement: Main menu flow MUST progress through GF_X UI services
 
-#### Scenario: 点击开始游戏进入 Launch 场景
+主菜单到战斗 HUD 的第一轮流程 MUST 由 GF_X UI form 和 runtime service 驱动：`MainMenu -> CharacterSelect -> StartupSelect -> CombatHUD`。
 
-- **GIVEN** 玩家正在 MainMenu 场景
-- **WHEN** 点击 `StartButton`
-- **THEN** MUST 触发 `SceneManager.LoadScene("Launch")`
-- **AND** Launch 场景的 `GameApp` MUST 启动 → `ModuleRunner.StartAsync` MUST 跑通 21 模块
-- **AND** `MainMenuForm.OnStartClicked` MUST 调 `GameStateModule.StartGame()`（GameState: MainMenu → InGame）
+#### Scenario: 开始游戏进入角色选择
 
-#### Scenario: 点击退出按钮关闭进程
+- **GIVEN** `MainMenu` 已打开
+- **WHEN** 玩家点击开始按钮
+- **THEN** `TotemUIService.OpenCharacterSelect()` MUST 打开 `CharacterSelect`
+- **AND** `TotemGameFlowService` MUST 进入 `CharacterSelect` 状态
 
-- **GIVEN** 玩家正在 MainMenu 场景
-- **WHEN** 点击 `QuitButton`
-- **THEN** MUST 调用 `Application.Quit()`
-- **AND** 编辑器模式下 MUST 停止 Play
+#### Scenario: 角色选择进入启动选择
 
-### Requirement: UIModule MUST 在 GameApp 就绪后从 UIFormConfig 动态实例化 9 个 Form
+- **GIVEN** `CharacterSelect` 已打开
+- **WHEN** 玩家选择一个角色并继续
+- **THEN** `TotemUIService.OpenStartupSelect()` MUST 打开 `StartupSelect`
+- **AND** 选中的角色 MUST 写入 `TotemGameFlowService` 的启动选择状态
 
-`UIModule.cs` MUST 订阅 `OnGameReady` 事件；事件触发时 MUST 从 `UIFormConfig` 表读取全部 9 个 Form Prefab，统一实例化到 `UIRoot`（挂 `DontDestroyOnLoad`）。每个 Form 实例化后 MUST 强制设置：`Canvas.renderMode = ScreenSpaceOverlay`、`Canvas.sortingOrder` 按表配置、`RectTransform` 全屏 stretch、初始 GameState 喂入。Launch 场景中 MUST NOT 含任何 `_Temp` Form 预放实例。
+#### Scenario: 启动选择进入战斗 HUD
 
-#### Scenario: 切换场景后 Form 持续存在
+- **GIVEN** `StartupSelect` 已打开
+- **WHEN** 玩家确认初始颜色、武器和图案
+- **THEN** `TotemGameFlowService.ConfirmStartup(...)` MUST 保存启动选择
+- **AND** `TotemUIService.OpenCombatHud()` MUST 打开 `CombatHUD`
+- **AND** 战斗 HUD MUST 能读取玩家 HP、武器、技能、敌人数量、缩圈、NPC/交互提示等 GF_X runtime 数据
 
-- **GIVEN** `GameApp` 已就绪，9 个 Form 已动态实例化到 `UIRoot`
-- **WHEN** `SceneManager.LoadScene("Launch")` 触发
-- **THEN** `UIRoot` MUST NOT 被销毁（`DontDestroyOnLoad`）
-- **AND** 9 个 Form 实例 MUST 持续存在，按新场景的 `GameState` 自动显隐
+### Requirement: Legacy scene roots MUST stay archived
 
-#### Scenario: Form 实例 RenderMode 矫正
+旧 `Assets/Scenes/Launch.unity`、`Assets/Scenes/MainMenu.unity` 和旧沙盒场景 MUST 移出活动 `Assets` 根目录，保存在 `LegacyProjectArchive/Assets/Scenes` 作为历史参考。
 
-- **GIVEN** UIFormConfig 中某 Form Prefab 因历史原因 `Canvas.renderMode = WorldSpace`
-- **WHEN** `UIModule` 实例化该 Form
-- **THEN** 实例的 `Canvas.renderMode` MUST 被覆盖为 `ScreenSpaceOverlay`
-- **AND** `RectTransform` MUST 被强制设为全屏 stretch（anchorMin=(0,0), anchorMax=(1,1), offsetMin=offsetMax=0）
+#### Scenario: 活动场景根保持干净
 
+- **GIVEN** 项目完成 GF_X 启动迁移
+- **WHEN** Clean Workspace 诊断运行
+- **THEN** `Assets/Scenes` MUST NOT 存在
+- **AND** BuildSettings MUST NOT 启用任何旧 `Assets/Scenes/*` 场景
+- **AND** `Assets/Game/Scene/Launch.unity` MUST 保持存在并启用

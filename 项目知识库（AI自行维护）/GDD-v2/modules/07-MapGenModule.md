@@ -145,7 +145,7 @@ sequenceDiagram
     end
 ```
 
-**关键约束**：阶段 A/B/C 在单个 `UniTask` 内串行；阶段 C 内部使用 `NavMeshSurface.BuildNavMeshAsync()`（Unity 6 + AI Navigation 2.x）异步烘焙，期间主线程仍可渲染 loading 画面。下游订阅者一律在阶段 C 完成后才被唤醒，不允许中途 peek。
+**关键约束**：阶段 A/B/C 在单个 `UniTask` 内串行；阶段 C 内部使用 `NavMeshSurface.BuildNavMeshAsync()`（需在 Unity 2022.3.62f3 下确认 AI Navigation 包版本）异步烘焙，期间主线程仍可渲染 loading 画面。下游订阅者一律在阶段 C 完成后才被唤醒，不允许中途 peek。
 
 ---
 

@@ -1,10 +1,36 @@
 # AI 友好型项目 — 项目指南（模板版）
 
-> Unity 6.3 LTS 自研轻量模块化框架的 **AI 协作模板**。
+> Unity 2022.3.62f3 + GF_X runtime 的 **AI 协作模板**。
 >
-> 核心配置：**20 人虚拟开发团队** + **110 个 Claude skills** + **8 个 MCP 工具（默认启 4，按需启 4）** + **openspec 一站式工作流** + **决策门槛 hook**。
+> 核心配置：**20 人虚拟开发团队** + **113 个本地 Claude skills** + **8 个 MCP 工具（默认启 4，按需启 4）** + **openspec 一站式工作流** + **决策门槛 hook**。
 
 ---
+
+## 当前 GF_X 覆盖层（优先级最高）
+
+本项目已经从旧轻量框架迁入 GF_X。后续开发、测试、重构和 Agent 路由必须先遵守本节；本文件后面的旧模板段落如果与本节冲突，以本节为准。
+
+- Unity 版本：`2022.3.62f3`
+- 如果任何旧文档、skill 参考或外部链接写着 Unity 6 / 6000.3，它们只能作为通用思路参考；落地代码、包版本、API 用法必须按 `2022.3.62f3` 校验。
+- 当前启动场景：`Assets/Game/Scene/Launch.unity`
+- 当前业务运行时代码：`Assets/Game/Scripts`
+- 旧业务代码证据：`LegacyProjectArchive`，不得重新挂回启动或运行流程
+- 旧美术资源可复用：`Assets/Resources/Prefab`、`Assets/Resources/Sprite` 等只作为资源来源，加载和生命周期必须走 GF_X runtime 服务
+- AI 可编辑业务配置源：`GameData/AIData/DataTables/Business/*.json`
+- 策划可读业务配置表：`GameData/DataTables/Business/*.xlsx`
+- 运行配置产物：`GameData/AIData/GameplayCatalogs/totem_gameplay_catalog.json`（由 Business AI DataTable 生成）
+- 运行资源索引：`GameData/AIData/GameplayCatalogs/totem_runtime_assets.json`
+- 旧业务 DataTable 证据：`LegacyProjectArchive/Assets/Resources/DataTable`
+
+禁止在新工作中恢复或依赖旧运行宿主：`GameApp`、`ModuleRunner`、`EventBus`、`UIModule`、`DataTableModule`、`SaveModule`。不要新建 `Assets/Resources/DataTable`，不要为新玩法运行旧 `DataTableGenerator`。当前业务配置工作流为：AI 修改 `GameData/AIData/DataTables/Business/*.json` → 逆向生成 `GameData/DataTables/Business/*.xlsx` → 生成/检查 `GameData/AIData/GameplayCatalogs/totem_gameplay_catalog.json` → 跑 GF_X 诊断。
+
+Unity 诊断优先使用：
+
+```text
+python .claude/skills/unity-skills/scripts/unity_skills.py totem_diagnostics_run_all --port 8092
+```
+
+人工在 Unity 菜单中复跑时可用 `Game Framework/GameTools/Diagnostics/Run All`；AI 自动验证不要再通过通用 `editor_execute_menu` 路由这个菜单。
 
 ## 一、AI 行为准则（每次任务必须严格执行）
 
@@ -22,7 +48,7 @@
 - 优先用简单方案，不要过度工程。
 - 涉及项目代码和业务开发时，必须先遵循本 CLAUDE.md 与 [conventions.md](./conventions.md)。
 - 查找具体系统/问题文档时，先查阅[项目知识库索引 INDEX.md](../项目知识库（AI自行维护）/INDEX.md)。
-- 所有按键输入必须走 `InputModule`。
+- 所有按键输入必须走 `TotemInputService` / `ITotemInputProvider`。
 
 ---
 
@@ -147,7 +173,7 @@
 
 - 与阶段 A 共识**直接冲突**（grill 说了 A，实现发现必须做 B）
 - 引入**不可逆变更**（删除/重命名公共 API、迁移数据、改动他人正在用的契约）
-- 触及**项目宪法级**文件（`.claude/` / `openspec/` / `Assets/Scripts/Core/` 框架核心）
+- 触及**项目宪法级**文件（`.claude/` / `openspec/` / `Assets/Game/ScriptsBuiltin/` GF_X 框架核心）
 
 其他所有模糊点（命名、内部实现选型、测试粒度、日志格式等）一律自决。
 
@@ -201,6 +227,19 @@ openspec/changes/<NN-name>/
 4. 调绘图模型逐项生图，输出到 `openspec/changes/<change-name>/art/raw/` 或 `art/mockups/`
 5. 同目录写 `生成记录.md`；更新 `art/prompts.md` 头部状态字段为「已处理」
 6. 无可用绘图模型时明确阻塞，不能假装已生成
+
+### 角色帧动画生产约束（强制）
+
+需要美术资源时，主对话可按当前已确定的项目美术风格直接 fan-out 给 art-2d / art-anim / codex-art-gen / frame-ronin 等子 agent 或工具；资源生成过程中不用反复等待用户确认，只有工具不可用、缺少必要参考图或触及不可逆工程变更时才交回主对话。
+
+角色帧动画必须按**单角色连续批处理**执行，禁止把多个角色混在同一画布、同一输出目录或同一切图/命名批次里：
+
+1. 每个角色单独建批次目录：`openspec/changes/<change>/art/raw/characters/<character_id>/`，并传入该角色参考图、动作列表、风格约束和目标尺寸。
+2. 同一角色的所有目标动作连续生成；按精细度选择「每张画布一个动画」或「每张画布最多两个动画」，但画布内仍只能包含同一个角色。
+3. 精度基线固定为：每个动作 4 个方向，每个方向 4 帧；方向枚举使用 `down` / `up` / `left` / `right`。
+4. 生成后在同一批次内统一做抠图、切图、去背景、边界检查、重命名和导入设置检查，避免和其它角色动画资源污染。
+5. 单帧命名优先使用 `{character_id}_{action}_{direction}_{frame:00}.png`，例如 `hero_idle_down_00.png`；整张源画布和切分清单必须保留在同一角色目录下。
+6. 入库后同步更新资源索引 / runtime asset catalog / 相关 usage 说明；角色动画资源不得绕过 `TotemAssetService` 或直接硬编码路径。
 
 ### UI 制作子流程（强制时序，v3 — 2026-07-01 结构先行重构）
 
@@ -266,18 +305,21 @@ openspec/changes/<NN-name>/
 
 ## 七、技术栈
 
-- **框架核心**：自研 IGameModule / ModuleRunner / EventBus（见 §九）
-- **UniTask**：所有异步操作用 `await UniTask`，不用协程
-- **DOTween**：UI 动画
-- **DataTable**：JSON 直写（`Assets/Resources/DataTable/*.json`，每张表 `{ table, fields[], rows[] }`）→ Unity 菜单 `Tools/DataTable/生成全部配置表代码` → 自动生成 `Assets/Scripts/DataTable/<Name>.cs`。**不要用 Excel / .xlsx / .bytes**。
-- **ResourceModule**：统一资源加载（见 [资源配置规范.md](./资源配置规范.md)）
+- **框架核心**：GF_X runtime / Procedure / GameTools / Diagnostics，当前入口为 `Assets/Game/Scene/Launch.unity`
+- **业务代码**：新代码只放 `Assets/Game/Scripts`，旧 `Assets/Scripts` 代码已归档到 `LegacyProjectArchive`
+- **UniTask / DOTween**：以 GF_X 迁入版本为准
+- **AI 可编辑业务配置**：`GameData/AIData/DataTables/Business/*.json`
+- **策划可读业务配置**：`GameData/DataTables/Business/*.xlsx`
+- **运行配置产物**：`GameData/AIData/GameplayCatalogs/totem_gameplay_catalog.json`
+- **运行资源索引**：`GameData/AIData/GameplayCatalogs/totem_runtime_assets.json`
+- **旧 DataTable**：仅作为 `LegacyProjectArchive/Assets/Resources/DataTable` 下的需求证据，不作为新运行时配置源
 - **开发热重载**：Unity Domain Reload + Enter Play Mode Options
 
 ---
 
 ## 八、项目环境与工具栈
 
-- **平台**：Unity 6.3 LTS
+- **平台**：Unity 2022.3.62f3
 - **OS**：Windows 10，shell 用 **bash**（不是 PowerShell）—— 路径用 `/`
 - **Python 环境**：`.venv/`（frame-ronin MCP），见 [setup.md](../setup.md) 与 [requirements.txt](../requirements.txt)
 - **凭据**：`.env`（从 [`.env.example`](../.env.example) 复制并填值，已加 .gitignore）
@@ -298,12 +340,12 @@ openspec/changes/<NN-name>/
 
 ### codebase-memory MCP 使用准则
 
-**优先**调用 `codebase-memory` 查询 `Assets/Scripts/` 代码结构（函数定义、调用链、类型层级、跨文件引用）；**不要**用 Read + Grep 逐文件扫。
+**优先**调用 `codebase-memory` 查询 `Assets/Game/Scripts/` 代码结构（函数定义、调用链、类型层级、跨文件引用）；**不要**用 Read + Grep 逐文件扫。
 
 适用：
 - "X 方法在哪里定义/被谁调用"
 - "Foo 类的所有 public 接口"
-- "ModuleRunner 依赖了哪些类"
+- "TotemDataService 被哪些 runtime service 使用"
 - 重构前的 impact 分析
 
 不适用：读单个文件具体实现（用 Read）、改代码（用 Edit）。
@@ -320,36 +362,36 @@ openspec/changes/<NN-name>/
 
 ## 九、框架核心概念
 
-### 模块系统
+### GF_X 运行入口
 
 ```
-IGameModule          — 模块接口（ModuleCategory, Dependencies, InitAsync, ShutdownAsync）
-ModuleRunner         — 模块生命周期管理（WhenAny + 持续扫描）
-EventBus             — 模块间通信（Publish / Subscribe / RequestAsync）
-[EventHandler]       — 属性驱动的事件订阅
-ModuleRunner.GetModule<T>() — 高频数据查询缓存入口
+Assets/Game/Scene/Launch.unity
+Assets/Game/Scripts
+GameData/AIData/GameplayCatalogs/totem_gameplay_catalog.json
+GameData/AIData/GameplayCatalogs/totem_runtime_assets.json
 ```
 
-### 模块通信
+### 服务边界
 
-| | EventBus | GetModule\<T\> |
-|---|---|---|
-| 用途 | "某件事发生了" | "当前状态是什么" |
-| 方式 | Publish / Subscribe | 读缓存引用 |
-| 开销 | 异步 | 同步，零开销 |
+- Procedure 负责流程切换，不复用旧 `GameApp` 启动宿主。
+- Runtime service 负责玩法生命周期、数据读取、资源索引和诊断暴露。
+- 输入必须经过 `TotemInputService` 的 provider 边界，业务脚本不得散落直接输入读取。
+- 资源加载必须经过 `TotemAssetService` / runtime asset catalog，旧 `Resources` 路径只作为资源来源。
+- gameplay catalog 是当前运行配置源，不在 service 内部保存第二套隐藏静态配置。
 
 ### 初始化流程
 
-1. `GameApp.Start()` 创建 EventBus → ModuleRunner → `AddModule` → `StartAsync`
-2. ModuleRunner：依赖校验 → 循环检测 → WhenAny + 持续扫描初始化
-3. 模块 `InitAsync` 完成后自动扫描 `[EventHandler]` 并注册
-4. 所有模块就绪 → 游戏启动
+1. Unity 打开 `Assets/Game/Scene/Launch.unity`
+2. GF_X 启动流程进入项目 Procedure / Workspace
+3. 新业务 runtime service 加载 gameplay catalog 与 runtime asset catalog
+4. 主菜单 → 角色选择 → 启动选择 → 战斗 HUD → 地图/玩家/输入/相机/战斗逐步接入
+5. 通过 `totem_diagnostics_run_all` 生成可追踪诊断报告
 
 ---
 
 ## 十、SKILL 系统
 
-- **总数**：110 个，分组索引见 [skills/SKILLS_INDEX.md](./skills/SKILLS_INDEX.md)
+- **总数**：113 个本地项目 skill，分组索引见 [skills/SKILLS_INDEX.md](./skills/SKILLS_INDEX.md)
 - **Agent ↔ SKILL 白名单**：见 [SKILL_MATRIX.md](./SKILL_MATRIX.md)
 - **大多数 skill 不进上下文**：仅在对应 agent 触发时按需读取 `SKILL.md` + `references/*.md`
 - **找不到合适 skill 时**：用 `find-skills` 语义检索；仍找不到则 escalate_to: main 由主对话决定
@@ -374,8 +416,8 @@ python tools/audit_skill_usage.py   # 使用频次 + 0 召回清单（看是否�
 
 | 类型 | 规范 | 示例 |
 |---|---|---|
-| 模块 | `[Name]Module` | `CombatModule`, `UIModule` |
-| 事件 | `[描述]Event` | `CombatEndEvent`, `HPChangedEvent` |
+| 运行时服务 | `Totem[Name]Service` | `TotemCombatService`, `TotemUIService` |
+| 事件/记录 | `[描述]Event` / `[描述]Record` | `TotemDamageRecord`, `TotemRunResultSnapshot` |
 | 事件处理方法 | `On[事件名]` | `OnCombatEnd`, `OnHPChanged` |
 | UI 表单 | `[Name]UI` 或 `[Name]UIForm` | `GameUIForm` |
 | 管理器（非模块） | `[Name]Manager` | `PlayerInputManager` |
@@ -386,39 +428,37 @@ python tools/audit_skill_usage.py   # 使用频次 + 0 召回清单（看是否�
 
 ### 约束
 
-- **ModuleCategory 必须正确设置**（参 [IGameModule.cs](../Assets/Scripts/Core/IGameModule.cs#L12-L18)）
-- **Dependencies 必须是具体类型**，不支持接口
-- **InitAsync 期间不发事件**，初始化通信用 Dependencies
-- **行为修改走事件，数据读取走 `GetModule<T>`**
+- 新运行时代码只写入 `Assets/Game/Scripts`
+- 不得在启动/运行流程中恢复旧 `GameApp`、`ModuleRunner`、`EventBus`、`UIModule`、`DataTableModule`
+- 不要新建 `Assets/Resources/DataTable`，旧表只保留在 `LegacyProjectArchive/Assets/Resources/DataTable`
+- Business AI DataTables、gameplay catalog 与 runtime asset catalog 是当前运行配置入口；不要回退到旧 `Assets/Resources/DataTable`
+- gameplay catalog 不允许在 service 内复制成隐藏静态缓存；需要静态辅助查询时从 `TotemDataService.LoadGameplayCatalogOrDefault` 读取
+- 资源缺失和 fallback 必须计数并进入诊断报告
 - 异步方法名必须以 `Async` 结尾，返回 `UniTask` 或 `UniTask<T>`
-- 不要硬编码数值，所有配置读 DataTable
-- **不要硬编码资源路径**，所有资源通过 ResourceModule + ResourceConfig 加载（见 [资源配置规范.md](./资源配置规范.md)）
-- 所有游戏资源必须存放在 `Assets/Resources/` 下，按类型分子目录
+- 不要硬编码玩法数值，所有第一轮复现目标读 gameplay catalog
+- 不要硬编码资源路径，所有可复用旧资源先写入 `totem_runtime_assets.json`
 - 不在 Update 里做 GC alloc
 - ScriptableObject 是配置不是数据库
 - 任何引入新依赖前先问"标准库或现有依赖能做吗"
-- **遇到必须手动完成的任务时，必须先通知用户完成后再继续开发**：
-  - 配置表更新（新增字段、新建表 → 运行 DataTableGenerator）
-  - Prefab 创建与 UI 层级搭建
-  - **正确顺序**：用户先定义 Prefab/配置表 → 工具生成 → 再编写对应逻辑脚本
-- 输出日志使用 `FrameworkLogger`（见 [02-AI友好型日志规范.md](../AI友好型项目探讨/02-AI友好型日志规范.md)）
+- 每个功能接入时同步设置测试点：输入、状态变化、资源加载、异常/fallback、关键 UI 流程
+- 完成修改后优先跑 GF_X 诊断并检查 `GameData/Diagnostics/Reports/`
 
 ### 日志格式
 
 ```csharp
-FrameworkLogger.Error("EventBus", $"Event=CombatEndEvent Handler=CombatModule.OnCombatEnd Exception={ex.GetType().Name} Msg=\"{ex.Message}\"");
-FrameworkLogger.Warn("ModuleRunner", $"Module=QuestModule InitAsync 超时 Elapsed=30s");
-FrameworkLogger.Info("EventBus", $"Handler=CombatModule Subscribe=CombatEndEvent");
+GFLogger.Error("TotemRuntime", $"Action=LoadCatalog Path={path} Exception={ex.GetType().Name} Msg=\"{ex.Message}\"");
+GFLogger.Warn("TotemAssetService", $"Action=Fallback Key={key} MissingCount={missingCount}");
+GFLogger.Info("TotemDiagnostics", $"Scenario={scenarioName} Success={success} Warnings={warningCount}");
 ```
 
 ### 常见陷阱
 
 - `async void` 方法无法被 `await`——一律改为返回 `UniTask`
 - UI 关闭时 DOTween 动画可能还在播放，需 `DOTween.Kill(target)` 或 `DOComplete`
-- `[EventHandler]` 方法签名错误不会在编译期报错，ModuleRunner 注册时会校验
-- 临时订阅（`EventBus.Subscribe`）必须用 `IDisposable` 管理，否则内存泄漏
-- Domain Reload 会导致静态字段归零，ModuleRunner 不做静态单例
-- `InitializeAsync` 中调用非 Dependencies 模块的 `GetModule<T>()` 会抛异常——改为 OnUpdate / 事件处理方法（运行时）中调用
+- fallback 不能静默发生，必须能在诊断报告里看到原因和计数
+- 旧资源可以复用，但旧生命周期、旧 UI 表单宿主、旧模块系统不能复用
+- 修改配置时不要只改运行时对象，必须同步更新 `GameData/AIData/GameplayCatalogs/` 下的源 JSON
+- Domain Reload 会导致静态字段归零，不要把运行时状态藏在静态单例里
 
 ---
 
@@ -431,12 +471,11 @@ FrameworkLogger.Info("EventBus", $"Handler=CombatModule Subscribe=CombatEndEvent
 | [conventions.md](./conventions.md) | 编码规范 |
 | [资源配置规范.md](./资源配置规范.md) | ResourceModule + ResourceConfig |
 | [美术资源规范.md](./美术资源规范.md) | 2D 美术生产侧前置约束：各视觉类别的 Max 尺寸 / 格式 / 文件大小预算（ai-art / codex-image-gen 写提示词时必读，生产即合规） |
-| [skills/SKILLS_INDEX.md](./skills/SKILLS_INDEX.md) | 110 SKILL 分组索引 |
-| [01-框架核心设计概述.md](../AI友好型项目探讨/01-框架核心设计概述.md) | 框架架构 |
-| [02-AI友好型日志规范.md](../AI友好型项目探讨/02-AI友好型日志规范.md) | 结构化日志 |
-| [03-模块系统详细设计.md](../AI友好型项目探讨/03-模块系统详细设计.md) | IGameModule / ModuleRunner |
-| [04-事件系统详细设计.md](../AI友好型项目探讨/04-事件系统详细设计.md) | EventBus 三种模式 |
-| [05-项目文件结构.md](../AI友好型项目探讨/05-项目文件结构.md) | 目录结构 |
+| [skills/SKILLS_INDEX.md](./skills/SKILLS_INDEX.md) | 113 个本地项目 skill 分组索引 |
+| [GAMEPLAY_RUNTIME_SLICE.md](../GAMEPLAY_RUNTIME_SLICE.md) | 当前 GF_X 业务运行时切片与诊断证据 |
+| [openspec/changes/gf-x-business-runtime-refactor/](../openspec/changes/gf-x-business-runtime-refactor/) | 当前迁移与业务重写规格 |
+| [01-框架核心设计概述.md](../AI友好型项目探讨/01-框架核心设计概述.md) | 旧框架历史资料，仅作对照 |
+| [02-AI友好型日志规范.md](../AI友好型项目探讨/02-AI友好型日志规范.md) | 旧日志规范历史资料，仅作对照 |
 
 ---
 

@@ -1,143 +1,104 @@
 # 项目上下文 — AI 快速理解指南
 
-> AI 在新会话中先读本文件了解项目状态。
+> AI 在新会话中先读本文件了解当前真实状态。历史实现、旧模块和旧 DataTable 只作为需求证据，不作为新运行时入口。
 
 ---
 
-## 一、是什么
+## 一、当前定位
 
-**AI 友好型轻量游戏开发框架 + 完整 AI 协作工具链（模板）**
+这是一个 Unity 2022.3.62f3 项目，当前已迁入并采用 GF_X runtime。
 
-两层定位：
+当前目标不是兼容旧 `GameApp / ModuleRunner / EventBus` 框架，而是在 GF_X 基础上重写《Totem Warrior》业务功能：
 
-1. **游戏侧**：Unity 6.3 LTS 模块化框架。框架只做两件事——模块生命周期管理 + 模块间通信。**无 DI 容器**，依赖显式声明在模块本身。
-2. **AI 协作侧**：20 人虚拟开发团队（双轨 `.claude` / `.codex`）+ 124 SKILL + MCP 工具 + 5 Phase 工作流 + OpenSpec 规范化变更 + 决策门槛 hook。
-
-**模板纯净**——清掉了所有飞机大战业务（飞机/敌人/子弹/关卡/玩家/UI），保留框架核心 + 模板 + 启动场景。
+1. 主流程：主菜单 -> 角色选择 -> 启动选择 -> 战斗 HUD。
+2. 第一轮玩法合同：50 个非 Boss actor、20 Smart AI、29 Light AI、336 纹身组合、商店/NPC、三选一、缩圈、Boss。
+3. 资源策略：复用旧美术内容，但加载、生命周期、索引和 fallback 走 GF_X。
+4. 配置策略：当前以 AI 友好的 gameplay/runtime asset catalog 为运行配置入口；旧 xlsx/DataTable 仅作证据，正式 GF_X DataTable 工作流后续再定。
+5. 测试策略：所有新增运行时能力必须进入 GF_X diagnostics，确保 AI 能从报告、日志和快照定位问题。
 
 ---
 
-## 二、目录结构
+## 二、关键路径
 
-```
-AI_Friendly_Project/
-├── CONTEXT.md            ← 本文件（项目状态全景）
-├── README.md             ← 一页 README（模板介绍）
-├── AGENTS.md             ← Codex 顶层入口
-├── REFACTOR_REPORT.md    ← 重构 v1.0 记录
-├── setup.md              ← 环境搭建
-├── requirements.txt      ← Python deps
-├── .env.example          ← 凭据模板
-├── .mcp.json             ← MCP 配置（核心/中/可选三档，${VAR} 占位）
-├── .gitignore / .gitattributes
-│
-├── Assets/Scripts/       ← 框架核心 + 模板（无业务）
-│   ├── Core/             ← 8 文件（IGameModule / ModuleRunner / EventBus / Logger / GameApp / TickDriver / Attrs）
-│   ├── Utils/            ← 8 文件（StateMachine / CompositeDisposable / GenericObjectPool / FlowPipeline 等）
-│   ├── DataTable/        ← DataTableRegistry + ResourceConfig（schema，框架级）
-│   ├── Modules/
-│   │   ├── DataTable/    ← 整套（含 Editor/DataTableGenerator）
-│   │   ├── Resource/     ← ResourceModule
-│   │   ├── GameState/    ← GameStateModule
-│   │   ├── Input/        ← InputModule
-│   │   ├── Scene/        ← SceneModule + SceneEvents
-│   │   ├── UI/           ← UIModule（业务 UI 已删）
-│   │   └── Flow/         ← FlowModule + FlowContext + IFlow + FlowEvents
-│   ├── Events/           ← 空（业务事件 STGEvents 已删；新事件按 Templates）
-│   ├── ExternalAPI/      ← Handlers/ 骨架
-│   └── Templates/        ← 4 .cs.txt 模板（不编译，AI 参考）
-│
-├── Assets/Resources/     ← 业务素材已清；空目录保留作为占位
-├── Assets/Prefabs/       ← UI / Shared / Effects 空目录（保留 README）
-├── Assets/Scenes/
-│   └── Launch.unity      ← ⚠️ 保留但内部有 missing script reference（业务脚本已删），首次开启 Unity 需手动清理或新建场景
-│
-├── .claude/              ← Claude Code 配置（source of truth）
-│   ├── CLAUDE.md         ← AI 行为准则 + 路由 + 工作流 + 框架约束
-│   ├── AGENTS.md         ← 多 Agent 协作 5 模式
-│   ├── conventions.md
-│   ├── GITNEXUS.md
-│   ├── 资源配置规范.md
-│   ├── SKILL_MATRIX.md   ← agent × skill 白名单 + 兜底规则
-│   ├── settings.json     ← 人格 hook + 决策门槛 hook
-│   ├── settings.local.json   ← MCP enabledMcpjsonServers + permissions
-│   ├── agents/  (20)     ← 重写后的 system prompt（含 frontmatter / skills / escalate_to）
-│   └── skills/  (124)    ← 不动（含 SKILLS_INDEX.md）
-│
-├── .codex/               ← OpenAI Codex 镜像（sync-agents.py 自动生成）
-│   ├── config.toml       ← Codex MCP 配置（与 .mcp.json 一致）
-│   ├── hooks.json
-│   └── agents/  (20)
-│
-├── tools/                ← 工程工具（.gitignore 排除大文件）
-│   ├── sync-agents.py    ← agents 同步脚本（source = .claude/agents/）
-│   ├── codebase-memory-mcp/
-│   ├── ImageCut_Tool / image-extender-main / rembg-main
-│
-├── 工作/                  ← 5 Phase 工作流（QUICKSTART 已更新到 20 agents 体系）
-│   ├── 1.策划/  1.美术/  2.需求列表/  3.正在处理的任务/  3.测试/  4.已归档任务/  工作区/
-│
-├── 项目知识库（AI自行维护）/   ← AI 维护的知识库（模板状态：空）
-│   ├── INDEX.md          ← 入口（含 wiki 条目规范）
-│   ├── wiki/  raw/  outputs/
-│
-└── AI友好型项目探讨/       ← 5 篇框架设计文档（保留）
-    ├── 01-框架核心设计概述.md
-    ├── 02-AI友好型日志规范.md
-    ├── 03-模块系统详细设计.md
-    ├── 04-事件系统详细设计.md
-    └── 05-项目文件结构.md
+| 类型 | 当前路径 | 说明 |
+|---|---|---|
+| 启动场景 | `Assets/Game/Scene/Launch.unity` | Build Settings 第一项 |
+| 新业务代码 | `Assets/Game/Scripts` | Totem runtime/UI/services |
+| GF_X 框架/工具代码 | `Assets/Game/ScriptsBuiltin` | diagnostics、helper、editor 工具等 |
+| 旧业务证据 | `LegacyProjectArchive` | 不回挂启动或运行流程 |
+| 运行配置 | `GameData/AIData/GameplayCatalogs/totem_gameplay_catalog.json` | AI 可读玩法目录 |
+| 运行资源索引 | `GameData/AIData/GameplayCatalogs/totem_runtime_assets.json` | key -> 旧路径/当前路径/用途/fallback |
+| 总资源索引 | `项目知识库（AI自行维护）/manifests/art_assets.json` | 全量美术资源路径、类型、用途、生命周期策略 |
+| 诊断报告 | `GameData/Diagnostics/Reports` | `gf-diagnostics-run-all_*.json` |
+| OpenSpec 变更 | `openspec/changes/gf-x-business-runtime-refactor` | 当前大重构跟踪 |
+
+---
+
+## 三、禁止事项
+
+- 不要恢复或依赖旧 `GameApp`、`ModuleRunner`、`EventBus`、`UIModule`、`DataTableModule`、`SaveModule`。
+- 不要新建 `Assets/Resources/DataTable` 作为运行配置源。
+- 不要把旧 `Assets/Scripts` 业务代码移回活动编译路径。
+- 不要让示例项目内容进入启动/运行流程；示例必须隔离。
+- 不要绕过 `TotemInputService / ITotemInputProvider` 直接在业务中读按键输入。
+- 不要在 service 内复制隐藏静态玩法目录；静态辅助查询也要从 `TotemDataService.LoadGameplayCatalogOrDefault()` 读取。
+
+---
+
+## 四、当前验证入口
+
+常用完整验证链：
+
+```powershell
+Invoke-RestMethod -Method Post -Uri 'http://127.0.0.1:8092/skill/asset_refresh' -ContentType 'application/json' -Body '{}'
+Invoke-RestMethod -Method Post -Uri 'http://127.0.0.1:8092/skill/editor_execute_menu' -ContentType 'application/json' -Body '{"menuPath":"Game Framework/GameTools/Diagnostics/Run All"}'
+cmd /c openspec validate gf-x-business-runtime-refactor --strict
+python tools\ai_index\build_ai_manifests.py --check
 ```
 
----
+最近已验证状态：
 
-## 三、关键设计决策
-
-| 决策 | 内容 |
-|---|---|
-| **无 DI 容器** | 依赖通过 `Type[] Dependencies` 显式声明 |
-| **接口不作为依赖** | Dependencies 只接受具体 Module 类型 |
-| **事件继承不支持** | 精确类型匹配（`typeof(T)` 作 key） |
-| **InitAsync 异常终止** | 不允许跳过失败模块 |
-| **ModuleRunner 非静态** | 挂在 GameApp MonoBehaviour 上，Domain Reload 兼容 |
-| **`[EventHandler]` vs `[RequestHandler]` 分离** | 广播 / 请求响应分开 |
-| **广播/请求响应分开存储** | EventBus 内部两张表 |
-| **模板 .cs.txt** | 防止 Unity 编译不完整的示例代码 |
-| **Category 显式声明** | 强制模块自报家门 |
-| **Category × 100 - OutDegree** | 调度优先级公式 |
-| **20 人虚拟团队 orchestrator** | 主对话路由不亲自做 |
-| **双轨 .claude / .codex** | agents source = .claude/，.codex 自动同步；skills source = .claude/skills |
-| **agent 显式 frontmatter** | tier / skills 白名单 / escalate_to |
-| **决策门槛 hook** | 关键词触发 grill-me + openspec 提醒 |
-| **MCP 分层** | 高频/常驻默认开，低频按需启 |
-| **codebase-memory 优先** | 代码结构查询不再用 Read+Grep |
-| **业务清洁** | 飞机大战业务全清，Launch.unity 残留 missing reference 需手动处理 |
+- GF diagnostics：`gf-diagnostics-run-all_20260708_113622.json`，`success=23`，`failure=0`，`warning=0`。
+- Unity Console：项目错误 `0`。
+- OpenSpec：`gf-x-business-runtime-refactor` strict valid。
+- AI manifest：最新。
+- 活动脚本污染扫描：`Assets/Game/Scripts` 不含旧宿主 token。
 
 ---
 
-## 四、AI 重新进入推荐顺序
+## 五、诊断覆盖
 
-1. 读本文件
-2. [.claude/CLAUDE.md](./.claude/CLAUDE.md) —— AI 行为准则 / 20 agents 路由 / 工作流 / MCP 准则
-3. [.claude/AGENTS.md](./.claude/AGENTS.md) —— 多 Agent 协作 5 模式
-4. [.claude/SKILL_MATRIX.md](./.claude/SKILL_MATRIX.md) —— agent ↔ skill 映射
-5. [.claude/skills/SKILLS_INDEX.md](./.claude/skills/SKILLS_INDEX.md) —— 124 SKILL 索引（按职能）
-6. [.claude/conventions.md](./.claude/conventions.md) —— 编码规范
-7. 深入某系统：查 [项目知识库（AI自行维护）/INDEX.md](./项目知识库（AI自行维护）/INDEX.md) 或 [AI友好型项目探讨/](./AI友好型项目探讨/)
+当前全量诊断包含：
+
+- GF_X Rewrite Inventory Contract
+- GF_X Business Runtime Contract
+- Clean Workspace Contract
+- Migration Path Contract
+- Totem AI Runtime
+- Totem Actor Visual Runtime
+- Totem Audio Runtime
+- Totem Choice Runtime
+- Totem Extended Gameplay
+- Totem First Round Contract
+- Totem First Slice UI
+- Totem Gameplay Catalog
+- Totem Gameplay Runtime
+- Totem Meta Progress
+- Totem Runtime Assets
+- Totem VFX Runtime
+
+`Totem First Round Contract` 是第一轮复现范围的汇总验收项；后续改业务时它失败就说明核心承诺被破坏。
 
 ---
 
-## 五、已知遗留 / 待办
+## 六、AI 重新进入顺序
 
-| 优先级 | 内容 |
-|---|---|
-| 🔴 高 | **Launch.unity 含 missing script reference**（业务脚本删除后）。首次打开 Unity 需在场景中清理或重建。 |
-| 🟡 中 | `tools/` 巨型二进制已加 .gitignore；新机器按 setup.md 重建 |
-| 🟡 中 | `项目知识库（AI自行维护）/wiki/` 是空的——随项目开发由 AI 逐步填充 |
-| 🟡 中 | `.codebase-memory/` 索引需首次运行 `codebase-memory` MCP 时重建 |
-| 🟢 低 | `工作/QUICKSTART.md` 仍含部分项目案例（如背包系统），可改为更纯粹模板 |
-| 🟢 低 | 编辑 `.env.example` 后实际项目要新建 `.env` |
+1. 读本文件。
+2. 读 [AGENTS.md](./AGENTS.md) 和 [.claude/CLAUDE.md](./.claude/CLAUDE.md)。
+3. 查 [项目知识库（AI自行维护）/PROJECT_MAP.md](./项目知识库（AI自行维护）/PROJECT_MAP.md) 与 [项目知识库（AI自行维护）/ACTIVE_CONTEXT.md](./项目知识库（AI自行维护）/ACTIVE_CONTEXT.md)。
+4. 查 `GameData/AIData/GameplayCatalogs/*.json`。
+5. 查最近的 `GameData/Diagnostics/Reports/gf-diagnostics-run-all_*.json`。
 
 ---
 
-*最后更新：2026-06-24（重构 v1.0 落地）*
+*最后更新：2026-07-08（GF_X 业务重构阶段）*

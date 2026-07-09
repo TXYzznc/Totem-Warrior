@@ -6,7 +6,7 @@
 >
 > **兼容目标**：Claude 继续按原 `.claude/` 工作流运行；Codex 在不改 Claude 源配置的前提下，按本文件把同一套 agent / skill / openspec 流程等价执行。
 
-Unity 6.3 LTS 自研轻量模块化框架的 **AI 协作模板**。主对话作为 **orchestrator**，把任务路由到 20 人虚拟开发团队；不亲自做专家活。
+Unity 2022.3.62f3 + GF_X runtime 的 **AI 协作模板**。主对话作为 **orchestrator**，把任务路由到 20 人虚拟开发团队；不亲自做专家活。
 
 ---
 
@@ -33,7 +33,7 @@ Unity 6.3 LTS 自研轻量模块化框架的 **AI 协作模板**。主对话作�
 |---|---|
 | `Agent` | 优先按 `.codex/agents/*.toml` 路由；可用且获授权时用 Codex sub-agent，否则主对话等价执行 |
 | `Skill` | 先用当前会话已暴露 skill；否则读取 `.claude/skills/<skill>/SKILL.md` |
-| `Read / Grep / Glob` | Codex shell / `rg` / 文件读取工具；查 `Assets/Scripts/` 结构时优先 codebase-memory MCP（若可用） |
+| `Read / Grep / Glob` | Codex shell / `rg` / 文件读取工具；查 `Assets/Game/Scripts/` 结构时优先 codebase-memory MCP（若可用） |
 | `Edit / Write` | 使用 Codex 文件编辑工具；不要直接改 `.codex/agents/*.toml` 镜像 |
 | `WebSearch / WebFetch` | Codex web 工具；高时效、外部资料、OpenAI 文档等按 Codex 浏览规则执行 |
 | `TodoWrite` | Codex plan / 更新说明；不要求一比一工具名 |
@@ -45,7 +45,7 @@ Unity 6.3 LTS 自研轻量模块化框架的 **AI 协作模板**。主对话作�
 
 1. 阶段 A：先用 `grill-me` / `grill-with-docs` 的问题框架澄清目标、关键决策、边界、验收标准、约束。
 2. 阶段 B：做任务规模评估；命中 openspec 信号则创建/推进 openspec change，否则走轻量路径。
-3. 阶段 B 只有遇到阶段 A 共识冲突、不可逆变更、或触及 `.claude/` / `openspec/` / `Assets/Scripts/Core/` 框架核心时才中断用户。
+3. 阶段 B 只有遇到阶段 A 共识冲突、不可逆变更、或触及 `.claude/` / `openspec/` / `Assets/Game/ScriptsBuiltin/` GF_X 框架核心时才中断用户。
 
 Codex 若没有可调用的 `grill-me` 工具，也必须按该 skill 的反问模式执行，不能直接跳到方案。
 
@@ -96,7 +96,7 @@ Codex 若没有可调用的 `grill-me` 工具，也必须按该 skill 的反问�
 
 ## SKILL 系统
 
-- **总数**：124，分组索引见 [.claude/skills/SKILLS_INDEX.md](./.claude/skills/SKILLS_INDEX.md)
+- **总数**：113 个本地项目 skill，分组索引见 [.claude/skills/SKILLS_INDEX.md](./.claude/skills/SKILLS_INDEX.md)
 - **agent ↔ skill 白名单**：[.claude/SKILL_MATRIX.md](./.claude/SKILL_MATRIX.md)
 - **唯一来源**：`.claude/skills/<skill>/SKILL.md`
 - **Codex 使用**：触发 skill 时先读取该 skill 的 `SKILL.md`；若 skill 在当前 Codex skills 列表中已暴露，按 Codex skill 规则执行；否则从 `.claude/skills/` 读取源说明后执行。
@@ -106,7 +106,9 @@ Codex 若没有可调用的 `grill-me` 工具，也必须按该 skill 的反问�
 
 ## 项目环境
 
-- **平台**：Unity 6.3 LTS
+- **平台**：Unity 2022.3.62f3
+- **版本覆盖**：若旧文档、skill 参考或外部链接写 Unity 6 / 6000.3，只能作为通用思路参考；落地代码、包版本、API 用法必须按 Unity 2022.3.62f3 校验。
+- **GF_X 全量诊断**：AI 自动验证优先运行 `python .claude/skills/unity-skills/scripts/unity_skills.py totem_diagnostics_run_all --port 8092`；`Game Framework/GameTools/Diagnostics/Run All` 只作为人工菜单复跑入口，不要通过通用 `editor_execute_menu` 路由这个菜单。
 - **OS**：Windows 10。Claude Code 按原约定使用 bash、路径用 `/`；Codex 桌面当前可能运行在 PowerShell，执行命令时以当前 shell 为准，但输出和文档路径尽量使用 `/` 或明确的绝对路径。
 - **Python**：`.venv/`（frame-ronin MCP），见 [setup.md](./setup.md)
 - **凭据**：复制 [.env.example](./.env.example) 为 `.env` 后填值
@@ -115,7 +117,14 @@ Codex 若没有可调用的 `grill-me` 工具，也必须按该 skill 的反问�
 
 ### codebase-memory MCP 准则
 
-**优先**调用 `codebase-memory` 查询 `Assets/Scripts/` 代码结构；**不要**用 Read + Grep 逐文件扫。若当前 Codex 会话未暴露 codebase-memory 工具，先用 `rg` 做最小范围查询，并在结果中说明该 MCP 当前不可用。
+**优先**调用 `codebase-memory` 查询 `Assets/Game/Scripts/` 代码结构；**不要**用 Read + Grep 逐文件扫。若当前 Codex 会话未暴露 codebase-memory 工具，先用 `rg` 做最小范围查询，并在结果中说明该 MCP 当前不可用。
+
+### 美术资源生产约束
+
+- 需要美术资源时，可按已确定项目美术风格直接使用 art subagent / codex-art-gen / frame-ronin 等能力生成；资源生成过程中不用反复阻塞等待用户确认，只有工具不可用、缺少必要参考图或触及不可逆工程变更时才交回主对话。
+- 角色帧动画必须按**单角色连续批处理**：传入角色参考图和动作需求后，连续生成该角色本轮所有动作；每个动作 4 个方向，每个方向 4 帧，方向为 `down` / `up` / `left` / `right`。
+- 角色帧动画每张画布只能包含同一个角色；按精细度每张画布一个动画或最多两个动画，然后统一抠图、切图、去背景、重命名、导入检查，避免和其它角色动画混在一起。
+- 角色帧动画优先输出到 `openspec/changes/<change>/art/raw/characters/<character_id>/`，单帧命名 `{character_id}_{action}_{direction}_{frame:00}.png`；入库后同步更新资源索引 / runtime asset catalog，加载仍走 `TotemAssetService`。
 
 ---
 
@@ -125,10 +134,10 @@ Codex 若没有可调用的 `grill-me` 工具，也必须按该 skill 的反问�
 
 - 始终用**中文**回答。
 - 优先用简单方案。
-- 改 Unity 代码先看 [Assets/Scripts/](./Assets/Scripts/) 既有 conventions。
+- 改 Unity 业务代码先看 [Assets/Game/Scripts/](./Assets/Game/Scripts/) 既有 conventions；旧 `Assets/Scripts` 只作为 `LegacyProjectArchive` 里的历史证据。
 - 不在 Update 里做 GC alloc。
 - ScriptableObject 是配置不是数据库。
-- 所有按键输入必须走 `InputModule`。
+- 所有按键输入必须走 `TotemInputService` / `ITotemInputProvider`。
 
 ---
 
@@ -137,6 +146,6 @@ Codex 若没有可调用的 `grill-me` 工具，也必须按该 skill 的反问�
 - 不要绕过 agent 团队自己做专家活
 - 不要把 skill 移到子目录 —— `.claude/skills/<skill>/SKILL.md` 是统一入口
 - 不要在没有 `grill-me` / `grill-with-docs` 的情况下做大型设计决策
-- 不要再写"待装"标记的 skill —— 124 个已就位
+- 不要再写"待装"标记的 skill —— 113 个本地项目 skill 已就位
 - 不要直接改 .codex/agents/*.toml —— source 是 .claude/agents/，跑 `tools/sync-agents.py`
 - 不要把业务示例混入框架核心

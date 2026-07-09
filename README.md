@@ -1,87 +1,60 @@
-# AI 友好型项目模板
+# Totem Warrior
 
-> Unity 6.3 LTS 自研轻量游戏框架 + **对 AI 开发最完善、配置最高效、协作最友好**的项目模板。
->
-> **状态**：v1.0 重构完成。业务代码已清；框架核心 + AI 协作配置 + 工作流 + 124 SKILL + 20 人虚拟团队就绪。
+Unity 2022.3.62f3 项目。当前工程已经迁入 GF_X 框架，旧 `Assets/Scripts` 业务运行时已归档到 `LegacyProjectArchive`，只作为需求证据和资源来源，不作为启动或运行宿主。
 
-## 这是什么
+## 当前运行入口
 
-两层定位：
+- Unity 版本：`2022.3.62f3`
+- 默认启动场景：`Assets/Game/Scene/Launch.unity`
+- 新业务代码：`Assets/Game/Scripts`
+- 旧业务证据：`LegacyProjectArchive`
+- 旧资源复用：允许继续引用 `Assets/Resources/Prefab`、`Assets/Resources/Sprite` 等美术资源，但加载和生命周期必须走 GF_X runtime 服务。
 
-1. **游戏框架** — 自研 `IGameModule` / `ModuleRunner` / `EventBus`，**无 DI 容器**，依赖显式声明。
-2. **AI 协作模板** — 20 人虚拟开发团队（lead / system / impl 三层）+ 124 SKILL + MCP 工具 + 5 Phase 工作流 + OpenSpec + 决策门槛 hook。
+## 数据与资源
 
-## 配置即开即用
+- AI 可编辑业务配置源：`GameData/AIData/DataTables/Business/*.json`
+- 策划可读业务配置表：`GameData/DataTables/Business/*.xlsx`
+- 运行配置产物：`GameData/AIData/GameplayCatalogs/totem_gameplay_catalog.json`，由 Business AI DataTable 生成
+- 运行资源索引：`GameData/AIData/GameplayCatalogs/totem_runtime_assets.json`
+- 旧业务 DataTable 证据：`LegacyProjectArchive/Assets/Resources/DataTable`
+- 活动路径中不再使用 `Assets/Resources/DataTable`、旧 `DataTableModule`、旧 `GameApp/ModuleRunner/EventBus`。
 
-| 区域 | 内容 |
-|---|---|
-| [.claude/](./.claude/) | Claude Code：20 agents（含 frontmatter / skill 白名单 / escalate_to）+ 124 skills + 行为准则 + 工作流 |
-| [.codex/](./.codex/) | OpenAI Codex：由 `.claude/` 经 `sync-agents.py` 自动生成 |
-| [.claude/skills/](./.claude/skills/) | 唯一 SKILL 源；Claude / Codex 均按需读取 |
-| [.mcp.json](./.mcp.json) | MCP 配置，凭据走 `${VAR}` + [.env.example](./.env.example) |
-| [tools/](./tools/) | codebase-memory-mcp + 图像工具 + `sync-agents.py` |
+当前业务配置工作流为：AI 修改 Business JSON → 逆向生成策划 xlsx → 生成/检查 runtime catalog → 跑 GF_X 诊断。不要把新配置写回旧 `Assets/Resources/DataTable`。
 
-## 技术栈
+## 诊断
 
-- Unity 6.3 LTS + UniTask + DOTween
-- 自研 IGameModule / ModuleRunner / EventBus（详见 [AI友好型项目探讨/](./AI友好型项目探讨/)）
-- DataTable：JSON 直写（`Assets/Resources/DataTable/*.json`）→ Unity 菜单 `Tools/DataTable/生成全部配置表代码` → `.cs`
-- 统一 `ResourceModule` + `ResourceConfig`（见 [.claude/资源配置规范.md](./.claude/资源配置规范.md)）
+常用验证：
 
-## 目录速览
+```powershell
+cmd /c openspec validate gf-x-business-runtime-refactor --strict
+python tools\ai_index\build_ai_manifests.py --check
+```
 
-| 目录 | 说明 |
-|---|---|
-| `Assets/Scripts/Core/` | 框架核心 8 文件 |
-| `Assets/Scripts/Utils/` | 通用工具类 |
-| `Assets/Scripts/Modules/` | 框架级模块（DataTable / Resource / GameState / Input / Scene / UI / Flow） |
-| `Assets/Scripts/Templates/` | 4 个 `.cs.txt` 模板（Module / Event / Request / DataTable） |
-| `工作/` | 5 Phase 工作流（策划 → 需求 → 执行 → 测试 → 归档） |
-| `AI友好型项目探讨/` | 5 篇框架设计文档 |
-| `项目知识库（AI自行维护）/` | AI 维护的知识库（模板状态空，随开发填充） |
+AI 自动诊断优先使用：
 
-## 快速开始
+```powershell
+python .claude\skills\unity-skills\scripts\unity_skills.py totem_diagnostics_run_all --port 8092
+```
 
-1. **环境**：
-   ```bash
-   python -m venv .venv
-   .venv/Scripts/pip install -r requirements.txt   # Windows
-   cp .env.example .env                            # 按需填值
-   ```
-   详见 [setup.md](./setup.md)。
-2. **打开**：Unity 6.3 LTS 打开本目录。
-3. **第一次清理 Launch 场景**：⚠️ `Assets/Scenes/Launch.unity` 残留对已删业务脚本的引用，会出现 missing script。请在 Unity 中清理 GameObject 或新建空场景再挂 `GameApp`。
-4. **让 AI 进入**：
-   - Claude Code 自动读 `.claude/CLAUDE.md`
-   - Codex 自动读根 `AGENTS.md`
+Unity 内人工复跑菜单：`Game Framework/GameTools/Diagnostics/Run All`。
 
-## 核心文档
+最新诊断报告输出到：
 
-| 文档 | 内容 |
-|---|---|
-| [CONTEXT.md](./CONTEXT.md) | 项目状态全景（AI 新会话必读） |
-| [.claude/CLAUDE.md](./.claude/CLAUDE.md) | AI 行为准则 / 20 agents 路由 / 工作流 / MCP 准则 / 框架约束 |
-| [.claude/AGENTS.md](./.claude/AGENTS.md) | 多 Agent 协作 5 模式 |
-| [.claude/SKILL_MATRIX.md](./.claude/SKILL_MATRIX.md) | agent ↔ skill 白名单 + 兜底规则 |
-| [.claude/skills/SKILLS_INDEX.md](./.claude/skills/SKILLS_INDEX.md) | 124 SKILL 分组索引 |
-| [REFACTOR_REPORT.md](./REFACTOR_REPORT.md) | 重构 v1.0 决策与变更明细 |
+```text
+GameData/Diagnostics/Reports/
+```
 
-## 维护准则
+## AI 协作入口
 
-- **agents 单源**：源是 `.claude/agents/*.md`；改完跑 `python tools/sync-agents.py` 同步到 `.codex/`。
-- **skills 单源**：源是 `.claude/skills/`；不再维护 `.agents/skills/` 镜像。
-- **凭据 .env 化**：不要把 token 直接写 `.mcp.json` / `.codex/config.toml`。
-- **大型决策三步**：grill-me → openspec new change → 更新知识库 INDEX。settings.json 的 hook 会自动提醒。
-- **业务清洁**：往 `Templates/` 里加新模式时用 `.cs.txt`；不要往框架核心混业务示例。
+- Codex 顶层入口：`AGENTS.md`
+- Claude 顶层入口：`.claude/CLAUDE.md`
+- Agent 源文件：`.claude/agents/*.md`
+- Codex agent 镜像：`.codex/agents/*.toml`
 
-## 设计原则
+修改 `.claude/agents/*.md` 后运行：
 
-- 优先复用，少造轮子
-- 简单方案，杜绝过度工程
-- 明确依赖，拒绝隐式耦合
-- 严格类型化的事件契约
-- AI 与人类共同遵守编码规范
+```powershell
+python tools\sync-agents.py
+```
 
----
-
-*v1.0 重构日期：2026-06-24*
+不要直接编辑 `.codex/agents/*.toml`。

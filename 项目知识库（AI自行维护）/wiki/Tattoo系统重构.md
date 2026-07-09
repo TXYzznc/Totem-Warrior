@@ -51,7 +51,7 @@ GameDesinger 项目 2026-06-24 完成 AI 协作框架集成（详见 [REFACTOR_R
 | **保留 enum GameEvent，外套 class 适配层** | 双层事件机制长期维护成本高；agent 系统中所有 `[EventHandler]` 示例都基于 class 事件，混双层会迷惑 AI |
 | **CombatRunner 仅改造为 IGameModule，不拆三模块** | CombatRunner 已经混入相机/灯光/Player/Enemy/UI 五种职责，单一模块违反 Single Responsibility |
 | **保留 3 个旧场景** | 场景中 GameObject 挂的 MonoBehaviour 全部 missing reference，反而比新建复杂 |
-| **IMGUI 演示版保留** | 长期项目要 UGUI 或 UI Toolkit；IMGUI 不适合产品化；Unity 6 推 UI Toolkit |
+| **IMGUI 演示版保留** | 长期项目要 UGUI 或 UI Toolkit；IMGUI 不适合产品化；本项目基线为 Unity 2022.3.62f3 |
 | **一次性大重构，中间不验证** | 风险过高，单点失败回滚成本大；分 phase 每阶段都可验证 |
 
 ## 四、影响范围

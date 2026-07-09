@@ -242,7 +242,7 @@ v2 时代 Smart AI 通过「场外」`TattooModule.Equip` 直刻 build，真联�
 ## 九、风险与开放问题
 
 ### 9.1 Pathfinding 选型
-NavMesh vs 自建 A*。**推荐 NavMesh**——50 actor 同 NavMesh 在 Unity 6 NavMeshAgent 实测可承受，且与未来动态 NavMesh（房间被破坏）兼容。**风险**：智能 AI 从 8-10 提升至 20 后，NavMesh `CalculatePath` 调用频次按比例上升，可能突破 2ms 寻路预算。**缓解**：把 2Hz 重规划降为 1Hz + 增加"Smart AI 共享路径池"（同 preset 的两个 AI 去同一个工作室时，path 复用）。
+NavMesh vs 自建 A*。**推荐 NavMesh**——50 actor 同 NavMesh 在 Unity 2022.3.62f3 下需要以本项目性能测试确认，且与未来动态 NavMesh（房间被破坏）兼容。**风险**：智能 AI 从 8-10 提升至 20 后，NavMesh `CalculatePath` 调用频次按比例上升，可能突破 2ms 寻路预算。**缓解**：把 2Hz 重规划降为 1Hz + 增加"Smart AI 共享路径池"（同 preset 的两个 AI 去同一个工作室时，path 复用）。
 
 ### 9.2 决策置信度泄露
 玩家若发现「这些『玩家』总在 0.2s 整点闪避」会识破 AI 身份。**缓解**：`DodgeReactionMs` 加 ±30% jitter，`Confidence < 1.0` 的 bot 允许「误判闪避」。需要 13-UI 详设留观察席位 + qa-engineer 验证。

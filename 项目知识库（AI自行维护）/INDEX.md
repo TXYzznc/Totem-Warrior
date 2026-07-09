@@ -10,6 +10,9 @@
 
 | 目录 | 说明 | 谁来写 |
 |---|---|---|
+| `PROJECT_MAP.md` | AI 项目地图：系统 → 模块 → 配置表 → 资源 → 测试的总入口 | 脚本生成 |
+| `ACTIVE_CONTEXT.md` | 当前 active change、禁改区、任务前检查清单、索引健康状态 | 脚本生成 |
+| `manifests/` | `modules/datatables/assets/tests/health` JSON 索引 | 脚本生成 |
 | `outputs/` | AI 工作时输出的临时文件（草稿、中间结论） | AI 自动写 |
 | `raw/` | 用户筛选并保留的原始资料（访谈、调研、PRD 草稿、初版 GDD） | 用户筛选后归档 |
 | `raw/初版GDD-2026-06/` | 项目立项阶段产出的初版 GDD（9 份，约 95KB） | 已归档 |
@@ -23,6 +26,8 @@ AI 输出 → outputs/ → 用户筛选 → raw/ → 用户指令 → AI 整理�
 
 **规则**：
 
+- 项目级任务先读 `PROJECT_MAP.md` 和 `ACTIVE_CONTEXT.md`，再进入具体模块。
+- 改模块、配置表、资源或测试入口后，运行 `python tools/ai_index/build_ai_manifests.py` 更新索引。
 - AI **不要直接修改 `raw/`** 中的文件——那是用户认证后的原始素材。
 - `wiki/` 由 AI 维护，但每次提交前回扫一次链接有效性。
 - `outputs/` 中的文件是临时产物，定期清理。
@@ -65,13 +70,19 @@ AI 输出 → outputs/ → 用户筛选 → raw/ → 用户指令 → AI 整理�
 
 - _尚无条目_
 
+### 3.7 AI 信息契约（owner: tools-engineer / producer）
+
+- **AI 信息契约层** — 2026-07-07 — 新增 [PROJECT_MAP.md](PROJECT_MAP.md)、[ACTIVE_CONTEXT.md](ACTIVE_CONTEXT.md)、[manifests/](manifests/) 与每个 `Assets/Scripts/Modules/*/MODULE.md`，让 AI 能从固定入口追踪 GDD / openspec / DataTable / Resources / Tests。生成器：[tools/ai_index/build_ai_manifests.py](../tools/ai_index/build_ai_manifests.py)。详见 [openspec/changes/27-ai-information-contract/](../openspec/changes/27-ai-information-contract/)。
+
 ---
 
 ## 四、当前活跃的 OpenSpec 变更
 
 | ID | 标题 | 阶段 | 负责 agents |
 |---|---|---|---|
-| _（无活跃 change）_ | — | — | — |
+| `25-camera-2p5d-system` | 2.5D 相机系统残留 active 目录（仅 tests，疑似归档残留） | 待清理确认 | client-lead / qa-engineer |
+| `26-fixed-map-three-themes` | 固定地貌三主题地图 | 设计包 / 待实现 | gd-system / level-designer / client-unity / art-director |
+| `27-ai-information-contract` | AI 信息契约层 | 实现中 | tools-engineer / producer |
 
 > 已归档：
 > - 05-codex-batch-art-protocol → `openspec/changes/archive/2026-06-25-05-codex-batch-art-protocol/`，详见 [wiki 条目](wiki/Codex批量出图协议.md)
@@ -139,9 +150,12 @@ related_skills:
 | `.claude/SKILL_MATRIX.md` | agent ↔ skill 白名单 | [→](../.claude/SKILL_MATRIX.md) |
 | `.claude/skills/SKILLS_INDEX.md` | 124 SKILL 分组索引 | [→](../.claude/skills/SKILLS_INDEX.md) |
 | **本文件** | **项目自维护知识库** | — |
+| `PROJECT_MAP.md` | AI 项目地图：系统、模块、配置表、资源、测试的连接关系 | [→](PROJECT_MAP.md) |
+| `ACTIVE_CONTEXT.md` | 当前 active change、禁改区、索引健康状态 | [→](ACTIVE_CONTEXT.md) |
+| `manifests/` | 机器可读模块 / 配置表 / 资源 / 测试索引 | [→](manifests/) |
 | `.claude/AGENTS.md` | 多 Agent 协作 5 模式 | [→](../.claude/AGENTS.md) |
 | `openspec/changes/` | 活跃 / 已归档变更（含 art/ + tests/ + brainstorm.md） | [→](../openspec/changes/) |
 
 ---
 
-*最后更新：2026-07-02（追加归档 25-camera-2p5d-system：3D 透视相机拍 2D 立牌 → 正交 + 55° 俯角 2.5D 相机系统；新增 `CameraModule`（LateUpdate SmoothDamp 跟随+死区+lookahead+边界clamp+震动整合）+ `BillboardSprite` + `DepthSortedSprite`（深度动态排序）；框架增量 `GameTickDriver` 新增 `ILateTickable`；联调中顺带修复 `SpawnerModule`/`MapGenModule` 两套地面坐标不对齐导致的视觉分界 bug；已知遗留 EnemyModule/SpawnerModule 双敌人生成系统留待后续 change。**活跃 openspec change 清零**。追加归档 10-settings-form：SettingsForm v2 UI 重做走 v3 6 阶段完整流程首例——数据层保留 + UI 表现层原地重写；关键教训「普通文字走 TMP_Text 独立节点、不允许出现在美术 sprite 上」；副产品修复 `PrefabSkills.cs` UserAction→AutomatedAction 去除 Unity 系统弹窗；阶段 6 loop Round 1 一次通过。追加归档 24-unity-skills-port-routing：`unity_skills.py` 客户端端口自动路由 —— `--port` > `--target` > env > cwd registry 反查 > 8090 fallback，配 `health` 排障命令 + 延迟 warning + 所有 SKILL 文档去硬编码。追加归档 17-ui-structure-first：UI 制作 v2 三表 → v3 结构先行 `prefab-layout.md`，6 阶段无豁免，新增 `unity-rect-transform` SKILL 与 `ui-workflow` capability，废弃 `ui-planning`。批量归档 06 / 15 / 16 / 23：v2.1 GDD 全套落地 + playtest-driver 基础设施 + 最小闭环 loop 首轮 13/13 PASS + 最小完整流程 loop 5 轮 21/22 PASS。）*
+*最后更新：2026-07-07（新增 AI 信息契约层：`PROJECT_MAP.md` / `ACTIVE_CONTEXT.md` / `manifests/*.json` / `Assets/Scripts/Modules/*/MODULE.md`，生成器为 `tools/ai_index/build_ai_manifests.py`；当前 active changes 以实际目录扫描为准：25 为疑似归档残留，26 为固定地貌三主题地图设计包，27 为本次信息契约层。）*

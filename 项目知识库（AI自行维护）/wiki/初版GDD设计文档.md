@@ -59,7 +59,7 @@ related_skills:
 
 ### 2.5 技术栈
 
-- 引擎 Unity 6（已定）
+- 引擎 Unity 2022.3.62f3（已定）
 - 联机框架候选 Mirror / FishNet（前期）→ Photon Fusion 2（后期）
 - 数据驱动 ScriptableObject + Inspector
 - 资源管理 Addressables
