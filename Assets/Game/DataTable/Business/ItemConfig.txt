@@ -1,0 +1,35 @@
+#	Business table migrated from LegacyProjectArchive/Assets/Resources/DataTable/ItemConfig.json. GF_X Id is numeric; original business keys are preserved as data columns.										
+#	Id		ItemId	ItemType	SubType	Tier	DisplayName	Rarity	MaxStack	BasePrice	SellRatio
+#	int		int	string	string	int	string	string	int	int	float
+#	GF_X numeric row id. Original business key is preserved as a data column when its name is not Id.	Note	物品唯一 ID，全局不重复	枚举：Coin | InkBottle | RecipeShard | RecipeFull | Equipment | Antidote	细分类型：颜料填 ColorId（1–7）；武器填品质（Common/Uncommon/Rare/Legendary）；其他留空	颜料档位：1=Basic / 2=Standard / 3=Premium；非颜料物品填 0	本地化显示名（中文，运行时替换为 LocalizationKey）	枚举：Common | Uncommon | Rare | Epic | Legendary	单槽最大堆叠数；金币 = 9999，颜料 = 99，其他 = 1	基础定价（coin）；供商人 ShopStockConfig 引用计算实际价格	玩家出售时的回收比例（× BasePrice）；默认 0.4
+	1		1	Coin		0	金币	Common	9999	1	0.0
+	2101		2101	InkBottle	1	1	红色颜料·基础	Common	99	40	0.4
+	2102		2102	InkBottle	1	2	红色颜料·标准	Uncommon	99	60	0.4
+	2103		2103	InkBottle	1	3	红色颜料·精品	Rare	99	100	0.4
+	2201		2201	InkBottle	2	1	黄色颜料·基础	Common	99	40	0.4
+	2202		2202	InkBottle	2	2	黄色颜料·标准	Uncommon	99	60	0.4
+	2203		2203	InkBottle	2	3	黄色颜料·精品	Rare	99	100	0.4
+	2301		2301	InkBottle	3	1	绿色颜料·基础	Common	99	40	0.4
+	2302		2302	InkBottle	3	2	绿色颜料·标准	Uncommon	99	60	0.4
+	2303		2303	InkBottle	3	3	绿色颜料·精品	Rare	99	100	0.4
+	2401		2401	InkBottle	4	1	蓝色颜料·基础	Common	99	50	0.4
+	2402		2402	InkBottle	4	2	蓝色颜料·标准	Uncommon	99	70	0.4
+	2403		2403	InkBottle	4	3	蓝色颜料·精品	Rare	99	120	0.4
+	2501		2501	InkBottle	5	1	紫色颜料·基础	Uncommon	99	60	0.4
+	2502		2502	InkBottle	5	2	紫色颜料·标准	Rare	99	90	0.4
+	2503		2503	InkBottle	5	3	紫色颜料·精品	Epic	99	150	0.4
+	2601		2601	InkBottle	6	1	金色颜料·基础	Uncommon	99	70	0.4
+	2602		2602	InkBottle	6	2	金色颜料·标准	Rare	99	110	0.4
+	2603		2603	InkBottle	6	3	金色颜料·精品	Epic	99	180	0.4
+	2701		2701	InkBottle	7	1	白色颜料·基础	Rare	99	100	0.4
+	2702		2702	InkBottle	7	2	白色颜料·标准	Epic	99	150	0.4
+	2703		2703	InkBottle	7	3	白色颜料·精品	Legendary	99	220	0.4
+	3001		3001	RecipeShard		0	配方碎片	Uncommon	99	60	0.3
+	3100		3100	RecipeFull		0	完整配方	Rare	10	200	0.3
+	4001		4001	Equipment	Common	0	普通武器	Common	1	80	0.4
+	4002		4002	Equipment	Uncommon	0	绿色武器	Uncommon	1	150	0.4
+	4003		4003	Equipment	Rare	0	蓝色武器	Rare	1	250	0.4
+	4004		4004	Equipment	Legendary	0	传奇武器	Legendary	1	500	0.4
+	5001		5001	Antidote	Detox	0	解毒剂	Common	5	70	0.3
+	5002		5002	Antidote	Thaw	0	解冻剂	Common	5	70	0.3
+	5003		5003	Antidote	Unstun	0	解麻剂	Common	5	70	0.3

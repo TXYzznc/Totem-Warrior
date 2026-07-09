@@ -1,0 +1,19 @@
+#	Business table migrated from LegacyProjectArchive/Assets/Resources/DataTable/ShopStockConfig.json. GF_X Id is numeric; original business keys are preserved as data columns.									
+#	Id		TableId	ItemId	Category	Weight	MinCount	MaxCount	BasePrice	SellRatio
+#	int		string	int	string	float	int	int	int	float
+#	GF_X numeric row id. Original business key is preserved as a data column when its name is not Id.	Note	被 NPCConfig.ShopStockTable 引用的表段 ID	物品 ID	Weapon / Skill / Ink / Antidote / Remover / RareInk	同 TableId 内归一化抽取权重	本局库存最小数量	本局库存最大数量	基础售价（× ThemePriceMul = 实际售价）	玩家出售回收比例（× BasePrice）
+	1		general_shop	101	Ink	3.0	1	3	70	0.5
+	2		general_shop	102	Ink	3.0	1	3	70	0.5
+	3		general_shop	103	Ink	3.0	1	3	70	0.5
+	4		general_shop	104	Ink	3.0	1	3	70	0.5
+	5		general_shop	201	Weapon	2.0	1	1	260	0.4
+	6		general_shop	202	Weapon	2.0	1	1	260	0.4
+	7		general_shop	301	Skill	1.5	1	1	180	0.4
+	8		general_shop	302	Skill	1.5	1	1	180	0.4
+	9		general_shop	401	Antidote	2.0	1	2	90	0.3
+	10		general_shop	402	Remover	1.5	1	2	140	0.3
+	11		alien_shop	501	RareInk	5.0	1	2	360	0.5
+	12		alien_shop	502	RareInk	3.0	1	1	520	0.5
+	13		alien_shop	503	RareInk	1.0	1	1	720	0.5
+	14		alien_shop	201	Weapon	1.5	1	1	310	0.4
+	15		alien_shop	301	Skill	1.5	1	1	220	0.4

@@ -16,6 +16,7 @@ namespace UGF.EditorTools
 
         static bool isInitialized = false;
         static AppConfigs appConfigs = null;
+        static readonly List<FileSystemWatcher> excelWatchers = new List<FileSystemWatcher>();
         [InitializeOnLoadMethod]
         private static void Init()
         {
@@ -26,43 +27,59 @@ namespace UGF.EditorTools
             languageFileChangedList = new List<string>();
             EditorApplication.update -= OnUpdate;
             EditorApplication.update += OnUpdate;
-            var tbWatcher = new FileSystemWatcher(ConstEditor.DataTableExcelPath, "*.xlsx")
-            {
-                IncludeSubdirectories = true,
-
-                NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite | NotifyFilters.FileName,
-                EnableRaisingEvents = true
-            };
-            var fileChangedCb = new FileSystemEventHandler(OnDataTableChanged);
-            tbWatcher.Changed -= fileChangedCb;
-            tbWatcher.Changed += fileChangedCb;
-            tbWatcher.Deleted -= fileChangedCb;
-            tbWatcher.Deleted += fileChangedCb;
-
-            var cfgWatcher = new FileSystemWatcher(ConstEditor.ConfigExcelPath, "*.xlsx")
-            {
-                IncludeSubdirectories = true,
-                NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite | NotifyFilters.FileName,
-                EnableRaisingEvents = true
-            };
-            var cfgFileChangedCb = new FileSystemEventHandler(OnConfigChanged);
-            cfgWatcher.Changed -= cfgFileChangedCb;
-            cfgWatcher.Changed += cfgFileChangedCb;
-            cfgWatcher.Deleted -= cfgFileChangedCb;
-            cfgWatcher.Deleted += cfgFileChangedCb;
-            var langWatcher = new FileSystemWatcher(ConstEditor.LanguageExcelPath, "*.xlsx")
-            {
-                IncludeSubdirectories = true,
-                NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite,
-                EnableRaisingEvents = true
-            };
-            var langFileChangedCb = new FileSystemEventHandler(OnLanguageChanged);
-            langWatcher.Changed -= langFileChangedCb;
-            langWatcher.Changed += langFileChangedCb;
-            langWatcher.Deleted -= langFileChangedCb;
-            langWatcher.Deleted += langFileChangedCb;
+            excelWatchers.Clear();
+            AddExcelWatcher(CreateExcelWatcher(
+                ConstEditor.DataTableExcelPath,
+                NotifyFilters.LastAccess | NotifyFilters.LastWrite | NotifyFilters.FileName,
+                OnDataTableChanged,
+                "DataTable"));
+            AddExcelWatcher(CreateExcelWatcher(
+                ConstEditor.ConfigExcelPath,
+                NotifyFilters.LastAccess | NotifyFilters.LastWrite | NotifyFilters.FileName,
+                OnConfigChanged,
+                "Config"));
+            AddExcelWatcher(CreateExcelWatcher(
+                ConstEditor.LanguageExcelPath,
+                NotifyFilters.LastAccess | NotifyFilters.LastWrite,
+                OnLanguageChanged,
+                "Language"));
             appConfigs = AppConfigs.GetInstanceEditor();
             isInitialized = true;
+        }
+
+        private static void AddExcelWatcher(FileSystemWatcher watcher)
+        {
+            if (watcher != null)
+            {
+                excelWatchers.Add(watcher);
+            }
+        }
+
+        private static FileSystemWatcher CreateExcelWatcher(string path, NotifyFilters notifyFilter, FileSystemEventHandler handler, string label)
+        {
+            if (!Directory.Exists(path))
+            {
+                if (string.Equals(label, "Config", StringComparison.Ordinal))
+                {
+                    Debug.Log($"Skip optional {label} Excel watcher because directory does not exist: {path}");
+                }
+                else
+                {
+                    Debug.LogWarning($"Skip {label} Excel watcher because directory does not exist: {path}");
+                }
+
+                return null;
+            }
+
+            var watcher = new FileSystemWatcher(path, "*.xlsx")
+            {
+                IncludeSubdirectories = true,
+                NotifyFilter = notifyFilter,
+                EnableRaisingEvents = true
+            };
+            watcher.Changed += handler;
+            watcher.Deleted += handler;
+            return watcher;
         }
         static void InitGlobalCulture()
         {

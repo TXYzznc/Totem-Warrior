@@ -1,0 +1,12 @@
+#	Business table migrated from LegacyProjectArchive/Assets/Resources/DataTable/SkillConfig.json. GF_X Id is numeric; original business keys are preserved as data columns.																		
+#	Id		SkillId	Name	ChargeModel	Cooldown	MaxCharges	ChargeRegenTime	HoldDuration	OverchargeWindow	StartupFrames	ActiveFrames	RecoveryFrames	DamageMul	HitShape	HitRadius	Element	CancelableByDodge	ItemId
+#	int		string	string	int	float	int	float	float	float	int	int	int	float	string	float	string	bool	int
+#	GF_X numeric row id. Original business key is preserved as a data column when its name is not Id.	Note	唯一技能 ID，如 skill_fireball_01	显示名称	0=纯冷却 / 1=充能 / 2=蓄力释放	冷却时长(s)，ChargeModel=0 时生效	最大充能层数，ChargeModel=1 时生效	单层恢复时间(s)，ChargeModel=1 时生效	蓄力满充时长(s)，ChargeModel=2 时生效	过载窗口时长(s)，ChargeModel=2 时生效	预备帧 (60fps 基准)	激活帧 (60fps 基准)	恢复帧 (60fps 基准)	伤害倍率，乘以 BaseDamage	single / circle / line / cone	命中范围半径(m)，single 时忽略	元素染色：Fire / Frost / Lightning / Holy / Nature / None	Startup 帧内是否允许闪避取消	商人出售 ItemId，0 表示非商品
+	1		skill_fireball_01	火球术	0	7.0	1	0.0	0.0	0.0	8	4	12	2.4	circle	3.0	Fire	false	1001
+	2		skill_frost_field_01	寒冰阵	0	10.0	1	0.0	0.0	0.0	12	6	18	1.6	circle	4.0	Frost	false	1002
+	3		skill_chain_lightning_01	雷链	1	0.0	3	8.0	0.0	0.0	6	3	9	1.35	single	0.0	Lightning	true	1003
+	4		skill_heal_aura_01	治疗光环	0	12.0	1	0.0	0.0	0.0	6	60	6	0.0	circle	5.0	Holy	true	1004
+	5		skill_shield_01	护盾	0	12.0	1	0.0	0.0	0.0	4	120	6	0.0	single	0.0	None	false	1005
+	6		skill_stealth_01	短暂隐身	2	0.0	1	0.0	1.5	0.8	3	180	6	0.0	single	0.0	None	true	1006
+	7		skill_summon_01	召唤兽	0	15.0	1	0.0	0.0	0.0	18	600	12	1.2	single	0.0	Nature	false	1007
+	8		skill_time_slow_01	时间慢放	0	20.0	1	0.0	0.0	0.0	6	300	6	0.0	circle	8.0	None	false	1008

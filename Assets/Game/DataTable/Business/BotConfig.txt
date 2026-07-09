@@ -1,0 +1,27 @@
+#	Business table migrated from LegacyProjectArchive/Assets/Resources/DataTable/BotConfig.json. GF_X Id is numeric; original business keys are preserved as data columns.																						
+#	Id		BotId	Type	DisplayName	RethinkInterval	AttackCooldown	VisionRadius	AggroRadius	DodgeReactionMs	Confidence	PreferredPreset	LootGreedFactor	SelfTattooBoldness	EnchantGreed	Personality	TargetPlayerWeight	TargetHumanoidAiWeight	TargetBossWeight	TargetResourceWeight	ReadingTargetWeight	ShopPreference	RiskTolerance
+#	int		int	string	string	float	float	float	float	int	float	int	float	float	float	string	float	float	float	float	float	float	float
+#	GF_X numeric row id. Original business key is preserved as a data column when its name is not Id.	Note	Primary profile id	Smart or Light	Runtime/debug display name	Build planner rethink interval in seconds	Minimum normal attack cooldown	Target search radius	Preferred combat/chase radius	Threat reaction latency in milliseconds	Decision confidence 0..1	BotBuildPreset.PresetId	Death chest/resource greed 0..2	Smart self-tattoo boldness 0..1	Enchant/shop upgrade preference 0..1	Smart AI personality	Score weight for the real player	Score weight for Smart/Light AI targets	Score weight for active Boss target	Score weight for resource seeking	Bonus weight against self-tattoo reading targets	Shop and upgrade preference	Risk tolerance 0..1
+	1		1	Smart	Smart Aggressive Fire	20.0	0.85	20.0	18.0	210	0.88	1	0.95	0.62	0.65	Aggressive	1.00	1.00	0.20	0.25	0.8	0.35	0.82
+	2		2	Smart	Smart Aggressive Lightning	20.0	0.85	20.0	18.0	220	0.86	2	1.0	0.58	0.6	Aggressive	1.00	1.00	0.20	0.25	0.8	0.35	0.82
+	3		3	Smart	Smart Aggressive Mutation	20.0	0.90	20.0	18.0	240	0.82	5	0.9	0.64	0.58	Aggressive	1.00	1.00	0.20	0.25	0.8	0.35	0.82
+	4		4	Smart	Smart Aggressive Pure	20.0	0.85	20.0	18.0	215	0.87	7	0.85	0.6	0.62	Aggressive	1.00	1.00	0.20	0.25	0.8	0.35	0.82
+	5		5	Smart	Smart Aggressive Flanker	20.0	0.90	21.0	18.0	230	0.84	1	1.05	0.55	0.7	Aggressive	1.00	1.00	0.20	0.25	0.8	0.35	0.82
+	6		6	Smart	Smart Conservative Nature	20.0	1.10	22.0	13.0	320	0.72	3	0.45	0.35	0.35	Conservative	0.45	0.30	0.15	0.25	0.8	0.45	0.25
+	7		7	Smart	Smart Conservative Frost	20.0	1.10	22.0	13.0	300	0.75	4	0.4	0.3	0.4	Conservative	0.45	0.30	0.15	0.25	0.8	0.45	0.25
+	8		8	Smart	Smart Conservative Holy	20.0	1.15	24.0	14.0	310	0.78	6	0.5	0.38	0.45	Conservative	0.45	0.30	0.15	0.25	0.8	0.45	0.25
+	9		9	Smart	Smart Resource Lightning	20.0	1.00	21.0	16.0	260	0.78	2	1.60	0.48	0.75	ResourceAcquisition	0.25	0.20	0.25	1.80	0.8	1.25	0.50
+	10		10	Smart	Smart Resource Nature	20.0	1.00	21.0	16.0	280	0.74	3	1.65	0.44	0.8	ResourceAcquisition	0.25	0.20	0.25	1.80	0.8	1.25	0.50
+	11		11	Smart	Smart Resource Mutation	20.0	1.00	22.0	17.0	270	0.76	5	1.70	0.5	0.85	ResourceAcquisition	0.25	0.20	0.25	1.80	0.8	1.25	0.50
+	12		12	Smart	Smart Resource Holy	20.0	1.00	22.0	17.0	265	0.79	6	1.75	0.46	0.9	ResourceAcquisition	0.25	0.20	0.25	1.80	0.8	1.25	0.50
+	13		13	Smart	Smart Boss Fire	20.0	0.95	24.0	18.0	250	0.82	1	0.55	0.5	0.6	BossPriority	0.20	0.20	2.20	0.45	0.8	0.55	0.65
+	14		14	Smart	Smart Boss Frost	20.0	0.95	24.0	18.0	255	0.8	4	0.5	0.5	0.62	BossPriority	0.20	0.20	2.20	0.45	0.8	0.55	0.65
+	15		15	Smart	Smart Boss Pure	20.0	1.00	25.0	19.0	245	0.84	7	0.45	0.52	0.65	BossPriority	0.20	0.20	2.20	0.45	0.8	0.55	0.65
+	16		16	Smart	Smart Boss Mutation	20.0	1.00	24.0	18.0	265	0.78	5	0.6	0.48	0.58	BossPriority	0.20	0.20	2.20	0.45	0.8	0.55	0.65
+	17		17	Smart	Smart Player Lightning	20.0	0.85	22.0	19.0	220	0.86	2	0.7	0.55	0.65	PlayerPriority	1.25	1.25	0.25	0.30	1.5	0.45	0.80
+	18		18	Smart	Smart Player Pure	20.0	0.85	22.0	19.0	225	0.88	7	0.65	0.58	0.62	PlayerPriority	1.25	1.25	0.25	0.30	1.5	0.45	0.80
+	19		19	Smart	Smart Player Fire	20.0	0.85	22.0	19.0	215	0.87	1	0.68	0.56	0.66	PlayerPriority	1.25	1.25	0.25	0.30	1.5	0.45	0.80
+	20		20	Smart	Smart Player Mutation	20.0	0.90	23.0	19.0	235	0.83	5	0.72	0.54	0.68	PlayerPriority	1.25	1.25	0.25	0.30	1.5	0.45	0.80
+	101		101	Light	Light Scout A	45.0	1.0	14.0	12.0	350	0.45	1	0.3	0.0	0.0	Hybrid	0.9	0.9	0.2	0.4	0.8	0.4	0.6
+	102		102	Light	Light Scout B	45.0	1.0	14.0	12.0	380	0.4	2	0.3	0.0	0.0	Hybrid	0.9	0.9	0.2	0.4	0.8	0.4	0.6
+	103		103	Light	Light Scout C	45.0	1.1	14.0	12.0	400	0.4	3	0.3	0.0	0.0	Hybrid	0.9	0.9	0.2	0.4	0.8	0.4	0.6

@@ -46,9 +46,11 @@ namespace UGF.EditorTools
             public List<ItemData> ExcelItems { get; private set; }
             private GUIStyle normalStyle;
             private GUIStyle selectedStyle;
+            private bool loadedFromDirectory;
             GUIContent titleContent;
             public GameDataScrollView(AppConfigs cfg, GameDataType configTp)
             {
+                ExcelItems = new List<ItemData>();
                 normalStyle = new GUIStyle();
                 normalStyle.normal.textColor = Color.white;
                 selectedStyle = new GUIStyle();
@@ -75,25 +77,42 @@ namespace UGF.EditorTools
             }
             public void Reload()
             {
-                if (!Directory.Exists(excelDir) || appConfig == null) return;
+                ExcelItems ??= new List<ItemData>();
+                ExcelItems.Clear();
+                loadedFromDirectory = false;
+                if (appConfig == null)
+                {
+                    return;
+                }
+
+                if (!Directory.Exists(excelDir))
+                {
+                    return;
+                }
 
                 var mainExcels = GameDataGenerator.GetAllGameDataExcels(this.CfgType, GameDataExcelFileType.MainFile);
+                loadedFromDirectory = true;
 
-                if (ExcelItems == null) ExcelItems = new List<ItemData>(); else ExcelItems.Clear();
-
-                string[] desArr = GetGameDataList();
-                if (desArr != null)
+                string[] desArr = GetGameDataList() ?? Array.Empty<string>();
+                foreach (var mainExcelFile in mainExcels)
                 {
-                    foreach (var mainExcelFile in mainExcels)
-                    {
-                        var mainExcelRelativePath = GameDataGenerator.GetGameDataExcelRelativePath(this.CfgType, mainExcelFile);
-                        var isOn = ArrayUtility.Contains(desArr, mainExcelRelativePath);
-                        ExcelItems.Add(new ItemData(isOn, mainExcelRelativePath));
-                    }
+                    var mainExcelRelativePath = GameDataGenerator.GetGameDataExcelRelativePath(this.CfgType, mainExcelFile);
+                    var isOn = ArrayUtility.Contains(desArr, mainExcelRelativePath);
+                    ExcelItems.Add(new ItemData(isOn, mainExcelRelativePath));
                 }
             }
             public string[] GetSelectedItems()
             {
+                if (ExcelItems == null)
+                {
+                    return Array.Empty<string>();
+                }
+
+                if (!loadedFromDirectory)
+                {
+                    return GetGameDataList() ?? Array.Empty<string>();
+                }
+
                 var selectedList = ExcelItems.Where(dt => dt.isOn).ToArray();
                 string[] resultArr = new string[selectedList.Length];
                 for (int i = 0; i < selectedList.Length; i++)
@@ -105,6 +124,16 @@ namespace UGF.EditorTools
 
             internal void SetSelectAll(bool v)
             {
+                if (ExcelItems == null)
+                {
+                    return;
+                }
+
+                if (!loadedFromDirectory)
+                {
+                    return;
+                }
+
                 foreach (var item in ExcelItems)
                 {
                     item.isOn = v;
@@ -118,8 +147,13 @@ namespace UGF.EditorTools
                 this.foldout = EditorGUILayout.Foldout(this.foldout, titleContent);
                 if (foldout)
                 {
+                    ExcelItems ??= new List<ItemData>();
                     EditorGUILayout.BeginVertical();
                     {
+                        if (!Directory.Exists(excelDir))
+                        {
+                            EditorGUILayout.HelpBox($"Excel directory does not exist: {excelDir}", MessageType.Info);
+                        }
                         scrollPos = EditorGUILayout.BeginScrollView(scrollPos, "box", GUILayout.MaxHeight(200));
                         {
                             EditorGUI.BeginChangeCheck();
@@ -237,13 +271,13 @@ namespace UGF.EditorTools
                 switch (this.CfgType)
                 {
                     case GameDataType.DataTable:
-                        return appConfig.DataTables;
+                        return appConfig != null ? appConfig.DataTables : Array.Empty<string>();
                     case GameDataType.Config:
-                        return appConfig.Configs;
+                        return appConfig != null ? appConfig.Configs : Array.Empty<string>();
                     case GameDataType.Language:
-                        return appConfig.Languages;
+                        return appConfig != null ? appConfig.Languages : Array.Empty<string>();
                     default:
-                        return null;
+                        return Array.Empty<string>();
                 }
             }
             private void CreateExcel(string newExcelName)
@@ -302,6 +336,7 @@ namespace UGF.EditorTools
         bool procedureFoldout = true;
         Vector2 procedureScrollPos;
         ItemData[] procedures;
+        bool proceduresLoaded;
         private GUIStyle normalStyle;
         private GUIStyle selectedStyle;
         GUIContent procedureTitleContent;
@@ -309,7 +344,7 @@ namespace UGF.EditorTools
         GUIContent loadFromBytesContent;
         private void OnEnable()
         {
-            appConfig = target as AppConfigs;
+            appConfig = AppConfigs.ReloadInstanceEditor() ?? target as AppConfigs;
             normalStyle = new GUIStyle();
             normalStyle.normal.textColor = Color.white;
             selectedStyle = new GUIStyle();
@@ -323,7 +358,10 @@ namespace UGF.EditorTools
         }
         private void OnDisable()
         {
-            SaveConfig(appConfig);
+            if (appConfig != null)
+            {
+                SaveConfig(appConfig);
+            }
         }
         public override void OnInspectorGUI()
         {
@@ -391,7 +429,12 @@ namespace UGF.EditorTools
 
         private void SaveConfig(AppConfigs cfg)
         {
-            foreach (var svData in svDataArr)
+            if (cfg == null)
+            {
+                return;
+            }
+
+            foreach (var svData in svDataArr ?? Array.Empty<GameDataScrollView>())
             {
                 if (svData.CfgType == GameDataType.DataTable)
                 {
@@ -406,18 +449,21 @@ namespace UGF.EditorTools
                     cfg.GetType().GetField("mLanguages", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).SetValue(cfg, svData.GetSelectedItems());
                 }
             }
-            List<string> selectedProcedures = new List<string>();
-            foreach (var item in procedures)
+            if (proceduresLoaded && procedures != null && procedures.Length > 0)
             {
-                if (!item.isOn) continue;
-                selectedProcedures.Add(item.excelName);
+                List<string> selectedProcedures = new List<string>();
+                foreach (var item in procedures)
+                {
+                    if (!item.isOn) continue;
+                    selectedProcedures.Add(item.excelName);
+                }
+                cfg.GetType().GetField("mProcedures", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).SetValue(cfg, selectedProcedures.ToArray());
             }
-            cfg.GetType().GetField("mProcedures", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).SetValue(cfg, selectedProcedures.ToArray());
             EditorUtility.SetDirty(cfg);
         }
         private void ReloadScrollView(AppConfigs cfg)
         {
-            foreach (var item in svDataArr)
+            foreach (var item in svDataArr ?? Array.Empty<GameDataScrollView>())
             {
                 item.Reload();
             }
@@ -426,9 +472,11 @@ namespace UGF.EditorTools
         }
         private void ReloadProcedures(AppConfigs cfg)
         {
+            proceduresLoaded = false;
             procedures ??= new ItemData[0];
             ArrayUtility.Clear(ref procedures);
             var hotfixDlls = Utility.Assembly.GetAssemblies().Where(dll => HybridCLR.Editor.SettingsUtil.HotUpdateAssemblyNamesIncludePreserved.Contains(dll.GetName().Name)).ToArray();
+            string[] selectedProcedures = cfg?.Procedures ?? Array.Empty<string>();
 
             foreach (var item in hotfixDlls)
             {
@@ -436,9 +484,10 @@ namespace UGF.EditorTools
                 foreach (var proceClass in proceClassArr)
                 {
                     var proceName = proceClass.FullName;
-                    ArrayUtility.Add(ref procedures, new ItemData(cfg.Procedures.Contains(proceName), proceName));
+                    ArrayUtility.Add(ref procedures, new ItemData(selectedProcedures.Contains(proceName), proceName));
                 }
             }
+            proceduresLoaded = true;
         }
     }
 

@@ -1,0 +1,9 @@
+#	Business table migrated from LegacyProjectArchive/Assets/Resources/DataTable/WeaponConfig.json. GF_X Id is numeric; original business keys are preserved as data columns.																			
+#	Id		WeaponId	Name	Class	BaseDamage	AttackSpeed	Range	ChargedMul	ProjectileId	Rarity	MaxAmmo	BaseStartup	BaseActive	BaseRecovery	RequiresCharge	AimSpreadHalfDeg	NormalTraitId	ChargedTraitId	WeaponPrefabPath
+#	int		string	string	string	float	float	float	float	string	int	int	int	int	int	bool	float	string	string	string
+#	GF_X numeric row id. Original business key is preserved as a data column when its name is not Id.	Note	主键，如 knife_basic / hammer_heavy / pistol_basic / bow_charge / energy_fist	显示名称	Melee / Ranged / Special	基础伤害，TattooModule scaleStat 基准	AttackSpeedModifier，叠加到 PassiveStats.AttackSpeed	近战 Hitbox 球形半径（米），远程为最大有效距离	蓄力伤害倍率，覆盖默认 1.5x	远程武器对应飞行物 ID，近战留空	稀有度 0=普通 1=精良 2=稀有 3=史诗	-1=无限（近战），远程为弹匣容量	前摇帧数（60fps 基准）	伤害帧数（Hitbox 开启区间）	后摇帧数	true=需蓄力才激活伤害判定（弓）	change#20: 鼠标射击半角(度)，0=Raycast严格 / 180=自动锁定最近敌 / 中间=SphereCast锥形	change#20: 普攻 trait，引用 WeaponTraitConfig.TraitId	change#20: 蓄力 trait，引用 WeaponTraitConfig.TraitId	change#20: 武器 prefab 在 Resources 下的相对路径（不含扩展名），元气骑士范式动画用
+	1		knife_basic	短刀	Melee	18.0	0.05	1.2	1.4		0	-1	6	4	26	false	120.0	trait_quickslash	trait_pierce	Prefab/Weapon/Knife
+	2		hammer_heavy	重锤	Melee	48.0	-0.15	1.8	2.0		1	-1	14	6	40	false	90.0	trait_stun	trait_explosive	Prefab/Weapon/Hammer
+	3		pistol_basic	手枪	Ranged	16.0	0.0	20.0	1.4	bullet_pistol	1	18	6	2	22	false	12.0	trait_pierce	trait_multishot	Prefab/Weapon/Pistol
+	4		bow_charge	蓄力弓	Ranged	30.0	-0.05	30.0	2.4	arrow_bow	2	24	16	4	40	true	4.0	trait_pierce	trait_chain	Prefab/Weapon/Bow
+	5		energy_fist	能量拳	Special	24.0	0.10	2.5	1.7		2	-1	8	5	27	false	35.0	trait_quickslash	trait_pull	Prefab/Weapon/Fist

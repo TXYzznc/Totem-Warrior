@@ -1,0 +1,7 @@
+#	Business table migrated from LegacyProjectArchive/Assets/Resources/DataTable/EnemyConfig.json. GF_X Id is numeric; original business keys are preserved as data columns.																			
+#	Id		EnemyId	DisplayName	ThemeId	Tier	BaseHP	HPCurveK	BaseDamage	DamageCurveK	MoveSpeed	AttackRange	DetectRange	SkillIds	LootTableId	GuaranteedLootIds	ElitePaintDropRare	XPReward	CoinReward	PoolIds
+#	int		string	string	string	string	float	float	float	float	float	float	float	string	string	string	int	int	string	string
+#	GF_X numeric row id. Original business key is preserved as a data column when its name is not Id.	Note	怪物唯一 ID，如 enemy_ai_servo_light	本地化键，如 enemy.ai_servo	AI_RUINS | ALIEN_HIVE | VIRUS_SWAMP | common	Light | Elite | Boss	Run 第 0 分钟基础 HP	HP 线性增长系数，HP_t = BaseHP × (1 + K × t_min)	基础攻击伤害 (point)	伤害随时间增长系数	移动速度 (m/s)	攻击判定范围 (m)	感知半径 (m)；失追距离 = DetectRange × 2	技能 ID 逗号分隔；Light 通常空	随机掉落表 ID	v2.1 新增：必掉物品 ID 逗号分隔；Elite 必含稀有颜料 ID	v2.1 新增：精英必掉稀有颜料标记；1=必掉，0=不掉	击杀奖励 XP	击杀掉落金币范围，格式 min-max	所属怪物池 ID，逗号分隔
+	1		enemy_common_light_01	enemy.common_light	common	Light	55.0	0.1	8.0	0.05	3.5	1.5	10.0		loot_light_common		0	5	2-6	pool_common
+	2		enemy_common_elite_01	enemy.common_elite	common	Elite	150.0	0.12	18.0	0.07	4.0	2.0	14.0	skill_slash	loot_elite_common	paint_rare_001	1	20	10-20	pool_common,pool_elite
+	3		enemy_ai_ruins_boss_01	enemy.ai_ruins_boss	AI_RUINS	Boss	900.0	0.0	35.0	0.0	5.0	3.0	30.0	skill_stomp,skill_beam,skill_summon	loot_boss_ai_ruins		0	200	80-120	pool_boss

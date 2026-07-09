@@ -1,0 +1,11 @@
+#	Business table migrated from LegacyProjectArchive/Assets/Resources/DataTable/BotBuildPreset.json. GF_X Id is numeric; original business keys are preserved as data columns.											
+#	Id		PresetId	Name	Tendency	PreferredParts	RecommendedSeq	EarlyGameWeapon	BehaviorMacro	PreferredSkillQ	PreferredSkillE	TargetEnchantAffixes
+#	int		int	string	string	string	string	int	string	int	int	string
+#	GF_X numeric row id. Original business key is preserved as a data column when its name is not Id.	Note	主键 1-7	如 火爆右臂流	7 元素倾向 vector JSON：[Fire,Lightning,Nature,Frost,Mutation,Holy,Pure] sum=1.0	推荐刻的部位 ID 序列 JSON，按优先级排	推荐 build 序列 JSON：[{partId,colorId,patternId},...] 长度1..6	WeaponId 默认起手武器	Rush / Camp / Pivot / Hybrid	起手 Q 槽推荐技能 SkillId	起手 E 槽推荐技能 SkillId	希望最终叠到的词缀 ID 列表 JSON
+	1		1	火爆右臂流	[0.55,0.05,0.05,0.05,0.05,0.10,0.15]	[4,1,2,5,6,3]	[{"partId":4,"colorId":1,"patternId":2},{"partId":1,"colorId":1,"patternId":6},{"partId":2,"colorId":1,"patternId":1}]	1	Rush	1	2	[101,102]
+	2		2	雷电链式流	[0.05,0.55,0.05,0.05,0.05,0.10,0.15]	[3,4,1,5,6,2]	[{"partId":3,"colorId":2,"patternId":5},{"partId":4,"colorId":2,"patternId":2}]	1	Pivot	3	4	[103]
+	3		3	毒木持久流	[0.05,0.05,0.55,0.05,0.05,0.10,0.15]	[6,2,4,5,1,3]	[{"partId":6,"colorId":3,"patternId":7},{"partId":2,"colorId":3,"patternId":3}]	1	Camp	5	6	[104]
+	4		4	寒冰防御流	[0.05,0.05,0.05,0.55,0.05,0.10,0.15]	[2,5,4,6,1,3]	[{"partId":2,"colorId":4,"patternId":3},{"partId":5,"colorId":4,"patternId":7}]	1	Camp	7	8	[105,106]
+	5		5	变异乱斗流	[0.05,0.05,0.05,0.05,0.55,0.10,0.15]	[1,4,3,5,6,2]	[{"partId":1,"colorId":5,"patternId":6},{"partId":4,"colorId":5,"patternId":5}]	1	Hybrid	9	10	[107]
+	6		6	圣光奶妈流	[0.05,0.05,0.05,0.05,0.05,0.55,0.20]	[2,3,1,6,5,4]	[{"partId":2,"colorId":6,"patternId":4},{"partId":3,"colorId":6,"patternId":1}]	1	Camp	11	12	[108]
+	7		7	纯白控场流	[0.05,0.05,0.05,0.05,0.05,0.20,0.55]	[3,1,4,5,6,2]	[{"partId":3,"colorId":7,"patternId":4},{"partId":1,"colorId":7,"patternId":1}]	1	Pivot	13	14	[109]

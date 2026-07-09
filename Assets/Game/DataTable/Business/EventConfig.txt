@@ -1,0 +1,10 @@
+#	Business table migrated from LegacyProjectArchive/Assets/Resources/DataTable/EventConfig.json. GF_X Id is numeric; original business keys are preserved as data columns.											
+#	Id		EventId	EventType	DisplayName	TriggerCondition	BaseRewardCoin	RewardPoolId	TimeoutSec	CurseDebuffId	WeightBase	IsRepeatAllowed
+#	int		string	string	string	string	int	string	float	string	int	bool
+#	GF_X numeric row id. Original business key is preserved as a data column when its name is not Id.	Note	事件唯一 ID，格式 event_<type>_<序号>	枚举：combat_event / choice_event / puzzle_event / merchant_event / boss_event / lore_event / curse_event	玩家可见名称（本地化 Key）	前置条件 JSON：{ minElapsedSec, minRoomCleared, requiredFlag }；空字符串=无条件	完成时发放基础金币；0=不发	额外掉落池 ID，引用 LootPoolConfig；空=无额外掉落	超时时间(s)；choice_event 填 20(v2.1)；-1=不超时(merchant_event)	仅 curse_event 用：施加的 Debuff ID；其余留空	地图生成时随机选取事件类型的基础权重 (1–100)	同一 Run 内是否允许同一 EventId 重复出现
+	1		event_choice_001	choice_event	event.choice.mysterious_altar		0		20.0		40	true
+	2		event_choice_002	choice_event	event.choice.old_forge	{"minElapsedSec":120}	0		20.0		30	true
+	3		event_combat_001	combat_event	event.combat.ambush		50	pool_combat_basic	-1.0		35	true
+	4		event_merchant_001	merchant_event	event.merchant.wandering_trader		0		-1.0		20	true
+	5		event_curse_001	curse_event	event.curse.ink_corruption	{"minElapsedSec":180}	120	pool_curse_reward	20.0	debuff_ink_slow	15	false
+	6		event_lore_001	lore_event	event.lore.ancient_inscription		20		-1.0		10	false

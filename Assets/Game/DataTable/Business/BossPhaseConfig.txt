@@ -1,0 +1,7 @@
+#	Business table migrated from LegacyProjectArchive/Assets/Resources/DataTable/BossPhaseConfig.json. GF_X Id is numeric; original business keys are preserved as data columns.									
+#	Id		BossId	PhaseIndex	HPThreshold	NewSkillIds	EnrageMultiplier	PhaseVFXId	PhaseBGMCueId	DeathPatternRecipeId
+#	int		string	int	float	string	float	string	string	string
+#	GF_X numeric row id. Original business key is preserved as a data column when its name is not Id.	Note	对应 EnemyConfig.EnemyId	阶段编号：1 / 2 / 3	进入本阶段的 HP 百分比：1.0=满血，0.6=60%HP	本阶段解锁技能 ID，逗号分隔，叠加不替换	本阶段伤害倍率，1.0=无变化	阶段转换特效 ID	阶段 BGM cue ID	v2.1 新增：Boss 死亡时必掉的主题配方 ID（仅 PhaseIndex=3 有效，其余填空）
+	1		enemy_ai_ruins_boss_01	1	1.0	skill_stomp,skill_beam	1.0	vfx_boss_enter	bgm_boss_phase1	
+	2		enemy_ai_ruins_boss_01	2	0.6	skill_summon	1.18	vfx_boss_phase2	bgm_boss_phase2	
+	3		enemy_ai_ruins_boss_01	3	0.3	skill_enrage_aoe	1.35	vfx_boss_phase3	bgm_boss_phase3	recipe_ai_ruins_boss

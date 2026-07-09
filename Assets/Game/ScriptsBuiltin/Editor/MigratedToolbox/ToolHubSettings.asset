@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 319c7378cd948b34cb8b20add45770f4, type: 3}
+  m_Name: ToolHubSettings
+  m_EditorClassIdentifier: 
+  locked: 0
+  selectedIndex: 0
+  tools:
+  - typeName: TotemWarrior.EditorTools.UISpriteImportBatchPanel, Builtin.Editor,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    displayName: "UI \u56FE\u7247\u5BFC\u5165\u521D\u59CB\u5316"
+    description: "\u9012\u5F52\u521D\u59CB\u5316\u6307\u5B9A\u6587\u4EF6\u5939\u4E2D\u7684\u56FE\u7247\u5BFC\u5165\u8BBE\u7F6E"

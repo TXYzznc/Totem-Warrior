@@ -1,0 +1,10 @@
+#	Business table migrated from LegacyProjectArchive/Assets/Resources/DataTable/TattooPartConfig.json. GF_X Id is numeric; original business keys are preserved as data columns.							
+#	Id		Name	TriggerEvent	ScaleStat	SymmetryGroup	ScaleFactor	PassiveDimension
+#	int		string	string	string	string	float	string
+#	GF_X numeric row id. Original business key is preserved as a data column when its name is not Id.	Note	Head / Torso / LeftArm / RightArm / LeftLeg / RightLeg	事件类名：AttackHitEvent / CritHitEvent / DamagedEvent / SkillCastEvent / DodgePressedEvent / MoveTickEvent	StatType enum 名	None / Arms / Legs	缩放系数	被动维度标签（暴击/抗性/技能/武器/闪避/移速）
+	1		Head	CritHitEvent	CritMultiplier	None	10.0	暴击率/暴伤
+	2		Torso	DamagedEvent	MaxHealth	None	0.12	抗性/最大生命
+	3		LeftArm	SkillCastEvent	SkillPower	Arms	0.6	技能强度
+	4		RightArm	AttackHitEvent	WeaponDamage	Arms	0.8	武器伤害
+	5		LeftLeg	DodgePressedEvent	DodgeFrames	Legs	40.0	闪避帧
+	6		RightLeg	MoveTickEvent	MoveSpeed	Legs	1.6	移速

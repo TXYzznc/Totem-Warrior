@@ -1,0 +1,16 @@
+#	Business table migrated from LegacyProjectArchive/Assets/Resources/DataTable/UIFormConfig.json. GF_X Id is numeric; original business keys are preserved as data columns.					
+#	Id		FormName	PrefabPath	SortOrder	IsExclusive
+#	int		string	string	int	bool
+#	GF_X numeric row id. Original business key is preserved as a data column when its name is not Id.	Note				
+	1		CombatHUDForm	UI/CombatHUD	0	false
+	2		TattooStudioForm	UI/TattooStudio	10	true
+	3		TattooEnchantForm	UI/TattooEnchant	10	true
+	4		ShopForm	UI/Shop	10	true
+	5		ThreeChoiceForm	UI/ThreeChoice	10	true
+	6		PauseMenuForm	UI/PauseMenu	20	false
+	7		RunResultForm	UI/RunResult	20	false
+	8		MainMenuForm	UI/MainMenu	30	false
+	9		CharacterSelectForm	UI/CharacterSelect	30	false
+	10		SettingsForm	UI/Settings	20	true
+	11		SelfTattooForm	UI/SelfTattoo	10	true
+	12		StartupSelectForm	UI/StartupSelect	30	false

@@ -25,6 +25,7 @@ namespace UGF.EditorTools
         /// Excel下拉列表总限制255个字符
         /// </summary>
         const int MAX_CHAR_LENGTH = 255;
+        const string GeneratedNewLine = "\n";
         private static readonly UTF8Encoding Utf8NoBom = new UTF8Encoding(false);
         static IList<KeyValuePair<int, string>> m_DataTableVarTypes = null;
         [InitializeOnLoadMethod]
@@ -232,7 +233,7 @@ namespace UGF.EditorTools
             var outFileName = ConstEditor.ConstGroupScriptFileFullName;
             try
             {
-                File.WriteAllText(outFileName, sBuilder.ToString(), Utf8NoBom);
+                File.WriteAllText(outFileName, NormalizeGeneratedText(sBuilder.ToString()), Utf8NoBom);
                 Debug.LogFormat("------------------成功生成Group文件:{0}---------------", outFileName);
             }
             catch (Exception e)
@@ -289,7 +290,7 @@ namespace UGF.EditorTools
                 curIndex++;
             }
             sBuilder.AppendLine("}");
-            File.WriteAllText(ConstEditor.UIViewScriptFile, sBuilder.ToString(), Utf8NoBom);
+            File.WriteAllText(ConstEditor.UIViewScriptFile, NormalizeGeneratedText(sBuilder.ToString()), Utf8NoBom);
             Debug.LogFormat("-------------------成功生成:{0}-----------------", ConstEditor.UIViewScriptFile);
         }
         /// <summary>
@@ -436,7 +437,7 @@ namespace UGF.EditorTools
                 {
                     Directory.CreateDirectory(outTxtDir);
                 }
-                File.WriteAllText(outTxtFile, excelTxt.ToString(), Utf8NoBom);
+                File.WriteAllText(outTxtFile, NormalizeGeneratedText(excelTxt.ToString()), Utf8NoBom);
                 return true;
             }
             catch (Exception e)
@@ -444,6 +445,22 @@ namespace UGF.EditorTools
                 Debug.LogError($"excel导出:{outTxtFile}失败:{e.Message}");
                 return false;
             }
+        }
+
+        private static string NormalizeGeneratedText(string text)
+        {
+            if (string.IsNullOrEmpty(text))
+            {
+                return GeneratedNewLine;
+            }
+
+            text = text.Replace("\r\n", GeneratedNewLine).Replace("\r", GeneratedNewLine);
+            if (!text.EndsWith(GeneratedNewLine, StringComparison.Ordinal))
+            {
+                text += GeneratedNewLine;
+            }
+
+            return text;
         }
         /// <summary>
         /// Excel转换为Txt

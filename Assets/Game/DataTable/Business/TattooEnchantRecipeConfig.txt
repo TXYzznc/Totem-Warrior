@@ -1,0 +1,7 @@
+#	Business table migrated from LegacyProjectArchive/Assets/Resources/DataTable/TattooEnchantRecipeConfig.json. GF_X Id is numeric; original business keys are preserved as data columns.					
+#	Id		ColorTier	CoinCost	RarePigmentCost	MaxAffixPerSlot
+#	int		string	int	int	int
+#	GF_X numeric row id. Original business key is preserved as a data column when its name is not Id.	Note	颜料档：Common / Rare / Legendary	附魔金币花费	附魔稀有颜料花费（固定 1 瓶）	每个纹身槽最大词缀数（固定 2）
+	1		Common	200	1	2
+	2		Rare	350	1	2
+	3		Legendary	500	1	2

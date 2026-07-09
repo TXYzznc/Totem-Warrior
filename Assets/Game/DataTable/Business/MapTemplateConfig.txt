@@ -1,0 +1,7 @@
+#	Business table migrated from LegacyProjectArchive/Assets/Resources/DataTable/MapTemplateConfig.json. GF_X Id is numeric; original business keys are preserved as data columns.									
+#	Id		ThemeName	MapSize	MinRoomSize	BspMaxDepth	TerrainPoolId	PrefabPath	HudAccentColor	DominantColor
+#	int		string	float	float	int	int	string	string	string
+#	GF_X numeric row id. Original business key is preserved as a data column when its name is not Id.	Note	主题枚举名（AI_RUINS / ALIEN_HIVE / VIRUS_SWAMP）	固定手工地图边界尺寸（单位 m，固定 400）	BSP 最小房间尺寸（单位 m）	BSP 最大递归深度（v2.1 = 4）	地块池 ID，用于 tile 替换。MVP 暂未消费	房间 Prefab 路径前缀（相对 Resources/Prefab/Map/）。MVP 留空	HUD 强调色（hex，如 #66CCFF）。透传字段	主色调（hex）。透传字段
+	1		AI_RUINS	400.0	40.0	4	101		#66CCFF	#3A4858
+	2		ALIEN_HIVE	400.0	40.0	4	102		#7DFF88	#273A22
+	3		VIRUS_SWAMP	400.0	40.0	4	103		#B6FF3C	#233A35

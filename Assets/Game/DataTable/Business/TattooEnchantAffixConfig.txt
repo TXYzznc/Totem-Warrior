@@ -1,0 +1,28 @@
+#	Business table migrated from LegacyProjectArchive/Assets/Resources/DataTable/TattooEnchantAffixConfig.json. GF_X Id is numeric; original business keys are preserved as data columns.										
+#	Id		PartId	ColorTier	AffixType	StatKey	Value	ConditionKey	ConditionVal	DisplayText	Weight
+#	int		int	string	string	string	float	string	float	string	float
+#	GF_X numeric row id. Original business key is preserved as a data column when its name is not Id.	Note	适用部位：0=全部位 1=Head 2=Torso 3=LeftArm 4=RightArm 5=LeftLeg 6=RightLeg	适用颜料档：Common / Rare / Legendary / Any	效果类型：ElementDamageBonus / CooldownReduction / AttackSpeed / CritChance / CritDamage / RangeBonus / StatusChance / SelfHealOnHit	影响的数值 Key（ElementDmg / CritRate / CooldownPct 等）	词缀数值（百分比类已存储为小数，0.15 = 15%）	条件 Key（无条件留空字符串；如 DistanceGt8m / AfterDodge）	条件阈值（ConditionKey 为空时填 0）	UI 展示文案（如 距离>8m 攻击 +30%）	同 PartId+ColorTier 池内的抽取权重（归一化前原始值）
+	1		0	Common	ElementDamageBonus	ElementDmg	0.1		0	元素伤害 +10%	5.0
+	2		0	Common	AttackSpeed	AttackSpeed	0.08		0	攻速 +8%	4.0
+	3		0	Common	CritChance	CritRate	0.05		0	暴击率 +5%	4.0
+	4		0	Common	CooldownReduction	CooldownPct	0.1		0	技能冷却 -10%	3.5
+	5		0	Common	SelfHealOnHit	HealOnHit	5.0		0	命中回血 5	3.0
+	6		0	Common	StatusChance	StatusChance	0.08		0	状态命中率 +8%	3.5
+	7		0	Common	RangeBonus	Range	0.1		0	射程 +10%	3.0
+	8		0	Common	CritDamage	CritDmg	0.15		0	暴击伤害 +15%	3.0
+	9		0	Rare	ElementDamageBonus	ElementDmg	0.2		0	元素伤害 +20%	5.0
+	10		0	Rare	CritChance	CritRate	0.1		0	暴击率 +10%	4.0
+	11		0	Rare	CritDamage	CritDmg	0.25		0	暴击伤害 +25%	4.0
+	12		0	Rare	ElementDamageBonus	ElementDmg	0.3	DistanceGt8m	8	距离>8m 时元素伤害 +30%	3.5
+	13		0	Rare	AttackSpeed	AttackSpeed	0.15		0	攻速 +15%	3.5
+	14		0	Rare	SelfHealOnHit	HealOnHit	12.0		0	命中回血 12	3.0
+	15		0	Rare	CooldownReduction	CooldownPct	0.18		0	技能冷却 -18%	3.0
+	16		0	Rare	StatusChance	StatusChance	0.15		0	状态命中率 +15%	3.0
+	17		0	Legendary	ElementDamageBonus	ElementDmg	0.35		0	元素伤害 +35%	5.0
+	18		0	Legendary	CritChance	CritRate	0.18		0	暴击率 +18%	4.0
+	19		0	Legendary	CritDamage	CritDmg	0.4		0	暴击伤害 +40%	4.0
+	20		0	Legendary	ElementDamageBonus	ElementDmg	0.45	AfterDodge	0	闪避后下次攻击元素伤害 +45%	3.5
+	21		0	Legendary	AttackSpeed	AttackSpeed	0.25		0	攻速 +25%	3.5
+	22		0	Legendary	CooldownReduction	CooldownPct	0.3		0	技能冷却 -30%	3.0
+	23		0	Legendary	SelfHealOnHit	HealOnHit	25.0		0	命中回血 25	3.0
+	24		0	Legendary	StatusChance	StatusChance	0.25		0	状态命中率 +25%	3.0

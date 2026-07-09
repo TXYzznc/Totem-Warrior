@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 
 #if UNITY_EDITOR
 using UnityEditor;
+using UnityEditorInternal;
 #endif
 
 [CreateAssetMenu(fileName = "AppConfigs", menuName = "GF/AppConfigs [配置App运行时所需数据表、配置表、流程]")]
@@ -52,6 +53,43 @@ public class AppConfigs : ScriptableObject
             var configAsset = UtilityBuiltin.AssetsPath.GetScriptableAsset("Core/AppConfigs");
             mInstance = AssetDatabase.LoadAssetAtPath<AppConfigs>(configAsset);
         }
+        return mInstance;
+    }
+
+    public static AppConfigs ReloadInstanceEditor()
+    {
+        var configAsset = UtilityBuiltin.AssetsPath.GetScriptableAsset("Core/AppConfigs");
+        var loaded = AssetDatabase.LoadAssetAtPath<AppConfigs>(configAsset);
+        if (loaded != null)
+        {
+            AppConfigs diskCopy = null;
+            var diskObjects = InternalEditorUtility.LoadSerializedFileAndForget(configAsset);
+            foreach (var diskObject in diskObjects)
+            {
+                if (diskObject is AppConfigs diskConfig)
+                {
+                    diskCopy = diskConfig;
+                    break;
+                }
+            }
+
+            if (diskCopy != null)
+            {
+                EditorUtility.CopySerialized(diskCopy, loaded);
+            }
+
+            foreach (var diskObject in diskObjects)
+            {
+                if (diskObject != null && !ReferenceEquals(diskObject, loaded))
+                {
+                    DestroyImmediate(diskObject);
+                }
+            }
+
+            EditorUtility.ClearDirty(loaded);
+            mInstance = loaded;
+        }
+
         return mInstance;
     }
 #endif

@@ -4,8 +4,8 @@
   "tableName": "UITable",
   "relativePath": "Core/UITable",
   "sourceExcel": "GameData/DataTables/Core/UITable.xlsx",
-  "sourceExcelLastWriteUtc": "2026-07-07T07:34:27.4769613Z",
-  "generatedAtUtc": "2026-07-07T07:34:27.6709622Z",
+  "sourceExcelLastWriteUtc": "2026-07-09T08:07:22.406770Z",
+  "generatedAtUtc": "2026-07-09T08:15:03.978491Z",
   "tableComment": "UI table",
   "columns": [
     {

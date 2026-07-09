@@ -1,0 +1,6 @@
+#	Business table migrated from LegacyProjectArchive/Assets/Resources/DataTable/ProjectileConfig.json. GF_X Id is numeric; original business keys are preserved as data columns.								
+#	Id		ProjectileId	Speed	MaxRange	Piercing	AoeRadius	VisualPrefabPath	PoolSize
+#	int		string	float	float	bool	float	string	int
+#	GF_X numeric row id. Original business key is preserved as a data column when its name is not Id.	Note	主键，与 WeaponConfig.ProjectileId 关联	飞行速度 (m/s)	最大飞行距离，超出后回池 (m)	true=穿透，命中后继续飞行可触发多次 AttackHitEvent	>0=着弹点范围判定半径 (m)	Resources/Prefabs/Projectiles/ 下的 Prefab 路径名	对象池预分配容量
+	1		bullet_pistol	30.0	20.0	false	0.0	BulletPistol	60
+	2		arrow_bow	22.0	30.0	true	0.0	ArrowBow	30
