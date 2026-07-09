@@ -88,4 +88,4 @@ created: 2026-07-01
 - [ ] T19. `openspec validate 17-ui-structure-first --strict`（若 CLI 支持）通过
 - [ ] T20. 让主对话跑一次干读：手动 Read `CLAUDE.md §六` + `art-ui.md` + `client-unity.md`，确认三处描述一致
 - [ ] T21. `openspec archive-change 17-ui-structure-first` 归档
-- [ ] T22. 更新 `项目知识库（AI自行维护）/INDEX.md`，追加本 change 的一句话摘要
+- [ ] T22. 更新 `项目知识库（AI自行维护）/wiki/INDEX.md`，追加本 change 的一句话摘要

@@ -24,6 +24,6 @@
 
 ## Impact
 
-- 受影响目录：`Assets/Game`、`GameData`、`Docs`、`Assets/Scripts`、`Assets/Resources`、`Assets/Scenes`、`Assets/Tests`、`Packages/manifest.json`。
+- 受影响目录：`Assets/Game`、`GameData`、`项目知识库（AI自行维护）/outputs`、`项目知识库（AI自行维护）/wiki`、`Assets/Scripts`、`Assets/Resources`、`Assets/Scenes`、`Assets/Tests`、`Packages/manifest.json`。
 - 受影响系统：当前 `GameApp` 启动、`ModuleRunner` 生命周期、`InputModule` 输入入口、`DataTableModule` 配置加载、`UIModule` UI 加载、Unity Test/诊断报告入口。
 - 第一阶段验收：当前项目能正常打开、编译、启动；GF_X 框架/工具/诊断迁入；现有业务代码和资源不丢；不要求业务完全改用 GF_X 启动流程。

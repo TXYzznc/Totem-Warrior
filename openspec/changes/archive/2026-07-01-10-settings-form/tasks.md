@@ -61,4 +61,4 @@
 - [ ] uloop-run-tests EditMode/Settings 全绿
 - [ ] `openspec validate 10-settings-form --strict`
 - [ ] `openspec archive 10-settings-form --yes`
-- [ ] 同步 `项目知识库（AI自行维护）/INDEX.md`
+- [ ] 同步 `项目知识库（AI自行维护）/wiki/INDEX.md`

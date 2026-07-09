@@ -56,7 +56,7 @@ Codex 额度有限，用户主要把 Codex 当**绘图后端**（Claude 主对�
 |---|---|
 | `.claude/skills/codex-image-gen/SKILL.md` | §三重写为三档 / §五陷阱表更新 |
 | `openspec/changes/05-codex-batch-art-protocol/` | **新建**（本目录 — 含 demo art/） |
-| `项目知识库（AI自行维护）/INDEX.md` | 追加 05 条目 |
+| `项目知识库（AI自行维护）/wiki/INDEX.md` | 追加 05 条目 |
 
 ## 风险与回滚
 

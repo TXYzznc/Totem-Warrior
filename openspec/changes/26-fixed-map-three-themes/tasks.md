@@ -87,10 +87,10 @@
 
 ## 阶段 5：文档归档
 
-- [ ] **T5.1** 修订 `项目知识库（AI自行维护）/GDD-v2/modules/07-MapGenModule.md`：反映"加载固定地图 + 布点交互物"新职责，删除 BSP 相关描述。
-- [ ] **T5.2** 修订 `项目知识库（AI自行维护）/GDD-v2/systems/07-地图生成.md`：同步新方案（若该文件为空/待写，直接以本 change 内容起草）。
-- [ ] **T5.3** 修订 `项目知识库（AI自行维护）/GDD-v2/00-总策划案v2.md` §三：更正"颜色绑定末日成因"表述（CONTRACT §7 更正项 #1）。
-- [ ] **T5.4** `openspec archive-change 26-fixed-map-three-themes`，同步更新 `项目知识库（AI自行维护）/INDEX.md`。
+- [ ] **T5.1** 修订 `项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/modules/07-MapGenModule.md`：反映"加载固定地图 + 布点交互物"新职责，删除 BSP 相关描述。
+- [ ] **T5.2** 修订 `项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/systems/07-地图生成.md`：同步新方案（若该文件为空/待写，直接以本 change 内容起草）。
+- [ ] **T5.3** 修订 `项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/00-总策划案v2.md` §三：更正"颜色绑定末日成因"表述（CONTRACT §7 更正项 #1）。
+- [ ] **T5.4** `openspec archive-change 26-fixed-map-three-themes`，同步更新 `项目知识库（AI自行维护）/wiki/INDEX.md`。
 
 ---
 

@@ -56,7 +56,7 @@
 - [x] T6.1 写 `tests/results.md` 汇总：Phase 0 复现日志 + Phase 4 回归通过 + Phase 5 ground truth diff
 - [x] T6.2 `openspec validate 14-mcp-encoding-fix --strict`
 - [x] T6.3 `openspec archive 14-mcp-encoding-fix --yes`
-- [x] T6.4 同步更新 `项目知识库（AI自行维护）/INDEX.md`：active → archive 迁移 + 新增 spec sink 链接 + 在 wiki 加条目说明「unity-skills CJK 修复落地」
+- [x] T6.4 同步更新 `项目知识库（AI自行维护）/wiki/INDEX.md`：active → archive 迁移 + 新增 spec sink 链接 + 在 wiki 加条目说明「unity-skills CJK 修复落地」
 
 ## 附录 — 完成本 change 后留给后续工作的接口承诺
 

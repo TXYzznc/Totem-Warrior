@@ -53,4 +53,4 @@
 
 - [ ] 5.1 写 `tools/playtest/reports/2026-07-01-XXXX-startup-select-landing.md`
 - [ ] 5.2 `openspec archive-change 21-startup-select-form-landing`
-- [ ] 5.3 更新 `项目知识库（AI自行维护）/INDEX.md`
+- [ ] 5.3 更新 `项目知识库（AI自行维护）/wiki/INDEX.md`

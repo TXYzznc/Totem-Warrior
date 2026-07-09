@@ -4,7 +4,7 @@
 
 ### 1.1 评估方法
 
-对照 `项目知识库（AI自行维护）/GDD-v2/systems/13-UI与HUD.md` 已定义的 9 Form + `10-settings-form` 的 SettingsForm，逐一过一遍**完整单局游戏循环**（主菜单 → 角色选择 → 进入 Run → 战斗/NPC 交互/事件抽选 → 暂停 → 死亡或撤离 → 结算 → 返回主菜单），检查是否存在循环中用户会撞到、但当前 10 个 Form 无法承载的场景。
+对照 `项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/systems/13-UI与HUD.md` 已定义的 9 Form + `10-settings-form` 的 SettingsForm，逐一过一遍**完整单局游戏循环**（主菜单 → 角色选择 → 进入 Run → 战斗/NPC 交互/事件抽选 → 暂停 → 死亡或撤离 → 结算 → 返回主菜单），检查是否存在循环中用户会撞到、但当前 10 个 Form 无法承载的场景。
 
 ### 1.2 现状清单（10 个，均已有 Script + Prefab）
 

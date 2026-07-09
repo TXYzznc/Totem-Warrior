@@ -39,5 +39,5 @@
 ## Phase E — 清理与归档
 
 - [x] 删除 `openspec/changes/06-v21-implementation/art/.codex-batch.sh` ✅（grill A 同意，git 可恢复）
-- [x] 更新 `项目知识库（AI自行维护）/INDEX.md` 加 08 入口 ✅
+- [x] 更新 `项目知识库（AI自行维护）/wiki/INDEX.md` 加 08 入口 ✅
 - [ ] `openspec archive-change 08-codex-art-gen-mcp`（等 dispatch 实测通过后）

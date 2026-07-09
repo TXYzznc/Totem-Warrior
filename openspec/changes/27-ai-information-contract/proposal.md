@@ -5,7 +5,7 @@
 
 ## Why
 
-当前项目已经具备 AI 协作的主要材料：`项目知识库（AI自行维护）`、`openspec/changes/`、`Assets/Scripts/Modules/`、`Assets/Resources/DataTable/`、美术资源目录与 playtest 报告。
+当前项目已经具备 AI 协作的主要材料：`项目知识库（AI自行维护）`、`openspec/changes/`、`Assets/Game/Scripts/`、`LegacyProjectArchive/Assets/Scripts/Modules/`、`GameData/AIData/DataTables/`、美术资源目录与 playtest 报告。
 
 问题在于这些材料之间还缺一层稳定的“信息契约”：AI 想改一个系统时，需要在 GDD、wiki、openspec、DataTable、模块代码、美术资源、测试报告之间来回搜索，容易遗漏上下文，也容易被过期索引误导。
 
@@ -14,10 +14,10 @@
 ## What Changes
 
 - 新增项目级信息入口：
-  - `项目知识库（AI自行维护）/PROJECT_MAP.md`
-  - `项目知识库（AI自行维护）/ACTIVE_CONTEXT.md`
-  - `项目知识库（AI自行维护）/manifests/*.json`
-- 为 `Assets/Scripts/Modules/*` 生成 `MODULE.md` 说明卡，记录模块职责、读取顺序、关联 GDD、配置表、资源与测试入口。
+  - `项目知识库（AI自行维护）/wiki/PROJECT_MAP.md`
+  - `项目知识库（AI自行维护）/wiki/ACTIVE_CONTEXT.md`
+  - `项目知识库（AI自行维护）/wiki/manifests/*.json`
+- 为 `LegacyProjectArchive/Assets/Scripts/Modules/*` 生成 `MODULE.md` 说明卡，记录旧模块职责、读取顺序、关联历史 GDD、配置表、资源与测试入口。
 - 新增 `tools/ai_index/build_ai_manifests.py`，统一生成/校验 AI 信息索引。
 - 更新知识库入口和脚本目录说明，明确 AI 读取项目时的推荐路径。
 

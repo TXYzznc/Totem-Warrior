@@ -56,4 +56,4 @@
 
 - [x] 7.1 写 `tools/playtest/reports/2026-07-01-XXXX-gameplay-visual-polish.md`
 - [ ] 7.2 `openspec archive 22-gameplay-visual-polish --yes`
-- [ ] 7.3 更新 `项目知识库（AI自行维护）/INDEX.md`
+- [ ] 7.3 更新 `项目知识库（AI自行维护）/wiki/INDEX.md`

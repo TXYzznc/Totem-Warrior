@@ -59,7 +59,7 @@ GameDesinger 在两次合并（自研框架 + 116 SKILL 库）后存在三处语
 | `.claude/agents/art-director.md` | frontmatter.skills 加 `ai-art`；prompt 同步 |
 | `.claude/agents/art-2d.md` | frontmatter.skills 加 `ai-art`；prompt 同步 |
 | `.claude/agents/art-ui.md` | frontmatter.skills 加 `ai-art`；prompt 同步 |
-| `项目知识库（AI自行维护）/INDEX.md` | §四「当前活跃」表追加本 change；§3.5 工具链/DevOps 追加 wiki 链接 |
+| `项目知识库（AI自行维护）/wiki/INDEX.md` | §四「当前活跃」表追加本 change；§3.5 工具链/DevOps 追加 wiki 链接 |
 | `项目知识库（AI自行维护）/wiki/SKILL路由统一.md` | **新建**（决策摘要 + 被否定的备选方案） |
 
 ## 风险与回滚

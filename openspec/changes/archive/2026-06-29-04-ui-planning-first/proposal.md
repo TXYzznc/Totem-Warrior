@@ -70,7 +70,7 @@
 | `.claude/skills/ai-art/references/drawing-prompt-UI.md` | 加「UI 出图前置：先定表（强制）」小节 + 三表骨架模板（不写死数字） |
 | `.claude/skills/ai-art/references/drawing-prompt-generator.md` | 工作流程加 UI 类型分支：先定表 → 用户审阅 → 再进提示词 |
 | `.claude/CLAUDE.md` §六 「美术素材生成意图」 | 追加 UI 类型先定表规范引用 |
-| `项目知识库（AI自行维护）/INDEX.md` | §四追加 04；§3.4 美术追加 wiki 链接 |
+| `项目知识库（AI自行维护）/wiki/INDEX.md` | §四追加 04；§3.4 美术追加 wiki 链接 |
 | `项目知识库（AI自行维护）/wiki/UI先定表规范.md` | **新建**：决策摘要 + 三表样例 + 被否定备选 |
 | `openspec/changes/04-ui-planning-first/` | **新建**（本目录） |
 

@@ -69,6 +69,6 @@ v2.1 GDD 后**几乎所有模块要改 + 新建**，包括：
 
 ## 引用
 
-- [v2.1 GDD 入口](../../../项目知识库（AI自行维护）/GDD-v2/00-总策划案v2.md)
+- [v2.1 GDD 入口](../../../项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/00-总策划案v2.md)
 - [CONTRACT.md](../archive/2026-06-25-05-gdd-v2-full-design-docs/CONTRACT.md)
 - [.claude/AGENTS.md](../../../.claude/AGENTS.md) 模式 5（骨架先行 + 并行填充）

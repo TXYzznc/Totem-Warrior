@@ -22,7 +22,7 @@
 - Active startup scene:
   `Assets/Game/Scene/Launch.unity`
 - AI-maintained manifests:
-  `项目知识库（AI自行维护）/manifests/*.json`
+  `项目知识库（AI自行维护）/wiki/manifests/*.json`
 - Current data workflow:
   `GameData/AIData/DataTables/Business/*.json` ->
   `GameData/DataTables/Business/*.xlsx` ->

@@ -138,7 +138,7 @@ mcp.write_record(record_path="<abs>/art/raw/生成记录.md", results=[...])
 - `openspec verify-change 09-mcp-decouple`
 - `openspec archive-change 09-mcp-decouple`
 - `openspec archive-change 08-codex-art-gen-mcp`(也可以并发)
-- 同步 [项目知识库（AI自行维护）/INDEX.md](../../../项目知识库（AI自行维护）/INDEX.md):加 09 入口
+- 同步 [项目知识库（AI自行维护）/wiki/INDEX.md](../../../项目知识库（AI自行维护）/wiki/INDEX.md):加 09 入口
 
 ---
 

@@ -18,7 +18,7 @@
 | 地图/相机 | 2.5D 固定地图主题、缩圈、相机跟随/边界、Billboard sprite | `MapGenModule` / `CameraModule` |
 | 经济/NPC/事件 | 金币、宝箱、商人、纹身师、三选一事件与奖励 | `EconomyModule` / `NPCModule` / `EventModule` |
 | 资源/美术 | Character prefab、UI prefab、Sprite、Anim、部分 fallback procedural objects | `Resources.Load` / `ResourceModule` |
-| 诊断/测试 | EditMode/PlayMode 测试文件、playtest driver、GF_X 诊断 | `Assets/Tests` / `Docs/AI_DIAGNOSTICS_GUIDE.md` |
+| 诊断/测试 | EditMode/PlayMode 测试文件、playtest driver、GF_X 诊断 | `Assets/Tests` / `项目知识库（AI自行维护）/wiki/AI_DIAGNOSTICS_GUIDE.md` |
 
 ### 1.2 当前结构性问题
 

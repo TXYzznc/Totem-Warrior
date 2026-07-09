@@ -56,7 +56,7 @@ scope: change 18 + 19 + 20 全部走完 + 归档；codex 配合出图；失败�
 - [x] A2.5: 修 BUG-20-02 P1（EffectAppliedEvent 加 Target）— in-flight `ae4502a7daa7cf041`
 - [x] A3: gd-lead 裁定 balance.md §八 "20× 上限"语义；H 修最终值 → 20× = ≤ 200 点/链
 - [ ] A4: 主对话执行 `openspec archive-change 20-player-attack-system`
-- [ ] A5: 更新 `项目知识库（AI自行维护）/INDEX.md` 添加 #20 索引行
+- [ ] A5: 更新 `项目知识库（AI自行维护）/wiki/INDEX.md` 添加 #20 索引行
 - [ ] A6: git commit
 
 ### Phase B — change 18: weapon-pickup-and-upgrade（约 90-120 min）

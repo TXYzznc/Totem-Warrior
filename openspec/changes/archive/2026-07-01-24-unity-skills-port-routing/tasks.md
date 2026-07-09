@@ -55,5 +55,5 @@ change: 24-unity-skills-port-routing
 ## 阶段 6：openspec 验证 + 归档
 
 - [ ] 6.1 `openspec validate 24-unity-skills-port-routing --strict` 通过
-- [ ] 6.2 归档时 `项目知识库（AI自行维护）/INDEX.md` 追加本 change 摘要
+- [ ] 6.2 归档时 `项目知识库（AI自行维护）/wiki/INDEX.md` 追加本 change 摘要
 - [ ] 6.3 `openspec archive 24-unity-skills-port-routing --yes`

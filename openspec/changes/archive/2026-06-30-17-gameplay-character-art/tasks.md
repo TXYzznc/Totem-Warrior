@@ -70,7 +70,7 @@
 ## 阶段 8 — 归档
 
 - [🟡] `openspec archive-change 17-gameplay-character-art`（进行中）
-- [🔲] 更新 `项目知识库（AI自行维护）/INDEX.md`
+- [🔲] 更新 `项目知识库（AI自行维护）/wiki/INDEX.md`
 
 ## 阶段 9 — 后续修补（不阻塞归档，待 codex 配额恢复 19:30 后执行）
 

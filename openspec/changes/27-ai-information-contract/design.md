@@ -12,7 +12,7 @@
 
 ```text
 AGENTS.md
-→ 项目知识库（AI自行维护）/INDEX.md
+→ 项目知识库（AI自行维护）/wiki/INDEX.md
 → PROJECT_MAP.md
 → ACTIVE_CONTEXT.md
 → manifests/*.json

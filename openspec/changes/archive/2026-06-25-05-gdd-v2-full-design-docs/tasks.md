@@ -12,7 +12,7 @@
 - [x] tasks.md（本文件）
 - [x] brainstorm.md（Phase A 共识沉淀）
 - [ ] CONTRACT.md 骨架（事件总表 + 模块依赖图 + IPlayerController 抽象 + 50 actor 性能预算）
-- [ ] 创建 `项目知识库（AI自行维护）/GDD-v2/` + `systems/` + `modules/` 子目录
+- [ ] 创建 `项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/` + `systems/` + `modules/` 子目录
 
 ---
 
@@ -92,7 +92,7 @@
 ## Phase B-5 — 验证与归档（主对话）
 
 - [x] CONTRACT.md 终稿（B-4 期间追加 5 个事件：BotLODChangedEvent / AttackHitEvent.WeaponId / EnemySpawnedEvent / BossSpawnedEvent / BossPhaseChangedEvent / AmmoChangedEvent / SkillSlotChangedEvent）
-- [x] `项目知识库（AI自行维护）/INDEX.md` 同步 GDD-v2 入口
+- [x] `项目知识库（AI自行维护）/wiki/INDEX.md` 同步 GDD-v2 入口
 - [x] 在本 change `tasks.md` 上方追加最终统计（见下方"最终统计"）
 - [ ] 跨文档引用一致性 check（mermaid 图模块名 vs 目录文件名）
 - [ ] 用户最终 review 后 `openspec archive-change`

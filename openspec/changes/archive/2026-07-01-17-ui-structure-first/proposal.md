@@ -48,4 +48,4 @@ v2 流程有三个真实痛点：
 - [ ] `.claude/SKILL_MATRIX.md` 已把 `unity-rect-transform` 加入 art-ui + client-unity 核心 SKILL，且在「共享 SKILL」表登记
 - [ ] `.claude/skills/SKILLS_INDEX.md` 2.7 Unity 引擎实现分组已加 `unity-rect-transform`，SKILL 总数 109 → 110
 - [ ] `openspec validate 17-ui-structure-first --strict` 通过
-- [ ] 归档时 `项目知识库（AI自行维护）/INDEX.md` 已更新（追加本 change 摘要）
+- [ ] 归档时 `项目知识库（AI自行维护）/wiki/INDEX.md` 已更新（追加本 change 摘要）

@@ -57,5 +57,5 @@
 ## Phase 4 — 收尾
 
 - [x] `tests/results.md` 汇总联调结果（移交段含 4 个返工 Prefab 清单）
-- [x] 同步更新 `项目知识库（AI自行维护）/INDEX.md`
+- [x] 同步更新 `项目知识库（AI自行维护）/wiki/INDEX.md`
 - [x] `openspec archive 12-core-ui-screens`

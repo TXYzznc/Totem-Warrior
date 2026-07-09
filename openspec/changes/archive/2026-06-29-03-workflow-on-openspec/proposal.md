@@ -72,7 +72,7 @@ openspec/changes/<NN-change-name>/
 | `.claude/skills/openspec/references/archive-change.md` | L77-85 + L117 删除「工作/...（已归档）」后缀逻辑 |
 | `.claude/CLAUDE.md` §六 | 5 Phase 表简化为 3 节点（策划讨论 → openspec → ai-art）；删归档标记规则段 |
 | `.claude/AGENTS.md` L271 | 「`3.正在处理的任务/NN.功能名/README.md`」→「`openspec/changes/<name>/CONTRACT.md`」 |
-| `项目知识库（AI自行维护）/INDEX.md` | L5 + L107 删除 `工作/` 引用；§四追加 03 |
+| `项目知识库（AI自行维护）/wiki/INDEX.md` | L5 + L107 删除 `工作/` 引用；§四追加 03 |
 | `项目知识库（AI自行维护）/wiki/工作流迁移.md` | **新建**：决策摘要 + 被否定备选 |
 | `openspec/changes/03-workflow-on-openspec/` | **新建**（本目录） |
 

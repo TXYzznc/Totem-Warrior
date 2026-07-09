@@ -70,6 +70,6 @@ v2.1 美术批处理实测发现，原 `.codex-batch.sh` 在项目根 cwd 启动
 | 类型 | 文件 |
 |---|---|
 | 新增 | `tools/codex-art-gen-mcp/server.py` / `requirements.txt` / `README.md` |
-| 修改 | `.mcp.json` / `.claude/settings.local.json` / `项目知识库（AI自行维护）/INDEX.md` |
+| 修改 | `.mcp.json` / `.claude/settings.local.json` / `项目知识库（AI自行维护）/wiki/INDEX.md` |
 | 删除 | `openspec/changes/06-v21-implementation/art/.codex-batch.sh`（不可逆，grill A 已确认） |
 | 影响 | 后续所有 openspec change 的美术批处理走 MCP，不再手写脚本 |

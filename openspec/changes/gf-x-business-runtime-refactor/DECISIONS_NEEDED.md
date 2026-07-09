@@ -27,8 +27,8 @@
   - It must be separated into a standalone folder to avoid polluting the GF_X project.
   - Confirmed archive location: `LegacyProjectArchive/Assets/Scripts`, outside active `Assets`.
 - GF_X tool migration:
-  - GF_X tools shown by the user, including `AB`, `CompressImageTool`, `Docs`, `GameData`, `Packages`, `Tools` and related generated project assets, must be migrated or merged as appropriate.
-  - Confirmed scope: migrate only `AB` / `CompressImageTool` / `Docs` / `GameData` / `Tools` / `Packages`.
+  - GF_X tools shown by the user, including `AB`, `CompressImageTool`, GF_X `Docs`, `GameData`, `Packages`, `Tools` and related generated project assets, must be migrated or merged as appropriate.
+  - Confirmed scope: migrate only `AB` / `CompressImageTool` / GF_X `Docs` / `GameData` / `Tools` / `Packages`; GF_X `Docs` are normalized into `项目知识库（AI自行维护）/wiki`, not kept as a root `Docs` directory.
   - Confirmed exclusion: do not migrate generated `.csproj` / `.sln`.
   - Existing target files must be merged, not blindly overwritten.
 
@@ -63,7 +63,7 @@ Implement the UI entry slice first: `Launch -> MainMenu -> CharacterSelect -> St
 
 Status: confirmed with review requirement, obsolete-folder exclusions and explicit review-state markers.
 
-Reuse old assets visually where valid, but rewrite loading/lifecycle through GF_X. Track all art assets in `项目知识库（AI自行维护）/manifests/art_assets.json`; `needs_review=true` means the user or later implementation pass must confirm whether the asset is obsolete, duplicated, or reserved.
+Reuse old assets visually where valid, but rewrite loading/lifecycle through GF_X. Track all art assets in `项目知识库（AI自行维护）/wiki/manifests/art_assets.json`; `needs_review=true` means the user or later implementation pass must confirm whether the asset is obsolete, duplicated, or reserved.
 
 Do not treat these folders as reusable production assets: `Character`, `Characters`, `Environments`, `Recipes`, `Tattoo`. Treat `Assets/Resources/Sprite/UI` as temporary placeholder art for this phase. The asset manifest should mark these states explicitly so AI tooling can avoid accidentally reusing obsolete assets.
 

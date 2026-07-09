@@ -70,7 +70,7 @@ DataTable 行已存在不需要再加：`Assets/Resources/DataTable/UIFormConfig
    - 如果 agentId 在新窗口/新会话里失效（agent 不一定跨对话保留，需要实测），就直接重新派一个 client-unity Agent，把本文档"五、"里的任务说明原样给它。
 2. SelfTattooForm 完成后，11 个 Form 的 Prefab+代码阶段就全部结束，进入 `CLAUDE.md §六` 的**阶段 6：联调微调**——把运行时截图和各 Form 的 mockup（`art/mockups/`）并排比对，列偏差清单后逐个修。Settings 因为没有 mockup，到这一步需要先确认是否要补出图。
 3. 阶段 6 做完后，记得处理本文档"四、"列的 2 个遗留硬问题（TattooStudio scale 异常、CJK 字体），CJK 字体那个已经有后台任务 `task_006bf2f7` 等用户启动。
-4. 全部完成后按 `CLAUDE.md §六` 收尾：`openspec archive-change 12-core-ui-screens` + 同步更新 `项目知识库（AI自行维护）/INDEX.md`。
+4. 全部完成后按 `CLAUDE.md §六` 收尾：`openspec archive-change 12-core-ui-screens` + 同步更新 `项目知识库（AI自行维护）/wiki/INDEX.md`。
 
 ## 七、关键路径速查
 

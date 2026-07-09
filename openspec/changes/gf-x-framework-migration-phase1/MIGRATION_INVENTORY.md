@@ -171,7 +171,7 @@ The first actual import can safely create isolated target roots and copy non-con
 ```text
 Assets/Game
 GameData
-Docs/GF_X or docs imported from GF_X
+项目知识库（AI自行维护）/outputs or 项目知识库（AI自行维护）/wiki for GF_X docs
 ```
 
 However, if copied scripts are allowed to compile immediately, package and plugin dependencies must be resolved in the same step. Otherwise the import should use a temporary compile-gating strategy and be clearly marked as not yet active.

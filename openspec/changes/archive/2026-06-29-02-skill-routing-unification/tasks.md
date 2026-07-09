@@ -63,8 +63,8 @@
 
 ### A.8 更新项目知识库 INDEX
 
-- [x] `项目知识库（AI自行维护）/INDEX.md` §四「当前活跃」表追加 `02-skill-routing-unification`
-- [x] `项目知识库（AI自行维护）/INDEX.md` §3.5 工具链/DevOps 追加 wiki 链接
+- [x] `项目知识库（AI自行维护）/wiki/INDEX.md` §四「当前活跃」表追加 `02-skill-routing-unification`
+- [x] `项目知识库（AI自行维护）/wiki/INDEX.md` §3.5 工具链/DevOps 追加 wiki 链接
 - [x] 新建 `项目知识库（AI自行维护）/wiki/SKILL路由统一.md`（决策摘要 + 被否定备选）
 
 ### A.9 验收

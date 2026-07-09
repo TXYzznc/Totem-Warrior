@@ -13,7 +13,7 @@
 ### 1.1 现状
 
 - **核心玩法已验证**：6 部位 × 7 颜色 × 8 图案 = 336 组合的纹身战斗框架已在 [01-tattoo-framework-rewrite](../01-tattoo-framework-rewrite/) change 内交付，336 穷举测试通过、VFX ParticleSystem 在 Play 模式实战渲染、Launch.unity 可跑通。
-- **GDD 草案已成**：[项目知识库（AI自行维护）/raw/初版GDD-2026-06/](../../../项目知识库（AI自行维护）/raw/初版GDD-2026-06/) 8 份草案文件已沉淀核心方向（类型 = Roguelike+BR、视角 = 俯视角 2.5D、单局 15-25 分钟、50 人含 AI、Solo 主推）。
+- **GDD 草案已成**：[项目知识库（AI自行维护）/wiki/历史资料/初版GDD-2026-06/](../../../项目知识库（AI自行维护）/wiki/历史资料/初版GDD-2026-06/) 8 份草案文件已沉淀核心方向（类型 = Roguelike+BR、视角 = 俯视角 2.5D、单局 15-25 分钟、50 人含 AI、Solo 主推）。
 - **8 项 ⭐⭐⭐ ~ ⭐ 优先级未决问题**：数值平衡、武器系统、配方节奏、纹身师 NPC、死亡宝箱、AI 行为、缩圈细化、美术风格等仍为开放问题。
 
 ### 1.2 问题
@@ -42,12 +42,12 @@
 
 ## 二、目标（DoD）
 
-- [ ] `项目知识库（AI自行维护）/GDD-v2/` 目录下 33 份文档成型
+- [ ] `项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/` 目录下 33 份文档成型
   - [ ] 1 份 `00-总策划案v2.md`
   - [ ] 15 份系统 GDD（按 [brainstorm.md](./brainstorm.md) 列表）
   - [ ] 16 份模块详设
 - [ ] 1 份 [CONTRACT.md](./CONTRACT.md)（全局事件总表 + 模块依赖图 + IPlayerController 抽象 + 50 actor 性能预算）
-- [ ] [项目知识库（AI自行维护）/INDEX.md](../../../项目知识库（AI自行维护）/INDEX.md) 已更新链接到 GDD-v2/ 全套
+- [ ] [项目知识库（AI自行维护）/wiki/INDEX.md](../../../项目知识库（AI自行维护）/wiki/INDEX.md) 已更新链接到 GDD-v2/ 全套
 - [ ] 每份系统 GDD 含: 目标 / 机制 / 状态机或公式 / 配置表 schema / 依赖与被依赖 / 风险与开放问题
 - [ ] 每份模块详设含: IGameModule 接口签名 / Dependencies / Events / DataTable Schema / 性能预算 / 与其他模块的交互序列
 - [ ] CONTRACT.md 中明确列出: 50+ 事件类全签名 / 16 模块依赖图 / IPlayerController 抽象接口 / AI 决策粒度 LOD 规范
@@ -86,7 +86,7 @@
 | 设计 vs 已交付代码不一致 | 已交付的 TattooModule / VFXModule / CombatModule 三模块的详设按"当前代码 + 50 actor 补强"写 |
 | 颗粒度漂移（GDD 过细 / 过粗） | 每份 GDD 设定篇幅区间（500–2000 字），超过用引用 + 链接拆分 |
 
-**回滚路径**：本 change 零代码改动，回滚 = 删 `openspec/changes/05-gdd-v2-full-design-docs/` 目录 + 删 `项目知识库（AI自行维护）/GDD-v2/` 即可。
+**回滚路径**：本 change 零代码改动，回滚 = 删 `openspec/changes/05-gdd-v2-full-design-docs/` 目录 + 删 `项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/` 即可。
 
 ---
 
@@ -95,5 +95,5 @@
 - [.claude/CLAUDE.md](../../../.claude/CLAUDE.md) §五（决策门槛两阶段 FSM）
 - [.claude/AGENTS.md](../../../.claude/AGENTS.md) 模式 5（骨架先行 + 并行填充）
 - [.claude/SKILL_MATRIX.md](../../../.claude/SKILL_MATRIX.md)（Agent × SKILL 白名单）
-- [项目知识库（AI自行维护）/raw/初版GDD-2026-06/](../../../项目知识库（AI自行维护）/raw/初版GDD-2026-06/)（v1 草案，本期 v2 升级）
+- [项目知识库（AI自行维护）/wiki/历史资料/初版GDD-2026-06/](../../../项目知识库（AI自行维护）/wiki/历史资料/初版GDD-2026-06/)（v1 草案，本期 v2 升级）
 - [openspec/changes/01-tattoo-framework-rewrite/](../01-tattoo-framework-rewrite/)（已验证的核心玩法 change）

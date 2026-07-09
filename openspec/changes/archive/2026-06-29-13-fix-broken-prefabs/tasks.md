@@ -64,4 +64,4 @@
 
 - [x] T6.1 `openspec validate 13-fix-broken-prefabs`
 - [x] T6.2 `openspec archive 13-fix-broken-prefabs --yes`
-- [x] T6.3 同步更新 `项目知识库（AI自行维护）/INDEX.md`（active → archive 迁移；新增 spec sink 链接）
+- [x] T6.3 同步更新 `项目知识库（AI自行维护）/wiki/INDEX.md`（active → archive 迁移；新增 spec sink 链接）

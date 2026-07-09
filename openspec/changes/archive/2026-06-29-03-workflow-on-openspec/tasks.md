@@ -22,10 +22,10 @@
 
 ## Phase C — 知识库与本变更归档准备
 
-- [x] `项目知识库（AI自行维护）/INDEX.md` L5：删「工作/ 5 Phase 工作流配套」
-- [x] `项目知识库（AI自行维护）/INDEX.md` L107：删 `工作/README.md` 行
-- [x] `项目知识库（AI自行维护）/INDEX.md` §四「当前活跃」追加 03
-- [x] `项目知识库（AI自行维护）/INDEX.md` §3.5 追加 wiki 链接
+- [x] `项目知识库（AI自行维护）/wiki/INDEX.md` L5：删「工作/ 5 Phase 工作流配套」
+- [x] `项目知识库（AI自行维护）/wiki/INDEX.md` L107：删 `工作/README.md` 行
+- [x] `项目知识库（AI自行维护）/wiki/INDEX.md` §四「当前活跃」追加 03
+- [x] `项目知识库（AI自行维护）/wiki/INDEX.md` §3.5 追加 wiki 链接
 - [x] 新建 `项目知识库（AI自行维护）/wiki/工作流迁移.md`
 
 ## Phase D — 验收

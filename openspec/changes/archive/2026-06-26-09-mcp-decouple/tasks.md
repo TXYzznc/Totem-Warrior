@@ -73,4 +73,4 @@
 ## T12. 更新 HANDOFF + INDEX
 
 - [ ] `openspec/changes/08-codex-art-gen-mcp/HANDOFF.md`:T4 标完成,T1/T2 更新为新接口签名
-- [ ] `项目知识库（AI自行维护）/INDEX.md`:加 09 入口（archive 前可先标 "实施中"）
+- [ ] `项目知识库（AI自行维护）/wiki/INDEX.md`:加 09 入口（archive 前可先标 "实施中"）

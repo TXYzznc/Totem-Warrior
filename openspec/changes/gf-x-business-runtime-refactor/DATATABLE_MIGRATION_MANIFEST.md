@@ -1,6 +1,6 @@
 # DataTable migration manifest
 
-> Source evidence: `项目知识库（AI自行维护）/manifests/datatables.json` and archived old `LegacyProjectArchive/Assets/Resources/DataTable/*.json`.
+> Source evidence: `项目知识库（AI自行维护）/wiki/manifests/datatables.json` and archived old `LegacyProjectArchive/Assets/Resources/DataTable/*.json`.
 >
 > User direction: old data is requirement evidence and content seed, but runtime loading/lifecycle must be rewritten through GF_X. Do not keep the old `DataTableModule` as the new runtime host.
 

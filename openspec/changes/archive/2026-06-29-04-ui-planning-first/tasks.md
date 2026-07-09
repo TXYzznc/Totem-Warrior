@@ -22,8 +22,8 @@
 
 ## Phase C — 知识库与归档准备
 
-- [x] `项目知识库（AI自行维护）/INDEX.md` §四「当前活跃」追加 04
-- [x] `项目知识库（AI自行维护）/INDEX.md` §3.4 美术追加 wiki 链接
+- [x] `项目知识库（AI自行维护）/wiki/INDEX.md` §四「当前活跃」追加 04
+- [x] `项目知识库（AI自行维护）/wiki/INDEX.md` §3.4 美术追加 wiki 链接
 - [x] 新建 `项目知识库（AI自行维护）/wiki/UI先定表规范.md`
 
 ## Phase D — 同步与验收

@@ -11,7 +11,8 @@ GF_X 迁入后的主活动区：
 ```text
 Assets/Game/
 GameData/
-Docs/
+项目知识库（AI自行维护）/outputs/
+项目知识库（AI自行维护）/wiki/
 ```
 
 当前项目业务保留区：

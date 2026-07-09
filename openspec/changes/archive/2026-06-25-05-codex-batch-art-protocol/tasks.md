@@ -17,6 +17,6 @@
 
 ## Phase 3：归档（进行中）
 
-- [x] T3.1 更新 `项目知识库（AI自行维护）/INDEX.md` 添加 05 条目 + wiki 条目
+- [x] T3.1 更新 `项目知识库（AI自行维护）/wiki/INDEX.md` 添加 05 条目 + wiki 条目
 - [x] T3.2 `openspec archive 05-codex-batch-art-protocol`
 - [x] T3.3 节省额度报告：实测 85k tokens vs 旧协议预估 ~450k tokens（~9 × imagegen），节省 ~81%；imagegen 调用数 9→1，节省 88.9%

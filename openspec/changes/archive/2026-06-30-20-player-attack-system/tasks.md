@@ -168,7 +168,7 @@ await UniTask.WhenAll → 汇合后进阶段 4。
 ## 阶段 7 — 归档
 
 - [🔲] `openspec archive-change 20-player-attack-system`
-- [🔲] 更新 `项目知识库（AI自行维护）/INDEX.md`
+- [🔲] 更新 `项目知识库（AI自行维护）/wiki/INDEX.md`
 
 ---
 

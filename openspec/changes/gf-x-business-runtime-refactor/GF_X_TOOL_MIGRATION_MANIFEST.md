@@ -16,8 +16,8 @@
 ## Confirmed decisions
 
 - Old `Assets/Scripts` is archived outside `Assets` at `LegacyProjectArchive/Assets/Scripts`.
-- Old resources stay in place and are managed through `项目知识库（AI自行维护）/manifests/art_assets.json`.
-- Migrate only `AB` / `CompressImageTool` / `Docs` / `GameData` / `Tools` / `Packages`.
+- Old resources stay in place and are managed through `项目知识库（AI自行维护）/wiki/manifests/art_assets.json`.
+- Migrate only `AB` / `CompressImageTool` / GF_X `Docs` / `GameData` / `Tools` / `Packages`. GF_X `Docs` are normalized into `项目知识库（AI自行维护）/wiki`; the project root should not keep an active `Docs` directory.
 - Do not migrate generated `.csproj` / `.sln` files.
 - Existing target directories must be merged, not blindly overwritten.
 - Acceptance for the first UI slice remains: `Launch.unity -> GF_X Preload -> Workspace -> MainMenu -> CharacterSelect -> StartupSelect -> CombatHUD`, with no old `GameApp/ModuleRunner/EventBus/UIModule/DataTableModule` runtime dependency.
@@ -32,7 +32,7 @@
 |---|---:|---:|---|---|
 | `AB` | 1 | 0 | Present | Copied directory; placeholder only. |
 | `CompressImageTool` | 2 | 0 | Present | Copied directory; placeholder only. |
-| `Docs` | 1 | 1 | Same file content | Keep current; no copy needed. |
+| GF_X `Docs` | 1 | 1 | Normalized into `项目知识库（AI自行维护）/wiki` | Keep the stable guide in the knowledge wiki; no active root `Docs` directory. |
 | `GameData` | 35 | 40 | Mostly already migrated; GF_X-only files are old reports | Keep current; do not copy old GF_X report files unless needed for audit. |
 | `Packages` | 2 | 2 | Current project package files retained | No overwrite; current project already includes UnitySkills and project-specific packages. |
 | `Tools` | 26 | 1198 | GF_X tool files merged into current `tools` directory | Copied GF_X `Tools/*`; Windows treats `Tools` and `tools` as the same path. |

@@ -51,4 +51,4 @@ depends-on: none
 - [ ] `.claude/skills/unity-dev/references/unity-skills.md` 3 处 curl 硬编码 `localhost:8090` 已改为路由说明
 - [ ] `.agents/skills/unity-skills/**` 与 `.agents/skills/unity-dev/**` 通过 `tools/sync-agents.py` 同步（source of truth 是 `.claude/`）
 - [ ] `openspec validate 24-unity-skills-port-routing --strict` 通过
-- [ ] 归档时 `项目知识库（AI自行维护）/INDEX.md` 已更新（追加本 change 摘要）
+- [ ] 归档时 `项目知识库（AI自行维护）/wiki/INDEX.md` 已更新（追加本 change 摘要）

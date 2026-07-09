@@ -75,7 +75,7 @@
 
 - `openspec validate 25-camera-2p5d-system --strict`（已确认能过）
 - `openspec archive 25-camera-2p5d-system --yes`（注：CLI `new` 不接受数字开头，手动建的目录；archive 用 `archive <name> --yes`）
-- 更新 `项目知识库（AI自行维护）/INDEX.md` §3.2 客户端架构 加条目 + 「最后更新」+ §4 活跃 change（本 change 归档后可能清零）
+- 更新 `项目知识库（AI自行维护）/wiki/INDEX.md` §3.2 客户端架构 加条目 + 「最后更新」+ §4 活跃 change（本 change 归档后可能清零）
 - tests/results.md 记录 loop 结果
 
 ## 八、环境 & 工具备忘

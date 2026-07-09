@@ -28,7 +28,7 @@ Assets/link.xml
 Assets/URP.asset
 Assets/URP_Renderer.asset
 GameData
-Docs/AI_DIAGNOSTICS_GUIDE.md
+项目知识库（AI自行维护）/wiki/AI_DIAGNOSTICS_GUIDE.md
 ```
 
 Note: `Assets/UniversalRenderPipelineGlobalSettings.asset` existed in the target project and was restored to the target project's original content after an accidental overwrite during copying.
