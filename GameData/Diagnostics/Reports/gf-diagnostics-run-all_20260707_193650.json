@@ -1,0 +1,5467 @@
+{
+  "schemaVersion": 1,
+  "action": "gf-diagnostics-run-all",
+  "createdAtUtc": "2026-07-07T11:36:48.2069155Z",
+  "successCount": 18,
+  "failureCount": 0,
+  "warningCount": 0,
+  "warnings": [],
+  "items": [
+    {
+      "name": "Project layout",
+      "success": true,
+      "durationMs": 0,
+      "warnings": [],
+      "errors": [],
+      "details": {
+        "exampleAssets": "Assets/Game/Examples/DemoGame",
+        "exampleGameData": "GameData/Examples/DemoGame"
+      }
+    },
+    {
+      "name": "AppConfigs runtime contract",
+      "success": true,
+      "durationMs": 10,
+      "warnings": [],
+      "errors": [],
+      "details": {
+        "loadFromBytes": "False",
+        "dataTables": "Core/EntityGroupTable,Core/LanguagesTable,Core/SoundGroupTable,Core/UIGroupTable,Core/UITable",
+        "configs": "",
+        "languages": "English",
+        "procedures": "ChangeSceneProcedure,PreloadProcedure,WorkspaceProcedure,TotemGameProcedure"
+      }
+    },
+    {
+      "name": "Build settings",
+      "success": true,
+      "durationMs": 1,
+      "warnings": [],
+      "errors": [],
+      "details": {
+        "sceneCount": "1",
+        "scenes": "Assets/Game/Scene/Launch.unity|enabled=True"
+      }
+    },
+    {
+      "name": "Resource rules",
+      "success": true,
+      "durationMs": 0,
+      "warnings": [],
+      "errors": [],
+      "details": {}
+    },
+    {
+      "name": "AI DataTable json",
+      "success": true,
+      "durationMs": 37,
+      "warnings": [],
+      "errors": [],
+      "details": {
+        "jsonCount": "5",
+        "aiSuccessCount": "5",
+        "aiFailureCount": "0",
+        "aiWarningCount": "0"
+      }
+    },
+    {
+      "name": "Registered diagnostic scenarios",
+      "success": true,
+      "durationMs": 0,
+      "warnings": [],
+      "errors": [],
+      "details": {
+        "discoveredCount": "12",
+        "skipped.StartupChainDiagnosticScenario": "PlayMode",
+        "executableCount": "11",
+        "skippedCount": "1",
+        "message": "Registered diagnostic scenario discovery completed."
+      }
+    },
+    {
+      "name": "Scenario/BusinessRuntime/GF_X Rewrite Inventory Contract",
+      "success": true,
+      "durationMs": 6,
+      "warnings": [],
+      "errors": [],
+      "details": {
+        "type": "UGF.EditorTools.BusinessRewriteInventoryDiagnosticScenario",
+        "mode": "EditMode",
+        "requirementsInventory": "True",
+        "decisionsNeeded": "True",
+        "dataTableMigrationManifest": "True",
+        "toolMigrationManifest": "True",
+        "artAssetsManifest": "True",
+        "decisionEntryCount": "9",
+        "artAssetsIndexed": "True",
+        "legacyDataTableCount": "28",
+        "legacyUIPrefabCount": "12",
+        "archivedLegacyScriptCount": "174",
+        "archivedLegacyTestCount": "11",
+        "archivedLegacyEditorToolCount": "4",
+        "message": "Scenario completed."
+      }
+    },
+    {
+      "name": "Scenario/BusinessRuntime/GF_X Business Runtime Contract",
+      "success": true,
+      "durationMs": 20,
+      "warnings": [],
+      "errors": [],
+      "details": {
+        "type": "UGF.EditorTools.BusinessRuntimeContractDiagnosticScenario",
+        "mode": "EditMode",
+        "buildScenes": "Assets/Game/Scene/Launch.unity|enabled=True",
+        "procedures": "ChangeSceneProcedure,PreloadProcedure,WorkspaceProcedure,TotemGameProcedure",
+        "oldRuntimeHostHits": "0",
+        "message": "Scenario completed."
+      }
+    },
+    {
+      "name": "Scenario/Core/Clean Workspace Contract",
+      "success": true,
+      "durationMs": 0,
+      "warnings": [],
+      "errors": [],
+      "details": {
+        "type": "UGF.EditorTools.CleanWorkspaceDiagnosticScenario",
+        "mode": "EditMode",
+        "directory.Assets/Game/Scene": "True",
+        "directory.Assets/Game/Prefabs/Entity": "True",
+        "directory.Assets/Game/Prefabs/UI": "True",
+        "directory.Assets/Game/Examples/DemoGame": "True",
+        "directory.GameData/Examples/DemoGame": "True",
+        "file.Assets/Game/Scene/Launch.unity": "True",
+        "file.Assets/Game/Scripts/Procedures/WorkspaceProcedure.cs": "True",
+        "file.Assets/Game/ScriptableAssets/Core/AppConfigs.asset": "True",
+        "file.GameData/DataTables/Core/UITable.xlsx": "True",
+        "file.GameData/DataTables/Core/LanguagesTable.xlsx": "True",
+        "file.GameData/Languages/English.xlsx": "True",
+        "forbidden.Assets/Game/Scene/Game.unity": "False",
+        "forbidden.Assets/Game/Scripts/Procedures/MenuProcedure.cs": "False",
+        "forbidden.Assets/Game/Scripts/Procedures/GameProcedure.cs": "False",
+        "forbidden.Assets/Game/Scripts/Procedures/GameOverProcedure.cs": "False",
+        "contract": "Active workspace starts from Launch -> Preload -> Workspace; examples stay centralized.",
+        "message": "Scenario completed."
+      }
+    },
+    {
+      "name": "Scenario/Migration/Migration Path Contract",
+      "success": true,
+      "durationMs": 1892,
+      "warnings": [],
+      "errors": [],
+      "details": {
+        "type": "UGF.EditorTools.MigrationPathContractDiagnosticScenario",
+        "mode": "EditMode",
+        "directory.Assets/Game": "True",
+        "directory.Assets/Game/Scripts": "True",
+        "directory.Assets/Game/ScriptsBuiltin": "True",
+        "directory.Assets/Game/ScriptableAssets/Core": "True",
+        "directory.GameData": "True",
+        "directory.GameData/DataTables": "True",
+        "directory.GameData/AIData": "True",
+        "directory.GameData/AIData/DataTables": "True",
+        "directory.GameData/Diagnostics": "True",
+        "directory.GameData/Diagnostics/Reports": "True",
+        "scannedFiles": "294",
+        "staleNameHits": "0",
+        "absolutePathHits": "0",
+        "message": "Scenario completed."
+      }
+    },
+    {
+      "name": "Scenario/BusinessRuntime/Totem AI Runtime",
+      "success": true,
+      "durationMs": 71,
+      "warnings": [],
+      "errors": [],
+      "details": {
+        "type": "UGF.EditorTools.TotemAIRuntimeDiagnosticScenario",
+        "mode": "EditMode",
+        "ai.stateCount.actual": "49",
+        "ai.smartStateCount.actual": "20",
+        "ai.lightStateCount.actual": "29",
+        "ai.smartInitialChase.actual": "20",
+        "ai.lightInitialWander.actual": "29",
+        "ai.initialHotCount.actual": "49",
+        "ai.bucket.hot.actual": "Hot",
+        "ai.bucket.cold.actual": "Cold",
+        "ai.smartHotInterval.actual": "0",
+        "ai.smartColdInterval.actual": "0.5",
+        "ai.lightHotInterval.actual": "0.2",
+        "ai.lightColdInterval.actual": "2",
+        "ai.profile.count.actual": "10",
+        "ai.profile.smartCount.actual": "7",
+        "ai.profile.lightCount.actual": "3",
+        "ai.preset.count.actual": "7",
+        "ai.profiledStateCount.actual": "49",
+        "ai.profiledSmartBuildCount.actual": "20",
+        "ai.profiledLightCount.actual": "29",
+        "ai.profile.firstSmartBotId.actual": "1",
+        "ai.profile.smartCycleBotId.actual": "1",
+        "ai.profile.firstSmartPreset.actual": "1",
+        "ai.profile.firstSmartMacro.actual": "Rush",
+        "ai.profile.firstLightBotId.actual": "8",
+        "ai.profile.lightCycleBotId.actual": "8",
+        "ai.build.firstPlan.actual": "Part4/Color1/Pattern2",
+        "ai.build.secondPlan.actual": "Part1/Color1/Pattern6",
+        "ai.runtime.stateCount.actual": "49",
+        "ai.runtime.smartWeapon.actual": "pistol_basic",
+        "ai.readingPrey.decoyHp.actual": "50",
+        "ai.loot.pendingBeforeSmart.actual": "1",
+        "ai.loot.pendingAfterSmart.actual": "0",
+        "ai.loot.smartState.actual": "Loot",
+        "ai.loot.smartLootCount.actual": "1",
+        "ai.loot.smartCoins.actual": "40",
+        "ai.loot.smartInk.actual": "1",
+        "ai.loot.snapshotTotal.actual": "1",
+        "ai.loot.lowGreedSearchRadius.actual": "2.5",
+        "ai.loot.lowGreedLeavesFarChest.actual": "1",
+        "ai.damageEvent.count.actual": "1",
+        "message": "Scenario completed."
+      }
+    },
+    {
+      "name": "Scenario/BusinessRuntime/Totem Extended Gameplay",
+      "success": true,
+      "durationMs": 53,
+      "warnings": [],
+      "errors": [],
+      "details": {
+        "type": "UGF.EditorTools.TotemExtendedGameplayDiagnosticScenario",
+        "mode": "EditMode",
+        "tattoo.combinationCount.actual": "336",
+        "tattoo.attackResultCount.actual": "1",
+        "actorTattoo.pending.actual": "Part4/Color1/Pattern2",
+        "actorTattoo.aggregate.stateCount.actual": "1",
+        "actorTattoo.equippedCount.actual": "1",
+        "actorTattoo.summary.actual": "RightArm/Red/Ring",
+        "actorTattoo.globalEquippedCount.actual": "0",
+        "actorTattoo.aggregate.equippedCount.actual": "1",
+        "actorTattoo.triggerResultCount.actual": "1",
+        "actorTattoo.effectLogCount.actual": "1",
+        "actorTattoo.isolatedResultCount.actual": "0",
+        "actorTattoo.isolatedTargetHealth.actual": "95",
+        "actorTattoo.playerGlobalTriggerCount.actual": "1",
+        "weapon.l2.damageMul.actual": "1.2",
+        "weapon.l2.rangeAdd.actual": "0.5",
+        "weapon.l2.cooldownMul.actual": "0.9",
+        "weapon.l3.damageMul.actual": "1.44",
+        "weapon.l3.rangeAdd.actual": "1",
+        "weapon.l3.cooldownMul.actual": "0.8099999",
+        "weapon.convertGold.actual": "25",
+        "status.beforeHalfSecond.health.actual": "100",
+        "status.firstTick.health.actual": "95",
+        "status.shock.mergedDps.actual": "12",
+        "status.shock.mergedDuration.actual": "3",
+        "status.clear.count.actual": "0",
+        "damageRoute.status.eventCount.actual": "1",
+        "damageRoute.status.detailedEventCount.actual": "1",
+        "damageRoute.status.killedCount.actual": "1",
+        "damageRoute.status.damage.actual": "10",
+        "damageRoute.status.sequence.actual": "1",
+        "damageRoute.status.reason.actual": "Status:Burn",
+        "damageRoute.status.remaining.actual": "0",
+        "damageRoute.tattoo.resultCount.actual": "1",
+        "damageRoute.tattoo.eventCount.actual": "1",
+        "damageRoute.tattoo.detailedEventCount.actual": "1",
+        "damageRoute.tattoo.killedCount.actual": "1",
+        "damageRoute.tattoo.damage.actual": "10",
+        "damageRoute.tattoo.sequence.actual": "2",
+        "damageRoute.tattoo.reason.actual": "Tattoo:AttackHitEvent",
+        "deathChest.pendingCount.afterKill.actual": "1",
+        "deathChest.deadActorId.actual": "920",
+        "deathChest.pending.coins.actual": "50",
+        "deathChest.pending.ink.actual": "2",
+        "deathChest.pending.recipes.actual": "1",
+        "deathChest.pending.equipment.actual": "2",
+        "deathChest.victim.remainingCoins.actual": "50",
+        "deathChest.victim.remainingInk.actual": "3",
+        "deathChest.victim.remainingRecipes.actual": "2",
+        "deathChest.victim.remainingEquipment.actual": "0",
+        "deathChest.pendingCount.afterLoot.actual": "0",
+        "deathChest.looted.coins.actual": "50",
+        "deathChest.looter.coins.actual": "50",
+        "deathChest.looter.ink.actual": "2",
+        "deathChest.looter.recipes.actual": "1",
+        "deathChest.looter.equipment.actual": "2",
+        "deathChest.interaction.focusActorId.actual": "22",
+        "deathChest.interaction.prompt.actual": "F: Loot Death Chest 22",
+        "deathChest.interaction.pendingAfterLoot.actual": "0",
+        "deathChest.interaction.playerCoins.actual": "160",
+        "deathChest.interaction.playerInk.actual": "8",
+        "deathChest.interaction.playerRecipes.actual": "3",
+        "deathChest.interaction.playerEquipment.actual": "2",
+        "deathChest.interaction.lastInteraction.actual": "death_chest_22",
+        "zone.phaseCount.actual": "3",
+        "zone.phaseAt0.actual": "0",
+        "zone.phaseAt240.actual": "1",
+        "zone.phaseAt420.actual": "2",
+        "boss.phaseCount.actual": "3",
+        "boss.phaseAt90.actual": "1",
+        "boss.phaseAt60.actual": "2",
+        "boss.phaseAt30.actual": "3",
+        "boss.transitionDuration.actual": "0.8",
+        "boss.skillCooldown.actual": "4",
+        "zone.insideSmart.health.actual": "50",
+        "zone.damage.affectedCount.actual": "3",
+        "zone.damage.killedCount.actual": "1",
+        "zone.damage.eventCount.actual": "3",
+        "zone.damage.eventKilledCount.actual": "1",
+        "bossReward.phaseAfterHeavyDamage.actual": "2",
+        "bossReward.phaseAfterTransition.actual": "3",
+        "bossReward.runResult.reason.actual": "AllEnemiesDefeated",
+        "bossReward.runResult.recipeId.actual": "recipe_ai_ruins_boss_01",
+        "bossReward.snapshot.recipeId.actual": "recipe_ai_ruins_boss_01",
+        "bossReward.inventory.recipeUnlockCount.actual": "1",
+        "economy.deathChest.coins.actual": "60",
+        "economy.deathChest.ink.actual": "3",
+        "economy.deathChest.recipes.actual": "2",
+        "economy.deathChest.equipment.actual": "2",
+        "npc.count.actual": "5",
+        "npc.tattooistCount.actual": "3",
+        "npc.merchantCount.actual": "2",
+        "choice.optionCount.actual": "3",
+        "choice.eventId.actual": "diagnostic_choice",
+        "interaction.merchantPrompt.actual": "F: Shop with merchant_general",
+        "interaction.tattooPrompt.actual": "F: Tattoo with tattooist_default",
+        "interaction.merchantChoiceEvent.actual": "shop_merchant_general",
+        "interaction.tattooChoiceEvent.actual": "tattoo_tattooist_default",
+        "interaction.stableSeed.actual": "508969219",
+        "interaction.choiceCount.actual": "3",
+        "interaction.choiceEventId.actual": "shop_merchant_general",
+        "shop.redInk.rewardType.actual": "Ink",
+        "shop.redInk.summary.actual": "Ink +1",
+        "shop.redInk.inkCount.actual": "1",
+        "shop.weaponUpgrade.weaponId.actual": "knife_basic",
+        "shop.weaponUpgrade.level.actual": "2",
+        "shop.skillCore.summary.actual": "Skill slot 0 refreshed",
+        "shop.skillCore.cooldown.actual": "0",
+        "shop.skillCore.charges.actual": "1",
+        "choice.coin.summary.actual": "Coins +80",
+        "choice.coin.total.actual": "580",
+        "choice.cleanse.statusCount.actual": "0",
+        "choice.weaponUpgrade.level.actual": "3",
+        "choice.tattoo.summary.actual": "Tattoo enchant applied",
+        "choice.tattoo.enchantedCount.actual": "1",
+        "settings.format.actual": "BGM 0.75  SFX 0.50  Quality 1",
+        "settings.persistence.loaded.actual": "BGM 0.75  SFX 0.50  Quality 1",
+        "selfTattoo.pending.actual": "Part2/Color3/Pattern4",
+        "selfTattoo.equippedCount.actual": "1",
+        "tattoo.enchantedCount.actual": "1",
+        "runResult.win.actual": "False",
+        "runResult.reason.actual": "PlayerDefeated",
+        "runResult.killCount.actual": "9",
+        "runStats.totalRuns.actual": "2",
+        "runStats.totalWins.actual": "1",
+        "runStats.totalLosses.actual": "1",
+        "runStats.totalKills.actual": "12",
+        "runStats.bestKills.actual": "9",
+        "runStats.totalPlayTime.actual": "65.6",
+        "runStats.bestWinTime.actual": "20",
+        "runStats.persistence.totalRuns.actual": "2",
+        "runStats.persistence.totalKills.actual": "12",
+        "message": "Scenario completed."
+      }
+    },
+    {
+      "name": "Scenario/BusinessRuntime/Totem First Slice UI",
+      "success": true,
+      "durationMs": 135,
+      "warnings": [],
+      "errors": [],
+      "details": {
+        "type": "UGF.EditorTools.TotemFirstSliceUIDiagnosticScenario",
+        "mode": "EditMode",
+        "UIViews.MainMenu.actual": "1",
+        "UIViews.CharacterSelect.actual": "2",
+        "UIViews.StartupSelect.actual": "3",
+        "UIViews.CombatHUD.actual": "4",
+        "UIViews.Shop.actual": "5",
+        "UIViews.ThreeChoice.actual": "6",
+        "UIViews.TattooStudio.actual": "7",
+        "UIViews.PauseMenu.actual": "8",
+        "UIViews.RunResult.actual": "9",
+        "UIViews.Settings.actual": "10",
+        "UIViews.SelfTattoo.actual": "11",
+        "UIViews.TattooEnchant.actual": "12",
+        "UITable.json.rows": "12",
+        "MainMenu.missingScripts": "0",
+        "MainMenu.persistentButtonClicks": "0",
+        "CharacterSelect.missingScripts": "0",
+        "CharacterSelect.persistentButtonClicks": "0",
+        "StartupSelect.missingScripts": "0",
+        "StartupSelect.persistentButtonClicks": "0",
+        "CombatHUD.missingScripts": "0",
+        "CombatHUD.persistentButtonClicks": "0",
+        "Shop.missingScripts": "0",
+        "Shop.persistentButtonClicks": "0",
+        "ThreeChoice.missingScripts": "0",
+        "ThreeChoice.persistentButtonClicks": "0",
+        "TattooStudio.missingScripts": "0",
+        "TattooStudio.persistentButtonClicks": "0",
+        "PauseMenu.missingScripts": "0",
+        "PauseMenu.persistentButtonClicks": "0",
+        "RunResult.missingScripts": "0",
+        "RunResult.persistentButtonClicks": "0",
+        "Settings.missingScripts": "0",
+        "Settings.persistentButtonClicks": "0",
+        "SelfTattoo.missingScripts": "0",
+        "SelfTattoo.persistentButtonClicks": "0",
+        "TattooEnchant.missingScripts": "0",
+        "TattooEnchant.persistentButtonClicks": "0",
+        "weapon.knife_basic.uiSpriteLoaded": "True",
+        "weapon.hammer_heavy.uiSpriteLoaded": "True",
+        "weapon.pistol_basic.uiSpriteLoaded": "True",
+        "weapon.bow_charge.uiSpriteLoaded": "True",
+        "weapon.energy_fist.uiSpriteLoaded": "True",
+        "skill.slot0_burst.uiSpriteLoaded": "True",
+        "skill.slot1_dash.uiSpriteLoaded": "True",
+        "combatHud.weaponAmmoText.actual": "Weapon: pistol_basic  Ammo: 12  SkillCD: 1.5s",
+        "combatHud.weaponMeleeText.actual": "Weapon: knife_basic  SkillCD: 0.0s",
+        "combatHud.enemyText.actual": "Enemies: 49",
+        "combatHud.zoneText.actual": "Zone P2 R15 D8  Enemies: 7",
+        "combatHud.promptText.actual": "Enemies: 3  F: Shop with merchant_general",
+        "shop.npcText.actual": "Merchant: merchant_general  Price x1.20",
+        "shop.inventoryText.actual": "Coins: 120",
+        "shop.offerText.actual": "Red Ink  Price: 36  Stock: 3",
+        "tattoo.npcText.actual": "Tattooist: tattooist_default  Theme x1.15",
+        "tattoo.choiceSummary.actual": "Choices: tattoo_tattooist_default  Count: 3",
+        "threeChoice.header.actual": "Event: tattoo_tattooist_default",
+        "pause.status.actual": "HP 88  Enemies 12  Kills 4",
+        "runResult.title.actual": "Victory",
+        "settings.summary.actual": "BGM 0.70  SFX 0.60  Quality 2",
+        "selfTattoo.selection.actual": "Part 2  Color 3  Pattern 4",
+        "selfTattoo.equipped.actual": "Equipped: RightArm/Red/Line",
+        "selfTattoo.reading.actual": "Reading: Part2/Color3/Pattern4  1.5s",
+        "tattooEnchant.status.actual": "Equipped: 1  Enchants: 1",
+        "message": "Scenario completed."
+      }
+    },
+    {
+      "name": "Scenario/BusinessRuntime/Totem Gameplay Catalog",
+      "success": true,
+      "durationMs": 4,
+      "warnings": [],
+      "errors": [],
+      "details": {
+        "type": "UGF.EditorTools.TotemGameplayCatalogDiagnosticScenario",
+        "mode": "EditMode",
+        "catalog.path": "D:\\unity\\UnityProject\\GameDesinger_2\\Totem-Warrior\\GameData\\AIData\\GameplayCatalogs\\totem_gameplay_catalog.json",
+        "catalog.source": "gf-x-business-runtime-refactor",
+        "catalog.schemaVersion": "1",
+        "catalog.weaponCount": "5",
+        "catalog.npcCount": "5",
+        "catalog.botProfileCount": "10",
+        "catalog.botBuildPresetCount": "7",
+        "catalog.weapons.count.actual": "5",
+        "catalog.tattoos.combinationCount.actual": "336",
+        "catalog.zonePhases.count.actual": "3",
+        "catalog.bossPhases.count.actual": "3",
+        "catalog.npcs.count.actual": "5",
+        "catalog.npcs.tattooists.actual": "3",
+        "catalog.npcs.merchants.actual": "2",
+        "catalog.choices.rollCount.actual": "3",
+        "catalog.ai.lodRadius.actual": "20",
+        "catalog.ai.lightHotInterval.actual": "0.2",
+        "catalog.ai.profileCount.actual": "10",
+        "catalog.ai.smartProfileCount.actual": "7",
+        "catalog.ai.lightProfileCount.actual": "3",
+        "catalog.ai.buildPresetCount.actual": "7",
+        "dataService.catalog.weaponCount.actual": "5",
+        "message": "Scenario completed."
+      }
+    },
+    {
+      "name": "Scenario/BusinessRuntime/Totem Gameplay Runtime",
+      "success": true,
+      "durationMs": 4,
+      "warnings": [],
+      "errors": [],
+      "details": {
+        "type": "UGF.EditorTools.TotemGameplayRuntimeDiagnosticScenario",
+        "mode": "EditMode",
+        "map.size.actual": "150",
+        "map.roomCount.actual": "4",
+        "room.SpawnRoom": "True",
+        "room.TattooStudio": "True",
+        "room.Merchant": "True",
+        "room.BossRoom": "True",
+        "actorRoster.totalIncludingBoss.actual": "51",
+        "actorRoster.player.actual": "1",
+        "actorRoster.smartAi.actual": "20",
+        "actorRoster.lightAi.actual": "29",
+        "actorRoster.boss.actual": "1",
+        "cardinalMove.magnitude.actual": "1",
+        "message": "Scenario completed."
+      }
+    },
+    {
+      "name": "Scenario/BusinessRuntime/Totem Runtime Assets",
+      "success": true,
+      "durationMs": 11,
+      "warnings": [],
+      "errors": [],
+      "details": {
+        "type": "UGF.EditorTools.TotemRuntimeAssetDiagnosticScenario",
+        "mode": "EditMode",
+        "runtimeAssetCatalog.path": "D:\\unity\\UnityProject\\GameDesinger_2\\Totem-Warrior\\GameData\\AIData\\GameplayCatalogs\\totem_runtime_assets.json",
+        "runtimeAssetCatalog.source": "gf-x-business-runtime-refactor",
+        "runtimeAssetCatalog.entryCount": "23",
+        "runtimeAssetCatalog.prefabCount": "6",
+        "runtimeAssetCatalog.textureCount": "6",
+        "runtimeAssetCatalog.spriteCount": "11",
+        "actor.player.activeAssetBytes": "3040",
+        "actor.smartAi.activeAssetBytes": "3043",
+        "actor.lightAi.activeAssetBytes": "3043",
+        "actor.boss.activeAssetBytes": "3036",
+        "npc.tattooist.activeAssetBytes": "3048",
+        "npc.merchant.activeAssetBytes": "3047",
+        "map.floor.ruins.activeAssetBytes": "2817576",
+        "map.floor.metal.activeAssetBytes": "2658063",
+        "map.floor.blood.activeAssetBytes": "2920217",
+        "map.wall.ruins.activeAssetBytes": "3204575",
+        "map.wall.metal.activeAssetBytes": "2131531",
+        "map.wall.blood.activeAssetBytes": "2628526",
+        "weapon.knife_basic.activeAssetBytes": "534790",
+        "weapon.knife_basic.spriteLoaded": "True",
+        "weapon.hammer_heavy.activeAssetBytes": "750024",
+        "weapon.hammer_heavy.spriteLoaded": "True",
+        "weapon.pistol_basic.activeAssetBytes": "598551",
+        "weapon.pistol_basic.spriteLoaded": "True",
+        "weapon.bow_charge.activeAssetBytes": "600740",
+        "weapon.bow_charge.spriteLoaded": "True",
+        "weapon.energy_fist.activeAssetBytes": "1172047",
+        "weapon.energy_fist.spriteLoaded": "True",
+        "skill.slot0_burst.activeAssetBytes": "1035714",
+        "skill.slot0_burst.spriteLoaded": "True",
+        "skill.slot1_dash.activeAssetBytes": "1281032",
+        "skill.slot1_dash.spriteLoaded": "True",
+        "skill.boss_phase_bolt.activeAssetBytes": "1083965",
+        "skill.boss_phase_bolt.spriteLoaded": "True",
+        "effect.attack.hit.activeAssetBytes": "534790",
+        "effect.attack.hit.spriteLoaded": "True",
+        "effect.skill.burst.activeAssetBytes": "1035714",
+        "effect.skill.burst.spriteLoaded": "True",
+        "effect.boss.bolt.activeAssetBytes": "1083965",
+        "effect.boss.bolt.spriteLoaded": "True",
+        "runtimePrefab.ruleCount": "6",
+        "actor.player.missingScriptCount": "0",
+        "actor.player.monoBehaviourCount": "0",
+        "actor.player.spriteRendererCount": "1",
+        "actor.player.missingScriptCount.actual": "0",
+        "actor.player.monoBehaviourCount.actual": "0",
+        "actor.smartAi.missingScriptCount": "0",
+        "actor.smartAi.monoBehaviourCount": "0",
+        "actor.smartAi.spriteRendererCount": "1",
+        "actor.smartAi.missingScriptCount.actual": "0",
+        "actor.smartAi.monoBehaviourCount.actual": "0",
+        "actor.lightAi.missingScriptCount": "0",
+        "actor.lightAi.monoBehaviourCount": "0",
+        "actor.lightAi.spriteRendererCount": "1",
+        "actor.lightAi.missingScriptCount.actual": "0",
+        "actor.lightAi.monoBehaviourCount.actual": "0",
+        "actor.boss.missingScriptCount": "0",
+        "actor.boss.monoBehaviourCount": "0",
+        "actor.boss.spriteRendererCount": "1",
+        "actor.boss.missingScriptCount.actual": "0",
+        "actor.boss.monoBehaviourCount.actual": "0",
+        "npc.tattooist.missingScriptCount": "0",
+        "npc.tattooist.monoBehaviourCount": "0",
+        "npc.tattooist.spriteRendererCount": "1",
+        "npc.tattooist.missingScriptCount.actual": "0",
+        "npc.tattooist.monoBehaviourCount.actual": "0",
+        "npc.merchant.missingScriptCount": "0",
+        "npc.merchant.monoBehaviourCount": "0",
+        "npc.merchant.spriteRendererCount": "1",
+        "npc.merchant.missingScriptCount.actual": "0",
+        "npc.merchant.monoBehaviourCount.actual": "0",
+        "message": "Scenario completed."
+      }
+    },
+    {
+      "name": "Scenario/BusinessRuntime/Totem VFX Runtime",
+      "success": true,
+      "durationMs": 0,
+      "warnings": [],
+      "errors": [],
+      "details": {
+        "type": "UGF.EditorTools.TotemVfxRuntimeDiagnosticScenario",
+        "mode": "EditMode",
+        "vfx.attack.key.actual": "effect.attack.hit",
+        "vfx.skill.burst.key.actual": "effect.skill.burst",
+        "vfx.boss.bolt.key.actual": "effect.boss.bolt",
+        "effect.attack.hit.vfxSpriteLoaded": "True",
+        "effect.skill.burst.vfxSpriteLoaded": "True",
+        "effect.boss.bolt.vfxSpriteLoaded": "True",
+        "message": "Scenario completed."
+      }
+    },
+    {
+      "name": "Editor snapshot",
+      "success": true,
+      "durationMs": 1,
+      "warnings": [],
+      "errors": [],
+      "details": {
+        "isPlaying": "False",
+        "loadedScenes": "1",
+        "currentProcedure": "EditorNotPlaying",
+        "snapshotWarnings": "0"
+      }
+    }
+  ],
+  "snapshot": {
+    "schemaVersion": 1,
+    "createdAtUtc": "2026-07-07T11:36:50.4644147Z",
+    "reason": "diagnostic-run-all",
+    "unityVersion": "2022.3.62f3c1",
+    "platform": "WindowsEditor",
+    "isPlaying": false,
+    "frame": 0,
+    "realtimeSinceStartup": 0.0,
+    "currentProcedure": "EditorNotPlaying",
+    "currentProcedureTime": 0.0,
+    "resourceMode": null,
+    "editorResourceMode": false,
+    "loadedScenes": [
+      "Launch|loaded=True|path=Assets/Game/Scene/Launch.unity"
+    ],
+    "dataTables": [],
+    "uiGroups": [],
+    "entityGroups": [],
+    "soundGroups": [],
+    "warnings": [],
+    "recentEvents": [
+      {
+        "seq": 943,
+        "utc": "2026-07-07T11:36:50.2779151Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "Instantiate.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "actor.lightAi",
+          "asset": "Assets/Game/Prefabs/Entity/Actors/LightAI.prefab"
+        }
+      },
+      {
+        "seq": 944,
+        "utc": "2026-07-07T11:36:50.2779151Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "Instantiate.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "actor.lightAi",
+          "asset": "Assets/Game/Prefabs/Entity/Actors/LightAI.prefab"
+        }
+      },
+      {
+        "seq": 945,
+        "utc": "2026-07-07T11:36:50.2784149Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "Instantiate.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "actor.boss",
+          "asset": "Assets/Game/Prefabs/Entity/Actors/Boss.prefab"
+        }
+      },
+      {
+        "seq": 946,
+        "utc": "2026-07-07T11:36:50.2784149Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemActor",
+        "action": "Actors.Spawned",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "actorCount": "50",
+          "smartAi": "20",
+          "lightAi": "29",
+          "boss": "1"
+        }
+      },
+      {
+        "seq": 947,
+        "utc": "2026-07-07T11:36:50.2784149Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemZone",
+        "action": "Activated",
+        "result": "Success",
+        "message": null,
+        "data": null
+      },
+      {
+        "seq": 948,
+        "utc": "2026-07-07T11:36:50.2794150Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemRuntime",
+        "action": "Service.Shutdown",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "Zone"
+        }
+      },
+      {
+        "seq": 949,
+        "utc": "2026-07-07T11:36:50.2804154Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemRuntime",
+        "action": "Service.Shutdown",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "Actor"
+        }
+      },
+      {
+        "seq": 950,
+        "utc": "2026-07-07T11:36:50.2804154Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemRuntime",
+        "action": "Service.Shutdown",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "Map"
+        }
+      },
+      {
+        "seq": 951,
+        "utc": "2026-07-07T11:36:50.2804154Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemRuntime",
+        "action": "Service.Shutdown",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "Asset"
+        }
+      },
+      {
+        "seq": 952,
+        "utc": "2026-07-07T11:36:50.2804154Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemRuntime",
+        "action": "Service.Shutdown",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "Data"
+        }
+      },
+      {
+        "seq": 953,
+        "utc": "2026-07-07T11:36:50.2804154Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemRuntime",
+        "action": "Service.Shutdown",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "GameFlow"
+        }
+      },
+      {
+        "seq": 954,
+        "utc": "2026-07-07T11:36:50.2814150Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemRuntime",
+        "action": "Service.Register",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "GameFlow"
+        }
+      },
+      {
+        "seq": 955,
+        "utc": "2026-07-07T11:36:50.2814150Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemRuntime",
+        "action": "Service.Register",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "Data"
+        }
+      },
+      {
+        "seq": 956,
+        "utc": "2026-07-07T11:36:50.2814150Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemRuntime",
+        "action": "Service.Register",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "Asset"
+        }
+      },
+      {
+        "seq": 957,
+        "utc": "2026-07-07T11:36:50.2814150Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemRuntime",
+        "action": "Service.Register",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "Map"
+        }
+      },
+      {
+        "seq": 958,
+        "utc": "2026-07-07T11:36:50.2814150Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemRuntime",
+        "action": "Service.Register",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "Actor"
+        }
+      },
+      {
+        "seq": 959,
+        "utc": "2026-07-07T11:36:50.2814150Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemRuntime",
+        "action": "Service.Register",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "Economy"
+        }
+      },
+      {
+        "seq": 960,
+        "utc": "2026-07-07T11:36:50.2814150Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemRuntime",
+        "action": "Service.Register",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "Boss"
+        }
+      },
+      {
+        "seq": 961,
+        "utc": "2026-07-07T11:36:50.2814150Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemRuntime",
+        "action": "Service.Register",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "Combat"
+        }
+      },
+      {
+        "seq": 962,
+        "utc": "2026-07-07T11:36:50.2814150Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemRuntime",
+        "action": "Service.Initialize.Begin",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "GameFlow"
+        }
+      },
+      {
+        "seq": 963,
+        "utc": "2026-07-07T11:36:50.2814150Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemRuntime",
+        "action": "Service.Initialize.Success",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "service": "GameFlow"
+        }
+      },
+      {
+        "seq": 964,
+        "utc": "2026-07-07T11:36:50.2814150Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemRuntime",
+        "action": "Service.Initialize.Begin",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "Data"
+        }
+      },
+      {
+        "seq": 965,
+        "utc": "2026-07-07T11:36:50.2819150Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemData",
+        "action": "GameplayCatalog.Loaded",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "path": "D:\\unity\\UnityProject\\GameDesinger_2\\Totem-Warrior\\GameData\\AIData\\GameplayCatalogs\\totem_gameplay_catalog.json",
+          "source": "gf-x-business-runtime-refactor",
+          "weaponCount": "5",
+          "npcCount": "5"
+        }
+      },
+      {
+        "seq": 966,
+        "utc": "2026-07-07T11:36:50.2819150Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemRuntime",
+        "action": "Service.Initialize.Success",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "service": "Data"
+        }
+      },
+      {
+        "seq": 967,
+        "utc": "2026-07-07T11:36:50.2819150Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemRuntime",
+        "action": "Service.Initialize.Begin",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "Asset"
+        }
+      },
+      {
+        "seq": 968,
+        "utc": "2026-07-07T11:36:50.2824151Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "RuntimeAssetCatalog.Loaded",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "path": "D:\\unity\\UnityProject\\GameDesinger_2\\Totem-Warrior\\GameData\\AIData\\GameplayCatalogs\\totem_runtime_assets.json",
+          "entryCount": "23"
+        }
+      },
+      {
+        "seq": 969,
+        "utc": "2026-07-07T11:36:50.2824151Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemRuntime",
+        "action": "Service.Initialize.Success",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "service": "Asset"
+        }
+      },
+      {
+        "seq": 970,
+        "utc": "2026-07-07T11:36:50.2824151Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemRuntime",
+        "action": "Service.Initialize.Begin",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "Map"
+        }
+      },
+      {
+        "seq": 971,
+        "utc": "2026-07-07T11:36:50.2824151Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemRuntime",
+        "action": "Service.Initialize.Success",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "service": "Map"
+        }
+      },
+      {
+        "seq": 972,
+        "utc": "2026-07-07T11:36:50.2824151Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemRuntime",
+        "action": "Service.Initialize.Begin",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "Actor"
+        }
+      },
+      {
+        "seq": 973,
+        "utc": "2026-07-07T11:36:50.2824151Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemRuntime",
+        "action": "Service.Initialize.Success",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "service": "Actor"
+        }
+      },
+      {
+        "seq": 974,
+        "utc": "2026-07-07T11:36:50.2824151Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemRuntime",
+        "action": "Service.Initialize.Begin",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "Economy"
+        }
+      },
+      {
+        "seq": 975,
+        "utc": "2026-07-07T11:36:50.2824151Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemRuntime",
+        "action": "Service.Initialize.Success",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "service": "Economy"
+        }
+      },
+      {
+        "seq": 976,
+        "utc": "2026-07-07T11:36:50.2824151Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemRuntime",
+        "action": "Service.Initialize.Begin",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "Boss"
+        }
+      },
+      {
+        "seq": 977,
+        "utc": "2026-07-07T11:36:50.2824151Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemRuntime",
+        "action": "Service.Initialize.Success",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "service": "Boss"
+        }
+      },
+      {
+        "seq": 978,
+        "utc": "2026-07-07T11:36:50.2824151Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemRuntime",
+        "action": "Service.Initialize.Begin",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "Combat"
+        }
+      },
+      {
+        "seq": 979,
+        "utc": "2026-07-07T11:36:50.2824151Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemRuntime",
+        "action": "Service.Initialize.Success",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "service": "Combat"
+        }
+      },
+      {
+        "seq": 980,
+        "utc": "2026-07-07T11:36:50.2824151Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemRuntime",
+        "action": "Services.Ready",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "readyCount": "8",
+          "serviceCount": "8"
+        }
+      },
+      {
+        "seq": 981,
+        "utc": "2026-07-07T11:36:50.2824151Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemFlow",
+        "action": "Startup.Confirmed",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "characterId": "1",
+          "colorId": "1",
+          "weaponId": "knife_basic",
+          "patterns": "1"
+        }
+      },
+      {
+        "seq": 982,
+        "utc": "2026-07-07T11:36:50.2824151Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemFlow",
+        "action": "StateChanged",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "from": "None",
+          "to": "CombatHud"
+        }
+      },
+      {
+        "seq": 983,
+        "utc": "2026-07-07T11:36:50.2829152Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "Texture.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "map.floor.ruins",
+          "asset": "Assets/Resources/Sprite/Environments/env_floor_ruins.png"
+        }
+      },
+      {
+        "seq": 984,
+        "utc": "2026-07-07T11:36:50.2829152Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "Texture.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "map.wall.ruins",
+          "asset": "Assets/Resources/Sprite/Environments/env_wall_ruins.png"
+        }
+      },
+      {
+        "seq": 985,
+        "utc": "2026-07-07T11:36:50.2829152Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "Texture.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "map.wall.ruins",
+          "asset": "Assets/Resources/Sprite/Environments/env_wall_ruins.png"
+        }
+      },
+      {
+        "seq": 986,
+        "utc": "2026-07-07T11:36:50.2834150Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "Texture.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "map.wall.ruins",
+          "asset": "Assets/Resources/Sprite/Environments/env_wall_ruins.png"
+        }
+      },
+      {
+        "seq": 987,
+        "utc": "2026-07-07T11:36:50.2834150Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "Texture.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "map.wall.ruins",
+          "asset": "Assets/Resources/Sprite/Environments/env_wall_ruins.png"
+        }
+      },
+      {
+        "seq": 988,
+        "utc": "2026-07-07T11:36:50.2834150Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "Texture.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "map.floor.ruins",
+          "asset": "Assets/Resources/Sprite/Environments/env_floor_ruins.png"
+        }
+      },
+      {
+        "seq": 989,
+        "utc": "2026-07-07T11:36:50.2834150Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "Texture.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "map.floor.metal",
+          "asset": "Assets/Resources/Sprite/Environments/env_floor_metal.png"
+        }
+      },
+      {
+        "seq": 990,
+        "utc": "2026-07-07T11:36:50.2834150Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "Texture.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "map.floor.metal",
+          "asset": "Assets/Resources/Sprite/Environments/env_floor_metal.png"
+        }
+      },
+      {
+        "seq": 991,
+        "utc": "2026-07-07T11:36:50.2839152Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "Texture.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "map.floor.blood",
+          "asset": "Assets/Resources/Sprite/Environments/env_floor_blood_rock.png"
+        }
+      },
+      {
+        "seq": 992,
+        "utc": "2026-07-07T11:36:50.2839152Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemMap",
+        "action": "Map.Generated",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "seed": "1",
+          "themeId": "1",
+          "roomCount": "4",
+          "mapSize": "150.0",
+          "zoneCenter": "62.4,55.5"
+        }
+      },
+      {
+        "seq": 993,
+        "utc": "2026-07-07T11:36:50.2839152Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "Instantiate.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "actor.player",
+          "asset": "Assets/Game/Prefabs/Entity/Actors/Player.prefab"
+        }
+      },
+      {
+        "seq": 994,
+        "utc": "2026-07-07T11:36:50.2844151Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "Instantiate.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "actor.smartAi",
+          "asset": "Assets/Game/Prefabs/Entity/Actors/SmartAI.prefab"
+        }
+      },
+      {
+        "seq": 995,
+        "utc": "2026-07-07T11:36:50.2844151Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "Instantiate.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "actor.smartAi",
+          "asset": "Assets/Game/Prefabs/Entity/Actors/SmartAI.prefab"
+        }
+      },
+      {
+        "seq": 996,
+        "utc": "2026-07-07T11:36:50.2844151Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "Instantiate.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "actor.smartAi",
+          "asset": "Assets/Game/Prefabs/Entity/Actors/SmartAI.prefab"
+        }
+      },
+      {
+        "seq": 997,
+        "utc": "2026-07-07T11:36:50.2844151Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "Instantiate.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "actor.smartAi",
+          "asset": "Assets/Game/Prefabs/Entity/Actors/SmartAI.prefab"
+        }
+      },
+      {
+        "seq": 998,
+        "utc": "2026-07-07T11:36:50.2844151Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "Instantiate.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "actor.smartAi",
+          "asset": "Assets/Game/Prefabs/Entity/Actors/SmartAI.prefab"
+        }
+      },
+      {
+        "seq": 999,
+        "utc": "2026-07-07T11:36:50.2844151Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "Instantiate.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "actor.smartAi",
+          "asset": "Assets/Game/Prefabs/Entity/Actors/SmartAI.prefab"
+        }
+      },
+      {
+        "seq": 1000,
+        "utc": "2026-07-07T11:36:50.2844151Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "Instantiate.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "actor.smartAi",
+          "asset": "Assets/Game/Prefabs/Entity/Actors/SmartAI.prefab"
+        }
+      },
+      {
+        "seq": 1001,
+        "utc": "2026-07-07T11:36:50.2844151Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "Instantiate.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "actor.smartAi",
+          "asset": "Assets/Game/Prefabs/Entity/Actors/SmartAI.prefab"
+        }
+      },
+      {
+        "seq": 1002,
+        "utc": "2026-07-07T11:36:50.2849152Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "Instantiate.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "actor.smartAi",
+          "asset": "Assets/Game/Prefabs/Entity/Actors/SmartAI.prefab"
+        }
+      },
+      {
+        "seq": 1003,
+        "utc": "2026-07-07T11:36:50.2849152Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "Instantiate.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "actor.smartAi",
+          "asset": "Assets/Game/Prefabs/Entity/Actors/SmartAI.prefab"
+        }
+      },
+      {
+        "seq": 1004,
+        "utc": "2026-07-07T11:36:50.2849152Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "Instantiate.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "actor.smartAi",
+          "asset": "Assets/Game/Prefabs/Entity/Actors/SmartAI.prefab"
+        }
+      },
+      {
+        "seq": 1005,
+        "utc": "2026-07-07T11:36:50.2849152Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "Instantiate.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "actor.smartAi",
+          "asset": "Assets/Game/Prefabs/Entity/Actors/SmartAI.prefab"
+        }
+      },
+      {
+        "seq": 1006,
+        "utc": "2026-07-07T11:36:50.2849152Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "Instantiate.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "actor.smartAi",
+          "asset": "Assets/Game/Prefabs/Entity/Actors/SmartAI.prefab"
+        }
+      },
+      {
+        "seq": 1007,
+        "utc": "2026-07-07T11:36:50.2849152Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "Instantiate.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "actor.smartAi",
+          "asset": "Assets/Game/Prefabs/Entity/Actors/SmartAI.prefab"
+        }
+      },
+      {
+        "seq": 1008,
+        "utc": "2026-07-07T11:36:50.2849152Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "Instantiate.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "actor.smartAi",
+          "asset": "Assets/Game/Prefabs/Entity/Actors/SmartAI.prefab"
+        }
+      },
+      {
+        "seq": 1009,
+        "utc": "2026-07-07T11:36:50.2849152Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "Instantiate.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "actor.smartAi",
+          "asset": "Assets/Game/Prefabs/Entity/Actors/SmartAI.prefab"
+        }
+      },
+      {
+        "seq": 1010,
+        "utc": "2026-07-07T11:36:50.2854149Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "Instantiate.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "actor.smartAi",
+          "asset": "Assets/Game/Prefabs/Entity/Actors/SmartAI.prefab"
+        }
+      },
+      {
+        "seq": 1011,
+        "utc": "2026-07-07T11:36:50.2854149Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "Instantiate.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "actor.smartAi",
+          "asset": "Assets/Game/Prefabs/Entity/Actors/SmartAI.prefab"
+        }
+      },
+      {
+        "seq": 1012,
+        "utc": "2026-07-07T11:36:50.2854149Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "Instantiate.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "actor.smartAi",
+          "asset": "Assets/Game/Prefabs/Entity/Actors/SmartAI.prefab"
+        }
+      },
+      {
+        "seq": 1013,
+        "utc": "2026-07-07T11:36:50.2854149Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "Instantiate.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "actor.smartAi",
+          "asset": "Assets/Game/Prefabs/Entity/Actors/SmartAI.prefab"
+        }
+      },
+      {
+        "seq": 1014,
+        "utc": "2026-07-07T11:36:50.2854149Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "Instantiate.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "actor.lightAi",
+          "asset": "Assets/Game/Prefabs/Entity/Actors/LightAI.prefab"
+        }
+      },
+      {
+        "seq": 1015,
+        "utc": "2026-07-07T11:36:50.2854149Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "Instantiate.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "actor.lightAi",
+          "asset": "Assets/Game/Prefabs/Entity/Actors/LightAI.prefab"
+        }
+      },
+      {
+        "seq": 1016,
+        "utc": "2026-07-07T11:36:50.2854149Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "Instantiate.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "actor.lightAi",
+          "asset": "Assets/Game/Prefabs/Entity/Actors/LightAI.prefab"
+        }
+      },
+      {
+        "seq": 1017,
+        "utc": "2026-07-07T11:36:50.2859154Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "Instantiate.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "actor.lightAi",
+          "asset": "Assets/Game/Prefabs/Entity/Actors/LightAI.prefab"
+        }
+      },
+      {
+        "seq": 1018,
+        "utc": "2026-07-07T11:36:50.2859154Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "Instantiate.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "actor.lightAi",
+          "asset": "Assets/Game/Prefabs/Entity/Actors/LightAI.prefab"
+        }
+      },
+      {
+        "seq": 1019,
+        "utc": "2026-07-07T11:36:50.2859154Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "Instantiate.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "actor.lightAi",
+          "asset": "Assets/Game/Prefabs/Entity/Actors/LightAI.prefab"
+        }
+      },
+      {
+        "seq": 1020,
+        "utc": "2026-07-07T11:36:50.2859154Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "Instantiate.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "actor.lightAi",
+          "asset": "Assets/Game/Prefabs/Entity/Actors/LightAI.prefab"
+        }
+      },
+      {
+        "seq": 1021,
+        "utc": "2026-07-07T11:36:50.2859154Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "Instantiate.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "actor.lightAi",
+          "asset": "Assets/Game/Prefabs/Entity/Actors/LightAI.prefab"
+        }
+      },
+      {
+        "seq": 1022,
+        "utc": "2026-07-07T11:36:50.2859154Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "Instantiate.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "actor.lightAi",
+          "asset": "Assets/Game/Prefabs/Entity/Actors/LightAI.prefab"
+        }
+      },
+      {
+        "seq": 1023,
+        "utc": "2026-07-07T11:36:50.2859154Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "Instantiate.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "actor.lightAi",
+          "asset": "Assets/Game/Prefabs/Entity/Actors/LightAI.prefab"
+        }
+      },
+      {
+        "seq": 1024,
+        "utc": "2026-07-07T11:36:50.2859154Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "Instantiate.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "actor.lightAi",
+          "asset": "Assets/Game/Prefabs/Entity/Actors/LightAI.prefab"
+        }
+      },
+      {
+        "seq": 1025,
+        "utc": "2026-07-07T11:36:50.2859154Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "Instantiate.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "actor.lightAi",
+          "asset": "Assets/Game/Prefabs/Entity/Actors/LightAI.prefab"
+        }
+      },
+      {
+        "seq": 1026,
+        "utc": "2026-07-07T11:36:50.2864150Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "Instantiate.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "actor.lightAi",
+          "asset": "Assets/Game/Prefabs/Entity/Actors/LightAI.prefab"
+        }
+      },
+      {
+        "seq": 1027,
+        "utc": "2026-07-07T11:36:50.2864150Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "Instantiate.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "actor.lightAi",
+          "asset": "Assets/Game/Prefabs/Entity/Actors/LightAI.prefab"
+        }
+      },
+      {
+        "seq": 1028,
+        "utc": "2026-07-07T11:36:50.2864150Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "Instantiate.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "actor.lightAi",
+          "asset": "Assets/Game/Prefabs/Entity/Actors/LightAI.prefab"
+        }
+      },
+      {
+        "seq": 1029,
+        "utc": "2026-07-07T11:36:50.2864150Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "Instantiate.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "actor.lightAi",
+          "asset": "Assets/Game/Prefabs/Entity/Actors/LightAI.prefab"
+        }
+      },
+      {
+        "seq": 1030,
+        "utc": "2026-07-07T11:36:50.2864150Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "Instantiate.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "actor.lightAi",
+          "asset": "Assets/Game/Prefabs/Entity/Actors/LightAI.prefab"
+        }
+      },
+      {
+        "seq": 1031,
+        "utc": "2026-07-07T11:36:50.2864150Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "Instantiate.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "actor.lightAi",
+          "asset": "Assets/Game/Prefabs/Entity/Actors/LightAI.prefab"
+        }
+      },
+      {
+        "seq": 1032,
+        "utc": "2026-07-07T11:36:50.2864150Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "Instantiate.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "actor.lightAi",
+          "asset": "Assets/Game/Prefabs/Entity/Actors/LightAI.prefab"
+        }
+      },
+      {
+        "seq": 1033,
+        "utc": "2026-07-07T11:36:50.2864150Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "Instantiate.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "actor.lightAi",
+          "asset": "Assets/Game/Prefabs/Entity/Actors/LightAI.prefab"
+        }
+      },
+      {
+        "seq": 1034,
+        "utc": "2026-07-07T11:36:50.2869149Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "Instantiate.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "actor.lightAi",
+          "asset": "Assets/Game/Prefabs/Entity/Actors/LightAI.prefab"
+        }
+      },
+      {
+        "seq": 1035,
+        "utc": "2026-07-07T11:36:50.2869149Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "Instantiate.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "actor.lightAi",
+          "asset": "Assets/Game/Prefabs/Entity/Actors/LightAI.prefab"
+        }
+      },
+      {
+        "seq": 1036,
+        "utc": "2026-07-07T11:36:50.2869149Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "Instantiate.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "actor.lightAi",
+          "asset": "Assets/Game/Prefabs/Entity/Actors/LightAI.prefab"
+        }
+      },
+      {
+        "seq": 1037,
+        "utc": "2026-07-07T11:36:50.2869149Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "Instantiate.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "actor.lightAi",
+          "asset": "Assets/Game/Prefabs/Entity/Actors/LightAI.prefab"
+        }
+      },
+      {
+        "seq": 1038,
+        "utc": "2026-07-07T11:36:50.2869149Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "Instantiate.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "actor.lightAi",
+          "asset": "Assets/Game/Prefabs/Entity/Actors/LightAI.prefab"
+        }
+      },
+      {
+        "seq": 1039,
+        "utc": "2026-07-07T11:36:50.2869149Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "Instantiate.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "actor.lightAi",
+          "asset": "Assets/Game/Prefabs/Entity/Actors/LightAI.prefab"
+        }
+      },
+      {
+        "seq": 1040,
+        "utc": "2026-07-07T11:36:50.2869149Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "Instantiate.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "actor.lightAi",
+          "asset": "Assets/Game/Prefabs/Entity/Actors/LightAI.prefab"
+        }
+      },
+      {
+        "seq": 1041,
+        "utc": "2026-07-07T11:36:50.2869149Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "Instantiate.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "actor.lightAi",
+          "asset": "Assets/Game/Prefabs/Entity/Actors/LightAI.prefab"
+        }
+      },
+      {
+        "seq": 1042,
+        "utc": "2026-07-07T11:36:50.2869149Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "Instantiate.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "actor.lightAi",
+          "asset": "Assets/Game/Prefabs/Entity/Actors/LightAI.prefab"
+        }
+      },
+      {
+        "seq": 1043,
+        "utc": "2026-07-07T11:36:50.2874146Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "Instantiate.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "actor.boss",
+          "asset": "Assets/Game/Prefabs/Entity/Actors/Boss.prefab"
+        }
+      },
+      {
+        "seq": 1044,
+        "utc": "2026-07-07T11:36:50.2874146Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemActor",
+        "action": "Actors.Spawned",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "actorCount": "50",
+          "smartAi": "20",
+          "lightAi": "29",
+          "boss": "1"
+        }
+      },
+      {
+        "seq": 1045,
+        "utc": "2026-07-07T11:36:50.2874146Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemBoss",
+        "action": "Activated",
+        "result": "Success",
+        "message": null,
+        "data": null
+      },
+      {
+        "seq": 1046,
+        "utc": "2026-07-07T11:36:50.2874146Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemCombat",
+        "action": "Combat.Started",
+        "result": "Success",
+        "message": null,
+        "data": null
+      },
+      {
+        "seq": 1047,
+        "utc": "2026-07-07T11:36:50.2879150Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemBoss",
+        "action": "PhaseChanged",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "from": "1",
+          "to": "2",
+          "enrage": "1.25"
+        }
+      },
+      {
+        "seq": 1048,
+        "utc": "2026-07-07T11:36:50.2879150Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemBoss",
+        "action": "PhaseChanged",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "from": "2",
+          "to": "3",
+          "enrage": "1.60"
+        }
+      },
+      {
+        "seq": 1049,
+        "utc": "2026-07-07T11:36:50.2904153Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemBoss",
+        "action": "DeathReward.Claimed",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "boss": "Boss",
+          "recipeId": "recipe_ai_ruins_boss_01"
+        }
+      },
+      {
+        "seq": 1050,
+        "utc": "2026-07-07T11:36:50.2904153Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemCombat",
+        "action": "BossReward.Applied",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "recipeId": "recipe_ai_ruins_boss_01",
+          "unlocked": "True"
+        }
+      },
+      {
+        "seq": 1051,
+        "utc": "2026-07-07T11:36:50.2904153Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemCombat",
+        "action": "Run.Ended",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "win": "True",
+          "reason": "AllEnemiesDefeated",
+          "killCount": "0",
+          "aliveEnemyCount": "0",
+          "elapsed": "0.1",
+          "bossReward": "recipe_ai_ruins_boss_01"
+        }
+      },
+      {
+        "seq": 1052,
+        "utc": "2026-07-07T11:36:50.2909152Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemRuntime",
+        "action": "Service.Shutdown",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "Combat"
+        }
+      },
+      {
+        "seq": 1053,
+        "utc": "2026-07-07T11:36:50.2909152Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemRuntime",
+        "action": "Service.Shutdown",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "Boss"
+        }
+      },
+      {
+        "seq": 1054,
+        "utc": "2026-07-07T11:36:50.2909152Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemRuntime",
+        "action": "Service.Shutdown",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "Economy"
+        }
+      },
+      {
+        "seq": 1055,
+        "utc": "2026-07-07T11:36:50.2909152Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemRuntime",
+        "action": "Service.Shutdown",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "Actor"
+        }
+      },
+      {
+        "seq": 1056,
+        "utc": "2026-07-07T11:36:50.2909152Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemRuntime",
+        "action": "Service.Shutdown",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "Map"
+        }
+      },
+      {
+        "seq": 1057,
+        "utc": "2026-07-07T11:36:50.2909152Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemRuntime",
+        "action": "Service.Shutdown",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "Asset"
+        }
+      },
+      {
+        "seq": 1058,
+        "utc": "2026-07-07T11:36:50.2909152Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemRuntime",
+        "action": "Service.Shutdown",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "Data"
+        }
+      },
+      {
+        "seq": 1059,
+        "utc": "2026-07-07T11:36:50.2909152Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemRuntime",
+        "action": "Service.Shutdown",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "GameFlow"
+        }
+      },
+      {
+        "seq": 1060,
+        "utc": "2026-07-07T11:36:50.2934150Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemWeapon",
+        "action": "Equip",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "actor": "Player",
+          "weaponId": "knife_basic"
+        }
+      },
+      {
+        "seq": 1061,
+        "utc": "2026-07-07T11:36:50.2934150Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemSkill",
+        "action": "Equip",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "actor": "Player",
+          "slot": "0",
+          "skillId": "slot0_burst"
+        }
+      },
+      {
+        "seq": 1062,
+        "utc": "2026-07-07T11:36:50.2934150Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemSkill",
+        "action": "Cast",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "actor": "Player",
+          "slot": "0",
+          "skillId": "slot0_burst"
+        }
+      },
+      {
+        "seq": 1063,
+        "utc": "2026-07-07T11:36:50.2934150Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemTattoo",
+        "action": "Equip.Player",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "part": "RightArm",
+          "color": "Red",
+          "pattern": "Line"
+        }
+      },
+      {
+        "seq": 1064,
+        "utc": "2026-07-07T11:36:50.2944150Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemSkill",
+        "action": "Refresh",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "actor": "Player",
+          "slot": "0",
+          "skillId": "slot0_burst"
+        }
+      },
+      {
+        "seq": 1065,
+        "utc": "2026-07-07T11:36:50.2949187Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemTattoo",
+        "action": "Enchant.MinorApplied",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "target": "RightArm/Red/Line",
+          "enchantedCount": "1"
+        }
+      },
+      {
+        "seq": 1066,
+        "utc": "2026-07-07T11:36:50.3004155Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemTattoo",
+        "action": "SelfTattoo.Started",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "partId": "2",
+          "colorId": "3",
+          "patternId": "4",
+          "duration": "3.0"
+        }
+      },
+      {
+        "seq": 1067,
+        "utc": "2026-07-07T11:36:50.3009150Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemTattoo",
+        "action": "Equip.Player",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "part": "Torso",
+          "color": "Green",
+          "pattern": "Zigzag"
+        }
+      },
+      {
+        "seq": 1068,
+        "utc": "2026-07-07T11:36:50.3009150Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemTattoo",
+        "action": "SelfTattoo.Finished",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "partId": "2",
+          "colorId": "3",
+          "patternId": "4",
+          "equipped": "True"
+        }
+      },
+      {
+        "seq": 1069,
+        "utc": "2026-07-07T11:36:50.3009150Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemTattoo",
+        "action": "Enchant.MinorApplied",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "target": "Torso/Green/Zigzag",
+          "enchantedCount": "1"
+        }
+      },
+      {
+        "seq": 1070,
+        "utc": "2026-07-07T11:36:50.3049151Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "Diagnostics",
+        "action": "Scenario.End",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "type": "UGF.EditorTools.TotemExtendedGameplayDiagnosticScenario",
+          "category": "BusinessRuntime",
+          "name": "Totem Extended Gameplay",
+          "durationMs": "53",
+          "errors": "0",
+          "warnings": "0"
+        }
+      },
+      {
+        "seq": 1071,
+        "utc": "2026-07-07T11:36:50.3054150Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "Diagnostics",
+        "action": "Scenario.Begin",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "type": "UGF.EditorTools.TotemFirstSliceUIDiagnosticScenario",
+          "category": "BusinessRuntime",
+          "name": "Totem First Slice UI",
+          "mode": "EditMode"
+        }
+      },
+      {
+        "seq": 1072,
+        "utc": "2026-07-07T11:36:50.4394152Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "RuntimeAssetCatalog.Loaded",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "path": "D:\\unity\\UnityProject\\GameDesinger_2\\Totem-Warrior\\GameData\\AIData\\GameplayCatalogs\\totem_runtime_assets.json",
+          "entryCount": "23"
+        }
+      },
+      {
+        "seq": 1073,
+        "utc": "2026-07-07T11:36:50.4394152Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "Sprite.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "weapon.knife_basic",
+          "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+        }
+      },
+      {
+        "seq": 1074,
+        "utc": "2026-07-07T11:36:50.4394152Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "Sprite.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "weapon.hammer_heavy",
+          "asset": "Assets/Resources/Sprite/Weapons/weapon_heavy_hammer.png"
+        }
+      },
+      {
+        "seq": 1075,
+        "utc": "2026-07-07T11:36:50.4394152Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "Sprite.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "weapon.pistol_basic",
+          "asset": "Assets/Resources/Sprite/Weapons/weapon_pistol.png"
+        }
+      },
+      {
+        "seq": 1076,
+        "utc": "2026-07-07T11:36:50.4394152Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "Sprite.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "weapon.bow_charge",
+          "asset": "Assets/Resources/Sprite/Weapons/weapon_bow.png"
+        }
+      },
+      {
+        "seq": 1077,
+        "utc": "2026-07-07T11:36:50.4394152Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "Sprite.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "weapon.energy_fist",
+          "asset": "Assets/Resources/Sprite/Weapons/weapon_energy_fist.png"
+        }
+      },
+      {
+        "seq": 1078,
+        "utc": "2026-07-07T11:36:50.4394152Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "Sprite.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "skill.slot0_burst",
+          "asset": "Assets/Resources/Sprite/Skills/skill_fireball.png"
+        }
+      },
+      {
+        "seq": 1079,
+        "utc": "2026-07-07T11:36:50.4394152Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "Sprite.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "skill.slot1_dash",
+          "asset": "Assets/Resources/Sprite/Skills/skill_stealth.png"
+        }
+      },
+      {
+        "seq": 1080,
+        "utc": "2026-07-07T11:36:50.4409148Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "Diagnostics",
+        "action": "Scenario.End",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "type": "UGF.EditorTools.TotemFirstSliceUIDiagnosticScenario",
+          "category": "BusinessRuntime",
+          "name": "Totem First Slice UI",
+          "durationMs": "135",
+          "errors": "0",
+          "warnings": "0"
+        }
+      },
+      {
+        "seq": 1081,
+        "utc": "2026-07-07T11:36:50.4409148Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "Diagnostics",
+        "action": "Scenario.Begin",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "type": "UGF.EditorTools.TotemGameplayCatalogDiagnosticScenario",
+          "category": "BusinessRuntime",
+          "name": "Totem Gameplay Catalog",
+          "mode": "EditMode"
+        }
+      },
+      {
+        "seq": 1082,
+        "utc": "2026-07-07T11:36:50.4449151Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemData",
+        "action": "GameplayCatalog.Loaded",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "path": "D:\\unity\\UnityProject\\GameDesinger_2\\Totem-Warrior\\GameData\\AIData\\GameplayCatalogs\\totem_gameplay_catalog.json",
+          "source": "gf-x-business-runtime-refactor",
+          "weaponCount": "5",
+          "npcCount": "5"
+        }
+      },
+      {
+        "seq": 1083,
+        "utc": "2026-07-07T11:36:50.4449151Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "Diagnostics",
+        "action": "Scenario.End",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "type": "UGF.EditorTools.TotemGameplayCatalogDiagnosticScenario",
+          "category": "BusinessRuntime",
+          "name": "Totem Gameplay Catalog",
+          "durationMs": "4",
+          "errors": "0",
+          "warnings": "0"
+        }
+      },
+      {
+        "seq": 1084,
+        "utc": "2026-07-07T11:36:50.4449151Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "Diagnostics",
+        "action": "Scenario.Begin",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "type": "UGF.EditorTools.TotemGameplayRuntimeDiagnosticScenario",
+          "category": "BusinessRuntime",
+          "name": "Totem Gameplay Runtime",
+          "mode": "EditMode"
+        }
+      },
+      {
+        "seq": 1085,
+        "utc": "2026-07-07T11:36:50.4494152Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "Diagnostics",
+        "action": "Scenario.End",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "type": "UGF.EditorTools.TotemGameplayRuntimeDiagnosticScenario",
+          "category": "BusinessRuntime",
+          "name": "Totem Gameplay Runtime",
+          "durationMs": "4",
+          "errors": "0",
+          "warnings": "0"
+        }
+      },
+      {
+        "seq": 1086,
+        "utc": "2026-07-07T11:36:50.4499161Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "Diagnostics",
+        "action": "Scenario.Begin",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "type": "UGF.EditorTools.TotemRuntimeAssetDiagnosticScenario",
+          "category": "BusinessRuntime",
+          "name": "Totem Runtime Assets",
+          "mode": "EditMode"
+        }
+      },
+      {
+        "seq": 1087,
+        "utc": "2026-07-07T11:36:50.4604148Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "RuntimeAssetCatalog.Loaded",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "path": "D:\\unity\\UnityProject\\GameDesinger_2\\Totem-Warrior\\GameData\\AIData\\GameplayCatalogs\\totem_runtime_assets.json",
+          "entryCount": "23"
+        }
+      },
+      {
+        "seq": 1088,
+        "utc": "2026-07-07T11:36:50.4604148Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "Instantiate.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "actor.player",
+          "asset": "Assets/Game/Prefabs/Entity/Actors/Player.prefab"
+        }
+      },
+      {
+        "seq": 1089,
+        "utc": "2026-07-07T11:36:50.4614148Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "RuntimeAssetCatalog.Loaded",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "path": "D:\\unity\\UnityProject\\GameDesinger_2\\Totem-Warrior\\GameData\\AIData\\GameplayCatalogs\\totem_runtime_assets.json",
+          "entryCount": "23"
+        }
+      },
+      {
+        "seq": 1090,
+        "utc": "2026-07-07T11:36:50.4614148Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "Texture.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "map.floor.ruins",
+          "asset": "Assets/Resources/Sprite/Environments/env_floor_ruins.png"
+        }
+      },
+      {
+        "seq": 1091,
+        "utc": "2026-07-07T11:36:50.4614148Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "Sprite.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "weapon.knife_basic",
+          "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+        }
+      },
+      {
+        "seq": 1092,
+        "utc": "2026-07-07T11:36:50.4614148Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "Sprite.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "skill.slot0_burst",
+          "asset": "Assets/Resources/Sprite/Skills/skill_fireball.png"
+        }
+      },
+      {
+        "seq": 1093,
+        "utc": "2026-07-07T11:36:50.4614148Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "Texture.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "map.wall.ruins",
+          "asset": "Assets/Resources/Sprite/Environments/env_wall_ruins.png"
+        }
+      },
+      {
+        "seq": 1094,
+        "utc": "2026-07-07T11:36:50.4614148Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "Diagnostics",
+        "action": "Scenario.End",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "type": "UGF.EditorTools.TotemRuntimeAssetDiagnosticScenario",
+          "category": "BusinessRuntime",
+          "name": "Totem Runtime Assets",
+          "durationMs": "11",
+          "errors": "0",
+          "warnings": "0"
+        }
+      },
+      {
+        "seq": 1095,
+        "utc": "2026-07-07T11:36:50.4614148Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "Diagnostics",
+        "action": "Scenario.Begin",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "type": "UGF.EditorTools.TotemVfxRuntimeDiagnosticScenario",
+          "category": "BusinessRuntime",
+          "name": "Totem VFX Runtime",
+          "mode": "EditMode"
+        }
+      },
+      {
+        "seq": 1096,
+        "utc": "2026-07-07T11:36:50.4619149Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "RuntimeAssetCatalog.Loaded",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "path": "D:\\unity\\UnityProject\\GameDesinger_2\\Totem-Warrior\\GameData\\AIData\\GameplayCatalogs\\totem_runtime_assets.json",
+          "entryCount": "23"
+        }
+      },
+      {
+        "seq": 1097,
+        "utc": "2026-07-07T11:36:50.4624148Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "Sprite.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "effect.attack.hit",
+          "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+        }
+      },
+      {
+        "seq": 1098,
+        "utc": "2026-07-07T11:36:50.4624148Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "Sprite.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "effect.skill.burst",
+          "asset": "Assets/Resources/Sprite/Skills/skill_fireball.png"
+        }
+      },
+      {
+        "seq": 1099,
+        "utc": "2026-07-07T11:36:50.4624148Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "TotemAsset",
+        "action": "Sprite.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "effect.boss.bolt",
+          "asset": "Assets/Resources/Sprite/Skills/skill_chain_lightning.png"
+        }
+      },
+      {
+        "seq": 1100,
+        "utc": "2026-07-07T11:36:50.4624148Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "Diagnostics",
+        "action": "Scenario.End",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "type": "UGF.EditorTools.TotemVfxRuntimeDiagnosticScenario",
+          "category": "BusinessRuntime",
+          "name": "Totem VFX Runtime",
+          "durationMs": "0",
+          "errors": "0",
+          "warnings": "0"
+        }
+      },
+      {
+        "seq": 1101,
+        "utc": "2026-07-07T11:36:50.4624148Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "Diagnostics",
+        "action": "Editor snapshot.Begin",
+        "result": "Info",
+        "message": null,
+        "data": null
+      },
+      {
+        "seq": 1102,
+        "utc": "2026-07-07T11:36:50.4639146Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+        "system": "Diagnostics",
+        "action": "Editor snapshot.End",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "durationMs": "1",
+          "errors": "0",
+          "warnings": "0"
+        }
+      }
+    ]
+  },
+  "timeline": [
+    {
+      "seq": 943,
+      "utc": "2026-07-07T11:36:50.2779151Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "Instantiate.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "actor.lightAi",
+        "asset": "Assets/Game/Prefabs/Entity/Actors/LightAI.prefab"
+      }
+    },
+    {
+      "seq": 944,
+      "utc": "2026-07-07T11:36:50.2779151Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "Instantiate.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "actor.lightAi",
+        "asset": "Assets/Game/Prefabs/Entity/Actors/LightAI.prefab"
+      }
+    },
+    {
+      "seq": 945,
+      "utc": "2026-07-07T11:36:50.2784149Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "Instantiate.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "actor.boss",
+        "asset": "Assets/Game/Prefabs/Entity/Actors/Boss.prefab"
+      }
+    },
+    {
+      "seq": 946,
+      "utc": "2026-07-07T11:36:50.2784149Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemActor",
+      "action": "Actors.Spawned",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "actorCount": "50",
+        "smartAi": "20",
+        "lightAi": "29",
+        "boss": "1"
+      }
+    },
+    {
+      "seq": 947,
+      "utc": "2026-07-07T11:36:50.2784149Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemZone",
+      "action": "Activated",
+      "result": "Success",
+      "message": null,
+      "data": null
+    },
+    {
+      "seq": 948,
+      "utc": "2026-07-07T11:36:50.2794150Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemRuntime",
+      "action": "Service.Shutdown",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "Zone"
+      }
+    },
+    {
+      "seq": 949,
+      "utc": "2026-07-07T11:36:50.2804154Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemRuntime",
+      "action": "Service.Shutdown",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "Actor"
+      }
+    },
+    {
+      "seq": 950,
+      "utc": "2026-07-07T11:36:50.2804154Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemRuntime",
+      "action": "Service.Shutdown",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "Map"
+      }
+    },
+    {
+      "seq": 951,
+      "utc": "2026-07-07T11:36:50.2804154Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemRuntime",
+      "action": "Service.Shutdown",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "Asset"
+      }
+    },
+    {
+      "seq": 952,
+      "utc": "2026-07-07T11:36:50.2804154Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemRuntime",
+      "action": "Service.Shutdown",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "Data"
+      }
+    },
+    {
+      "seq": 953,
+      "utc": "2026-07-07T11:36:50.2804154Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemRuntime",
+      "action": "Service.Shutdown",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "GameFlow"
+      }
+    },
+    {
+      "seq": 954,
+      "utc": "2026-07-07T11:36:50.2814150Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemRuntime",
+      "action": "Service.Register",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "GameFlow"
+      }
+    },
+    {
+      "seq": 955,
+      "utc": "2026-07-07T11:36:50.2814150Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemRuntime",
+      "action": "Service.Register",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "Data"
+      }
+    },
+    {
+      "seq": 956,
+      "utc": "2026-07-07T11:36:50.2814150Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemRuntime",
+      "action": "Service.Register",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "Asset"
+      }
+    },
+    {
+      "seq": 957,
+      "utc": "2026-07-07T11:36:50.2814150Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemRuntime",
+      "action": "Service.Register",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "Map"
+      }
+    },
+    {
+      "seq": 958,
+      "utc": "2026-07-07T11:36:50.2814150Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemRuntime",
+      "action": "Service.Register",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "Actor"
+      }
+    },
+    {
+      "seq": 959,
+      "utc": "2026-07-07T11:36:50.2814150Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemRuntime",
+      "action": "Service.Register",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "Economy"
+      }
+    },
+    {
+      "seq": 960,
+      "utc": "2026-07-07T11:36:50.2814150Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemRuntime",
+      "action": "Service.Register",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "Boss"
+      }
+    },
+    {
+      "seq": 961,
+      "utc": "2026-07-07T11:36:50.2814150Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemRuntime",
+      "action": "Service.Register",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "Combat"
+      }
+    },
+    {
+      "seq": 962,
+      "utc": "2026-07-07T11:36:50.2814150Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemRuntime",
+      "action": "Service.Initialize.Begin",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "GameFlow"
+      }
+    },
+    {
+      "seq": 963,
+      "utc": "2026-07-07T11:36:50.2814150Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemRuntime",
+      "action": "Service.Initialize.Success",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "service": "GameFlow"
+      }
+    },
+    {
+      "seq": 964,
+      "utc": "2026-07-07T11:36:50.2814150Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemRuntime",
+      "action": "Service.Initialize.Begin",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "Data"
+      }
+    },
+    {
+      "seq": 965,
+      "utc": "2026-07-07T11:36:50.2819150Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemData",
+      "action": "GameplayCatalog.Loaded",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "path": "D:\\unity\\UnityProject\\GameDesinger_2\\Totem-Warrior\\GameData\\AIData\\GameplayCatalogs\\totem_gameplay_catalog.json",
+        "source": "gf-x-business-runtime-refactor",
+        "weaponCount": "5",
+        "npcCount": "5"
+      }
+    },
+    {
+      "seq": 966,
+      "utc": "2026-07-07T11:36:50.2819150Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemRuntime",
+      "action": "Service.Initialize.Success",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "service": "Data"
+      }
+    },
+    {
+      "seq": 967,
+      "utc": "2026-07-07T11:36:50.2819150Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemRuntime",
+      "action": "Service.Initialize.Begin",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "Asset"
+      }
+    },
+    {
+      "seq": 968,
+      "utc": "2026-07-07T11:36:50.2824151Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "RuntimeAssetCatalog.Loaded",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "path": "D:\\unity\\UnityProject\\GameDesinger_2\\Totem-Warrior\\GameData\\AIData\\GameplayCatalogs\\totem_runtime_assets.json",
+        "entryCount": "23"
+      }
+    },
+    {
+      "seq": 969,
+      "utc": "2026-07-07T11:36:50.2824151Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemRuntime",
+      "action": "Service.Initialize.Success",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "service": "Asset"
+      }
+    },
+    {
+      "seq": 970,
+      "utc": "2026-07-07T11:36:50.2824151Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemRuntime",
+      "action": "Service.Initialize.Begin",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "Map"
+      }
+    },
+    {
+      "seq": 971,
+      "utc": "2026-07-07T11:36:50.2824151Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemRuntime",
+      "action": "Service.Initialize.Success",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "service": "Map"
+      }
+    },
+    {
+      "seq": 972,
+      "utc": "2026-07-07T11:36:50.2824151Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemRuntime",
+      "action": "Service.Initialize.Begin",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "Actor"
+      }
+    },
+    {
+      "seq": 973,
+      "utc": "2026-07-07T11:36:50.2824151Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemRuntime",
+      "action": "Service.Initialize.Success",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "service": "Actor"
+      }
+    },
+    {
+      "seq": 974,
+      "utc": "2026-07-07T11:36:50.2824151Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemRuntime",
+      "action": "Service.Initialize.Begin",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "Economy"
+      }
+    },
+    {
+      "seq": 975,
+      "utc": "2026-07-07T11:36:50.2824151Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemRuntime",
+      "action": "Service.Initialize.Success",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "service": "Economy"
+      }
+    },
+    {
+      "seq": 976,
+      "utc": "2026-07-07T11:36:50.2824151Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemRuntime",
+      "action": "Service.Initialize.Begin",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "Boss"
+      }
+    },
+    {
+      "seq": 977,
+      "utc": "2026-07-07T11:36:50.2824151Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemRuntime",
+      "action": "Service.Initialize.Success",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "service": "Boss"
+      }
+    },
+    {
+      "seq": 978,
+      "utc": "2026-07-07T11:36:50.2824151Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemRuntime",
+      "action": "Service.Initialize.Begin",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "Combat"
+      }
+    },
+    {
+      "seq": 979,
+      "utc": "2026-07-07T11:36:50.2824151Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemRuntime",
+      "action": "Service.Initialize.Success",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "service": "Combat"
+      }
+    },
+    {
+      "seq": 980,
+      "utc": "2026-07-07T11:36:50.2824151Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemRuntime",
+      "action": "Services.Ready",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "readyCount": "8",
+        "serviceCount": "8"
+      }
+    },
+    {
+      "seq": 981,
+      "utc": "2026-07-07T11:36:50.2824151Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemFlow",
+      "action": "Startup.Confirmed",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "characterId": "1",
+        "colorId": "1",
+        "weaponId": "knife_basic",
+        "patterns": "1"
+      }
+    },
+    {
+      "seq": 982,
+      "utc": "2026-07-07T11:36:50.2824151Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemFlow",
+      "action": "StateChanged",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "from": "None",
+        "to": "CombatHud"
+      }
+    },
+    {
+      "seq": 983,
+      "utc": "2026-07-07T11:36:50.2829152Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "Texture.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "map.floor.ruins",
+        "asset": "Assets/Resources/Sprite/Environments/env_floor_ruins.png"
+      }
+    },
+    {
+      "seq": 984,
+      "utc": "2026-07-07T11:36:50.2829152Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "Texture.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "map.wall.ruins",
+        "asset": "Assets/Resources/Sprite/Environments/env_wall_ruins.png"
+      }
+    },
+    {
+      "seq": 985,
+      "utc": "2026-07-07T11:36:50.2829152Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "Texture.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "map.wall.ruins",
+        "asset": "Assets/Resources/Sprite/Environments/env_wall_ruins.png"
+      }
+    },
+    {
+      "seq": 986,
+      "utc": "2026-07-07T11:36:50.2834150Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "Texture.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "map.wall.ruins",
+        "asset": "Assets/Resources/Sprite/Environments/env_wall_ruins.png"
+      }
+    },
+    {
+      "seq": 987,
+      "utc": "2026-07-07T11:36:50.2834150Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "Texture.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "map.wall.ruins",
+        "asset": "Assets/Resources/Sprite/Environments/env_wall_ruins.png"
+      }
+    },
+    {
+      "seq": 988,
+      "utc": "2026-07-07T11:36:50.2834150Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "Texture.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "map.floor.ruins",
+        "asset": "Assets/Resources/Sprite/Environments/env_floor_ruins.png"
+      }
+    },
+    {
+      "seq": 989,
+      "utc": "2026-07-07T11:36:50.2834150Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "Texture.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "map.floor.metal",
+        "asset": "Assets/Resources/Sprite/Environments/env_floor_metal.png"
+      }
+    },
+    {
+      "seq": 990,
+      "utc": "2026-07-07T11:36:50.2834150Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "Texture.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "map.floor.metal",
+        "asset": "Assets/Resources/Sprite/Environments/env_floor_metal.png"
+      }
+    },
+    {
+      "seq": 991,
+      "utc": "2026-07-07T11:36:50.2839152Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "Texture.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "map.floor.blood",
+        "asset": "Assets/Resources/Sprite/Environments/env_floor_blood_rock.png"
+      }
+    },
+    {
+      "seq": 992,
+      "utc": "2026-07-07T11:36:50.2839152Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemMap",
+      "action": "Map.Generated",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "seed": "1",
+        "themeId": "1",
+        "roomCount": "4",
+        "mapSize": "150.0",
+        "zoneCenter": "62.4,55.5"
+      }
+    },
+    {
+      "seq": 993,
+      "utc": "2026-07-07T11:36:50.2839152Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "Instantiate.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "actor.player",
+        "asset": "Assets/Game/Prefabs/Entity/Actors/Player.prefab"
+      }
+    },
+    {
+      "seq": 994,
+      "utc": "2026-07-07T11:36:50.2844151Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "Instantiate.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "actor.smartAi",
+        "asset": "Assets/Game/Prefabs/Entity/Actors/SmartAI.prefab"
+      }
+    },
+    {
+      "seq": 995,
+      "utc": "2026-07-07T11:36:50.2844151Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "Instantiate.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "actor.smartAi",
+        "asset": "Assets/Game/Prefabs/Entity/Actors/SmartAI.prefab"
+      }
+    },
+    {
+      "seq": 996,
+      "utc": "2026-07-07T11:36:50.2844151Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "Instantiate.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "actor.smartAi",
+        "asset": "Assets/Game/Prefabs/Entity/Actors/SmartAI.prefab"
+      }
+    },
+    {
+      "seq": 997,
+      "utc": "2026-07-07T11:36:50.2844151Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "Instantiate.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "actor.smartAi",
+        "asset": "Assets/Game/Prefabs/Entity/Actors/SmartAI.prefab"
+      }
+    },
+    {
+      "seq": 998,
+      "utc": "2026-07-07T11:36:50.2844151Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "Instantiate.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "actor.smartAi",
+        "asset": "Assets/Game/Prefabs/Entity/Actors/SmartAI.prefab"
+      }
+    },
+    {
+      "seq": 999,
+      "utc": "2026-07-07T11:36:50.2844151Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "Instantiate.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "actor.smartAi",
+        "asset": "Assets/Game/Prefabs/Entity/Actors/SmartAI.prefab"
+      }
+    },
+    {
+      "seq": 1000,
+      "utc": "2026-07-07T11:36:50.2844151Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "Instantiate.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "actor.smartAi",
+        "asset": "Assets/Game/Prefabs/Entity/Actors/SmartAI.prefab"
+      }
+    },
+    {
+      "seq": 1001,
+      "utc": "2026-07-07T11:36:50.2844151Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "Instantiate.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "actor.smartAi",
+        "asset": "Assets/Game/Prefabs/Entity/Actors/SmartAI.prefab"
+      }
+    },
+    {
+      "seq": 1002,
+      "utc": "2026-07-07T11:36:50.2849152Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "Instantiate.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "actor.smartAi",
+        "asset": "Assets/Game/Prefabs/Entity/Actors/SmartAI.prefab"
+      }
+    },
+    {
+      "seq": 1003,
+      "utc": "2026-07-07T11:36:50.2849152Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "Instantiate.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "actor.smartAi",
+        "asset": "Assets/Game/Prefabs/Entity/Actors/SmartAI.prefab"
+      }
+    },
+    {
+      "seq": 1004,
+      "utc": "2026-07-07T11:36:50.2849152Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "Instantiate.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "actor.smartAi",
+        "asset": "Assets/Game/Prefabs/Entity/Actors/SmartAI.prefab"
+      }
+    },
+    {
+      "seq": 1005,
+      "utc": "2026-07-07T11:36:50.2849152Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "Instantiate.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "actor.smartAi",
+        "asset": "Assets/Game/Prefabs/Entity/Actors/SmartAI.prefab"
+      }
+    },
+    {
+      "seq": 1006,
+      "utc": "2026-07-07T11:36:50.2849152Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "Instantiate.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "actor.smartAi",
+        "asset": "Assets/Game/Prefabs/Entity/Actors/SmartAI.prefab"
+      }
+    },
+    {
+      "seq": 1007,
+      "utc": "2026-07-07T11:36:50.2849152Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "Instantiate.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "actor.smartAi",
+        "asset": "Assets/Game/Prefabs/Entity/Actors/SmartAI.prefab"
+      }
+    },
+    {
+      "seq": 1008,
+      "utc": "2026-07-07T11:36:50.2849152Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "Instantiate.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "actor.smartAi",
+        "asset": "Assets/Game/Prefabs/Entity/Actors/SmartAI.prefab"
+      }
+    },
+    {
+      "seq": 1009,
+      "utc": "2026-07-07T11:36:50.2849152Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "Instantiate.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "actor.smartAi",
+        "asset": "Assets/Game/Prefabs/Entity/Actors/SmartAI.prefab"
+      }
+    },
+    {
+      "seq": 1010,
+      "utc": "2026-07-07T11:36:50.2854149Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "Instantiate.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "actor.smartAi",
+        "asset": "Assets/Game/Prefabs/Entity/Actors/SmartAI.prefab"
+      }
+    },
+    {
+      "seq": 1011,
+      "utc": "2026-07-07T11:36:50.2854149Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "Instantiate.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "actor.smartAi",
+        "asset": "Assets/Game/Prefabs/Entity/Actors/SmartAI.prefab"
+      }
+    },
+    {
+      "seq": 1012,
+      "utc": "2026-07-07T11:36:50.2854149Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "Instantiate.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "actor.smartAi",
+        "asset": "Assets/Game/Prefabs/Entity/Actors/SmartAI.prefab"
+      }
+    },
+    {
+      "seq": 1013,
+      "utc": "2026-07-07T11:36:50.2854149Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "Instantiate.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "actor.smartAi",
+        "asset": "Assets/Game/Prefabs/Entity/Actors/SmartAI.prefab"
+      }
+    },
+    {
+      "seq": 1014,
+      "utc": "2026-07-07T11:36:50.2854149Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "Instantiate.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "actor.lightAi",
+        "asset": "Assets/Game/Prefabs/Entity/Actors/LightAI.prefab"
+      }
+    },
+    {
+      "seq": 1015,
+      "utc": "2026-07-07T11:36:50.2854149Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "Instantiate.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "actor.lightAi",
+        "asset": "Assets/Game/Prefabs/Entity/Actors/LightAI.prefab"
+      }
+    },
+    {
+      "seq": 1016,
+      "utc": "2026-07-07T11:36:50.2854149Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "Instantiate.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "actor.lightAi",
+        "asset": "Assets/Game/Prefabs/Entity/Actors/LightAI.prefab"
+      }
+    },
+    {
+      "seq": 1017,
+      "utc": "2026-07-07T11:36:50.2859154Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "Instantiate.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "actor.lightAi",
+        "asset": "Assets/Game/Prefabs/Entity/Actors/LightAI.prefab"
+      }
+    },
+    {
+      "seq": 1018,
+      "utc": "2026-07-07T11:36:50.2859154Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "Instantiate.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "actor.lightAi",
+        "asset": "Assets/Game/Prefabs/Entity/Actors/LightAI.prefab"
+      }
+    },
+    {
+      "seq": 1019,
+      "utc": "2026-07-07T11:36:50.2859154Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "Instantiate.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "actor.lightAi",
+        "asset": "Assets/Game/Prefabs/Entity/Actors/LightAI.prefab"
+      }
+    },
+    {
+      "seq": 1020,
+      "utc": "2026-07-07T11:36:50.2859154Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "Instantiate.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "actor.lightAi",
+        "asset": "Assets/Game/Prefabs/Entity/Actors/LightAI.prefab"
+      }
+    },
+    {
+      "seq": 1021,
+      "utc": "2026-07-07T11:36:50.2859154Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "Instantiate.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "actor.lightAi",
+        "asset": "Assets/Game/Prefabs/Entity/Actors/LightAI.prefab"
+      }
+    },
+    {
+      "seq": 1022,
+      "utc": "2026-07-07T11:36:50.2859154Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "Instantiate.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "actor.lightAi",
+        "asset": "Assets/Game/Prefabs/Entity/Actors/LightAI.prefab"
+      }
+    },
+    {
+      "seq": 1023,
+      "utc": "2026-07-07T11:36:50.2859154Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "Instantiate.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "actor.lightAi",
+        "asset": "Assets/Game/Prefabs/Entity/Actors/LightAI.prefab"
+      }
+    },
+    {
+      "seq": 1024,
+      "utc": "2026-07-07T11:36:50.2859154Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "Instantiate.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "actor.lightAi",
+        "asset": "Assets/Game/Prefabs/Entity/Actors/LightAI.prefab"
+      }
+    },
+    {
+      "seq": 1025,
+      "utc": "2026-07-07T11:36:50.2859154Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "Instantiate.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "actor.lightAi",
+        "asset": "Assets/Game/Prefabs/Entity/Actors/LightAI.prefab"
+      }
+    },
+    {
+      "seq": 1026,
+      "utc": "2026-07-07T11:36:50.2864150Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "Instantiate.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "actor.lightAi",
+        "asset": "Assets/Game/Prefabs/Entity/Actors/LightAI.prefab"
+      }
+    },
+    {
+      "seq": 1027,
+      "utc": "2026-07-07T11:36:50.2864150Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "Instantiate.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "actor.lightAi",
+        "asset": "Assets/Game/Prefabs/Entity/Actors/LightAI.prefab"
+      }
+    },
+    {
+      "seq": 1028,
+      "utc": "2026-07-07T11:36:50.2864150Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "Instantiate.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "actor.lightAi",
+        "asset": "Assets/Game/Prefabs/Entity/Actors/LightAI.prefab"
+      }
+    },
+    {
+      "seq": 1029,
+      "utc": "2026-07-07T11:36:50.2864150Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "Instantiate.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "actor.lightAi",
+        "asset": "Assets/Game/Prefabs/Entity/Actors/LightAI.prefab"
+      }
+    },
+    {
+      "seq": 1030,
+      "utc": "2026-07-07T11:36:50.2864150Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "Instantiate.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "actor.lightAi",
+        "asset": "Assets/Game/Prefabs/Entity/Actors/LightAI.prefab"
+      }
+    },
+    {
+      "seq": 1031,
+      "utc": "2026-07-07T11:36:50.2864150Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "Instantiate.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "actor.lightAi",
+        "asset": "Assets/Game/Prefabs/Entity/Actors/LightAI.prefab"
+      }
+    },
+    {
+      "seq": 1032,
+      "utc": "2026-07-07T11:36:50.2864150Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "Instantiate.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "actor.lightAi",
+        "asset": "Assets/Game/Prefabs/Entity/Actors/LightAI.prefab"
+      }
+    },
+    {
+      "seq": 1033,
+      "utc": "2026-07-07T11:36:50.2864150Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "Instantiate.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "actor.lightAi",
+        "asset": "Assets/Game/Prefabs/Entity/Actors/LightAI.prefab"
+      }
+    },
+    {
+      "seq": 1034,
+      "utc": "2026-07-07T11:36:50.2869149Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "Instantiate.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "actor.lightAi",
+        "asset": "Assets/Game/Prefabs/Entity/Actors/LightAI.prefab"
+      }
+    },
+    {
+      "seq": 1035,
+      "utc": "2026-07-07T11:36:50.2869149Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "Instantiate.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "actor.lightAi",
+        "asset": "Assets/Game/Prefabs/Entity/Actors/LightAI.prefab"
+      }
+    },
+    {
+      "seq": 1036,
+      "utc": "2026-07-07T11:36:50.2869149Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "Instantiate.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "actor.lightAi",
+        "asset": "Assets/Game/Prefabs/Entity/Actors/LightAI.prefab"
+      }
+    },
+    {
+      "seq": 1037,
+      "utc": "2026-07-07T11:36:50.2869149Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "Instantiate.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "actor.lightAi",
+        "asset": "Assets/Game/Prefabs/Entity/Actors/LightAI.prefab"
+      }
+    },
+    {
+      "seq": 1038,
+      "utc": "2026-07-07T11:36:50.2869149Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "Instantiate.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "actor.lightAi",
+        "asset": "Assets/Game/Prefabs/Entity/Actors/LightAI.prefab"
+      }
+    },
+    {
+      "seq": 1039,
+      "utc": "2026-07-07T11:36:50.2869149Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "Instantiate.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "actor.lightAi",
+        "asset": "Assets/Game/Prefabs/Entity/Actors/LightAI.prefab"
+      }
+    },
+    {
+      "seq": 1040,
+      "utc": "2026-07-07T11:36:50.2869149Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "Instantiate.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "actor.lightAi",
+        "asset": "Assets/Game/Prefabs/Entity/Actors/LightAI.prefab"
+      }
+    },
+    {
+      "seq": 1041,
+      "utc": "2026-07-07T11:36:50.2869149Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "Instantiate.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "actor.lightAi",
+        "asset": "Assets/Game/Prefabs/Entity/Actors/LightAI.prefab"
+      }
+    },
+    {
+      "seq": 1042,
+      "utc": "2026-07-07T11:36:50.2869149Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "Instantiate.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "actor.lightAi",
+        "asset": "Assets/Game/Prefabs/Entity/Actors/LightAI.prefab"
+      }
+    },
+    {
+      "seq": 1043,
+      "utc": "2026-07-07T11:36:50.2874146Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "Instantiate.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "actor.boss",
+        "asset": "Assets/Game/Prefabs/Entity/Actors/Boss.prefab"
+      }
+    },
+    {
+      "seq": 1044,
+      "utc": "2026-07-07T11:36:50.2874146Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemActor",
+      "action": "Actors.Spawned",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "actorCount": "50",
+        "smartAi": "20",
+        "lightAi": "29",
+        "boss": "1"
+      }
+    },
+    {
+      "seq": 1045,
+      "utc": "2026-07-07T11:36:50.2874146Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemBoss",
+      "action": "Activated",
+      "result": "Success",
+      "message": null,
+      "data": null
+    },
+    {
+      "seq": 1046,
+      "utc": "2026-07-07T11:36:50.2874146Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemCombat",
+      "action": "Combat.Started",
+      "result": "Success",
+      "message": null,
+      "data": null
+    },
+    {
+      "seq": 1047,
+      "utc": "2026-07-07T11:36:50.2879150Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemBoss",
+      "action": "PhaseChanged",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "from": "1",
+        "to": "2",
+        "enrage": "1.25"
+      }
+    },
+    {
+      "seq": 1048,
+      "utc": "2026-07-07T11:36:50.2879150Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemBoss",
+      "action": "PhaseChanged",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "from": "2",
+        "to": "3",
+        "enrage": "1.60"
+      }
+    },
+    {
+      "seq": 1049,
+      "utc": "2026-07-07T11:36:50.2904153Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemBoss",
+      "action": "DeathReward.Claimed",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "boss": "Boss",
+        "recipeId": "recipe_ai_ruins_boss_01"
+      }
+    },
+    {
+      "seq": 1050,
+      "utc": "2026-07-07T11:36:50.2904153Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemCombat",
+      "action": "BossReward.Applied",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "recipeId": "recipe_ai_ruins_boss_01",
+        "unlocked": "True"
+      }
+    },
+    {
+      "seq": 1051,
+      "utc": "2026-07-07T11:36:50.2904153Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemCombat",
+      "action": "Run.Ended",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "win": "True",
+        "reason": "AllEnemiesDefeated",
+        "killCount": "0",
+        "aliveEnemyCount": "0",
+        "elapsed": "0.1",
+        "bossReward": "recipe_ai_ruins_boss_01"
+      }
+    },
+    {
+      "seq": 1052,
+      "utc": "2026-07-07T11:36:50.2909152Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemRuntime",
+      "action": "Service.Shutdown",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "Combat"
+      }
+    },
+    {
+      "seq": 1053,
+      "utc": "2026-07-07T11:36:50.2909152Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemRuntime",
+      "action": "Service.Shutdown",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "Boss"
+      }
+    },
+    {
+      "seq": 1054,
+      "utc": "2026-07-07T11:36:50.2909152Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemRuntime",
+      "action": "Service.Shutdown",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "Economy"
+      }
+    },
+    {
+      "seq": 1055,
+      "utc": "2026-07-07T11:36:50.2909152Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemRuntime",
+      "action": "Service.Shutdown",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "Actor"
+      }
+    },
+    {
+      "seq": 1056,
+      "utc": "2026-07-07T11:36:50.2909152Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemRuntime",
+      "action": "Service.Shutdown",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "Map"
+      }
+    },
+    {
+      "seq": 1057,
+      "utc": "2026-07-07T11:36:50.2909152Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemRuntime",
+      "action": "Service.Shutdown",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "Asset"
+      }
+    },
+    {
+      "seq": 1058,
+      "utc": "2026-07-07T11:36:50.2909152Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemRuntime",
+      "action": "Service.Shutdown",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "Data"
+      }
+    },
+    {
+      "seq": 1059,
+      "utc": "2026-07-07T11:36:50.2909152Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemRuntime",
+      "action": "Service.Shutdown",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "GameFlow"
+      }
+    },
+    {
+      "seq": 1060,
+      "utc": "2026-07-07T11:36:50.2934150Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemWeapon",
+      "action": "Equip",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "actor": "Player",
+        "weaponId": "knife_basic"
+      }
+    },
+    {
+      "seq": 1061,
+      "utc": "2026-07-07T11:36:50.2934150Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemSkill",
+      "action": "Equip",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "actor": "Player",
+        "slot": "0",
+        "skillId": "slot0_burst"
+      }
+    },
+    {
+      "seq": 1062,
+      "utc": "2026-07-07T11:36:50.2934150Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemSkill",
+      "action": "Cast",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "actor": "Player",
+        "slot": "0",
+        "skillId": "slot0_burst"
+      }
+    },
+    {
+      "seq": 1063,
+      "utc": "2026-07-07T11:36:50.2934150Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemTattoo",
+      "action": "Equip.Player",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "part": "RightArm",
+        "color": "Red",
+        "pattern": "Line"
+      }
+    },
+    {
+      "seq": 1064,
+      "utc": "2026-07-07T11:36:50.2944150Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemSkill",
+      "action": "Refresh",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "actor": "Player",
+        "slot": "0",
+        "skillId": "slot0_burst"
+      }
+    },
+    {
+      "seq": 1065,
+      "utc": "2026-07-07T11:36:50.2949187Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemTattoo",
+      "action": "Enchant.MinorApplied",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "target": "RightArm/Red/Line",
+        "enchantedCount": "1"
+      }
+    },
+    {
+      "seq": 1066,
+      "utc": "2026-07-07T11:36:50.3004155Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemTattoo",
+      "action": "SelfTattoo.Started",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "partId": "2",
+        "colorId": "3",
+        "patternId": "4",
+        "duration": "3.0"
+      }
+    },
+    {
+      "seq": 1067,
+      "utc": "2026-07-07T11:36:50.3009150Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemTattoo",
+      "action": "Equip.Player",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "part": "Torso",
+        "color": "Green",
+        "pattern": "Zigzag"
+      }
+    },
+    {
+      "seq": 1068,
+      "utc": "2026-07-07T11:36:50.3009150Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemTattoo",
+      "action": "SelfTattoo.Finished",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "partId": "2",
+        "colorId": "3",
+        "patternId": "4",
+        "equipped": "True"
+      }
+    },
+    {
+      "seq": 1069,
+      "utc": "2026-07-07T11:36:50.3009150Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemTattoo",
+      "action": "Enchant.MinorApplied",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "target": "Torso/Green/Zigzag",
+        "enchantedCount": "1"
+      }
+    },
+    {
+      "seq": 1070,
+      "utc": "2026-07-07T11:36:50.3049151Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "Diagnostics",
+      "action": "Scenario.End",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "type": "UGF.EditorTools.TotemExtendedGameplayDiagnosticScenario",
+        "category": "BusinessRuntime",
+        "name": "Totem Extended Gameplay",
+        "durationMs": "53",
+        "errors": "0",
+        "warnings": "0"
+      }
+    },
+    {
+      "seq": 1071,
+      "utc": "2026-07-07T11:36:50.3054150Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "Diagnostics",
+      "action": "Scenario.Begin",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "type": "UGF.EditorTools.TotemFirstSliceUIDiagnosticScenario",
+        "category": "BusinessRuntime",
+        "name": "Totem First Slice UI",
+        "mode": "EditMode"
+      }
+    },
+    {
+      "seq": 1072,
+      "utc": "2026-07-07T11:36:50.4394152Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "RuntimeAssetCatalog.Loaded",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "path": "D:\\unity\\UnityProject\\GameDesinger_2\\Totem-Warrior\\GameData\\AIData\\GameplayCatalogs\\totem_runtime_assets.json",
+        "entryCount": "23"
+      }
+    },
+    {
+      "seq": 1073,
+      "utc": "2026-07-07T11:36:50.4394152Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "Sprite.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "weapon.knife_basic",
+        "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+      }
+    },
+    {
+      "seq": 1074,
+      "utc": "2026-07-07T11:36:50.4394152Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "Sprite.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "weapon.hammer_heavy",
+        "asset": "Assets/Resources/Sprite/Weapons/weapon_heavy_hammer.png"
+      }
+    },
+    {
+      "seq": 1075,
+      "utc": "2026-07-07T11:36:50.4394152Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "Sprite.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "weapon.pistol_basic",
+        "asset": "Assets/Resources/Sprite/Weapons/weapon_pistol.png"
+      }
+    },
+    {
+      "seq": 1076,
+      "utc": "2026-07-07T11:36:50.4394152Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "Sprite.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "weapon.bow_charge",
+        "asset": "Assets/Resources/Sprite/Weapons/weapon_bow.png"
+      }
+    },
+    {
+      "seq": 1077,
+      "utc": "2026-07-07T11:36:50.4394152Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "Sprite.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "weapon.energy_fist",
+        "asset": "Assets/Resources/Sprite/Weapons/weapon_energy_fist.png"
+      }
+    },
+    {
+      "seq": 1078,
+      "utc": "2026-07-07T11:36:50.4394152Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "Sprite.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "skill.slot0_burst",
+        "asset": "Assets/Resources/Sprite/Skills/skill_fireball.png"
+      }
+    },
+    {
+      "seq": 1079,
+      "utc": "2026-07-07T11:36:50.4394152Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "Sprite.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "skill.slot1_dash",
+        "asset": "Assets/Resources/Sprite/Skills/skill_stealth.png"
+      }
+    },
+    {
+      "seq": 1080,
+      "utc": "2026-07-07T11:36:50.4409148Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "Diagnostics",
+      "action": "Scenario.End",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "type": "UGF.EditorTools.TotemFirstSliceUIDiagnosticScenario",
+        "category": "BusinessRuntime",
+        "name": "Totem First Slice UI",
+        "durationMs": "135",
+        "errors": "0",
+        "warnings": "0"
+      }
+    },
+    {
+      "seq": 1081,
+      "utc": "2026-07-07T11:36:50.4409148Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "Diagnostics",
+      "action": "Scenario.Begin",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "type": "UGF.EditorTools.TotemGameplayCatalogDiagnosticScenario",
+        "category": "BusinessRuntime",
+        "name": "Totem Gameplay Catalog",
+        "mode": "EditMode"
+      }
+    },
+    {
+      "seq": 1082,
+      "utc": "2026-07-07T11:36:50.4449151Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemData",
+      "action": "GameplayCatalog.Loaded",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "path": "D:\\unity\\UnityProject\\GameDesinger_2\\Totem-Warrior\\GameData\\AIData\\GameplayCatalogs\\totem_gameplay_catalog.json",
+        "source": "gf-x-business-runtime-refactor",
+        "weaponCount": "5",
+        "npcCount": "5"
+      }
+    },
+    {
+      "seq": 1083,
+      "utc": "2026-07-07T11:36:50.4449151Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "Diagnostics",
+      "action": "Scenario.End",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "type": "UGF.EditorTools.TotemGameplayCatalogDiagnosticScenario",
+        "category": "BusinessRuntime",
+        "name": "Totem Gameplay Catalog",
+        "durationMs": "4",
+        "errors": "0",
+        "warnings": "0"
+      }
+    },
+    {
+      "seq": 1084,
+      "utc": "2026-07-07T11:36:50.4449151Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "Diagnostics",
+      "action": "Scenario.Begin",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "type": "UGF.EditorTools.TotemGameplayRuntimeDiagnosticScenario",
+        "category": "BusinessRuntime",
+        "name": "Totem Gameplay Runtime",
+        "mode": "EditMode"
+      }
+    },
+    {
+      "seq": 1085,
+      "utc": "2026-07-07T11:36:50.4494152Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "Diagnostics",
+      "action": "Scenario.End",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "type": "UGF.EditorTools.TotemGameplayRuntimeDiagnosticScenario",
+        "category": "BusinessRuntime",
+        "name": "Totem Gameplay Runtime",
+        "durationMs": "4",
+        "errors": "0",
+        "warnings": "0"
+      }
+    },
+    {
+      "seq": 1086,
+      "utc": "2026-07-07T11:36:50.4499161Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "Diagnostics",
+      "action": "Scenario.Begin",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "type": "UGF.EditorTools.TotemRuntimeAssetDiagnosticScenario",
+        "category": "BusinessRuntime",
+        "name": "Totem Runtime Assets",
+        "mode": "EditMode"
+      }
+    },
+    {
+      "seq": 1087,
+      "utc": "2026-07-07T11:36:50.4604148Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "RuntimeAssetCatalog.Loaded",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "path": "D:\\unity\\UnityProject\\GameDesinger_2\\Totem-Warrior\\GameData\\AIData\\GameplayCatalogs\\totem_runtime_assets.json",
+        "entryCount": "23"
+      }
+    },
+    {
+      "seq": 1088,
+      "utc": "2026-07-07T11:36:50.4604148Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "Instantiate.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "actor.player",
+        "asset": "Assets/Game/Prefabs/Entity/Actors/Player.prefab"
+      }
+    },
+    {
+      "seq": 1089,
+      "utc": "2026-07-07T11:36:50.4614148Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "RuntimeAssetCatalog.Loaded",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "path": "D:\\unity\\UnityProject\\GameDesinger_2\\Totem-Warrior\\GameData\\AIData\\GameplayCatalogs\\totem_runtime_assets.json",
+        "entryCount": "23"
+      }
+    },
+    {
+      "seq": 1090,
+      "utc": "2026-07-07T11:36:50.4614148Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "Texture.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "map.floor.ruins",
+        "asset": "Assets/Resources/Sprite/Environments/env_floor_ruins.png"
+      }
+    },
+    {
+      "seq": 1091,
+      "utc": "2026-07-07T11:36:50.4614148Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "Sprite.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "weapon.knife_basic",
+        "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+      }
+    },
+    {
+      "seq": 1092,
+      "utc": "2026-07-07T11:36:50.4614148Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "Sprite.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "skill.slot0_burst",
+        "asset": "Assets/Resources/Sprite/Skills/skill_fireball.png"
+      }
+    },
+    {
+      "seq": 1093,
+      "utc": "2026-07-07T11:36:50.4614148Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "Texture.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "map.wall.ruins",
+        "asset": "Assets/Resources/Sprite/Environments/env_wall_ruins.png"
+      }
+    },
+    {
+      "seq": 1094,
+      "utc": "2026-07-07T11:36:50.4614148Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "Diagnostics",
+      "action": "Scenario.End",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "type": "UGF.EditorTools.TotemRuntimeAssetDiagnosticScenario",
+        "category": "BusinessRuntime",
+        "name": "Totem Runtime Assets",
+        "durationMs": "11",
+        "errors": "0",
+        "warnings": "0"
+      }
+    },
+    {
+      "seq": 1095,
+      "utc": "2026-07-07T11:36:50.4614148Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "Diagnostics",
+      "action": "Scenario.Begin",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "type": "UGF.EditorTools.TotemVfxRuntimeDiagnosticScenario",
+        "category": "BusinessRuntime",
+        "name": "Totem VFX Runtime",
+        "mode": "EditMode"
+      }
+    },
+    {
+      "seq": 1096,
+      "utc": "2026-07-07T11:36:50.4619149Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "RuntimeAssetCatalog.Loaded",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "path": "D:\\unity\\UnityProject\\GameDesinger_2\\Totem-Warrior\\GameData\\AIData\\GameplayCatalogs\\totem_runtime_assets.json",
+        "entryCount": "23"
+      }
+    },
+    {
+      "seq": 1097,
+      "utc": "2026-07-07T11:36:50.4624148Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "Sprite.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "effect.attack.hit",
+        "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+      }
+    },
+    {
+      "seq": 1098,
+      "utc": "2026-07-07T11:36:50.4624148Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "Sprite.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "effect.skill.burst",
+        "asset": "Assets/Resources/Sprite/Skills/skill_fireball.png"
+      }
+    },
+    {
+      "seq": 1099,
+      "utc": "2026-07-07T11:36:50.4624148Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "TotemAsset",
+      "action": "Sprite.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "effect.boss.bolt",
+        "asset": "Assets/Resources/Sprite/Skills/skill_chain_lightning.png"
+      }
+    },
+    {
+      "seq": 1100,
+      "utc": "2026-07-07T11:36:50.4624148Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "Diagnostics",
+      "action": "Scenario.End",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "type": "UGF.EditorTools.TotemVfxRuntimeDiagnosticScenario",
+        "category": "BusinessRuntime",
+        "name": "Totem VFX Runtime",
+        "durationMs": "0",
+        "errors": "0",
+        "warnings": "0"
+      }
+    },
+    {
+      "seq": 1101,
+      "utc": "2026-07-07T11:36:50.4624148Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "Diagnostics",
+      "action": "Editor snapshot.Begin",
+      "result": "Info",
+      "message": null,
+      "data": null
+    },
+    {
+      "seq": 1102,
+      "utc": "2026-07-07T11:36:50.4639146Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-ea570a03a9d2411ba23846c0d4c0f013",
+      "system": "Diagnostics",
+      "action": "Editor snapshot.End",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "durationMs": "1",
+        "errors": "0",
+        "warnings": "0"
+      }
+    }
+  ]
+}

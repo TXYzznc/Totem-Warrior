@@ -1,0 +1,1184 @@
+{
+  "schemaVersion": 1,
+  "action": "gf-diagnostics-run-all",
+  "createdAtUtc": "2026-07-07T07:44:48.0464615Z",
+  "successCount": 13,
+  "failureCount": 0,
+  "warningCount": 0,
+  "warnings": [],
+  "items": [
+    {
+      "name": "Project layout",
+      "success": true,
+      "durationMs": 0,
+      "warnings": [],
+      "errors": [],
+      "details": {
+        "exampleAssets": "Assets/Game/Examples/DemoGame",
+        "exampleGameData": "GameData/Examples/DemoGame"
+      }
+    },
+    {
+      "name": "AppConfigs runtime contract",
+      "success": true,
+      "durationMs": 8,
+      "warnings": [],
+      "errors": [],
+      "details": {
+        "loadFromBytes": "False",
+        "dataTables": "Core/EntityGroupTable,Core/LanguagesTable,Core/SoundGroupTable,Core/UIGroupTable,Core/UITable",
+        "configs": "",
+        "languages": "English",
+        "procedures": "ChangeSceneProcedure,PreloadProcedure,WorkspaceProcedure,TotemGameProcedure"
+      }
+    },
+    {
+      "name": "Build settings",
+      "success": true,
+      "durationMs": 0,
+      "warnings": [],
+      "errors": [],
+      "details": {
+        "sceneCount": "1",
+        "scenes": "Assets/Game/Scene/Launch.unity|enabled=True"
+      }
+    },
+    {
+      "name": "Resource rules",
+      "success": true,
+      "durationMs": 0,
+      "warnings": [],
+      "errors": [],
+      "details": {}
+    },
+    {
+      "name": "AI DataTable json",
+      "success": true,
+      "durationMs": 33,
+      "warnings": [],
+      "errors": [],
+      "details": {
+        "jsonCount": "5",
+        "aiSuccessCount": "5",
+        "aiFailureCount": "0",
+        "aiWarningCount": "0"
+      }
+    },
+    {
+      "name": "Registered diagnostic scenarios",
+      "success": true,
+      "durationMs": 0,
+      "warnings": [],
+      "errors": [],
+      "details": {
+        "discoveredCount": "7",
+        "skipped.StartupChainDiagnosticScenario": "PlayMode",
+        "executableCount": "6",
+        "skippedCount": "1",
+        "message": "Registered diagnostic scenario discovery completed."
+      }
+    },
+    {
+      "name": "Scenario/BusinessRuntime/GF_X Rewrite Inventory Contract",
+      "success": true,
+      "durationMs": 5,
+      "warnings": [],
+      "errors": [],
+      "details": {
+        "type": "UGF.EditorTools.BusinessRewriteInventoryDiagnosticScenario",
+        "mode": "EditMode",
+        "requirementsInventory": "True",
+        "decisionsNeeded": "True",
+        "dataTableMigrationManifest": "True",
+        "toolMigrationManifest": "True",
+        "artAssetsManifest": "True",
+        "decisionEntryCount": "9",
+        "artAssetsIndexed": "True",
+        "legacyDataTableCount": "28",
+        "legacyUIPrefabCount": "12",
+        "archivedLegacyScriptCount": "174",
+        "archivedLegacyTestCount": "11",
+        "archivedLegacyEditorToolCount": "4",
+        "message": "Scenario completed."
+      }
+    },
+    {
+      "name": "Scenario/BusinessRuntime/GF_X Business Runtime Contract",
+      "success": true,
+      "durationMs": 10,
+      "warnings": [],
+      "errors": [],
+      "details": {
+        "type": "UGF.EditorTools.BusinessRuntimeContractDiagnosticScenario",
+        "mode": "EditMode",
+        "buildScenes": "Assets/Game/Scene/Launch.unity|enabled=True",
+        "procedures": "ChangeSceneProcedure,PreloadProcedure,WorkspaceProcedure,TotemGameProcedure",
+        "oldRuntimeHostHits": "0",
+        "message": "Scenario completed."
+      }
+    },
+    {
+      "name": "Scenario/Core/Clean Workspace Contract",
+      "success": true,
+      "durationMs": 0,
+      "warnings": [],
+      "errors": [],
+      "details": {
+        "type": "UGF.EditorTools.CleanWorkspaceDiagnosticScenario",
+        "mode": "EditMode",
+        "directory.Assets/Game/Scene": "True",
+        "directory.Assets/Game/Prefabs/Entity": "True",
+        "directory.Assets/Game/Prefabs/UI": "True",
+        "directory.Assets/Game/Examples/DemoGame": "True",
+        "directory.GameData/Examples/DemoGame": "True",
+        "file.Assets/Game/Scene/Launch.unity": "True",
+        "file.Assets/Game/Scripts/Procedures/WorkspaceProcedure.cs": "True",
+        "file.Assets/Game/ScriptableAssets/Core/AppConfigs.asset": "True",
+        "file.GameData/DataTables/Core/UITable.xlsx": "True",
+        "file.GameData/DataTables/Core/LanguagesTable.xlsx": "True",
+        "file.GameData/Languages/English.xlsx": "True",
+        "forbidden.Assets/Game/Scene/Game.unity": "False",
+        "forbidden.Assets/Game/Scripts/Procedures/MenuProcedure.cs": "False",
+        "forbidden.Assets/Game/Scripts/Procedures/GameProcedure.cs": "False",
+        "forbidden.Assets/Game/Scripts/Procedures/GameOverProcedure.cs": "False",
+        "contract": "Active workspace starts from Launch -> Preload -> Workspace; examples stay centralized.",
+        "message": "Scenario completed."
+      }
+    },
+    {
+      "name": "Scenario/Migration/Migration Path Contract",
+      "success": true,
+      "durationMs": 1308,
+      "warnings": [],
+      "errors": [],
+      "details": {
+        "type": "UGF.EditorTools.MigrationPathContractDiagnosticScenario",
+        "mode": "EditMode",
+        "directory.Assets/Game": "True",
+        "directory.Assets/Game/Scripts": "True",
+        "directory.Assets/Game/ScriptsBuiltin": "True",
+        "directory.Assets/Game/ScriptableAssets/Core": "True",
+        "directory.GameData": "True",
+        "directory.GameData/DataTables": "True",
+        "directory.GameData/AIData": "True",
+        "directory.GameData/AIData/DataTables": "True",
+        "directory.GameData/Diagnostics": "True",
+        "directory.GameData/Diagnostics/Reports": "True",
+        "scannedFiles": "244",
+        "staleNameHits": "0",
+        "absolutePathHits": "0",
+        "message": "Scenario completed."
+      }
+    },
+    {
+      "name": "Scenario/BusinessRuntime/Totem First Slice UI",
+      "success": true,
+      "durationMs": 37,
+      "warnings": [],
+      "errors": [],
+      "details": {
+        "type": "UGF.EditorTools.TotemFirstSliceUIDiagnosticScenario",
+        "mode": "EditMode",
+        "UIViews.MainMenu.actual": "1",
+        "UIViews.CharacterSelect.actual": "2",
+        "UIViews.StartupSelect.actual": "3",
+        "UIViews.CombatHUD.actual": "4",
+        "UITable.json.rows": "4",
+        "MainMenu.missingScripts": "0",
+        "MainMenu.persistentButtonClicks": "0",
+        "CharacterSelect.missingScripts": "0",
+        "CharacterSelect.persistentButtonClicks": "0",
+        "StartupSelect.missingScripts": "0",
+        "StartupSelect.persistentButtonClicks": "0",
+        "CombatHUD.missingScripts": "0",
+        "CombatHUD.persistentButtonClicks": "0",
+        "message": "Scenario completed."
+      }
+    },
+    {
+      "name": "Scenario/BusinessRuntime/Totem Gameplay Runtime",
+      "success": true,
+      "durationMs": 4,
+      "warnings": [],
+      "errors": [],
+      "details": {
+        "type": "UGF.EditorTools.TotemGameplayRuntimeDiagnosticScenario",
+        "mode": "EditMode",
+        "map.size.actual": "150",
+        "map.roomCount.actual": "4",
+        "room.SpawnRoom": "True",
+        "room.TattooStudio": "True",
+        "room.Merchant": "True",
+        "room.BossRoom": "True",
+        "actorRoster.totalIncludingBoss.actual": "51",
+        "actorRoster.player.actual": "1",
+        "actorRoster.smartAi.actual": "20",
+        "actorRoster.lightAi.actual": "29",
+        "actorRoster.boss.actual": "1",
+        "cardinalMove.magnitude.actual": "1",
+        "message": "Scenario completed."
+      }
+    },
+    {
+      "name": "Editor snapshot",
+      "success": true,
+      "durationMs": 1,
+      "warnings": [],
+      "errors": [],
+      "details": {
+        "isPlaying": "False",
+        "loadedScenes": "1",
+        "currentProcedure": "EditorNotPlaying",
+        "snapshotWarnings": "0"
+      }
+    }
+  ],
+  "snapshot": {
+    "schemaVersion": 1,
+    "createdAtUtc": "2026-07-07T07:44:49.4624617Z",
+    "reason": "diagnostic-run-all",
+    "unityVersion": "2022.3.62f3c1",
+    "platform": "WindowsEditor",
+    "isPlaying": false,
+    "frame": 0,
+    "realtimeSinceStartup": 0.0,
+    "currentProcedure": "EditorNotPlaying",
+    "currentProcedureTime": 0.0,
+    "resourceMode": null,
+    "editorResourceMode": false,
+    "loadedScenes": [
+      "Launch|loaded=True|path=Assets/Game/Scene/Launch.unity"
+    ],
+    "dataTables": [],
+    "uiGroups": [],
+    "entityGroups": [],
+    "soundGroups": [],
+    "warnings": [],
+    "recentEvents": [
+      {
+        "seq": 1,
+        "utc": "2026-07-07T07:44:48.0459618Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-5a9fd15f1289477fbf4d7fe88301846e",
+        "system": "Trace",
+        "action": "Begin",
+        "result": "Info",
+        "message": "diagnostics-5a9fd15f1289477fbf4d7fe88301846e",
+        "data": null
+      },
+      {
+        "seq": 2,
+        "utc": "2026-07-07T07:44:48.0464615Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-5a9fd15f1289477fbf4d7fe88301846e",
+        "system": "Diagnostics",
+        "action": "RunAll.Begin",
+        "result": "Info",
+        "message": null,
+        "data": null
+      },
+      {
+        "seq": 3,
+        "utc": "2026-07-07T07:44:48.0469613Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-5a9fd15f1289477fbf4d7fe88301846e",
+        "system": "Diagnostics",
+        "action": "Project layout.Begin",
+        "result": "Info",
+        "message": null,
+        "data": null
+      },
+      {
+        "seq": 4,
+        "utc": "2026-07-07T07:44:48.0479618Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-5a9fd15f1289477fbf4d7fe88301846e",
+        "system": "Diagnostics",
+        "action": "Project layout.End",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "durationMs": "0",
+          "errors": "0",
+          "warnings": "0"
+        }
+      },
+      {
+        "seq": 5,
+        "utc": "2026-07-07T07:44:48.0479618Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-5a9fd15f1289477fbf4d7fe88301846e",
+        "system": "Diagnostics",
+        "action": "AppConfigs runtime contract.Begin",
+        "result": "Info",
+        "message": null,
+        "data": null
+      },
+      {
+        "seq": 6,
+        "utc": "2026-07-07T07:44:48.0564615Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-5a9fd15f1289477fbf4d7fe88301846e",
+        "system": "Diagnostics",
+        "action": "AppConfigs runtime contract.End",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "durationMs": "8",
+          "errors": "0",
+          "warnings": "0"
+        }
+      },
+      {
+        "seq": 7,
+        "utc": "2026-07-07T07:44:48.0564615Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-5a9fd15f1289477fbf4d7fe88301846e",
+        "system": "Diagnostics",
+        "action": "Build settings.Begin",
+        "result": "Info",
+        "message": null,
+        "data": null
+      },
+      {
+        "seq": 8,
+        "utc": "2026-07-07T07:44:48.0574630Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-5a9fd15f1289477fbf4d7fe88301846e",
+        "system": "Diagnostics",
+        "action": "Build settings.End",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "durationMs": "0",
+          "errors": "0",
+          "warnings": "0"
+        }
+      },
+      {
+        "seq": 9,
+        "utc": "2026-07-07T07:44:48.0574630Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-5a9fd15f1289477fbf4d7fe88301846e",
+        "system": "Diagnostics",
+        "action": "Resource rules.Begin",
+        "result": "Info",
+        "message": null,
+        "data": null
+      },
+      {
+        "seq": 10,
+        "utc": "2026-07-07T07:44:48.0574630Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-5a9fd15f1289477fbf4d7fe88301846e",
+        "system": "Diagnostics",
+        "action": "Resource rules.End",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "durationMs": "0",
+          "errors": "0",
+          "warnings": "0"
+        }
+      },
+      {
+        "seq": 11,
+        "utc": "2026-07-07T07:44:48.0574630Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-5a9fd15f1289477fbf4d7fe88301846e",
+        "system": "Diagnostics",
+        "action": "AI DataTable json.Begin",
+        "result": "Info",
+        "message": null,
+        "data": null
+      },
+      {
+        "seq": 12,
+        "utc": "2026-07-07T07:44:48.0914614Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-5a9fd15f1289477fbf4d7fe88301846e",
+        "system": "Diagnostics",
+        "action": "AI DataTable json.End",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "durationMs": "33",
+          "errors": "0",
+          "warnings": "0"
+        }
+      },
+      {
+        "seq": 13,
+        "utc": "2026-07-07T07:44:48.0919610Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-5a9fd15f1289477fbf4d7fe88301846e",
+        "system": "Diagnostics",
+        "action": "RegisteredScenarios.Discover",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "count": "7"
+        }
+      },
+      {
+        "seq": 14,
+        "utc": "2026-07-07T07:44:48.0924620Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-5a9fd15f1289477fbf4d7fe88301846e",
+        "system": "Diagnostics",
+        "action": "Scenario.Begin",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "type": "UGF.EditorTools.BusinessRewriteInventoryDiagnosticScenario",
+          "category": "BusinessRuntime",
+          "name": "GF_X Rewrite Inventory Contract",
+          "mode": "EditMode"
+        }
+      },
+      {
+        "seq": 15,
+        "utc": "2026-07-07T07:44:48.0974617Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-5a9fd15f1289477fbf4d7fe88301846e",
+        "system": "Diagnostics",
+        "action": "Scenario.End",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "type": "UGF.EditorTools.BusinessRewriteInventoryDiagnosticScenario",
+          "category": "BusinessRuntime",
+          "name": "GF_X Rewrite Inventory Contract",
+          "durationMs": "5",
+          "errors": "0",
+          "warnings": "0"
+        }
+      },
+      {
+        "seq": 16,
+        "utc": "2026-07-07T07:44:48.0979614Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-5a9fd15f1289477fbf4d7fe88301846e",
+        "system": "Diagnostics",
+        "action": "Scenario.Begin",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "type": "UGF.EditorTools.BusinessRuntimeContractDiagnosticScenario",
+          "category": "BusinessRuntime",
+          "name": "GF_X Business Runtime Contract",
+          "mode": "EditMode"
+        }
+      },
+      {
+        "seq": 17,
+        "utc": "2026-07-07T07:44:48.1079624Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-5a9fd15f1289477fbf4d7fe88301846e",
+        "system": "Diagnostics",
+        "action": "Scenario.End",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "type": "UGF.EditorTools.BusinessRuntimeContractDiagnosticScenario",
+          "category": "BusinessRuntime",
+          "name": "GF_X Business Runtime Contract",
+          "durationMs": "10",
+          "errors": "0",
+          "warnings": "0"
+        }
+      },
+      {
+        "seq": 18,
+        "utc": "2026-07-07T07:44:48.1084618Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-5a9fd15f1289477fbf4d7fe88301846e",
+        "system": "Diagnostics",
+        "action": "Scenario.Begin",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "type": "UGF.EditorTools.CleanWorkspaceDiagnosticScenario",
+          "category": "Core",
+          "name": "Clean Workspace Contract",
+          "mode": "EditMode"
+        }
+      },
+      {
+        "seq": 19,
+        "utc": "2026-07-07T07:44:48.1084618Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-5a9fd15f1289477fbf4d7fe88301846e",
+        "system": "DiagnosticScenario.Core",
+        "action": "Clean Workspace Contract.Arrange",
+        "result": "Info",
+        "message": "Check active workspace and centralized examples.",
+        "data": null
+      },
+      {
+        "seq": 20,
+        "utc": "2026-07-07T07:44:48.1089619Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-5a9fd15f1289477fbf4d7fe88301846e",
+        "system": "Diagnostics",
+        "action": "Scenario.End",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "type": "UGF.EditorTools.CleanWorkspaceDiagnosticScenario",
+          "category": "Core",
+          "name": "Clean Workspace Contract",
+          "durationMs": "0",
+          "errors": "0",
+          "warnings": "0"
+        }
+      },
+      {
+        "seq": 21,
+        "utc": "2026-07-07T07:44:48.1099626Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-5a9fd15f1289477fbf4d7fe88301846e",
+        "system": "Diagnostics",
+        "action": "Scenario.Begin",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "type": "UGF.EditorTools.MigrationPathContractDiagnosticScenario",
+          "category": "Migration",
+          "name": "Migration Path Contract",
+          "mode": "EditMode"
+        }
+      },
+      {
+        "seq": 22,
+        "utc": "2026-07-07T07:44:48.1099626Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-5a9fd15f1289477fbf4d7fe88301846e",
+        "system": "DiagnosticScenario.Migration",
+        "action": "Migration Path Contract.Scan",
+        "result": "Info",
+        "message": "Check migration path contract.",
+        "data": null
+      },
+      {
+        "seq": 23,
+        "utc": "2026-07-07T07:44:49.4179622Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-5a9fd15f1289477fbf4d7fe88301846e",
+        "system": "Diagnostics",
+        "action": "Scenario.End",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "type": "UGF.EditorTools.MigrationPathContractDiagnosticScenario",
+          "category": "Migration",
+          "name": "Migration Path Contract",
+          "durationMs": "1308",
+          "errors": "0",
+          "warnings": "0"
+        }
+      },
+      {
+        "seq": 24,
+        "utc": "2026-07-07T07:44:49.4179622Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-5a9fd15f1289477fbf4d7fe88301846e",
+        "system": "Diagnostics",
+        "action": "RegisteredScenarios.Skip",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "type": "UGF.EditorTools.StartupChainDiagnosticScenario",
+          "mode": "PlayMode"
+        }
+      },
+      {
+        "seq": 25,
+        "utc": "2026-07-07T07:44:49.4184627Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-5a9fd15f1289477fbf4d7fe88301846e",
+        "system": "Diagnostics",
+        "action": "Scenario.Begin",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "type": "UGF.EditorTools.TotemFirstSliceUIDiagnosticScenario",
+          "category": "BusinessRuntime",
+          "name": "Totem First Slice UI",
+          "mode": "EditMode"
+        }
+      },
+      {
+        "seq": 26,
+        "utc": "2026-07-07T07:44:49.4559616Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-5a9fd15f1289477fbf4d7fe88301846e",
+        "system": "Diagnostics",
+        "action": "Scenario.End",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "type": "UGF.EditorTools.TotemFirstSliceUIDiagnosticScenario",
+          "category": "BusinessRuntime",
+          "name": "Totem First Slice UI",
+          "durationMs": "37",
+          "errors": "0",
+          "warnings": "0"
+        }
+      },
+      {
+        "seq": 27,
+        "utc": "2026-07-07T07:44:49.4564616Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-5a9fd15f1289477fbf4d7fe88301846e",
+        "system": "Diagnostics",
+        "action": "Scenario.Begin",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "type": "UGF.EditorTools.TotemGameplayRuntimeDiagnosticScenario",
+          "category": "BusinessRuntime",
+          "name": "Totem Gameplay Runtime",
+          "mode": "EditMode"
+        }
+      },
+      {
+        "seq": 28,
+        "utc": "2026-07-07T07:44:49.4609618Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-5a9fd15f1289477fbf4d7fe88301846e",
+        "system": "Diagnostics",
+        "action": "Scenario.End",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "type": "UGF.EditorTools.TotemGameplayRuntimeDiagnosticScenario",
+          "category": "BusinessRuntime",
+          "name": "Totem Gameplay Runtime",
+          "durationMs": "4",
+          "errors": "0",
+          "warnings": "0"
+        }
+      },
+      {
+        "seq": 29,
+        "utc": "2026-07-07T07:44:49.4609618Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-5a9fd15f1289477fbf4d7fe88301846e",
+        "system": "Diagnostics",
+        "action": "Editor snapshot.Begin",
+        "result": "Info",
+        "message": null,
+        "data": null
+      },
+      {
+        "seq": 30,
+        "utc": "2026-07-07T07:44:49.4624617Z",
+        "frame": 0,
+        "time": 0.0,
+        "traceId": "diagnostics-5a9fd15f1289477fbf4d7fe88301846e",
+        "system": "Diagnostics",
+        "action": "Editor snapshot.End",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "durationMs": "1",
+          "errors": "0",
+          "warnings": "0"
+        }
+      }
+    ]
+  },
+  "timeline": [
+    {
+      "seq": 1,
+      "utc": "2026-07-07T07:44:48.0459618Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-5a9fd15f1289477fbf4d7fe88301846e",
+      "system": "Trace",
+      "action": "Begin",
+      "result": "Info",
+      "message": "diagnostics-5a9fd15f1289477fbf4d7fe88301846e",
+      "data": null
+    },
+    {
+      "seq": 2,
+      "utc": "2026-07-07T07:44:48.0464615Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-5a9fd15f1289477fbf4d7fe88301846e",
+      "system": "Diagnostics",
+      "action": "RunAll.Begin",
+      "result": "Info",
+      "message": null,
+      "data": null
+    },
+    {
+      "seq": 3,
+      "utc": "2026-07-07T07:44:48.0469613Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-5a9fd15f1289477fbf4d7fe88301846e",
+      "system": "Diagnostics",
+      "action": "Project layout.Begin",
+      "result": "Info",
+      "message": null,
+      "data": null
+    },
+    {
+      "seq": 4,
+      "utc": "2026-07-07T07:44:48.0479618Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-5a9fd15f1289477fbf4d7fe88301846e",
+      "system": "Diagnostics",
+      "action": "Project layout.End",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "durationMs": "0",
+        "errors": "0",
+        "warnings": "0"
+      }
+    },
+    {
+      "seq": 5,
+      "utc": "2026-07-07T07:44:48.0479618Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-5a9fd15f1289477fbf4d7fe88301846e",
+      "system": "Diagnostics",
+      "action": "AppConfigs runtime contract.Begin",
+      "result": "Info",
+      "message": null,
+      "data": null
+    },
+    {
+      "seq": 6,
+      "utc": "2026-07-07T07:44:48.0564615Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-5a9fd15f1289477fbf4d7fe88301846e",
+      "system": "Diagnostics",
+      "action": "AppConfigs runtime contract.End",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "durationMs": "8",
+        "errors": "0",
+        "warnings": "0"
+      }
+    },
+    {
+      "seq": 7,
+      "utc": "2026-07-07T07:44:48.0564615Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-5a9fd15f1289477fbf4d7fe88301846e",
+      "system": "Diagnostics",
+      "action": "Build settings.Begin",
+      "result": "Info",
+      "message": null,
+      "data": null
+    },
+    {
+      "seq": 8,
+      "utc": "2026-07-07T07:44:48.0574630Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-5a9fd15f1289477fbf4d7fe88301846e",
+      "system": "Diagnostics",
+      "action": "Build settings.End",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "durationMs": "0",
+        "errors": "0",
+        "warnings": "0"
+      }
+    },
+    {
+      "seq": 9,
+      "utc": "2026-07-07T07:44:48.0574630Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-5a9fd15f1289477fbf4d7fe88301846e",
+      "system": "Diagnostics",
+      "action": "Resource rules.Begin",
+      "result": "Info",
+      "message": null,
+      "data": null
+    },
+    {
+      "seq": 10,
+      "utc": "2026-07-07T07:44:48.0574630Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-5a9fd15f1289477fbf4d7fe88301846e",
+      "system": "Diagnostics",
+      "action": "Resource rules.End",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "durationMs": "0",
+        "errors": "0",
+        "warnings": "0"
+      }
+    },
+    {
+      "seq": 11,
+      "utc": "2026-07-07T07:44:48.0574630Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-5a9fd15f1289477fbf4d7fe88301846e",
+      "system": "Diagnostics",
+      "action": "AI DataTable json.Begin",
+      "result": "Info",
+      "message": null,
+      "data": null
+    },
+    {
+      "seq": 12,
+      "utc": "2026-07-07T07:44:48.0914614Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-5a9fd15f1289477fbf4d7fe88301846e",
+      "system": "Diagnostics",
+      "action": "AI DataTable json.End",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "durationMs": "33",
+        "errors": "0",
+        "warnings": "0"
+      }
+    },
+    {
+      "seq": 13,
+      "utc": "2026-07-07T07:44:48.0919610Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-5a9fd15f1289477fbf4d7fe88301846e",
+      "system": "Diagnostics",
+      "action": "RegisteredScenarios.Discover",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "count": "7"
+      }
+    },
+    {
+      "seq": 14,
+      "utc": "2026-07-07T07:44:48.0924620Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-5a9fd15f1289477fbf4d7fe88301846e",
+      "system": "Diagnostics",
+      "action": "Scenario.Begin",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "type": "UGF.EditorTools.BusinessRewriteInventoryDiagnosticScenario",
+        "category": "BusinessRuntime",
+        "name": "GF_X Rewrite Inventory Contract",
+        "mode": "EditMode"
+      }
+    },
+    {
+      "seq": 15,
+      "utc": "2026-07-07T07:44:48.0974617Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-5a9fd15f1289477fbf4d7fe88301846e",
+      "system": "Diagnostics",
+      "action": "Scenario.End",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "type": "UGF.EditorTools.BusinessRewriteInventoryDiagnosticScenario",
+        "category": "BusinessRuntime",
+        "name": "GF_X Rewrite Inventory Contract",
+        "durationMs": "5",
+        "errors": "0",
+        "warnings": "0"
+      }
+    },
+    {
+      "seq": 16,
+      "utc": "2026-07-07T07:44:48.0979614Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-5a9fd15f1289477fbf4d7fe88301846e",
+      "system": "Diagnostics",
+      "action": "Scenario.Begin",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "type": "UGF.EditorTools.BusinessRuntimeContractDiagnosticScenario",
+        "category": "BusinessRuntime",
+        "name": "GF_X Business Runtime Contract",
+        "mode": "EditMode"
+      }
+    },
+    {
+      "seq": 17,
+      "utc": "2026-07-07T07:44:48.1079624Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-5a9fd15f1289477fbf4d7fe88301846e",
+      "system": "Diagnostics",
+      "action": "Scenario.End",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "type": "UGF.EditorTools.BusinessRuntimeContractDiagnosticScenario",
+        "category": "BusinessRuntime",
+        "name": "GF_X Business Runtime Contract",
+        "durationMs": "10",
+        "errors": "0",
+        "warnings": "0"
+      }
+    },
+    {
+      "seq": 18,
+      "utc": "2026-07-07T07:44:48.1084618Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-5a9fd15f1289477fbf4d7fe88301846e",
+      "system": "Diagnostics",
+      "action": "Scenario.Begin",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "type": "UGF.EditorTools.CleanWorkspaceDiagnosticScenario",
+        "category": "Core",
+        "name": "Clean Workspace Contract",
+        "mode": "EditMode"
+      }
+    },
+    {
+      "seq": 19,
+      "utc": "2026-07-07T07:44:48.1084618Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-5a9fd15f1289477fbf4d7fe88301846e",
+      "system": "DiagnosticScenario.Core",
+      "action": "Clean Workspace Contract.Arrange",
+      "result": "Info",
+      "message": "Check active workspace and centralized examples.",
+      "data": null
+    },
+    {
+      "seq": 20,
+      "utc": "2026-07-07T07:44:48.1089619Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-5a9fd15f1289477fbf4d7fe88301846e",
+      "system": "Diagnostics",
+      "action": "Scenario.End",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "type": "UGF.EditorTools.CleanWorkspaceDiagnosticScenario",
+        "category": "Core",
+        "name": "Clean Workspace Contract",
+        "durationMs": "0",
+        "errors": "0",
+        "warnings": "0"
+      }
+    },
+    {
+      "seq": 21,
+      "utc": "2026-07-07T07:44:48.1099626Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-5a9fd15f1289477fbf4d7fe88301846e",
+      "system": "Diagnostics",
+      "action": "Scenario.Begin",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "type": "UGF.EditorTools.MigrationPathContractDiagnosticScenario",
+        "category": "Migration",
+        "name": "Migration Path Contract",
+        "mode": "EditMode"
+      }
+    },
+    {
+      "seq": 22,
+      "utc": "2026-07-07T07:44:48.1099626Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-5a9fd15f1289477fbf4d7fe88301846e",
+      "system": "DiagnosticScenario.Migration",
+      "action": "Migration Path Contract.Scan",
+      "result": "Info",
+      "message": "Check migration path contract.",
+      "data": null
+    },
+    {
+      "seq": 23,
+      "utc": "2026-07-07T07:44:49.4179622Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-5a9fd15f1289477fbf4d7fe88301846e",
+      "system": "Diagnostics",
+      "action": "Scenario.End",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "type": "UGF.EditorTools.MigrationPathContractDiagnosticScenario",
+        "category": "Migration",
+        "name": "Migration Path Contract",
+        "durationMs": "1308",
+        "errors": "0",
+        "warnings": "0"
+      }
+    },
+    {
+      "seq": 24,
+      "utc": "2026-07-07T07:44:49.4179622Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-5a9fd15f1289477fbf4d7fe88301846e",
+      "system": "Diagnostics",
+      "action": "RegisteredScenarios.Skip",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "type": "UGF.EditorTools.StartupChainDiagnosticScenario",
+        "mode": "PlayMode"
+      }
+    },
+    {
+      "seq": 25,
+      "utc": "2026-07-07T07:44:49.4184627Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-5a9fd15f1289477fbf4d7fe88301846e",
+      "system": "Diagnostics",
+      "action": "Scenario.Begin",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "type": "UGF.EditorTools.TotemFirstSliceUIDiagnosticScenario",
+        "category": "BusinessRuntime",
+        "name": "Totem First Slice UI",
+        "mode": "EditMode"
+      }
+    },
+    {
+      "seq": 26,
+      "utc": "2026-07-07T07:44:49.4559616Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-5a9fd15f1289477fbf4d7fe88301846e",
+      "system": "Diagnostics",
+      "action": "Scenario.End",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "type": "UGF.EditorTools.TotemFirstSliceUIDiagnosticScenario",
+        "category": "BusinessRuntime",
+        "name": "Totem First Slice UI",
+        "durationMs": "37",
+        "errors": "0",
+        "warnings": "0"
+      }
+    },
+    {
+      "seq": 27,
+      "utc": "2026-07-07T07:44:49.4564616Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-5a9fd15f1289477fbf4d7fe88301846e",
+      "system": "Diagnostics",
+      "action": "Scenario.Begin",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "type": "UGF.EditorTools.TotemGameplayRuntimeDiagnosticScenario",
+        "category": "BusinessRuntime",
+        "name": "Totem Gameplay Runtime",
+        "mode": "EditMode"
+      }
+    },
+    {
+      "seq": 28,
+      "utc": "2026-07-07T07:44:49.4609618Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-5a9fd15f1289477fbf4d7fe88301846e",
+      "system": "Diagnostics",
+      "action": "Scenario.End",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "type": "UGF.EditorTools.TotemGameplayRuntimeDiagnosticScenario",
+        "category": "BusinessRuntime",
+        "name": "Totem Gameplay Runtime",
+        "durationMs": "4",
+        "errors": "0",
+        "warnings": "0"
+      }
+    },
+    {
+      "seq": 29,
+      "utc": "2026-07-07T07:44:49.4609618Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-5a9fd15f1289477fbf4d7fe88301846e",
+      "system": "Diagnostics",
+      "action": "Editor snapshot.Begin",
+      "result": "Info",
+      "message": null,
+      "data": null
+    },
+    {
+      "seq": 30,
+      "utc": "2026-07-07T07:44:49.4624617Z",
+      "frame": 0,
+      "time": 0.0,
+      "traceId": "diagnostics-5a9fd15f1289477fbf4d7fe88301846e",
+      "system": "Diagnostics",
+      "action": "Editor snapshot.End",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "durationMs": "1",
+        "errors": "0",
+        "warnings": "0"
+      }
+    }
+  ]
+}

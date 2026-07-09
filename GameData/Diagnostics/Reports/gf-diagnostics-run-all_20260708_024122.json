@@ -1,0 +1,5295 @@
+{
+  "schemaVersion": 1,
+  "action": "gf-diagnostics-run-all",
+  "createdAtUtc": "2026-07-07T18:41:22.3661331Z",
+  "successCount": 8,
+  "failureCount": 0,
+  "warningCount": 0,
+  "warnings": [],
+  "items": [
+    {
+      "name": "Project layout",
+      "success": true,
+      "durationMs": 0,
+      "warnings": [],
+      "errors": [],
+      "details": {
+        "exampleAssets": "Assets/Game/Examples/DemoGame",
+        "exampleGameData": "GameData/Examples/DemoGame"
+      }
+    },
+    {
+      "name": "AppConfigs runtime contract",
+      "success": true,
+      "durationMs": 4,
+      "warnings": [],
+      "errors": [],
+      "details": {
+        "loadFromBytes": "False",
+        "dataTables": "Core/EntityGroupTable,Core/LanguagesTable,Core/SoundGroupTable,Core/UIGroupTable,Core/UITable",
+        "configs": "",
+        "languages": "English",
+        "procedures": "ChangeSceneProcedure,PreloadProcedure,WorkspaceProcedure,TotemGameProcedure"
+      }
+    },
+    {
+      "name": "Build settings",
+      "success": true,
+      "durationMs": 1,
+      "warnings": [],
+      "errors": [],
+      "details": {
+        "sceneCount": "1",
+        "scenes": "Assets/Game/Scene/Launch.unity|enabled=True"
+      }
+    },
+    {
+      "name": "Resource rules",
+      "success": true,
+      "durationMs": 0,
+      "warnings": [],
+      "errors": [],
+      "details": {}
+    },
+    {
+      "name": "AI DataTable json",
+      "success": true,
+      "durationMs": 26,
+      "warnings": [],
+      "errors": [],
+      "details": {
+        "jsonCount": "5",
+        "aiSuccessCount": "5",
+        "aiFailureCount": "0",
+        "aiWarningCount": "0"
+      }
+    },
+    {
+      "name": "Registered diagnostic scenarios",
+      "success": true,
+      "durationMs": 0,
+      "warnings": [],
+      "errors": [],
+      "details": {
+        "discoveredCount": "12",
+        "skipped.BusinessRewriteInventoryDiagnosticScenario": "EditMode",
+        "skipped.BusinessRuntimeContractDiagnosticScenario": "EditMode",
+        "skipped.CleanWorkspaceDiagnosticScenario": "EditMode",
+        "skipped.MigrationPathContractDiagnosticScenario": "EditMode",
+        "skipped.TotemAIRuntimeDiagnosticScenario": "EditMode",
+        "skipped.TotemExtendedGameplayDiagnosticScenario": "EditMode",
+        "skipped.TotemFirstSliceUIDiagnosticScenario": "EditMode",
+        "skipped.TotemGameplayCatalogDiagnosticScenario": "EditMode",
+        "skipped.TotemGameplayRuntimeDiagnosticScenario": "EditMode",
+        "skipped.TotemRuntimeAssetDiagnosticScenario": "EditMode",
+        "skipped.TotemVfxRuntimeDiagnosticScenario": "EditMode",
+        "executableCount": "1",
+        "skippedCount": "11",
+        "message": "Registered diagnostic scenario discovery completed."
+      }
+    },
+    {
+      "name": "Scenario/Startup/Launch To Totem Runtime Smoke",
+      "success": true,
+      "durationMs": 1,
+      "warnings": [],
+      "errors": [],
+      "details": {
+        "type": "UGF.EditorTools.StartupChainDiagnosticScenario",
+        "mode": "PlayMode",
+        "currentProcedure": "TotemGameProcedure",
+        "traceEventCount": "500",
+        "event.Procedure.Launch.Enter": "missing",
+        "event.Procedure.LoadHotfixDll.Enter": "missing",
+        "event.Hotfix.Entry.Start": "missing",
+        "event.Procedure.Preload.Enter": "missing",
+        "event.Procedure.Preload.Completed": "45",
+        "event.Procedure.Workspace.Enter": "46",
+        "event.Procedure.TotemGame.Enter": "47",
+        "event.Procedure.TotemGame.RuntimeReady": "129",
+        "runtime.started": "True",
+        "runtime.currentProcedure": "TotemGameProcedure",
+        "startupTrace.windowComplete": "False",
+        "message": "Scenario completed."
+      }
+    },
+    {
+      "name": "Editor snapshot",
+      "success": true,
+      "durationMs": 3,
+      "warnings": [],
+      "errors": [],
+      "details": {
+        "isPlaying": "True",
+        "loadedScenes": "1",
+        "currentProcedure": "TotemGameProcedure",
+        "snapshotWarnings": "0"
+      }
+    }
+  ],
+  "snapshot": {
+    "schemaVersion": 1,
+    "createdAtUtc": "2026-07-07T18:41:22.4066327Z",
+    "reason": "diagnostic-run-all",
+    "unityVersion": "2022.3.62f3c1",
+    "platform": "WindowsEditor",
+    "isPlaying": true,
+    "frame": 132,
+    "realtimeSinceStartup": 9.467761,
+    "currentProcedure": "TotemGameProcedure",
+    "currentProcedureTime": 2.834967,
+    "resourceMode": "Unspecified",
+    "editorResourceMode": true,
+    "loadedScenes": [
+      "Launch|loaded=True|path=Assets/Game/Scene/Launch.unity"
+    ],
+    "dataTables": [
+      {
+        "fullName": "EntityGroupTable",
+        "name": "",
+        "rowType": "EntityGroupTable",
+        "rowCount": 7
+      },
+      {
+        "fullName": "LanguagesTable",
+        "name": "",
+        "rowType": "LanguagesTable",
+        "rowCount": 1
+      },
+      {
+        "fullName": "SoundGroupTable",
+        "name": "",
+        "rowType": "SoundGroupTable",
+        "rowCount": 4
+      },
+      {
+        "fullName": "UIGroupTable",
+        "name": "",
+        "rowType": "UIGroupTable",
+        "rowCount": 3
+      },
+      {
+        "fullName": "UITable",
+        "name": "",
+        "rowType": "UITable",
+        "rowCount": 12
+      }
+    ],
+    "uiGroups": [
+      {
+        "name": "UIForm",
+        "depth": 1,
+        "pause": false,
+        "formCount": 1,
+        "currentForm": "Assets/Game/Prefabs/UI/CombatHUD.prefab",
+        "forms": [
+          "4:Assets/Game/Prefabs/UI/CombatHUD.prefab:depth=1"
+        ]
+      },
+      {
+        "name": "Dialog",
+        "depth": 200,
+        "pause": false,
+        "formCount": 0,
+        "currentForm": "",
+        "forms": []
+      },
+      {
+        "name": "Tips",
+        "depth": 500,
+        "pause": false,
+        "formCount": 0,
+        "currentForm": "",
+        "forms": []
+      }
+    ],
+    "entityGroups": [
+      {
+        "name": "Default",
+        "entityCount": 0,
+        "capacity": 60,
+        "expireTime": 60.0,
+        "autoReleaseInterval": 60.0,
+        "priority": 0,
+        "entities": []
+      },
+      {
+        "name": "Player",
+        "entityCount": 0,
+        "capacity": 60,
+        "expireTime": 60.0,
+        "autoReleaseInterval": 60.0,
+        "priority": 0,
+        "entities": []
+      },
+      {
+        "name": "Effect",
+        "entityCount": 0,
+        "capacity": 200,
+        "expireTime": 30.0,
+        "autoReleaseInterval": 10.0,
+        "priority": 0,
+        "entities": []
+      },
+      {
+        "name": "Item",
+        "entityCount": 0,
+        "capacity": 60,
+        "expireTime": 60.0,
+        "autoReleaseInterval": 60.0,
+        "priority": 0,
+        "entities": []
+      },
+      {
+        "name": "Level",
+        "entityCount": 0,
+        "capacity": 1,
+        "expireTime": 60.0,
+        "autoReleaseInterval": 60.0,
+        "priority": 0,
+        "entities": []
+      },
+      {
+        "name": "Bullet",
+        "entityCount": 0,
+        "capacity": 60,
+        "expireTime": 60.0,
+        "autoReleaseInterval": 60.0,
+        "priority": 0,
+        "entities": []
+      },
+      {
+        "name": "Unrecycle",
+        "entityCount": 0,
+        "capacity": 0,
+        "expireTime": 60.0,
+        "autoReleaseInterval": 60.0,
+        "priority": 0,
+        "entities": []
+      }
+    ],
+    "soundGroups": [
+      {
+        "name": "Music",
+        "agentCount": 1,
+        "mute": false,
+        "volume": 1.0,
+        "avoidSamePriorityReplace": false
+      },
+      {
+        "name": "Sound",
+        "agentCount": 1,
+        "mute": false,
+        "volume": 1.0,
+        "avoidSamePriorityReplace": false
+      },
+      {
+        "name": "Vibrate",
+        "agentCount": 1,
+        "mute": false,
+        "volume": 1.0,
+        "avoidSamePriorityReplace": false
+      },
+      {
+        "name": "Joystick",
+        "agentCount": 1,
+        "mute": false,
+        "volume": 1.0,
+        "avoidSamePriorityReplace": false
+      }
+    ],
+    "warnings": [],
+    "recentEvents": [
+      {
+        "seq": 379,
+        "utc": "2026-07-07T18:41:20.9256341Z",
+        "frame": 127,
+        "time": 7.986551,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemAsset",
+        "action": "Instantiate.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "npc.merchant",
+          "asset": "Assets/Game/Prefabs/Entity/Actors/NpcMerchant.prefab"
+        }
+      },
+      {
+        "seq": 380,
+        "utc": "2026-07-07T18:41:20.9256341Z",
+        "frame": 127,
+        "time": 7.98657656,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemNpc",
+        "action": "Spawned",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "count": "5"
+        }
+      },
+      {
+        "seq": 381,
+        "utc": "2026-07-07T18:41:20.9266347Z",
+        "frame": 127,
+        "time": 7.98744631,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemCamera",
+        "action": "CombatCamera.Activated",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "orthographicSize": "9.0",
+          "tiltX": "55.0"
+        }
+      },
+      {
+        "seq": 382,
+        "utc": "2026-07-07T18:41:20.9266347Z",
+        "frame": 127,
+        "time": 7.98745,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemCombat",
+        "action": "Combat.Started",
+        "result": "Success",
+        "message": null,
+        "data": null
+      },
+      {
+        "seq": 383,
+        "utc": "2026-07-07T18:41:20.9276333Z",
+        "frame": 127,
+        "time": 7.98878336,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "UI",
+        "action": "OpenUIForm.Begin",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "uiId": "4",
+          "asset": "Assets/Game/Prefabs/UI/CombatHUD.prefab",
+          "group": "UIForm",
+          "serialId": "4"
+        }
+      },
+      {
+        "seq": 384,
+        "utc": "2026-07-07T18:41:20.9276333Z",
+        "frame": 127,
+        "time": 7.98879862,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemUI",
+        "action": "OpenExclusive",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "view": "CombatHUD",
+          "serialId": "4"
+        }
+      },
+      {
+        "seq": 385,
+        "utc": "2026-07-07T18:41:20.9331329Z",
+        "frame": 128,
+        "time": 7.99410629,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemAsset",
+        "action": "Sprite.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "weapon.knife_basic",
+          "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+        }
+      },
+      {
+        "seq": 386,
+        "utc": "2026-07-07T18:41:20.9336328Z",
+        "frame": 128,
+        "time": 7.994549,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemAsset",
+        "action": "Sprite.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "skill.skill_fireball_01",
+          "asset": "Assets/Resources/Sprite/Skills/skill_fireball.png"
+        }
+      },
+      {
+        "seq": 387,
+        "utc": "2026-07-07T18:41:20.9336328Z",
+        "frame": 128,
+        "time": 7.99488974,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemAsset",
+        "action": "Sprite.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "skill.skill_stealth_01",
+          "asset": "Assets/Resources/Sprite/Skills/skill_stealth.png"
+        }
+      },
+      {
+        "seq": 388,
+        "utc": "2026-07-07T18:41:20.9461334Z",
+        "frame": 128,
+        "time": 8.007283,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemUI",
+        "action": "CombatHUD.StateApplied",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "characterId": "1",
+          "weaponId": "knife_basic",
+          "colorId": "1"
+        }
+      },
+      {
+        "seq": 389,
+        "utc": "2026-07-07T18:41:20.9466332Z",
+        "frame": 128,
+        "time": 8.007504,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemUI",
+        "action": "CombatHUD.Open",
+        "result": "Success",
+        "message": null,
+        "data": null
+      },
+      {
+        "seq": 390,
+        "utc": "2026-07-07T18:41:20.9591330Z",
+        "frame": 128,
+        "time": 8.020034,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemSkill",
+        "action": "Cast",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "actor": "Boss",
+          "slot": "0",
+          "skillId": "boss_phase_bolt"
+        }
+      },
+      {
+        "seq": 391,
+        "utc": "2026-07-07T18:41:20.9591330Z",
+        "frame": 128,
+        "time": 8.020046,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemWeapon",
+        "action": "Equip",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "actor": "Boss",
+          "weaponId": "knife_basic"
+        }
+      },
+      {
+        "seq": 392,
+        "utc": "2026-07-07T18:41:20.9616350Z",
+        "frame": 128,
+        "time": 8.022489,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemAsset",
+        "action": "Sprite.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "effect.boss.bolt",
+          "asset": "Assets/Resources/Sprite/Skills/skill_chain_lightning.png"
+        }
+      },
+      {
+        "seq": 393,
+        "utc": "2026-07-07T18:41:20.9621336Z",
+        "frame": 128,
+        "time": 8.022911,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemVFX",
+        "action": "Sprite.Spawned",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "assetKey": "effect.boss.bolt",
+          "position": "37.5,0.7,37.5",
+          "scale": "1.96"
+        }
+      },
+      {
+        "seq": 394,
+        "utc": "2026-07-07T18:41:20.9626332Z",
+        "frame": 128,
+        "time": 8.023528,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemAI",
+        "action": "Boss.Skill",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "skillId": "skill_stomp",
+          "phase": "1",
+          "damage": "18.0"
+        }
+      },
+      {
+        "seq": 395,
+        "utc": "2026-07-07T18:41:22.2246331Z",
+        "frame": 130,
+        "time": 9.285607,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemAsset",
+        "action": "Sprite.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "effect.attack.hit",
+          "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+        }
+      },
+      {
+        "seq": 396,
+        "utc": "2026-07-07T18:41:22.2246331Z",
+        "frame": 130,
+        "time": 9.285726,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemVFX",
+        "action": "Sprite.Spawned",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "assetKey": "effect.attack.hit",
+          "position": "44.9,0.7,40.1",
+          "scale": "0.35"
+        }
+      },
+      {
+        "seq": 397,
+        "utc": "2026-07-07T18:41:22.2246331Z",
+        "frame": 130,
+        "time": 9.285744,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemVFX",
+        "action": "Projectile.Spawned",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "projectileId": "bullet_pistol",
+          "speed": "30.0",
+          "maxRange": "20.0"
+        }
+      },
+      {
+        "seq": 398,
+        "utc": "2026-07-07T18:41:22.2246331Z",
+        "frame": 130,
+        "time": 9.285864,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemAsset",
+        "action": "Sprite.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "effect.attack.hit",
+          "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+        }
+      },
+      {
+        "seq": 399,
+        "utc": "2026-07-07T18:41:22.2251334Z",
+        "frame": 130,
+        "time": 9.285906,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemVFX",
+        "action": "Sprite.Spawned",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "assetKey": "effect.attack.hit",
+          "position": "45.0,0.7,39.6",
+          "scale": "0.85"
+        }
+      },
+      {
+        "seq": 400,
+        "utc": "2026-07-07T18:41:22.2251334Z",
+        "frame": 130,
+        "time": 9.286188,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemAI",
+        "action": "Attack",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "actor": "SmartAI02",
+          "target": "SmartAI01",
+          "weapon": "pistol_basic",
+          "damage": "23.5",
+          "tattooTriggers": "0"
+        }
+      },
+      {
+        "seq": 401,
+        "utc": "2026-07-07T18:41:22.2251334Z",
+        "frame": 130,
+        "time": 9.286227,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemAsset",
+        "action": "Sprite.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "effect.attack.hit",
+          "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+        }
+      },
+      {
+        "seq": 402,
+        "utc": "2026-07-07T18:41:22.2251334Z",
+        "frame": 130,
+        "time": 9.28627,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemVFX",
+        "action": "Sprite.Spawned",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "assetKey": "effect.attack.hit",
+          "position": "40.4,0.7,44.8",
+          "scale": "0.35"
+        }
+      },
+      {
+        "seq": 403,
+        "utc": "2026-07-07T18:41:22.2251334Z",
+        "frame": 130,
+        "time": 9.28628,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemVFX",
+        "action": "Projectile.Spawned",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "projectileId": "bullet_pistol",
+          "speed": "30.0",
+          "maxRange": "20.0"
+        }
+      },
+      {
+        "seq": 404,
+        "utc": "2026-07-07T18:41:22.2251334Z",
+        "frame": 130,
+        "time": 9.286287,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemAsset",
+        "action": "Sprite.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "effect.attack.hit",
+          "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+        }
+      },
+      {
+        "seq": 405,
+        "utc": "2026-07-07T18:41:22.2251334Z",
+        "frame": 130,
+        "time": 9.286311,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemVFX",
+        "action": "Sprite.Spawned",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "assetKey": "effect.attack.hit",
+          "position": "41.1,0.7,44.4",
+          "scale": "0.85"
+        }
+      },
+      {
+        "seq": 406,
+        "utc": "2026-07-07T18:41:22.2251334Z",
+        "frame": 130,
+        "time": 9.286315,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemAI",
+        "action": "Attack",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "actor": "SmartAI04",
+          "target": "SmartAI03",
+          "weapon": "pistol_basic",
+          "damage": "23.7",
+          "tattooTriggers": "0"
+        }
+      },
+      {
+        "seq": 407,
+        "utc": "2026-07-07T18:41:22.2251334Z",
+        "frame": 130,
+        "time": 9.286337,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemAsset",
+        "action": "Sprite.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "effect.attack.hit",
+          "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+        }
+      },
+      {
+        "seq": 408,
+        "utc": "2026-07-07T18:41:22.2251334Z",
+        "frame": 130,
+        "time": 9.286359,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemVFX",
+        "action": "Sprite.Spawned",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "assetKey": "effect.attack.hit",
+          "position": "33.5,0.7,44.2",
+          "scale": "0.35"
+        }
+      },
+      {
+        "seq": 409,
+        "utc": "2026-07-07T18:41:22.2251334Z",
+        "frame": 130,
+        "time": 9.286362,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemVFX",
+        "action": "Projectile.Spawned",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "projectileId": "bullet_pistol",
+          "speed": "30.0",
+          "maxRange": "20.0"
+        }
+      },
+      {
+        "seq": 410,
+        "utc": "2026-07-07T18:41:22.2251334Z",
+        "frame": 130,
+        "time": 9.286366,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemAsset",
+        "action": "Sprite.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "effect.attack.hit",
+          "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+        }
+      },
+      {
+        "seq": 411,
+        "utc": "2026-07-07T18:41:22.2251334Z",
+        "frame": 130,
+        "time": 9.286384,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemVFX",
+        "action": "Sprite.Spawned",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "assetKey": "effect.attack.hit",
+          "position": "34.1,0.7,44.5",
+          "scale": "0.85"
+        }
+      },
+      {
+        "seq": 412,
+        "utc": "2026-07-07T18:41:22.2256333Z",
+        "frame": 130,
+        "time": 9.28639,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemAI",
+        "action": "Attack",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "actor": "SmartAI06",
+          "target": "SmartAI05",
+          "weapon": "pistol_basic",
+          "damage": "24.0",
+          "tattooTriggers": "0"
+        }
+      },
+      {
+        "seq": 413,
+        "utc": "2026-07-07T18:41:22.2256333Z",
+        "frame": 130,
+        "time": 9.28641,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemAsset",
+        "action": "Sprite.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "effect.attack.hit",
+          "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+        }
+      },
+      {
+        "seq": 414,
+        "utc": "2026-07-07T18:41:22.2256333Z",
+        "frame": 130,
+        "time": 9.286428,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemVFX",
+        "action": "Sprite.Spawned",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "assetKey": "effect.attack.hit",
+          "position": "29.7,0.7,38.5",
+          "scale": "0.35"
+        }
+      },
+      {
+        "seq": 415,
+        "utc": "2026-07-07T18:41:22.2256333Z",
+        "frame": 130,
+        "time": 9.28643,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemVFX",
+        "action": "Projectile.Spawned",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "projectileId": "bullet_pistol",
+          "speed": "30.0",
+          "maxRange": "20.0"
+        }
+      },
+      {
+        "seq": 416,
+        "utc": "2026-07-07T18:41:22.2256333Z",
+        "frame": 130,
+        "time": 9.286438,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemAsset",
+        "action": "Sprite.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "effect.attack.hit",
+          "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+        }
+      },
+      {
+        "seq": 417,
+        "utc": "2026-07-07T18:41:22.2256333Z",
+        "frame": 130,
+        "time": 9.286455,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemVFX",
+        "action": "Sprite.Spawned",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "assetKey": "effect.attack.hit",
+          "position": "29.8,0.7,39.0",
+          "scale": "0.85"
+        }
+      },
+      {
+        "seq": 418,
+        "utc": "2026-07-07T18:41:22.2256333Z",
+        "frame": 130,
+        "time": 9.286458,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemAI",
+        "action": "Attack",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "actor": "SmartAI08",
+          "target": "SmartAI07",
+          "weapon": "pistol_basic",
+          "damage": "24.0",
+          "tattooTriggers": "0"
+        }
+      },
+      {
+        "seq": 419,
+        "utc": "2026-07-07T18:41:22.2256333Z",
+        "frame": 130,
+        "time": 9.286471,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemAsset",
+        "action": "Sprite.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "effect.attack.hit",
+          "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+        }
+      },
+      {
+        "seq": 420,
+        "utc": "2026-07-07T18:41:22.2256333Z",
+        "frame": 130,
+        "time": 9.286494,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemVFX",
+        "action": "Sprite.Spawned",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "assetKey": "effect.attack.hit",
+          "position": "31.9,0.7,32.0",
+          "scale": "0.35"
+        }
+      },
+      {
+        "seq": 421,
+        "utc": "2026-07-07T18:41:22.2256333Z",
+        "frame": 130,
+        "time": 9.286496,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemVFX",
+        "action": "Projectile.Spawned",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "projectileId": "bullet_pistol",
+          "speed": "30.0",
+          "maxRange": "20.0"
+        }
+      },
+      {
+        "seq": 422,
+        "utc": "2026-07-07T18:41:22.2256333Z",
+        "frame": 130,
+        "time": 9.2865,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemAsset",
+        "action": "Sprite.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "effect.attack.hit",
+          "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+        }
+      },
+      {
+        "seq": 423,
+        "utc": "2026-07-07T18:41:22.2256333Z",
+        "frame": 130,
+        "time": 9.286515,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemVFX",
+        "action": "Sprite.Spawned",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "assetKey": "effect.attack.hit",
+          "position": "31.5,0.7,32.5",
+          "scale": "0.85"
+        }
+      },
+      {
+        "seq": 424,
+        "utc": "2026-07-07T18:41:22.2256333Z",
+        "frame": 130,
+        "time": 9.286518,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemAI",
+        "action": "Attack",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "actor": "SmartAI10",
+          "target": "SmartAI09",
+          "weapon": "pistol_basic",
+          "damage": "23.4",
+          "tattooTriggers": "0"
+        }
+      },
+      {
+        "seq": 425,
+        "utc": "2026-07-07T18:41:22.2256333Z",
+        "frame": 130,
+        "time": 9.286535,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemAsset",
+        "action": "Sprite.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "effect.attack.hit",
+          "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+        }
+      },
+      {
+        "seq": 426,
+        "utc": "2026-07-07T18:41:22.2256333Z",
+        "frame": 130,
+        "time": 9.286552,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemVFX",
+        "action": "Sprite.Spawned",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "assetKey": "effect.attack.hit",
+          "position": "38.1,0.7,29.7",
+          "scale": "0.35"
+        }
+      },
+      {
+        "seq": 427,
+        "utc": "2026-07-07T18:41:22.2256333Z",
+        "frame": 130,
+        "time": 9.286555,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemVFX",
+        "action": "Projectile.Spawned",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "projectileId": "bullet_pistol",
+          "speed": "30.0",
+          "maxRange": "20.0"
+        }
+      },
+      {
+        "seq": 428,
+        "utc": "2026-07-07T18:41:22.2256333Z",
+        "frame": 130,
+        "time": 9.286562,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemAsset",
+        "action": "Sprite.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "effect.attack.hit",
+          "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+        }
+      },
+      {
+        "seq": 429,
+        "utc": "2026-07-07T18:41:22.2256333Z",
+        "frame": 130,
+        "time": 9.286578,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemVFX",
+        "action": "Sprite.Spawned",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "assetKey": "effect.attack.hit",
+          "position": "37.3,0.7,29.7",
+          "scale": "0.85"
+        }
+      },
+      {
+        "seq": 430,
+        "utc": "2026-07-07T18:41:22.2256333Z",
+        "frame": 130,
+        "time": 9.28658,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemAI",
+        "action": "Attack",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "actor": "SmartAI12",
+          "target": "SmartAI11",
+          "weapon": "pistol_basic",
+          "damage": "22.7",
+          "tattooTriggers": "0"
+        }
+      },
+      {
+        "seq": 431,
+        "utc": "2026-07-07T18:41:22.2256333Z",
+        "frame": 130,
+        "time": 9.286593,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemAsset",
+        "action": "Sprite.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "effect.attack.hit",
+          "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+        }
+      },
+      {
+        "seq": 432,
+        "utc": "2026-07-07T18:41:22.2256333Z",
+        "frame": 130,
+        "time": 9.28661,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemVFX",
+        "action": "Sprite.Spawned",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "assetKey": "effect.attack.hit",
+          "position": "43.9,0.7,33.1",
+          "scale": "0.35"
+        }
+      },
+      {
+        "seq": 433,
+        "utc": "2026-07-07T18:41:22.2256333Z",
+        "frame": 130,
+        "time": 9.286612,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemVFX",
+        "action": "Projectile.Spawned",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "projectileId": "bullet_pistol",
+          "speed": "30.0",
+          "maxRange": "20.0"
+        }
+      },
+      {
+        "seq": 434,
+        "utc": "2026-07-07T18:41:22.2256333Z",
+        "frame": 130,
+        "time": 9.286615,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemAsset",
+        "action": "Sprite.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "effect.attack.hit",
+          "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+        }
+      },
+      {
+        "seq": 435,
+        "utc": "2026-07-07T18:41:22.2256333Z",
+        "frame": 130,
+        "time": 9.286637,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemVFX",
+        "action": "Sprite.Spawned",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "assetKey": "effect.attack.hit",
+          "position": "43.5,0.7,32.5",
+          "scale": "0.85"
+        }
+      },
+      {
+        "seq": 436,
+        "utc": "2026-07-07T18:41:22.2256333Z",
+        "frame": 130,
+        "time": 9.286645,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemAI",
+        "action": "Attack",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "actor": "SmartAI14",
+          "target": "SmartAI13",
+          "weapon": "pistol_basic",
+          "damage": "24.2",
+          "tattooTriggers": "0"
+        }
+      },
+      {
+        "seq": 437,
+        "utc": "2026-07-07T18:41:22.2751327Z",
+        "frame": 131,
+        "time": 9.335931,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemAsset",
+        "action": "Sprite.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "effect.attack.hit",
+          "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+        }
+      },
+      {
+        "seq": 438,
+        "utc": "2026-07-07T18:41:22.2751327Z",
+        "frame": 131,
+        "time": 9.336043,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemVFX",
+        "action": "Sprite.Spawned",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "assetKey": "effect.attack.hit",
+          "position": "44.9,0.7,40.1",
+          "scale": "0.35"
+        }
+      },
+      {
+        "seq": 439,
+        "utc": "2026-07-07T18:41:22.2751327Z",
+        "frame": 131,
+        "time": 9.336046,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemVFX",
+        "action": "Projectile.Spawned",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "projectileId": "bullet_pistol",
+          "speed": "30.0",
+          "maxRange": "20.0"
+        }
+      },
+      {
+        "seq": 440,
+        "utc": "2026-07-07T18:41:22.2751327Z",
+        "frame": 131,
+        "time": 9.336058,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemAsset",
+        "action": "Sprite.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "effect.attack.hit",
+          "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+        }
+      },
+      {
+        "seq": 441,
+        "utc": "2026-07-07T18:41:22.2751327Z",
+        "frame": 131,
+        "time": 9.336083,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemVFX",
+        "action": "Sprite.Spawned",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "assetKey": "effect.attack.hit",
+          "position": "44.8,0.7,40.5",
+          "scale": "0.85"
+        }
+      },
+      {
+        "seq": 442,
+        "utc": "2026-07-07T18:41:22.2751327Z",
+        "frame": 131,
+        "time": 9.336105,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemAI",
+        "action": "Attack",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "actor": "SmartAI01",
+          "target": "SmartAI02",
+          "weapon": "pistol_basic",
+          "damage": "24.0",
+          "tattooTriggers": "0"
+        }
+      },
+      {
+        "seq": 443,
+        "utc": "2026-07-07T18:41:22.2751327Z",
+        "frame": 131,
+        "time": 9.336126,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemAsset",
+        "action": "Sprite.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "effect.attack.hit",
+          "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+        }
+      },
+      {
+        "seq": 444,
+        "utc": "2026-07-07T18:41:22.2751327Z",
+        "frame": 131,
+        "time": 9.336148,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemVFX",
+        "action": "Sprite.Spawned",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "assetKey": "effect.attack.hit",
+          "position": "40.4,0.7,44.8",
+          "scale": "0.35"
+        }
+      },
+      {
+        "seq": 445,
+        "utc": "2026-07-07T18:41:22.2751327Z",
+        "frame": 131,
+        "time": 9.33615,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemVFX",
+        "action": "Projectile.Spawned",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "projectileId": "bullet_pistol",
+          "speed": "30.0",
+          "maxRange": "20.0"
+        }
+      },
+      {
+        "seq": 446,
+        "utc": "2026-07-07T18:41:22.2751327Z",
+        "frame": 131,
+        "time": 9.336156,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemAsset",
+        "action": "Sprite.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "effect.attack.hit",
+          "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+        }
+      },
+      {
+        "seq": 447,
+        "utc": "2026-07-07T18:41:22.2751327Z",
+        "frame": 131,
+        "time": 9.336174,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemVFX",
+        "action": "Sprite.Spawned",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "assetKey": "effect.attack.hit",
+          "position": "39.7,0.7,45.1",
+          "scale": "0.85"
+        }
+      },
+      {
+        "seq": 448,
+        "utc": "2026-07-07T18:41:22.2751327Z",
+        "frame": 131,
+        "time": 9.336177,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemAI",
+        "action": "Attack",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "actor": "SmartAI03",
+          "target": "SmartAI04",
+          "weapon": "pistol_basic",
+          "damage": "23.4",
+          "tattooTriggers": "0"
+        }
+      },
+      {
+        "seq": 449,
+        "utc": "2026-07-07T18:41:22.2751327Z",
+        "frame": 131,
+        "time": 9.33619,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemAsset",
+        "action": "Sprite.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "effect.attack.hit",
+          "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+        }
+      },
+      {
+        "seq": 450,
+        "utc": "2026-07-07T18:41:22.2751327Z",
+        "frame": 131,
+        "time": 9.336224,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemVFX",
+        "action": "Sprite.Spawned",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "assetKey": "effect.attack.hit",
+          "position": "33.5,0.7,44.2",
+          "scale": "0.35"
+        }
+      },
+      {
+        "seq": 451,
+        "utc": "2026-07-07T18:41:22.2751327Z",
+        "frame": 131,
+        "time": 9.33622551,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemVFX",
+        "action": "Projectile.Spawned",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "projectileId": "bullet_pistol",
+          "speed": "30.0",
+          "maxRange": "20.0"
+        }
+      },
+      {
+        "seq": 452,
+        "utc": "2026-07-07T18:41:22.2751327Z",
+        "frame": 131,
+        "time": 9.336257,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemAsset",
+        "action": "Sprite.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "effect.attack.hit",
+          "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+        }
+      },
+      {
+        "seq": 453,
+        "utc": "2026-07-07T18:41:22.2751327Z",
+        "frame": 131,
+        "time": 9.336275,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemVFX",
+        "action": "Sprite.Spawned",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "assetKey": "effect.attack.hit",
+          "position": "32.9,0.7,43.9",
+          "scale": "0.85"
+        }
+      },
+      {
+        "seq": 454,
+        "utc": "2026-07-07T18:41:22.2751327Z",
+        "frame": 131,
+        "time": 9.336311,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemAI",
+        "action": "Attack",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "actor": "SmartAI05",
+          "target": "SmartAI06",
+          "weapon": "pistol_basic",
+          "damage": "22.7",
+          "tattooTriggers": "0"
+        }
+      },
+      {
+        "seq": 455,
+        "utc": "2026-07-07T18:41:22.2751327Z",
+        "frame": 131,
+        "time": 9.336325,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemAsset",
+        "action": "Sprite.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "effect.attack.hit",
+          "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+        }
+      },
+      {
+        "seq": 456,
+        "utc": "2026-07-07T18:41:22.2751327Z",
+        "frame": 131,
+        "time": 9.336342,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemVFX",
+        "action": "Sprite.Spawned",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "assetKey": "effect.attack.hit",
+          "position": "29.7,0.7,38.5",
+          "scale": "0.35"
+        }
+      },
+      {
+        "seq": 457,
+        "utc": "2026-07-07T18:41:22.2751327Z",
+        "frame": 131,
+        "time": 9.336344,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemVFX",
+        "action": "Projectile.Spawned",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "projectileId": "bullet_pistol",
+          "speed": "30.0",
+          "maxRange": "20.0"
+        }
+      },
+      {
+        "seq": 458,
+        "utc": "2026-07-07T18:41:22.2751327Z",
+        "frame": 131,
+        "time": 9.336349,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemAsset",
+        "action": "Sprite.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "effect.attack.hit",
+          "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+        }
+      },
+      {
+        "seq": 459,
+        "utc": "2026-07-07T18:41:22.2751327Z",
+        "frame": 131,
+        "time": 9.336364,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemVFX",
+        "action": "Sprite.Spawned",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "assetKey": "effect.attack.hit",
+          "position": "29.6,0.7,38.0",
+          "scale": "0.85"
+        }
+      },
+      {
+        "seq": 460,
+        "utc": "2026-07-07T18:41:22.2751327Z",
+        "frame": 131,
+        "time": 9.336367,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemAI",
+        "action": "Attack",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "actor": "SmartAI07",
+          "target": "SmartAI08",
+          "weapon": "pistol_basic",
+          "damage": "24.2",
+          "tattooTriggers": "0"
+        }
+      },
+      {
+        "seq": 461,
+        "utc": "2026-07-07T18:41:22.2751327Z",
+        "frame": 131,
+        "time": 9.336379,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemAsset",
+        "action": "Sprite.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "effect.attack.hit",
+          "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+        }
+      },
+      {
+        "seq": 462,
+        "utc": "2026-07-07T18:41:22.2756329Z",
+        "frame": 131,
+        "time": 9.336396,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemVFX",
+        "action": "Sprite.Spawned",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "assetKey": "effect.attack.hit",
+          "position": "31.9,0.7,32.0",
+          "scale": "0.35"
+        }
+      },
+      {
+        "seq": 463,
+        "utc": "2026-07-07T18:41:22.2756329Z",
+        "frame": 131,
+        "time": 9.336398,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemVFX",
+        "action": "Projectile.Spawned",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "projectileId": "bullet_pistol",
+          "speed": "30.0",
+          "maxRange": "20.0"
+        }
+      },
+      {
+        "seq": 464,
+        "utc": "2026-07-07T18:41:22.2756329Z",
+        "frame": 131,
+        "time": 9.336403,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemAsset",
+        "action": "Sprite.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "effect.attack.hit",
+          "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+        }
+      },
+      {
+        "seq": 465,
+        "utc": "2026-07-07T18:41:22.2756329Z",
+        "frame": 131,
+        "time": 9.336419,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemVFX",
+        "action": "Sprite.Spawned",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "assetKey": "effect.attack.hit",
+          "position": "32.3,0.7,31.6",
+          "scale": "0.85"
+        }
+      },
+      {
+        "seq": 466,
+        "utc": "2026-07-07T18:41:22.2756329Z",
+        "frame": 131,
+        "time": 9.336471,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemAI",
+        "action": "Attack",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "actor": "SmartAI09",
+          "target": "SmartAI10",
+          "weapon": "pistol_basic",
+          "damage": "23.5",
+          "tattooTriggers": "0"
+        }
+      },
+      {
+        "seq": 467,
+        "utc": "2026-07-07T18:41:22.2756329Z",
+        "frame": 131,
+        "time": 9.336485,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemAsset",
+        "action": "Sprite.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "effect.attack.hit",
+          "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+        }
+      },
+      {
+        "seq": 468,
+        "utc": "2026-07-07T18:41:22.2756329Z",
+        "frame": 131,
+        "time": 9.336503,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemVFX",
+        "action": "Sprite.Spawned",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "assetKey": "effect.attack.hit",
+          "position": "38.1,0.7,29.7",
+          "scale": "0.35"
+        }
+      },
+      {
+        "seq": 469,
+        "utc": "2026-07-07T18:41:22.2756329Z",
+        "frame": 131,
+        "time": 9.336506,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemVFX",
+        "action": "Projectile.Spawned",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "projectileId": "bullet_pistol",
+          "speed": "30.0",
+          "maxRange": "20.0"
+        }
+      },
+      {
+        "seq": 470,
+        "utc": "2026-07-07T18:41:22.2756329Z",
+        "frame": 131,
+        "time": 9.336534,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemAsset",
+        "action": "Sprite.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "effect.attack.hit",
+          "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+        }
+      },
+      {
+        "seq": 471,
+        "utc": "2026-07-07T18:41:22.2756329Z",
+        "frame": 131,
+        "time": 9.336551,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemVFX",
+        "action": "Sprite.Spawned",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "assetKey": "effect.attack.hit",
+          "position": "38.8,0.7,29.7",
+          "scale": "0.85"
+        }
+      },
+      {
+        "seq": 472,
+        "utc": "2026-07-07T18:41:22.2756329Z",
+        "frame": 131,
+        "time": 9.336554,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemAI",
+        "action": "Attack",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "actor": "SmartAI11",
+          "target": "SmartAI12",
+          "weapon": "pistol_basic",
+          "damage": "23.7",
+          "tattooTriggers": "0"
+        }
+      },
+      {
+        "seq": 473,
+        "utc": "2026-07-07T18:41:22.2756329Z",
+        "frame": 131,
+        "time": 9.336566,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemAsset",
+        "action": "Sprite.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "effect.attack.hit",
+          "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+        }
+      },
+      {
+        "seq": 474,
+        "utc": "2026-07-07T18:41:22.2756329Z",
+        "frame": 131,
+        "time": 9.336614,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemVFX",
+        "action": "Sprite.Spawned",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "assetKey": "effect.attack.hit",
+          "position": "43.9,0.7,33.1",
+          "scale": "0.35"
+        }
+      },
+      {
+        "seq": 475,
+        "utc": "2026-07-07T18:41:22.2756329Z",
+        "frame": 131,
+        "time": 9.336616,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemVFX",
+        "action": "Projectile.Spawned",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "projectileId": "bullet_pistol",
+          "speed": "30.0",
+          "maxRange": "20.0"
+        }
+      },
+      {
+        "seq": 476,
+        "utc": "2026-07-07T18:41:22.2756329Z",
+        "frame": 131,
+        "time": 9.33662,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemAsset",
+        "action": "Sprite.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "effect.attack.hit",
+          "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+        }
+      },
+      {
+        "seq": 477,
+        "utc": "2026-07-07T18:41:22.2756329Z",
+        "frame": 131,
+        "time": 9.33665848,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemVFX",
+        "action": "Sprite.Spawned",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "assetKey": "effect.attack.hit",
+          "position": "44.4,0.7,33.6",
+          "scale": "0.85"
+        }
+      },
+      {
+        "seq": 478,
+        "utc": "2026-07-07T18:41:22.2756329Z",
+        "frame": 131,
+        "time": 9.336661,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemAI",
+        "action": "Attack",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "actor": "SmartAI13",
+          "target": "SmartAI14",
+          "weapon": "pistol_basic",
+          "damage": "24.0",
+          "tattooTriggers": "0"
+        }
+      },
+      {
+        "seq": 479,
+        "utc": "2026-07-07T18:41:22.2756329Z",
+        "frame": 131,
+        "time": 9.336675,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemAsset",
+        "action": "Sprite.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "effect.attack.hit",
+          "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+        }
+      },
+      {
+        "seq": 480,
+        "utc": "2026-07-07T18:41:22.2756329Z",
+        "frame": 131,
+        "time": 9.336691,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemVFX",
+        "action": "Sprite.Spawned",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "assetKey": "effect.attack.hit",
+          "position": "50.3,0.7,35.8",
+          "scale": "0.35"
+        }
+      },
+      {
+        "seq": 481,
+        "utc": "2026-07-07T18:41:22.2756329Z",
+        "frame": 131,
+        "time": 9.33671951,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemVFX",
+        "action": "Projectile.Spawned",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "projectileId": "bullet_pistol",
+          "speed": "30.0",
+          "maxRange": "20.0"
+        }
+      },
+      {
+        "seq": 482,
+        "utc": "2026-07-07T18:41:22.2756329Z",
+        "frame": 131,
+        "time": 9.336724,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemAsset",
+        "action": "Sprite.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "effect.attack.hit",
+          "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+        }
+      },
+      {
+        "seq": 483,
+        "utc": "2026-07-07T18:41:22.2756329Z",
+        "frame": 131,
+        "time": 9.33674049,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemVFX",
+        "action": "Sprite.Spawned",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "assetKey": "effect.attack.hit",
+          "position": "50.4,0.7,34.8",
+          "scale": "0.85"
+        }
+      },
+      {
+        "seq": 484,
+        "utc": "2026-07-07T18:41:22.2756329Z",
+        "frame": 131,
+        "time": 9.336769,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemAI",
+        "action": "Attack",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "actor": "SmartAI15",
+          "target": "LightAI11",
+          "weapon": "pistol_basic",
+          "damage": "24.0",
+          "tattooTriggers": "0"
+        }
+      },
+      {
+        "seq": 485,
+        "utc": "2026-07-07T18:41:22.2756329Z",
+        "frame": 131,
+        "time": 9.33678,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemAsset",
+        "action": "Sprite.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "effect.attack.hit",
+          "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+        }
+      },
+      {
+        "seq": 486,
+        "utc": "2026-07-07T18:41:22.2756329Z",
+        "frame": 131,
+        "time": 9.336833,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemVFX",
+        "action": "Sprite.Spawned",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "assetKey": "effect.attack.hit",
+          "position": "47.4,0.7,45.5",
+          "scale": "0.35"
+        }
+      },
+      {
+        "seq": 487,
+        "utc": "2026-07-07T18:41:22.2756329Z",
+        "frame": 131,
+        "time": 9.336835,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemVFX",
+        "action": "Projectile.Spawned",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "projectileId": "bullet_pistol",
+          "speed": "30.0",
+          "maxRange": "20.0"
+        }
+      },
+      {
+        "seq": 488,
+        "utc": "2026-07-07T18:41:22.2756329Z",
+        "frame": 131,
+        "time": 9.33684,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemAsset",
+        "action": "Sprite.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "effect.attack.hit",
+          "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+        }
+      },
+      {
+        "seq": 489,
+        "utc": "2026-07-07T18:41:22.2756329Z",
+        "frame": 131,
+        "time": 9.336873,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemVFX",
+        "action": "Sprite.Spawned",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "assetKey": "effect.attack.hit",
+          "position": "47.1,0.7,46.0",
+          "scale": "0.85"
+        }
+      },
+      {
+        "seq": 490,
+        "utc": "2026-07-07T18:41:22.2761333Z",
+        "frame": 131,
+        "time": 9.336896,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemAI",
+        "action": "Attack",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "actor": "SmartAI16",
+          "target": "SmartAI17",
+          "weapon": "pistol_basic",
+          "damage": "23.5",
+          "tattooTriggers": "0"
+        }
+      },
+      {
+        "seq": 491,
+        "utc": "2026-07-07T18:41:22.2761333Z",
+        "frame": 131,
+        "time": 9.336906,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemAsset",
+        "action": "Sprite.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "effect.attack.hit",
+          "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+        }
+      },
+      {
+        "seq": 492,
+        "utc": "2026-07-07T18:41:22.2761333Z",
+        "frame": 131,
+        "time": 9.336923,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemVFX",
+        "action": "Sprite.Spawned",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "assetKey": "effect.attack.hit",
+          "position": "47.4,0.7,45.5",
+          "scale": "0.35"
+        }
+      },
+      {
+        "seq": 493,
+        "utc": "2026-07-07T18:41:22.2761333Z",
+        "frame": 131,
+        "time": 9.336925,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemVFX",
+        "action": "Projectile.Spawned",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "projectileId": "bullet_pistol",
+          "speed": "30.0",
+          "maxRange": "20.0"
+        }
+      },
+      {
+        "seq": 494,
+        "utc": "2026-07-07T18:41:22.2761333Z",
+        "frame": 131,
+        "time": 9.336928,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemAsset",
+        "action": "Sprite.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "effect.attack.hit",
+          "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+        }
+      },
+      {
+        "seq": 495,
+        "utc": "2026-07-07T18:41:22.2761333Z",
+        "frame": 131,
+        "time": 9.336944,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemVFX",
+        "action": "Sprite.Spawned",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "assetKey": "effect.attack.hit",
+          "position": "47.8,0.7,45.1",
+          "scale": "0.85"
+        }
+      },
+      {
+        "seq": 496,
+        "utc": "2026-07-07T18:41:22.2761333Z",
+        "frame": 131,
+        "time": 9.336946,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemAI",
+        "action": "Attack",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "actor": "SmartAI17",
+          "target": "SmartAI16",
+          "weapon": "pistol_basic",
+          "damage": "23.4",
+          "tattooTriggers": "0"
+        }
+      },
+      {
+        "seq": 497,
+        "utc": "2026-07-07T18:41:22.2761333Z",
+        "frame": 131,
+        "time": 9.336974,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemAsset",
+        "action": "Sprite.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "effect.attack.hit",
+          "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+        }
+      },
+      {
+        "seq": 498,
+        "utc": "2026-07-07T18:41:22.2761333Z",
+        "frame": 131,
+        "time": 9.33699,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemVFX",
+        "action": "Sprite.Spawned",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "assetKey": "effect.attack.hit",
+          "position": "39.7,0.7,50.1",
+          "scale": "0.35"
+        }
+      },
+      {
+        "seq": 499,
+        "utc": "2026-07-07T18:41:22.2761333Z",
+        "frame": 131,
+        "time": 9.336992,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemVFX",
+        "action": "Projectile.Spawned",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "projectileId": "bullet_pistol",
+          "speed": "30.0",
+          "maxRange": "20.0"
+        }
+      },
+      {
+        "seq": 500,
+        "utc": "2026-07-07T18:41:22.2761333Z",
+        "frame": 131,
+        "time": 9.336997,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemAsset",
+        "action": "Sprite.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "effect.attack.hit",
+          "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+        }
+      },
+      {
+        "seq": 501,
+        "utc": "2026-07-07T18:41:22.2761333Z",
+        "frame": 131,
+        "time": 9.337033,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemVFX",
+        "action": "Sprite.Spawned",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "assetKey": "effect.attack.hit",
+          "position": "39.1,0.7,50.2",
+          "scale": "0.85"
+        }
+      },
+      {
+        "seq": 502,
+        "utc": "2026-07-07T18:41:22.2761333Z",
+        "frame": 131,
+        "time": 9.33706,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemAI",
+        "action": "Attack",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "actor": "SmartAI18",
+          "target": "SmartAI19",
+          "weapon": "pistol_basic",
+          "damage": "23.7",
+          "tattooTriggers": "0"
+        }
+      },
+      {
+        "seq": 503,
+        "utc": "2026-07-07T18:41:22.2761333Z",
+        "frame": 131,
+        "time": 9.33707,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemAsset",
+        "action": "Sprite.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "effect.attack.hit",
+          "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+        }
+      },
+      {
+        "seq": 504,
+        "utc": "2026-07-07T18:41:22.2761333Z",
+        "frame": 131,
+        "time": 9.337088,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemVFX",
+        "action": "Sprite.Spawned",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "assetKey": "effect.attack.hit",
+          "position": "39.7,0.7,50.1",
+          "scale": "0.35"
+        }
+      },
+      {
+        "seq": 505,
+        "utc": "2026-07-07T18:41:22.2761333Z",
+        "frame": 131,
+        "time": 9.33709049,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemVFX",
+        "action": "Projectile.Spawned",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "projectileId": "bullet_pistol",
+          "speed": "30.0",
+          "maxRange": "20.0"
+        }
+      },
+      {
+        "seq": 506,
+        "utc": "2026-07-07T18:41:22.2761333Z",
+        "frame": 131,
+        "time": 9.337094,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemAsset",
+        "action": "Sprite.EditorAsset",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "key": "effect.attack.hit",
+          "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+        }
+      },
+      {
+        "seq": 507,
+        "utc": "2026-07-07T18:41:22.2761333Z",
+        "frame": 131,
+        "time": 9.33711052,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemVFX",
+        "action": "Sprite.Spawned",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "assetKey": "effect.attack.hit",
+          "position": "40.4,0.7,50.0",
+          "scale": "0.85"
+        }
+      },
+      {
+        "seq": 508,
+        "utc": "2026-07-07T18:41:22.2761333Z",
+        "frame": 131,
+        "time": 9.337113,
+        "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+        "system": "TotemAI",
+        "action": "Attack",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "actor": "SmartAI19",
+          "target": "SmartAI18",
+          "weapon": "pistol_basic",
+          "damage": "22.7",
+          "tattooTriggers": "0"
+        }
+      },
+      {
+        "seq": 509,
+        "utc": "2026-07-07T18:41:22.3661331Z",
+        "frame": 132,
+        "time": 9.427196,
+        "traceId": "diagnostics-8d021561813f4e14aac986e20ded47e1",
+        "system": "Trace",
+        "action": "Begin",
+        "result": "Info",
+        "message": "diagnostics-8d021561813f4e14aac986e20ded47e1",
+        "data": null
+      },
+      {
+        "seq": 510,
+        "utc": "2026-07-07T18:41:22.3661331Z",
+        "frame": 132,
+        "time": 9.427198,
+        "traceId": "diagnostics-8d021561813f4e14aac986e20ded47e1",
+        "system": "Diagnostics",
+        "action": "RunAll.Begin",
+        "result": "Info",
+        "message": null,
+        "data": null
+      },
+      {
+        "seq": 511,
+        "utc": "2026-07-07T18:41:22.3666340Z",
+        "frame": 132,
+        "time": 9.427725,
+        "traceId": "diagnostics-8d021561813f4e14aac986e20ded47e1",
+        "system": "Diagnostics",
+        "action": "Project layout.Begin",
+        "result": "Info",
+        "message": null,
+        "data": null
+      },
+      {
+        "seq": 512,
+        "utc": "2026-07-07T18:41:22.3671328Z",
+        "frame": 132,
+        "time": 9.428359,
+        "traceId": "diagnostics-8d021561813f4e14aac986e20ded47e1",
+        "system": "Diagnostics",
+        "action": "Project layout.End",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "durationMs": "0",
+          "errors": "0",
+          "warnings": "0"
+        }
+      },
+      {
+        "seq": 513,
+        "utc": "2026-07-07T18:41:22.3671328Z",
+        "frame": 132,
+        "time": 9.428363,
+        "traceId": "diagnostics-8d021561813f4e14aac986e20ded47e1",
+        "system": "Diagnostics",
+        "action": "AppConfigs runtime contract.Begin",
+        "result": "Info",
+        "message": null,
+        "data": null
+      },
+      {
+        "seq": 514,
+        "utc": "2026-07-07T18:41:22.3716325Z",
+        "frame": 132,
+        "time": 9.432756,
+        "traceId": "diagnostics-8d021561813f4e14aac986e20ded47e1",
+        "system": "Diagnostics",
+        "action": "AppConfigs runtime contract.End",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "durationMs": "4",
+          "errors": "0",
+          "warnings": "0"
+        }
+      },
+      {
+        "seq": 515,
+        "utc": "2026-07-07T18:41:22.3716325Z",
+        "frame": 132,
+        "time": 9.432763,
+        "traceId": "diagnostics-8d021561813f4e14aac986e20ded47e1",
+        "system": "Diagnostics",
+        "action": "Build settings.Begin",
+        "result": "Info",
+        "message": null,
+        "data": null
+      },
+      {
+        "seq": 516,
+        "utc": "2026-07-07T18:41:22.3726326Z",
+        "frame": 132,
+        "time": 9.433782,
+        "traceId": "diagnostics-8d021561813f4e14aac986e20ded47e1",
+        "system": "Diagnostics",
+        "action": "Build settings.End",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "durationMs": "1",
+          "errors": "0",
+          "warnings": "0"
+        }
+      },
+      {
+        "seq": 517,
+        "utc": "2026-07-07T18:41:22.3726326Z",
+        "frame": 132,
+        "time": 9.433787,
+        "traceId": "diagnostics-8d021561813f4e14aac986e20ded47e1",
+        "system": "Diagnostics",
+        "action": "Resource rules.Begin",
+        "result": "Info",
+        "message": null,
+        "data": null
+      },
+      {
+        "seq": 518,
+        "utc": "2026-07-07T18:41:22.3731334Z",
+        "frame": 132,
+        "time": 9.434166,
+        "traceId": "diagnostics-8d021561813f4e14aac986e20ded47e1",
+        "system": "Diagnostics",
+        "action": "Resource rules.End",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "durationMs": "0",
+          "errors": "0",
+          "warnings": "0"
+        }
+      },
+      {
+        "seq": 519,
+        "utc": "2026-07-07T18:41:22.3731334Z",
+        "frame": 132,
+        "time": 9.434171,
+        "traceId": "diagnostics-8d021561813f4e14aac986e20ded47e1",
+        "system": "Diagnostics",
+        "action": "AI DataTable json.Begin",
+        "result": "Info",
+        "message": null,
+        "data": null
+      },
+      {
+        "seq": 520,
+        "utc": "2026-07-07T18:41:22.3996327Z",
+        "frame": 132,
+        "time": 9.460544,
+        "traceId": "diagnostics-8d021561813f4e14aac986e20ded47e1",
+        "system": "Diagnostics",
+        "action": "AI DataTable json.End",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "durationMs": "26",
+          "errors": "0",
+          "warnings": "0"
+        }
+      },
+      {
+        "seq": 521,
+        "utc": "2026-07-07T18:41:22.4001329Z",
+        "frame": 132,
+        "time": 9.461322,
+        "traceId": "diagnostics-8d021561813f4e14aac986e20ded47e1",
+        "system": "Diagnostics",
+        "action": "RegisteredScenarios.Discover",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "count": "12"
+        }
+      },
+      {
+        "seq": 522,
+        "utc": "2026-07-07T18:41:22.4006329Z",
+        "frame": 132,
+        "time": 9.461488,
+        "traceId": "diagnostics-8d021561813f4e14aac986e20ded47e1",
+        "system": "Diagnostics",
+        "action": "RegisteredScenarios.Skip",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "type": "UGF.EditorTools.BusinessRewriteInventoryDiagnosticScenario",
+          "mode": "EditMode"
+        }
+      },
+      {
+        "seq": 523,
+        "utc": "2026-07-07T18:41:22.4006329Z",
+        "frame": 132,
+        "time": 9.46152,
+        "traceId": "diagnostics-8d021561813f4e14aac986e20ded47e1",
+        "system": "Diagnostics",
+        "action": "RegisteredScenarios.Skip",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "type": "UGF.EditorTools.BusinessRuntimeContractDiagnosticScenario",
+          "mode": "EditMode"
+        }
+      },
+      {
+        "seq": 524,
+        "utc": "2026-07-07T18:41:22.4006329Z",
+        "frame": 132,
+        "time": 9.461544,
+        "traceId": "diagnostics-8d021561813f4e14aac986e20ded47e1",
+        "system": "Diagnostics",
+        "action": "RegisteredScenarios.Skip",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "type": "UGF.EditorTools.CleanWorkspaceDiagnosticScenario",
+          "mode": "EditMode"
+        }
+      },
+      {
+        "seq": 525,
+        "utc": "2026-07-07T18:41:22.4006329Z",
+        "frame": 132,
+        "time": 9.461799,
+        "traceId": "diagnostics-8d021561813f4e14aac986e20ded47e1",
+        "system": "Diagnostics",
+        "action": "RegisteredScenarios.Skip",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "type": "UGF.EditorTools.MigrationPathContractDiagnosticScenario",
+          "mode": "EditMode"
+        }
+      },
+      {
+        "seq": 526,
+        "utc": "2026-07-07T18:41:22.4011339Z",
+        "frame": 132,
+        "time": 9.462133,
+        "traceId": "diagnostics-8d021561813f4e14aac986e20ded47e1",
+        "system": "Diagnostics",
+        "action": "Scenario.Begin",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "type": "UGF.EditorTools.StartupChainDiagnosticScenario",
+          "category": "Startup",
+          "name": "Launch To Totem Runtime Smoke",
+          "mode": "PlayMode"
+        }
+      },
+      {
+        "seq": 527,
+        "utc": "2026-07-07T18:41:22.4016325Z",
+        "frame": 132,
+        "time": 9.462611,
+        "traceId": "diagnostics-8d021561813f4e14aac986e20ded47e1",
+        "system": "DiagnosticScenario.Startup",
+        "action": "Launch To Totem Runtime Smoke.Probe",
+        "result": "Info",
+        "message": "Check runtime startup chain.",
+        "data": null
+      },
+      {
+        "seq": 528,
+        "utc": "2026-07-07T18:41:22.4026328Z",
+        "frame": 132,
+        "time": 9.463808,
+        "traceId": "diagnostics-8d021561813f4e14aac986e20ded47e1",
+        "system": "DiagnosticScenario.Startup",
+        "action": "Launch To Totem Runtime Smoke.Probe",
+        "result": "Info",
+        "message": "Startup trace order skipped because early events are outside the recent trace window.",
+        "data": null
+      },
+      {
+        "seq": 529,
+        "utc": "2026-07-07T18:41:22.4026328Z",
+        "frame": 132,
+        "time": 9.463871,
+        "traceId": "diagnostics-8d021561813f4e14aac986e20ded47e1",
+        "system": "Diagnostics",
+        "action": "Scenario.End",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "type": "UGF.EditorTools.StartupChainDiagnosticScenario",
+          "category": "Startup",
+          "name": "Launch To Totem Runtime Smoke",
+          "durationMs": "1",
+          "errors": "0",
+          "warnings": "0"
+        }
+      },
+      {
+        "seq": 530,
+        "utc": "2026-07-07T18:41:22.4031325Z",
+        "frame": 132,
+        "time": 9.463907,
+        "traceId": "diagnostics-8d021561813f4e14aac986e20ded47e1",
+        "system": "Diagnostics",
+        "action": "RegisteredScenarios.Skip",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "type": "UGF.EditorTools.TotemAIRuntimeDiagnosticScenario",
+          "mode": "EditMode"
+        }
+      },
+      {
+        "seq": 531,
+        "utc": "2026-07-07T18:41:22.4031325Z",
+        "frame": 132,
+        "time": 9.463931,
+        "traceId": "diagnostics-8d021561813f4e14aac986e20ded47e1",
+        "system": "Diagnostics",
+        "action": "RegisteredScenarios.Skip",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "type": "UGF.EditorTools.TotemExtendedGameplayDiagnosticScenario",
+          "mode": "EditMode"
+        }
+      },
+      {
+        "seq": 532,
+        "utc": "2026-07-07T18:41:22.4031325Z",
+        "frame": 132,
+        "time": 9.464147,
+        "traceId": "diagnostics-8d021561813f4e14aac986e20ded47e1",
+        "system": "Diagnostics",
+        "action": "RegisteredScenarios.Skip",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "type": "UGF.EditorTools.TotemFirstSliceUIDiagnosticScenario",
+          "mode": "EditMode"
+        }
+      },
+      {
+        "seq": 533,
+        "utc": "2026-07-07T18:41:22.4031325Z",
+        "frame": 132,
+        "time": 9.46417,
+        "traceId": "diagnostics-8d021561813f4e14aac986e20ded47e1",
+        "system": "Diagnostics",
+        "action": "RegisteredScenarios.Skip",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "type": "UGF.EditorTools.TotemGameplayCatalogDiagnosticScenario",
+          "mode": "EditMode"
+        }
+      },
+      {
+        "seq": 534,
+        "utc": "2026-07-07T18:41:22.4031325Z",
+        "frame": 132,
+        "time": 9.464193,
+        "traceId": "diagnostics-8d021561813f4e14aac986e20ded47e1",
+        "system": "Diagnostics",
+        "action": "RegisteredScenarios.Skip",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "type": "UGF.EditorTools.TotemGameplayRuntimeDiagnosticScenario",
+          "mode": "EditMode"
+        }
+      },
+      {
+        "seq": 535,
+        "utc": "2026-07-07T18:41:22.4031325Z",
+        "frame": 132,
+        "time": 9.464213,
+        "traceId": "diagnostics-8d021561813f4e14aac986e20ded47e1",
+        "system": "Diagnostics",
+        "action": "RegisteredScenarios.Skip",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "type": "UGF.EditorTools.TotemRuntimeAssetDiagnosticScenario",
+          "mode": "EditMode"
+        }
+      },
+      {
+        "seq": 536,
+        "utc": "2026-07-07T18:41:22.4031325Z",
+        "frame": 132,
+        "time": 9.464232,
+        "traceId": "diagnostics-8d021561813f4e14aac986e20ded47e1",
+        "system": "Diagnostics",
+        "action": "RegisteredScenarios.Skip",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "type": "UGF.EditorTools.TotemVfxRuntimeDiagnosticScenario",
+          "mode": "EditMode"
+        }
+      },
+      {
+        "seq": 537,
+        "utc": "2026-07-07T18:41:22.4031325Z",
+        "frame": 132,
+        "time": 9.464243,
+        "traceId": "diagnostics-8d021561813f4e14aac986e20ded47e1",
+        "system": "Diagnostics",
+        "action": "Editor snapshot.Begin",
+        "result": "Info",
+        "message": null,
+        "data": null
+      },
+      {
+        "seq": 538,
+        "utc": "2026-07-07T18:41:22.4066327Z",
+        "frame": 132,
+        "time": 9.467722,
+        "traceId": "diagnostics-8d021561813f4e14aac986e20ded47e1",
+        "system": "Diagnostics",
+        "action": "Editor snapshot.End",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "durationMs": "3",
+          "errors": "0",
+          "warnings": "0"
+        }
+      }
+    ]
+  },
+  "timeline": [
+    {
+      "seq": 379,
+      "utc": "2026-07-07T18:41:20.9256341Z",
+      "frame": 127,
+      "time": 7.986551,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemAsset",
+      "action": "Instantiate.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "npc.merchant",
+        "asset": "Assets/Game/Prefabs/Entity/Actors/NpcMerchant.prefab"
+      }
+    },
+    {
+      "seq": 380,
+      "utc": "2026-07-07T18:41:20.9256341Z",
+      "frame": 127,
+      "time": 7.98657656,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemNpc",
+      "action": "Spawned",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "count": "5"
+      }
+    },
+    {
+      "seq": 381,
+      "utc": "2026-07-07T18:41:20.9266347Z",
+      "frame": 127,
+      "time": 7.98744631,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemCamera",
+      "action": "CombatCamera.Activated",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "orthographicSize": "9.0",
+        "tiltX": "55.0"
+      }
+    },
+    {
+      "seq": 382,
+      "utc": "2026-07-07T18:41:20.9266347Z",
+      "frame": 127,
+      "time": 7.98745,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemCombat",
+      "action": "Combat.Started",
+      "result": "Success",
+      "message": null,
+      "data": null
+    },
+    {
+      "seq": 383,
+      "utc": "2026-07-07T18:41:20.9276333Z",
+      "frame": 127,
+      "time": 7.98878336,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "UI",
+      "action": "OpenUIForm.Begin",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "uiId": "4",
+        "asset": "Assets/Game/Prefabs/UI/CombatHUD.prefab",
+        "group": "UIForm",
+        "serialId": "4"
+      }
+    },
+    {
+      "seq": 384,
+      "utc": "2026-07-07T18:41:20.9276333Z",
+      "frame": 127,
+      "time": 7.98879862,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemUI",
+      "action": "OpenExclusive",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "view": "CombatHUD",
+        "serialId": "4"
+      }
+    },
+    {
+      "seq": 385,
+      "utc": "2026-07-07T18:41:20.9331329Z",
+      "frame": 128,
+      "time": 7.99410629,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemAsset",
+      "action": "Sprite.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "weapon.knife_basic",
+        "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+      }
+    },
+    {
+      "seq": 386,
+      "utc": "2026-07-07T18:41:20.9336328Z",
+      "frame": 128,
+      "time": 7.994549,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemAsset",
+      "action": "Sprite.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "skill.skill_fireball_01",
+        "asset": "Assets/Resources/Sprite/Skills/skill_fireball.png"
+      }
+    },
+    {
+      "seq": 387,
+      "utc": "2026-07-07T18:41:20.9336328Z",
+      "frame": 128,
+      "time": 7.99488974,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemAsset",
+      "action": "Sprite.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "skill.skill_stealth_01",
+        "asset": "Assets/Resources/Sprite/Skills/skill_stealth.png"
+      }
+    },
+    {
+      "seq": 388,
+      "utc": "2026-07-07T18:41:20.9461334Z",
+      "frame": 128,
+      "time": 8.007283,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemUI",
+      "action": "CombatHUD.StateApplied",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "characterId": "1",
+        "weaponId": "knife_basic",
+        "colorId": "1"
+      }
+    },
+    {
+      "seq": 389,
+      "utc": "2026-07-07T18:41:20.9466332Z",
+      "frame": 128,
+      "time": 8.007504,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemUI",
+      "action": "CombatHUD.Open",
+      "result": "Success",
+      "message": null,
+      "data": null
+    },
+    {
+      "seq": 390,
+      "utc": "2026-07-07T18:41:20.9591330Z",
+      "frame": 128,
+      "time": 8.020034,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemSkill",
+      "action": "Cast",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "actor": "Boss",
+        "slot": "0",
+        "skillId": "boss_phase_bolt"
+      }
+    },
+    {
+      "seq": 391,
+      "utc": "2026-07-07T18:41:20.9591330Z",
+      "frame": 128,
+      "time": 8.020046,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemWeapon",
+      "action": "Equip",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "actor": "Boss",
+        "weaponId": "knife_basic"
+      }
+    },
+    {
+      "seq": 392,
+      "utc": "2026-07-07T18:41:20.9616350Z",
+      "frame": 128,
+      "time": 8.022489,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemAsset",
+      "action": "Sprite.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "effect.boss.bolt",
+        "asset": "Assets/Resources/Sprite/Skills/skill_chain_lightning.png"
+      }
+    },
+    {
+      "seq": 393,
+      "utc": "2026-07-07T18:41:20.9621336Z",
+      "frame": 128,
+      "time": 8.022911,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemVFX",
+      "action": "Sprite.Spawned",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "assetKey": "effect.boss.bolt",
+        "position": "37.5,0.7,37.5",
+        "scale": "1.96"
+      }
+    },
+    {
+      "seq": 394,
+      "utc": "2026-07-07T18:41:20.9626332Z",
+      "frame": 128,
+      "time": 8.023528,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemAI",
+      "action": "Boss.Skill",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "skillId": "skill_stomp",
+        "phase": "1",
+        "damage": "18.0"
+      }
+    },
+    {
+      "seq": 395,
+      "utc": "2026-07-07T18:41:22.2246331Z",
+      "frame": 130,
+      "time": 9.285607,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemAsset",
+      "action": "Sprite.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "effect.attack.hit",
+        "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+      }
+    },
+    {
+      "seq": 396,
+      "utc": "2026-07-07T18:41:22.2246331Z",
+      "frame": 130,
+      "time": 9.285726,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemVFX",
+      "action": "Sprite.Spawned",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "assetKey": "effect.attack.hit",
+        "position": "44.9,0.7,40.1",
+        "scale": "0.35"
+      }
+    },
+    {
+      "seq": 397,
+      "utc": "2026-07-07T18:41:22.2246331Z",
+      "frame": 130,
+      "time": 9.285744,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemVFX",
+      "action": "Projectile.Spawned",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "projectileId": "bullet_pistol",
+        "speed": "30.0",
+        "maxRange": "20.0"
+      }
+    },
+    {
+      "seq": 398,
+      "utc": "2026-07-07T18:41:22.2246331Z",
+      "frame": 130,
+      "time": 9.285864,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemAsset",
+      "action": "Sprite.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "effect.attack.hit",
+        "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+      }
+    },
+    {
+      "seq": 399,
+      "utc": "2026-07-07T18:41:22.2251334Z",
+      "frame": 130,
+      "time": 9.285906,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemVFX",
+      "action": "Sprite.Spawned",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "assetKey": "effect.attack.hit",
+        "position": "45.0,0.7,39.6",
+        "scale": "0.85"
+      }
+    },
+    {
+      "seq": 400,
+      "utc": "2026-07-07T18:41:22.2251334Z",
+      "frame": 130,
+      "time": 9.286188,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemAI",
+      "action": "Attack",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "actor": "SmartAI02",
+        "target": "SmartAI01",
+        "weapon": "pistol_basic",
+        "damage": "23.5",
+        "tattooTriggers": "0"
+      }
+    },
+    {
+      "seq": 401,
+      "utc": "2026-07-07T18:41:22.2251334Z",
+      "frame": 130,
+      "time": 9.286227,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemAsset",
+      "action": "Sprite.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "effect.attack.hit",
+        "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+      }
+    },
+    {
+      "seq": 402,
+      "utc": "2026-07-07T18:41:22.2251334Z",
+      "frame": 130,
+      "time": 9.28627,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemVFX",
+      "action": "Sprite.Spawned",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "assetKey": "effect.attack.hit",
+        "position": "40.4,0.7,44.8",
+        "scale": "0.35"
+      }
+    },
+    {
+      "seq": 403,
+      "utc": "2026-07-07T18:41:22.2251334Z",
+      "frame": 130,
+      "time": 9.28628,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemVFX",
+      "action": "Projectile.Spawned",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "projectileId": "bullet_pistol",
+        "speed": "30.0",
+        "maxRange": "20.0"
+      }
+    },
+    {
+      "seq": 404,
+      "utc": "2026-07-07T18:41:22.2251334Z",
+      "frame": 130,
+      "time": 9.286287,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemAsset",
+      "action": "Sprite.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "effect.attack.hit",
+        "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+      }
+    },
+    {
+      "seq": 405,
+      "utc": "2026-07-07T18:41:22.2251334Z",
+      "frame": 130,
+      "time": 9.286311,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemVFX",
+      "action": "Sprite.Spawned",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "assetKey": "effect.attack.hit",
+        "position": "41.1,0.7,44.4",
+        "scale": "0.85"
+      }
+    },
+    {
+      "seq": 406,
+      "utc": "2026-07-07T18:41:22.2251334Z",
+      "frame": 130,
+      "time": 9.286315,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemAI",
+      "action": "Attack",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "actor": "SmartAI04",
+        "target": "SmartAI03",
+        "weapon": "pistol_basic",
+        "damage": "23.7",
+        "tattooTriggers": "0"
+      }
+    },
+    {
+      "seq": 407,
+      "utc": "2026-07-07T18:41:22.2251334Z",
+      "frame": 130,
+      "time": 9.286337,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemAsset",
+      "action": "Sprite.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "effect.attack.hit",
+        "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+      }
+    },
+    {
+      "seq": 408,
+      "utc": "2026-07-07T18:41:22.2251334Z",
+      "frame": 130,
+      "time": 9.286359,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemVFX",
+      "action": "Sprite.Spawned",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "assetKey": "effect.attack.hit",
+        "position": "33.5,0.7,44.2",
+        "scale": "0.35"
+      }
+    },
+    {
+      "seq": 409,
+      "utc": "2026-07-07T18:41:22.2251334Z",
+      "frame": 130,
+      "time": 9.286362,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemVFX",
+      "action": "Projectile.Spawned",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "projectileId": "bullet_pistol",
+        "speed": "30.0",
+        "maxRange": "20.0"
+      }
+    },
+    {
+      "seq": 410,
+      "utc": "2026-07-07T18:41:22.2251334Z",
+      "frame": 130,
+      "time": 9.286366,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemAsset",
+      "action": "Sprite.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "effect.attack.hit",
+        "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+      }
+    },
+    {
+      "seq": 411,
+      "utc": "2026-07-07T18:41:22.2251334Z",
+      "frame": 130,
+      "time": 9.286384,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemVFX",
+      "action": "Sprite.Spawned",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "assetKey": "effect.attack.hit",
+        "position": "34.1,0.7,44.5",
+        "scale": "0.85"
+      }
+    },
+    {
+      "seq": 412,
+      "utc": "2026-07-07T18:41:22.2256333Z",
+      "frame": 130,
+      "time": 9.28639,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemAI",
+      "action": "Attack",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "actor": "SmartAI06",
+        "target": "SmartAI05",
+        "weapon": "pistol_basic",
+        "damage": "24.0",
+        "tattooTriggers": "0"
+      }
+    },
+    {
+      "seq": 413,
+      "utc": "2026-07-07T18:41:22.2256333Z",
+      "frame": 130,
+      "time": 9.28641,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemAsset",
+      "action": "Sprite.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "effect.attack.hit",
+        "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+      }
+    },
+    {
+      "seq": 414,
+      "utc": "2026-07-07T18:41:22.2256333Z",
+      "frame": 130,
+      "time": 9.286428,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemVFX",
+      "action": "Sprite.Spawned",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "assetKey": "effect.attack.hit",
+        "position": "29.7,0.7,38.5",
+        "scale": "0.35"
+      }
+    },
+    {
+      "seq": 415,
+      "utc": "2026-07-07T18:41:22.2256333Z",
+      "frame": 130,
+      "time": 9.28643,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemVFX",
+      "action": "Projectile.Spawned",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "projectileId": "bullet_pistol",
+        "speed": "30.0",
+        "maxRange": "20.0"
+      }
+    },
+    {
+      "seq": 416,
+      "utc": "2026-07-07T18:41:22.2256333Z",
+      "frame": 130,
+      "time": 9.286438,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemAsset",
+      "action": "Sprite.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "effect.attack.hit",
+        "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+      }
+    },
+    {
+      "seq": 417,
+      "utc": "2026-07-07T18:41:22.2256333Z",
+      "frame": 130,
+      "time": 9.286455,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemVFX",
+      "action": "Sprite.Spawned",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "assetKey": "effect.attack.hit",
+        "position": "29.8,0.7,39.0",
+        "scale": "0.85"
+      }
+    },
+    {
+      "seq": 418,
+      "utc": "2026-07-07T18:41:22.2256333Z",
+      "frame": 130,
+      "time": 9.286458,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemAI",
+      "action": "Attack",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "actor": "SmartAI08",
+        "target": "SmartAI07",
+        "weapon": "pistol_basic",
+        "damage": "24.0",
+        "tattooTriggers": "0"
+      }
+    },
+    {
+      "seq": 419,
+      "utc": "2026-07-07T18:41:22.2256333Z",
+      "frame": 130,
+      "time": 9.286471,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemAsset",
+      "action": "Sprite.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "effect.attack.hit",
+        "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+      }
+    },
+    {
+      "seq": 420,
+      "utc": "2026-07-07T18:41:22.2256333Z",
+      "frame": 130,
+      "time": 9.286494,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemVFX",
+      "action": "Sprite.Spawned",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "assetKey": "effect.attack.hit",
+        "position": "31.9,0.7,32.0",
+        "scale": "0.35"
+      }
+    },
+    {
+      "seq": 421,
+      "utc": "2026-07-07T18:41:22.2256333Z",
+      "frame": 130,
+      "time": 9.286496,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemVFX",
+      "action": "Projectile.Spawned",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "projectileId": "bullet_pistol",
+        "speed": "30.0",
+        "maxRange": "20.0"
+      }
+    },
+    {
+      "seq": 422,
+      "utc": "2026-07-07T18:41:22.2256333Z",
+      "frame": 130,
+      "time": 9.2865,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemAsset",
+      "action": "Sprite.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "effect.attack.hit",
+        "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+      }
+    },
+    {
+      "seq": 423,
+      "utc": "2026-07-07T18:41:22.2256333Z",
+      "frame": 130,
+      "time": 9.286515,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemVFX",
+      "action": "Sprite.Spawned",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "assetKey": "effect.attack.hit",
+        "position": "31.5,0.7,32.5",
+        "scale": "0.85"
+      }
+    },
+    {
+      "seq": 424,
+      "utc": "2026-07-07T18:41:22.2256333Z",
+      "frame": 130,
+      "time": 9.286518,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemAI",
+      "action": "Attack",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "actor": "SmartAI10",
+        "target": "SmartAI09",
+        "weapon": "pistol_basic",
+        "damage": "23.4",
+        "tattooTriggers": "0"
+      }
+    },
+    {
+      "seq": 425,
+      "utc": "2026-07-07T18:41:22.2256333Z",
+      "frame": 130,
+      "time": 9.286535,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemAsset",
+      "action": "Sprite.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "effect.attack.hit",
+        "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+      }
+    },
+    {
+      "seq": 426,
+      "utc": "2026-07-07T18:41:22.2256333Z",
+      "frame": 130,
+      "time": 9.286552,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemVFX",
+      "action": "Sprite.Spawned",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "assetKey": "effect.attack.hit",
+        "position": "38.1,0.7,29.7",
+        "scale": "0.35"
+      }
+    },
+    {
+      "seq": 427,
+      "utc": "2026-07-07T18:41:22.2256333Z",
+      "frame": 130,
+      "time": 9.286555,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemVFX",
+      "action": "Projectile.Spawned",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "projectileId": "bullet_pistol",
+        "speed": "30.0",
+        "maxRange": "20.0"
+      }
+    },
+    {
+      "seq": 428,
+      "utc": "2026-07-07T18:41:22.2256333Z",
+      "frame": 130,
+      "time": 9.286562,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemAsset",
+      "action": "Sprite.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "effect.attack.hit",
+        "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+      }
+    },
+    {
+      "seq": 429,
+      "utc": "2026-07-07T18:41:22.2256333Z",
+      "frame": 130,
+      "time": 9.286578,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemVFX",
+      "action": "Sprite.Spawned",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "assetKey": "effect.attack.hit",
+        "position": "37.3,0.7,29.7",
+        "scale": "0.85"
+      }
+    },
+    {
+      "seq": 430,
+      "utc": "2026-07-07T18:41:22.2256333Z",
+      "frame": 130,
+      "time": 9.28658,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemAI",
+      "action": "Attack",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "actor": "SmartAI12",
+        "target": "SmartAI11",
+        "weapon": "pistol_basic",
+        "damage": "22.7",
+        "tattooTriggers": "0"
+      }
+    },
+    {
+      "seq": 431,
+      "utc": "2026-07-07T18:41:22.2256333Z",
+      "frame": 130,
+      "time": 9.286593,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemAsset",
+      "action": "Sprite.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "effect.attack.hit",
+        "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+      }
+    },
+    {
+      "seq": 432,
+      "utc": "2026-07-07T18:41:22.2256333Z",
+      "frame": 130,
+      "time": 9.28661,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemVFX",
+      "action": "Sprite.Spawned",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "assetKey": "effect.attack.hit",
+        "position": "43.9,0.7,33.1",
+        "scale": "0.35"
+      }
+    },
+    {
+      "seq": 433,
+      "utc": "2026-07-07T18:41:22.2256333Z",
+      "frame": 130,
+      "time": 9.286612,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemVFX",
+      "action": "Projectile.Spawned",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "projectileId": "bullet_pistol",
+        "speed": "30.0",
+        "maxRange": "20.0"
+      }
+    },
+    {
+      "seq": 434,
+      "utc": "2026-07-07T18:41:22.2256333Z",
+      "frame": 130,
+      "time": 9.286615,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemAsset",
+      "action": "Sprite.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "effect.attack.hit",
+        "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+      }
+    },
+    {
+      "seq": 435,
+      "utc": "2026-07-07T18:41:22.2256333Z",
+      "frame": 130,
+      "time": 9.286637,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemVFX",
+      "action": "Sprite.Spawned",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "assetKey": "effect.attack.hit",
+        "position": "43.5,0.7,32.5",
+        "scale": "0.85"
+      }
+    },
+    {
+      "seq": 436,
+      "utc": "2026-07-07T18:41:22.2256333Z",
+      "frame": 130,
+      "time": 9.286645,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemAI",
+      "action": "Attack",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "actor": "SmartAI14",
+        "target": "SmartAI13",
+        "weapon": "pistol_basic",
+        "damage": "24.2",
+        "tattooTriggers": "0"
+      }
+    },
+    {
+      "seq": 437,
+      "utc": "2026-07-07T18:41:22.2751327Z",
+      "frame": 131,
+      "time": 9.335931,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemAsset",
+      "action": "Sprite.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "effect.attack.hit",
+        "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+      }
+    },
+    {
+      "seq": 438,
+      "utc": "2026-07-07T18:41:22.2751327Z",
+      "frame": 131,
+      "time": 9.336043,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemVFX",
+      "action": "Sprite.Spawned",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "assetKey": "effect.attack.hit",
+        "position": "44.9,0.7,40.1",
+        "scale": "0.35"
+      }
+    },
+    {
+      "seq": 439,
+      "utc": "2026-07-07T18:41:22.2751327Z",
+      "frame": 131,
+      "time": 9.336046,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemVFX",
+      "action": "Projectile.Spawned",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "projectileId": "bullet_pistol",
+        "speed": "30.0",
+        "maxRange": "20.0"
+      }
+    },
+    {
+      "seq": 440,
+      "utc": "2026-07-07T18:41:22.2751327Z",
+      "frame": 131,
+      "time": 9.336058,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemAsset",
+      "action": "Sprite.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "effect.attack.hit",
+        "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+      }
+    },
+    {
+      "seq": 441,
+      "utc": "2026-07-07T18:41:22.2751327Z",
+      "frame": 131,
+      "time": 9.336083,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemVFX",
+      "action": "Sprite.Spawned",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "assetKey": "effect.attack.hit",
+        "position": "44.8,0.7,40.5",
+        "scale": "0.85"
+      }
+    },
+    {
+      "seq": 442,
+      "utc": "2026-07-07T18:41:22.2751327Z",
+      "frame": 131,
+      "time": 9.336105,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemAI",
+      "action": "Attack",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "actor": "SmartAI01",
+        "target": "SmartAI02",
+        "weapon": "pistol_basic",
+        "damage": "24.0",
+        "tattooTriggers": "0"
+      }
+    },
+    {
+      "seq": 443,
+      "utc": "2026-07-07T18:41:22.2751327Z",
+      "frame": 131,
+      "time": 9.336126,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemAsset",
+      "action": "Sprite.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "effect.attack.hit",
+        "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+      }
+    },
+    {
+      "seq": 444,
+      "utc": "2026-07-07T18:41:22.2751327Z",
+      "frame": 131,
+      "time": 9.336148,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemVFX",
+      "action": "Sprite.Spawned",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "assetKey": "effect.attack.hit",
+        "position": "40.4,0.7,44.8",
+        "scale": "0.35"
+      }
+    },
+    {
+      "seq": 445,
+      "utc": "2026-07-07T18:41:22.2751327Z",
+      "frame": 131,
+      "time": 9.33615,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemVFX",
+      "action": "Projectile.Spawned",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "projectileId": "bullet_pistol",
+        "speed": "30.0",
+        "maxRange": "20.0"
+      }
+    },
+    {
+      "seq": 446,
+      "utc": "2026-07-07T18:41:22.2751327Z",
+      "frame": 131,
+      "time": 9.336156,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemAsset",
+      "action": "Sprite.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "effect.attack.hit",
+        "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+      }
+    },
+    {
+      "seq": 447,
+      "utc": "2026-07-07T18:41:22.2751327Z",
+      "frame": 131,
+      "time": 9.336174,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemVFX",
+      "action": "Sprite.Spawned",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "assetKey": "effect.attack.hit",
+        "position": "39.7,0.7,45.1",
+        "scale": "0.85"
+      }
+    },
+    {
+      "seq": 448,
+      "utc": "2026-07-07T18:41:22.2751327Z",
+      "frame": 131,
+      "time": 9.336177,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemAI",
+      "action": "Attack",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "actor": "SmartAI03",
+        "target": "SmartAI04",
+        "weapon": "pistol_basic",
+        "damage": "23.4",
+        "tattooTriggers": "0"
+      }
+    },
+    {
+      "seq": 449,
+      "utc": "2026-07-07T18:41:22.2751327Z",
+      "frame": 131,
+      "time": 9.33619,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemAsset",
+      "action": "Sprite.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "effect.attack.hit",
+        "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+      }
+    },
+    {
+      "seq": 450,
+      "utc": "2026-07-07T18:41:22.2751327Z",
+      "frame": 131,
+      "time": 9.336224,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemVFX",
+      "action": "Sprite.Spawned",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "assetKey": "effect.attack.hit",
+        "position": "33.5,0.7,44.2",
+        "scale": "0.35"
+      }
+    },
+    {
+      "seq": 451,
+      "utc": "2026-07-07T18:41:22.2751327Z",
+      "frame": 131,
+      "time": 9.33622551,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemVFX",
+      "action": "Projectile.Spawned",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "projectileId": "bullet_pistol",
+        "speed": "30.0",
+        "maxRange": "20.0"
+      }
+    },
+    {
+      "seq": 452,
+      "utc": "2026-07-07T18:41:22.2751327Z",
+      "frame": 131,
+      "time": 9.336257,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemAsset",
+      "action": "Sprite.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "effect.attack.hit",
+        "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+      }
+    },
+    {
+      "seq": 453,
+      "utc": "2026-07-07T18:41:22.2751327Z",
+      "frame": 131,
+      "time": 9.336275,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemVFX",
+      "action": "Sprite.Spawned",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "assetKey": "effect.attack.hit",
+        "position": "32.9,0.7,43.9",
+        "scale": "0.85"
+      }
+    },
+    {
+      "seq": 454,
+      "utc": "2026-07-07T18:41:22.2751327Z",
+      "frame": 131,
+      "time": 9.336311,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemAI",
+      "action": "Attack",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "actor": "SmartAI05",
+        "target": "SmartAI06",
+        "weapon": "pistol_basic",
+        "damage": "22.7",
+        "tattooTriggers": "0"
+      }
+    },
+    {
+      "seq": 455,
+      "utc": "2026-07-07T18:41:22.2751327Z",
+      "frame": 131,
+      "time": 9.336325,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemAsset",
+      "action": "Sprite.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "effect.attack.hit",
+        "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+      }
+    },
+    {
+      "seq": 456,
+      "utc": "2026-07-07T18:41:22.2751327Z",
+      "frame": 131,
+      "time": 9.336342,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemVFX",
+      "action": "Sprite.Spawned",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "assetKey": "effect.attack.hit",
+        "position": "29.7,0.7,38.5",
+        "scale": "0.35"
+      }
+    },
+    {
+      "seq": 457,
+      "utc": "2026-07-07T18:41:22.2751327Z",
+      "frame": 131,
+      "time": 9.336344,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemVFX",
+      "action": "Projectile.Spawned",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "projectileId": "bullet_pistol",
+        "speed": "30.0",
+        "maxRange": "20.0"
+      }
+    },
+    {
+      "seq": 458,
+      "utc": "2026-07-07T18:41:22.2751327Z",
+      "frame": 131,
+      "time": 9.336349,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemAsset",
+      "action": "Sprite.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "effect.attack.hit",
+        "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+      }
+    },
+    {
+      "seq": 459,
+      "utc": "2026-07-07T18:41:22.2751327Z",
+      "frame": 131,
+      "time": 9.336364,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemVFX",
+      "action": "Sprite.Spawned",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "assetKey": "effect.attack.hit",
+        "position": "29.6,0.7,38.0",
+        "scale": "0.85"
+      }
+    },
+    {
+      "seq": 460,
+      "utc": "2026-07-07T18:41:22.2751327Z",
+      "frame": 131,
+      "time": 9.336367,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemAI",
+      "action": "Attack",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "actor": "SmartAI07",
+        "target": "SmartAI08",
+        "weapon": "pistol_basic",
+        "damage": "24.2",
+        "tattooTriggers": "0"
+      }
+    },
+    {
+      "seq": 461,
+      "utc": "2026-07-07T18:41:22.2751327Z",
+      "frame": 131,
+      "time": 9.336379,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemAsset",
+      "action": "Sprite.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "effect.attack.hit",
+        "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+      }
+    },
+    {
+      "seq": 462,
+      "utc": "2026-07-07T18:41:22.2756329Z",
+      "frame": 131,
+      "time": 9.336396,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemVFX",
+      "action": "Sprite.Spawned",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "assetKey": "effect.attack.hit",
+        "position": "31.9,0.7,32.0",
+        "scale": "0.35"
+      }
+    },
+    {
+      "seq": 463,
+      "utc": "2026-07-07T18:41:22.2756329Z",
+      "frame": 131,
+      "time": 9.336398,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemVFX",
+      "action": "Projectile.Spawned",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "projectileId": "bullet_pistol",
+        "speed": "30.0",
+        "maxRange": "20.0"
+      }
+    },
+    {
+      "seq": 464,
+      "utc": "2026-07-07T18:41:22.2756329Z",
+      "frame": 131,
+      "time": 9.336403,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemAsset",
+      "action": "Sprite.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "effect.attack.hit",
+        "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+      }
+    },
+    {
+      "seq": 465,
+      "utc": "2026-07-07T18:41:22.2756329Z",
+      "frame": 131,
+      "time": 9.336419,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemVFX",
+      "action": "Sprite.Spawned",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "assetKey": "effect.attack.hit",
+        "position": "32.3,0.7,31.6",
+        "scale": "0.85"
+      }
+    },
+    {
+      "seq": 466,
+      "utc": "2026-07-07T18:41:22.2756329Z",
+      "frame": 131,
+      "time": 9.336471,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemAI",
+      "action": "Attack",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "actor": "SmartAI09",
+        "target": "SmartAI10",
+        "weapon": "pistol_basic",
+        "damage": "23.5",
+        "tattooTriggers": "0"
+      }
+    },
+    {
+      "seq": 467,
+      "utc": "2026-07-07T18:41:22.2756329Z",
+      "frame": 131,
+      "time": 9.336485,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemAsset",
+      "action": "Sprite.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "effect.attack.hit",
+        "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+      }
+    },
+    {
+      "seq": 468,
+      "utc": "2026-07-07T18:41:22.2756329Z",
+      "frame": 131,
+      "time": 9.336503,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemVFX",
+      "action": "Sprite.Spawned",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "assetKey": "effect.attack.hit",
+        "position": "38.1,0.7,29.7",
+        "scale": "0.35"
+      }
+    },
+    {
+      "seq": 469,
+      "utc": "2026-07-07T18:41:22.2756329Z",
+      "frame": 131,
+      "time": 9.336506,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemVFX",
+      "action": "Projectile.Spawned",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "projectileId": "bullet_pistol",
+        "speed": "30.0",
+        "maxRange": "20.0"
+      }
+    },
+    {
+      "seq": 470,
+      "utc": "2026-07-07T18:41:22.2756329Z",
+      "frame": 131,
+      "time": 9.336534,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemAsset",
+      "action": "Sprite.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "effect.attack.hit",
+        "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+      }
+    },
+    {
+      "seq": 471,
+      "utc": "2026-07-07T18:41:22.2756329Z",
+      "frame": 131,
+      "time": 9.336551,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemVFX",
+      "action": "Sprite.Spawned",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "assetKey": "effect.attack.hit",
+        "position": "38.8,0.7,29.7",
+        "scale": "0.85"
+      }
+    },
+    {
+      "seq": 472,
+      "utc": "2026-07-07T18:41:22.2756329Z",
+      "frame": 131,
+      "time": 9.336554,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemAI",
+      "action": "Attack",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "actor": "SmartAI11",
+        "target": "SmartAI12",
+        "weapon": "pistol_basic",
+        "damage": "23.7",
+        "tattooTriggers": "0"
+      }
+    },
+    {
+      "seq": 473,
+      "utc": "2026-07-07T18:41:22.2756329Z",
+      "frame": 131,
+      "time": 9.336566,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemAsset",
+      "action": "Sprite.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "effect.attack.hit",
+        "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+      }
+    },
+    {
+      "seq": 474,
+      "utc": "2026-07-07T18:41:22.2756329Z",
+      "frame": 131,
+      "time": 9.336614,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemVFX",
+      "action": "Sprite.Spawned",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "assetKey": "effect.attack.hit",
+        "position": "43.9,0.7,33.1",
+        "scale": "0.35"
+      }
+    },
+    {
+      "seq": 475,
+      "utc": "2026-07-07T18:41:22.2756329Z",
+      "frame": 131,
+      "time": 9.336616,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemVFX",
+      "action": "Projectile.Spawned",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "projectileId": "bullet_pistol",
+        "speed": "30.0",
+        "maxRange": "20.0"
+      }
+    },
+    {
+      "seq": 476,
+      "utc": "2026-07-07T18:41:22.2756329Z",
+      "frame": 131,
+      "time": 9.33662,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemAsset",
+      "action": "Sprite.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "effect.attack.hit",
+        "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+      }
+    },
+    {
+      "seq": 477,
+      "utc": "2026-07-07T18:41:22.2756329Z",
+      "frame": 131,
+      "time": 9.33665848,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemVFX",
+      "action": "Sprite.Spawned",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "assetKey": "effect.attack.hit",
+        "position": "44.4,0.7,33.6",
+        "scale": "0.85"
+      }
+    },
+    {
+      "seq": 478,
+      "utc": "2026-07-07T18:41:22.2756329Z",
+      "frame": 131,
+      "time": 9.336661,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemAI",
+      "action": "Attack",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "actor": "SmartAI13",
+        "target": "SmartAI14",
+        "weapon": "pistol_basic",
+        "damage": "24.0",
+        "tattooTriggers": "0"
+      }
+    },
+    {
+      "seq": 479,
+      "utc": "2026-07-07T18:41:22.2756329Z",
+      "frame": 131,
+      "time": 9.336675,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemAsset",
+      "action": "Sprite.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "effect.attack.hit",
+        "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+      }
+    },
+    {
+      "seq": 480,
+      "utc": "2026-07-07T18:41:22.2756329Z",
+      "frame": 131,
+      "time": 9.336691,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemVFX",
+      "action": "Sprite.Spawned",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "assetKey": "effect.attack.hit",
+        "position": "50.3,0.7,35.8",
+        "scale": "0.35"
+      }
+    },
+    {
+      "seq": 481,
+      "utc": "2026-07-07T18:41:22.2756329Z",
+      "frame": 131,
+      "time": 9.33671951,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemVFX",
+      "action": "Projectile.Spawned",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "projectileId": "bullet_pistol",
+        "speed": "30.0",
+        "maxRange": "20.0"
+      }
+    },
+    {
+      "seq": 482,
+      "utc": "2026-07-07T18:41:22.2756329Z",
+      "frame": 131,
+      "time": 9.336724,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemAsset",
+      "action": "Sprite.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "effect.attack.hit",
+        "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+      }
+    },
+    {
+      "seq": 483,
+      "utc": "2026-07-07T18:41:22.2756329Z",
+      "frame": 131,
+      "time": 9.33674049,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemVFX",
+      "action": "Sprite.Spawned",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "assetKey": "effect.attack.hit",
+        "position": "50.4,0.7,34.8",
+        "scale": "0.85"
+      }
+    },
+    {
+      "seq": 484,
+      "utc": "2026-07-07T18:41:22.2756329Z",
+      "frame": 131,
+      "time": 9.336769,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemAI",
+      "action": "Attack",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "actor": "SmartAI15",
+        "target": "LightAI11",
+        "weapon": "pistol_basic",
+        "damage": "24.0",
+        "tattooTriggers": "0"
+      }
+    },
+    {
+      "seq": 485,
+      "utc": "2026-07-07T18:41:22.2756329Z",
+      "frame": 131,
+      "time": 9.33678,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemAsset",
+      "action": "Sprite.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "effect.attack.hit",
+        "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+      }
+    },
+    {
+      "seq": 486,
+      "utc": "2026-07-07T18:41:22.2756329Z",
+      "frame": 131,
+      "time": 9.336833,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemVFX",
+      "action": "Sprite.Spawned",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "assetKey": "effect.attack.hit",
+        "position": "47.4,0.7,45.5",
+        "scale": "0.35"
+      }
+    },
+    {
+      "seq": 487,
+      "utc": "2026-07-07T18:41:22.2756329Z",
+      "frame": 131,
+      "time": 9.336835,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemVFX",
+      "action": "Projectile.Spawned",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "projectileId": "bullet_pistol",
+        "speed": "30.0",
+        "maxRange": "20.0"
+      }
+    },
+    {
+      "seq": 488,
+      "utc": "2026-07-07T18:41:22.2756329Z",
+      "frame": 131,
+      "time": 9.33684,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemAsset",
+      "action": "Sprite.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "effect.attack.hit",
+        "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+      }
+    },
+    {
+      "seq": 489,
+      "utc": "2026-07-07T18:41:22.2756329Z",
+      "frame": 131,
+      "time": 9.336873,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemVFX",
+      "action": "Sprite.Spawned",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "assetKey": "effect.attack.hit",
+        "position": "47.1,0.7,46.0",
+        "scale": "0.85"
+      }
+    },
+    {
+      "seq": 490,
+      "utc": "2026-07-07T18:41:22.2761333Z",
+      "frame": 131,
+      "time": 9.336896,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemAI",
+      "action": "Attack",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "actor": "SmartAI16",
+        "target": "SmartAI17",
+        "weapon": "pistol_basic",
+        "damage": "23.5",
+        "tattooTriggers": "0"
+      }
+    },
+    {
+      "seq": 491,
+      "utc": "2026-07-07T18:41:22.2761333Z",
+      "frame": 131,
+      "time": 9.336906,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemAsset",
+      "action": "Sprite.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "effect.attack.hit",
+        "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+      }
+    },
+    {
+      "seq": 492,
+      "utc": "2026-07-07T18:41:22.2761333Z",
+      "frame": 131,
+      "time": 9.336923,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemVFX",
+      "action": "Sprite.Spawned",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "assetKey": "effect.attack.hit",
+        "position": "47.4,0.7,45.5",
+        "scale": "0.35"
+      }
+    },
+    {
+      "seq": 493,
+      "utc": "2026-07-07T18:41:22.2761333Z",
+      "frame": 131,
+      "time": 9.336925,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemVFX",
+      "action": "Projectile.Spawned",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "projectileId": "bullet_pistol",
+        "speed": "30.0",
+        "maxRange": "20.0"
+      }
+    },
+    {
+      "seq": 494,
+      "utc": "2026-07-07T18:41:22.2761333Z",
+      "frame": 131,
+      "time": 9.336928,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemAsset",
+      "action": "Sprite.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "effect.attack.hit",
+        "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+      }
+    },
+    {
+      "seq": 495,
+      "utc": "2026-07-07T18:41:22.2761333Z",
+      "frame": 131,
+      "time": 9.336944,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemVFX",
+      "action": "Sprite.Spawned",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "assetKey": "effect.attack.hit",
+        "position": "47.8,0.7,45.1",
+        "scale": "0.85"
+      }
+    },
+    {
+      "seq": 496,
+      "utc": "2026-07-07T18:41:22.2761333Z",
+      "frame": 131,
+      "time": 9.336946,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemAI",
+      "action": "Attack",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "actor": "SmartAI17",
+        "target": "SmartAI16",
+        "weapon": "pistol_basic",
+        "damage": "23.4",
+        "tattooTriggers": "0"
+      }
+    },
+    {
+      "seq": 497,
+      "utc": "2026-07-07T18:41:22.2761333Z",
+      "frame": 131,
+      "time": 9.336974,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemAsset",
+      "action": "Sprite.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "effect.attack.hit",
+        "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+      }
+    },
+    {
+      "seq": 498,
+      "utc": "2026-07-07T18:41:22.2761333Z",
+      "frame": 131,
+      "time": 9.33699,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemVFX",
+      "action": "Sprite.Spawned",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "assetKey": "effect.attack.hit",
+        "position": "39.7,0.7,50.1",
+        "scale": "0.35"
+      }
+    },
+    {
+      "seq": 499,
+      "utc": "2026-07-07T18:41:22.2761333Z",
+      "frame": 131,
+      "time": 9.336992,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemVFX",
+      "action": "Projectile.Spawned",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "projectileId": "bullet_pistol",
+        "speed": "30.0",
+        "maxRange": "20.0"
+      }
+    },
+    {
+      "seq": 500,
+      "utc": "2026-07-07T18:41:22.2761333Z",
+      "frame": 131,
+      "time": 9.336997,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemAsset",
+      "action": "Sprite.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "effect.attack.hit",
+        "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+      }
+    },
+    {
+      "seq": 501,
+      "utc": "2026-07-07T18:41:22.2761333Z",
+      "frame": 131,
+      "time": 9.337033,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemVFX",
+      "action": "Sprite.Spawned",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "assetKey": "effect.attack.hit",
+        "position": "39.1,0.7,50.2",
+        "scale": "0.85"
+      }
+    },
+    {
+      "seq": 502,
+      "utc": "2026-07-07T18:41:22.2761333Z",
+      "frame": 131,
+      "time": 9.33706,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemAI",
+      "action": "Attack",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "actor": "SmartAI18",
+        "target": "SmartAI19",
+        "weapon": "pistol_basic",
+        "damage": "23.7",
+        "tattooTriggers": "0"
+      }
+    },
+    {
+      "seq": 503,
+      "utc": "2026-07-07T18:41:22.2761333Z",
+      "frame": 131,
+      "time": 9.33707,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemAsset",
+      "action": "Sprite.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "effect.attack.hit",
+        "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+      }
+    },
+    {
+      "seq": 504,
+      "utc": "2026-07-07T18:41:22.2761333Z",
+      "frame": 131,
+      "time": 9.337088,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemVFX",
+      "action": "Sprite.Spawned",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "assetKey": "effect.attack.hit",
+        "position": "39.7,0.7,50.1",
+        "scale": "0.35"
+      }
+    },
+    {
+      "seq": 505,
+      "utc": "2026-07-07T18:41:22.2761333Z",
+      "frame": 131,
+      "time": 9.33709049,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemVFX",
+      "action": "Projectile.Spawned",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "projectileId": "bullet_pistol",
+        "speed": "30.0",
+        "maxRange": "20.0"
+      }
+    },
+    {
+      "seq": 506,
+      "utc": "2026-07-07T18:41:22.2761333Z",
+      "frame": 131,
+      "time": 9.337094,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemAsset",
+      "action": "Sprite.EditorAsset",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "key": "effect.attack.hit",
+        "asset": "Assets/Resources/Sprite/Weapons/weapon_short_blade.png"
+      }
+    },
+    {
+      "seq": 507,
+      "utc": "2026-07-07T18:41:22.2761333Z",
+      "frame": 131,
+      "time": 9.33711052,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemVFX",
+      "action": "Sprite.Spawned",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "assetKey": "effect.attack.hit",
+        "position": "40.4,0.7,50.0",
+        "scale": "0.85"
+      }
+    },
+    {
+      "seq": 508,
+      "utc": "2026-07-07T18:41:22.2761333Z",
+      "frame": 131,
+      "time": 9.337113,
+      "traceId": "runtime-de04dd6465804acaa103ac5a3e6b2b37",
+      "system": "TotemAI",
+      "action": "Attack",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "actor": "SmartAI19",
+        "target": "SmartAI18",
+        "weapon": "pistol_basic",
+        "damage": "22.7",
+        "tattooTriggers": "0"
+      }
+    },
+    {
+      "seq": 509,
+      "utc": "2026-07-07T18:41:22.3661331Z",
+      "frame": 132,
+      "time": 9.427196,
+      "traceId": "diagnostics-8d021561813f4e14aac986e20ded47e1",
+      "system": "Trace",
+      "action": "Begin",
+      "result": "Info",
+      "message": "diagnostics-8d021561813f4e14aac986e20ded47e1",
+      "data": null
+    },
+    {
+      "seq": 510,
+      "utc": "2026-07-07T18:41:22.3661331Z",
+      "frame": 132,
+      "time": 9.427198,
+      "traceId": "diagnostics-8d021561813f4e14aac986e20ded47e1",
+      "system": "Diagnostics",
+      "action": "RunAll.Begin",
+      "result": "Info",
+      "message": null,
+      "data": null
+    },
+    {
+      "seq": 511,
+      "utc": "2026-07-07T18:41:22.3666340Z",
+      "frame": 132,
+      "time": 9.427725,
+      "traceId": "diagnostics-8d021561813f4e14aac986e20ded47e1",
+      "system": "Diagnostics",
+      "action": "Project layout.Begin",
+      "result": "Info",
+      "message": null,
+      "data": null
+    },
+    {
+      "seq": 512,
+      "utc": "2026-07-07T18:41:22.3671328Z",
+      "frame": 132,
+      "time": 9.428359,
+      "traceId": "diagnostics-8d021561813f4e14aac986e20ded47e1",
+      "system": "Diagnostics",
+      "action": "Project layout.End",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "durationMs": "0",
+        "errors": "0",
+        "warnings": "0"
+      }
+    },
+    {
+      "seq": 513,
+      "utc": "2026-07-07T18:41:22.3671328Z",
+      "frame": 132,
+      "time": 9.428363,
+      "traceId": "diagnostics-8d021561813f4e14aac986e20ded47e1",
+      "system": "Diagnostics",
+      "action": "AppConfigs runtime contract.Begin",
+      "result": "Info",
+      "message": null,
+      "data": null
+    },
+    {
+      "seq": 514,
+      "utc": "2026-07-07T18:41:22.3716325Z",
+      "frame": 132,
+      "time": 9.432756,
+      "traceId": "diagnostics-8d021561813f4e14aac986e20ded47e1",
+      "system": "Diagnostics",
+      "action": "AppConfigs runtime contract.End",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "durationMs": "4",
+        "errors": "0",
+        "warnings": "0"
+      }
+    },
+    {
+      "seq": 515,
+      "utc": "2026-07-07T18:41:22.3716325Z",
+      "frame": 132,
+      "time": 9.432763,
+      "traceId": "diagnostics-8d021561813f4e14aac986e20ded47e1",
+      "system": "Diagnostics",
+      "action": "Build settings.Begin",
+      "result": "Info",
+      "message": null,
+      "data": null
+    },
+    {
+      "seq": 516,
+      "utc": "2026-07-07T18:41:22.3726326Z",
+      "frame": 132,
+      "time": 9.433782,
+      "traceId": "diagnostics-8d021561813f4e14aac986e20ded47e1",
+      "system": "Diagnostics",
+      "action": "Build settings.End",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "durationMs": "1",
+        "errors": "0",
+        "warnings": "0"
+      }
+    },
+    {
+      "seq": 517,
+      "utc": "2026-07-07T18:41:22.3726326Z",
+      "frame": 132,
+      "time": 9.433787,
+      "traceId": "diagnostics-8d021561813f4e14aac986e20ded47e1",
+      "system": "Diagnostics",
+      "action": "Resource rules.Begin",
+      "result": "Info",
+      "message": null,
+      "data": null
+    },
+    {
+      "seq": 518,
+      "utc": "2026-07-07T18:41:22.3731334Z",
+      "frame": 132,
+      "time": 9.434166,
+      "traceId": "diagnostics-8d021561813f4e14aac986e20ded47e1",
+      "system": "Diagnostics",
+      "action": "Resource rules.End",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "durationMs": "0",
+        "errors": "0",
+        "warnings": "0"
+      }
+    },
+    {
+      "seq": 519,
+      "utc": "2026-07-07T18:41:22.3731334Z",
+      "frame": 132,
+      "time": 9.434171,
+      "traceId": "diagnostics-8d021561813f4e14aac986e20ded47e1",
+      "system": "Diagnostics",
+      "action": "AI DataTable json.Begin",
+      "result": "Info",
+      "message": null,
+      "data": null
+    },
+    {
+      "seq": 520,
+      "utc": "2026-07-07T18:41:22.3996327Z",
+      "frame": 132,
+      "time": 9.460544,
+      "traceId": "diagnostics-8d021561813f4e14aac986e20ded47e1",
+      "system": "Diagnostics",
+      "action": "AI DataTable json.End",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "durationMs": "26",
+        "errors": "0",
+        "warnings": "0"
+      }
+    },
+    {
+      "seq": 521,
+      "utc": "2026-07-07T18:41:22.4001329Z",
+      "frame": 132,
+      "time": 9.461322,
+      "traceId": "diagnostics-8d021561813f4e14aac986e20ded47e1",
+      "system": "Diagnostics",
+      "action": "RegisteredScenarios.Discover",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "count": "12"
+      }
+    },
+    {
+      "seq": 522,
+      "utc": "2026-07-07T18:41:22.4006329Z",
+      "frame": 132,
+      "time": 9.461488,
+      "traceId": "diagnostics-8d021561813f4e14aac986e20ded47e1",
+      "system": "Diagnostics",
+      "action": "RegisteredScenarios.Skip",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "type": "UGF.EditorTools.BusinessRewriteInventoryDiagnosticScenario",
+        "mode": "EditMode"
+      }
+    },
+    {
+      "seq": 523,
+      "utc": "2026-07-07T18:41:22.4006329Z",
+      "frame": 132,
+      "time": 9.46152,
+      "traceId": "diagnostics-8d021561813f4e14aac986e20ded47e1",
+      "system": "Diagnostics",
+      "action": "RegisteredScenarios.Skip",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "type": "UGF.EditorTools.BusinessRuntimeContractDiagnosticScenario",
+        "mode": "EditMode"
+      }
+    },
+    {
+      "seq": 524,
+      "utc": "2026-07-07T18:41:22.4006329Z",
+      "frame": 132,
+      "time": 9.461544,
+      "traceId": "diagnostics-8d021561813f4e14aac986e20ded47e1",
+      "system": "Diagnostics",
+      "action": "RegisteredScenarios.Skip",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "type": "UGF.EditorTools.CleanWorkspaceDiagnosticScenario",
+        "mode": "EditMode"
+      }
+    },
+    {
+      "seq": 525,
+      "utc": "2026-07-07T18:41:22.4006329Z",
+      "frame": 132,
+      "time": 9.461799,
+      "traceId": "diagnostics-8d021561813f4e14aac986e20ded47e1",
+      "system": "Diagnostics",
+      "action": "RegisteredScenarios.Skip",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "type": "UGF.EditorTools.MigrationPathContractDiagnosticScenario",
+        "mode": "EditMode"
+      }
+    },
+    {
+      "seq": 526,
+      "utc": "2026-07-07T18:41:22.4011339Z",
+      "frame": 132,
+      "time": 9.462133,
+      "traceId": "diagnostics-8d021561813f4e14aac986e20ded47e1",
+      "system": "Diagnostics",
+      "action": "Scenario.Begin",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "type": "UGF.EditorTools.StartupChainDiagnosticScenario",
+        "category": "Startup",
+        "name": "Launch To Totem Runtime Smoke",
+        "mode": "PlayMode"
+      }
+    },
+    {
+      "seq": 527,
+      "utc": "2026-07-07T18:41:22.4016325Z",
+      "frame": 132,
+      "time": 9.462611,
+      "traceId": "diagnostics-8d021561813f4e14aac986e20ded47e1",
+      "system": "DiagnosticScenario.Startup",
+      "action": "Launch To Totem Runtime Smoke.Probe",
+      "result": "Info",
+      "message": "Check runtime startup chain.",
+      "data": null
+    },
+    {
+      "seq": 528,
+      "utc": "2026-07-07T18:41:22.4026328Z",
+      "frame": 132,
+      "time": 9.463808,
+      "traceId": "diagnostics-8d021561813f4e14aac986e20ded47e1",
+      "system": "DiagnosticScenario.Startup",
+      "action": "Launch To Totem Runtime Smoke.Probe",
+      "result": "Info",
+      "message": "Startup trace order skipped because early events are outside the recent trace window.",
+      "data": null
+    },
+    {
+      "seq": 529,
+      "utc": "2026-07-07T18:41:22.4026328Z",
+      "frame": 132,
+      "time": 9.463871,
+      "traceId": "diagnostics-8d021561813f4e14aac986e20ded47e1",
+      "system": "Diagnostics",
+      "action": "Scenario.End",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "type": "UGF.EditorTools.StartupChainDiagnosticScenario",
+        "category": "Startup",
+        "name": "Launch To Totem Runtime Smoke",
+        "durationMs": "1",
+        "errors": "0",
+        "warnings": "0"
+      }
+    },
+    {
+      "seq": 530,
+      "utc": "2026-07-07T18:41:22.4031325Z",
+      "frame": 132,
+      "time": 9.463907,
+      "traceId": "diagnostics-8d021561813f4e14aac986e20ded47e1",
+      "system": "Diagnostics",
+      "action": "RegisteredScenarios.Skip",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "type": "UGF.EditorTools.TotemAIRuntimeDiagnosticScenario",
+        "mode": "EditMode"
+      }
+    },
+    {
+      "seq": 531,
+      "utc": "2026-07-07T18:41:22.4031325Z",
+      "frame": 132,
+      "time": 9.463931,
+      "traceId": "diagnostics-8d021561813f4e14aac986e20ded47e1",
+      "system": "Diagnostics",
+      "action": "RegisteredScenarios.Skip",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "type": "UGF.EditorTools.TotemExtendedGameplayDiagnosticScenario",
+        "mode": "EditMode"
+      }
+    },
+    {
+      "seq": 532,
+      "utc": "2026-07-07T18:41:22.4031325Z",
+      "frame": 132,
+      "time": 9.464147,
+      "traceId": "diagnostics-8d021561813f4e14aac986e20ded47e1",
+      "system": "Diagnostics",
+      "action": "RegisteredScenarios.Skip",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "type": "UGF.EditorTools.TotemFirstSliceUIDiagnosticScenario",
+        "mode": "EditMode"
+      }
+    },
+    {
+      "seq": 533,
+      "utc": "2026-07-07T18:41:22.4031325Z",
+      "frame": 132,
+      "time": 9.46417,
+      "traceId": "diagnostics-8d021561813f4e14aac986e20ded47e1",
+      "system": "Diagnostics",
+      "action": "RegisteredScenarios.Skip",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "type": "UGF.EditorTools.TotemGameplayCatalogDiagnosticScenario",
+        "mode": "EditMode"
+      }
+    },
+    {
+      "seq": 534,
+      "utc": "2026-07-07T18:41:22.4031325Z",
+      "frame": 132,
+      "time": 9.464193,
+      "traceId": "diagnostics-8d021561813f4e14aac986e20ded47e1",
+      "system": "Diagnostics",
+      "action": "RegisteredScenarios.Skip",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "type": "UGF.EditorTools.TotemGameplayRuntimeDiagnosticScenario",
+        "mode": "EditMode"
+      }
+    },
+    {
+      "seq": 535,
+      "utc": "2026-07-07T18:41:22.4031325Z",
+      "frame": 132,
+      "time": 9.464213,
+      "traceId": "diagnostics-8d021561813f4e14aac986e20ded47e1",
+      "system": "Diagnostics",
+      "action": "RegisteredScenarios.Skip",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "type": "UGF.EditorTools.TotemRuntimeAssetDiagnosticScenario",
+        "mode": "EditMode"
+      }
+    },
+    {
+      "seq": 536,
+      "utc": "2026-07-07T18:41:22.4031325Z",
+      "frame": 132,
+      "time": 9.464232,
+      "traceId": "diagnostics-8d021561813f4e14aac986e20ded47e1",
+      "system": "Diagnostics",
+      "action": "RegisteredScenarios.Skip",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "type": "UGF.EditorTools.TotemVfxRuntimeDiagnosticScenario",
+        "mode": "EditMode"
+      }
+    },
+    {
+      "seq": 537,
+      "utc": "2026-07-07T18:41:22.4031325Z",
+      "frame": 132,
+      "time": 9.464243,
+      "traceId": "diagnostics-8d021561813f4e14aac986e20ded47e1",
+      "system": "Diagnostics",
+      "action": "Editor snapshot.Begin",
+      "result": "Info",
+      "message": null,
+      "data": null
+    },
+    {
+      "seq": 538,
+      "utc": "2026-07-07T18:41:22.4066327Z",
+      "frame": 132,
+      "time": 9.467722,
+      "traceId": "diagnostics-8d021561813f4e14aac986e20ded47e1",
+      "system": "Diagnostics",
+      "action": "Editor snapshot.End",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "durationMs": "3",
+        "errors": "0",
+        "warnings": "0"
+      }
+    }
+  ]
+}

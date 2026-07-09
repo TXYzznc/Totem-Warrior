@@ -1,6 +1,6 @@
 ---
 name: playtest-driver
-description: 在 Unity Editor 中自动驱动 playtest——通过 unity-skills CLI 触发 Tools/Playtest/* 菜单注入虚拟键鼠输入、点击 UI 按钮、控制 Play Mode、读取 FrameworkLogger 日志、生成 markdown 测试报告。触发：playtest、自动测试、模拟输入、模拟按键、模拟点击、跑界面、跑功能、playtest 报告。依赖 InputModule.EnableSimulator + unity-skills CLI（端口自动路由）+ PlaytestDriverEditor 菜单。
+description: 在 Unity Editor 中自动驱动 playtest——通过 unity-skills CLI 触发 Tools/Playtest/* 菜单与 totem_diagnostics_run_all，注入虚拟键鼠输入、点击 UI 按钮、控制 Play Mode、读取 GF_X 日志、生成 markdown 测试报告。触发：playtest、自动测试、模拟输入、模拟按键、模拟点击、跑界面、跑功能、playtest 报告。依赖 GF_X/TotemInputService 测试入口 + unity-skills CLI（端口自动路由）+ PlaytestDriverEditor 菜单。
 tags: playtest, unity-editor-automation, input-simulation, e2e-testing, test-report
 tags_cn: Playtest 自动化, Unity 编辑器驱动, 输入模拟, 端到端测试, 测试报告
 ---
@@ -13,11 +13,11 @@ tags_cn: Playtest 自动化, Unity 编辑器驱动, 输入模拟, 端到端测�
 
 | 工具 | 用途 |
 |---|---|
-| **unity-skills CLI** (端口自动路由，见 [unity-skills SKILL](../unity-skills/SKILL.md) 的「多项目路由」章节) | `editor_play` / `editor_get_state` / `editor_execute_menu` / `console_*` / `event_invoke` / `asset_refresh` |
-| **PlaytestDriverEditor** 菜单 (`Assets/Editor/Playtest/PlaytestDriverEditor.cs`) | `Tools/Playtest/01 Enable Simulator` / `Tools/Playtest/Press/<键>` / `Tools/Playtest/Hold/<键>` / `Tools/Playtest/Move/<方向>` |
-| **InputModule.EnableSimulator** | 注入虚拟键鼠（仅 `UNITY_EDITOR / DEVELOPMENT_BUILD` 可用） |
+| **unity-skills CLI** (端口自动路由，见 [unity-skills SKILL](../unity-skills/SKILL.md) 的「多项目路由」章节) | `totem_diagnostics_run_all` / `editor_play` / `editor_get_state` / `editor_execute_menu` / `console_*` / `event_invoke` / `asset_refresh` |
+| **TotemPlaytestDriverEditor** 菜单 (`Assets/Game/ScriptsBuiltin/Editor/Playtest/TotemPlaytestDriverEditor.cs`) | `Tools/Playtest/01 Enable Simulator` / `Tools/Playtest/Press/<键>` / `Tools/Playtest/Hold/<键>` / `Tools/Playtest/Move/<方向>` |
+| **TotemInputService 测试入口** | 注入虚拟键鼠或测试输入 provider（仅 `UNITY_EDITOR / DEVELOPMENT_BUILD` 可用） |
 
-**不再依赖 uloop CLI**。所有运行时操作改走 Editor 菜单 + `editor_execute_menu`，更稳定、可读、人工也能复跑。
+**不再依赖 uloop CLI**。Playtest 输入和 UI 操作走 Editor 菜单 + `editor_execute_menu`；GF_X 全量诊断必须优先走 `totem_diagnostics_run_all`，不要用通用 `editor_execute_menu` 路由 `Game Framework/GameTools/Diagnostics/Run All`。
 
 **调用形式**：本 SKILL 所有示例统一用 `python .claude/skills/unity-skills/scripts/unity_skills.py <skill> [key=value]...`（下称 `us`）。端口从 `~/.unity_skills/registry.json` 按 cwd 自动匹配，跨项目用 `--target=<name>` 或 `--port=<num>` 覆盖。含 CJK/复杂 body 时改用 `--stdin-json`。
 
@@ -77,9 +77,10 @@ for i in $(seq 1 15); do
   sleep 1
   us editor_get_state
 done
-# 验 GameApp 就绪
-us console_get_logs filter=GameApp limit=5
-# 期望命中："所有模块初始化完成" / "GameReadyEvent"
+# 验 GF_X / Totem runtime 就绪
+us totem_diagnostics_run_all
+us console_get_logs filter=Totem limit=20
+# 期望命中：Launch/Procedure 已进入项目 runtime，且 Diagnostics 没有 Error/Exception
 ```
 
 ### STEP 3 — 装配 InputSimulator
@@ -89,7 +90,7 @@ echo '{"menuPath":"Tools/Playtest/01 Enable Simulator"}' | us editor_execute_men
 # 期望日志："[Playtest|INFO] Action=EnableSimulator Type=InputSimulator"
 ```
 
-失败 → 中止，写报告标 FAIL。常见原因：未在 Play Mode / GameApp 未就绪 / InputModule 未注册。
+失败 → 中止，写报告标 FAIL。常见原因：未在 Play Mode / GF_X Launch 未就绪 / TotemInputService 测试 provider 未注册。
 
 ### STEP 4 — 输入注入循环
 
@@ -98,8 +99,11 @@ echo '{"menuPath":"Tools/Playtest/01 Enable Simulator"}' | us editor_execute_men
 **单帧按键（玩法）**：菜单路径含空格 / 括号，一律走 `--stdin-json`：
 
 ```bash
-# 按一次 E 触发技能
-echo '{"menuPath":"Tools/Playtest/Press/E (Skill)"}' | us editor_execute_menu --stdin-json
+# 按一次 E 触发技能槽 0
+echo '{"menuPath":"Tools/Playtest/Press/E (Skill Slot E)"}' | us editor_execute_menu --stdin-json
+
+# 按一次 Q 触发技能槽 1
+echo '{"menuPath":"Tools/Playtest/Press/Q (Skill Slot Q)"}' | us editor_execute_menu --stdin-json
 
 # 鼠标左键（普攻）
 echo '{"menuPath":"Tools/Playtest/Press/MouseLeft (Attack)"}' | us editor_execute_menu --stdin-json
@@ -135,7 +139,8 @@ echo '{"objectName":"<按钮节点名>","componentName":"Button","eventName":"on
 ```bash
 # 暂停 → 注入 → 单帧推进 → 检查
 us editor_execute_menu menuPath=Edit/Pause
-echo '{"menuPath":"Tools/Playtest/Press/E (Skill)"}' | us editor_execute_menu --stdin-json
+echo '{"menuPath":"Tools/Playtest/Press/E (Skill Slot E)"}' | us editor_execute_menu --stdin-json
+echo '{"menuPath":"Tools/Playtest/Press/Q (Skill Slot Q)"}' | us editor_execute_menu --stdin-json
 us editor_execute_menu menuPath=Edit/Step
 us console_get_logs filter=Skill limit=20
 ```
@@ -159,6 +164,24 @@ us console_get_stats
 us editor_execute_menu menuPath=Edit/Play
 ```
 
+### STEP 5.1 — 已知 Unity Editor 退出噪声
+
+Unity 2022.3.62f3 在停止 Play Mode 后，可能由 Editor UIElements 面板自身记录这类错误：
+
+```text
+MissingReferenceException: The object of type 'Material' has been destroyed...
+UnityEngine.UIElements.UIR.Implementation.UIRStylePainter.DrawTextInfo
+```
+
+分类规则：
+
+- 如果该错误只在退出 Play Mode 后出现，并且完整 `Editor.log` 堆栈只有 `UnityEngine` / `UnityEngine.UIElements` 帧、没有任何项目脚本帧，则标记为 `EditorTransientExitNoise`。
+- 不要因为这个精确堆栈把 gameplay 场景判为 FAIL。
+- 如果同类错误在 Play Mode 运行中出现，或堆栈里出现项目脚本帧，仍然判为 FAIL。
+- 如果 raw Console 包含 `FMOD failed to switch back to normal output` 或 `Error initializing output device`，并且没有项目脚本帧、`totem_diagnostics_run_all` 为 `0 failure / 0 warning`，则标记为 `ExternalAudioDeviceNoise`。
+- `ExternalAudioDeviceNoise` 必须保留在 raw Console 计数/备注中，但不计入 filtered project Error/Exception。
+- 报告里同时写 raw Console 错误数和过滤后的 project-error 错误数。
+
 写报告：`tools/playtest/reports/YYYY-MM-DD-HHMM-<scenario>.md`，套用 [`tools/playtest/reports/_TEMPLATE.md`](../../../tools/playtest/reports/_TEMPLATE.md)。
 
 ## 可用菜单清单（PlaytestDriverEditor）
@@ -167,7 +190,8 @@ us editor_execute_menu menuPath=Edit/Play
 |---|---|
 | `Tools/Playtest/01 Enable Simulator` | 装配 `InputSimulator`（必须先调） |
 | `Tools/Playtest/02 Disable Simulator` | 卸下；恢复纯 `Input.GetXxx` 真实键鼠 |
-| `Tools/Playtest/Press/E (Skill)` | 单帧按 E（技能） |
+| `Tools/Playtest/Press/E (Skill Slot E)` | 单帧按 E（技能槽 0） |
+| `Tools/Playtest/Press/Q (Skill Slot Q)` | 单帧按 Q（技能槽 1） |
 | `Tools/Playtest/Press/Space (Dodge)` | 单帧按 Space（闪避） |
 | `Tools/Playtest/Press/Tab (SelfTattoo)` | 单帧按 Tab（自助纹身面板） |
 | `Tools/Playtest/Press/Escape (Pause)` | 单帧按 Esc（暂停） |
@@ -235,7 +259,7 @@ us editor_execute_menu menuPath=Edit/Play
 3. 每条 TC 一份独立报告 `tools/playtest/reports/YYYY-MM-DD-HHMM-<TC-编号>-<scope>.md`
 4. 全跑完汇总 `tools/playtest/reports/YYYY-MM-DD-<scope>-summary.md`，含每条 TC 的 PASS/FAIL 表 + 错误聚合 + 后续 bug list
 
-> 真实玩家旅程示例（v2.1 GDD）：MainMenu.unity 启动 → 点 Start → Launch 场景 → GameApp 就绪 → MainMenuForm 点 Start → InGame → CombatHUD → Tab 自助纹身 / 鼠左普攻 / E 技能 / 空格闪避 → Esc 暂停 → Resume → RunEnded → RunResultForm → ReturnToMenu。
+> 真实玩家旅程示例（当前 GF_X）：`Assets/Game/Scene/Launch.unity` 启动 → 主菜单 → 角色选择 → 启动选择 → 进入战斗 HUD → Tab 自助纹身 / 鼠左普攻 / E 技能 / 空格闪避 → Esc 暂停 → Resume → 结算 → ReturnToMenu。
 
 ## 与其他 SKILL 边界
 

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="1" result="Passed" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-07-09 04:25:03Z" end-time="2026-07-09 04:25:10Z" duration="6.8103379">
+  <test-suite type="TestSuite" id="1006" name="GameDesinger" fullname="GameDesinger" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-07-09 04:25:03Z" end-time="2026-07-09 04:25:10Z" duration="6.810338" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1003" name="Totem.PlayMode.Tests.dll" fullname="D:/unity/UnityProject/GameDesinger_2/Totem-Warrior/Library/ScriptAssemblies/Totem.PlayMode.Tests.dll" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-07-09 04:25:03Z" end-time="2026-07-09 04:25:10Z" duration="6.801448" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="86652" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestFixture" id="1001" name="TotemCombatHudInputSmokeTests" fullname="TotemCombatHudInputSmokeTests" classname="TotemCombatHudInputSmokeTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-07-09 04:25:03Z" end-time="2026-07-09 04:25:10Z" duration="6.789037" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-case id="1002" name="CombatHud_InputSmoke_UsesTotemInputService" fullname="TotemCombatHudInputSmokeTests.CombatHud_InputSmoke_UsesTotemInputService" methodname="CombatHud_InputSmoke_UsesTotemInputService" classname="TotemCombatHudInputSmokeTests" runstate="Runnable" seed="43912653" result="Passed" start-time="2026-07-09 04:25:03Z" end-time="2026-07-09 04:25:10Z" duration="6.670873" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[[UnitySkills] [Self-Test] Starting (ProcessJobQueue ticks=45, listener=True)
+<color=#2BD988>------------Set ResourceMode:Package------------</color>
+<color=#2BD988>----------UI Match:1----------</color>
+<color=#2BD988>进入HybridCLR热更流程! 预加载游戏数据...</color>
+<color=#2BD988>GF框架扩展成功!</color>
+<color=#2BD988>初始化游戏设置. 游戏语言:English,系统语言:ChineseSimplified</color>
+<color=#2BD988>预加载完成, 进入干净工作区流程.</color>
+<color=#2BD988>进入干净工作区流程，准备切换到 Totem Warrior 业务运行时。</color>
+<color=#2BD988>进入 Totem Warrior GF_X 业务运行时。</color>
+Saving results to: C:/Users/WIN10/AppData/LocalLow/DefaultCompany/GameDesinger\TestResults.xml
+]]></output>
+        </test-case>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

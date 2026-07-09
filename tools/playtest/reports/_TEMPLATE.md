@@ -45,6 +45,15 @@ warnings_found: 0
 [CombatModule|INFO] Action=DamageDealt Target=enemy_01 Damage=42
 ```
 
+## Console Classification
+
+- Raw Error/Exception count: `<number>`
+- Filtered project Error/Exception count: `<number>`
+- Known editor/device noise, if any:
+  - `EditorTransientExitNoise`: Unity UIElements Material stack after leaving Play Mode, with no project script frame.
+  - `ExternalAudioDeviceNoise`: FMOD output-device initialization/switch error, e.g. `FMOD failed to switch back to normal output` / `Error initializing output device`, with no project script frame and green `totem_diagnostics_run_all`.
+- PASS requires filtered project Error/Exception count = 0.
+
 ## 后续
 
 - [ ] 待跟进的 bug / 改进项

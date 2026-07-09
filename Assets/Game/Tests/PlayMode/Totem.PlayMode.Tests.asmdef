@@ -1,0 +1,20 @@
+{
+  "name": "Totem.PlayMode.Tests",
+  "rootNamespace": "",
+  "references": [
+    "Hotfix",
+    "Builtin.Runtime"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ],
+  "noEngineReferences": false
+}

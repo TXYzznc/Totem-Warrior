@@ -1,0 +1,4920 @@
+{
+  "schemaVersion": 1,
+  "action": "gf-diagnostics-run-all",
+  "createdAtUtc": "2026-07-08T04:04:48.5604859Z",
+  "successCount": 8,
+  "failureCount": 0,
+  "warningCount": 0,
+  "warnings": [],
+  "items": [
+    {
+      "name": "Project layout",
+      "success": true,
+      "durationMs": 0,
+      "warnings": [],
+      "errors": [],
+      "details": {
+        "exampleAssets": "Assets/Game/Examples/DemoGame",
+        "exampleGameData": "GameData/Examples/DemoGame"
+      }
+    },
+    {
+      "name": "AppConfigs runtime contract",
+      "success": true,
+      "durationMs": 4,
+      "warnings": [],
+      "errors": [],
+      "details": {
+        "loadFromBytes": "False",
+        "dataTables": "Core/EntityGroupTable,Core/LanguagesTable,Core/SoundGroupTable,Core/UIGroupTable,Core/UITable",
+        "configs": "",
+        "languages": "English",
+        "procedures": "ChangeSceneProcedure,PreloadProcedure,WorkspaceProcedure,TotemGameProcedure"
+      }
+    },
+    {
+      "name": "Build settings",
+      "success": true,
+      "durationMs": 1,
+      "warnings": [],
+      "errors": [],
+      "details": {
+        "sceneCount": "1",
+        "scenes": "Assets/Game/Scene/Launch.unity|enabled=True"
+      }
+    },
+    {
+      "name": "Resource rules",
+      "success": true,
+      "durationMs": 0,
+      "warnings": [],
+      "errors": [],
+      "details": {}
+    },
+    {
+      "name": "AI DataTable json",
+      "success": true,
+      "durationMs": 27,
+      "warnings": [],
+      "errors": [],
+      "details": {
+        "jsonCount": "5",
+        "aiSuccessCount": "5",
+        "aiFailureCount": "0",
+        "aiWarningCount": "0"
+      }
+    },
+    {
+      "name": "Registered diagnostic scenarios",
+      "success": true,
+      "durationMs": 0,
+      "warnings": [],
+      "errors": [],
+      "details": {
+        "discoveredCount": "17",
+        "skipped.BusinessRewriteInventoryDiagnosticScenario": "EditMode",
+        "skipped.BusinessRuntimeContractDiagnosticScenario": "EditMode",
+        "skipped.CleanWorkspaceDiagnosticScenario": "EditMode",
+        "skipped.MigrationPathContractDiagnosticScenario": "EditMode",
+        "skipped.TotemAIRuntimeDiagnosticScenario": "EditMode",
+        "skipped.TotemActorVisualDiagnosticScenario": "EditMode",
+        "skipped.TotemAudioRuntimeDiagnosticScenario": "EditMode",
+        "skipped.TotemChoiceRuntimeDiagnosticScenario": "EditMode",
+        "skipped.TotemExtendedGameplayDiagnosticScenario": "EditMode",
+        "skipped.TotemFirstRoundContractDiagnosticScenario": "EditMode",
+        "skipped.TotemFirstSliceUIDiagnosticScenario": "EditMode",
+        "skipped.TotemGameplayCatalogDiagnosticScenario": "EditMode",
+        "skipped.TotemGameplayRuntimeDiagnosticScenario": "EditMode",
+        "skipped.TotemMetaProgressDiagnosticScenario": "EditMode",
+        "skipped.TotemRuntimeAssetDiagnosticScenario": "EditMode",
+        "skipped.TotemVfxRuntimeDiagnosticScenario": "EditMode",
+        "executableCount": "1",
+        "skippedCount": "16",
+        "message": "Registered diagnostic scenario discovery completed."
+      }
+    },
+    {
+      "name": "Scenario/Startup/Launch To Totem Runtime Smoke",
+      "success": true,
+      "durationMs": 3,
+      "warnings": [],
+      "errors": [],
+      "details": {
+        "type": "UGF.EditorTools.StartupChainDiagnosticScenario",
+        "mode": "PlayMode",
+        "currentProcedure": "TotemGameProcedure",
+        "traceEventCount": "159",
+        "event.Procedure.Launch.Enter": "6",
+        "event.Procedure.LoadHotfixDll.Enter": "8",
+        "event.Hotfix.Entry.Start": "11",
+        "event.Procedure.Preload.Enter": "17",
+        "event.Procedure.Preload.Completed": "45",
+        "event.Procedure.Workspace.Enter": "46",
+        "event.Procedure.TotemGame.Enter": "47",
+        "event.Procedure.TotemGame.RuntimeReady": "139",
+        "runtime.started": "True",
+        "runtime.currentProcedure": "TotemGameProcedure",
+        "runtime.serviceCount": "26",
+        "runtime.readyServiceCount": "26",
+        "runtime.failedServiceCount": "0",
+        "runtime.default.serviceCount.actual": "26",
+        "runtime.default.readyServiceCount.actual": "26",
+        "runtime.default.failedServiceCount.actual": "0",
+        "startupTrace.windowComplete": "True",
+        "order.Launch -> LoadHotfixDll": "6->8",
+        "order.LoadHotfixDll -> HotfixEntry": "8->11",
+        "order.HotfixEntry -> Preload": "11->17",
+        "order.Preload -> Preload.Completed": "17->45",
+        "order.Preload.Completed -> Workspace": "45->46",
+        "order.Workspace -> TotemGame": "46->47",
+        "order.TotemGame -> RuntimeReady": "47->139",
+        "preloadFailures": "0",
+        "message": "Scenario completed."
+      }
+    },
+    {
+      "name": "Editor snapshot",
+      "success": true,
+      "durationMs": 3,
+      "warnings": [],
+      "errors": [],
+      "details": {
+        "isPlaying": "True",
+        "loadedScenes": "1",
+        "currentProcedure": "TotemGameProcedure",
+        "snapshotWarnings": "0"
+      }
+    }
+  ],
+  "snapshot": {
+    "schemaVersion": 1,
+    "createdAtUtc": "2026-07-08T04:04:48.6034853Z",
+    "reason": "diagnostic-run-all",
+    "unityVersion": "2022.3.62f3c1",
+    "platform": "WindowsEditor",
+    "isPlaying": true,
+    "frame": 485,
+    "realtimeSinceStartup": 15.3201237,
+    "currentProcedure": "TotemGameProcedure",
+    "currentProcedureTime": 8.351845,
+    "resourceMode": "Unspecified",
+    "editorResourceMode": true,
+    "loadedScenes": [
+      "Launch|loaded=True|path=Assets/Game/Scene/Launch.unity"
+    ],
+    "dataTables": [
+      {
+        "fullName": "EntityGroupTable",
+        "name": "",
+        "rowType": "EntityGroupTable",
+        "rowCount": 7
+      },
+      {
+        "fullName": "LanguagesTable",
+        "name": "",
+        "rowType": "LanguagesTable",
+        "rowCount": 1
+      },
+      {
+        "fullName": "SoundGroupTable",
+        "name": "",
+        "rowType": "SoundGroupTable",
+        "rowCount": 4
+      },
+      {
+        "fullName": "UIGroupTable",
+        "name": "",
+        "rowType": "UIGroupTable",
+        "rowCount": 3
+      },
+      {
+        "fullName": "UITable",
+        "name": "",
+        "rowType": "UITable",
+        "rowCount": 12
+      }
+    ],
+    "uiGroups": [
+      {
+        "name": "UIForm",
+        "depth": 1,
+        "pause": false,
+        "formCount": 1,
+        "currentForm": "Assets/Game/Prefabs/UI/MainMenu.prefab",
+        "forms": [
+          "1:Assets/Game/Prefabs/UI/MainMenu.prefab:depth=1"
+        ]
+      },
+      {
+        "name": "Dialog",
+        "depth": 200,
+        "pause": false,
+        "formCount": 0,
+        "currentForm": "",
+        "forms": []
+      },
+      {
+        "name": "Tips",
+        "depth": 500,
+        "pause": false,
+        "formCount": 0,
+        "currentForm": "",
+        "forms": []
+      }
+    ],
+    "entityGroups": [
+      {
+        "name": "Default",
+        "entityCount": 0,
+        "capacity": 60,
+        "expireTime": 60.0,
+        "autoReleaseInterval": 60.0,
+        "priority": 0,
+        "entities": []
+      },
+      {
+        "name": "Player",
+        "entityCount": 0,
+        "capacity": 60,
+        "expireTime": 60.0,
+        "autoReleaseInterval": 60.0,
+        "priority": 0,
+        "entities": []
+      },
+      {
+        "name": "Effect",
+        "entityCount": 0,
+        "capacity": 200,
+        "expireTime": 30.0,
+        "autoReleaseInterval": 10.0,
+        "priority": 0,
+        "entities": []
+      },
+      {
+        "name": "Item",
+        "entityCount": 0,
+        "capacity": 60,
+        "expireTime": 60.0,
+        "autoReleaseInterval": 60.0,
+        "priority": 0,
+        "entities": []
+      },
+      {
+        "name": "Level",
+        "entityCount": 0,
+        "capacity": 1,
+        "expireTime": 60.0,
+        "autoReleaseInterval": 60.0,
+        "priority": 0,
+        "entities": []
+      },
+      {
+        "name": "Bullet",
+        "entityCount": 0,
+        "capacity": 60,
+        "expireTime": 60.0,
+        "autoReleaseInterval": 60.0,
+        "priority": 0,
+        "entities": []
+      },
+      {
+        "name": "Unrecycle",
+        "entityCount": 0,
+        "capacity": 0,
+        "expireTime": 60.0,
+        "autoReleaseInterval": 60.0,
+        "priority": 0,
+        "entities": []
+      }
+    ],
+    "soundGroups": [
+      {
+        "name": "Music",
+        "agentCount": 1,
+        "mute": false,
+        "volume": 0.8,
+        "avoidSamePriorityReplace": false
+      },
+      {
+        "name": "Sound",
+        "agentCount": 1,
+        "mute": false,
+        "volume": 0.8,
+        "avoidSamePriorityReplace": false
+      },
+      {
+        "name": "Vibrate",
+        "agentCount": 1,
+        "mute": false,
+        "volume": 1.0,
+        "avoidSamePriorityReplace": false
+      },
+      {
+        "name": "Joystick",
+        "agentCount": 1,
+        "mute": false,
+        "volume": 1.0,
+        "avoidSamePriorityReplace": false
+      }
+    ],
+    "warnings": [],
+    "recentEvents": [
+      {
+        "seq": 15,
+        "utc": "2026-07-08T04:04:39.6119851Z",
+        "frame": 2,
+        "time": 6.328507,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "Procedure",
+        "action": "Create",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "procedure": "TotemGameProcedure",
+          "success": "True"
+        }
+      },
+      {
+        "seq": 16,
+        "utc": "2026-07-08T04:04:39.6119851Z",
+        "frame": 2,
+        "time": 6.32854128,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "Procedure",
+        "action": "Initialize",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "count": "4",
+          "start": "PreloadProcedure"
+        }
+      },
+      {
+        "seq": 17,
+        "utc": "2026-07-08T04:04:39.6124851Z",
+        "frame": 2,
+        "time": 6.32897663,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "Procedure",
+        "action": "Preload.Enter",
+        "result": "Info",
+        "message": null,
+        "data": null
+      },
+      {
+        "seq": 18,
+        "utc": "2026-07-08T04:04:39.6134853Z",
+        "frame": 2,
+        "time": 6.32998562,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "Preload",
+        "action": "InitData.Begin",
+        "result": "Info",
+        "message": null,
+        "data": null
+      },
+      {
+        "seq": 19,
+        "utc": "2026-07-08T04:04:39.6134853Z",
+        "frame": 2,
+        "time": 6.33007765,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "Preload",
+        "action": "AppConfigs.Loaded",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "dataTables": "5",
+          "configs": "0",
+          "languages": "1",
+          "totalProgress": "7"
+        }
+      },
+      {
+        "seq": 20,
+        "utc": "2026-07-08T04:04:39.6139855Z",
+        "frame": 2,
+        "time": 6.3302083,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "Resource",
+        "action": "GFExtension.Load.Begin",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "asset": "Assets/Game/Prefabs/Core/GFExtension.prefab"
+        }
+      },
+      {
+        "seq": 21,
+        "utc": "2026-07-08T04:04:39.9089866Z",
+        "frame": 3,
+        "time": 6.62525225,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "UnityLog",
+        "action": "Warning",
+        "result": "Warning",
+        "message": "The referenced script on this Behaviour (Game Object '<null>') is missing!",
+        "data": {
+          "stackTrace": "UnityEngine.Object:Instantiate<UnityEngine.GameObject> (UnityEngine.GameObject,UnityEngine.Vector3,UnityEngine.Quaternion,UnityEngine.Transform)\nPreloadProcedure:OnLoadGFExtensionSuccess (string,object,single,object) (at Assets/Game/Scripts/Procedures/PreloadProcedure.cs:331)\nUnityGameFramework.Runtime.EditorResourceComponent:Update () (at Assets/Plugins/UnityGameFramework/Scripts/Runtime/Resource/EditorResourceComponent.cs:612)\n"
+        }
+      },
+      {
+        "seq": 22,
+        "utc": "2026-07-08T04:04:39.9104849Z",
+        "frame": 3,
+        "time": 6.627115,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "UnityLog",
+        "action": "Warning",
+        "result": "Warning",
+        "message": "The referenced script on this Behaviour (Game Object 'Joystick Base') is missing!",
+        "data": {
+          "stackTrace": "UnityEngine.Object:Instantiate<UnityEngine.GameObject> (UnityEngine.GameObject,UnityEngine.Vector3,UnityEngine.Quaternion,UnityEngine.Transform)\nPreloadProcedure:OnLoadGFExtensionSuccess (string,object,single,object) (at Assets/Game/Scripts/Procedures/PreloadProcedure.cs:331)\nUnityGameFramework.Runtime.EditorResourceComponent:Update () (at Assets/Plugins/UnityGameFramework/Scripts/Runtime/Resource/EditorResourceComponent.cs:612)\n"
+        }
+      },
+      {
+        "seq": 23,
+        "utc": "2026-07-08T04:04:39.9109857Z",
+        "frame": 3,
+        "time": 6.627215,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "UnityLog",
+        "action": "Warning",
+        "result": "Warning",
+        "message": "The referenced script on this Behaviour (Game Object 'Joystick Base') is missing!",
+        "data": {
+          "stackTrace": "UnityEngine.Object:Instantiate<UnityEngine.GameObject> (UnityEngine.GameObject,UnityEngine.Vector3,UnityEngine.Quaternion,UnityEngine.Transform)\nPreloadProcedure:OnLoadGFExtensionSuccess (string,object,single,object) (at Assets/Game/Scripts/Procedures/PreloadProcedure.cs:331)\nUnityGameFramework.Runtime.EditorResourceComponent:Update () (at Assets/Plugins/UnityGameFramework/Scripts/Runtime/Resource/EditorResourceComponent.cs:612)\n"
+        }
+      },
+      {
+        "seq": 24,
+        "utc": "2026-07-08T04:04:39.9129849Z",
+        "frame": 3,
+        "time": 6.62958765,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "Resource",
+        "action": "GFExtension.Load.Success",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "asset": "Assets/Game/Prefabs/Core/GFExtension.prefab",
+          "duration": "0.293"
+        }
+      },
+      {
+        "seq": 25,
+        "utc": "2026-07-08T04:04:39.9134853Z",
+        "frame": 3,
+        "time": 6.630042,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "Preload",
+        "action": "LoadConfigsAndDataTables.Begin",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "dataTables": "5",
+          "configs": "0"
+        }
+      },
+      {
+        "seq": 26,
+        "utc": "2026-07-08T04:04:39.9134853Z",
+        "frame": 3,
+        "time": 6.63004732,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "DataTable",
+        "action": "Load.Begin",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "name": "Core/EntityGroupTable"
+        }
+      },
+      {
+        "seq": 27,
+        "utc": "2026-07-08T04:04:39.9279873Z",
+        "frame": 3,
+        "time": 6.64433765,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "DataTable",
+        "action": "Read.Begin",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "name": "Core/EntityGroupTable",
+          "asset": "Assets/Game/DataTable/Core/EntityGroupTable.txt",
+          "rowType": "EntityGroupTable",
+          "abTestGroup": ""
+        }
+      },
+      {
+        "seq": 28,
+        "utc": "2026-07-08T04:04:39.9704850Z",
+        "frame": 3,
+        "time": 6.68705559,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "DataTable",
+        "action": "Load.Begin",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "name": "Core/LanguagesTable"
+        }
+      },
+      {
+        "seq": 29,
+        "utc": "2026-07-08T04:04:39.9719848Z",
+        "frame": 3,
+        "time": 6.688466,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "DataTable",
+        "action": "Read.Begin",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "name": "Core/LanguagesTable",
+          "asset": "Assets/Game/DataTable/Core/LanguagesTable.txt",
+          "rowType": "LanguagesTable",
+          "abTestGroup": ""
+        }
+      },
+      {
+        "seq": 30,
+        "utc": "2026-07-08T04:04:39.9909852Z",
+        "frame": 3,
+        "time": 6.707379,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "DataTable",
+        "action": "Load.Begin",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "name": "Core/SoundGroupTable"
+        }
+      },
+      {
+        "seq": 31,
+        "utc": "2026-07-08T04:04:39.9924847Z",
+        "frame": 3,
+        "time": 6.708884,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "DataTable",
+        "action": "Read.Begin",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "name": "Core/SoundGroupTable",
+          "asset": "Assets/Game/DataTable/Core/SoundGroupTable.txt",
+          "rowType": "SoundGroupTable",
+          "abTestGroup": ""
+        }
+      },
+      {
+        "seq": 32,
+        "utc": "2026-07-08T04:04:40.0204860Z",
+        "frame": 3,
+        "time": 6.73677731,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "DataTable",
+        "action": "Load.Begin",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "name": "Core/UIGroupTable"
+        }
+      },
+      {
+        "seq": 33,
+        "utc": "2026-07-08T04:04:40.0219861Z",
+        "frame": 3,
+        "time": 6.738545,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "DataTable",
+        "action": "Read.Begin",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "name": "Core/UIGroupTable",
+          "asset": "Assets/Game/DataTable/Core/UIGroupTable.txt",
+          "rowType": "UIGroupTable",
+          "abTestGroup": ""
+        }
+      },
+      {
+        "seq": 34,
+        "utc": "2026-07-08T04:04:40.0504863Z",
+        "frame": 3,
+        "time": 6.766856,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "DataTable",
+        "action": "Load.Begin",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "name": "Core/UITable"
+        }
+      },
+      {
+        "seq": 35,
+        "utc": "2026-07-08T04:04:40.0519862Z",
+        "frame": 3,
+        "time": 6.76846457,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "DataTable",
+        "action": "Read.Begin",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "name": "Core/UITable",
+          "asset": "Assets/Game/DataTable/Core/UITable.txt",
+          "rowType": "UITable",
+          "abTestGroup": ""
+        }
+      },
+      {
+        "seq": 36,
+        "utc": "2026-07-08T04:04:40.0924863Z",
+        "frame": 3,
+        "time": 6.80886,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "DataTable",
+        "action": "Load.Success",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "asset": "Assets/Game/DataTable/Core/EntityGroupTable.txt",
+          "remaining": "4"
+        }
+      },
+      {
+        "seq": 37,
+        "utc": "2026-07-08T04:04:40.0924863Z",
+        "frame": 3,
+        "time": 6.80892372,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "DataTable",
+        "action": "Load.Success",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "asset": "Assets/Game/DataTable/Core/LanguagesTable.txt",
+          "remaining": "3"
+        }
+      },
+      {
+        "seq": 38,
+        "utc": "2026-07-08T04:04:40.0924863Z",
+        "frame": 3,
+        "time": 6.80892658,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "DataTable",
+        "action": "Load.Success",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "asset": "Assets/Game/DataTable/Core/SoundGroupTable.txt",
+          "remaining": "2"
+        }
+      },
+      {
+        "seq": 39,
+        "utc": "2026-07-08T04:04:40.0924863Z",
+        "frame": 3,
+        "time": 6.80892849,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "DataTable",
+        "action": "Load.Success",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "asset": "Assets/Game/DataTable/Core/UIGroupTable.txt",
+          "remaining": "1"
+        }
+      },
+      {
+        "seq": 40,
+        "utc": "2026-07-08T04:04:40.0924863Z",
+        "frame": 3,
+        "time": 6.8089323,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "DataTable",
+        "action": "Load.Success",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "asset": "Assets/Game/DataTable/Core/UITable.txt",
+          "remaining": "0"
+        }
+      },
+      {
+        "seq": 41,
+        "utc": "2026-07-08T04:04:40.0969864Z",
+        "frame": 3,
+        "time": 6.81344557,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "Localization",
+        "action": "Language.Load.Begin",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "asset": "English",
+          "language": "English"
+        }
+      },
+      {
+        "seq": 42,
+        "utc": "2026-07-08T04:04:40.1169858Z",
+        "frame": 3,
+        "time": 6.83323574,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "GF",
+        "action": "Start.Begin",
+        "result": "Info",
+        "message": null,
+        "data": null
+      },
+      {
+        "seq": 43,
+        "utc": "2026-07-08T04:04:40.1169858Z",
+        "frame": 3,
+        "time": 6.83336926,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "GF",
+        "action": "Start.End",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "hasDataModel": "True",
+          "hasStaticUI": "True",
+          "hasVariablePool": "True"
+        }
+      },
+      {
+        "seq": 44,
+        "utc": "2026-07-08T04:04:40.1794852Z",
+        "frame": 4,
+        "time": 6.89596367,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "Localization",
+        "action": "Language.Load.Success",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "asset": "Assets/Game/Language/English.json"
+        }
+      },
+      {
+        "seq": 45,
+        "utc": "2026-07-08T04:04:40.2014853Z",
+        "frame": 4,
+        "time": 6.917854,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "Procedure",
+        "action": "Preload.Completed",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "loadedProgress": "7",
+          "totalProgress": "7"
+        }
+      },
+      {
+        "seq": 46,
+        "utc": "2026-07-08T04:04:40.2029847Z",
+        "frame": 4,
+        "time": 6.91966534,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "Procedure",
+        "action": "Workspace.Enter",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "next": "TotemGameProcedure"
+        }
+      },
+      {
+        "seq": 47,
+        "utc": "2026-07-08T04:04:40.2034849Z",
+        "frame": 4,
+        "time": 6.91996145,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "Procedure",
+        "action": "TotemGame.Enter",
+        "result": "Info",
+        "message": null,
+        "data": null
+      },
+      {
+        "seq": 48,
+        "utc": "2026-07-08T04:04:40.2044851Z",
+        "frame": 4,
+        "time": 6.92072153,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemRuntime",
+        "action": "Awake",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "object": "[TotemGameRuntime]"
+        }
+      },
+      {
+        "seq": 49,
+        "utc": "2026-07-08T04:04:40.2044851Z",
+        "frame": 4,
+        "time": 6.92089033,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemRuntime",
+        "action": "ProcedureEntered",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "procedure": "TotemGameProcedure",
+          "transitionUtc": "2026-07-08T04:04:40.2044851Z"
+        }
+      },
+      {
+        "seq": 50,
+        "utc": "2026-07-08T04:04:40.2049847Z",
+        "frame": 4,
+        "time": 6.921407,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemRuntime",
+        "action": "Service.Register",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "GameFlow"
+        }
+      },
+      {
+        "seq": 51,
+        "utc": "2026-07-08T04:04:40.2049847Z",
+        "frame": 4,
+        "time": 6.92152834,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemRuntime",
+        "action": "Service.Register",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "Input"
+        }
+      },
+      {
+        "seq": 52,
+        "utc": "2026-07-08T04:04:40.2114850Z",
+        "frame": 4,
+        "time": 6.92776775,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemRuntime",
+        "action": "Service.Register",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "Data"
+        }
+      },
+      {
+        "seq": 53,
+        "utc": "2026-07-08T04:04:40.2114850Z",
+        "frame": 4,
+        "time": 6.92790031,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemRuntime",
+        "action": "Service.Register",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "Asset"
+        }
+      },
+      {
+        "seq": 54,
+        "utc": "2026-07-08T04:04:40.2114850Z",
+        "frame": 4,
+        "time": 6.927959,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemRuntime",
+        "action": "Service.Register",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "Settings"
+        }
+      },
+      {
+        "seq": 55,
+        "utc": "2026-07-08T04:04:40.2114850Z",
+        "frame": 4,
+        "time": 6.92808771,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemRuntime",
+        "action": "Service.Register",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "Audio"
+        }
+      },
+      {
+        "seq": 56,
+        "utc": "2026-07-08T04:04:40.2114850Z",
+        "frame": 4,
+        "time": 6.928137,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemRuntime",
+        "action": "Service.Register",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "RunStats"
+        }
+      },
+      {
+        "seq": 57,
+        "utc": "2026-07-08T04:04:40.2119849Z",
+        "frame": 4,
+        "time": 6.928301,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemRuntime",
+        "action": "Service.Register",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "MetaProgress"
+        }
+      },
+      {
+        "seq": 58,
+        "utc": "2026-07-08T04:04:40.2119849Z",
+        "frame": 4,
+        "time": 6.928385,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemRuntime",
+        "action": "Service.Register",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "Map"
+        }
+      },
+      {
+        "seq": 59,
+        "utc": "2026-07-08T04:04:40.2119849Z",
+        "frame": 4,
+        "time": 6.928496,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemRuntime",
+        "action": "Service.Register",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "Actor"
+        }
+      },
+      {
+        "seq": 60,
+        "utc": "2026-07-08T04:04:40.2124849Z",
+        "frame": 4,
+        "time": 6.92893744,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemRuntime",
+        "action": "Service.Register",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "Economy"
+        }
+      },
+      {
+        "seq": 61,
+        "utc": "2026-07-08T04:04:40.2124849Z",
+        "frame": 4,
+        "time": 6.929096,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemRuntime",
+        "action": "Service.Register",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "Status"
+        }
+      },
+      {
+        "seq": 62,
+        "utc": "2026-07-08T04:04:40.2129849Z",
+        "frame": 4,
+        "time": 6.92935562,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemRuntime",
+        "action": "Service.Register",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "Tattoo"
+        }
+      },
+      {
+        "seq": 63,
+        "utc": "2026-07-08T04:04:40.2134849Z",
+        "frame": 4,
+        "time": 6.929774,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemRuntime",
+        "action": "Service.Register",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "Weapon"
+        }
+      },
+      {
+        "seq": 64,
+        "utc": "2026-07-08T04:04:40.2134849Z",
+        "frame": 4,
+        "time": 6.929881,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemRuntime",
+        "action": "Service.Register",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "Chest"
+        }
+      },
+      {
+        "seq": 65,
+        "utc": "2026-07-08T04:04:40.2134849Z",
+        "frame": 4,
+        "time": 6.930062,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemRuntime",
+        "action": "Service.Register",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "Skill"
+        }
+      },
+      {
+        "seq": 66,
+        "utc": "2026-07-08T04:04:40.2134849Z",
+        "frame": 4,
+        "time": 6.930124,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemRuntime",
+        "action": "Service.Register",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "Zone"
+        }
+      },
+      {
+        "seq": 67,
+        "utc": "2026-07-08T04:04:40.2134849Z",
+        "frame": 4,
+        "time": 6.9301877,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemRuntime",
+        "action": "Service.Register",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "Boss"
+        }
+      },
+      {
+        "seq": 68,
+        "utc": "2026-07-08T04:04:40.2139851Z",
+        "frame": 4,
+        "time": 6.93038464,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemRuntime",
+        "action": "Service.Register",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "AI"
+        }
+      },
+      {
+        "seq": 69,
+        "utc": "2026-07-08T04:04:40.2139851Z",
+        "frame": 4,
+        "time": 6.930465,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemRuntime",
+        "action": "Service.Register",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "Npc"
+        }
+      },
+      {
+        "seq": 70,
+        "utc": "2026-07-08T04:04:40.2139851Z",
+        "frame": 4,
+        "time": 6.93058825,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemRuntime",
+        "action": "Service.Register",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "Choice"
+        }
+      },
+      {
+        "seq": 71,
+        "utc": "2026-07-08T04:04:40.2139851Z",
+        "frame": 4,
+        "time": 6.93062973,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemRuntime",
+        "action": "Service.Register",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "Interaction"
+        }
+      },
+      {
+        "seq": 72,
+        "utc": "2026-07-08T04:04:40.2139851Z",
+        "frame": 4,
+        "time": 6.930659,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemRuntime",
+        "action": "Service.Register",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "Camera"
+        }
+      },
+      {
+        "seq": 73,
+        "utc": "2026-07-08T04:04:40.2144849Z",
+        "frame": 4,
+        "time": 6.93076134,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemRuntime",
+        "action": "Service.Register",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "VFX"
+        }
+      },
+      {
+        "seq": 74,
+        "utc": "2026-07-08T04:04:40.2144849Z",
+        "frame": 4,
+        "time": 6.930806,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemRuntime",
+        "action": "Service.Register",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "Combat"
+        }
+      },
+      {
+        "seq": 75,
+        "utc": "2026-07-08T04:04:40.2144849Z",
+        "frame": 4,
+        "time": 6.93084669,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemRuntime",
+        "action": "Service.Register",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "UI"
+        }
+      },
+      {
+        "seq": 76,
+        "utc": "2026-07-08T04:04:40.2144849Z",
+        "frame": 4,
+        "time": 6.931032,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemRuntime",
+        "action": "Service.Initialize.Begin",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "GameFlow"
+        }
+      },
+      {
+        "seq": 77,
+        "utc": "2026-07-08T04:04:40.2144849Z",
+        "frame": 4,
+        "time": 6.931047,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemRuntime",
+        "action": "Service.Initialize.Success",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "service": "GameFlow"
+        }
+      },
+      {
+        "seq": 78,
+        "utc": "2026-07-08T04:04:40.2144849Z",
+        "frame": 4,
+        "time": 6.931053,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemRuntime",
+        "action": "Service.Initialize.Begin",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "Input"
+        }
+      },
+      {
+        "seq": 79,
+        "utc": "2026-07-08T04:04:40.2144849Z",
+        "frame": 4,
+        "time": 6.931054,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemRuntime",
+        "action": "Service.Initialize.Success",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "service": "Input"
+        }
+      },
+      {
+        "seq": 80,
+        "utc": "2026-07-08T04:04:40.2144849Z",
+        "frame": 4,
+        "time": 6.93105745,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemRuntime",
+        "action": "Service.Initialize.Begin",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "Data"
+        }
+      },
+      {
+        "seq": 81,
+        "utc": "2026-07-08T04:04:40.2259865Z",
+        "frame": 4,
+        "time": 6.942552,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemData",
+        "action": "GameplayCatalog.Loaded",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "path": "D:\\unity\\UnityProject\\GameDesinger_2\\Totem-Warrior\\GameData\\AIData\\GameplayCatalogs\\totem_gameplay_catalog.json",
+          "source": "gf-x-business-runtime-refactor",
+          "hash": "4617d9332fe61f84",
+          "weaponCount": "5",
+          "npcCount": "5"
+        }
+      },
+      {
+        "seq": 82,
+        "utc": "2026-07-08T04:04:40.2259865Z",
+        "frame": 4,
+        "time": 6.94255543,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemRuntime",
+        "action": "Service.Initialize.Success",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "service": "Data"
+        }
+      },
+      {
+        "seq": 83,
+        "utc": "2026-07-08T04:04:40.2259865Z",
+        "frame": 4,
+        "time": 6.94256926,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemRuntime",
+        "action": "Service.Initialize.Begin",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "Asset"
+        }
+      },
+      {
+        "seq": 84,
+        "utc": "2026-07-08T04:04:40.2279858Z",
+        "frame": 4,
+        "time": 6.94432,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemAsset",
+        "action": "RuntimeAssetCatalog.Loaded",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "path": "D:\\unity\\UnityProject\\GameDesinger_2\\Totem-Warrior\\GameData\\AIData\\GameplayCatalogs\\totem_runtime_assets.json",
+          "entryCount": "51"
+        }
+      },
+      {
+        "seq": 85,
+        "utc": "2026-07-08T04:04:40.2279858Z",
+        "frame": 4,
+        "time": 6.94432259,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemRuntime",
+        "action": "Service.Initialize.Success",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "service": "Asset"
+        }
+      },
+      {
+        "seq": 86,
+        "utc": "2026-07-08T04:04:40.2279858Z",
+        "frame": 4,
+        "time": 6.944332,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemRuntime",
+        "action": "Service.Initialize.Begin",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "Settings"
+        }
+      },
+      {
+        "seq": 87,
+        "utc": "2026-07-08T04:04:40.2279858Z",
+        "frame": 4,
+        "time": 6.94469261,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemSettings",
+        "action": "LoadSkipped",
+        "result": "Warning",
+        "message": null,
+        "data": {
+          "reason": "File not found."
+        }
+      },
+      {
+        "seq": 88,
+        "utc": "2026-07-08T04:04:40.2284858Z",
+        "frame": 4,
+        "time": 6.94506,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemRuntime",
+        "action": "Service.Initialize.Success",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "service": "Settings"
+        }
+      },
+      {
+        "seq": 89,
+        "utc": "2026-07-08T04:04:40.2284858Z",
+        "frame": 4,
+        "time": 6.94506931,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemRuntime",
+        "action": "Service.Initialize.Begin",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "Audio"
+        }
+      },
+      {
+        "seq": 90,
+        "utc": "2026-07-08T04:04:40.2294859Z",
+        "frame": 4,
+        "time": 6.946192,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemAudio",
+        "action": "Settings.Applied",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "bgm": "0.80",
+          "sfx": "0.80"
+        }
+      },
+      {
+        "seq": 91,
+        "utc": "2026-07-08T04:04:40.2299863Z",
+        "frame": 4,
+        "time": 6.9462676,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemAudio",
+        "action": "Initialized",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "cueCount": "14",
+          "backendAvailable": "True"
+        }
+      },
+      {
+        "seq": 92,
+        "utc": "2026-07-08T04:04:40.2299863Z",
+        "frame": 4,
+        "time": 6.94626951,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemRuntime",
+        "action": "Service.Initialize.Success",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "service": "Audio"
+        }
+      },
+      {
+        "seq": 93,
+        "utc": "2026-07-08T04:04:40.2299863Z",
+        "frame": 4,
+        "time": 6.94627666,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemRuntime",
+        "action": "Service.Initialize.Begin",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "RunStats"
+        }
+      },
+      {
+        "seq": 94,
+        "utc": "2026-07-08T04:04:40.2309855Z",
+        "frame": 4,
+        "time": 6.947659,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemRuntime",
+        "action": "Service.Initialize.Success",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "service": "RunStats"
+        }
+      },
+      {
+        "seq": 95,
+        "utc": "2026-07-08T04:04:40.2309855Z",
+        "frame": 4,
+        "time": 6.94766855,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemRuntime",
+        "action": "Service.Initialize.Begin",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "MetaProgress"
+        }
+      },
+      {
+        "seq": 96,
+        "utc": "2026-07-08T04:04:40.2314854Z",
+        "frame": 4,
+        "time": 6.948045,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemMetaProgress",
+        "action": "LoadSkipped",
+        "result": "Warning",
+        "message": null,
+        "data": {
+          "reason": "File not found."
+        }
+      },
+      {
+        "seq": 97,
+        "utc": "2026-07-08T04:04:40.2314854Z",
+        "frame": 4,
+        "time": 6.948047,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemRuntime",
+        "action": "Service.Initialize.Success",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "service": "MetaProgress"
+        }
+      },
+      {
+        "seq": 98,
+        "utc": "2026-07-08T04:04:40.2314854Z",
+        "frame": 4,
+        "time": 6.94805336,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemRuntime",
+        "action": "Service.Initialize.Begin",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "Map"
+        }
+      },
+      {
+        "seq": 99,
+        "utc": "2026-07-08T04:04:40.2334863Z",
+        "frame": 4,
+        "time": 6.949816,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemRuntime",
+        "action": "Service.Initialize.Success",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "service": "Map"
+        }
+      },
+      {
+        "seq": 100,
+        "utc": "2026-07-08T04:04:40.2334863Z",
+        "frame": 4,
+        "time": 6.949825,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemRuntime",
+        "action": "Service.Initialize.Begin",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "Actor"
+        }
+      },
+      {
+        "seq": 101,
+        "utc": "2026-07-08T04:04:40.2349871Z",
+        "frame": 4,
+        "time": 6.95144367,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemRuntime",
+        "action": "Service.Initialize.Success",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "service": "Actor"
+        }
+      },
+      {
+        "seq": 102,
+        "utc": "2026-07-08T04:04:40.2349871Z",
+        "frame": 4,
+        "time": 6.951455,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemRuntime",
+        "action": "Service.Initialize.Begin",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "Economy"
+        }
+      },
+      {
+        "seq": 103,
+        "utc": "2026-07-08T04:04:40.2359859Z",
+        "frame": 4,
+        "time": 6.952515,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemRuntime",
+        "action": "Service.Initialize.Success",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "service": "Economy"
+        }
+      },
+      {
+        "seq": 104,
+        "utc": "2026-07-08T04:04:40.2359859Z",
+        "frame": 4,
+        "time": 6.95252275,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemRuntime",
+        "action": "Service.Initialize.Begin",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "Status"
+        }
+      },
+      {
+        "seq": 105,
+        "utc": "2026-07-08T04:04:40.2359859Z",
+        "frame": 4,
+        "time": 6.95256042,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemRuntime",
+        "action": "Service.Initialize.Success",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "service": "Status"
+        }
+      },
+      {
+        "seq": 106,
+        "utc": "2026-07-08T04:04:40.2359859Z",
+        "frame": 4,
+        "time": 6.952565,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemRuntime",
+        "action": "Service.Initialize.Begin",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "Tattoo"
+        }
+      },
+      {
+        "seq": 107,
+        "utc": "2026-07-08T04:04:40.2439853Z",
+        "frame": 4,
+        "time": 6.960573,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemRuntime",
+        "action": "Service.Initialize.Success",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "service": "Tattoo"
+        }
+      },
+      {
+        "seq": 108,
+        "utc": "2026-07-08T04:04:40.2439853Z",
+        "frame": 4,
+        "time": 6.96058655,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemRuntime",
+        "action": "Service.Initialize.Begin",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "Weapon"
+        }
+      },
+      {
+        "seq": 109,
+        "utc": "2026-07-08T04:04:40.2489865Z",
+        "frame": 4,
+        "time": 6.96533966,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemRuntime",
+        "action": "Service.Initialize.Success",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "service": "Weapon"
+        }
+      },
+      {
+        "seq": 110,
+        "utc": "2026-07-08T04:04:40.2489865Z",
+        "frame": 4,
+        "time": 6.96535158,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemRuntime",
+        "action": "Service.Initialize.Begin",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "Chest"
+        }
+      },
+      {
+        "seq": 111,
+        "utc": "2026-07-08T04:04:40.2489865Z",
+        "frame": 4,
+        "time": 6.965665,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemRuntime",
+        "action": "Service.Initialize.Success",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "service": "Chest"
+        }
+      },
+      {
+        "seq": 112,
+        "utc": "2026-07-08T04:04:40.2489865Z",
+        "frame": 4,
+        "time": 6.96567059,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemRuntime",
+        "action": "Service.Initialize.Begin",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "Skill"
+        }
+      },
+      {
+        "seq": 113,
+        "utc": "2026-07-08T04:04:40.2509872Z",
+        "frame": 4,
+        "time": 6.96738863,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemRuntime",
+        "action": "Service.Initialize.Success",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "service": "Skill"
+        }
+      },
+      {
+        "seq": 114,
+        "utc": "2026-07-08T04:04:40.2509872Z",
+        "frame": 4,
+        "time": 6.9673996,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemRuntime",
+        "action": "Service.Initialize.Begin",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "Zone"
+        }
+      },
+      {
+        "seq": 115,
+        "utc": "2026-07-08T04:04:40.2524870Z",
+        "frame": 4,
+        "time": 6.968876,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemRuntime",
+        "action": "Service.Initialize.Success",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "service": "Zone"
+        }
+      },
+      {
+        "seq": 116,
+        "utc": "2026-07-08T04:04:40.2524870Z",
+        "frame": 4,
+        "time": 6.968885,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemRuntime",
+        "action": "Service.Initialize.Begin",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "Boss"
+        }
+      },
+      {
+        "seq": 117,
+        "utc": "2026-07-08T04:04:40.2539858Z",
+        "frame": 4,
+        "time": 6.97036552,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemRuntime",
+        "action": "Service.Initialize.Success",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "service": "Boss"
+        }
+      },
+      {
+        "seq": 118,
+        "utc": "2026-07-08T04:04:40.2539858Z",
+        "frame": 4,
+        "time": 6.970376,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemRuntime",
+        "action": "Service.Initialize.Begin",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "AI"
+        }
+      },
+      {
+        "seq": 119,
+        "utc": "2026-07-08T04:04:40.2544850Z",
+        "frame": 4,
+        "time": 6.97118759,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemRuntime",
+        "action": "Service.Initialize.Success",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "service": "AI"
+        }
+      },
+      {
+        "seq": 120,
+        "utc": "2026-07-08T04:04:40.2544850Z",
+        "frame": 4,
+        "time": 6.9711957,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemRuntime",
+        "action": "Service.Initialize.Begin",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "Npc"
+        }
+      },
+      {
+        "seq": 121,
+        "utc": "2026-07-08T04:04:40.2549849Z",
+        "frame": 4,
+        "time": 6.971289,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemRuntime",
+        "action": "Service.Initialize.Success",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "service": "Npc"
+        }
+      },
+      {
+        "seq": 122,
+        "utc": "2026-07-08T04:04:40.2549849Z",
+        "frame": 4,
+        "time": 6.9712944,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemRuntime",
+        "action": "Service.Initialize.Begin",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "Choice"
+        }
+      },
+      {
+        "seq": 123,
+        "utc": "2026-07-08T04:04:40.2574849Z",
+        "frame": 4,
+        "time": 6.97414827,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemRuntime",
+        "action": "Service.Initialize.Success",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "service": "Choice"
+        }
+      },
+      {
+        "seq": 124,
+        "utc": "2026-07-08T04:04:40.2574849Z",
+        "frame": 4,
+        "time": 6.97415733,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemRuntime",
+        "action": "Service.Initialize.Begin",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "Interaction"
+        }
+      },
+      {
+        "seq": 125,
+        "utc": "2026-07-08T04:04:40.2579851Z",
+        "frame": 4,
+        "time": 6.97424841,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemRuntime",
+        "action": "Service.Initialize.Success",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "service": "Interaction"
+        }
+      },
+      {
+        "seq": 126,
+        "utc": "2026-07-08T04:04:40.2579851Z",
+        "frame": 4,
+        "time": 6.97425461,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemRuntime",
+        "action": "Service.Initialize.Begin",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "Camera"
+        }
+      },
+      {
+        "seq": 127,
+        "utc": "2026-07-08T04:04:40.2579851Z",
+        "frame": 4,
+        "time": 6.9743104,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemRuntime",
+        "action": "Service.Initialize.Success",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "service": "Camera"
+        }
+      },
+      {
+        "seq": 128,
+        "utc": "2026-07-08T04:04:40.2579851Z",
+        "frame": 4,
+        "time": 6.974315,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemRuntime",
+        "action": "Service.Initialize.Begin",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "VFX"
+        }
+      },
+      {
+        "seq": 129,
+        "utc": "2026-07-08T04:04:40.2579851Z",
+        "frame": 4,
+        "time": 6.974375,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemRuntime",
+        "action": "Service.Initialize.Success",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "service": "VFX"
+        }
+      },
+      {
+        "seq": 130,
+        "utc": "2026-07-08T04:04:40.2579851Z",
+        "frame": 4,
+        "time": 6.97437954,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemRuntime",
+        "action": "Service.Initialize.Begin",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "Combat"
+        }
+      },
+      {
+        "seq": 131,
+        "utc": "2026-07-08T04:04:40.2579851Z",
+        "frame": 4,
+        "time": 6.97447443,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemRuntime",
+        "action": "Service.Initialize.Success",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "service": "Combat"
+        }
+      },
+      {
+        "seq": 132,
+        "utc": "2026-07-08T04:04:40.2579851Z",
+        "frame": 4,
+        "time": 6.97447872,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemRuntime",
+        "action": "Service.Initialize.Begin",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "service": "UI"
+        }
+      },
+      {
+        "seq": 133,
+        "utc": "2026-07-08T04:04:40.2579851Z",
+        "frame": 4,
+        "time": 6.97470331,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemFlow",
+        "action": "StateChanged",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "from": "None",
+          "to": "MainMenu"
+        }
+      },
+      {
+        "seq": 134,
+        "utc": "2026-07-08T04:04:40.2589849Z",
+        "frame": 4,
+        "time": 6.975442,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemAudio",
+        "action": "Cue.Requested",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "cueId": "bgm_main_menu",
+          "kind": "Bgm",
+          "asset": "BGM/main_menu.ogg",
+          "reason": "GameFlow.MainMenu"
+        }
+      },
+      {
+        "seq": 135,
+        "utc": "2026-07-08T04:04:40.2619848Z",
+        "frame": 4,
+        "time": 6.97842932,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "UI",
+        "action": "OpenUIForm.Begin",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "uiId": "1",
+          "asset": "Assets/Game/Prefabs/UI/MainMenu.prefab",
+          "group": "UIForm",
+          "serialId": "1"
+        }
+      },
+      {
+        "seq": 136,
+        "utc": "2026-07-08T04:04:40.2619848Z",
+        "frame": 4,
+        "time": 6.97844839,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemUI",
+        "action": "OpenExclusive",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "view": "MainMenu",
+          "serialId": "1"
+        }
+      },
+      {
+        "seq": 137,
+        "utc": "2026-07-08T04:04:40.2619848Z",
+        "frame": 4,
+        "time": 6.978451,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemRuntime",
+        "action": "Service.Initialize.Success",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "service": "UI"
+        }
+      },
+      {
+        "seq": 138,
+        "utc": "2026-07-08T04:04:40.2619848Z",
+        "frame": 4,
+        "time": 6.9785037,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemRuntime",
+        "action": "Services.Ready",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "readyCount": "26",
+          "serviceCount": "26"
+        }
+      },
+      {
+        "seq": 139,
+        "utc": "2026-07-08T04:04:40.2619848Z",
+        "frame": 4,
+        "time": 6.97851467,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "Procedure",
+        "action": "TotemGame.RuntimeReady",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "runtime": "[TotemGameRuntime]",
+          "servicesReady": "True"
+        }
+      },
+      {
+        "seq": 140,
+        "utc": "2026-07-08T04:04:40.4894866Z",
+        "frame": 5,
+        "time": 7.205932,
+        "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+        "system": "TotemUI",
+        "action": "MainMenu.Open",
+        "result": "Success",
+        "message": null,
+        "data": null
+      },
+      {
+        "seq": 141,
+        "utc": "2026-07-08T04:04:48.5599855Z",
+        "frame": 485,
+        "time": 15.2766886,
+        "traceId": "diagnostics-3e07d0cd01034914bc3146089bc4d3ef",
+        "system": "Trace",
+        "action": "Begin",
+        "result": "Info",
+        "message": "diagnostics-3e07d0cd01034914bc3146089bc4d3ef",
+        "data": null
+      },
+      {
+        "seq": 142,
+        "utc": "2026-07-08T04:04:48.5599855Z",
+        "frame": 485,
+        "time": 15.2766905,
+        "traceId": "diagnostics-3e07d0cd01034914bc3146089bc4d3ef",
+        "system": "Diagnostics",
+        "action": "RunAll.Begin",
+        "result": "Info",
+        "message": null,
+        "data": null
+      },
+      {
+        "seq": 143,
+        "utc": "2026-07-08T04:04:48.5609852Z",
+        "frame": 485,
+        "time": 15.2773266,
+        "traceId": "diagnostics-3e07d0cd01034914bc3146089bc4d3ef",
+        "system": "Diagnostics",
+        "action": "Project layout.Begin",
+        "result": "Info",
+        "message": null,
+        "data": null
+      },
+      {
+        "seq": 144,
+        "utc": "2026-07-08T04:04:48.5614852Z",
+        "frame": 485,
+        "time": 15.2779379,
+        "traceId": "diagnostics-3e07d0cd01034914bc3146089bc4d3ef",
+        "system": "Diagnostics",
+        "action": "Project layout.End",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "durationMs": "0",
+          "errors": "0",
+          "warnings": "0"
+        }
+      },
+      {
+        "seq": 145,
+        "utc": "2026-07-08T04:04:48.5614852Z",
+        "frame": 485,
+        "time": 15.2779417,
+        "traceId": "diagnostics-3e07d0cd01034914bc3146089bc4d3ef",
+        "system": "Diagnostics",
+        "action": "AppConfigs runtime contract.Begin",
+        "result": "Info",
+        "message": null,
+        "data": null
+      },
+      {
+        "seq": 146,
+        "utc": "2026-07-08T04:04:48.5659850Z",
+        "frame": 485,
+        "time": 15.2823229,
+        "traceId": "diagnostics-3e07d0cd01034914bc3146089bc4d3ef",
+        "system": "Diagnostics",
+        "action": "AppConfigs runtime contract.End",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "durationMs": "4",
+          "errors": "0",
+          "warnings": "0"
+        }
+      },
+      {
+        "seq": 147,
+        "utc": "2026-07-08T04:04:48.5659850Z",
+        "frame": 485,
+        "time": 15.2823315,
+        "traceId": "diagnostics-3e07d0cd01034914bc3146089bc4d3ef",
+        "system": "Diagnostics",
+        "action": "Build settings.Begin",
+        "result": "Info",
+        "message": null,
+        "data": null
+      },
+      {
+        "seq": 148,
+        "utc": "2026-07-08T04:04:48.5669850Z",
+        "frame": 485,
+        "time": 15.2834492,
+        "traceId": "diagnostics-3e07d0cd01034914bc3146089bc4d3ef",
+        "system": "Diagnostics",
+        "action": "Build settings.End",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "durationMs": "1",
+          "errors": "0",
+          "warnings": "0"
+        }
+      },
+      {
+        "seq": 149,
+        "utc": "2026-07-08T04:04:48.5669850Z",
+        "frame": 485,
+        "time": 15.283453,
+        "traceId": "diagnostics-3e07d0cd01034914bc3146089bc4d3ef",
+        "system": "Diagnostics",
+        "action": "Resource rules.Begin",
+        "result": "Info",
+        "message": null,
+        "data": null
+      },
+      {
+        "seq": 150,
+        "utc": "2026-07-08T04:04:48.5674851Z",
+        "frame": 485,
+        "time": 15.28388,
+        "traceId": "diagnostics-3e07d0cd01034914bc3146089bc4d3ef",
+        "system": "Diagnostics",
+        "action": "Resource rules.End",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "durationMs": "0",
+          "errors": "0",
+          "warnings": "0"
+        }
+      },
+      {
+        "seq": 151,
+        "utc": "2026-07-08T04:04:48.5674851Z",
+        "frame": 485,
+        "time": 15.283886,
+        "traceId": "diagnostics-3e07d0cd01034914bc3146089bc4d3ef",
+        "system": "Diagnostics",
+        "action": "AI DataTable json.Begin",
+        "result": "Info",
+        "message": null,
+        "data": null
+      },
+      {
+        "seq": 152,
+        "utc": "2026-07-08T04:04:48.5949857Z",
+        "frame": 485,
+        "time": 15.3112249,
+        "traceId": "diagnostics-3e07d0cd01034914bc3146089bc4d3ef",
+        "system": "Diagnostics",
+        "action": "AI DataTable json.End",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "durationMs": "27",
+          "errors": "0",
+          "warnings": "0"
+        }
+      },
+      {
+        "seq": 153,
+        "utc": "2026-07-08T04:04:48.5954854Z",
+        "frame": 485,
+        "time": 15.3119793,
+        "traceId": "diagnostics-3e07d0cd01034914bc3146089bc4d3ef",
+        "system": "Diagnostics",
+        "action": "RegisteredScenarios.Discover",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "count": "17"
+        }
+      },
+      {
+        "seq": 154,
+        "utc": "2026-07-08T04:04:48.5954854Z",
+        "frame": 485,
+        "time": 15.31212,
+        "traceId": "diagnostics-3e07d0cd01034914bc3146089bc4d3ef",
+        "system": "Diagnostics",
+        "action": "RegisteredScenarios.Skip",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "type": "UGF.EditorTools.BusinessRewriteInventoryDiagnosticScenario",
+          "mode": "EditMode"
+        }
+      },
+      {
+        "seq": 155,
+        "utc": "2026-07-08T04:04:48.5954854Z",
+        "frame": 485,
+        "time": 15.312151,
+        "traceId": "diagnostics-3e07d0cd01034914bc3146089bc4d3ef",
+        "system": "Diagnostics",
+        "action": "RegisteredScenarios.Skip",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "type": "UGF.EditorTools.BusinessRuntimeContractDiagnosticScenario",
+          "mode": "EditMode"
+        }
+      },
+      {
+        "seq": 156,
+        "utc": "2026-07-08T04:04:48.5954854Z",
+        "frame": 485,
+        "time": 15.3121805,
+        "traceId": "diagnostics-3e07d0cd01034914bc3146089bc4d3ef",
+        "system": "Diagnostics",
+        "action": "RegisteredScenarios.Skip",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "type": "UGF.EditorTools.CleanWorkspaceDiagnosticScenario",
+          "mode": "EditMode"
+        }
+      },
+      {
+        "seq": 157,
+        "utc": "2026-07-08T04:04:48.5959856Z",
+        "frame": 485,
+        "time": 15.3124533,
+        "traceId": "diagnostics-3e07d0cd01034914bc3146089bc4d3ef",
+        "system": "Diagnostics",
+        "action": "RegisteredScenarios.Skip",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "type": "UGF.EditorTools.MigrationPathContractDiagnosticScenario",
+          "mode": "EditMode"
+        }
+      },
+      {
+        "seq": 158,
+        "utc": "2026-07-08T04:04:48.5964852Z",
+        "frame": 485,
+        "time": 15.3128,
+        "traceId": "diagnostics-3e07d0cd01034914bc3146089bc4d3ef",
+        "system": "Diagnostics",
+        "action": "Scenario.Begin",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "type": "UGF.EditorTools.StartupChainDiagnosticScenario",
+          "category": "Startup",
+          "name": "Launch To Totem Runtime Smoke",
+          "mode": "PlayMode"
+        }
+      },
+      {
+        "seq": 159,
+        "utc": "2026-07-08T04:04:48.5969853Z",
+        "frame": 485,
+        "time": 15.3136091,
+        "traceId": "diagnostics-3e07d0cd01034914bc3146089bc4d3ef",
+        "system": "DiagnosticScenario.Startup",
+        "action": "Launch To Totem Runtime Smoke.Probe",
+        "result": "Info",
+        "message": "Check runtime startup chain.",
+        "data": null
+      },
+      {
+        "seq": 160,
+        "utc": "2026-07-08T04:04:48.5994854Z",
+        "frame": 485,
+        "time": 15.3159065,
+        "traceId": "diagnostics-3e07d0cd01034914bc3146089bc4d3ef",
+        "system": "Diagnostics",
+        "action": "Scenario.End",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "type": "UGF.EditorTools.StartupChainDiagnosticScenario",
+          "category": "Startup",
+          "name": "Launch To Totem Runtime Smoke",
+          "durationMs": "3",
+          "errors": "0",
+          "warnings": "0"
+        }
+      },
+      {
+        "seq": 161,
+        "utc": "2026-07-08T04:04:48.5994854Z",
+        "frame": 485,
+        "time": 15.315958,
+        "traceId": "diagnostics-3e07d0cd01034914bc3146089bc4d3ef",
+        "system": "Diagnostics",
+        "action": "RegisteredScenarios.Skip",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "type": "UGF.EditorTools.TotemAIRuntimeDiagnosticScenario",
+          "mode": "EditMode"
+        }
+      },
+      {
+        "seq": 162,
+        "utc": "2026-07-08T04:04:48.5994854Z",
+        "frame": 485,
+        "time": 15.3159866,
+        "traceId": "diagnostics-3e07d0cd01034914bc3146089bc4d3ef",
+        "system": "Diagnostics",
+        "action": "RegisteredScenarios.Skip",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "type": "UGF.EditorTools.TotemActorVisualDiagnosticScenario",
+          "mode": "EditMode"
+        }
+      },
+      {
+        "seq": 163,
+        "utc": "2026-07-08T04:04:48.5994854Z",
+        "frame": 485,
+        "time": 15.31601,
+        "traceId": "diagnostics-3e07d0cd01034914bc3146089bc4d3ef",
+        "system": "Diagnostics",
+        "action": "RegisteredScenarios.Skip",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "type": "UGF.EditorTools.TotemAudioRuntimeDiagnosticScenario",
+          "mode": "EditMode"
+        }
+      },
+      {
+        "seq": 164,
+        "utc": "2026-07-08T04:04:48.5994854Z",
+        "frame": 485,
+        "time": 15.3160315,
+        "traceId": "diagnostics-3e07d0cd01034914bc3146089bc4d3ef",
+        "system": "Diagnostics",
+        "action": "RegisteredScenarios.Skip",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "type": "UGF.EditorTools.TotemChoiceRuntimeDiagnosticScenario",
+          "mode": "EditMode"
+        }
+      },
+      {
+        "seq": 165,
+        "utc": "2026-07-08T04:04:48.5994854Z",
+        "frame": 485,
+        "time": 15.3160563,
+        "traceId": "diagnostics-3e07d0cd01034914bc3146089bc4d3ef",
+        "system": "Diagnostics",
+        "action": "RegisteredScenarios.Skip",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "type": "UGF.EditorTools.TotemExtendedGameplayDiagnosticScenario",
+          "mode": "EditMode"
+        }
+      },
+      {
+        "seq": 166,
+        "utc": "2026-07-08T04:04:48.5994854Z",
+        "frame": 485,
+        "time": 15.3160753,
+        "traceId": "diagnostics-3e07d0cd01034914bc3146089bc4d3ef",
+        "system": "Diagnostics",
+        "action": "RegisteredScenarios.Skip",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "type": "UGF.EditorTools.TotemFirstRoundContractDiagnosticScenario",
+          "mode": "EditMode"
+        }
+      },
+      {
+        "seq": 167,
+        "utc": "2026-07-08T04:04:48.5999854Z",
+        "frame": 485,
+        "time": 15.3162985,
+        "traceId": "diagnostics-3e07d0cd01034914bc3146089bc4d3ef",
+        "system": "Diagnostics",
+        "action": "RegisteredScenarios.Skip",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "type": "UGF.EditorTools.TotemFirstSliceUIDiagnosticScenario",
+          "mode": "EditMode"
+        }
+      },
+      {
+        "seq": 168,
+        "utc": "2026-07-08T04:04:48.5999854Z",
+        "frame": 485,
+        "time": 15.3163233,
+        "traceId": "diagnostics-3e07d0cd01034914bc3146089bc4d3ef",
+        "system": "Diagnostics",
+        "action": "RegisteredScenarios.Skip",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "type": "UGF.EditorTools.TotemGameplayCatalogDiagnosticScenario",
+          "mode": "EditMode"
+        }
+      },
+      {
+        "seq": 169,
+        "utc": "2026-07-08T04:04:48.5999854Z",
+        "frame": 485,
+        "time": 15.3163443,
+        "traceId": "diagnostics-3e07d0cd01034914bc3146089bc4d3ef",
+        "system": "Diagnostics",
+        "action": "RegisteredScenarios.Skip",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "type": "UGF.EditorTools.TotemGameplayRuntimeDiagnosticScenario",
+          "mode": "EditMode"
+        }
+      },
+      {
+        "seq": 170,
+        "utc": "2026-07-08T04:04:48.5999854Z",
+        "frame": 485,
+        "time": 15.3163643,
+        "traceId": "diagnostics-3e07d0cd01034914bc3146089bc4d3ef",
+        "system": "Diagnostics",
+        "action": "RegisteredScenarios.Skip",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "type": "UGF.EditorTools.TotemMetaProgressDiagnosticScenario",
+          "mode": "EditMode"
+        }
+      },
+      {
+        "seq": 171,
+        "utc": "2026-07-08T04:04:48.5999854Z",
+        "frame": 485,
+        "time": 15.3163843,
+        "traceId": "diagnostics-3e07d0cd01034914bc3146089bc4d3ef",
+        "system": "Diagnostics",
+        "action": "RegisteredScenarios.Skip",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "type": "UGF.EditorTools.TotemRuntimeAssetDiagnosticScenario",
+          "mode": "EditMode"
+        }
+      },
+      {
+        "seq": 172,
+        "utc": "2026-07-08T04:04:48.5999854Z",
+        "frame": 485,
+        "time": 15.3164034,
+        "traceId": "diagnostics-3e07d0cd01034914bc3146089bc4d3ef",
+        "system": "Diagnostics",
+        "action": "RegisteredScenarios.Skip",
+        "result": "Info",
+        "message": null,
+        "data": {
+          "type": "UGF.EditorTools.TotemVfxRuntimeDiagnosticScenario",
+          "mode": "EditMode"
+        }
+      },
+      {
+        "seq": 173,
+        "utc": "2026-07-08T04:04:48.5999854Z",
+        "frame": 485,
+        "time": 15.3164158,
+        "traceId": "diagnostics-3e07d0cd01034914bc3146089bc4d3ef",
+        "system": "Diagnostics",
+        "action": "Editor snapshot.Begin",
+        "result": "Info",
+        "message": null,
+        "data": null
+      },
+      {
+        "seq": 174,
+        "utc": "2026-07-08T04:04:48.6034853Z",
+        "frame": 485,
+        "time": 15.3200808,
+        "traceId": "diagnostics-3e07d0cd01034914bc3146089bc4d3ef",
+        "system": "Diagnostics",
+        "action": "Editor snapshot.End",
+        "result": "Success",
+        "message": null,
+        "data": {
+          "durationMs": "3",
+          "errors": "0",
+          "warnings": "0"
+        }
+      }
+    ]
+  },
+  "timeline": [
+    {
+      "seq": 15,
+      "utc": "2026-07-08T04:04:39.6119851Z",
+      "frame": 2,
+      "time": 6.328507,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "Procedure",
+      "action": "Create",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "procedure": "TotemGameProcedure",
+        "success": "True"
+      }
+    },
+    {
+      "seq": 16,
+      "utc": "2026-07-08T04:04:39.6119851Z",
+      "frame": 2,
+      "time": 6.32854128,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "Procedure",
+      "action": "Initialize",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "count": "4",
+        "start": "PreloadProcedure"
+      }
+    },
+    {
+      "seq": 17,
+      "utc": "2026-07-08T04:04:39.6124851Z",
+      "frame": 2,
+      "time": 6.32897663,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "Procedure",
+      "action": "Preload.Enter",
+      "result": "Info",
+      "message": null,
+      "data": null
+    },
+    {
+      "seq": 18,
+      "utc": "2026-07-08T04:04:39.6134853Z",
+      "frame": 2,
+      "time": 6.32998562,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "Preload",
+      "action": "InitData.Begin",
+      "result": "Info",
+      "message": null,
+      "data": null
+    },
+    {
+      "seq": 19,
+      "utc": "2026-07-08T04:04:39.6134853Z",
+      "frame": 2,
+      "time": 6.33007765,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "Preload",
+      "action": "AppConfigs.Loaded",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "dataTables": "5",
+        "configs": "0",
+        "languages": "1",
+        "totalProgress": "7"
+      }
+    },
+    {
+      "seq": 20,
+      "utc": "2026-07-08T04:04:39.6139855Z",
+      "frame": 2,
+      "time": 6.3302083,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "Resource",
+      "action": "GFExtension.Load.Begin",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "asset": "Assets/Game/Prefabs/Core/GFExtension.prefab"
+      }
+    },
+    {
+      "seq": 21,
+      "utc": "2026-07-08T04:04:39.9089866Z",
+      "frame": 3,
+      "time": 6.62525225,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "UnityLog",
+      "action": "Warning",
+      "result": "Warning",
+      "message": "The referenced script on this Behaviour (Game Object '<null>') is missing!",
+      "data": {
+        "stackTrace": "UnityEngine.Object:Instantiate<UnityEngine.GameObject> (UnityEngine.GameObject,UnityEngine.Vector3,UnityEngine.Quaternion,UnityEngine.Transform)\nPreloadProcedure:OnLoadGFExtensionSuccess (string,object,single,object) (at Assets/Game/Scripts/Procedures/PreloadProcedure.cs:331)\nUnityGameFramework.Runtime.EditorResourceComponent:Update () (at Assets/Plugins/UnityGameFramework/Scripts/Runtime/Resource/EditorResourceComponent.cs:612)\n"
+      }
+    },
+    {
+      "seq": 22,
+      "utc": "2026-07-08T04:04:39.9104849Z",
+      "frame": 3,
+      "time": 6.627115,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "UnityLog",
+      "action": "Warning",
+      "result": "Warning",
+      "message": "The referenced script on this Behaviour (Game Object 'Joystick Base') is missing!",
+      "data": {
+        "stackTrace": "UnityEngine.Object:Instantiate<UnityEngine.GameObject> (UnityEngine.GameObject,UnityEngine.Vector3,UnityEngine.Quaternion,UnityEngine.Transform)\nPreloadProcedure:OnLoadGFExtensionSuccess (string,object,single,object) (at Assets/Game/Scripts/Procedures/PreloadProcedure.cs:331)\nUnityGameFramework.Runtime.EditorResourceComponent:Update () (at Assets/Plugins/UnityGameFramework/Scripts/Runtime/Resource/EditorResourceComponent.cs:612)\n"
+      }
+    },
+    {
+      "seq": 23,
+      "utc": "2026-07-08T04:04:39.9109857Z",
+      "frame": 3,
+      "time": 6.627215,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "UnityLog",
+      "action": "Warning",
+      "result": "Warning",
+      "message": "The referenced script on this Behaviour (Game Object 'Joystick Base') is missing!",
+      "data": {
+        "stackTrace": "UnityEngine.Object:Instantiate<UnityEngine.GameObject> (UnityEngine.GameObject,UnityEngine.Vector3,UnityEngine.Quaternion,UnityEngine.Transform)\nPreloadProcedure:OnLoadGFExtensionSuccess (string,object,single,object) (at Assets/Game/Scripts/Procedures/PreloadProcedure.cs:331)\nUnityGameFramework.Runtime.EditorResourceComponent:Update () (at Assets/Plugins/UnityGameFramework/Scripts/Runtime/Resource/EditorResourceComponent.cs:612)\n"
+      }
+    },
+    {
+      "seq": 24,
+      "utc": "2026-07-08T04:04:39.9129849Z",
+      "frame": 3,
+      "time": 6.62958765,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "Resource",
+      "action": "GFExtension.Load.Success",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "asset": "Assets/Game/Prefabs/Core/GFExtension.prefab",
+        "duration": "0.293"
+      }
+    },
+    {
+      "seq": 25,
+      "utc": "2026-07-08T04:04:39.9134853Z",
+      "frame": 3,
+      "time": 6.630042,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "Preload",
+      "action": "LoadConfigsAndDataTables.Begin",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "dataTables": "5",
+        "configs": "0"
+      }
+    },
+    {
+      "seq": 26,
+      "utc": "2026-07-08T04:04:39.9134853Z",
+      "frame": 3,
+      "time": 6.63004732,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "DataTable",
+      "action": "Load.Begin",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "name": "Core/EntityGroupTable"
+      }
+    },
+    {
+      "seq": 27,
+      "utc": "2026-07-08T04:04:39.9279873Z",
+      "frame": 3,
+      "time": 6.64433765,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "DataTable",
+      "action": "Read.Begin",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "name": "Core/EntityGroupTable",
+        "asset": "Assets/Game/DataTable/Core/EntityGroupTable.txt",
+        "rowType": "EntityGroupTable",
+        "abTestGroup": ""
+      }
+    },
+    {
+      "seq": 28,
+      "utc": "2026-07-08T04:04:39.9704850Z",
+      "frame": 3,
+      "time": 6.68705559,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "DataTable",
+      "action": "Load.Begin",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "name": "Core/LanguagesTable"
+      }
+    },
+    {
+      "seq": 29,
+      "utc": "2026-07-08T04:04:39.9719848Z",
+      "frame": 3,
+      "time": 6.688466,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "DataTable",
+      "action": "Read.Begin",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "name": "Core/LanguagesTable",
+        "asset": "Assets/Game/DataTable/Core/LanguagesTable.txt",
+        "rowType": "LanguagesTable",
+        "abTestGroup": ""
+      }
+    },
+    {
+      "seq": 30,
+      "utc": "2026-07-08T04:04:39.9909852Z",
+      "frame": 3,
+      "time": 6.707379,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "DataTable",
+      "action": "Load.Begin",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "name": "Core/SoundGroupTable"
+      }
+    },
+    {
+      "seq": 31,
+      "utc": "2026-07-08T04:04:39.9924847Z",
+      "frame": 3,
+      "time": 6.708884,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "DataTable",
+      "action": "Read.Begin",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "name": "Core/SoundGroupTable",
+        "asset": "Assets/Game/DataTable/Core/SoundGroupTable.txt",
+        "rowType": "SoundGroupTable",
+        "abTestGroup": ""
+      }
+    },
+    {
+      "seq": 32,
+      "utc": "2026-07-08T04:04:40.0204860Z",
+      "frame": 3,
+      "time": 6.73677731,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "DataTable",
+      "action": "Load.Begin",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "name": "Core/UIGroupTable"
+      }
+    },
+    {
+      "seq": 33,
+      "utc": "2026-07-08T04:04:40.0219861Z",
+      "frame": 3,
+      "time": 6.738545,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "DataTable",
+      "action": "Read.Begin",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "name": "Core/UIGroupTable",
+        "asset": "Assets/Game/DataTable/Core/UIGroupTable.txt",
+        "rowType": "UIGroupTable",
+        "abTestGroup": ""
+      }
+    },
+    {
+      "seq": 34,
+      "utc": "2026-07-08T04:04:40.0504863Z",
+      "frame": 3,
+      "time": 6.766856,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "DataTable",
+      "action": "Load.Begin",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "name": "Core/UITable"
+      }
+    },
+    {
+      "seq": 35,
+      "utc": "2026-07-08T04:04:40.0519862Z",
+      "frame": 3,
+      "time": 6.76846457,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "DataTable",
+      "action": "Read.Begin",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "name": "Core/UITable",
+        "asset": "Assets/Game/DataTable/Core/UITable.txt",
+        "rowType": "UITable",
+        "abTestGroup": ""
+      }
+    },
+    {
+      "seq": 36,
+      "utc": "2026-07-08T04:04:40.0924863Z",
+      "frame": 3,
+      "time": 6.80886,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "DataTable",
+      "action": "Load.Success",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "asset": "Assets/Game/DataTable/Core/EntityGroupTable.txt",
+        "remaining": "4"
+      }
+    },
+    {
+      "seq": 37,
+      "utc": "2026-07-08T04:04:40.0924863Z",
+      "frame": 3,
+      "time": 6.80892372,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "DataTable",
+      "action": "Load.Success",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "asset": "Assets/Game/DataTable/Core/LanguagesTable.txt",
+        "remaining": "3"
+      }
+    },
+    {
+      "seq": 38,
+      "utc": "2026-07-08T04:04:40.0924863Z",
+      "frame": 3,
+      "time": 6.80892658,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "DataTable",
+      "action": "Load.Success",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "asset": "Assets/Game/DataTable/Core/SoundGroupTable.txt",
+        "remaining": "2"
+      }
+    },
+    {
+      "seq": 39,
+      "utc": "2026-07-08T04:04:40.0924863Z",
+      "frame": 3,
+      "time": 6.80892849,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "DataTable",
+      "action": "Load.Success",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "asset": "Assets/Game/DataTable/Core/UIGroupTable.txt",
+        "remaining": "1"
+      }
+    },
+    {
+      "seq": 40,
+      "utc": "2026-07-08T04:04:40.0924863Z",
+      "frame": 3,
+      "time": 6.8089323,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "DataTable",
+      "action": "Load.Success",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "asset": "Assets/Game/DataTable/Core/UITable.txt",
+        "remaining": "0"
+      }
+    },
+    {
+      "seq": 41,
+      "utc": "2026-07-08T04:04:40.0969864Z",
+      "frame": 3,
+      "time": 6.81344557,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "Localization",
+      "action": "Language.Load.Begin",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "asset": "English",
+        "language": "English"
+      }
+    },
+    {
+      "seq": 42,
+      "utc": "2026-07-08T04:04:40.1169858Z",
+      "frame": 3,
+      "time": 6.83323574,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "GF",
+      "action": "Start.Begin",
+      "result": "Info",
+      "message": null,
+      "data": null
+    },
+    {
+      "seq": 43,
+      "utc": "2026-07-08T04:04:40.1169858Z",
+      "frame": 3,
+      "time": 6.83336926,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "GF",
+      "action": "Start.End",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "hasDataModel": "True",
+        "hasStaticUI": "True",
+        "hasVariablePool": "True"
+      }
+    },
+    {
+      "seq": 44,
+      "utc": "2026-07-08T04:04:40.1794852Z",
+      "frame": 4,
+      "time": 6.89596367,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "Localization",
+      "action": "Language.Load.Success",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "asset": "Assets/Game/Language/English.json"
+      }
+    },
+    {
+      "seq": 45,
+      "utc": "2026-07-08T04:04:40.2014853Z",
+      "frame": 4,
+      "time": 6.917854,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "Procedure",
+      "action": "Preload.Completed",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "loadedProgress": "7",
+        "totalProgress": "7"
+      }
+    },
+    {
+      "seq": 46,
+      "utc": "2026-07-08T04:04:40.2029847Z",
+      "frame": 4,
+      "time": 6.91966534,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "Procedure",
+      "action": "Workspace.Enter",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "next": "TotemGameProcedure"
+      }
+    },
+    {
+      "seq": 47,
+      "utc": "2026-07-08T04:04:40.2034849Z",
+      "frame": 4,
+      "time": 6.91996145,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "Procedure",
+      "action": "TotemGame.Enter",
+      "result": "Info",
+      "message": null,
+      "data": null
+    },
+    {
+      "seq": 48,
+      "utc": "2026-07-08T04:04:40.2044851Z",
+      "frame": 4,
+      "time": 6.92072153,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemRuntime",
+      "action": "Awake",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "object": "[TotemGameRuntime]"
+      }
+    },
+    {
+      "seq": 49,
+      "utc": "2026-07-08T04:04:40.2044851Z",
+      "frame": 4,
+      "time": 6.92089033,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemRuntime",
+      "action": "ProcedureEntered",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "procedure": "TotemGameProcedure",
+        "transitionUtc": "2026-07-08T04:04:40.2044851Z"
+      }
+    },
+    {
+      "seq": 50,
+      "utc": "2026-07-08T04:04:40.2049847Z",
+      "frame": 4,
+      "time": 6.921407,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemRuntime",
+      "action": "Service.Register",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "GameFlow"
+      }
+    },
+    {
+      "seq": 51,
+      "utc": "2026-07-08T04:04:40.2049847Z",
+      "frame": 4,
+      "time": 6.92152834,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemRuntime",
+      "action": "Service.Register",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "Input"
+      }
+    },
+    {
+      "seq": 52,
+      "utc": "2026-07-08T04:04:40.2114850Z",
+      "frame": 4,
+      "time": 6.92776775,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemRuntime",
+      "action": "Service.Register",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "Data"
+      }
+    },
+    {
+      "seq": 53,
+      "utc": "2026-07-08T04:04:40.2114850Z",
+      "frame": 4,
+      "time": 6.92790031,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemRuntime",
+      "action": "Service.Register",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "Asset"
+      }
+    },
+    {
+      "seq": 54,
+      "utc": "2026-07-08T04:04:40.2114850Z",
+      "frame": 4,
+      "time": 6.927959,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemRuntime",
+      "action": "Service.Register",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "Settings"
+      }
+    },
+    {
+      "seq": 55,
+      "utc": "2026-07-08T04:04:40.2114850Z",
+      "frame": 4,
+      "time": 6.92808771,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemRuntime",
+      "action": "Service.Register",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "Audio"
+      }
+    },
+    {
+      "seq": 56,
+      "utc": "2026-07-08T04:04:40.2114850Z",
+      "frame": 4,
+      "time": 6.928137,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemRuntime",
+      "action": "Service.Register",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "RunStats"
+      }
+    },
+    {
+      "seq": 57,
+      "utc": "2026-07-08T04:04:40.2119849Z",
+      "frame": 4,
+      "time": 6.928301,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemRuntime",
+      "action": "Service.Register",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "MetaProgress"
+      }
+    },
+    {
+      "seq": 58,
+      "utc": "2026-07-08T04:04:40.2119849Z",
+      "frame": 4,
+      "time": 6.928385,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemRuntime",
+      "action": "Service.Register",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "Map"
+      }
+    },
+    {
+      "seq": 59,
+      "utc": "2026-07-08T04:04:40.2119849Z",
+      "frame": 4,
+      "time": 6.928496,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemRuntime",
+      "action": "Service.Register",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "Actor"
+      }
+    },
+    {
+      "seq": 60,
+      "utc": "2026-07-08T04:04:40.2124849Z",
+      "frame": 4,
+      "time": 6.92893744,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemRuntime",
+      "action": "Service.Register",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "Economy"
+      }
+    },
+    {
+      "seq": 61,
+      "utc": "2026-07-08T04:04:40.2124849Z",
+      "frame": 4,
+      "time": 6.929096,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemRuntime",
+      "action": "Service.Register",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "Status"
+      }
+    },
+    {
+      "seq": 62,
+      "utc": "2026-07-08T04:04:40.2129849Z",
+      "frame": 4,
+      "time": 6.92935562,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemRuntime",
+      "action": "Service.Register",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "Tattoo"
+      }
+    },
+    {
+      "seq": 63,
+      "utc": "2026-07-08T04:04:40.2134849Z",
+      "frame": 4,
+      "time": 6.929774,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemRuntime",
+      "action": "Service.Register",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "Weapon"
+      }
+    },
+    {
+      "seq": 64,
+      "utc": "2026-07-08T04:04:40.2134849Z",
+      "frame": 4,
+      "time": 6.929881,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemRuntime",
+      "action": "Service.Register",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "Chest"
+      }
+    },
+    {
+      "seq": 65,
+      "utc": "2026-07-08T04:04:40.2134849Z",
+      "frame": 4,
+      "time": 6.930062,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemRuntime",
+      "action": "Service.Register",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "Skill"
+      }
+    },
+    {
+      "seq": 66,
+      "utc": "2026-07-08T04:04:40.2134849Z",
+      "frame": 4,
+      "time": 6.930124,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemRuntime",
+      "action": "Service.Register",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "Zone"
+      }
+    },
+    {
+      "seq": 67,
+      "utc": "2026-07-08T04:04:40.2134849Z",
+      "frame": 4,
+      "time": 6.9301877,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemRuntime",
+      "action": "Service.Register",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "Boss"
+      }
+    },
+    {
+      "seq": 68,
+      "utc": "2026-07-08T04:04:40.2139851Z",
+      "frame": 4,
+      "time": 6.93038464,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemRuntime",
+      "action": "Service.Register",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "AI"
+      }
+    },
+    {
+      "seq": 69,
+      "utc": "2026-07-08T04:04:40.2139851Z",
+      "frame": 4,
+      "time": 6.930465,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemRuntime",
+      "action": "Service.Register",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "Npc"
+      }
+    },
+    {
+      "seq": 70,
+      "utc": "2026-07-08T04:04:40.2139851Z",
+      "frame": 4,
+      "time": 6.93058825,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemRuntime",
+      "action": "Service.Register",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "Choice"
+      }
+    },
+    {
+      "seq": 71,
+      "utc": "2026-07-08T04:04:40.2139851Z",
+      "frame": 4,
+      "time": 6.93062973,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemRuntime",
+      "action": "Service.Register",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "Interaction"
+      }
+    },
+    {
+      "seq": 72,
+      "utc": "2026-07-08T04:04:40.2139851Z",
+      "frame": 4,
+      "time": 6.930659,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemRuntime",
+      "action": "Service.Register",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "Camera"
+      }
+    },
+    {
+      "seq": 73,
+      "utc": "2026-07-08T04:04:40.2144849Z",
+      "frame": 4,
+      "time": 6.93076134,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemRuntime",
+      "action": "Service.Register",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "VFX"
+      }
+    },
+    {
+      "seq": 74,
+      "utc": "2026-07-08T04:04:40.2144849Z",
+      "frame": 4,
+      "time": 6.930806,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemRuntime",
+      "action": "Service.Register",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "Combat"
+      }
+    },
+    {
+      "seq": 75,
+      "utc": "2026-07-08T04:04:40.2144849Z",
+      "frame": 4,
+      "time": 6.93084669,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemRuntime",
+      "action": "Service.Register",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "UI"
+      }
+    },
+    {
+      "seq": 76,
+      "utc": "2026-07-08T04:04:40.2144849Z",
+      "frame": 4,
+      "time": 6.931032,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemRuntime",
+      "action": "Service.Initialize.Begin",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "GameFlow"
+      }
+    },
+    {
+      "seq": 77,
+      "utc": "2026-07-08T04:04:40.2144849Z",
+      "frame": 4,
+      "time": 6.931047,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemRuntime",
+      "action": "Service.Initialize.Success",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "service": "GameFlow"
+      }
+    },
+    {
+      "seq": 78,
+      "utc": "2026-07-08T04:04:40.2144849Z",
+      "frame": 4,
+      "time": 6.931053,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemRuntime",
+      "action": "Service.Initialize.Begin",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "Input"
+      }
+    },
+    {
+      "seq": 79,
+      "utc": "2026-07-08T04:04:40.2144849Z",
+      "frame": 4,
+      "time": 6.931054,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemRuntime",
+      "action": "Service.Initialize.Success",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "service": "Input"
+      }
+    },
+    {
+      "seq": 80,
+      "utc": "2026-07-08T04:04:40.2144849Z",
+      "frame": 4,
+      "time": 6.93105745,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemRuntime",
+      "action": "Service.Initialize.Begin",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "Data"
+      }
+    },
+    {
+      "seq": 81,
+      "utc": "2026-07-08T04:04:40.2259865Z",
+      "frame": 4,
+      "time": 6.942552,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemData",
+      "action": "GameplayCatalog.Loaded",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "path": "D:\\unity\\UnityProject\\GameDesinger_2\\Totem-Warrior\\GameData\\AIData\\GameplayCatalogs\\totem_gameplay_catalog.json",
+        "source": "gf-x-business-runtime-refactor",
+        "hash": "4617d9332fe61f84",
+        "weaponCount": "5",
+        "npcCount": "5"
+      }
+    },
+    {
+      "seq": 82,
+      "utc": "2026-07-08T04:04:40.2259865Z",
+      "frame": 4,
+      "time": 6.94255543,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemRuntime",
+      "action": "Service.Initialize.Success",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "service": "Data"
+      }
+    },
+    {
+      "seq": 83,
+      "utc": "2026-07-08T04:04:40.2259865Z",
+      "frame": 4,
+      "time": 6.94256926,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemRuntime",
+      "action": "Service.Initialize.Begin",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "Asset"
+      }
+    },
+    {
+      "seq": 84,
+      "utc": "2026-07-08T04:04:40.2279858Z",
+      "frame": 4,
+      "time": 6.94432,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemAsset",
+      "action": "RuntimeAssetCatalog.Loaded",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "path": "D:\\unity\\UnityProject\\GameDesinger_2\\Totem-Warrior\\GameData\\AIData\\GameplayCatalogs\\totem_runtime_assets.json",
+        "entryCount": "51"
+      }
+    },
+    {
+      "seq": 85,
+      "utc": "2026-07-08T04:04:40.2279858Z",
+      "frame": 4,
+      "time": 6.94432259,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemRuntime",
+      "action": "Service.Initialize.Success",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "service": "Asset"
+      }
+    },
+    {
+      "seq": 86,
+      "utc": "2026-07-08T04:04:40.2279858Z",
+      "frame": 4,
+      "time": 6.944332,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemRuntime",
+      "action": "Service.Initialize.Begin",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "Settings"
+      }
+    },
+    {
+      "seq": 87,
+      "utc": "2026-07-08T04:04:40.2279858Z",
+      "frame": 4,
+      "time": 6.94469261,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemSettings",
+      "action": "LoadSkipped",
+      "result": "Warning",
+      "message": null,
+      "data": {
+        "reason": "File not found."
+      }
+    },
+    {
+      "seq": 88,
+      "utc": "2026-07-08T04:04:40.2284858Z",
+      "frame": 4,
+      "time": 6.94506,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemRuntime",
+      "action": "Service.Initialize.Success",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "service": "Settings"
+      }
+    },
+    {
+      "seq": 89,
+      "utc": "2026-07-08T04:04:40.2284858Z",
+      "frame": 4,
+      "time": 6.94506931,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemRuntime",
+      "action": "Service.Initialize.Begin",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "Audio"
+      }
+    },
+    {
+      "seq": 90,
+      "utc": "2026-07-08T04:04:40.2294859Z",
+      "frame": 4,
+      "time": 6.946192,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemAudio",
+      "action": "Settings.Applied",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "bgm": "0.80",
+        "sfx": "0.80"
+      }
+    },
+    {
+      "seq": 91,
+      "utc": "2026-07-08T04:04:40.2299863Z",
+      "frame": 4,
+      "time": 6.9462676,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemAudio",
+      "action": "Initialized",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "cueCount": "14",
+        "backendAvailable": "True"
+      }
+    },
+    {
+      "seq": 92,
+      "utc": "2026-07-08T04:04:40.2299863Z",
+      "frame": 4,
+      "time": 6.94626951,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemRuntime",
+      "action": "Service.Initialize.Success",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "service": "Audio"
+      }
+    },
+    {
+      "seq": 93,
+      "utc": "2026-07-08T04:04:40.2299863Z",
+      "frame": 4,
+      "time": 6.94627666,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemRuntime",
+      "action": "Service.Initialize.Begin",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "RunStats"
+      }
+    },
+    {
+      "seq": 94,
+      "utc": "2026-07-08T04:04:40.2309855Z",
+      "frame": 4,
+      "time": 6.947659,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemRuntime",
+      "action": "Service.Initialize.Success",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "service": "RunStats"
+      }
+    },
+    {
+      "seq": 95,
+      "utc": "2026-07-08T04:04:40.2309855Z",
+      "frame": 4,
+      "time": 6.94766855,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemRuntime",
+      "action": "Service.Initialize.Begin",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "MetaProgress"
+      }
+    },
+    {
+      "seq": 96,
+      "utc": "2026-07-08T04:04:40.2314854Z",
+      "frame": 4,
+      "time": 6.948045,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemMetaProgress",
+      "action": "LoadSkipped",
+      "result": "Warning",
+      "message": null,
+      "data": {
+        "reason": "File not found."
+      }
+    },
+    {
+      "seq": 97,
+      "utc": "2026-07-08T04:04:40.2314854Z",
+      "frame": 4,
+      "time": 6.948047,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemRuntime",
+      "action": "Service.Initialize.Success",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "service": "MetaProgress"
+      }
+    },
+    {
+      "seq": 98,
+      "utc": "2026-07-08T04:04:40.2314854Z",
+      "frame": 4,
+      "time": 6.94805336,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemRuntime",
+      "action": "Service.Initialize.Begin",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "Map"
+      }
+    },
+    {
+      "seq": 99,
+      "utc": "2026-07-08T04:04:40.2334863Z",
+      "frame": 4,
+      "time": 6.949816,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemRuntime",
+      "action": "Service.Initialize.Success",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "service": "Map"
+      }
+    },
+    {
+      "seq": 100,
+      "utc": "2026-07-08T04:04:40.2334863Z",
+      "frame": 4,
+      "time": 6.949825,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemRuntime",
+      "action": "Service.Initialize.Begin",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "Actor"
+      }
+    },
+    {
+      "seq": 101,
+      "utc": "2026-07-08T04:04:40.2349871Z",
+      "frame": 4,
+      "time": 6.95144367,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemRuntime",
+      "action": "Service.Initialize.Success",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "service": "Actor"
+      }
+    },
+    {
+      "seq": 102,
+      "utc": "2026-07-08T04:04:40.2349871Z",
+      "frame": 4,
+      "time": 6.951455,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemRuntime",
+      "action": "Service.Initialize.Begin",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "Economy"
+      }
+    },
+    {
+      "seq": 103,
+      "utc": "2026-07-08T04:04:40.2359859Z",
+      "frame": 4,
+      "time": 6.952515,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemRuntime",
+      "action": "Service.Initialize.Success",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "service": "Economy"
+      }
+    },
+    {
+      "seq": 104,
+      "utc": "2026-07-08T04:04:40.2359859Z",
+      "frame": 4,
+      "time": 6.95252275,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemRuntime",
+      "action": "Service.Initialize.Begin",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "Status"
+      }
+    },
+    {
+      "seq": 105,
+      "utc": "2026-07-08T04:04:40.2359859Z",
+      "frame": 4,
+      "time": 6.95256042,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemRuntime",
+      "action": "Service.Initialize.Success",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "service": "Status"
+      }
+    },
+    {
+      "seq": 106,
+      "utc": "2026-07-08T04:04:40.2359859Z",
+      "frame": 4,
+      "time": 6.952565,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemRuntime",
+      "action": "Service.Initialize.Begin",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "Tattoo"
+      }
+    },
+    {
+      "seq": 107,
+      "utc": "2026-07-08T04:04:40.2439853Z",
+      "frame": 4,
+      "time": 6.960573,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemRuntime",
+      "action": "Service.Initialize.Success",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "service": "Tattoo"
+      }
+    },
+    {
+      "seq": 108,
+      "utc": "2026-07-08T04:04:40.2439853Z",
+      "frame": 4,
+      "time": 6.96058655,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemRuntime",
+      "action": "Service.Initialize.Begin",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "Weapon"
+      }
+    },
+    {
+      "seq": 109,
+      "utc": "2026-07-08T04:04:40.2489865Z",
+      "frame": 4,
+      "time": 6.96533966,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemRuntime",
+      "action": "Service.Initialize.Success",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "service": "Weapon"
+      }
+    },
+    {
+      "seq": 110,
+      "utc": "2026-07-08T04:04:40.2489865Z",
+      "frame": 4,
+      "time": 6.96535158,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemRuntime",
+      "action": "Service.Initialize.Begin",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "Chest"
+      }
+    },
+    {
+      "seq": 111,
+      "utc": "2026-07-08T04:04:40.2489865Z",
+      "frame": 4,
+      "time": 6.965665,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemRuntime",
+      "action": "Service.Initialize.Success",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "service": "Chest"
+      }
+    },
+    {
+      "seq": 112,
+      "utc": "2026-07-08T04:04:40.2489865Z",
+      "frame": 4,
+      "time": 6.96567059,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemRuntime",
+      "action": "Service.Initialize.Begin",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "Skill"
+      }
+    },
+    {
+      "seq": 113,
+      "utc": "2026-07-08T04:04:40.2509872Z",
+      "frame": 4,
+      "time": 6.96738863,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemRuntime",
+      "action": "Service.Initialize.Success",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "service": "Skill"
+      }
+    },
+    {
+      "seq": 114,
+      "utc": "2026-07-08T04:04:40.2509872Z",
+      "frame": 4,
+      "time": 6.9673996,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemRuntime",
+      "action": "Service.Initialize.Begin",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "Zone"
+      }
+    },
+    {
+      "seq": 115,
+      "utc": "2026-07-08T04:04:40.2524870Z",
+      "frame": 4,
+      "time": 6.968876,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemRuntime",
+      "action": "Service.Initialize.Success",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "service": "Zone"
+      }
+    },
+    {
+      "seq": 116,
+      "utc": "2026-07-08T04:04:40.2524870Z",
+      "frame": 4,
+      "time": 6.968885,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemRuntime",
+      "action": "Service.Initialize.Begin",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "Boss"
+      }
+    },
+    {
+      "seq": 117,
+      "utc": "2026-07-08T04:04:40.2539858Z",
+      "frame": 4,
+      "time": 6.97036552,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemRuntime",
+      "action": "Service.Initialize.Success",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "service": "Boss"
+      }
+    },
+    {
+      "seq": 118,
+      "utc": "2026-07-08T04:04:40.2539858Z",
+      "frame": 4,
+      "time": 6.970376,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemRuntime",
+      "action": "Service.Initialize.Begin",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "AI"
+      }
+    },
+    {
+      "seq": 119,
+      "utc": "2026-07-08T04:04:40.2544850Z",
+      "frame": 4,
+      "time": 6.97118759,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemRuntime",
+      "action": "Service.Initialize.Success",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "service": "AI"
+      }
+    },
+    {
+      "seq": 120,
+      "utc": "2026-07-08T04:04:40.2544850Z",
+      "frame": 4,
+      "time": 6.9711957,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemRuntime",
+      "action": "Service.Initialize.Begin",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "Npc"
+      }
+    },
+    {
+      "seq": 121,
+      "utc": "2026-07-08T04:04:40.2549849Z",
+      "frame": 4,
+      "time": 6.971289,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemRuntime",
+      "action": "Service.Initialize.Success",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "service": "Npc"
+      }
+    },
+    {
+      "seq": 122,
+      "utc": "2026-07-08T04:04:40.2549849Z",
+      "frame": 4,
+      "time": 6.9712944,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemRuntime",
+      "action": "Service.Initialize.Begin",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "Choice"
+      }
+    },
+    {
+      "seq": 123,
+      "utc": "2026-07-08T04:04:40.2574849Z",
+      "frame": 4,
+      "time": 6.97414827,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemRuntime",
+      "action": "Service.Initialize.Success",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "service": "Choice"
+      }
+    },
+    {
+      "seq": 124,
+      "utc": "2026-07-08T04:04:40.2574849Z",
+      "frame": 4,
+      "time": 6.97415733,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemRuntime",
+      "action": "Service.Initialize.Begin",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "Interaction"
+      }
+    },
+    {
+      "seq": 125,
+      "utc": "2026-07-08T04:04:40.2579851Z",
+      "frame": 4,
+      "time": 6.97424841,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemRuntime",
+      "action": "Service.Initialize.Success",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "service": "Interaction"
+      }
+    },
+    {
+      "seq": 126,
+      "utc": "2026-07-08T04:04:40.2579851Z",
+      "frame": 4,
+      "time": 6.97425461,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemRuntime",
+      "action": "Service.Initialize.Begin",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "Camera"
+      }
+    },
+    {
+      "seq": 127,
+      "utc": "2026-07-08T04:04:40.2579851Z",
+      "frame": 4,
+      "time": 6.9743104,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemRuntime",
+      "action": "Service.Initialize.Success",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "service": "Camera"
+      }
+    },
+    {
+      "seq": 128,
+      "utc": "2026-07-08T04:04:40.2579851Z",
+      "frame": 4,
+      "time": 6.974315,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemRuntime",
+      "action": "Service.Initialize.Begin",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "VFX"
+      }
+    },
+    {
+      "seq": 129,
+      "utc": "2026-07-08T04:04:40.2579851Z",
+      "frame": 4,
+      "time": 6.974375,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemRuntime",
+      "action": "Service.Initialize.Success",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "service": "VFX"
+      }
+    },
+    {
+      "seq": 130,
+      "utc": "2026-07-08T04:04:40.2579851Z",
+      "frame": 4,
+      "time": 6.97437954,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemRuntime",
+      "action": "Service.Initialize.Begin",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "Combat"
+      }
+    },
+    {
+      "seq": 131,
+      "utc": "2026-07-08T04:04:40.2579851Z",
+      "frame": 4,
+      "time": 6.97447443,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemRuntime",
+      "action": "Service.Initialize.Success",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "service": "Combat"
+      }
+    },
+    {
+      "seq": 132,
+      "utc": "2026-07-08T04:04:40.2579851Z",
+      "frame": 4,
+      "time": 6.97447872,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemRuntime",
+      "action": "Service.Initialize.Begin",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "service": "UI"
+      }
+    },
+    {
+      "seq": 133,
+      "utc": "2026-07-08T04:04:40.2579851Z",
+      "frame": 4,
+      "time": 6.97470331,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemFlow",
+      "action": "StateChanged",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "from": "None",
+        "to": "MainMenu"
+      }
+    },
+    {
+      "seq": 134,
+      "utc": "2026-07-08T04:04:40.2589849Z",
+      "frame": 4,
+      "time": 6.975442,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemAudio",
+      "action": "Cue.Requested",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "cueId": "bgm_main_menu",
+        "kind": "Bgm",
+        "asset": "BGM/main_menu.ogg",
+        "reason": "GameFlow.MainMenu"
+      }
+    },
+    {
+      "seq": 135,
+      "utc": "2026-07-08T04:04:40.2619848Z",
+      "frame": 4,
+      "time": 6.97842932,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "UI",
+      "action": "OpenUIForm.Begin",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "uiId": "1",
+        "asset": "Assets/Game/Prefabs/UI/MainMenu.prefab",
+        "group": "UIForm",
+        "serialId": "1"
+      }
+    },
+    {
+      "seq": 136,
+      "utc": "2026-07-08T04:04:40.2619848Z",
+      "frame": 4,
+      "time": 6.97844839,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemUI",
+      "action": "OpenExclusive",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "view": "MainMenu",
+        "serialId": "1"
+      }
+    },
+    {
+      "seq": 137,
+      "utc": "2026-07-08T04:04:40.2619848Z",
+      "frame": 4,
+      "time": 6.978451,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemRuntime",
+      "action": "Service.Initialize.Success",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "service": "UI"
+      }
+    },
+    {
+      "seq": 138,
+      "utc": "2026-07-08T04:04:40.2619848Z",
+      "frame": 4,
+      "time": 6.9785037,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemRuntime",
+      "action": "Services.Ready",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "readyCount": "26",
+        "serviceCount": "26"
+      }
+    },
+    {
+      "seq": 139,
+      "utc": "2026-07-08T04:04:40.2619848Z",
+      "frame": 4,
+      "time": 6.97851467,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "Procedure",
+      "action": "TotemGame.RuntimeReady",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "runtime": "[TotemGameRuntime]",
+        "servicesReady": "True"
+      }
+    },
+    {
+      "seq": 140,
+      "utc": "2026-07-08T04:04:40.4894866Z",
+      "frame": 5,
+      "time": 7.205932,
+      "traceId": "runtime-7fa77299050c4ca28db61f690924ce44",
+      "system": "TotemUI",
+      "action": "MainMenu.Open",
+      "result": "Success",
+      "message": null,
+      "data": null
+    },
+    {
+      "seq": 141,
+      "utc": "2026-07-08T04:04:48.5599855Z",
+      "frame": 485,
+      "time": 15.2766886,
+      "traceId": "diagnostics-3e07d0cd01034914bc3146089bc4d3ef",
+      "system": "Trace",
+      "action": "Begin",
+      "result": "Info",
+      "message": "diagnostics-3e07d0cd01034914bc3146089bc4d3ef",
+      "data": null
+    },
+    {
+      "seq": 142,
+      "utc": "2026-07-08T04:04:48.5599855Z",
+      "frame": 485,
+      "time": 15.2766905,
+      "traceId": "diagnostics-3e07d0cd01034914bc3146089bc4d3ef",
+      "system": "Diagnostics",
+      "action": "RunAll.Begin",
+      "result": "Info",
+      "message": null,
+      "data": null
+    },
+    {
+      "seq": 143,
+      "utc": "2026-07-08T04:04:48.5609852Z",
+      "frame": 485,
+      "time": 15.2773266,
+      "traceId": "diagnostics-3e07d0cd01034914bc3146089bc4d3ef",
+      "system": "Diagnostics",
+      "action": "Project layout.Begin",
+      "result": "Info",
+      "message": null,
+      "data": null
+    },
+    {
+      "seq": 144,
+      "utc": "2026-07-08T04:04:48.5614852Z",
+      "frame": 485,
+      "time": 15.2779379,
+      "traceId": "diagnostics-3e07d0cd01034914bc3146089bc4d3ef",
+      "system": "Diagnostics",
+      "action": "Project layout.End",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "durationMs": "0",
+        "errors": "0",
+        "warnings": "0"
+      }
+    },
+    {
+      "seq": 145,
+      "utc": "2026-07-08T04:04:48.5614852Z",
+      "frame": 485,
+      "time": 15.2779417,
+      "traceId": "diagnostics-3e07d0cd01034914bc3146089bc4d3ef",
+      "system": "Diagnostics",
+      "action": "AppConfigs runtime contract.Begin",
+      "result": "Info",
+      "message": null,
+      "data": null
+    },
+    {
+      "seq": 146,
+      "utc": "2026-07-08T04:04:48.5659850Z",
+      "frame": 485,
+      "time": 15.2823229,
+      "traceId": "diagnostics-3e07d0cd01034914bc3146089bc4d3ef",
+      "system": "Diagnostics",
+      "action": "AppConfigs runtime contract.End",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "durationMs": "4",
+        "errors": "0",
+        "warnings": "0"
+      }
+    },
+    {
+      "seq": 147,
+      "utc": "2026-07-08T04:04:48.5659850Z",
+      "frame": 485,
+      "time": 15.2823315,
+      "traceId": "diagnostics-3e07d0cd01034914bc3146089bc4d3ef",
+      "system": "Diagnostics",
+      "action": "Build settings.Begin",
+      "result": "Info",
+      "message": null,
+      "data": null
+    },
+    {
+      "seq": 148,
+      "utc": "2026-07-08T04:04:48.5669850Z",
+      "frame": 485,
+      "time": 15.2834492,
+      "traceId": "diagnostics-3e07d0cd01034914bc3146089bc4d3ef",
+      "system": "Diagnostics",
+      "action": "Build settings.End",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "durationMs": "1",
+        "errors": "0",
+        "warnings": "0"
+      }
+    },
+    {
+      "seq": 149,
+      "utc": "2026-07-08T04:04:48.5669850Z",
+      "frame": 485,
+      "time": 15.283453,
+      "traceId": "diagnostics-3e07d0cd01034914bc3146089bc4d3ef",
+      "system": "Diagnostics",
+      "action": "Resource rules.Begin",
+      "result": "Info",
+      "message": null,
+      "data": null
+    },
+    {
+      "seq": 150,
+      "utc": "2026-07-08T04:04:48.5674851Z",
+      "frame": 485,
+      "time": 15.28388,
+      "traceId": "diagnostics-3e07d0cd01034914bc3146089bc4d3ef",
+      "system": "Diagnostics",
+      "action": "Resource rules.End",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "durationMs": "0",
+        "errors": "0",
+        "warnings": "0"
+      }
+    },
+    {
+      "seq": 151,
+      "utc": "2026-07-08T04:04:48.5674851Z",
+      "frame": 485,
+      "time": 15.283886,
+      "traceId": "diagnostics-3e07d0cd01034914bc3146089bc4d3ef",
+      "system": "Diagnostics",
+      "action": "AI DataTable json.Begin",
+      "result": "Info",
+      "message": null,
+      "data": null
+    },
+    {
+      "seq": 152,
+      "utc": "2026-07-08T04:04:48.5949857Z",
+      "frame": 485,
+      "time": 15.3112249,
+      "traceId": "diagnostics-3e07d0cd01034914bc3146089bc4d3ef",
+      "system": "Diagnostics",
+      "action": "AI DataTable json.End",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "durationMs": "27",
+        "errors": "0",
+        "warnings": "0"
+      }
+    },
+    {
+      "seq": 153,
+      "utc": "2026-07-08T04:04:48.5954854Z",
+      "frame": 485,
+      "time": 15.3119793,
+      "traceId": "diagnostics-3e07d0cd01034914bc3146089bc4d3ef",
+      "system": "Diagnostics",
+      "action": "RegisteredScenarios.Discover",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "count": "17"
+      }
+    },
+    {
+      "seq": 154,
+      "utc": "2026-07-08T04:04:48.5954854Z",
+      "frame": 485,
+      "time": 15.31212,
+      "traceId": "diagnostics-3e07d0cd01034914bc3146089bc4d3ef",
+      "system": "Diagnostics",
+      "action": "RegisteredScenarios.Skip",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "type": "UGF.EditorTools.BusinessRewriteInventoryDiagnosticScenario",
+        "mode": "EditMode"
+      }
+    },
+    {
+      "seq": 155,
+      "utc": "2026-07-08T04:04:48.5954854Z",
+      "frame": 485,
+      "time": 15.312151,
+      "traceId": "diagnostics-3e07d0cd01034914bc3146089bc4d3ef",
+      "system": "Diagnostics",
+      "action": "RegisteredScenarios.Skip",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "type": "UGF.EditorTools.BusinessRuntimeContractDiagnosticScenario",
+        "mode": "EditMode"
+      }
+    },
+    {
+      "seq": 156,
+      "utc": "2026-07-08T04:04:48.5954854Z",
+      "frame": 485,
+      "time": 15.3121805,
+      "traceId": "diagnostics-3e07d0cd01034914bc3146089bc4d3ef",
+      "system": "Diagnostics",
+      "action": "RegisteredScenarios.Skip",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "type": "UGF.EditorTools.CleanWorkspaceDiagnosticScenario",
+        "mode": "EditMode"
+      }
+    },
+    {
+      "seq": 157,
+      "utc": "2026-07-08T04:04:48.5959856Z",
+      "frame": 485,
+      "time": 15.3124533,
+      "traceId": "diagnostics-3e07d0cd01034914bc3146089bc4d3ef",
+      "system": "Diagnostics",
+      "action": "RegisteredScenarios.Skip",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "type": "UGF.EditorTools.MigrationPathContractDiagnosticScenario",
+        "mode": "EditMode"
+      }
+    },
+    {
+      "seq": 158,
+      "utc": "2026-07-08T04:04:48.5964852Z",
+      "frame": 485,
+      "time": 15.3128,
+      "traceId": "diagnostics-3e07d0cd01034914bc3146089bc4d3ef",
+      "system": "Diagnostics",
+      "action": "Scenario.Begin",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "type": "UGF.EditorTools.StartupChainDiagnosticScenario",
+        "category": "Startup",
+        "name": "Launch To Totem Runtime Smoke",
+        "mode": "PlayMode"
+      }
+    },
+    {
+      "seq": 159,
+      "utc": "2026-07-08T04:04:48.5969853Z",
+      "frame": 485,
+      "time": 15.3136091,
+      "traceId": "diagnostics-3e07d0cd01034914bc3146089bc4d3ef",
+      "system": "DiagnosticScenario.Startup",
+      "action": "Launch To Totem Runtime Smoke.Probe",
+      "result": "Info",
+      "message": "Check runtime startup chain.",
+      "data": null
+    },
+    {
+      "seq": 160,
+      "utc": "2026-07-08T04:04:48.5994854Z",
+      "frame": 485,
+      "time": 15.3159065,
+      "traceId": "diagnostics-3e07d0cd01034914bc3146089bc4d3ef",
+      "system": "Diagnostics",
+      "action": "Scenario.End",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "type": "UGF.EditorTools.StartupChainDiagnosticScenario",
+        "category": "Startup",
+        "name": "Launch To Totem Runtime Smoke",
+        "durationMs": "3",
+        "errors": "0",
+        "warnings": "0"
+      }
+    },
+    {
+      "seq": 161,
+      "utc": "2026-07-08T04:04:48.5994854Z",
+      "frame": 485,
+      "time": 15.315958,
+      "traceId": "diagnostics-3e07d0cd01034914bc3146089bc4d3ef",
+      "system": "Diagnostics",
+      "action": "RegisteredScenarios.Skip",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "type": "UGF.EditorTools.TotemAIRuntimeDiagnosticScenario",
+        "mode": "EditMode"
+      }
+    },
+    {
+      "seq": 162,
+      "utc": "2026-07-08T04:04:48.5994854Z",
+      "frame": 485,
+      "time": 15.3159866,
+      "traceId": "diagnostics-3e07d0cd01034914bc3146089bc4d3ef",
+      "system": "Diagnostics",
+      "action": "RegisteredScenarios.Skip",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "type": "UGF.EditorTools.TotemActorVisualDiagnosticScenario",
+        "mode": "EditMode"
+      }
+    },
+    {
+      "seq": 163,
+      "utc": "2026-07-08T04:04:48.5994854Z",
+      "frame": 485,
+      "time": 15.31601,
+      "traceId": "diagnostics-3e07d0cd01034914bc3146089bc4d3ef",
+      "system": "Diagnostics",
+      "action": "RegisteredScenarios.Skip",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "type": "UGF.EditorTools.TotemAudioRuntimeDiagnosticScenario",
+        "mode": "EditMode"
+      }
+    },
+    {
+      "seq": 164,
+      "utc": "2026-07-08T04:04:48.5994854Z",
+      "frame": 485,
+      "time": 15.3160315,
+      "traceId": "diagnostics-3e07d0cd01034914bc3146089bc4d3ef",
+      "system": "Diagnostics",
+      "action": "RegisteredScenarios.Skip",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "type": "UGF.EditorTools.TotemChoiceRuntimeDiagnosticScenario",
+        "mode": "EditMode"
+      }
+    },
+    {
+      "seq": 165,
+      "utc": "2026-07-08T04:04:48.5994854Z",
+      "frame": 485,
+      "time": 15.3160563,
+      "traceId": "diagnostics-3e07d0cd01034914bc3146089bc4d3ef",
+      "system": "Diagnostics",
+      "action": "RegisteredScenarios.Skip",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "type": "UGF.EditorTools.TotemExtendedGameplayDiagnosticScenario",
+        "mode": "EditMode"
+      }
+    },
+    {
+      "seq": 166,
+      "utc": "2026-07-08T04:04:48.5994854Z",
+      "frame": 485,
+      "time": 15.3160753,
+      "traceId": "diagnostics-3e07d0cd01034914bc3146089bc4d3ef",
+      "system": "Diagnostics",
+      "action": "RegisteredScenarios.Skip",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "type": "UGF.EditorTools.TotemFirstRoundContractDiagnosticScenario",
+        "mode": "EditMode"
+      }
+    },
+    {
+      "seq": 167,
+      "utc": "2026-07-08T04:04:48.5999854Z",
+      "frame": 485,
+      "time": 15.3162985,
+      "traceId": "diagnostics-3e07d0cd01034914bc3146089bc4d3ef",
+      "system": "Diagnostics",
+      "action": "RegisteredScenarios.Skip",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "type": "UGF.EditorTools.TotemFirstSliceUIDiagnosticScenario",
+        "mode": "EditMode"
+      }
+    },
+    {
+      "seq": 168,
+      "utc": "2026-07-08T04:04:48.5999854Z",
+      "frame": 485,
+      "time": 15.3163233,
+      "traceId": "diagnostics-3e07d0cd01034914bc3146089bc4d3ef",
+      "system": "Diagnostics",
+      "action": "RegisteredScenarios.Skip",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "type": "UGF.EditorTools.TotemGameplayCatalogDiagnosticScenario",
+        "mode": "EditMode"
+      }
+    },
+    {
+      "seq": 169,
+      "utc": "2026-07-08T04:04:48.5999854Z",
+      "frame": 485,
+      "time": 15.3163443,
+      "traceId": "diagnostics-3e07d0cd01034914bc3146089bc4d3ef",
+      "system": "Diagnostics",
+      "action": "RegisteredScenarios.Skip",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "type": "UGF.EditorTools.TotemGameplayRuntimeDiagnosticScenario",
+        "mode": "EditMode"
+      }
+    },
+    {
+      "seq": 170,
+      "utc": "2026-07-08T04:04:48.5999854Z",
+      "frame": 485,
+      "time": 15.3163643,
+      "traceId": "diagnostics-3e07d0cd01034914bc3146089bc4d3ef",
+      "system": "Diagnostics",
+      "action": "RegisteredScenarios.Skip",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "type": "UGF.EditorTools.TotemMetaProgressDiagnosticScenario",
+        "mode": "EditMode"
+      }
+    },
+    {
+      "seq": 171,
+      "utc": "2026-07-08T04:04:48.5999854Z",
+      "frame": 485,
+      "time": 15.3163843,
+      "traceId": "diagnostics-3e07d0cd01034914bc3146089bc4d3ef",
+      "system": "Diagnostics",
+      "action": "RegisteredScenarios.Skip",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "type": "UGF.EditorTools.TotemRuntimeAssetDiagnosticScenario",
+        "mode": "EditMode"
+      }
+    },
+    {
+      "seq": 172,
+      "utc": "2026-07-08T04:04:48.5999854Z",
+      "frame": 485,
+      "time": 15.3164034,
+      "traceId": "diagnostics-3e07d0cd01034914bc3146089bc4d3ef",
+      "system": "Diagnostics",
+      "action": "RegisteredScenarios.Skip",
+      "result": "Info",
+      "message": null,
+      "data": {
+        "type": "UGF.EditorTools.TotemVfxRuntimeDiagnosticScenario",
+        "mode": "EditMode"
+      }
+    },
+    {
+      "seq": 173,
+      "utc": "2026-07-08T04:04:48.5999854Z",
+      "frame": 485,
+      "time": 15.3164158,
+      "traceId": "diagnostics-3e07d0cd01034914bc3146089bc4d3ef",
+      "system": "Diagnostics",
+      "action": "Editor snapshot.Begin",
+      "result": "Info",
+      "message": null,
+      "data": null
+    },
+    {
+      "seq": 174,
+      "utc": "2026-07-08T04:04:48.6034853Z",
+      "frame": 485,
+      "time": 15.3200808,
+      "traceId": "diagnostics-3e07d0cd01034914bc3146089bc4d3ef",
+      "system": "Diagnostics",
+      "action": "Editor snapshot.End",
+      "result": "Success",
+      "message": null,
+      "data": {
+        "durationMs": "3",
+        "errors": "0",
+        "warnings": "0"
+      }
+    }
+  ]
+}
