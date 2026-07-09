@@ -812,19 +812,19 @@ PlayerSettings:
   webGLMemoryGeometricGrowthCap: 96
   webGLPowerPreference: 2
   scriptingDefineSymbols:
-    Android: DOTWEEN;DOTWEEN_PRO
-    EmbeddedLinux: DOTWEEN;DOTWEEN_PRO
-    GameCoreXboxOne: DOTWEEN;DOTWEEN_PRO
-    Nintendo Switch: DOTWEEN;DOTWEEN_PRO
-    PS4: DOTWEEN;DOTWEEN_PRO
-    PS5: DOTWEEN;DOTWEEN_PRO
-    QNX: DOTWEEN;DOTWEEN_PRO
-    Stadia: DOTWEEN;DOTWEEN_PRO
-    Standalone: DOTWEEN;DOTWEEN_PRO
-    VisionOS: DOTWEEN;DOTWEEN_PRO
-    WebGL: DOTWEEN;DOTWEEN_PRO
-    XboxOne: DOTWEEN;DOTWEEN_PRO
-    tvOS: DOTWEEN;DOTWEEN_PRO
+    Android: DOTWEEN
+    EmbeddedLinux: DOTWEEN
+    GameCoreXboxOne: DOTWEEN
+    Nintendo Switch: DOTWEEN
+    PS4: DOTWEEN
+    PS5: DOTWEEN
+    QNX: DOTWEEN
+    Stadia: DOTWEEN
+    Standalone: DOTWEEN
+    VisionOS: DOTWEEN
+    WebGL: DOTWEEN
+    XboxOne: DOTWEEN
+    tvOS: DOTWEEN
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend: {}

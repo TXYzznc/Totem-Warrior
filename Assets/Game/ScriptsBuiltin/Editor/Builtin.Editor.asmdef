@@ -1,0 +1,38 @@
+{
+  "name": "Builtin.Editor",
+  "rootNamespace": "",
+  "references": [
+    "Builtin.Runtime",
+    "Hotfix",
+    "UnityGameFramework.Runtime",
+    "UnityGameFramework.Editor",
+    "GameFramework",
+    "UniTask",
+    "UniTask.Linq",
+    "UnityEngine.UI",
+    "UnityEditor.UI",
+    "Unity.TextMeshPro",
+    "Unity.TextMeshPro.Editor",
+    "Unity.Mathematics",
+    "UnitySkills.Editor",
+    "Unity.2D.Sprite.Editor",
+    "Unity.InternalAPIEditorBridge.001",
+    "HybridCLR.Runtime",
+    "HybridCLR.Editor",
+    "Obfuz.Runtime",
+    "Obfuz.Editor",
+    "Obfuz4HybridCLR.Editor",
+    "ZString"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "excludePlatforms": [],
+  "allowUnsafeCode": true,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}
