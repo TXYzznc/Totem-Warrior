@@ -110,7 +110,7 @@ codex-image-gen 实际出图到 art/raw/
 | `.claude/skills/ai-art/references/drawing-prompt-UI.md` | 顶部加「UI 出图前置：先定表（强制）」小节 + 三表骨架模板（数量不写死） |
 | `.claude/skills/ai-art/references/drawing-prompt-generator.md` | 工作流程加 UI 分支：先定表 → 用户审阅 → 才进提示词生成 |
 | `.claude/CLAUDE.md` §六 | 美术素材生成意图追加 UI 先定表规范引用 |
-| `项目知识库（AI自行维护）/INDEX.md` | §四追加 04；§3.4 追加 wiki |
+| `项目知识库（AI自行维护）/wiki/INDEX.md` | §四追加 04；§3.4 追加 wiki |
 | `openspec/changes/04-ui-planning-first/` | 本次 change 全套 artifact |
 
 ## 七、相关 openspec 变更

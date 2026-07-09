@@ -28,7 +28,7 @@
 | 旧业务证据 | `LegacyProjectArchive` | 不回挂启动或运行流程 |
 | 运行配置 | `GameData/AIData/GameplayCatalogs/totem_gameplay_catalog.json` | AI 可读玩法目录 |
 | 运行资源索引 | `GameData/AIData/GameplayCatalogs/totem_runtime_assets.json` | key -> 旧路径/当前路径/用途/fallback |
-| 总资源索引 | `项目知识库（AI自行维护）/manifests/art_assets.json` | 全量美术资源路径、类型、用途、生命周期策略 |
+| 总资源索引 | `项目知识库（AI自行维护）/wiki/manifests/art_assets.json` | 全量美术资源路径、类型、用途、生命周期策略 |
 | 诊断报告 | `GameData/Diagnostics/Reports` | `gf-diagnostics-run-all_*.json` |
 | OpenSpec 变更 | `openspec/changes/gf-x-business-runtime-refactor` | 当前大重构跟踪 |
 
@@ -95,7 +95,7 @@ python tools\ai_index\build_ai_manifests.py --check
 
 1. 读本文件。
 2. 读 [AGENTS.md](./AGENTS.md) 和 [.claude/CLAUDE.md](./.claude/CLAUDE.md)。
-3. 查 [项目知识库（AI自行维护）/PROJECT_MAP.md](./项目知识库（AI自行维护）/PROJECT_MAP.md) 与 [项目知识库（AI自行维护）/ACTIVE_CONTEXT.md](./项目知识库（AI自行维护）/ACTIVE_CONTEXT.md)。
+3. 查 [项目知识库（AI自行维护）/wiki/PROJECT_MAP.md](./项目知识库（AI自行维护）/wiki/PROJECT_MAP.md) 与 [项目知识库（AI自行维护）/wiki/ACTIVE_CONTEXT.md](./项目知识库（AI自行维护）/wiki/ACTIVE_CONTEXT.md)。
 4. 查 `GameData/AIData/GameplayCatalogs/*.json`。
 5. 查最近的 `GameData/Diagnostics/Reports/gf-diagnostics-run-all_*.json`。
 

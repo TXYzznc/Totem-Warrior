@@ -13,7 +13,8 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[2]
 KB_DIR = ROOT / "项目知识库（AI自行维护）"
-MANIFEST_DIR = KB_DIR / "manifests"
+WIKI_DIR = KB_DIR / "wiki"
+MANIFEST_DIR = WIKI_DIR / "manifests"
 ACTIVE_SCRIPTS_DIR = ROOT / "Assets" / "Scripts"
 LEGACY_SCRIPTS_DIR = ROOT / "LegacyProjectArchive" / "Assets" / "Scripts"
 SCRIPTS_DIR = ACTIVE_SCRIPTS_DIR if ACTIVE_SCRIPTS_DIR.exists() else LEGACY_SCRIPTS_DIR
@@ -94,15 +95,15 @@ MODULE_META: dict[str, ModuleMeta] = {
     "Audio": ModuleMeta(
         "音效、BGM、事件驱动的一次性播放与运行时音频桥接。",
         "client-unity",
-        "项目知识库（AI自行维护）/GDD-v2/modules/13-AudioModule.md",
-        ("项目知识库（AI自行维护）/GDD-v2/systems/14-音效与环境音.md",),
+        "项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/modules/13-AudioModule.md",
+        ("项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/systems/14-音效与环境音.md",),
         resources=("Assets/Resources/Audio",),
     ),
     "Bot": ModuleMeta(
         "AI 对手控制、Bot 配置、构筑预设与战斗行为入口。",
         "client-unity",
-        "项目知识库（AI自行维护）/GDD-v2/modules/16-BotControllerModule.md",
-        ("项目知识库（AI自行维护）/GDD-v2/systems/12-数值平衡与曲线.md",),
+        "项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/modules/16-BotControllerModule.md",
+        ("项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/systems/12-数值平衡与曲线.md",),
         ("BotConfig", "BotBuildPreset"),
         specs=("openspec/specs/playtest-driver/spec.md",),
     ),
@@ -115,8 +116,8 @@ MODULE_META: dict[str, ModuleMeta] = {
     "Combat": ModuleMeta(
         "战斗意图、命中、伤害、攻击事件与玩家/敌人战斗流程。",
         "client-unity",
-        "项目知识库（AI自行维护）/GDD-v2/modules/02-CombatModule.md",
-        ("项目知识库（AI自行维护）/GDD-v2/systems/02-战斗手感.md",),
+        "项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/modules/02-CombatModule.md",
+        ("项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/systems/02-战斗手感.md",),
         ("ProjectileConfig", "WeaponConfig", "SkillConfig"),
         specs=("openspec/specs/player-attack-system/spec.md",),
     ),
@@ -131,26 +132,26 @@ MODULE_META: dict[str, ModuleMeta] = {
     "Economy": ModuleMeta(
         "货币、资源、商店库存、宝箱奖励与经济消耗。",
         "client-unity",
-        "项目知识库（AI自行维护）/GDD-v2/modules/11-EconomyModule.md",
+        "项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/modules/11-EconomyModule.md",
         (
-            "项目知识库（AI自行维护）/GDD-v2/systems/08-宝箱与探财节奏.md",
-            "项目知识库（AI自行维护）/GDD-v2/systems/09-纹身师与商人NPC.md",
+            "项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/systems/08-宝箱与探财节奏.md",
+            "项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/systems/09-纹身师与商人NPC.md",
         ),
         ("ResourceConfig", "ItemConfig", "ChestConfig", "MerchantConfig", "ShopStockConfig"),
     ),
     "Enemy": ModuleMeta(
         "敌人、Boss、怪物属性、死亡与相关战斗接入。",
         "client-unity",
-        "项目知识库（AI自行维护）/GDD-v2/modules/08-EnemyModule+BossModule.md",
-        ("项目知识库（AI自行维护）/GDD-v2/systems/11-怪物与Boss.md",),
+        "项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/modules/08-EnemyModule+BossModule.md",
+        ("项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/systems/11-怪物与Boss.md",),
         ("EnemyConfig", "BossPhaseConfig"),
         resources=("Assets/Resources/Prefab/Enemy", "Assets/Resources/Sprite/Characters/Enemies"),
     ),
     "Event": ModuleMeta(
         "三选一事件、事件配置与事件 UI/奖励流程。",
         "client-unity",
-        "项目知识库（AI自行维护）/GDD-v2/modules/10-EventModule.md",
-        ("项目知识库（AI自行维护）/GDD-v2/systems/10-事件与三选一.md",),
+        "项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/modules/10-EventModule.md",
+        ("项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/systems/10-事件与三选一.md",),
         ("EventConfig", "ThreeChoiceOptionConfig"),
     ),
     "Flow": ModuleMeta(
@@ -167,16 +168,16 @@ MODULE_META: dict[str, ModuleMeta] = {
     "Input": ModuleMeta(
         "玩家输入、测试输入注入与所有按键入口。",
         "client-unity",
-        "项目知识库（AI自行维护）/GDD-v2/modules/05-InputModule.md",
-        ("项目知识库（AI自行维护）/GDD-v2/systems/05-闪避与身法.md",),
+        "项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/modules/05-InputModule.md",
+        ("项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/systems/05-闪避与身法.md",),
         specs=("openspec/specs/playtest-driver/spec.md",),
         notes=("所有按键输入必须走 TotemInputService / ITotemInputProvider，不允许业务代码直接读 Input。",),
     ),
     "MapGen": ModuleMeta(
         "地图生成/加载、缩圈、地形与交互物布点。",
         "client-unity",
-        "项目知识库（AI自行维护）/GDD-v2/modules/07-MapGenModule.md",
-        ("项目知识库（AI自行维护）/GDD-v2/systems/07-地图生成.md",),
+        "项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/modules/07-MapGenModule.md",
+        ("项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/systems/07-地图生成.md",),
         ("MapTemplateConfig", "ZoneShrinkConfig"),
         specs=(
             "openspec/changes/26-fixed-map-three-themes/specs/map-fixed-terrain/spec.md",
@@ -186,8 +187,8 @@ MODULE_META: dict[str, ModuleMeta] = {
     "NPC": ModuleMeta(
         "纹身师、商人等 NPC 的生成、交互与 UI 接入。",
         "client-unity",
-        "项目知识库（AI自行维护）/GDD-v2/modules/09-NPCModule.md",
-        ("项目知识库（AI自行维护）/GDD-v2/systems/09-纹身师与商人NPC.md",),
+        "项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/modules/09-NPCModule.md",
+        ("项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/systems/09-纹身师与商人NPC.md",),
         ("NPCConfig", "MerchantConfig", "ShopStockConfig"),
         resources=("Assets/Resources/Prefab/NPC", "Assets/Resources/Sprite/Characters/NPCs"),
     ),
@@ -200,7 +201,7 @@ MODULE_META: dict[str, ModuleMeta] = {
     "Save": ModuleMeta(
         "存档、序列化、运行记录保存与恢复。",
         "client-unity",
-        "项目知识库（AI自行维护）/GDD-v2/modules/14-SaveModule.md",
+        "项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/modules/14-SaveModule.md",
         specs=("openspec/specs/workflow/spec.md",),
     ),
     "Scene": ModuleMeta(
@@ -218,15 +219,15 @@ MODULE_META: dict[str, ModuleMeta] = {
     "Skill": ModuleMeta(
         "主动技能配置、释放、命中效果与技能 UI 数据。",
         "client-unity",
-        "项目知识库（AI自行维护）/GDD-v2/modules/04-SkillModule.md",
-        ("项目知识库（AI自行维护）/GDD-v2/systems/04-主动技能.md",),
+        "项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/modules/04-SkillModule.md",
+        ("项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/systems/04-主动技能.md",),
         ("SkillConfig",),
         resources=("Assets/Resources/Sprite/Skills",),
     ),
     "Spawner": ModuleMeta(
         "玩家、敌人、Bot、掉落物等运行时生成入口。",
         "client-unity",
-        "项目知识库（AI自行维护）/GDD-v2/modules/06-SpawnerModule.md",
+        "项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/modules/06-SpawnerModule.md",
         datatables=("EnemyConfig", "WeaponDropConfig", "ChestConfig"),
         resources=("Assets/Resources/Prefab",),
     ),
@@ -238,8 +239,8 @@ MODULE_META: dict[str, ModuleMeta] = {
     "Tattoo": ModuleMeta(
         "纹身构筑、部位/颜色/元素/形状、附魔、读条与构筑策略。",
         "client-unity",
-        "项目知识库（AI自行维护）/GDD-v2/modules/01-TattooModule.md",
-        ("项目知识库（AI自行维护）/GDD-v2/systems/01-纹身构筑系统.md",),
+        "项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/modules/01-TattooModule.md",
+        ("项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/systems/01-纹身构筑系统.md",),
         (
             "TattooColorConfig",
             "TattooElementConfig",
@@ -256,8 +257,8 @@ MODULE_META: dict[str, ModuleMeta] = {
     "UI": ModuleMeta(
         "UGUI Form、HUD、菜单、运行结果、商店、纹身界面与 UI 数据绑定。",
         "client-unity",
-        "项目知识库（AI自行维护）/GDD-v2/modules/12-UIModule+各UIForm.md",
-        ("项目知识库（AI自行维护）/GDD-v2/systems/13-UI与HUD.md",),
+        "项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/modules/12-UIModule+各UIForm.md",
+        ("项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/systems/13-UI与HUD.md",),
         ("UIFormConfig",),
         ("Assets/Resources/Prefab/UI", "Assets/Resources/Sprite/UI"),
         ("openspec/specs/ui-workflow/spec.md", "openspec/specs/core-ui-screens/spec.md"),
@@ -266,15 +267,15 @@ MODULE_META: dict[str, ModuleMeta] = {
     "VFX": ModuleMeta(
         "命中特效、粒子、镜头抖动、战斗视觉反馈。",
         "client-unity",
-        "项目知识库（AI自行维护）/GDD-v2/modules/15-VFXModule.md",
+        "项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/modules/15-VFXModule.md",
         specs=("openspec/specs/visual-polish/spec.md",),
         resources=("Assets/Resources/Effect", "Assets/Resources/Sprite/Effects"),
     ),
     "Weapon": ModuleMeta(
         "武器配置、攻击、拾取、升级、特性和弹道接入。",
         "client-unity",
-        "项目知识库（AI自行维护）/GDD-v2/modules/03-WeaponModule.md",
-        ("项目知识库（AI自行维护）/GDD-v2/systems/03-武器系统.md",),
+        "项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/modules/03-WeaponModule.md",
+        ("项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/systems/03-武器系统.md",),
         ("WeaponConfig", "WeaponDropConfig", "WeaponTraitConfig", "ProjectileConfig"),
         ("Assets/Resources/Prefab/Weapon", "Assets/Resources/Sprite/Weapons"),
         ("openspec/specs/weapon-pickup/spec.md", "openspec/specs/player-attack-system/spec.md"),
@@ -299,7 +300,7 @@ FEATURE_SLICE_DEFINITIONS: tuple[dict[str, Any], ...] = (
         ],
         "docs": [
             "openspec/specs/main-menu-flow/spec.md",
-            "项目知识库（AI自行维护）/GDD-v2/modules/12-UIModule+各UIForm.md",
+            "项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/modules/12-UIModule+各UIForm.md",
         ],
         "diagnostic_scenarios": [
             "Scenario/Startup/Launch To Totem Runtime Smoke",
@@ -361,9 +362,9 @@ FEATURE_SLICE_DEFINITIONS: tuple[dict[str, Any], ...] = (
             "effect.projectile.arrow_bow",
         ],
         "docs": [
-            "项目知识库（AI自行维护）/GDD-v2/modules/02-CombatModule.md",
-            "项目知识库（AI自行维护）/GDD-v2/modules/03-WeaponModule.md",
-            "项目知识库（AI自行维护）/GDD-v2/modules/04-SkillModule.md",
+            "项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/modules/02-CombatModule.md",
+            "项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/modules/03-WeaponModule.md",
+            "项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/modules/04-SkillModule.md",
         ],
         "diagnostic_scenarios": [
             "Scenario/BusinessRuntime/Totem Gameplay Runtime",
@@ -407,7 +408,7 @@ FEATURE_SLICE_DEFINITIONS: tuple[dict[str, Any], ...] = (
             "tattoo.pattern.beast",
         ],
         "docs": [
-            "项目知识库（AI自行维护）/GDD-v2/modules/01-TattooModule.md",
+            "项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/modules/01-TattooModule.md",
             "openspec/specs/tattoo/spec.md",
         ],
         "diagnostic_scenarios": [
@@ -434,7 +435,7 @@ FEATURE_SLICE_DEFINITIONS: tuple[dict[str, Any], ...] = (
         "runtime_asset_keys": ["actor.smartAi", "actor.lightAi", "weapon.knife_basic", "weapon.pistol_basic"],
         "docs": [
             "openspec/changes/gf-x-business-runtime-refactor/SMART_AI_PERSONALITY_DRAFT.md",
-            "项目知识库（AI自行维护）/GDD-v2/modules/16-BotControllerModule.md",
+            "项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/modules/16-BotControllerModule.md",
         ],
         "diagnostic_scenarios": [
             "Scenario/BusinessRuntime/Totem AI Runtime",
@@ -459,9 +460,9 @@ FEATURE_SLICE_DEFINITIONS: tuple[dict[str, Any], ...] = (
         "ui_forms": ["Shop", "CombatHUD"],
         "runtime_asset_keys": ["chest.chest_common", "chest.chest_rare", "npc.merchant"],
         "docs": [
-            "项目知识库（AI自行维护）/GDD-v2/modules/11-EconomyModule.md",
-            "项目知识库（AI自行维护）/GDD-v2/systems/08-宝箱与探财节奏.md",
-            "项目知识库（AI自行维护）/GDD-v2/systems/09-纹身师与商人NPC.md",
+            "项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/modules/11-EconomyModule.md",
+            "项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/systems/08-宝箱与探财节奏.md",
+            "项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/systems/09-纹身师与商人NPC.md",
         ],
         "diagnostic_scenarios": [
             "Scenario/BusinessRuntime/Totem Gameplay Runtime",
@@ -486,8 +487,8 @@ FEATURE_SLICE_DEFINITIONS: tuple[dict[str, Any], ...] = (
         "ui_forms": ["Shop", "TattooEnchant", "TattooStudio"],
         "runtime_asset_keys": ["npc.tattooist", "npc.merchant"],
         "docs": [
-            "项目知识库（AI自行维护）/GDD-v2/modules/09-NPCModule.md",
-            "项目知识库（AI自行维护）/GDD-v2/systems/09-纹身师与商人NPC.md",
+            "项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/modules/09-NPCModule.md",
+            "项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/systems/09-纹身师与商人NPC.md",
         ],
         "diagnostic_scenarios": [
             "Scenario/BusinessRuntime/Totem Gameplay Runtime",
@@ -511,8 +512,8 @@ FEATURE_SLICE_DEFINITIONS: tuple[dict[str, Any], ...] = (
         "ui_forms": ["ThreeChoice"],
         "runtime_asset_keys": [],
         "docs": [
-            "项目知识库（AI自行维护）/GDD-v2/modules/10-EventModule.md",
-            "项目知识库（AI自行维护）/GDD-v2/systems/10-事件与三选一.md",
+            "项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/modules/10-EventModule.md",
+            "项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/systems/10-事件与三选一.md",
         ],
         "diagnostic_scenarios": [
             "Scenario/BusinessRuntime/Totem Choice Runtime",
@@ -536,8 +537,8 @@ FEATURE_SLICE_DEFINITIONS: tuple[dict[str, Any], ...] = (
         "ui_forms": ["CombatHUD"],
         "runtime_asset_keys": ["map.floor.ruins", "map.wall.ruins"],
         "docs": [
-            "项目知识库（AI自行维护）/GDD-v2/modules/07-MapGenModule.md",
-            "项目知识库（AI自行维护）/GDD-v2/systems/07-地图生成.md",
+            "项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/modules/07-MapGenModule.md",
+            "项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/systems/07-地图生成.md",
             "openspec/changes/26-fixed-map-three-themes/specs/map-fixed-terrain/spec.md",
         ],
         "diagnostic_scenarios": [
@@ -563,8 +564,8 @@ FEATURE_SLICE_DEFINITIONS: tuple[dict[str, Any], ...] = (
         "ui_forms": ["CombatHUD"],
         "runtime_asset_keys": ["actor.boss", "skill.skill_stomp", "skill.skill_beam", "skill.skill_summon", "skill.skill_enrage_aoe", "effect.boss.bolt"],
         "docs": [
-            "项目知识库（AI自行维护）/GDD-v2/modules/08-EnemyModule+BossModule.md",
-            "项目知识库（AI自行维护）/GDD-v2/systems/11-怪物与Boss.md",
+            "项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/modules/08-EnemyModule+BossModule.md",
+            "项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/systems/11-怪物与Boss.md",
         ],
         "diagnostic_scenarios": [
             "Scenario/BusinessRuntime/Totem AI Runtime",
@@ -595,8 +596,8 @@ FEATURE_SLICE_DEFINITIONS: tuple[dict[str, Any], ...] = (
             "effect.boss.bolt",
         ],
         "docs": [
-            "项目知识库（AI自行维护）/GDD-v2/modules/15-VFXModule.md",
-            "项目知识库（AI自行维护）/GDD-v2/modules/13-AudioModule.md",
+            "项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/modules/15-VFXModule.md",
+            "项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/modules/13-AudioModule.md",
             ".claude/skills/playtest-driver/SKILL.md",
         ],
         "diagnostic_scenarios": [
@@ -622,7 +623,7 @@ FEATURE_SLICE_DEFINITIONS: tuple[dict[str, Any], ...] = (
         "ui_forms": ["Settings", "RunResult"],
         "runtime_asset_keys": [],
         "docs": [
-            "项目知识库（AI自行维护）/GDD-v2/modules/14-SaveModule.md",
+            "项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/modules/14-SaveModule.md",
             "openspec/specs/settings/spec.md",
         ],
         "diagnostic_scenarios": [
@@ -683,8 +684,8 @@ FEATURE_SLICE_DEFINITIONS: tuple[dict[str, Any], ...] = (
         "docs": [
             "openspec/changes/gf-x-business-runtime-refactor/DATATABLE_MIGRATION_MANIFEST.md",
             "openspec/changes/gf-x-business-runtime-refactor/GAMEPLAY_RUNTIME_SLICE.md",
-            "项目知识库（AI自行维护）/manifests/datatables.json",
-            "项目知识库（AI自行维护）/manifests/art_assets.json",
+            "项目知识库（AI自行维护）/wiki/manifests/datatables.json",
+            "项目知识库（AI自行维护）/wiki/manifests/art_assets.json",
         ],
         "diagnostic_scenarios": [
             "Scenario/BusinessRuntime/Totem Gameplay Catalog",
@@ -1648,7 +1649,7 @@ def build_feature_slices_manifest(modules: dict[str, Any], datatables: dict[str,
         feature["business_json_paths"] = [f"GameData/AIData/DataTables/Business/{table}.json" for table in feature_tables]
         feature["business_xlsx_paths"] = [f"GameData/DataTables/Business/{table}.xlsx" for table in feature_tables]
         feature["art_lookup"] = {
-            "manifest": "项目知识库（AI自行维护）/manifests/art_assets.json",
+            "manifest": "项目知识库（AI自行维护）/wiki/manifests/art_assets.json",
             "query": "Find assets whose runtime_keys contains any runtime_asset_keys listed by this feature.",
         }
         feature["runtime_asset_catalog"] = rel(RUNTIME_ASSET_CATALOG_PATH)
@@ -1953,10 +1954,10 @@ def project_map(
 
 ```text
 AGENTS.md
-→ 项目知识库（AI自行维护）/INDEX.md
-→ 项目知识库（AI自行维护）/PROJECT_MAP.md
-→ 项目知识库（AI自行维护）/ACTIVE_CONTEXT.md
-→ 项目知识库（AI自行维护）/manifests/*.json
+→ 项目知识库（AI自行维护）/wiki/INDEX.md
+→ 项目知识库（AI自行维护）/wiki/PROJECT_MAP.md
+→ 项目知识库（AI自行维护）/wiki/ACTIVE_CONTEXT.md
+→ 项目知识库（AI自行维护）/wiki/manifests/*.json
 → {active_runtime_root}/Runtime 或 {active_runtime_root}/UI（当前 GF_X 业务代码）
 → {module_root}/<Module>/MODULE.md（仅作为旧行为证据）
 ```
@@ -1973,8 +1974,8 @@ AGENTS.md
 | 旧程序模块证据 | `{module_root}/` | 旧业务模块证据，每个模块有 `MODULE.md`；归档后不再作为 Unity 编译入口 |
 | 当前业务配置 | `{business_ai_json_root}/` + `{business_xlsx_root}/` | AI 友好 JSON 与策划可读 xlsx；runtime catalog 由 Business JSON 生成 |
 | 旧配置证据 | `{rel(DATA_JSON_DIR)}/` + `{data_cs_root}/` | 旧 JSON 与旧生成 C# 只作为字段/行为证据 |
-| 功能切片索引 | `项目知识库（AI自行维护）/manifests/feature_slices.json` | 按功能串联策划表、美术 runtime key、程序服务、UI 和诊断证据 |
-| 诊断定位索引 | `项目知识库（AI自行维护）/manifests/diagnostic_triage.json` | 从失败的 GF_X 诊断反查功能切片、表、服务、UI 和资源 key |
+| 功能切片索引 | `项目知识库（AI自行维护）/wiki/manifests/feature_slices.json` | 按功能串联策划表、美术 runtime key、程序服务、UI 和诊断证据 |
+| 诊断定位索引 | `项目知识库（AI自行维护）/wiki/manifests/diagnostic_triage.json` | 从失败的 GF_X 诊断反查功能切片、表、服务、UI 和资源 key |
 | 美术资源 | `Assets/Resources/Prefab/` / `Sprite/` / `Audio/` / `Effect/` + `Assets/Game/Prefabs/` | 复用资源内容，但加载和生命周期必须走 GF_X；先查 `manifests/art_assets.json` 的 `usage_status`、`runtime_usages`、`ui_form_usages` 反链 |
 | 测试证据 | `GameData/Diagnostics/Reports/` / `tools/playtest/reports/` / `LegacyProjectArchive/Assets/Tests/` | GF_X 自动诊断、人工 playtest、旧测试证据 |
 
@@ -1997,8 +1998,8 @@ AGENTS.md
 - 跨岗位功能切片数量：{feature_slices["count"]}
 - 功能切片覆盖旧模块数量：{feature_slices["legacy_module_coverage_count"]}/{modules["count"]}
 - 功能切片覆盖运行时服务数量：{feature_slices["runtime_service_coverage_count"]}
-- 功能切片入口：`项目知识库（AI自行维护）/manifests/feature_slices.json`
-- 诊断定位入口：`项目知识库（AI自行维护）/manifests/diagnostic_triage.json`（{diagnostic_triage["count"]} 个诊断场景）
+- 功能切片入口：`项目知识库（AI自行维护）/wiki/manifests/feature_slices.json`
+- 诊断定位入口：`项目知识库（AI自行维护）/wiki/manifests/diagnostic_triage.json`（{diagnostic_triage["count"]} 个诊断场景）
 
 ## 5. 活跃 OpenSpec
 
@@ -2084,8 +2085,8 @@ def expected_outputs() -> dict[Path, str]:
         MANIFEST_DIR / "diagnostic_triage.json": json_dump(diagnostic_triage),
         MANIFEST_DIR / "tests.json": json_dump(tests),
         MANIFEST_DIR / "health.json": json_dump(health),
-        KB_DIR / "PROJECT_MAP.md": project_map(modules, datatables, tests, feature_slices, diagnostic_triage),
-        KB_DIR / "ACTIVE_CONTEXT.md": active_context(tests, health, feature_slices, diagnostic_triage),
+        WIKI_DIR / "PROJECT_MAP.md": project_map(modules, datatables, tests, feature_slices, diagnostic_triage),
+        WIKI_DIR / "ACTIVE_CONTEXT.md": active_context(tests, health, feature_slices, diagnostic_triage),
     }
 
     for module in modules["modules"]:

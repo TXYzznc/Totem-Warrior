@@ -10,9 +10,9 @@ python tools\ai_index\build_ai_manifests.py
 
 会更新：
 
-- `项目知识库（AI自行维护）/PROJECT_MAP.md`
-- `项目知识库（AI自行维护）/ACTIVE_CONTEXT.md`
-- `项目知识库（AI自行维护）/manifests/*.json`
+- `项目知识库（AI自行维护）/wiki/PROJECT_MAP.md`
+- `项目知识库（AI自行维护）/wiki/ACTIVE_CONTEXT.md`
+- `项目知识库（AI自行维护）/wiki/manifests/*.json`
 - `LegacyProjectArchive/Assets/Scripts/Modules/*/MODULE.md`（旧行为证据卡）
 
 ## 校验
@@ -27,7 +27,7 @@ python tools\ai_index\build_ai_manifests.py --check
 
 ## 美术资源索引
 
-`项目知识库（AI自行维护）/manifests/art_assets.json` 是逐文件资源索引，覆盖 `Assets/Resources` 与 `Assets/Game` 下的美术、音频、Prefab、动画、材质、字体等资源。
+`项目知识库（AI自行维护）/wiki/manifests/art_assets.json` 是逐文件资源索引，覆盖 `Assets/Resources` 与 `Assets/Game` 下的美术、音频、Prefab、动画、材质、字体等资源。
 
 它记录：
 
@@ -41,7 +41,7 @@ python tools\ai_index\build_ai_manifests.py --check
 
 ## 功能切片索引
 
-`项目知识库（AI自行维护）/manifests/feature_slices.json` 是跨岗位协作索引，按功能把以下内容放在同一条记录里：
+`项目知识库（AI自行维护）/wiki/manifests/feature_slices.json` 是跨岗位协作索引，按功能把以下内容放在同一条记录里：
 
 - 策划侧：Business JSON/xlsx 配置表、GDD/OpenSpec 文档。
 - 美术侧：runtime asset key、`art_assets.json` 查询入口和资源替换约束。
@@ -54,7 +54,7 @@ python tools\ai_index\build_ai_manifests.py --check
 
 ## 诊断定位索引
 
-`项目知识库（AI自行维护）/manifests/diagnostic_triage.json` 是从 GF_X diagnostic scenario 反查功能切片的索引。
+`项目知识库（AI自行维护）/wiki/manifests/diagnostic_triage.json` 是从 GF_X diagnostic scenario 反查功能切片的索引。
 
 当 `totem_diagnostics_run_all` 出现失败时，先用失败的 `Scenario/...` 名称查这个文件，再按它列出的 feature slice、Business 表、runtime service、UI form、runtime asset key 和 docs 去定位问题。
 

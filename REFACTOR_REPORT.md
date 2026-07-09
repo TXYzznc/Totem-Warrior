@@ -66,7 +66,7 @@
 | `README.md` | 重写：一页 README，定位为「模板」 |
 | `REFACTOR_REPORT.md` | **新增**（取代 MERGE_REPORT.md） |
 | `工作/QUICKSTART.md` | Edit：Phase 2/3/4 加 agents 路由表 |
-| `项目知识库（AI自行维护）/INDEX.md` | 重写：模板化 + 加 wiki 条目规范 |
+| `项目知识库（AI自行维护）/wiki/INDEX.md` | 重写：模板化 + 加 wiki 条目规范 |
 
 ### 3.3 业务代码清理
 
