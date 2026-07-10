@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4396538300971267666}
   - component: {fileID: 4424332526928820675}
   - component: {fileID: 6579111462434170393}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: TitleText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -146,7 +146,7 @@ GameObject:
   - component: {fileID: 7711696769885993127}
   - component: {fileID: 4364431081102789162}
   - component: {fileID: 833570182864568255}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Bg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -222,7 +222,7 @@ GameObject:
   - component: {fileID: 5787832359057900083}
   - component: {fileID: 7007836799436672373}
   - component: {fileID: 7373931391453202603}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Card_Crit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -345,7 +345,7 @@ GameObject:
   - component: {fileID: 314779341281282085}
   - component: {fileID: 8098925138155551155}
   - component: {fileID: 2596218129256843495}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Card_Fire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -470,7 +470,7 @@ GameObject:
   - component: {fileID: 1712446188870751885}
   - component: {fileID: 426086513744881323}
   - component: {fileID: 5091140357283193956}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ThreeChoice
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -509,7 +509,7 @@ Canvas:
   m_GameObject: {fileID: 3299731883014075749}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 2
+  m_RenderMode: 0
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -605,7 +605,7 @@ GameObject:
   - component: {fileID: 4943379042729224495}
   - component: {fileID: 2822200316618056898}
   - component: {fileID: 3082283381422545153}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -680,7 +680,7 @@ GameObject:
   - component: {fileID: 8863824259832643844}
   - component: {fileID: 2501685383376528255}
   - component: {fileID: 7571907271868724492}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -755,7 +755,7 @@ GameObject:
   - component: {fileID: 1974126300569310876}
   - component: {fileID: 5647229768516389177}
   - component: {fileID: 7653855696919730840}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: DescText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -890,7 +890,7 @@ GameObject:
   - component: {fileID: 228889261133136783}
   - component: {fileID: 4716120971099821002}
   - component: {fileID: 3064488421472596831}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -965,7 +965,7 @@ GameObject:
   - component: {fileID: 1215078635013423702}
   - component: {fileID: 3514210403549039776}
   - component: {fileID: 5130718691268830517}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: NameText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1100,7 +1100,7 @@ GameObject:
   - component: {fileID: 2006538713151735447}
   - component: {fileID: 8966460149897923854}
   - component: {fileID: 2384656801231238195}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: DescText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1235,7 +1235,7 @@ GameObject:
   - component: {fileID: 1929878789626876819}
   - component: {fileID: 8809677957215972344}
   - component: {fileID: 8148942812334182442}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: HintText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1370,7 +1370,7 @@ GameObject:
   - component: {fileID: 3944930178046705678}
   - component: {fileID: 4995226520676960142}
   - component: {fileID: 5645092064055688614}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: DescText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1505,7 +1505,7 @@ GameObject:
   - component: {fileID: 6035220617436773764}
   - component: {fileID: 6688656637110433962}
   - component: {fileID: 2834495342938041740}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: NameText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1641,7 +1641,7 @@ GameObject:
   - component: {fileID: 2327821539105068862}
   - component: {fileID: 2877567903399343188}
   - component: {fileID: 5411882712889754973}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Card_Ice
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1764,7 +1764,7 @@ GameObject:
   - component: {fileID: 3007627878662915149}
   - component: {fileID: 371575536615687278}
   - component: {fileID: 1992160430726204878}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: CardsRow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1868,7 +1868,7 @@ GameObject:
   - component: {fileID: 5207930402417474119}
   - component: {fileID: 79880315206123957}
   - component: {fileID: 5628611895907241460}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: NameText
   m_TagString: Untagged
   m_Icon: {fileID: 0}

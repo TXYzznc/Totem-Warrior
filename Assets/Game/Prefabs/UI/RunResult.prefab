@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 239880295978895046}
   - component: {fileID: 4604434145271282960}
   - component: {fileID: 1597248140494959245}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: TattooIconCurse
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 4625522347169687212}
   - component: {fileID: 4583150021551588579}
   - component: {fileID: 3733723849341600159}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: KillsLabelText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -221,7 +221,7 @@ GameObject:
   - component: {fileID: 6639155463065204573}
   - component: {fileID: 3513223758932548868}
   - component: {fileID: 6044294673852797509}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BuildTitleText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -356,7 +356,7 @@ GameObject:
   - component: {fileID: 8120617158723822699}
   - component: {fileID: 4619238349731594833}
   - component: {fileID: 5268196745931280371}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: SurviveTimeText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -491,7 +491,7 @@ GameObject:
   - component: {fileID: 1014564209880888769}
   - component: {fileID: 2262010907431506424}
   - component: {fileID: 3070460480998106981}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: TattooIconLightning
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -566,7 +566,7 @@ GameObject:
   - component: {fileID: 8490482228945681930}
   - component: {fileID: 4287562142857434141}
   - component: {fileID: 4208993983785861715}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: TattooIconHoly
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -641,7 +641,7 @@ GameObject:
   - component: {fileID: 7955584860057772126}
   - component: {fileID: 5142866354069645398}
   - component: {fileID: 2361506848334557025}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: GoldLabelText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -779,7 +779,7 @@ GameObject:
   - component: {fileID: 1712446188870751885}
   - component: {fileID: 6030427494845670067}
   - component: {fileID: 4470692356575423714}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: RunResult
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -820,7 +820,7 @@ Canvas:
   m_GameObject: {fileID: 3299731883014075749}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 2
+  m_RenderMode: 0
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -917,7 +917,7 @@ GameObject:
   - component: {fileID: 2131315610095396054}
   - component: {fileID: 3504175323007744835}
   - component: {fileID: 7792119252126035946}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ReturnToMenuBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1037,7 +1037,7 @@ GameObject:
   - component: {fileID: 255839836427066452}
   - component: {fileID: 6841092747343737876}
   - component: {fileID: 5504365026621884592}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: DepthValueText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1172,7 +1172,7 @@ GameObject:
   - component: {fileID: 7238220806322151373}
   - component: {fileID: 5134701883356679019}
   - component: {fileID: 547037449018741409}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: KillsIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1247,7 +1247,7 @@ GameObject:
   - component: {fileID: 4539762499267086519}
   - component: {fileID: 8434318784042439306}
   - component: {fileID: 8733091194480685642}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: DeathLabelText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1382,7 +1382,7 @@ GameObject:
   - component: {fileID: 2756010162608864279}
   - component: {fileID: 5839405216531472225}
   - component: {fileID: 4795513816408588394}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: TitleText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1517,7 +1517,7 @@ GameObject:
   - component: {fileID: 3859880152563774584}
   - component: {fileID: 7818632343278665648}
   - component: {fileID: 5172869057622311605}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: GoldValueText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1652,7 +1652,7 @@ GameObject:
   - component: {fileID: 5333324726110942060}
   - component: {fileID: 1861507863607835176}
   - component: {fileID: 6346603509480595257}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BuildPanelBg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1734,7 +1734,7 @@ GameObject:
   - component: {fileID: 5257656765599515567}
   - component: {fileID: 7042467941622722314}
   - component: {fileID: 4423067614254852343}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: DeathIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1809,7 +1809,7 @@ GameObject:
   - component: {fileID: 9004947537882987576}
   - component: {fileID: 3838414246505613755}
   - component: {fileID: 2558179588478068860}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BgImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1884,7 +1884,7 @@ GameObject:
   - component: {fileID: 4386834869118209706}
   - component: {fileID: 8831075623554892883}
   - component: {fileID: 2564188838527003951}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: StatsPanelBg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1971,7 +1971,7 @@ GameObject:
   - component: {fileID: 3798602733097097040}
   - component: {fileID: 1068755988960350446}
   - component: {fileID: 6916637260068910665}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: TattooIconNature
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2046,7 +2046,7 @@ GameObject:
   - component: {fileID: 4676051875889057953}
   - component: {fileID: 1780036750923320145}
   - component: {fileID: 1445284843053128528}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2181,7 +2181,7 @@ GameObject:
   - component: {fileID: 2789654754755232753}
   - component: {fileID: 6142303711095886554}
   - component: {fileID: 146489823139496396}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: DepthIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2256,7 +2256,7 @@ GameObject:
   - component: {fileID: 3617970757398166277}
   - component: {fileID: 4842729837154873914}
   - component: {fileID: 1769795502803909733}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: TattooIconFire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2331,7 +2331,7 @@ GameObject:
   - component: {fileID: 7136128641330319840}
   - component: {fileID: 4926348882602067774}
   - component: {fileID: 1510235799254667034}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: TattooIconFrost
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2406,7 +2406,7 @@ GameObject:
   - component: {fileID: 6851184627355338961}
   - component: {fileID: 9131541486715645785}
   - component: {fileID: 1901780277086736331}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: DepthLabelText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2541,7 +2541,7 @@ GameObject:
   - component: {fileID: 6044634246745553990}
   - component: {fileID: 3408797409150777979}
   - component: {fileID: 2217283487847092167}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: DeathValueText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2676,7 +2676,7 @@ GameObject:
   - component: {fileID: 8479658803456990738}
   - component: {fileID: 4268764420883415193}
   - component: {fileID: 2541464562977383226}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: KillsValueText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2811,7 +2811,7 @@ GameObject:
   - component: {fileID: 3543421635648224225}
   - component: {fileID: 3577434587923930134}
   - component: {fileID: 7711461966668665535}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: GoldIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -59,6 +59,8 @@ public class UIFormBase : UIFormLogic, ISerializeFieldTool
         Array.Clear(_fields, 0, _fields.Length);
         Params = userData as UIParams;
         UICanvas = gameObject.GetOrAddComponent<Canvas>();
+        NormalizeUICanvas(UICanvas);
+        NormalizeLayer(gameObject);
         canvasGroup = gameObject.GetOrAddComponent<CanvasGroup>();
         RectTransform transform = GetComponent<RectTransform>();
         transform.anchorMin = Vector2.zero;
@@ -72,6 +74,33 @@ public class UIFormBase : UIFormLogic, ISerializeFieldTool
             m_UIAnimation = GetComponent<Animation>();
         }
         InitLocalization();
+    }
+
+    private static void NormalizeUICanvas(Canvas canvas)
+    {
+        if (canvas == null)
+        {
+            return;
+        }
+
+        canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+        canvas.worldCamera = null;
+        canvas.planeDistance = 100f;
+    }
+
+    private static void NormalizeLayer(GameObject root)
+    {
+        int uiLayer = LayerMask.NameToLayer("UI");
+        if (root == null || uiLayer < 0)
+        {
+            return;
+        }
+
+        var transforms = root.GetComponentsInChildren<Transform>(true);
+        for (int i = 0; i < transforms.Length; i++)
+        {
+            transforms[i].gameObject.layer = uiLayer;
+        }
     }
     protected override void OnOpen(object userData)
     {

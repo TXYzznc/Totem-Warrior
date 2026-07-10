@@ -71,6 +71,7 @@ namespace UGF.EditorTools
                 MoveEnemiesAway(actor, player);
                 target.Position = player.Position + new Vector3(0f, 0f, 0.8f);
                 economy.AddCoins(target, 80);
+                actor.SetCombatElapsedSecondsForDiagnostics(TotemActorService.ParticipantDamageProtectionSeconds + 0.1f);
 
                 provider.ClearAll();
                 provider.SetMouse(0, held: true, down: true);
@@ -218,6 +219,7 @@ namespace UGF.EditorTools
             context.AssertEqual(TotemGameFlowState.CombatHud, flow.CurrentState, "playableLoop.flow.state");
             context.Assert(map.CurrentMap != null, "Playable combat loop requires an active runtime map.");
             context.Assert(combat.CaptureCombatSnapshot().active, "Playable combat loop requires active combat.");
+            actor.SetCombatElapsedSecondsForDiagnostics(TotemActorService.ParticipantDamageProtectionSeconds + 0.1f);
 
             MoveEnemiesAway(actor, player);
             KeyCode moveKey = FindWalkableMoveKey(map.CurrentMap, player.Position, out _);

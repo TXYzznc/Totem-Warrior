@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7192770856450555080}
   - component: {fileID: 1599714757278469250}
   - component: {fileID: 8422755455290041117}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: NextButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -131,7 +131,7 @@ GameObject:
   m_Component:
   - component: {fileID: 273672293978533593}
   - component: {fileID: 71143940486328945}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: CharacterRoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -194,7 +194,7 @@ GameObject:
   - component: {fileID: 262266923613510338}
   - component: {fileID: 8156772442974866205}
   - component: {fileID: 1484842732939966338}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -275,7 +275,7 @@ GameObject:
   - component: {fileID: 1712446188870751885}
   - component: {fileID: 4059193340092558660}
   - component: {fileID: 1121986218538487441}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: CharacterSelect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -409,7 +409,7 @@ GameObject:
   - component: {fileID: 4826691056848516417}
   - component: {fileID: 3601669802564112663}
   - component: {fileID: 8220471472945468700}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -488,7 +488,7 @@ GameObject:
   - component: {fileID: 3337132992955714154}
   - component: {fileID: 3018522702159370108}
   - component: {fileID: 8192569438859366905}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}

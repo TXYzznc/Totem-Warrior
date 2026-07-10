@@ -9,8 +9,13 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
     public const int RuntimeActorCountWithoutBoss = 50;
     public const float CoverIncomingDamageMultiplier = 0.6f;
     public const float CoverMeleeBypassDistance = 4f;
+    public const float ParticipantSpawnMinDistance = 18f;
+    public const float ParticipantDamageProtectionSeconds = 60f;
     private const float DeathHideDelay = 0.75f;
     private const float TerrainEffectTickInterval = 0.2f;
+    private const int ParticipantSpawnRadialAttempts = 256;
+    private const int ParticipantSpawnGlobalAttempts = 2048;
+    private const float ParticipantSpawnSearchStep = 6f;
 
     private static readonly int IsMovingHash = Animator.StringToHash("IsMoving");
     private static readonly int DirectionHash = Animator.StringToHash("Direction");
@@ -35,6 +40,7 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
     private int terrainCoverReducedHitCount;
     private float lastTerrainCoverDamageBefore;
     private float lastTerrainCoverDamageAfter;
+    private float combatElapsedSec;
 
     public override string ServiceName => "Actor";
 
@@ -43,6 +49,15 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
     public TotemActorModel Player { get; private set; }
 
     public TotemActorModel Boss { get; private set; }
+
+    public float CombatElapsedSeconds => combatElapsedSec;
+
+#if UNITY_EDITOR
+    public void SetCombatElapsedSecondsForDiagnostics(float elapsedSeconds)
+    {
+        combatElapsedSec = Mathf.Max(combatElapsedSec, elapsedSeconds);
+    }
+#endif
 
     public event Action<TotemActorModel, float, bool> DamageApplied;
 
@@ -81,6 +96,11 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
 
     public void Tick(float deltaTime)
     {
+        if (deltaTime > 0f && flowService?.CurrentState == TotemGameFlowState.CombatHud)
+        {
+            combatElapsedSec += deltaTime;
+        }
+
         TickMovementAnimations();
         TickPendingActorHides(deltaTime);
         TickTerrainEffects(deltaTime);
@@ -216,6 +236,16 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
         }
 
         float originalAmount = amount;
+        if (IsParticipantDamageProtected(source, target, reason))
+        {
+            GFTrace.Info("TotemActor", "Damage.Blocked.ParticipantGrace", null, GFTrace.Data(
+                "source", source?.Name ?? string.Empty,
+                "target", target.Name,
+                "elapsed", combatElapsedSec.ToString("F1"),
+                "reason", string.IsNullOrWhiteSpace(reason) ? "Damage" : reason));
+            return false;
+        }
+
         amount = ResolveTerrainAdjustedDamage(source, target, amount, reason);
         if (amount <= 0f)
         {
@@ -448,6 +478,9 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
             TotemMapAnchorKind.PlayerSpawn,
             FindRoom(map, TotemRoomType.SpawnRoom)?.CenterWorld ?? new Vector3(82f, 0f, 82f));
         playerPosition.y = 0.5f;
+        var participantPositions = new List<Vector3>(RuntimeActorCountWithoutBoss);
+        playerPosition = ResolveParticipantSpawnPosition(map, playerPosition, playerPosition, participantPositions, 0);
+        participantPositions.Add(playerPosition);
         Vector3 bossPosition = TotemMapService.ResolveAnchorPosition(
             map,
             TotemMapAnchorKind.BossSpawn,
@@ -486,6 +519,7 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
                     0.5f,
                     groupCenter.z + Mathf.Sin(angle) * radius);
                 var position = ResolveWalkableEnemySpawnPosition(map, desiredPosition, groupCenter, playerPosition);
+                position = ResolveParticipantSpawnPosition(map, position, groupCenter, participantPositions, enemyIndex + 1);
 
                 var definition = ResolveEnemyDefinition(smart ? TotemActorKind.SmartAi : TotemActorKind.LightAi, map.ThemeName, enemyDefinitions);
                 var spawnInfo = new TotemActorSpawnInfo
@@ -498,6 +532,7 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
                 };
                 ApplyEnemyDefinition(spawnInfo, definition);
                 result[cursor++] = spawnInfo;
+                participantPositions.Add(position);
                 enemyIndex++;
             }
         }
@@ -557,6 +592,153 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
         return map == null || TotemMapService.IsTerrainWalkable(TotemMapService.QueryTerrain(map, position));
     }
 
+    private static Vector3 ResolveParticipantSpawnPosition(
+        TotemMapSnapshot map,
+        Vector3 desiredPosition,
+        Vector3 groupCenter,
+        IReadOnlyList<Vector3> occupiedPositions,
+        int salt)
+    {
+        desiredPosition = ClampSpawnPosition(map, desiredPosition);
+        desiredPosition.y = 0.5f;
+        if (IsValidParticipantSpawnPosition(map, desiredPosition, occupiedPositions, ParticipantSpawnMinDistance))
+        {
+            return desiredPosition;
+        }
+
+        Vector3 bestPosition = desiredPosition;
+        float bestDistance = GetNearestParticipantDistance(desiredPosition, occupiedPositions);
+        bool hasWalkableCandidate = IsParticipantSpawnArea(map, desiredPosition);
+        for (int attempt = 0; attempt < ParticipantSpawnRadialAttempts; attempt++)
+        {
+            int ring = attempt / 24 + 1;
+            float radius = ParticipantSpawnMinDistance + ring * ParticipantSpawnSearchStep;
+            float angle = (attempt * 137.50777f + salt * 23.711f) * Mathf.Deg2Rad;
+            var candidate = new Vector3(
+                groupCenter.x + Mathf.Cos(angle) * radius,
+                0.5f,
+                groupCenter.z + Mathf.Sin(angle) * radius);
+            if (TryEvaluateParticipantSpawnCandidate(map, candidate, occupiedPositions, ref bestPosition, ref bestDistance, ref hasWalkableCandidate))
+            {
+                return bestPosition;
+            }
+        }
+
+        float mapSize = map?.MapSize ?? TotemMapService.DefaultMapSize;
+        for (int attempt = 0; attempt < ParticipantSpawnGlobalAttempts; attempt++)
+        {
+            float x = DeterministicUnit(salt, attempt, 0) * mapSize;
+            float z = DeterministicUnit(salt, attempt, 1) * mapSize;
+            var candidate = new Vector3(x, 0.5f, z);
+            if (TryEvaluateParticipantSpawnCandidate(map, candidate, occupiedPositions, ref bestPosition, ref bestDistance, ref hasWalkableCandidate))
+            {
+                return bestPosition;
+            }
+        }
+
+        if (hasWalkableCandidate)
+        {
+            return bestPosition;
+        }
+
+        return ResolveWalkableEnemySpawnPosition(map, desiredPosition, groupCenter, desiredPosition);
+    }
+
+    private static bool TryEvaluateParticipantSpawnCandidate(
+        TotemMapSnapshot map,
+        Vector3 candidate,
+        IReadOnlyList<Vector3> occupiedPositions,
+        ref Vector3 bestPosition,
+        ref float bestDistance,
+        ref bool hasWalkableCandidate)
+    {
+        candidate = ClampSpawnPosition(map, candidate);
+        candidate.y = 0.5f;
+        if (!IsParticipantSpawnArea(map, candidate))
+        {
+            return false;
+        }
+
+        float nearestDistance = GetNearestParticipantDistance(candidate, occupiedPositions);
+        if (nearestDistance > bestDistance || !hasWalkableCandidate)
+        {
+            bestDistance = nearestDistance;
+            bestPosition = candidate;
+            hasWalkableCandidate = true;
+        }
+
+        return nearestDistance >= ParticipantSpawnMinDistance;
+    }
+
+    private static bool IsValidParticipantSpawnPosition(
+        TotemMapSnapshot map,
+        Vector3 candidate,
+        IReadOnlyList<Vector3> occupiedPositions,
+        float minDistance)
+    {
+        return IsParticipantSpawnArea(map, candidate)
+            && GetNearestParticipantDistance(candidate, occupiedPositions) >= minDistance;
+    }
+
+    private static bool IsParticipantSpawnArea(TotemMapSnapshot map, Vector3 position)
+    {
+        if (!IsWalkableSpawnPosition(map, position))
+        {
+            return false;
+        }
+
+        if (map == null)
+        {
+            return true;
+        }
+
+        float initialRadius = Mathf.Max(0f, map.MapSize * 0.5f);
+        var center = new Vector3(map.InitialZoneCenter.x, 0f, map.InitialZoneCenter.y);
+        return FlatDistance(position, center) <= initialRadius;
+    }
+
+    private static float GetNearestParticipantDistance(Vector3 candidate, IReadOnlyList<Vector3> occupiedPositions)
+    {
+        if (occupiedPositions == null || occupiedPositions.Count <= 0)
+        {
+            return float.MaxValue;
+        }
+
+        float best = float.MaxValue;
+        for (int i = 0; i < occupiedPositions.Count; i++)
+        {
+            float distance = FlatDistance(candidate, occupiedPositions[i]);
+            if (distance < best)
+            {
+                best = distance;
+            }
+        }
+
+        return best;
+    }
+
+    private static Vector3 ClampSpawnPosition(TotemMapSnapshot map, Vector3 position)
+    {
+        float mapSize = map?.MapSize ?? TotemMapService.DefaultMapSize;
+        position.x = Mathf.Clamp(position.x, 0f, mapSize);
+        position.z = Mathf.Clamp(position.z, 0f, mapSize);
+        return position;
+    }
+
+    private static float DeterministicUnit(int salt, int attempt, int axis)
+    {
+        unchecked
+        {
+            uint value = (uint)(salt * 73856093) ^ (uint)(attempt * 19349663) ^ (uint)(axis * 83492791) ^ 0x9E3779B9u;
+            value ^= value >> 16;
+            value *= 0x7FEB352Du;
+            value ^= value >> 15;
+            value *= 0x846CA68Bu;
+            value ^= value >> 16;
+            return (value & 0x00FFFFFFu) / 16777215f;
+        }
+    }
+
     public static TotemEnemyDefinition ResolveEnemyDefinition(
         TotemActorKind kind,
         string themeName,
@@ -596,6 +778,18 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
     public static bool IsEnemy(TotemActorModel actor)
     {
         return actor != null && actor.Kind != TotemActorKind.Player;
+    }
+
+    public static bool IsParticipantActor(TotemActorModel actor)
+    {
+        return actor != null && IsParticipantKind(actor.Kind);
+    }
+
+    public static bool IsParticipantKind(TotemActorKind kind)
+    {
+        return kind == TotemActorKind.Player
+            || kind == TotemActorKind.SmartAi
+            || kind == TotemActorKind.LightAi;
     }
 
     private static TotemEnemyTier ToEnemyTier(TotemActorKind kind)
@@ -674,6 +868,25 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
             || reason.IndexOf("Status", StringComparison.OrdinalIgnoreCase) >= 0;
     }
 
+    private bool IsParticipantDamageProtected(TotemActorModel source, TotemActorModel target, string reason)
+    {
+        return flowService != null
+            && flowService.CurrentState == TotemGameFlowState.CombatHud
+            && combatElapsedSec < ParticipantDamageProtectionSeconds
+            && !IsDamageProtectionBypassReason(reason)
+            && source != null
+            && target != null
+            && source != target
+            && IsParticipantActor(source)
+            && IsParticipantActor(target);
+    }
+
+    private static bool IsDamageProtectionBypassReason(string reason)
+    {
+        return !string.IsNullOrWhiteSpace(reason)
+            && reason.IndexOf("Diagnostic", StringComparison.Ordinal) >= 0;
+    }
+
     private static float FlatDistance(Vector3 a, Vector3 b)
     {
         float dx = a.x - b.x;
@@ -685,6 +898,7 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
     {
         if (nextState == TotemGameFlowState.CombatHud)
         {
+            combatElapsedSec = 0f;
             var map = mapService?.CurrentMap ?? TotemMapService.BuildLayout(seed: 1, themeId: 1);
             SpawnActors(map, flowService?.StartupSelection, createObjects: true);
             return;
@@ -695,6 +909,7 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
             DespawnActors();
             LastDamage = default;
             damageSequence = 0;
+            combatElapsedSec = 0f;
             GFTrace.Info("TotemActor", "Actors.Despawned", null, GFTrace.Data("nextState", nextState.ToString()));
         }
     }
@@ -810,6 +1025,7 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
         terrainCoverReducedHitCount = 0;
         lastTerrainCoverDamageBefore = 0f;
         lastTerrainCoverDamageAfter = 0f;
+        combatElapsedSec = 0f;
     }
 
     private static TotemRoomInfo FindRoom(TotemMapSnapshot map, TotemRoomType roomType)

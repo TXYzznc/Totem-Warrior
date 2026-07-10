@@ -43,7 +43,10 @@ namespace UGF.EditorTools
             context.AssertEqual(29, states.Count(state => state.Actor.Kind == TotemActorKind.LightAi), "ai.lightStateCount");
             context.AssertEqual(20, states.Count(state => state.Actor.Kind == TotemActorKind.SmartAi && state.State == TotemAIState.Chase), "ai.smartInitialChase");
             context.AssertEqual(29, states.Count(state => state.Actor.Kind == TotemActorKind.LightAi && state.State == TotemAIState.Wander), "ai.lightInitialWander");
-            context.AssertEqual(49, states.Count(state => state.Bucket == TotemAILodBucket.Hot), "ai.initialHotCount");
+            int initialHotCount = states.Count(state => state.Bucket == TotemAILodBucket.Hot);
+            context.Detail("ai.initialHotCount", initialHotCount);
+            context.Detail("ai.initialColdCount", states.Length - initialHotCount);
+            context.Assert(initialHotCount < states.Length, "Dispersed participant spawning should not force every AI into the initial hot LOD bucket.");
             context.AssertEqual("enemy_common_elite_01", firstSmartActor.EnemyId, "ai.roster.smart.enemyId");
             context.AssertEqual(TotemEnemyTier.Elite, firstSmartActor.EnemyTier, "ai.roster.smart.tier");
             AssertNear(context, 150f, firstSmartActor.MaxHealth, "ai.roster.smart.hp");
@@ -520,6 +523,7 @@ namespace UGF.EditorTools
                 int ammoBefore = weapon.GetOrCreateState(smart).CurrentAmmo;
                 float hpBefore = player.Health;
                 int vfxBefore = vfx.SpawnedCount;
+                actor.SetCombatElapsedSecondsForDiagnostics(TotemActorService.ParticipantDamageProtectionSeconds + 0.1f);
                 ai.Tick(0.2f);
                 context.Assert(player.Health < hpBefore, "Smart AI weapon-routed attack should damage player.");
                 context.Assert(weapon.GetOrCreateState(smart).CurrentAmmo < ammoBefore, "Smart AI attack should consume pistol ammo.");
@@ -677,7 +681,9 @@ namespace UGF.EditorTools
                 context.AssertEqual(49, snapshot.smartCount + snapshot.lightCount, "ai.wholeRoster.stateCount");
                 context.AssertEqual(20, snapshot.smartCount, "ai.wholeRoster.smartCount");
                 context.AssertEqual(29, snapshot.lightCount, "ai.wholeRoster.lightCount");
-                context.AssertEqual(49, snapshot.hotCount, "ai.wholeRoster.hotCount");
+                context.Detail("ai.wholeRoster.hotCount", snapshot.hotCount);
+                context.Detail("ai.wholeRoster.coldCount", snapshot.smartCount + snapshot.lightCount - snapshot.hotCount);
+                context.Assert(snapshot.hotCount < snapshot.smartCount + snapshot.lightCount, "Whole-roster AI diagnostic should preserve dispersed cold LOD actors.");
                 context.Assert(snapshot.totalDecisions >= 49, "AI whole roster should produce at least one decision per non-Boss AI.");
                 context.AssertEqual(20, ai.States.Count(state => state.Actor.Kind == TotemActorKind.SmartAi && state.Decisions > 0 && state.LastDecision.Sequence > 0), "ai.wholeRoster.smartDecisionCount");
                 context.AssertEqual(29, ai.States.Count(state => state.Actor.Kind == TotemActorKind.LightAi && state.Decisions > 0 && state.LastDecision.Sequence > 0), "ai.wholeRoster.lightDecisionCount");
@@ -722,6 +728,7 @@ namespace UGF.EditorTools
                 smartState.SkillCooldownRemaining = 999f;
                 smartState.SafetyScore = 1f;
                 weapon.GetOrCreateState(smart).CooldownRemaining = 0f;
+                actor.SetCombatElapsedSecondsForDiagnostics(TotemActorService.ParticipantDamageProtectionSeconds + 0.1f);
 
                 ai.Tick(0.2f);
 

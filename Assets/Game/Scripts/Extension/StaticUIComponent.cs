@@ -19,6 +19,12 @@ public class StaticUIComponent : GameFrameworkComponent
             waitingView.SetActive(false);
         }
 
+        if (joystickView == null)
+        {
+            var joystickTransform = transform.Find("Joystick Base");
+            joystickView = joystickTransform != null ? joystickTransform.gameObject : null;
+        }
+
         if (joystickView != null)
         {
             joystickView.SetActive(false);

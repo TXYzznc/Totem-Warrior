@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 136542979775927315}
   - component: {fileID: 84507137050113839}
   - component: {fileID: 3882006500185447548}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ProgressBarFill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 8042364553001930400}
   - component: {fileID: 4894884571904574585}
   - component: {fileID: 8233714506959502814}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -169,7 +169,7 @@ GameObject:
   - component: {fileID: 350008397897646341}
   - component: {fileID: 6897504661608262307}
   - component: {fileID: 2887022491880927303}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -305,7 +305,7 @@ GameObject:
   - component: {fileID: 4088744999849997276}
   - component: {fileID: 747870342364742968}
   - component: {fileID: 7447707452332270867}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: RuneCardCurse
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -426,7 +426,7 @@ GameObject:
   - component: {fileID: 7956711338217035299}
   - component: {fileID: 5767069113102796540}
   - component: {fileID: 2923454751169111908}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -502,7 +502,7 @@ GameObject:
   - component: {fileID: 7165745436866408667}
   - component: {fileID: 1532775079323589822}
   - component: {fileID: 2776292765606947116}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: RuneCardSun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -626,7 +626,7 @@ GameObject:
   - component: {fileID: 1712446188870751885}
   - component: {fileID: 5493700682152392185}
   - component: {fileID: 4278861635603504138}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: TattooEnchant
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -662,7 +662,7 @@ Canvas:
   m_GameObject: {fileID: 3299731883014075749}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 2
+  m_RenderMode: 0
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -758,7 +758,7 @@ GameObject:
   - component: {fileID: 4810924866511872912}
   - component: {fileID: 3015723943409104529}
   - component: {fileID: 1126151643319780020}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -834,7 +834,7 @@ GameObject:
   - component: {fileID: 5948524296655445395}
   - component: {fileID: 1518905164118654641}
   - component: {fileID: 4306020115438640533}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: RuneCardFrost
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -955,7 +955,7 @@ GameObject:
   - component: {fileID: 5752150859651387942}
   - component: {fileID: 5775186389275575136}
   - component: {fileID: 7963846502733942887}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1090,7 +1090,7 @@ GameObject:
   - component: {fileID: 6754033376666886347}
   - component: {fileID: 4407137692498374825}
   - component: {fileID: 1804396700344528943}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1166,7 +1166,7 @@ GameObject:
   - component: {fileID: 32076573599902606}
   - component: {fileID: 2060009510900975710}
   - component: {fileID: 6086655027864056229}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: CloseBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1285,7 +1285,7 @@ GameObject:
   - component: {fileID: 1979091862606036042}
   - component: {fileID: 2955939037462792629}
   - component: {fileID: 1393830780791132793}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: TitleText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1420,7 +1420,7 @@ GameObject:
   - component: {fileID: 53388437296169604}
   - component: {fileID: 4529079090768716265}
   - component: {fileID: 3593678268112541957}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BgImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1495,7 +1495,7 @@ GameObject:
   - component: {fileID: 8369244294899194332}
   - component: {fileID: 4671733625475384915}
   - component: {fileID: 2878365013552368673}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: StatusText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1630,7 +1630,7 @@ GameObject:
   - component: {fileID: 3012041903691815357}
   - component: {fileID: 7296705986657133789}
   - component: {fileID: 2542652025370582254}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1765,7 +1765,7 @@ GameObject:
   - component: {fileID: 6843617442216368174}
   - component: {fileID: 7996968611535209845}
   - component: {fileID: 1127009218389143835}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ProgressBarTrack
   m_TagString: Untagged
   m_Icon: {fileID: 0}

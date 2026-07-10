@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2023197556571993183}
   - component: {fileID: 4901069910304402907}
   - component: {fileID: 5559239849245125959}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BossHpRoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 4796279950584907832}
   - component: {fileID: 8937686499114536741}
   - component: {fileID: 4842798667304511021}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: CombatHUD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -238,7 +238,7 @@ GameObject:
   - component: {fileID: 453911373552822279}
   - component: {fileID: 8466082531655062392}
   - component: {fileID: 8120350485393979839}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: MinimapImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -310,7 +310,7 @@ GameObject:
   - component: {fileID: 8592199798305529141}
   - component: {fileID: 5972991777428631364}
   - component: {fileID: 707198332730018713}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: HpBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -385,7 +385,7 @@ GameObject:
   - component: {fileID: 3588675216571390982}
   - component: {fileID: 7618746745085333514}
   - component: {fileID: 2567425158920152970}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: WeaponIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -461,7 +461,7 @@ GameObject:
   - component: {fileID: 5066364992424061927}
   - component: {fileID: 5119234444170835458}
   - component: {fileID: 1876881071641506774}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: AmmoText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -596,7 +596,7 @@ GameObject:
   - component: {fileID: 5226796982280972816}
   - component: {fileID: 2785516833095143260}
   - component: {fileID: 3029755407100609862}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: SkillSlotE
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -672,7 +672,7 @@ GameObject:
   - component: {fileID: 2394121889843730779}
   - component: {fileID: 7432848675620610820}
   - component: {fileID: 4559217988681849768}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ZoneTimerText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -807,7 +807,7 @@ GameObject:
   - component: {fileID: 7192887290925270089}
   - component: {fileID: 5108188765934658137}
   - component: {fileID: 3902812254215417361}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BossHpBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -882,7 +882,7 @@ GameObject:
   - component: {fileID: 8413391015543781605}
   - component: {fileID: 6256271378134249280}
   - component: {fileID: 4535886785551177684}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: HpBarBg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -958,7 +958,7 @@ GameObject:
   - component: {fileID: 4946729746223050149}
   - component: {fileID: 8118608574250181567}
   - component: {fileID: 2039280923631709083}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: CdMaskQ
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1033,7 +1033,7 @@ GameObject:
   - component: {fileID: 4874063697915378362}
   - component: {fileID: 5847034255296572809}
   - component: {fileID: 4755882994610205234}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: LogRowTemplate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1168,7 +1168,7 @@ GameObject:
   - component: {fileID: 4113454081192126944}
   - component: {fileID: 1174685764262024429}
   - component: {fileID: 283113839277027965}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: CdMaskE
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1243,7 +1243,7 @@ GameObject:
   - component: {fileID: 6527888368908123370}
   - component: {fileID: 1365062830242317122}
   - component: {fileID: 243546851744806776}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: SkillSlotQ
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1318,7 +1318,7 @@ GameObject:
   m_Component:
   - component: {fileID: 889308846823722543}
   - component: {fileID: 3821509794786626491}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: LogListRoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1381,7 +1381,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7155344466081968757}
   - component: {fileID: 8807994210990515671}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BuildListRoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}

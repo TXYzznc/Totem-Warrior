@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 772020821375764924}
   - component: {fileID: 3263034361276432495}
   - component: {fileID: 2732004419991120291}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: CloseBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: 8532109668940360365}
   - component: {fileID: 6134628678422721307}
   - component: {fileID: 8157227528656789374}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: TitleText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -267,7 +267,7 @@ GameObject:
   - component: {fileID: 362907998805570183}
   - component: {fileID: 1703590441844349368}
   - component: {fileID: 6292401951587986011}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BgPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -345,7 +345,7 @@ GameObject:
   - component: {fileID: 4934663874090323027}
   - component: {fileID: 4610118590131852838}
   - component: {fileID: 1538356848335938528}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: TattooStudio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -478,7 +478,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3365201819922241908}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BuildPreviewRoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -515,7 +515,7 @@ GameObject:
   - component: {fileID: 2465370467335600052}
   - component: {fileID: 5777561978383132963}
   - component: {fileID: 4142625737204055012}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: CloseBtnText
   m_TagString: Untagged
   m_Icon: {fileID: 0}

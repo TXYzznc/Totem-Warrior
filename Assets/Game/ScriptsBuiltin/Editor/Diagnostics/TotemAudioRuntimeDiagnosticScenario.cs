@@ -109,6 +109,7 @@ namespace UGF.EditorTools
                 context.AssertEqual("Boss.Phase3", phase3Snapshot.lastReason, "audio.boss.phase3Reason");
 
                 var light = actor.Actors.First(item => item.Kind == TotemActorKind.LightAi);
+                actor.SetCombatElapsedSecondsForDiagnostics(TotemActorService.ParticipantDamageProtectionSeconds + 0.1f);
                 actor.ApplyDamage(light, light.Health + 1f, player, "PlayerAttack");
                 var killSnapshot = audio.CaptureSnapshot();
                 context.AssertEqual("sfx_kill", killSnapshot.lastSfxCueId, "audio.damage.killCue");

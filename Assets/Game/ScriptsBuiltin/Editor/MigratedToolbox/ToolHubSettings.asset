@@ -13,9 +13,13 @@ MonoBehaviour:
   m_Name: ToolHubSettings
   m_EditorClassIdentifier: 
   locked: 0
-  selectedIndex: 0
+  selectedIndex: 1
   tools:
   - typeName: TotemWarrior.EditorTools.UISpriteImportBatchPanel, Builtin.Editor,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     displayName: "UI \u56FE\u7247\u5BFC\u5165\u521D\u59CB\u5316"
     description: "\u9012\u5F52\u521D\u59CB\u5316\u6307\u5B9A\u6587\u4EF6\u5939\u4E2D\u7684\u56FE\u7247\u5BFC\u5165\u8BBE\u7F6E"
+  - typeName: ConsoleLogExporterPanel, Builtin.Editor, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+    displayName: "Console\u65E5\u5FD7\u5BFC\u51FA"
+    description: "\u5BFC\u51FA Unity Console \u5F53\u524D\u65E5\u5FD7\u5230\u672C\u5730\u6587\u4EF6"

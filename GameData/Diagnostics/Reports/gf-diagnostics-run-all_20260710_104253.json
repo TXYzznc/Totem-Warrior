@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
   "action": "gf-diagnostics-run-all",
-  "createdAtUtc": "2026-07-09T09:25:56.0249506Z",
-  "successCount": 27,
-  "failureCount": 0,
+  "createdAtUtc": "2026-07-10T02:41:58.7279161Z",
+  "successCount": 26,
+  "failureCount": 1,
   "warningCount": 0,
   "warnings": [],
   "items": [
@@ -18,12 +18,12 @@
     {
       "name": "AppConfigs runtime contract",
       "success": true,
-      "durationMs": 11,
+      "durationMs": 32,
       "warnings": [],
       "errors": [],
       "details": {
         "loadFromBytes": "False",
-        "dataTables": "Core/EntityGroupTable,Core/LanguagesTable,Core/SoundGroupTable,Core/UIGroupTable,Core/UITable",
+        "dataTables": "Business/BossPhaseConfig,Business/BotBuildPreset,Business/BotConfig,Business/ChestConfig,Business/EnemyConfig,Business/EventConfig,Business/ItemConfig,Business/MapTemplateConfig,Business/MerchantConfig,Business/NPCConfig,Business/ProjectileConfig,Business/ResourceConfig,Business/ShopStockConfig,Business/SkillConfig,Business/TattooColorConfig,Business/TattooElementConfig,Business/TattooEnchantAffixConfig,Business/TattooEnchantRecipeConfig,Business/TattooPartConfig,Business/TattooPatternConfig,Business/TattooReadingTimeConfig,Business/TattooShapeConfig,Business/ThreeChoiceOptionConfig,Business/UIFormConfig,Business/WeaponConfig,Business/WeaponDropConfig,Business/WeaponTraitConfig,Business/ZoneShrinkConfig,Core/EntityGroupTable,Core/LanguagesTable,Core/SoundGroupTable,Core/UIGroupTable,Core/UITable",
         "configs": "",
         "languages": "English",
         "procedures": "ChangeSceneProcedure,PreloadProcedure,WorkspaceProcedure,TotemGameProcedure"
@@ -51,7 +51,7 @@
     {
       "name": "AI DataTable json",
       "success": true,
-      "durationMs": 4835,
+      "durationMs": 4810,
       "warnings": [],
       "errors": [],
       "details": {
@@ -86,7 +86,7 @@
     {
       "name": "Scenario/BusinessRuntime/GF_X Rewrite Inventory Contract",
       "success": true,
-      "durationMs": 93,
+      "durationMs": 76,
       "warnings": [],
       "errors": [],
       "details": {
@@ -222,7 +222,7 @@
         "diagnosticTriage.completeRecordCount.actual": "16",
         "diagnosticTriage.requiredScenarioHitCount.actual": "5",
         "diagnosticTriage.registeredScenarioCount.actual": "16",
-        "completionAudit.editModeDiagnosticsReport": "GameData/Diagnostics/Reports/gf-diagnostics-run-all_20260709_161634.json",
+        "completionAudit.editModeDiagnosticsReport": "GameData/Diagnostics/Reports/gf-diagnostics-run-all_20260709_172937.json",
         "completionAudit.editModeDiagnostics.successCount": "27",
         "completionAudit.editModeDiagnostics.failureCount": "0",
         "completionAudit.editModeDiagnostics.warningCount": "0",
@@ -271,7 +271,7 @@
     {
       "name": "Scenario/BusinessRuntime/GF_X Business Runtime Contract",
       "success": true,
-      "durationMs": 340,
+      "durationMs": 322,
       "warnings": [],
       "errors": [],
       "details": {
@@ -295,7 +295,7 @@
     {
       "name": "Scenario/Core/Clean Workspace Contract",
       "success": true,
-      "durationMs": 681,
+      "durationMs": 126,
       "warnings": [],
       "errors": [],
       "details": {
@@ -362,7 +362,7 @@
     {
       "name": "Scenario/Migration/Migration Path Contract",
       "success": true,
-      "durationMs": 2543,
+      "durationMs": 2491,
       "warnings": [],
       "errors": [],
       "details": {
@@ -383,7 +383,7 @@
         "directory.项目知识库（AI自行维护）/outputs": "True",
         "directory.项目知识库（AI自行维护）/wiki": "True",
         "directory.项目知识库（AI自行维护）/wiki/manifests": "True",
-        "scannedFiles": "496",
+        "scannedFiles": "497",
         "staleNameHits": "0",
         "absolutePathHits": "0",
         "message": "Scenario completed."
@@ -392,7 +392,7 @@
     {
       "name": "Scenario/BusinessRuntime/Totem AI Runtime",
       "success": true,
-      "durationMs": 13683,
+      "durationMs": 3872,
       "warnings": [],
       "errors": [],
       "details": {
@@ -403,7 +403,8 @@
         "ai.lightStateCount.actual": "29",
         "ai.smartInitialChase.actual": "20",
         "ai.lightInitialWander.actual": "29",
-        "ai.initialHotCount.actual": "49",
+        "ai.initialHotCount": "0",
+        "ai.initialColdCount": "49",
         "ai.roster.smart.enemyId.actual": "enemy_common_elite_01",
         "ai.roster.smart.tier.actual": "Elite",
         "ai.roster.smart.hp.actual": "150",
@@ -504,7 +505,8 @@
         "ai.wholeRoster.stateCount.actual": "49",
         "ai.wholeRoster.smartCount.actual": "20",
         "ai.wholeRoster.lightCount.actual": "29",
-        "ai.wholeRoster.hotCount.actual": "49",
+        "ai.wholeRoster.hotCount": "0",
+        "ai.wholeRoster.coldCount": "49",
         "ai.wholeRoster.smartDecisionCount.actual": "20",
         "ai.wholeRoster.lightDecisionCount.actual": "29",
         "ai.runtime.stateCount.actual": "49",
@@ -558,7 +560,7 @@
     {
       "name": "Scenario/BusinessRuntime/Totem Actor Visual Runtime",
       "success": true,
-      "durationMs": 58,
+      "durationMs": 34,
       "warnings": [],
       "errors": [],
       "details": {
@@ -575,7 +577,7 @@
     {
       "name": "Scenario/BusinessRuntime/Totem Audio Runtime",
       "success": true,
-      "durationMs": 79,
+      "durationMs": 52,
       "warnings": [],
       "errors": [],
       "details": {
@@ -627,7 +629,7 @@
     {
       "name": "Scenario/BusinessRuntime/Totem Balance Envelope",
       "success": true,
-      "durationMs": 13,
+      "durationMs": 11,
       "warnings": [],
       "errors": [],
       "details": {
@@ -756,7 +758,7 @@
     {
       "name": "Scenario/BusinessRuntime/Totem Choice Runtime",
       "success": true,
-      "durationMs": 78,
+      "durationMs": 52,
       "warnings": [],
       "errors": [],
       "details": {
@@ -784,7 +786,7 @@
     {
       "name": "Scenario/BusinessRuntime/Totem Extended Gameplay",
       "success": true,
-      "durationMs": 83344,
+      "durationMs": 18143,
       "warnings": [],
       "errors": [],
       "details": {
@@ -1382,7 +1384,7 @@
     {
       "name": "Scenario/BusinessRuntime/Totem First Round Contract",
       "success": true,
-      "durationMs": 31551,
+      "durationMs": 6505,
       "warnings": [],
       "errors": [],
       "details": {
@@ -1443,7 +1445,7 @@
     {
       "name": "Scenario/BusinessRuntime/Totem First Slice UI",
       "success": true,
-      "durationMs": 65,
+      "durationMs": 47,
       "warnings": [],
       "errors": [],
       "details": {
@@ -1531,10 +1533,12 @@
     },
     {
       "name": "Scenario/BusinessRuntime/Totem Gameplay Catalog",
-      "success": true,
-      "durationMs": 39,
+      "success": false,
+      "durationMs": 41,
       "warnings": [],
-      "errors": [],
+      "errors": [
+        "catalog.generation.sourceContentHash: expected=9e608f215dfa278308c6d856ad858f303adb929badfff1c52b27ef89cd2a5fed, actual=cd07729db7edb933b3fb0274b0d1694ed46ff93c8c662244c320b7e19519f86d"
+      ],
       "details": {
         "type": "UGF.EditorTools.TotemGameplayCatalogDiagnosticScenario",
         "mode": "EditMode",
@@ -1550,8 +1554,7 @@
         "catalog.generation.actualSourceFileCount": "28",
         "catalog.generation.actualSourceFileCount.actual": "28",
         "catalog.generation.sourceFileCount.matchesActual.actual": "28",
-        "catalog.generation.actualSourceContentHash": "cd07729db7edb933b3fb0274b0d1694ed46ff93c8c662244c320b7e19519f86d",
-        "catalog.generation.sourceContentHash.actual": "cd07729db7edb933b3fb0274b0d1694ed46ff93c8c662244c320b7e19519f86d",
+        "catalog.generation.actualSourceContentHash": "9e608f215dfa278308c6d856ad858f303adb929badfff1c52b27ef89cd2a5fed",
         "catalog.schemaVersion": "1",
         "catalog.itemCount": "31",
         "catalog.resourceCount": "14",
@@ -1737,13 +1740,13 @@
         "dataService.catalog.eventCount.actual": "6",
         "dataService.catalog.choiceOptionCount.actual": "11",
         "dataService.catalog.skillCount.actual": "14",
-        "message": "Scenario completed."
+        "message": "Totem gameplay catalog contract is ready."
       }
     },
     {
       "name": "Scenario/BusinessRuntime/Totem Gameplay Runtime",
       "success": true,
-      "durationMs": 82932,
+      "durationMs": 17068,
       "warnings": [],
       "errors": [],
       "details": {
@@ -1756,9 +1759,10 @@
         "map.dominantColor.actual": "#3A4858",
         "map.bspMaxDepth.actual": "4",
         "map.roomCount.actual": "4",
-        "map.pcg.width.actual": "64",
-        "map.pcg.height.actual": "64",
-        "map.pcg.validation": "valid=True;walkable=3361;reachable=3361;unreachable=0;warnings=0",
+        "map.pcg.profile": "DiagnosticFast",
+        "map.pcg.width.actual": "32",
+        "map.pcg.height.actual": "32",
+        "map.pcg.validation": "valid=False;walkable=677;reachable=15;unreachable=662;warnings=1",
         "room.SpawnRoom": "True",
         "room.TattooStudio": "True",
         "room.Merchant": "True",
@@ -1774,31 +1778,31 @@
         "map.terrain.ruins.height.actual": "100",
         "map.terrain.ruins.cellCount.actual": "10000",
         "map.terrain.ruins.countedCells.actual": "10000",
-        "map.terrain.ruins.groundCells": "5453",
-        "map.terrain.ruins.slowCells": "1113",
-        "map.terrain.ruins.blockedCells": "2102",
-        "map.terrain.ruins.coverCells": "1283",
-        "map.terrain.ruins.hazardCells": "49",
+        "map.terrain.ruins.groundCells": "4641",
+        "map.terrain.ruins.slowCells": "1129",
+        "map.terrain.ruins.blockedCells": "3100",
+        "map.terrain.ruins.coverCells": "992",
+        "map.terrain.ruins.hazardCells": "138",
         "map.terrain.alienHive.cellSize.actual": "4",
         "map.terrain.alienHive.width.actual": "100",
         "map.terrain.alienHive.height.actual": "100",
         "map.terrain.alienHive.cellCount.actual": "10000",
         "map.terrain.alienHive.countedCells.actual": "10000",
-        "map.terrain.alienHive.groundCells": "6333",
-        "map.terrain.alienHive.slowCells": "1332",
-        "map.terrain.alienHive.blockedCells": "1904",
-        "map.terrain.alienHive.coverCells": "396",
-        "map.terrain.alienHive.hazardCells": "35",
+        "map.terrain.alienHive.groundCells": "4007",
+        "map.terrain.alienHive.slowCells": "1004",
+        "map.terrain.alienHive.blockedCells": "4746",
+        "map.terrain.alienHive.coverCells": "177",
+        "map.terrain.alienHive.hazardCells": "66",
         "map.terrain.virusSwamp.cellSize.actual": "4",
         "map.terrain.virusSwamp.width.actual": "100",
         "map.terrain.virusSwamp.height.actual": "100",
         "map.terrain.virusSwamp.cellCount.actual": "10000",
         "map.terrain.virusSwamp.countedCells.actual": "10000",
-        "map.terrain.virusSwamp.groundCells": "5247",
-        "map.terrain.virusSwamp.slowCells": "1147",
-        "map.terrain.virusSwamp.blockedCells": "2443",
-        "map.terrain.virusSwamp.coverCells": "1109",
-        "map.terrain.virusSwamp.hazardCells": "54",
+        "map.terrain.virusSwamp.groundCells": "4581",
+        "map.terrain.virusSwamp.slowCells": "1128",
+        "map.terrain.virusSwamp.blockedCells": "3577",
+        "map.terrain.virusSwamp.coverCells": "672",
+        "map.terrain.virusSwamp.hazardCells": "42",
         "map.terrain.outOfBounds.actual": "Blocked",
         "map.terrain.slowMultiplier.expected": "0.65",
         "map.terrain.slowMultiplier.actual": "0.65",
@@ -1811,9 +1815,11 @@
         "map.anchor.enemySpawnCount.actual": "3",
         "map.anchor.resourceCount.actual": "3",
         "map.anchor.eventCount.actual": "2",
+        "map.runtime.pcgProfile": "DiagnosticFast",
         "map.runtime.rootName.actual": "[TotemMap]",
+        "map.runtime.expectedPcgCells": "1024",
         "map.runtime.pcgMissingSpriteCount.actual": "0",
-        "map.runtime.spawnedObjectCount.actual": "170",
+        "map.runtime.spawnedObjectCount.actual": "45",
         "map.runtime.legacyGroundObjectCount.actual": "0",
         "map.runtime.wallObjectCount.actual": "4",
         "map.runtime.roomMarkerObjectCount.actual": "0",
@@ -1850,16 +1856,22 @@
         "actorRoster.smartAi.actual": "20",
         "actorRoster.lightAi.actual": "29",
         "actorRoster.boss.actual": "1",
+        "actorRoster.participantMinDistance.participantCount": "50",
+        "actorRoster.participantMinDistance": "18.00008",
+        "actorRoster.participantMinDistance.participantCountExpected.actual": "50",
         "map.anchor.consumer.player.expected": "0",
         "map.anchor.consumer.player.actual": "0",
         "map.anchor.consumer.boss.expected": "0",
         "map.anchor.consumer.boss.actual": "0",
         "map.anchor.consumer.enemySpawnAnchorCount.actual": "3",
         "map.anchor.consumer.enemySpawnActorCount.actual": "49",
-        "map.anchor.consumer.enemySpawnMaxDistance": "1.050004",
-        "map.anchor.consumer.enemySpawnGroup.inner.actual": "14",
-        "map.anchor.consumer.enemySpawnGroup.mid.actual": "17",
-        "map.anchor.consumer.enemySpawnGroup.outer.actual": "18",
+        "map.anchor.consumer.enemySpawnMaxDistance": "366.1429",
+        "map.anchor.consumer.participantMinDistance.participantCount": "50",
+        "map.anchor.consumer.participantMinDistance": "18.00319",
+        "map.anchor.consumer.participantMinDistance.participantCountExpected.actual": "50",
+        "map.anchor.consumer.enemySpawnGroup.inner": "15",
+        "map.anchor.consumer.enemySpawnGroup.mid": "27",
+        "map.anchor.consumer.enemySpawnGroup.outer": "7",
         "map.anchor.consumer.chestCount.actual": "4",
         "map.anchor.consumer.chestPayload.0.actual": "chest_common",
         "map.anchor.consumer.chestPosition.0.expected": "0",
@@ -1924,6 +1936,11 @@
         "combat.targeting.cone.mode.actual": "Cone",
         "combat.targeting.aimForward.x.expected": "1",
         "combat.targeting.aimForward.x.actual": "1",
+        "combat.grace.smartHealthUnchanged.expected": "150",
+        "combat.grace.smartHealthUnchanged.actual": "150",
+        "combat.grace.playerHealthUnchanged.expected": "100",
+        "combat.grace.playerHealthUnchanged.actual": "100",
+        "combat.grace.elapsed": "60.1",
         "combat.snapshot.attack.action.actual": "Attack",
         "combat.snapshot.attack.reason.actual": "Applied",
         "combat.snapshot.attack.targetActorId.actual": "2",
@@ -2031,7 +2048,7 @@
     {
       "name": "Scenario/BusinessRuntime/Totem Meta Progress",
       "success": true,
-      "durationMs": 11,
+      "durationMs": 9,
       "warnings": [],
       "errors": [],
       "details": {
@@ -2054,7 +2071,7 @@
     {
       "name": "Scenario/BusinessRuntime/Totem Runtime Assets",
       "success": true,
-      "durationMs": 72,
+      "durationMs": 16,
       "warnings": [],
       "errors": [],
       "details": {
@@ -2243,7 +2260,7 @@
     {
       "name": "Scenario/BusinessRuntime/Totem Runtime Catalog Binding",
       "success": true,
-      "durationMs": 32,
+      "durationMs": 38,
       "warnings": [],
       "errors": [],
       "details": {
@@ -2315,7 +2332,7 @@
     {
       "name": "Scenario/BusinessRuntime/Totem Runtime Causality Smoke",
       "success": true,
-      "durationMs": 596,
+      "durationMs": 483,
       "warnings": [],
       "errors": [],
       "details": {
@@ -2372,7 +2389,7 @@
     {
       "name": "Scenario/BusinessRuntime/Totem VFX Runtime",
       "success": true,
-      "durationMs": 62,
+      "durationMs": 38,
       "warnings": [],
       "errors": [],
       "details": {
@@ -2435,7 +2452,7 @@
   ],
   "snapshot": {
     "schemaVersion": 1,
-    "createdAtUtc": "2026-07-09T09:29:37.1654507Z",
+    "createdAtUtc": "2026-07-10T02:42:53.0144160Z",
     "reason": "diagnostic-run-all",
     "unityVersion": "2022.3.62f3c1",
     "platform": "WindowsEditor",
@@ -2456,11 +2473,11 @@
     "warnings": [],
     "recentEvents": [
       {
-        "seq": 7536,
-        "utc": "2026-07-09T09:29:37.0994502Z",
+        "seq": 7455,
+        "utc": "2026-07-10T02:42:52.9739162Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemNpc",
         "action": "Despawned",
         "result": "Info",
@@ -2470,11 +2487,11 @@
         }
       },
       {
-        "seq": 7537,
-        "utc": "2026-07-09T09:29:37.0994502Z",
+        "seq": 7456,
+        "utc": "2026-07-10T02:42:52.9739162Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemCamera",
         "action": "CombatCamera.Deactivated",
         "result": "Info",
@@ -2482,11 +2499,11 @@
         "data": null
       },
       {
-        "seq": 7538,
-        "utc": "2026-07-09T09:29:37.0994502Z",
+        "seq": 7457,
+        "utc": "2026-07-10T02:42:52.9739162Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemVFX",
         "action": "Cleared",
         "result": "Info",
@@ -2496,11 +2513,11 @@
         }
       },
       {
-        "seq": 7539,
-        "utc": "2026-07-09T09:29:37.0994502Z",
+        "seq": 7458,
+        "utc": "2026-07-10T02:42:52.9739162Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemCombat",
         "action": "Combat.Stopped",
         "result": "Info",
@@ -2510,11 +2527,11 @@
         }
       },
       {
-        "seq": 7540,
-        "utc": "2026-07-09T09:29:37.0999502Z",
+        "seq": 7459,
+        "utc": "2026-07-10T02:42:52.9739162Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemRuntime",
         "action": "Service.Shutdown",
         "result": "Info",
@@ -2524,11 +2541,11 @@
         }
       },
       {
-        "seq": 7541,
-        "utc": "2026-07-09T09:29:37.0999502Z",
+        "seq": 7460,
+        "utc": "2026-07-10T02:42:52.9739162Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemRuntime",
         "action": "Service.Shutdown",
         "result": "Info",
@@ -2538,11 +2555,11 @@
         }
       },
       {
-        "seq": 7542,
-        "utc": "2026-07-09T09:29:37.0999502Z",
+        "seq": 7461,
+        "utc": "2026-07-10T02:42:52.9739162Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemRuntime",
         "action": "Service.Shutdown",
         "result": "Info",
@@ -2552,11 +2569,11 @@
         }
       },
       {
-        "seq": 7543,
-        "utc": "2026-07-09T09:29:37.0999502Z",
+        "seq": 7462,
+        "utc": "2026-07-10T02:42:52.9739162Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemRuntime",
         "action": "Service.Shutdown",
         "result": "Info",
@@ -2566,11 +2583,11 @@
         }
       },
       {
-        "seq": 7544,
-        "utc": "2026-07-09T09:29:37.0999502Z",
+        "seq": 7463,
+        "utc": "2026-07-10T02:42:52.9739162Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemRuntime",
         "action": "Service.Shutdown",
         "result": "Info",
@@ -2580,11 +2597,11 @@
         }
       },
       {
-        "seq": 7545,
-        "utc": "2026-07-09T09:29:37.0999502Z",
+        "seq": 7464,
+        "utc": "2026-07-10T02:42:52.9739162Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemRuntime",
         "action": "Service.Shutdown",
         "result": "Info",
@@ -2594,11 +2611,11 @@
         }
       },
       {
-        "seq": 7546,
-        "utc": "2026-07-09T09:29:37.0999502Z",
+        "seq": 7465,
+        "utc": "2026-07-10T02:42:52.9739162Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemRuntime",
         "action": "Service.Shutdown",
         "result": "Info",
@@ -2608,11 +2625,11 @@
         }
       },
       {
-        "seq": 7547,
-        "utc": "2026-07-09T09:29:37.0999502Z",
+        "seq": 7466,
+        "utc": "2026-07-10T02:42:52.9739162Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemRuntime",
         "action": "Service.Shutdown",
         "result": "Info",
@@ -2622,11 +2639,11 @@
         }
       },
       {
-        "seq": 7548,
-        "utc": "2026-07-09T09:29:37.0999502Z",
+        "seq": 7467,
+        "utc": "2026-07-10T02:42:52.9739162Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemRuntime",
         "action": "Service.Shutdown",
         "result": "Info",
@@ -2636,11 +2653,11 @@
         }
       },
       {
-        "seq": 7549,
-        "utc": "2026-07-09T09:29:37.0999502Z",
+        "seq": 7468,
+        "utc": "2026-07-10T02:42:52.9739162Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemRuntime",
         "action": "Service.Shutdown",
         "result": "Info",
@@ -2650,11 +2667,11 @@
         }
       },
       {
-        "seq": 7550,
-        "utc": "2026-07-09T09:29:37.0999502Z",
+        "seq": 7469,
+        "utc": "2026-07-10T02:42:52.9739162Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemRuntime",
         "action": "Service.Shutdown",
         "result": "Info",
@@ -2664,11 +2681,11 @@
         }
       },
       {
-        "seq": 7551,
-        "utc": "2026-07-09T09:29:37.0999502Z",
+        "seq": 7470,
+        "utc": "2026-07-10T02:42:52.9739162Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemRuntime",
         "action": "Service.Shutdown",
         "result": "Info",
@@ -2678,11 +2695,11 @@
         }
       },
       {
-        "seq": 7552,
-        "utc": "2026-07-09T09:29:37.0999502Z",
+        "seq": 7471,
+        "utc": "2026-07-10T02:42:52.9739162Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemRuntime",
         "action": "Service.Shutdown",
         "result": "Info",
@@ -2692,11 +2709,11 @@
         }
       },
       {
-        "seq": 7553,
-        "utc": "2026-07-09T09:29:37.0999502Z",
+        "seq": 7472,
+        "utc": "2026-07-10T02:42:52.9739162Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemRuntime",
         "action": "Service.Shutdown",
         "result": "Info",
@@ -2706,11 +2723,11 @@
         }
       },
       {
-        "seq": 7554,
-        "utc": "2026-07-09T09:29:37.0999502Z",
+        "seq": 7473,
+        "utc": "2026-07-10T02:42:52.9739162Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemRuntime",
         "action": "Service.Shutdown",
         "result": "Info",
@@ -2720,11 +2737,11 @@
         }
       },
       {
-        "seq": 7555,
-        "utc": "2026-07-09T09:29:37.0999502Z",
+        "seq": 7474,
+        "utc": "2026-07-10T02:42:52.9744164Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemRuntime",
         "action": "Service.Shutdown",
         "result": "Info",
@@ -2734,11 +2751,11 @@
         }
       },
       {
-        "seq": 7556,
-        "utc": "2026-07-09T09:29:37.0999502Z",
+        "seq": 7475,
+        "utc": "2026-07-10T02:42:52.9744164Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemRuntime",
         "action": "Service.Shutdown",
         "result": "Info",
@@ -2748,11 +2765,11 @@
         }
       },
       {
-        "seq": 7557,
-        "utc": "2026-07-09T09:29:37.0999502Z",
+        "seq": 7476,
+        "utc": "2026-07-10T02:42:52.9744164Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemRuntime",
         "action": "Service.Shutdown",
         "result": "Info",
@@ -2762,11 +2779,11 @@
         }
       },
       {
-        "seq": 7558,
-        "utc": "2026-07-09T09:29:37.0999502Z",
+        "seq": 7477,
+        "utc": "2026-07-10T02:42:52.9744164Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemRuntime",
         "action": "Service.Shutdown",
         "result": "Info",
@@ -2776,11 +2793,11 @@
         }
       },
       {
-        "seq": 7559,
-        "utc": "2026-07-09T09:29:37.0999502Z",
+        "seq": 7478,
+        "utc": "2026-07-10T02:42:52.9744164Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemRuntime",
         "action": "Service.Shutdown",
         "result": "Info",
@@ -2790,11 +2807,11 @@
         }
       },
       {
-        "seq": 7560,
-        "utc": "2026-07-09T09:29:37.0999502Z",
+        "seq": 7479,
+        "utc": "2026-07-10T02:42:52.9744164Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemRuntime",
         "action": "Service.Shutdown",
         "result": "Info",
@@ -2804,11 +2821,11 @@
         }
       },
       {
-        "seq": 7561,
-        "utc": "2026-07-09T09:29:37.0999502Z",
+        "seq": 7480,
+        "utc": "2026-07-10T02:42:52.9744164Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemRuntime",
         "action": "Service.Shutdown",
         "result": "Info",
@@ -2818,11 +2835,11 @@
         }
       },
       {
-        "seq": 7562,
-        "utc": "2026-07-09T09:29:37.0999502Z",
+        "seq": 7481,
+        "utc": "2026-07-10T02:42:52.9744164Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemRuntime",
         "action": "Service.Shutdown",
         "result": "Info",
@@ -2832,11 +2849,11 @@
         }
       },
       {
-        "seq": 7563,
-        "utc": "2026-07-09T09:29:37.0999502Z",
+        "seq": 7482,
+        "utc": "2026-07-10T02:42:52.9744164Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemRuntime",
         "action": "Service.Shutdown",
         "result": "Info",
@@ -2846,11 +2863,11 @@
         }
       },
       {
-        "seq": 7564,
-        "utc": "2026-07-09T09:29:37.0999502Z",
+        "seq": 7483,
+        "utc": "2026-07-10T02:42:52.9744164Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemRuntime",
         "action": "Service.Shutdown",
         "result": "Info",
@@ -2860,11 +2877,11 @@
         }
       },
       {
-        "seq": 7565,
-        "utc": "2026-07-09T09:29:37.0999502Z",
+        "seq": 7484,
+        "utc": "2026-07-10T02:42:52.9744164Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemRuntime",
         "action": "Service.Shutdown",
         "result": "Info",
@@ -2874,11 +2891,11 @@
         }
       },
       {
-        "seq": 7566,
-        "utc": "2026-07-09T09:29:37.0999502Z",
+        "seq": 7485,
+        "utc": "2026-07-10T02:42:52.9744164Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "Diagnostics",
         "action": "Scenario.End",
         "result": "Success",
@@ -2887,17 +2904,17 @@
           "type": "UGF.EditorTools.TotemRuntimeCausalityDiagnosticScenario",
           "category": "BusinessRuntime",
           "name": "Totem Runtime Causality Smoke",
-          "durationMs": "596",
+          "durationMs": "483",
           "errors": "0",
           "warnings": "0"
         }
       },
       {
-        "seq": 7567,
-        "utc": "2026-07-09T09:29:37.0999502Z",
+        "seq": 7486,
+        "utc": "2026-07-10T02:42:52.9744164Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "Diagnostics",
         "action": "Scenario.Begin",
         "result": "Info",
@@ -2910,11 +2927,11 @@
         }
       },
       {
-        "seq": 7568,
-        "utc": "2026-07-09T09:29:37.1014505Z",
+        "seq": 7487,
+        "utc": "2026-07-10T02:42:52.9749162Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemAsset",
         "action": "RuntimeAssetCatalog.Loaded",
         "result": "Success",
@@ -2925,11 +2942,11 @@
         }
       },
       {
-        "seq": 7569,
-        "utc": "2026-07-09T09:29:37.1014505Z",
+        "seq": 7488,
+        "utc": "2026-07-10T02:42:52.9754159Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemAsset",
         "action": "Sprite.EditorAsset",
         "result": "Info",
@@ -2940,11 +2957,11 @@
         }
       },
       {
-        "seq": 7570,
-        "utc": "2026-07-09T09:29:37.1014505Z",
+        "seq": 7489,
+        "utc": "2026-07-10T02:42:52.9754159Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemAsset",
         "action": "Sprite.EditorAsset",
         "result": "Info",
@@ -2955,11 +2972,11 @@
         }
       },
       {
-        "seq": 7571,
-        "utc": "2026-07-09T09:29:37.1014505Z",
+        "seq": 7490,
+        "utc": "2026-07-10T02:42:52.9754159Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemAsset",
         "action": "Sprite.EditorAsset",
         "result": "Info",
@@ -2970,11 +2987,11 @@
         }
       },
       {
-        "seq": 7572,
-        "utc": "2026-07-09T09:29:37.1014505Z",
+        "seq": 7491,
+        "utc": "2026-07-10T02:42:52.9754159Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemAsset",
         "action": "Sprite.EditorAsset",
         "result": "Info",
@@ -2985,11 +3002,11 @@
         }
       },
       {
-        "seq": 7573,
-        "utc": "2026-07-09T09:29:37.1014505Z",
+        "seq": 7492,
+        "utc": "2026-07-10T02:42:52.9754159Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemAsset",
         "action": "Sprite.EditorAsset",
         "result": "Info",
@@ -3000,11 +3017,11 @@
         }
       },
       {
-        "seq": 7574,
-        "utc": "2026-07-09T09:29:37.1019508Z",
+        "seq": 7493,
+        "utc": "2026-07-10T02:42:52.9754159Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemRuntime",
         "action": "Service.Register",
         "result": "Info",
@@ -3014,11 +3031,11 @@
         }
       },
       {
-        "seq": 7575,
-        "utc": "2026-07-09T09:29:37.1019508Z",
+        "seq": 7494,
+        "utc": "2026-07-10T02:42:52.9754159Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemRuntime",
         "action": "Service.Register",
         "result": "Info",
@@ -3028,11 +3045,11 @@
         }
       },
       {
-        "seq": 7576,
-        "utc": "2026-07-09T09:29:37.1019508Z",
+        "seq": 7495,
+        "utc": "2026-07-10T02:42:52.9754159Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemRuntime",
         "action": "Service.Initialize.Begin",
         "result": "Info",
@@ -3042,11 +3059,11 @@
         }
       },
       {
-        "seq": 7577,
-        "utc": "2026-07-09T09:29:37.1029525Z",
+        "seq": 7496,
+        "utc": "2026-07-10T02:42:52.9764158Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemAsset",
         "action": "RuntimeAssetCatalog.Loaded",
         "result": "Success",
@@ -3057,11 +3074,11 @@
         }
       },
       {
-        "seq": 7578,
-        "utc": "2026-07-09T09:29:37.1029525Z",
+        "seq": 7497,
+        "utc": "2026-07-10T02:42:52.9764158Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemRuntime",
         "action": "Service.Initialize.Success",
         "result": "Success",
@@ -3071,11 +3088,11 @@
         }
       },
       {
-        "seq": 7579,
-        "utc": "2026-07-09T09:29:37.1029525Z",
+        "seq": 7498,
+        "utc": "2026-07-10T02:42:52.9764158Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemRuntime",
         "action": "Service.Initialize.Begin",
         "result": "Info",
@@ -3085,11 +3102,11 @@
         }
       },
       {
-        "seq": 7580,
-        "utc": "2026-07-09T09:29:37.1029525Z",
+        "seq": 7499,
+        "utc": "2026-07-10T02:42:52.9764158Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemRuntime",
         "action": "Service.Initialize.Success",
         "result": "Success",
@@ -3099,11 +3116,11 @@
         }
       },
       {
-        "seq": 7581,
-        "utc": "2026-07-09T09:29:37.1029525Z",
+        "seq": 7500,
+        "utc": "2026-07-10T02:42:52.9764158Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemRuntime",
         "action": "Services.Ready",
         "result": "Success",
@@ -3114,11 +3131,11 @@
         }
       },
       {
-        "seq": 7582,
-        "utc": "2026-07-09T09:29:37.1029525Z",
+        "seq": 7501,
+        "utc": "2026-07-10T02:42:52.9764158Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemAsset",
         "action": "Sprite.EditorAsset",
         "result": "Info",
@@ -3129,11 +3146,11 @@
         }
       },
       {
-        "seq": 7583,
-        "utc": "2026-07-09T09:29:37.1029525Z",
+        "seq": 7502,
+        "utc": "2026-07-10T02:42:52.9764158Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemVFX",
         "action": "Sprite.Spawned",
         "result": "Info",
@@ -3145,11 +3162,11 @@
         }
       },
       {
-        "seq": 7584,
-        "utc": "2026-07-09T09:29:37.1029525Z",
+        "seq": 7503,
+        "utc": "2026-07-10T02:42:52.9764158Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemVFX",
         "action": "Projectile.Spawned",
         "result": "Info",
@@ -3161,11 +3178,11 @@
         }
       },
       {
-        "seq": 7585,
-        "utc": "2026-07-09T09:29:37.1034513Z",
+        "seq": 7504,
+        "utc": "2026-07-10T02:42:52.9764158Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemAsset",
         "action": "Sprite.EditorAsset",
         "result": "Info",
@@ -3176,11 +3193,11 @@
         }
       },
       {
-        "seq": 7586,
-        "utc": "2026-07-09T09:29:37.1034513Z",
+        "seq": 7505,
+        "utc": "2026-07-10T02:42:52.9764158Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemVFX",
         "action": "Sprite.Spawned",
         "result": "Info",
@@ -3192,11 +3209,11 @@
         }
       },
       {
-        "seq": 7587,
-        "utc": "2026-07-09T09:29:37.1034513Z",
+        "seq": 7506,
+        "utc": "2026-07-10T02:42:52.9764158Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemVFX",
         "action": "Projectile.Spawned",
         "result": "Info",
@@ -3208,11 +3225,11 @@
         }
       },
       {
-        "seq": 7588,
-        "utc": "2026-07-09T09:29:37.1034513Z",
+        "seq": 7507,
+        "utc": "2026-07-10T02:42:52.9764158Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemRuntime",
         "action": "Service.Shutdown",
         "result": "Info",
@@ -3222,11 +3239,11 @@
         }
       },
       {
-        "seq": 7589,
-        "utc": "2026-07-09T09:29:37.1034513Z",
+        "seq": 7508,
+        "utc": "2026-07-10T02:42:52.9764158Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemRuntime",
         "action": "Service.Shutdown",
         "result": "Info",
@@ -3236,11 +3253,11 @@
         }
       },
       {
-        "seq": 7590,
-        "utc": "2026-07-09T09:29:37.1039508Z",
+        "seq": 7509,
+        "utc": "2026-07-10T02:42:52.9769156Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemRuntime",
         "action": "Service.Register",
         "result": "Info",
@@ -3250,11 +3267,11 @@
         }
       },
       {
-        "seq": 7591,
-        "utc": "2026-07-09T09:29:37.1039508Z",
+        "seq": 7510,
+        "utc": "2026-07-10T02:42:52.9769156Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemRuntime",
         "action": "Service.Register",
         "result": "Info",
@@ -3264,11 +3281,11 @@
         }
       },
       {
-        "seq": 7592,
-        "utc": "2026-07-09T09:29:37.1039508Z",
+        "seq": 7511,
+        "utc": "2026-07-10T02:42:52.9769156Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemRuntime",
         "action": "Service.Register",
         "result": "Info",
@@ -3278,11 +3295,11 @@
         }
       },
       {
-        "seq": 7593,
-        "utc": "2026-07-09T09:29:37.1039508Z",
+        "seq": 7512,
+        "utc": "2026-07-10T02:42:52.9769156Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemRuntime",
         "action": "Service.Register",
         "result": "Info",
@@ -3292,11 +3309,11 @@
         }
       },
       {
-        "seq": 7594,
-        "utc": "2026-07-09T09:29:37.1039508Z",
+        "seq": 7513,
+        "utc": "2026-07-10T02:42:52.9769156Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemRuntime",
         "action": "Service.Register",
         "result": "Info",
@@ -3306,11 +3323,11 @@
         }
       },
       {
-        "seq": 7595,
-        "utc": "2026-07-09T09:29:37.1039508Z",
+        "seq": 7514,
+        "utc": "2026-07-10T02:42:52.9769156Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemRuntime",
         "action": "Service.Register",
         "result": "Info",
@@ -3320,11 +3337,11 @@
         }
       },
       {
-        "seq": 7596,
-        "utc": "2026-07-09T09:29:37.1039508Z",
+        "seq": 7515,
+        "utc": "2026-07-10T02:42:52.9769156Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemRuntime",
         "action": "Service.Register",
         "result": "Info",
@@ -3334,11 +3351,11 @@
         }
       },
       {
-        "seq": 7597,
-        "utc": "2026-07-09T09:29:37.1039508Z",
+        "seq": 7516,
+        "utc": "2026-07-10T02:42:52.9769156Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemRuntime",
         "action": "Service.Initialize.Begin",
         "result": "Info",
@@ -3348,11 +3365,11 @@
         }
       },
       {
-        "seq": 7598,
-        "utc": "2026-07-09T09:29:37.1039508Z",
+        "seq": 7517,
+        "utc": "2026-07-10T02:42:52.9769156Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemRuntime",
         "action": "Service.Initialize.Success",
         "result": "Success",
@@ -3362,11 +3379,11 @@
         }
       },
       {
-        "seq": 7599,
-        "utc": "2026-07-09T09:29:37.1039508Z",
+        "seq": 7518,
+        "utc": "2026-07-10T02:42:52.9769156Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemRuntime",
         "action": "Service.Initialize.Begin",
         "result": "Info",
@@ -3376,11 +3393,11 @@
         }
       },
       {
-        "seq": 7600,
-        "utc": "2026-07-09T09:29:37.1089504Z",
+        "seq": 7519,
+        "utc": "2026-07-10T02:42:52.9809157Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemData",
         "action": "GameplayCatalog.Loaded",
         "result": "Success",
@@ -3394,11 +3411,11 @@
         }
       },
       {
-        "seq": 7601,
-        "utc": "2026-07-09T09:29:37.1089504Z",
+        "seq": 7520,
+        "utc": "2026-07-10T02:42:52.9809157Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemRuntime",
         "action": "Service.Initialize.Success",
         "result": "Success",
@@ -3408,11 +3425,11 @@
         }
       },
       {
-        "seq": 7602,
-        "utc": "2026-07-09T09:29:37.1089504Z",
+        "seq": 7521,
+        "utc": "2026-07-10T02:42:52.9809157Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemRuntime",
         "action": "Service.Initialize.Begin",
         "result": "Info",
@@ -3422,11 +3439,11 @@
         }
       },
       {
-        "seq": 7603,
-        "utc": "2026-07-09T09:29:37.1099505Z",
+        "seq": 7522,
+        "utc": "2026-07-10T02:42:52.9819160Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemAsset",
         "action": "RuntimeAssetCatalog.Loaded",
         "result": "Success",
@@ -3437,11 +3454,11 @@
         }
       },
       {
-        "seq": 7604,
-        "utc": "2026-07-09T09:29:37.1099505Z",
+        "seq": 7523,
+        "utc": "2026-07-10T02:42:52.9819160Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemRuntime",
         "action": "Service.Initialize.Success",
         "result": "Success",
@@ -3451,11 +3468,11 @@
         }
       },
       {
-        "seq": 7605,
-        "utc": "2026-07-09T09:29:37.1099505Z",
+        "seq": 7524,
+        "utc": "2026-07-10T02:42:52.9819160Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemRuntime",
         "action": "Service.Initialize.Begin",
         "result": "Info",
@@ -3465,11 +3482,11 @@
         }
       },
       {
-        "seq": 7606,
-        "utc": "2026-07-09T09:29:37.1114504Z",
+        "seq": 7525,
+        "utc": "2026-07-10T02:42:52.9829156Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemRuntime",
         "action": "Service.Initialize.Success",
         "result": "Success",
@@ -3479,11 +3496,11 @@
         }
       },
       {
-        "seq": 7607,
-        "utc": "2026-07-09T09:29:37.1114504Z",
+        "seq": 7526,
+        "utc": "2026-07-10T02:42:52.9829156Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemRuntime",
         "action": "Service.Initialize.Begin",
         "result": "Info",
@@ -3493,11 +3510,11 @@
         }
       },
       {
-        "seq": 7608,
-        "utc": "2026-07-09T09:29:37.1124503Z",
+        "seq": 7527,
+        "utc": "2026-07-10T02:42:52.9839157Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemRuntime",
         "action": "Service.Initialize.Success",
         "result": "Success",
@@ -3507,11 +3524,11 @@
         }
       },
       {
-        "seq": 7609,
-        "utc": "2026-07-09T09:29:37.1124503Z",
+        "seq": 7528,
+        "utc": "2026-07-10T02:42:52.9839157Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemRuntime",
         "action": "Service.Initialize.Begin",
         "result": "Info",
@@ -3521,11 +3538,11 @@
         }
       },
       {
-        "seq": 7610,
-        "utc": "2026-07-09T09:29:37.1124503Z",
+        "seq": 7529,
+        "utc": "2026-07-10T02:42:52.9839157Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemRuntime",
         "action": "Service.Initialize.Success",
         "result": "Success",
@@ -3535,11 +3552,11 @@
         }
       },
       {
-        "seq": 7611,
-        "utc": "2026-07-09T09:29:37.1124503Z",
+        "seq": 7530,
+        "utc": "2026-07-10T02:42:52.9839157Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemRuntime",
         "action": "Service.Initialize.Begin",
         "result": "Info",
@@ -3549,11 +3566,11 @@
         }
       },
       {
-        "seq": 7612,
-        "utc": "2026-07-09T09:29:37.1124503Z",
+        "seq": 7531,
+        "utc": "2026-07-10T02:42:52.9844169Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemRuntime",
         "action": "Service.Initialize.Success",
         "result": "Success",
@@ -3563,11 +3580,11 @@
         }
       },
       {
-        "seq": 7613,
-        "utc": "2026-07-09T09:29:37.1124503Z",
+        "seq": 7532,
+        "utc": "2026-07-10T02:42:52.9844169Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemRuntime",
         "action": "Services.Ready",
         "result": "Success",
@@ -3578,11 +3595,11 @@
         }
       },
       {
-        "seq": 7614,
-        "utc": "2026-07-09T09:29:37.1124503Z",
+        "seq": 7533,
+        "utc": "2026-07-10T02:42:52.9844169Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemFlow",
         "action": "Startup.Confirmed",
         "result": "Success",
@@ -3595,11 +3612,11 @@
         }
       },
       {
-        "seq": 7615,
-        "utc": "2026-07-09T09:29:37.1124503Z",
+        "seq": 7534,
+        "utc": "2026-07-10T02:42:52.9844169Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemFlow",
         "action": "StateChanged",
         "result": "Success",
@@ -3610,11 +3627,11 @@
         }
       },
       {
-        "seq": 7616,
-        "utc": "2026-07-09T09:29:37.1514511Z",
+        "seq": 7535,
+        "utc": "2026-07-10T02:42:52.9904163Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemAsset",
         "action": "Texture.EditorAsset",
         "result": "Info",
@@ -3625,11 +3642,11 @@
         }
       },
       {
-        "seq": 7617,
-        "utc": "2026-07-09T09:29:37.1514511Z",
+        "seq": 7536,
+        "utc": "2026-07-10T02:42:52.9909163Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemAsset",
         "action": "Texture.EditorAsset",
         "result": "Info",
@@ -3640,11 +3657,11 @@
         }
       },
       {
-        "seq": 7618,
-        "utc": "2026-07-09T09:29:37.1519506Z",
+        "seq": 7537,
+        "utc": "2026-07-10T02:42:52.9909163Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemAsset",
         "action": "Texture.EditorAsset",
         "result": "Info",
@@ -3655,11 +3672,11 @@
         }
       },
       {
-        "seq": 7619,
-        "utc": "2026-07-09T09:29:37.1519506Z",
+        "seq": 7538,
+        "utc": "2026-07-10T02:42:52.9909163Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemAsset",
         "action": "Texture.EditorAsset",
         "result": "Info",
@@ -3670,11 +3687,11 @@
         }
       },
       {
-        "seq": 7620,
-        "utc": "2026-07-09T09:29:37.1519506Z",
+        "seq": 7539,
+        "utc": "2026-07-10T02:42:52.9914164Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemMap",
         "action": "Map.Generated",
         "result": "Success",
@@ -3688,11 +3705,11 @@
         }
       },
       {
-        "seq": 7621,
-        "utc": "2026-07-09T09:29:37.1524502Z",
+        "seq": 7540,
+        "utc": "2026-07-10T02:42:53.0024165Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemAsset",
         "action": "Instantiate.EditorAsset",
         "result": "Info",
@@ -3703,11 +3720,11 @@
         }
       },
       {
-        "seq": 7622,
-        "utc": "2026-07-09T09:29:37.1524502Z",
+        "seq": 7541,
+        "utc": "2026-07-10T02:42:53.0029162Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemAsset",
         "action": "Instantiate.EditorAsset",
         "result": "Info",
@@ -3718,11 +3735,11 @@
         }
       },
       {
-        "seq": 7623,
-        "utc": "2026-07-09T09:29:37.1529506Z",
+        "seq": 7542,
+        "utc": "2026-07-10T02:42:53.0029162Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemAsset",
         "action": "Instantiate.EditorAsset",
         "result": "Info",
@@ -3733,11 +3750,11 @@
         }
       },
       {
-        "seq": 7624,
-        "utc": "2026-07-09T09:29:37.1529506Z",
+        "seq": 7543,
+        "utc": "2026-07-10T02:42:53.0029162Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemAsset",
         "action": "Instantiate.EditorAsset",
         "result": "Info",
@@ -3748,11 +3765,11 @@
         }
       },
       {
-        "seq": 7625,
-        "utc": "2026-07-09T09:29:37.1529506Z",
+        "seq": 7544,
+        "utc": "2026-07-10T02:42:53.0029162Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemAsset",
         "action": "Instantiate.EditorAsset",
         "result": "Info",
@@ -3763,11 +3780,11 @@
         }
       },
       {
-        "seq": 7626,
-        "utc": "2026-07-09T09:29:37.1534504Z",
+        "seq": 7545,
+        "utc": "2026-07-10T02:42:53.0034164Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemAsset",
         "action": "Instantiate.EditorAsset",
         "result": "Info",
@@ -3778,11 +3795,11 @@
         }
       },
       {
-        "seq": 7627,
-        "utc": "2026-07-09T09:29:37.1534504Z",
+        "seq": 7546,
+        "utc": "2026-07-10T02:42:53.0034164Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemAsset",
         "action": "Instantiate.EditorAsset",
         "result": "Info",
@@ -3793,11 +3810,11 @@
         }
       },
       {
-        "seq": 7628,
-        "utc": "2026-07-09T09:29:37.1534504Z",
+        "seq": 7547,
+        "utc": "2026-07-10T02:42:53.0039163Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemAsset",
         "action": "Instantiate.EditorAsset",
         "result": "Info",
@@ -3808,11 +3825,11 @@
         }
       },
       {
-        "seq": 7629,
-        "utc": "2026-07-09T09:29:37.1539504Z",
+        "seq": 7548,
+        "utc": "2026-07-10T02:42:53.0039163Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemAsset",
         "action": "Instantiate.EditorAsset",
         "result": "Info",
@@ -3823,11 +3840,11 @@
         }
       },
       {
-        "seq": 7630,
-        "utc": "2026-07-09T09:29:37.1539504Z",
+        "seq": 7549,
+        "utc": "2026-07-10T02:42:53.0039163Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemAsset",
         "action": "Instantiate.EditorAsset",
         "result": "Info",
@@ -3838,11 +3855,11 @@
         }
       },
       {
-        "seq": 7631,
-        "utc": "2026-07-09T09:29:37.1539504Z",
+        "seq": 7550,
+        "utc": "2026-07-10T02:42:53.0039163Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemAsset",
         "action": "Instantiate.EditorAsset",
         "result": "Info",
@@ -3853,11 +3870,11 @@
         }
       },
       {
-        "seq": 7632,
-        "utc": "2026-07-09T09:29:37.1544504Z",
+        "seq": 7551,
+        "utc": "2026-07-10T02:42:53.0039163Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemAsset",
         "action": "Instantiate.EditorAsset",
         "result": "Info",
@@ -3868,11 +3885,11 @@
         }
       },
       {
-        "seq": 7633,
-        "utc": "2026-07-09T09:29:37.1544504Z",
+        "seq": 7552,
+        "utc": "2026-07-10T02:42:53.0044162Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemAsset",
         "action": "Instantiate.EditorAsset",
         "result": "Info",
@@ -3883,11 +3900,11 @@
         }
       },
       {
-        "seq": 7634,
-        "utc": "2026-07-09T09:29:37.1544504Z",
+        "seq": 7553,
+        "utc": "2026-07-10T02:42:53.0044162Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemAsset",
         "action": "Instantiate.EditorAsset",
         "result": "Info",
@@ -3898,11 +3915,11 @@
         }
       },
       {
-        "seq": 7635,
-        "utc": "2026-07-09T09:29:37.1544504Z",
+        "seq": 7554,
+        "utc": "2026-07-10T02:42:53.0044162Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemAsset",
         "action": "Instantiate.EditorAsset",
         "result": "Info",
@@ -3913,11 +3930,11 @@
         }
       },
       {
-        "seq": 7636,
-        "utc": "2026-07-09T09:29:37.1549505Z",
+        "seq": 7555,
+        "utc": "2026-07-10T02:42:53.0044162Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemAsset",
         "action": "Instantiate.EditorAsset",
         "result": "Info",
@@ -3928,11 +3945,11 @@
         }
       },
       {
-        "seq": 7637,
-        "utc": "2026-07-09T09:29:37.1549505Z",
+        "seq": 7556,
+        "utc": "2026-07-10T02:42:53.0049163Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemAsset",
         "action": "Instantiate.EditorAsset",
         "result": "Info",
@@ -3943,11 +3960,11 @@
         }
       },
       {
-        "seq": 7638,
-        "utc": "2026-07-09T09:29:37.1549505Z",
+        "seq": 7557,
+        "utc": "2026-07-10T02:42:53.0049163Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemAsset",
         "action": "Instantiate.EditorAsset",
         "result": "Info",
@@ -3958,11 +3975,11 @@
         }
       },
       {
-        "seq": 7639,
-        "utc": "2026-07-09T09:29:37.1554506Z",
+        "seq": 7558,
+        "utc": "2026-07-10T02:42:53.0049163Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemAsset",
         "action": "Instantiate.EditorAsset",
         "result": "Info",
@@ -3973,11 +3990,11 @@
         }
       },
       {
-        "seq": 7640,
-        "utc": "2026-07-09T09:29:37.1554506Z",
+        "seq": 7559,
+        "utc": "2026-07-10T02:42:53.0049163Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemAsset",
         "action": "Instantiate.EditorAsset",
         "result": "Info",
@@ -3988,11 +4005,11 @@
         }
       },
       {
-        "seq": 7641,
-        "utc": "2026-07-09T09:29:37.1554506Z",
+        "seq": 7560,
+        "utc": "2026-07-10T02:42:53.0054165Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemAsset",
         "action": "Instantiate.EditorAsset",
         "result": "Info",
@@ -4003,11 +4020,11 @@
         }
       },
       {
-        "seq": 7642,
-        "utc": "2026-07-09T09:29:37.1559504Z",
+        "seq": 7561,
+        "utc": "2026-07-10T02:42:53.0054165Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemAsset",
         "action": "Instantiate.EditorAsset",
         "result": "Info",
@@ -4018,11 +4035,11 @@
         }
       },
       {
-        "seq": 7643,
-        "utc": "2026-07-09T09:29:37.1559504Z",
+        "seq": 7562,
+        "utc": "2026-07-10T02:42:53.0054165Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemAsset",
         "action": "Instantiate.EditorAsset",
         "result": "Info",
@@ -4033,11 +4050,11 @@
         }
       },
       {
-        "seq": 7644,
-        "utc": "2026-07-09T09:29:37.1559504Z",
+        "seq": 7563,
+        "utc": "2026-07-10T02:42:53.0054165Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemAsset",
         "action": "Instantiate.EditorAsset",
         "result": "Info",
@@ -4048,11 +4065,11 @@
         }
       },
       {
-        "seq": 7645,
-        "utc": "2026-07-09T09:29:37.1564505Z",
+        "seq": 7564,
+        "utc": "2026-07-10T02:42:53.0059161Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemAsset",
         "action": "Instantiate.EditorAsset",
         "result": "Info",
@@ -4063,11 +4080,11 @@
         }
       },
       {
-        "seq": 7646,
-        "utc": "2026-07-09T09:29:37.1564505Z",
+        "seq": 7565,
+        "utc": "2026-07-10T02:42:53.0059161Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemAsset",
         "action": "Instantiate.EditorAsset",
         "result": "Info",
@@ -4078,11 +4095,11 @@
         }
       },
       {
-        "seq": 7647,
-        "utc": "2026-07-09T09:29:37.1564505Z",
+        "seq": 7566,
+        "utc": "2026-07-10T02:42:53.0059161Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemAsset",
         "action": "Instantiate.EditorAsset",
         "result": "Info",
@@ -4093,11 +4110,11 @@
         }
       },
       {
-        "seq": 7648,
-        "utc": "2026-07-09T09:29:37.1569508Z",
+        "seq": 7567,
+        "utc": "2026-07-10T02:42:53.0059161Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemAsset",
         "action": "Instantiate.EditorAsset",
         "result": "Info",
@@ -4108,11 +4125,11 @@
         }
       },
       {
-        "seq": 7649,
-        "utc": "2026-07-09T09:29:37.1569508Z",
+        "seq": 7568,
+        "utc": "2026-07-10T02:42:53.0059161Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemAsset",
         "action": "Instantiate.EditorAsset",
         "result": "Info",
@@ -4123,11 +4140,11 @@
         }
       },
       {
-        "seq": 7650,
-        "utc": "2026-07-09T09:29:37.1569508Z",
+        "seq": 7569,
+        "utc": "2026-07-10T02:42:53.0064162Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemAsset",
         "action": "Instantiate.EditorAsset",
         "result": "Info",
@@ -4138,11 +4155,11 @@
         }
       },
       {
-        "seq": 7651,
-        "utc": "2026-07-09T09:29:37.1574507Z",
+        "seq": 7570,
+        "utc": "2026-07-10T02:42:53.0064162Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemAsset",
         "action": "Instantiate.EditorAsset",
         "result": "Info",
@@ -4153,11 +4170,11 @@
         }
       },
       {
-        "seq": 7652,
-        "utc": "2026-07-09T09:29:37.1574507Z",
+        "seq": 7571,
+        "utc": "2026-07-10T02:42:53.0064162Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemAsset",
         "action": "Instantiate.EditorAsset",
         "result": "Info",
@@ -4168,11 +4185,11 @@
         }
       },
       {
-        "seq": 7653,
-        "utc": "2026-07-09T09:29:37.1574507Z",
+        "seq": 7572,
+        "utc": "2026-07-10T02:42:53.0064162Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemAsset",
         "action": "Instantiate.EditorAsset",
         "result": "Info",
@@ -4183,11 +4200,11 @@
         }
       },
       {
-        "seq": 7654,
-        "utc": "2026-07-09T09:29:37.1574507Z",
+        "seq": 7573,
+        "utc": "2026-07-10T02:42:53.0069163Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemAsset",
         "action": "Instantiate.EditorAsset",
         "result": "Info",
@@ -4198,11 +4215,11 @@
         }
       },
       {
-        "seq": 7655,
-        "utc": "2026-07-09T09:29:37.1579506Z",
+        "seq": 7574,
+        "utc": "2026-07-10T02:42:53.0069163Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemAsset",
         "action": "Instantiate.EditorAsset",
         "result": "Info",
@@ -4213,11 +4230,11 @@
         }
       },
       {
-        "seq": 7656,
-        "utc": "2026-07-09T09:29:37.1579506Z",
+        "seq": 7575,
+        "utc": "2026-07-10T02:42:53.0069163Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemAsset",
         "action": "Instantiate.EditorAsset",
         "result": "Info",
@@ -4228,11 +4245,11 @@
         }
       },
       {
-        "seq": 7657,
-        "utc": "2026-07-09T09:29:37.1579506Z",
+        "seq": 7576,
+        "utc": "2026-07-10T02:42:53.0074163Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemAsset",
         "action": "Instantiate.EditorAsset",
         "result": "Info",
@@ -4243,11 +4260,11 @@
         }
       },
       {
-        "seq": 7658,
-        "utc": "2026-07-09T09:29:37.1579506Z",
+        "seq": 7577,
+        "utc": "2026-07-10T02:42:53.0074163Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemAsset",
         "action": "Instantiate.EditorAsset",
         "result": "Info",
@@ -4258,11 +4275,11 @@
         }
       },
       {
-        "seq": 7659,
-        "utc": "2026-07-09T09:29:37.1584504Z",
+        "seq": 7578,
+        "utc": "2026-07-10T02:42:53.0074163Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemAsset",
         "action": "Instantiate.EditorAsset",
         "result": "Info",
@@ -4273,11 +4290,11 @@
         }
       },
       {
-        "seq": 7660,
-        "utc": "2026-07-09T09:29:37.1584504Z",
+        "seq": 7579,
+        "utc": "2026-07-10T02:42:53.0074163Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemAsset",
         "action": "Instantiate.EditorAsset",
         "result": "Info",
@@ -4288,11 +4305,11 @@
         }
       },
       {
-        "seq": 7661,
-        "utc": "2026-07-09T09:29:37.1584504Z",
+        "seq": 7580,
+        "utc": "2026-07-10T02:42:53.0074163Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemAsset",
         "action": "Instantiate.EditorAsset",
         "result": "Info",
@@ -4303,11 +4320,11 @@
         }
       },
       {
-        "seq": 7662,
-        "utc": "2026-07-09T09:29:37.1589505Z",
+        "seq": 7581,
+        "utc": "2026-07-10T02:42:53.0079164Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemAsset",
         "action": "Instantiate.EditorAsset",
         "result": "Info",
@@ -4318,11 +4335,11 @@
         }
       },
       {
-        "seq": 7663,
-        "utc": "2026-07-09T09:29:37.1589505Z",
+        "seq": 7582,
+        "utc": "2026-07-10T02:42:53.0079164Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemAsset",
         "action": "Instantiate.EditorAsset",
         "result": "Info",
@@ -4333,11 +4350,11 @@
         }
       },
       {
-        "seq": 7664,
-        "utc": "2026-07-09T09:29:37.1589505Z",
+        "seq": 7583,
+        "utc": "2026-07-10T02:42:53.0079164Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemAsset",
         "action": "Instantiate.EditorAsset",
         "result": "Info",
@@ -4348,11 +4365,11 @@
         }
       },
       {
-        "seq": 7665,
-        "utc": "2026-07-09T09:29:37.1589505Z",
+        "seq": 7584,
+        "utc": "2026-07-10T02:42:53.0079164Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemAsset",
         "action": "Instantiate.EditorAsset",
         "result": "Info",
@@ -4363,11 +4380,11 @@
         }
       },
       {
-        "seq": 7666,
-        "utc": "2026-07-09T09:29:37.1594502Z",
+        "seq": 7585,
+        "utc": "2026-07-10T02:42:53.0079164Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemAsset",
         "action": "Instantiate.EditorAsset",
         "result": "Info",
@@ -4378,11 +4395,11 @@
         }
       },
       {
-        "seq": 7667,
-        "utc": "2026-07-09T09:29:37.1594502Z",
+        "seq": 7586,
+        "utc": "2026-07-10T02:42:53.0084165Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemAsset",
         "action": "Instantiate.EditorAsset",
         "result": "Info",
@@ -4393,11 +4410,11 @@
         }
       },
       {
-        "seq": 7668,
-        "utc": "2026-07-09T09:29:37.1594502Z",
+        "seq": 7587,
+        "utc": "2026-07-10T02:42:53.0084165Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemAsset",
         "action": "Instantiate.EditorAsset",
         "result": "Info",
@@ -4408,11 +4425,11 @@
         }
       },
       {
-        "seq": 7669,
-        "utc": "2026-07-09T09:29:37.1594502Z",
+        "seq": 7588,
+        "utc": "2026-07-10T02:42:53.0084165Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemAsset",
         "action": "Instantiate.EditorAsset",
         "result": "Info",
@@ -4423,11 +4440,11 @@
         }
       },
       {
-        "seq": 7670,
-        "utc": "2026-07-09T09:29:37.1599507Z",
+        "seq": 7589,
+        "utc": "2026-07-10T02:42:53.0084165Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemAsset",
         "action": "Instantiate.EditorAsset",
         "result": "Info",
@@ -4438,11 +4455,11 @@
         }
       },
       {
-        "seq": 7671,
-        "utc": "2026-07-09T09:29:37.1599507Z",
+        "seq": 7590,
+        "utc": "2026-07-10T02:42:53.0089163Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemAsset",
         "action": "Instantiate.EditorAsset",
         "result": "Info",
@@ -4453,11 +4470,11 @@
         }
       },
       {
-        "seq": 7672,
-        "utc": "2026-07-09T09:29:37.1599507Z",
+        "seq": 7591,
+        "utc": "2026-07-10T02:42:53.0089163Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemActor",
         "action": "Actors.Spawned",
         "result": "Success",
@@ -4471,11 +4488,11 @@
         }
       },
       {
-        "seq": 7673,
-        "utc": "2026-07-09T09:29:37.1599507Z",
+        "seq": 7592,
+        "utc": "2026-07-10T02:42:53.0089163Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemCamera",
         "action": "CombatCamera.Activated",
         "result": "Success",
@@ -4486,11 +4503,11 @@
         }
       },
       {
-        "seq": 7674,
-        "utc": "2026-07-09T09:29:37.1599507Z",
+        "seq": 7593,
+        "utc": "2026-07-10T02:42:53.0089163Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemCamera",
         "action": "Shake.Requested",
         "result": "Info",
@@ -4501,11 +4518,11 @@
         }
       },
       {
-        "seq": 7675,
-        "utc": "2026-07-09T09:29:37.1599507Z",
+        "seq": 7594,
+        "utc": "2026-07-10T02:42:53.0089163Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemVFX",
         "action": "CameraShake.Requested",
         "result": "Info",
@@ -4517,11 +4534,11 @@
         }
       },
       {
-        "seq": 7676,
-        "utc": "2026-07-09T09:29:37.1599507Z",
+        "seq": 7595,
+        "utc": "2026-07-10T02:42:53.0089163Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemVFX",
         "action": "DamageFloat.Spawned",
         "result": "Info",
@@ -4533,11 +4550,11 @@
         }
       },
       {
-        "seq": 7677,
-        "utc": "2026-07-09T09:29:37.1604503Z",
+        "seq": 7596,
+        "utc": "2026-07-10T02:42:53.0094164Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemCamera",
         "action": "Shake.Requested",
         "result": "Info",
@@ -4548,11 +4565,11 @@
         }
       },
       {
-        "seq": 7678,
-        "utc": "2026-07-09T09:29:37.1604503Z",
+        "seq": 7597,
+        "utc": "2026-07-10T02:42:53.0094164Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemVFX",
         "action": "CameraShake.Requested",
         "result": "Info",
@@ -4564,11 +4581,11 @@
         }
       },
       {
-        "seq": 7679,
-        "utc": "2026-07-09T09:29:37.1604503Z",
+        "seq": 7598,
+        "utc": "2026-07-10T02:42:53.0104160Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemVFX",
         "action": "Vignette.Start",
         "result": "Info",
@@ -4578,11 +4595,11 @@
         }
       },
       {
-        "seq": 7680,
-        "utc": "2026-07-09T09:29:37.1609502Z",
+        "seq": 7599,
+        "utc": "2026-07-10T02:42:53.0104160Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemVFX",
         "action": "DamageFloat.Spawned",
         "result": "Info",
@@ -4594,11 +4611,11 @@
         }
       },
       {
-        "seq": 7681,
-        "utc": "2026-07-09T09:29:37.1609502Z",
+        "seq": 7600,
+        "utc": "2026-07-10T02:42:53.0104160Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemVFX",
         "action": "Vignette.Stop",
         "result": "Info",
@@ -4608,11 +4625,11 @@
         }
       },
       {
-        "seq": 7682,
-        "utc": "2026-07-09T09:29:37.1609502Z",
+        "seq": 7601,
+        "utc": "2026-07-10T02:42:53.0109161Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemRuntime",
         "action": "Service.Shutdown",
         "result": "Info",
@@ -4622,11 +4639,11 @@
         }
       },
       {
-        "seq": 7683,
-        "utc": "2026-07-09T09:29:37.1609502Z",
+        "seq": 7602,
+        "utc": "2026-07-10T02:42:53.0109161Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemRuntime",
         "action": "Service.Shutdown",
         "result": "Info",
@@ -4636,11 +4653,11 @@
         }
       },
       {
-        "seq": 7684,
-        "utc": "2026-07-09T09:29:37.1624508Z",
+        "seq": 7603,
+        "utc": "2026-07-10T02:42:53.0119162Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemRuntime",
         "action": "Service.Shutdown",
         "result": "Info",
@@ -4650,11 +4667,11 @@
         }
       },
       {
-        "seq": 7685,
-        "utc": "2026-07-09T09:29:37.1624508Z",
+        "seq": 7604,
+        "utc": "2026-07-10T02:42:53.0119162Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemRuntime",
         "action": "Service.Shutdown",
         "result": "Info",
@@ -4664,11 +4681,11 @@
         }
       },
       {
-        "seq": 7686,
-        "utc": "2026-07-09T09:29:37.1624508Z",
+        "seq": 7605,
+        "utc": "2026-07-10T02:42:53.0119162Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemRuntime",
         "action": "Service.Shutdown",
         "result": "Info",
@@ -4678,11 +4695,11 @@
         }
       },
       {
-        "seq": 7687,
-        "utc": "2026-07-09T09:29:37.1624508Z",
+        "seq": 7606,
+        "utc": "2026-07-10T02:42:53.0119162Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemRuntime",
         "action": "Service.Shutdown",
         "result": "Info",
@@ -4692,11 +4709,11 @@
         }
       },
       {
-        "seq": 7688,
-        "utc": "2026-07-09T09:29:37.1624508Z",
+        "seq": 7607,
+        "utc": "2026-07-10T02:42:53.0119162Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemRuntime",
         "action": "Service.Shutdown",
         "result": "Info",
@@ -4706,11 +4723,11 @@
         }
       },
       {
-        "seq": 7689,
-        "utc": "2026-07-09T09:29:37.1629503Z",
+        "seq": 7608,
+        "utc": "2026-07-10T02:42:53.0119162Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemVFX",
         "action": "Sprite.Missing",
         "result": "Warning",
@@ -4720,11 +4737,11 @@
         }
       },
       {
-        "seq": 7690,
-        "utc": "2026-07-09T09:29:37.1629503Z",
+        "seq": 7609,
+        "utc": "2026-07-10T02:42:53.0119162Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemVFX",
         "action": "CameraShake.Skipped",
         "result": "Warning",
@@ -4735,11 +4752,11 @@
         }
       },
       {
-        "seq": 7691,
-        "utc": "2026-07-09T09:29:37.1629503Z",
+        "seq": 7610,
+        "utc": "2026-07-10T02:42:53.0124164Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "TotemVFX",
         "action": "DamageFloat.Spawned",
         "result": "Info",
@@ -4751,11 +4768,11 @@
         }
       },
       {
-        "seq": 7692,
-        "utc": "2026-07-09T09:29:37.1629503Z",
+        "seq": 7611,
+        "utc": "2026-07-10T02:42:53.0124164Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "Diagnostics",
         "action": "Scenario.End",
         "result": "Success",
@@ -4764,17 +4781,17 @@
           "type": "UGF.EditorTools.TotemVfxRuntimeDiagnosticScenario",
           "category": "BusinessRuntime",
           "name": "Totem VFX Runtime",
-          "durationMs": "62",
+          "durationMs": "38",
           "errors": "0",
           "warnings": "0"
         }
       },
       {
-        "seq": 7693,
-        "utc": "2026-07-09T09:29:37.1634524Z",
+        "seq": 7612,
+        "utc": "2026-07-10T02:42:53.0124164Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "Diagnostics",
         "action": "RuntimeResidueCleanup",
         "result": "Info",
@@ -4785,11 +4802,11 @@
         }
       },
       {
-        "seq": 7694,
-        "utc": "2026-07-09T09:29:37.1634524Z",
+        "seq": 7613,
+        "utc": "2026-07-10T02:42:53.0124164Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "Diagnostics",
         "action": "Editor snapshot.Begin",
         "result": "Info",
@@ -4797,11 +4814,11 @@
         "data": null
       },
       {
-        "seq": 7695,
-        "utc": "2026-07-09T09:29:37.1654507Z",
+        "seq": 7614,
+        "utc": "2026-07-10T02:42:53.0144160Z",
         "frame": 0,
         "time": 0.0,
-        "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+        "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
         "system": "Diagnostics",
         "action": "Editor snapshot.End",
         "result": "Success",
@@ -4816,11 +4833,11 @@
   },
   "timeline": [
     {
-      "seq": 7536,
-      "utc": "2026-07-09T09:29:37.0994502Z",
+      "seq": 7455,
+      "utc": "2026-07-10T02:42:52.9739162Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemNpc",
       "action": "Despawned",
       "result": "Info",
@@ -4830,11 +4847,11 @@
       }
     },
     {
-      "seq": 7537,
-      "utc": "2026-07-09T09:29:37.0994502Z",
+      "seq": 7456,
+      "utc": "2026-07-10T02:42:52.9739162Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemCamera",
       "action": "CombatCamera.Deactivated",
       "result": "Info",
@@ -4842,11 +4859,11 @@
       "data": null
     },
     {
-      "seq": 7538,
-      "utc": "2026-07-09T09:29:37.0994502Z",
+      "seq": 7457,
+      "utc": "2026-07-10T02:42:52.9739162Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemVFX",
       "action": "Cleared",
       "result": "Info",
@@ -4856,11 +4873,11 @@
       }
     },
     {
-      "seq": 7539,
-      "utc": "2026-07-09T09:29:37.0994502Z",
+      "seq": 7458,
+      "utc": "2026-07-10T02:42:52.9739162Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemCombat",
       "action": "Combat.Stopped",
       "result": "Info",
@@ -4870,11 +4887,11 @@
       }
     },
     {
-      "seq": 7540,
-      "utc": "2026-07-09T09:29:37.0999502Z",
+      "seq": 7459,
+      "utc": "2026-07-10T02:42:52.9739162Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemRuntime",
       "action": "Service.Shutdown",
       "result": "Info",
@@ -4884,11 +4901,11 @@
       }
     },
     {
-      "seq": 7541,
-      "utc": "2026-07-09T09:29:37.0999502Z",
+      "seq": 7460,
+      "utc": "2026-07-10T02:42:52.9739162Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemRuntime",
       "action": "Service.Shutdown",
       "result": "Info",
@@ -4898,11 +4915,11 @@
       }
     },
     {
-      "seq": 7542,
-      "utc": "2026-07-09T09:29:37.0999502Z",
+      "seq": 7461,
+      "utc": "2026-07-10T02:42:52.9739162Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemRuntime",
       "action": "Service.Shutdown",
       "result": "Info",
@@ -4912,11 +4929,11 @@
       }
     },
     {
-      "seq": 7543,
-      "utc": "2026-07-09T09:29:37.0999502Z",
+      "seq": 7462,
+      "utc": "2026-07-10T02:42:52.9739162Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemRuntime",
       "action": "Service.Shutdown",
       "result": "Info",
@@ -4926,11 +4943,11 @@
       }
     },
     {
-      "seq": 7544,
-      "utc": "2026-07-09T09:29:37.0999502Z",
+      "seq": 7463,
+      "utc": "2026-07-10T02:42:52.9739162Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemRuntime",
       "action": "Service.Shutdown",
       "result": "Info",
@@ -4940,11 +4957,11 @@
       }
     },
     {
-      "seq": 7545,
-      "utc": "2026-07-09T09:29:37.0999502Z",
+      "seq": 7464,
+      "utc": "2026-07-10T02:42:52.9739162Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemRuntime",
       "action": "Service.Shutdown",
       "result": "Info",
@@ -4954,11 +4971,11 @@
       }
     },
     {
-      "seq": 7546,
-      "utc": "2026-07-09T09:29:37.0999502Z",
+      "seq": 7465,
+      "utc": "2026-07-10T02:42:52.9739162Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemRuntime",
       "action": "Service.Shutdown",
       "result": "Info",
@@ -4968,11 +4985,11 @@
       }
     },
     {
-      "seq": 7547,
-      "utc": "2026-07-09T09:29:37.0999502Z",
+      "seq": 7466,
+      "utc": "2026-07-10T02:42:52.9739162Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemRuntime",
       "action": "Service.Shutdown",
       "result": "Info",
@@ -4982,11 +4999,11 @@
       }
     },
     {
-      "seq": 7548,
-      "utc": "2026-07-09T09:29:37.0999502Z",
+      "seq": 7467,
+      "utc": "2026-07-10T02:42:52.9739162Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemRuntime",
       "action": "Service.Shutdown",
       "result": "Info",
@@ -4996,11 +5013,11 @@
       }
     },
     {
-      "seq": 7549,
-      "utc": "2026-07-09T09:29:37.0999502Z",
+      "seq": 7468,
+      "utc": "2026-07-10T02:42:52.9739162Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemRuntime",
       "action": "Service.Shutdown",
       "result": "Info",
@@ -5010,11 +5027,11 @@
       }
     },
     {
-      "seq": 7550,
-      "utc": "2026-07-09T09:29:37.0999502Z",
+      "seq": 7469,
+      "utc": "2026-07-10T02:42:52.9739162Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemRuntime",
       "action": "Service.Shutdown",
       "result": "Info",
@@ -5024,11 +5041,11 @@
       }
     },
     {
-      "seq": 7551,
-      "utc": "2026-07-09T09:29:37.0999502Z",
+      "seq": 7470,
+      "utc": "2026-07-10T02:42:52.9739162Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemRuntime",
       "action": "Service.Shutdown",
       "result": "Info",
@@ -5038,11 +5055,11 @@
       }
     },
     {
-      "seq": 7552,
-      "utc": "2026-07-09T09:29:37.0999502Z",
+      "seq": 7471,
+      "utc": "2026-07-10T02:42:52.9739162Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemRuntime",
       "action": "Service.Shutdown",
       "result": "Info",
@@ -5052,11 +5069,11 @@
       }
     },
     {
-      "seq": 7553,
-      "utc": "2026-07-09T09:29:37.0999502Z",
+      "seq": 7472,
+      "utc": "2026-07-10T02:42:52.9739162Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemRuntime",
       "action": "Service.Shutdown",
       "result": "Info",
@@ -5066,11 +5083,11 @@
       }
     },
     {
-      "seq": 7554,
-      "utc": "2026-07-09T09:29:37.0999502Z",
+      "seq": 7473,
+      "utc": "2026-07-10T02:42:52.9739162Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemRuntime",
       "action": "Service.Shutdown",
       "result": "Info",
@@ -5080,11 +5097,11 @@
       }
     },
     {
-      "seq": 7555,
-      "utc": "2026-07-09T09:29:37.0999502Z",
+      "seq": 7474,
+      "utc": "2026-07-10T02:42:52.9744164Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemRuntime",
       "action": "Service.Shutdown",
       "result": "Info",
@@ -5094,11 +5111,11 @@
       }
     },
     {
-      "seq": 7556,
-      "utc": "2026-07-09T09:29:37.0999502Z",
+      "seq": 7475,
+      "utc": "2026-07-10T02:42:52.9744164Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemRuntime",
       "action": "Service.Shutdown",
       "result": "Info",
@@ -5108,11 +5125,11 @@
       }
     },
     {
-      "seq": 7557,
-      "utc": "2026-07-09T09:29:37.0999502Z",
+      "seq": 7476,
+      "utc": "2026-07-10T02:42:52.9744164Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemRuntime",
       "action": "Service.Shutdown",
       "result": "Info",
@@ -5122,11 +5139,11 @@
       }
     },
     {
-      "seq": 7558,
-      "utc": "2026-07-09T09:29:37.0999502Z",
+      "seq": 7477,
+      "utc": "2026-07-10T02:42:52.9744164Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemRuntime",
       "action": "Service.Shutdown",
       "result": "Info",
@@ -5136,11 +5153,11 @@
       }
     },
     {
-      "seq": 7559,
-      "utc": "2026-07-09T09:29:37.0999502Z",
+      "seq": 7478,
+      "utc": "2026-07-10T02:42:52.9744164Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemRuntime",
       "action": "Service.Shutdown",
       "result": "Info",
@@ -5150,11 +5167,11 @@
       }
     },
     {
-      "seq": 7560,
-      "utc": "2026-07-09T09:29:37.0999502Z",
+      "seq": 7479,
+      "utc": "2026-07-10T02:42:52.9744164Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemRuntime",
       "action": "Service.Shutdown",
       "result": "Info",
@@ -5164,11 +5181,11 @@
       }
     },
     {
-      "seq": 7561,
-      "utc": "2026-07-09T09:29:37.0999502Z",
+      "seq": 7480,
+      "utc": "2026-07-10T02:42:52.9744164Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemRuntime",
       "action": "Service.Shutdown",
       "result": "Info",
@@ -5178,11 +5195,11 @@
       }
     },
     {
-      "seq": 7562,
-      "utc": "2026-07-09T09:29:37.0999502Z",
+      "seq": 7481,
+      "utc": "2026-07-10T02:42:52.9744164Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemRuntime",
       "action": "Service.Shutdown",
       "result": "Info",
@@ -5192,11 +5209,11 @@
       }
     },
     {
-      "seq": 7563,
-      "utc": "2026-07-09T09:29:37.0999502Z",
+      "seq": 7482,
+      "utc": "2026-07-10T02:42:52.9744164Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemRuntime",
       "action": "Service.Shutdown",
       "result": "Info",
@@ -5206,11 +5223,11 @@
       }
     },
     {
-      "seq": 7564,
-      "utc": "2026-07-09T09:29:37.0999502Z",
+      "seq": 7483,
+      "utc": "2026-07-10T02:42:52.9744164Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemRuntime",
       "action": "Service.Shutdown",
       "result": "Info",
@@ -5220,11 +5237,11 @@
       }
     },
     {
-      "seq": 7565,
-      "utc": "2026-07-09T09:29:37.0999502Z",
+      "seq": 7484,
+      "utc": "2026-07-10T02:42:52.9744164Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemRuntime",
       "action": "Service.Shutdown",
       "result": "Info",
@@ -5234,11 +5251,11 @@
       }
     },
     {
-      "seq": 7566,
-      "utc": "2026-07-09T09:29:37.0999502Z",
+      "seq": 7485,
+      "utc": "2026-07-10T02:42:52.9744164Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "Diagnostics",
       "action": "Scenario.End",
       "result": "Success",
@@ -5247,17 +5264,17 @@
         "type": "UGF.EditorTools.TotemRuntimeCausalityDiagnosticScenario",
         "category": "BusinessRuntime",
         "name": "Totem Runtime Causality Smoke",
-        "durationMs": "596",
+        "durationMs": "483",
         "errors": "0",
         "warnings": "0"
       }
     },
     {
-      "seq": 7567,
-      "utc": "2026-07-09T09:29:37.0999502Z",
+      "seq": 7486,
+      "utc": "2026-07-10T02:42:52.9744164Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "Diagnostics",
       "action": "Scenario.Begin",
       "result": "Info",
@@ -5270,11 +5287,11 @@
       }
     },
     {
-      "seq": 7568,
-      "utc": "2026-07-09T09:29:37.1014505Z",
+      "seq": 7487,
+      "utc": "2026-07-10T02:42:52.9749162Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemAsset",
       "action": "RuntimeAssetCatalog.Loaded",
       "result": "Success",
@@ -5285,11 +5302,11 @@
       }
     },
     {
-      "seq": 7569,
-      "utc": "2026-07-09T09:29:37.1014505Z",
+      "seq": 7488,
+      "utc": "2026-07-10T02:42:52.9754159Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemAsset",
       "action": "Sprite.EditorAsset",
       "result": "Info",
@@ -5300,11 +5317,11 @@
       }
     },
     {
-      "seq": 7570,
-      "utc": "2026-07-09T09:29:37.1014505Z",
+      "seq": 7489,
+      "utc": "2026-07-10T02:42:52.9754159Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemAsset",
       "action": "Sprite.EditorAsset",
       "result": "Info",
@@ -5315,11 +5332,11 @@
       }
     },
     {
-      "seq": 7571,
-      "utc": "2026-07-09T09:29:37.1014505Z",
+      "seq": 7490,
+      "utc": "2026-07-10T02:42:52.9754159Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemAsset",
       "action": "Sprite.EditorAsset",
       "result": "Info",
@@ -5330,11 +5347,11 @@
       }
     },
     {
-      "seq": 7572,
-      "utc": "2026-07-09T09:29:37.1014505Z",
+      "seq": 7491,
+      "utc": "2026-07-10T02:42:52.9754159Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemAsset",
       "action": "Sprite.EditorAsset",
       "result": "Info",
@@ -5345,11 +5362,11 @@
       }
     },
     {
-      "seq": 7573,
-      "utc": "2026-07-09T09:29:37.1014505Z",
+      "seq": 7492,
+      "utc": "2026-07-10T02:42:52.9754159Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemAsset",
       "action": "Sprite.EditorAsset",
       "result": "Info",
@@ -5360,11 +5377,11 @@
       }
     },
     {
-      "seq": 7574,
-      "utc": "2026-07-09T09:29:37.1019508Z",
+      "seq": 7493,
+      "utc": "2026-07-10T02:42:52.9754159Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemRuntime",
       "action": "Service.Register",
       "result": "Info",
@@ -5374,11 +5391,11 @@
       }
     },
     {
-      "seq": 7575,
-      "utc": "2026-07-09T09:29:37.1019508Z",
+      "seq": 7494,
+      "utc": "2026-07-10T02:42:52.9754159Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemRuntime",
       "action": "Service.Register",
       "result": "Info",
@@ -5388,11 +5405,11 @@
       }
     },
     {
-      "seq": 7576,
-      "utc": "2026-07-09T09:29:37.1019508Z",
+      "seq": 7495,
+      "utc": "2026-07-10T02:42:52.9754159Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemRuntime",
       "action": "Service.Initialize.Begin",
       "result": "Info",
@@ -5402,11 +5419,11 @@
       }
     },
     {
-      "seq": 7577,
-      "utc": "2026-07-09T09:29:37.1029525Z",
+      "seq": 7496,
+      "utc": "2026-07-10T02:42:52.9764158Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemAsset",
       "action": "RuntimeAssetCatalog.Loaded",
       "result": "Success",
@@ -5417,11 +5434,11 @@
       }
     },
     {
-      "seq": 7578,
-      "utc": "2026-07-09T09:29:37.1029525Z",
+      "seq": 7497,
+      "utc": "2026-07-10T02:42:52.9764158Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemRuntime",
       "action": "Service.Initialize.Success",
       "result": "Success",
@@ -5431,11 +5448,11 @@
       }
     },
     {
-      "seq": 7579,
-      "utc": "2026-07-09T09:29:37.1029525Z",
+      "seq": 7498,
+      "utc": "2026-07-10T02:42:52.9764158Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemRuntime",
       "action": "Service.Initialize.Begin",
       "result": "Info",
@@ -5445,11 +5462,11 @@
       }
     },
     {
-      "seq": 7580,
-      "utc": "2026-07-09T09:29:37.1029525Z",
+      "seq": 7499,
+      "utc": "2026-07-10T02:42:52.9764158Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemRuntime",
       "action": "Service.Initialize.Success",
       "result": "Success",
@@ -5459,11 +5476,11 @@
       }
     },
     {
-      "seq": 7581,
-      "utc": "2026-07-09T09:29:37.1029525Z",
+      "seq": 7500,
+      "utc": "2026-07-10T02:42:52.9764158Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemRuntime",
       "action": "Services.Ready",
       "result": "Success",
@@ -5474,11 +5491,11 @@
       }
     },
     {
-      "seq": 7582,
-      "utc": "2026-07-09T09:29:37.1029525Z",
+      "seq": 7501,
+      "utc": "2026-07-10T02:42:52.9764158Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemAsset",
       "action": "Sprite.EditorAsset",
       "result": "Info",
@@ -5489,11 +5506,11 @@
       }
     },
     {
-      "seq": 7583,
-      "utc": "2026-07-09T09:29:37.1029525Z",
+      "seq": 7502,
+      "utc": "2026-07-10T02:42:52.9764158Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemVFX",
       "action": "Sprite.Spawned",
       "result": "Info",
@@ -5505,11 +5522,11 @@
       }
     },
     {
-      "seq": 7584,
-      "utc": "2026-07-09T09:29:37.1029525Z",
+      "seq": 7503,
+      "utc": "2026-07-10T02:42:52.9764158Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemVFX",
       "action": "Projectile.Spawned",
       "result": "Info",
@@ -5521,11 +5538,11 @@
       }
     },
     {
-      "seq": 7585,
-      "utc": "2026-07-09T09:29:37.1034513Z",
+      "seq": 7504,
+      "utc": "2026-07-10T02:42:52.9764158Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemAsset",
       "action": "Sprite.EditorAsset",
       "result": "Info",
@@ -5536,11 +5553,11 @@
       }
     },
     {
-      "seq": 7586,
-      "utc": "2026-07-09T09:29:37.1034513Z",
+      "seq": 7505,
+      "utc": "2026-07-10T02:42:52.9764158Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemVFX",
       "action": "Sprite.Spawned",
       "result": "Info",
@@ -5552,11 +5569,11 @@
       }
     },
     {
-      "seq": 7587,
-      "utc": "2026-07-09T09:29:37.1034513Z",
+      "seq": 7506,
+      "utc": "2026-07-10T02:42:52.9764158Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemVFX",
       "action": "Projectile.Spawned",
       "result": "Info",
@@ -5568,11 +5585,11 @@
       }
     },
     {
-      "seq": 7588,
-      "utc": "2026-07-09T09:29:37.1034513Z",
+      "seq": 7507,
+      "utc": "2026-07-10T02:42:52.9764158Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemRuntime",
       "action": "Service.Shutdown",
       "result": "Info",
@@ -5582,11 +5599,11 @@
       }
     },
     {
-      "seq": 7589,
-      "utc": "2026-07-09T09:29:37.1034513Z",
+      "seq": 7508,
+      "utc": "2026-07-10T02:42:52.9764158Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemRuntime",
       "action": "Service.Shutdown",
       "result": "Info",
@@ -5596,11 +5613,11 @@
       }
     },
     {
-      "seq": 7590,
-      "utc": "2026-07-09T09:29:37.1039508Z",
+      "seq": 7509,
+      "utc": "2026-07-10T02:42:52.9769156Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemRuntime",
       "action": "Service.Register",
       "result": "Info",
@@ -5610,11 +5627,11 @@
       }
     },
     {
-      "seq": 7591,
-      "utc": "2026-07-09T09:29:37.1039508Z",
+      "seq": 7510,
+      "utc": "2026-07-10T02:42:52.9769156Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemRuntime",
       "action": "Service.Register",
       "result": "Info",
@@ -5624,11 +5641,11 @@
       }
     },
     {
-      "seq": 7592,
-      "utc": "2026-07-09T09:29:37.1039508Z",
+      "seq": 7511,
+      "utc": "2026-07-10T02:42:52.9769156Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemRuntime",
       "action": "Service.Register",
       "result": "Info",
@@ -5638,11 +5655,11 @@
       }
     },
     {
-      "seq": 7593,
-      "utc": "2026-07-09T09:29:37.1039508Z",
+      "seq": 7512,
+      "utc": "2026-07-10T02:42:52.9769156Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemRuntime",
       "action": "Service.Register",
       "result": "Info",
@@ -5652,11 +5669,11 @@
       }
     },
     {
-      "seq": 7594,
-      "utc": "2026-07-09T09:29:37.1039508Z",
+      "seq": 7513,
+      "utc": "2026-07-10T02:42:52.9769156Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemRuntime",
       "action": "Service.Register",
       "result": "Info",
@@ -5666,11 +5683,11 @@
       }
     },
     {
-      "seq": 7595,
-      "utc": "2026-07-09T09:29:37.1039508Z",
+      "seq": 7514,
+      "utc": "2026-07-10T02:42:52.9769156Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemRuntime",
       "action": "Service.Register",
       "result": "Info",
@@ -5680,11 +5697,11 @@
       }
     },
     {
-      "seq": 7596,
-      "utc": "2026-07-09T09:29:37.1039508Z",
+      "seq": 7515,
+      "utc": "2026-07-10T02:42:52.9769156Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemRuntime",
       "action": "Service.Register",
       "result": "Info",
@@ -5694,11 +5711,11 @@
       }
     },
     {
-      "seq": 7597,
-      "utc": "2026-07-09T09:29:37.1039508Z",
+      "seq": 7516,
+      "utc": "2026-07-10T02:42:52.9769156Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemRuntime",
       "action": "Service.Initialize.Begin",
       "result": "Info",
@@ -5708,11 +5725,11 @@
       }
     },
     {
-      "seq": 7598,
-      "utc": "2026-07-09T09:29:37.1039508Z",
+      "seq": 7517,
+      "utc": "2026-07-10T02:42:52.9769156Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemRuntime",
       "action": "Service.Initialize.Success",
       "result": "Success",
@@ -5722,11 +5739,11 @@
       }
     },
     {
-      "seq": 7599,
-      "utc": "2026-07-09T09:29:37.1039508Z",
+      "seq": 7518,
+      "utc": "2026-07-10T02:42:52.9769156Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemRuntime",
       "action": "Service.Initialize.Begin",
       "result": "Info",
@@ -5736,11 +5753,11 @@
       }
     },
     {
-      "seq": 7600,
-      "utc": "2026-07-09T09:29:37.1089504Z",
+      "seq": 7519,
+      "utc": "2026-07-10T02:42:52.9809157Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemData",
       "action": "GameplayCatalog.Loaded",
       "result": "Success",
@@ -5754,11 +5771,11 @@
       }
     },
     {
-      "seq": 7601,
-      "utc": "2026-07-09T09:29:37.1089504Z",
+      "seq": 7520,
+      "utc": "2026-07-10T02:42:52.9809157Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemRuntime",
       "action": "Service.Initialize.Success",
       "result": "Success",
@@ -5768,11 +5785,11 @@
       }
     },
     {
-      "seq": 7602,
-      "utc": "2026-07-09T09:29:37.1089504Z",
+      "seq": 7521,
+      "utc": "2026-07-10T02:42:52.9809157Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemRuntime",
       "action": "Service.Initialize.Begin",
       "result": "Info",
@@ -5782,11 +5799,11 @@
       }
     },
     {
-      "seq": 7603,
-      "utc": "2026-07-09T09:29:37.1099505Z",
+      "seq": 7522,
+      "utc": "2026-07-10T02:42:52.9819160Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemAsset",
       "action": "RuntimeAssetCatalog.Loaded",
       "result": "Success",
@@ -5797,11 +5814,11 @@
       }
     },
     {
-      "seq": 7604,
-      "utc": "2026-07-09T09:29:37.1099505Z",
+      "seq": 7523,
+      "utc": "2026-07-10T02:42:52.9819160Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemRuntime",
       "action": "Service.Initialize.Success",
       "result": "Success",
@@ -5811,11 +5828,11 @@
       }
     },
     {
-      "seq": 7605,
-      "utc": "2026-07-09T09:29:37.1099505Z",
+      "seq": 7524,
+      "utc": "2026-07-10T02:42:52.9819160Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemRuntime",
       "action": "Service.Initialize.Begin",
       "result": "Info",
@@ -5825,11 +5842,11 @@
       }
     },
     {
-      "seq": 7606,
-      "utc": "2026-07-09T09:29:37.1114504Z",
+      "seq": 7525,
+      "utc": "2026-07-10T02:42:52.9829156Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemRuntime",
       "action": "Service.Initialize.Success",
       "result": "Success",
@@ -5839,11 +5856,11 @@
       }
     },
     {
-      "seq": 7607,
-      "utc": "2026-07-09T09:29:37.1114504Z",
+      "seq": 7526,
+      "utc": "2026-07-10T02:42:52.9829156Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemRuntime",
       "action": "Service.Initialize.Begin",
       "result": "Info",
@@ -5853,11 +5870,11 @@
       }
     },
     {
-      "seq": 7608,
-      "utc": "2026-07-09T09:29:37.1124503Z",
+      "seq": 7527,
+      "utc": "2026-07-10T02:42:52.9839157Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemRuntime",
       "action": "Service.Initialize.Success",
       "result": "Success",
@@ -5867,11 +5884,11 @@
       }
     },
     {
-      "seq": 7609,
-      "utc": "2026-07-09T09:29:37.1124503Z",
+      "seq": 7528,
+      "utc": "2026-07-10T02:42:52.9839157Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemRuntime",
       "action": "Service.Initialize.Begin",
       "result": "Info",
@@ -5881,11 +5898,11 @@
       }
     },
     {
-      "seq": 7610,
-      "utc": "2026-07-09T09:29:37.1124503Z",
+      "seq": 7529,
+      "utc": "2026-07-10T02:42:52.9839157Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemRuntime",
       "action": "Service.Initialize.Success",
       "result": "Success",
@@ -5895,11 +5912,11 @@
       }
     },
     {
-      "seq": 7611,
-      "utc": "2026-07-09T09:29:37.1124503Z",
+      "seq": 7530,
+      "utc": "2026-07-10T02:42:52.9839157Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemRuntime",
       "action": "Service.Initialize.Begin",
       "result": "Info",
@@ -5909,11 +5926,11 @@
       }
     },
     {
-      "seq": 7612,
-      "utc": "2026-07-09T09:29:37.1124503Z",
+      "seq": 7531,
+      "utc": "2026-07-10T02:42:52.9844169Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemRuntime",
       "action": "Service.Initialize.Success",
       "result": "Success",
@@ -5923,11 +5940,11 @@
       }
     },
     {
-      "seq": 7613,
-      "utc": "2026-07-09T09:29:37.1124503Z",
+      "seq": 7532,
+      "utc": "2026-07-10T02:42:52.9844169Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemRuntime",
       "action": "Services.Ready",
       "result": "Success",
@@ -5938,11 +5955,11 @@
       }
     },
     {
-      "seq": 7614,
-      "utc": "2026-07-09T09:29:37.1124503Z",
+      "seq": 7533,
+      "utc": "2026-07-10T02:42:52.9844169Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemFlow",
       "action": "Startup.Confirmed",
       "result": "Success",
@@ -5955,11 +5972,11 @@
       }
     },
     {
-      "seq": 7615,
-      "utc": "2026-07-09T09:29:37.1124503Z",
+      "seq": 7534,
+      "utc": "2026-07-10T02:42:52.9844169Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemFlow",
       "action": "StateChanged",
       "result": "Success",
@@ -5970,11 +5987,11 @@
       }
     },
     {
-      "seq": 7616,
-      "utc": "2026-07-09T09:29:37.1514511Z",
+      "seq": 7535,
+      "utc": "2026-07-10T02:42:52.9904163Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemAsset",
       "action": "Texture.EditorAsset",
       "result": "Info",
@@ -5985,11 +6002,11 @@
       }
     },
     {
-      "seq": 7617,
-      "utc": "2026-07-09T09:29:37.1514511Z",
+      "seq": 7536,
+      "utc": "2026-07-10T02:42:52.9909163Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemAsset",
       "action": "Texture.EditorAsset",
       "result": "Info",
@@ -6000,11 +6017,11 @@
       }
     },
     {
-      "seq": 7618,
-      "utc": "2026-07-09T09:29:37.1519506Z",
+      "seq": 7537,
+      "utc": "2026-07-10T02:42:52.9909163Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemAsset",
       "action": "Texture.EditorAsset",
       "result": "Info",
@@ -6015,11 +6032,11 @@
       }
     },
     {
-      "seq": 7619,
-      "utc": "2026-07-09T09:29:37.1519506Z",
+      "seq": 7538,
+      "utc": "2026-07-10T02:42:52.9909163Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemAsset",
       "action": "Texture.EditorAsset",
       "result": "Info",
@@ -6030,11 +6047,11 @@
       }
     },
     {
-      "seq": 7620,
-      "utc": "2026-07-09T09:29:37.1519506Z",
+      "seq": 7539,
+      "utc": "2026-07-10T02:42:52.9914164Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemMap",
       "action": "Map.Generated",
       "result": "Success",
@@ -6048,11 +6065,11 @@
       }
     },
     {
-      "seq": 7621,
-      "utc": "2026-07-09T09:29:37.1524502Z",
+      "seq": 7540,
+      "utc": "2026-07-10T02:42:53.0024165Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemAsset",
       "action": "Instantiate.EditorAsset",
       "result": "Info",
@@ -6063,11 +6080,11 @@
       }
     },
     {
-      "seq": 7622,
-      "utc": "2026-07-09T09:29:37.1524502Z",
+      "seq": 7541,
+      "utc": "2026-07-10T02:42:53.0029162Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemAsset",
       "action": "Instantiate.EditorAsset",
       "result": "Info",
@@ -6078,11 +6095,11 @@
       }
     },
     {
-      "seq": 7623,
-      "utc": "2026-07-09T09:29:37.1529506Z",
+      "seq": 7542,
+      "utc": "2026-07-10T02:42:53.0029162Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemAsset",
       "action": "Instantiate.EditorAsset",
       "result": "Info",
@@ -6093,11 +6110,11 @@
       }
     },
     {
-      "seq": 7624,
-      "utc": "2026-07-09T09:29:37.1529506Z",
+      "seq": 7543,
+      "utc": "2026-07-10T02:42:53.0029162Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemAsset",
       "action": "Instantiate.EditorAsset",
       "result": "Info",
@@ -6108,11 +6125,11 @@
       }
     },
     {
-      "seq": 7625,
-      "utc": "2026-07-09T09:29:37.1529506Z",
+      "seq": 7544,
+      "utc": "2026-07-10T02:42:53.0029162Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemAsset",
       "action": "Instantiate.EditorAsset",
       "result": "Info",
@@ -6123,11 +6140,11 @@
       }
     },
     {
-      "seq": 7626,
-      "utc": "2026-07-09T09:29:37.1534504Z",
+      "seq": 7545,
+      "utc": "2026-07-10T02:42:53.0034164Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemAsset",
       "action": "Instantiate.EditorAsset",
       "result": "Info",
@@ -6138,11 +6155,11 @@
       }
     },
     {
-      "seq": 7627,
-      "utc": "2026-07-09T09:29:37.1534504Z",
+      "seq": 7546,
+      "utc": "2026-07-10T02:42:53.0034164Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemAsset",
       "action": "Instantiate.EditorAsset",
       "result": "Info",
@@ -6153,11 +6170,11 @@
       }
     },
     {
-      "seq": 7628,
-      "utc": "2026-07-09T09:29:37.1534504Z",
+      "seq": 7547,
+      "utc": "2026-07-10T02:42:53.0039163Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemAsset",
       "action": "Instantiate.EditorAsset",
       "result": "Info",
@@ -6168,11 +6185,11 @@
       }
     },
     {
-      "seq": 7629,
-      "utc": "2026-07-09T09:29:37.1539504Z",
+      "seq": 7548,
+      "utc": "2026-07-10T02:42:53.0039163Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemAsset",
       "action": "Instantiate.EditorAsset",
       "result": "Info",
@@ -6183,11 +6200,11 @@
       }
     },
     {
-      "seq": 7630,
-      "utc": "2026-07-09T09:29:37.1539504Z",
+      "seq": 7549,
+      "utc": "2026-07-10T02:42:53.0039163Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemAsset",
       "action": "Instantiate.EditorAsset",
       "result": "Info",
@@ -6198,11 +6215,11 @@
       }
     },
     {
-      "seq": 7631,
-      "utc": "2026-07-09T09:29:37.1539504Z",
+      "seq": 7550,
+      "utc": "2026-07-10T02:42:53.0039163Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemAsset",
       "action": "Instantiate.EditorAsset",
       "result": "Info",
@@ -6213,11 +6230,11 @@
       }
     },
     {
-      "seq": 7632,
-      "utc": "2026-07-09T09:29:37.1544504Z",
+      "seq": 7551,
+      "utc": "2026-07-10T02:42:53.0039163Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemAsset",
       "action": "Instantiate.EditorAsset",
       "result": "Info",
@@ -6228,11 +6245,11 @@
       }
     },
     {
-      "seq": 7633,
-      "utc": "2026-07-09T09:29:37.1544504Z",
+      "seq": 7552,
+      "utc": "2026-07-10T02:42:53.0044162Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemAsset",
       "action": "Instantiate.EditorAsset",
       "result": "Info",
@@ -6243,11 +6260,11 @@
       }
     },
     {
-      "seq": 7634,
-      "utc": "2026-07-09T09:29:37.1544504Z",
+      "seq": 7553,
+      "utc": "2026-07-10T02:42:53.0044162Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemAsset",
       "action": "Instantiate.EditorAsset",
       "result": "Info",
@@ -6258,11 +6275,11 @@
       }
     },
     {
-      "seq": 7635,
-      "utc": "2026-07-09T09:29:37.1544504Z",
+      "seq": 7554,
+      "utc": "2026-07-10T02:42:53.0044162Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemAsset",
       "action": "Instantiate.EditorAsset",
       "result": "Info",
@@ -6273,11 +6290,11 @@
       }
     },
     {
-      "seq": 7636,
-      "utc": "2026-07-09T09:29:37.1549505Z",
+      "seq": 7555,
+      "utc": "2026-07-10T02:42:53.0044162Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemAsset",
       "action": "Instantiate.EditorAsset",
       "result": "Info",
@@ -6288,11 +6305,11 @@
       }
     },
     {
-      "seq": 7637,
-      "utc": "2026-07-09T09:29:37.1549505Z",
+      "seq": 7556,
+      "utc": "2026-07-10T02:42:53.0049163Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemAsset",
       "action": "Instantiate.EditorAsset",
       "result": "Info",
@@ -6303,11 +6320,11 @@
       }
     },
     {
-      "seq": 7638,
-      "utc": "2026-07-09T09:29:37.1549505Z",
+      "seq": 7557,
+      "utc": "2026-07-10T02:42:53.0049163Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemAsset",
       "action": "Instantiate.EditorAsset",
       "result": "Info",
@@ -6318,11 +6335,11 @@
       }
     },
     {
-      "seq": 7639,
-      "utc": "2026-07-09T09:29:37.1554506Z",
+      "seq": 7558,
+      "utc": "2026-07-10T02:42:53.0049163Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemAsset",
       "action": "Instantiate.EditorAsset",
       "result": "Info",
@@ -6333,11 +6350,11 @@
       }
     },
     {
-      "seq": 7640,
-      "utc": "2026-07-09T09:29:37.1554506Z",
+      "seq": 7559,
+      "utc": "2026-07-10T02:42:53.0049163Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemAsset",
       "action": "Instantiate.EditorAsset",
       "result": "Info",
@@ -6348,11 +6365,11 @@
       }
     },
     {
-      "seq": 7641,
-      "utc": "2026-07-09T09:29:37.1554506Z",
+      "seq": 7560,
+      "utc": "2026-07-10T02:42:53.0054165Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemAsset",
       "action": "Instantiate.EditorAsset",
       "result": "Info",
@@ -6363,11 +6380,11 @@
       }
     },
     {
-      "seq": 7642,
-      "utc": "2026-07-09T09:29:37.1559504Z",
+      "seq": 7561,
+      "utc": "2026-07-10T02:42:53.0054165Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemAsset",
       "action": "Instantiate.EditorAsset",
       "result": "Info",
@@ -6378,11 +6395,11 @@
       }
     },
     {
-      "seq": 7643,
-      "utc": "2026-07-09T09:29:37.1559504Z",
+      "seq": 7562,
+      "utc": "2026-07-10T02:42:53.0054165Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemAsset",
       "action": "Instantiate.EditorAsset",
       "result": "Info",
@@ -6393,11 +6410,11 @@
       }
     },
     {
-      "seq": 7644,
-      "utc": "2026-07-09T09:29:37.1559504Z",
+      "seq": 7563,
+      "utc": "2026-07-10T02:42:53.0054165Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemAsset",
       "action": "Instantiate.EditorAsset",
       "result": "Info",
@@ -6408,11 +6425,11 @@
       }
     },
     {
-      "seq": 7645,
-      "utc": "2026-07-09T09:29:37.1564505Z",
+      "seq": 7564,
+      "utc": "2026-07-10T02:42:53.0059161Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemAsset",
       "action": "Instantiate.EditorAsset",
       "result": "Info",
@@ -6423,11 +6440,11 @@
       }
     },
     {
-      "seq": 7646,
-      "utc": "2026-07-09T09:29:37.1564505Z",
+      "seq": 7565,
+      "utc": "2026-07-10T02:42:53.0059161Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemAsset",
       "action": "Instantiate.EditorAsset",
       "result": "Info",
@@ -6438,11 +6455,11 @@
       }
     },
     {
-      "seq": 7647,
-      "utc": "2026-07-09T09:29:37.1564505Z",
+      "seq": 7566,
+      "utc": "2026-07-10T02:42:53.0059161Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemAsset",
       "action": "Instantiate.EditorAsset",
       "result": "Info",
@@ -6453,11 +6470,11 @@
       }
     },
     {
-      "seq": 7648,
-      "utc": "2026-07-09T09:29:37.1569508Z",
+      "seq": 7567,
+      "utc": "2026-07-10T02:42:53.0059161Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemAsset",
       "action": "Instantiate.EditorAsset",
       "result": "Info",
@@ -6468,11 +6485,11 @@
       }
     },
     {
-      "seq": 7649,
-      "utc": "2026-07-09T09:29:37.1569508Z",
+      "seq": 7568,
+      "utc": "2026-07-10T02:42:53.0059161Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemAsset",
       "action": "Instantiate.EditorAsset",
       "result": "Info",
@@ -6483,11 +6500,11 @@
       }
     },
     {
-      "seq": 7650,
-      "utc": "2026-07-09T09:29:37.1569508Z",
+      "seq": 7569,
+      "utc": "2026-07-10T02:42:53.0064162Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemAsset",
       "action": "Instantiate.EditorAsset",
       "result": "Info",
@@ -6498,11 +6515,11 @@
       }
     },
     {
-      "seq": 7651,
-      "utc": "2026-07-09T09:29:37.1574507Z",
+      "seq": 7570,
+      "utc": "2026-07-10T02:42:53.0064162Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemAsset",
       "action": "Instantiate.EditorAsset",
       "result": "Info",
@@ -6513,11 +6530,11 @@
       }
     },
     {
-      "seq": 7652,
-      "utc": "2026-07-09T09:29:37.1574507Z",
+      "seq": 7571,
+      "utc": "2026-07-10T02:42:53.0064162Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemAsset",
       "action": "Instantiate.EditorAsset",
       "result": "Info",
@@ -6528,11 +6545,11 @@
       }
     },
     {
-      "seq": 7653,
-      "utc": "2026-07-09T09:29:37.1574507Z",
+      "seq": 7572,
+      "utc": "2026-07-10T02:42:53.0064162Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemAsset",
       "action": "Instantiate.EditorAsset",
       "result": "Info",
@@ -6543,11 +6560,11 @@
       }
     },
     {
-      "seq": 7654,
-      "utc": "2026-07-09T09:29:37.1574507Z",
+      "seq": 7573,
+      "utc": "2026-07-10T02:42:53.0069163Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemAsset",
       "action": "Instantiate.EditorAsset",
       "result": "Info",
@@ -6558,11 +6575,11 @@
       }
     },
     {
-      "seq": 7655,
-      "utc": "2026-07-09T09:29:37.1579506Z",
+      "seq": 7574,
+      "utc": "2026-07-10T02:42:53.0069163Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemAsset",
       "action": "Instantiate.EditorAsset",
       "result": "Info",
@@ -6573,11 +6590,11 @@
       }
     },
     {
-      "seq": 7656,
-      "utc": "2026-07-09T09:29:37.1579506Z",
+      "seq": 7575,
+      "utc": "2026-07-10T02:42:53.0069163Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemAsset",
       "action": "Instantiate.EditorAsset",
       "result": "Info",
@@ -6588,11 +6605,11 @@
       }
     },
     {
-      "seq": 7657,
-      "utc": "2026-07-09T09:29:37.1579506Z",
+      "seq": 7576,
+      "utc": "2026-07-10T02:42:53.0074163Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemAsset",
       "action": "Instantiate.EditorAsset",
       "result": "Info",
@@ -6603,11 +6620,11 @@
       }
     },
     {
-      "seq": 7658,
-      "utc": "2026-07-09T09:29:37.1579506Z",
+      "seq": 7577,
+      "utc": "2026-07-10T02:42:53.0074163Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemAsset",
       "action": "Instantiate.EditorAsset",
       "result": "Info",
@@ -6618,11 +6635,11 @@
       }
     },
     {
-      "seq": 7659,
-      "utc": "2026-07-09T09:29:37.1584504Z",
+      "seq": 7578,
+      "utc": "2026-07-10T02:42:53.0074163Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemAsset",
       "action": "Instantiate.EditorAsset",
       "result": "Info",
@@ -6633,11 +6650,11 @@
       }
     },
     {
-      "seq": 7660,
-      "utc": "2026-07-09T09:29:37.1584504Z",
+      "seq": 7579,
+      "utc": "2026-07-10T02:42:53.0074163Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemAsset",
       "action": "Instantiate.EditorAsset",
       "result": "Info",
@@ -6648,11 +6665,11 @@
       }
     },
     {
-      "seq": 7661,
-      "utc": "2026-07-09T09:29:37.1584504Z",
+      "seq": 7580,
+      "utc": "2026-07-10T02:42:53.0074163Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemAsset",
       "action": "Instantiate.EditorAsset",
       "result": "Info",
@@ -6663,11 +6680,11 @@
       }
     },
     {
-      "seq": 7662,
-      "utc": "2026-07-09T09:29:37.1589505Z",
+      "seq": 7581,
+      "utc": "2026-07-10T02:42:53.0079164Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemAsset",
       "action": "Instantiate.EditorAsset",
       "result": "Info",
@@ -6678,11 +6695,11 @@
       }
     },
     {
-      "seq": 7663,
-      "utc": "2026-07-09T09:29:37.1589505Z",
+      "seq": 7582,
+      "utc": "2026-07-10T02:42:53.0079164Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemAsset",
       "action": "Instantiate.EditorAsset",
       "result": "Info",
@@ -6693,11 +6710,11 @@
       }
     },
     {
-      "seq": 7664,
-      "utc": "2026-07-09T09:29:37.1589505Z",
+      "seq": 7583,
+      "utc": "2026-07-10T02:42:53.0079164Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemAsset",
       "action": "Instantiate.EditorAsset",
       "result": "Info",
@@ -6708,11 +6725,11 @@
       }
     },
     {
-      "seq": 7665,
-      "utc": "2026-07-09T09:29:37.1589505Z",
+      "seq": 7584,
+      "utc": "2026-07-10T02:42:53.0079164Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemAsset",
       "action": "Instantiate.EditorAsset",
       "result": "Info",
@@ -6723,11 +6740,11 @@
       }
     },
     {
-      "seq": 7666,
-      "utc": "2026-07-09T09:29:37.1594502Z",
+      "seq": 7585,
+      "utc": "2026-07-10T02:42:53.0079164Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemAsset",
       "action": "Instantiate.EditorAsset",
       "result": "Info",
@@ -6738,11 +6755,11 @@
       }
     },
     {
-      "seq": 7667,
-      "utc": "2026-07-09T09:29:37.1594502Z",
+      "seq": 7586,
+      "utc": "2026-07-10T02:42:53.0084165Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemAsset",
       "action": "Instantiate.EditorAsset",
       "result": "Info",
@@ -6753,11 +6770,11 @@
       }
     },
     {
-      "seq": 7668,
-      "utc": "2026-07-09T09:29:37.1594502Z",
+      "seq": 7587,
+      "utc": "2026-07-10T02:42:53.0084165Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemAsset",
       "action": "Instantiate.EditorAsset",
       "result": "Info",
@@ -6768,11 +6785,11 @@
       }
     },
     {
-      "seq": 7669,
-      "utc": "2026-07-09T09:29:37.1594502Z",
+      "seq": 7588,
+      "utc": "2026-07-10T02:42:53.0084165Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemAsset",
       "action": "Instantiate.EditorAsset",
       "result": "Info",
@@ -6783,11 +6800,11 @@
       }
     },
     {
-      "seq": 7670,
-      "utc": "2026-07-09T09:29:37.1599507Z",
+      "seq": 7589,
+      "utc": "2026-07-10T02:42:53.0084165Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemAsset",
       "action": "Instantiate.EditorAsset",
       "result": "Info",
@@ -6798,11 +6815,11 @@
       }
     },
     {
-      "seq": 7671,
-      "utc": "2026-07-09T09:29:37.1599507Z",
+      "seq": 7590,
+      "utc": "2026-07-10T02:42:53.0089163Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemAsset",
       "action": "Instantiate.EditorAsset",
       "result": "Info",
@@ -6813,11 +6830,11 @@
       }
     },
     {
-      "seq": 7672,
-      "utc": "2026-07-09T09:29:37.1599507Z",
+      "seq": 7591,
+      "utc": "2026-07-10T02:42:53.0089163Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemActor",
       "action": "Actors.Spawned",
       "result": "Success",
@@ -6831,11 +6848,11 @@
       }
     },
     {
-      "seq": 7673,
-      "utc": "2026-07-09T09:29:37.1599507Z",
+      "seq": 7592,
+      "utc": "2026-07-10T02:42:53.0089163Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemCamera",
       "action": "CombatCamera.Activated",
       "result": "Success",
@@ -6846,11 +6863,11 @@
       }
     },
     {
-      "seq": 7674,
-      "utc": "2026-07-09T09:29:37.1599507Z",
+      "seq": 7593,
+      "utc": "2026-07-10T02:42:53.0089163Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemCamera",
       "action": "Shake.Requested",
       "result": "Info",
@@ -6861,11 +6878,11 @@
       }
     },
     {
-      "seq": 7675,
-      "utc": "2026-07-09T09:29:37.1599507Z",
+      "seq": 7594,
+      "utc": "2026-07-10T02:42:53.0089163Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemVFX",
       "action": "CameraShake.Requested",
       "result": "Info",
@@ -6877,11 +6894,11 @@
       }
     },
     {
-      "seq": 7676,
-      "utc": "2026-07-09T09:29:37.1599507Z",
+      "seq": 7595,
+      "utc": "2026-07-10T02:42:53.0089163Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemVFX",
       "action": "DamageFloat.Spawned",
       "result": "Info",
@@ -6893,11 +6910,11 @@
       }
     },
     {
-      "seq": 7677,
-      "utc": "2026-07-09T09:29:37.1604503Z",
+      "seq": 7596,
+      "utc": "2026-07-10T02:42:53.0094164Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemCamera",
       "action": "Shake.Requested",
       "result": "Info",
@@ -6908,11 +6925,11 @@
       }
     },
     {
-      "seq": 7678,
-      "utc": "2026-07-09T09:29:37.1604503Z",
+      "seq": 7597,
+      "utc": "2026-07-10T02:42:53.0094164Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemVFX",
       "action": "CameraShake.Requested",
       "result": "Info",
@@ -6924,11 +6941,11 @@
       }
     },
     {
-      "seq": 7679,
-      "utc": "2026-07-09T09:29:37.1604503Z",
+      "seq": 7598,
+      "utc": "2026-07-10T02:42:53.0104160Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemVFX",
       "action": "Vignette.Start",
       "result": "Info",
@@ -6938,11 +6955,11 @@
       }
     },
     {
-      "seq": 7680,
-      "utc": "2026-07-09T09:29:37.1609502Z",
+      "seq": 7599,
+      "utc": "2026-07-10T02:42:53.0104160Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemVFX",
       "action": "DamageFloat.Spawned",
       "result": "Info",
@@ -6954,11 +6971,11 @@
       }
     },
     {
-      "seq": 7681,
-      "utc": "2026-07-09T09:29:37.1609502Z",
+      "seq": 7600,
+      "utc": "2026-07-10T02:42:53.0104160Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemVFX",
       "action": "Vignette.Stop",
       "result": "Info",
@@ -6968,11 +6985,11 @@
       }
     },
     {
-      "seq": 7682,
-      "utc": "2026-07-09T09:29:37.1609502Z",
+      "seq": 7601,
+      "utc": "2026-07-10T02:42:53.0109161Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemRuntime",
       "action": "Service.Shutdown",
       "result": "Info",
@@ -6982,11 +6999,11 @@
       }
     },
     {
-      "seq": 7683,
-      "utc": "2026-07-09T09:29:37.1609502Z",
+      "seq": 7602,
+      "utc": "2026-07-10T02:42:53.0109161Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemRuntime",
       "action": "Service.Shutdown",
       "result": "Info",
@@ -6996,11 +7013,11 @@
       }
     },
     {
-      "seq": 7684,
-      "utc": "2026-07-09T09:29:37.1624508Z",
+      "seq": 7603,
+      "utc": "2026-07-10T02:42:53.0119162Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemRuntime",
       "action": "Service.Shutdown",
       "result": "Info",
@@ -7010,11 +7027,11 @@
       }
     },
     {
-      "seq": 7685,
-      "utc": "2026-07-09T09:29:37.1624508Z",
+      "seq": 7604,
+      "utc": "2026-07-10T02:42:53.0119162Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemRuntime",
       "action": "Service.Shutdown",
       "result": "Info",
@@ -7024,11 +7041,11 @@
       }
     },
     {
-      "seq": 7686,
-      "utc": "2026-07-09T09:29:37.1624508Z",
+      "seq": 7605,
+      "utc": "2026-07-10T02:42:53.0119162Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemRuntime",
       "action": "Service.Shutdown",
       "result": "Info",
@@ -7038,11 +7055,11 @@
       }
     },
     {
-      "seq": 7687,
-      "utc": "2026-07-09T09:29:37.1624508Z",
+      "seq": 7606,
+      "utc": "2026-07-10T02:42:53.0119162Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemRuntime",
       "action": "Service.Shutdown",
       "result": "Info",
@@ -7052,11 +7069,11 @@
       }
     },
     {
-      "seq": 7688,
-      "utc": "2026-07-09T09:29:37.1624508Z",
+      "seq": 7607,
+      "utc": "2026-07-10T02:42:53.0119162Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemRuntime",
       "action": "Service.Shutdown",
       "result": "Info",
@@ -7066,11 +7083,11 @@
       }
     },
     {
-      "seq": 7689,
-      "utc": "2026-07-09T09:29:37.1629503Z",
+      "seq": 7608,
+      "utc": "2026-07-10T02:42:53.0119162Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemVFX",
       "action": "Sprite.Missing",
       "result": "Warning",
@@ -7080,11 +7097,11 @@
       }
     },
     {
-      "seq": 7690,
-      "utc": "2026-07-09T09:29:37.1629503Z",
+      "seq": 7609,
+      "utc": "2026-07-10T02:42:53.0119162Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemVFX",
       "action": "CameraShake.Skipped",
       "result": "Warning",
@@ -7095,11 +7112,11 @@
       }
     },
     {
-      "seq": 7691,
-      "utc": "2026-07-09T09:29:37.1629503Z",
+      "seq": 7610,
+      "utc": "2026-07-10T02:42:53.0124164Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "TotemVFX",
       "action": "DamageFloat.Spawned",
       "result": "Info",
@@ -7111,11 +7128,11 @@
       }
     },
     {
-      "seq": 7692,
-      "utc": "2026-07-09T09:29:37.1629503Z",
+      "seq": 7611,
+      "utc": "2026-07-10T02:42:53.0124164Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "Diagnostics",
       "action": "Scenario.End",
       "result": "Success",
@@ -7124,17 +7141,17 @@
         "type": "UGF.EditorTools.TotemVfxRuntimeDiagnosticScenario",
         "category": "BusinessRuntime",
         "name": "Totem VFX Runtime",
-        "durationMs": "62",
+        "durationMs": "38",
         "errors": "0",
         "warnings": "0"
       }
     },
     {
-      "seq": 7693,
-      "utc": "2026-07-09T09:29:37.1634524Z",
+      "seq": 7612,
+      "utc": "2026-07-10T02:42:53.0124164Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "Diagnostics",
       "action": "RuntimeResidueCleanup",
       "result": "Info",
@@ -7145,11 +7162,11 @@
       }
     },
     {
-      "seq": 7694,
-      "utc": "2026-07-09T09:29:37.1634524Z",
+      "seq": 7613,
+      "utc": "2026-07-10T02:42:53.0124164Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "Diagnostics",
       "action": "Editor snapshot.Begin",
       "result": "Info",
@@ -7157,11 +7174,11 @@
       "data": null
     },
     {
-      "seq": 7695,
-      "utc": "2026-07-09T09:29:37.1654507Z",
+      "seq": 7614,
+      "utc": "2026-07-10T02:42:53.0144160Z",
       "frame": 0,
       "time": 0.0,
-      "traceId": "diagnostics-5bca489e27214d9ab303953f705dd1d3",
+      "traceId": "diagnostics-40515d1c2a484459ac8dfaf2b39f545a",
       "system": "Diagnostics",
       "action": "Editor snapshot.End",
       "result": "Success",

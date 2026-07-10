@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 120840070463002781}
   - component: {fileID: 5919329730944358866}
   - component: {fileID: 4052975273849368770}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: StartupSelect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -150,7 +150,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4500410447195406105}
   - component: {fileID: 31846473418018384}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ColorRoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -213,7 +213,7 @@ GameObject:
   - component: {fileID: 1993519555241186251}
   - component: {fileID: 802469725537490619}
   - component: {fileID: 9075877881021847270}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -292,7 +292,7 @@ GameObject:
   - component: {fileID: 5590128562635313990}
   - component: {fileID: 5775757558797123620}
   - component: {fileID: 7826005112431119961}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -372,7 +372,7 @@ GameObject:
   - component: {fileID: 6672814188637748410}
   - component: {fileID: 6095554437002362294}
   - component: {fileID: 8561088818291982116}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ConfirmButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -491,7 +491,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4738165497759225940}
   - component: {fileID: 863678568216598373}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: PatternRoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -554,7 +554,7 @@ GameObject:
   - component: {fileID: 3289040400646195855}
   - component: {fileID: 711768124659578322}
   - component: {fileID: 2144181363742547986}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -633,7 +633,7 @@ GameObject:
   - component: {fileID: 1478821197267475594}
   - component: {fileID: 1307367876850482987}
   - component: {fileID: 8679103756069079849}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -715,7 +715,7 @@ GameObject:
   - component: {fileID: 5265920114778982766}
   - component: {fileID: 2972049285067489484}
   - component: {fileID: 7523932880146260557}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: CancelButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -834,7 +834,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1917848997638569997}
   - component: {fileID: 2348445795127699433}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: WeaponRoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}

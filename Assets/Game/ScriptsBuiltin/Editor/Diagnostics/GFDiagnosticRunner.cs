@@ -25,6 +25,7 @@ namespace UGF.EditorTools
 
         public static GFDiagnosticReport RunAll()
         {
+            using var pcgProfileScope = TotemMapService.UsePcgRuntimeProfile(TotemPcgRuntimeProfile.DiagnosticFast);
             GFTrace.EnableUnityLogCapture();
             if (!Application.isPlaying)
             {
@@ -32,6 +33,10 @@ namespace UGF.EditorTools
             }
             GFTrace.BeginTrace("diagnostics");
             GFTrace.Info("Diagnostics", "RunAll.Begin");
+            GFTrace.Info("Diagnostics", "PCG.Profile", null, GFTrace.Data(
+                "profile", TotemMapService.CurrentPcgRuntimeProfile.ToString(),
+                "width", TotemMapService.ActivePcgMapWidth.ToString(),
+                "height", TotemMapService.ActivePcgMapHeight.ToString()));
             CleanupRuntimeResiduals("BeforeRunAll");
 
             var report = new GFDiagnosticReport(ReportAction);

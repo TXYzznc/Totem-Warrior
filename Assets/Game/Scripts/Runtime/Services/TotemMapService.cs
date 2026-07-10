@@ -4,6 +4,12 @@ using PCGMap;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
+public enum TotemPcgRuntimeProfile
+{
+    Full = 0,
+    DiagnosticFast = 1,
+}
+
 public sealed class TotemMapService : TotemRuntimeServiceBase
 {
     public const float DefaultMapSize = 400f;
@@ -11,6 +17,8 @@ public sealed class TotemMapService : TotemRuntimeServiceBase
     public const int TerrainGridResolution = 100;
     public const int PcgMapWidth = 64;
     public const int PcgMapHeight = 64;
+    public const int DiagnosticPcgMapWidth = 32;
+    public const int DiagnosticPcgMapHeight = 32;
     public const float PcgEdgeMatchTolerance = 0.18f;
 
     private readonly List<GameObject> spawnedObjects = new List<GameObject>(16);
@@ -37,10 +45,85 @@ public sealed class TotemMapService : TotemRuntimeServiceBase
     private static readonly Dictionary<string, TotemMapSnapshot> pcgSnapshotCache = new Dictionary<string, TotemMapSnapshot>(32);
     private static readonly Dictionary<string, Sprite> pcgSpriteCache = new Dictionary<string, Sprite>(512);
     private static readonly Dictionary<string, Tile> pcgTileCache = new Dictionary<string, Tile>(512);
+    private static TotemPcgRuntimeProfile pcgRuntimeProfile = TotemPcgRuntimeProfile.Full;
 
     public override string ServiceName => "Map";
 
     public TotemMapSnapshot CurrentMap { get; private set; }
+
+    public static TotemPcgRuntimeProfile CurrentPcgRuntimeProfile => pcgRuntimeProfile;
+
+    public static int ActivePcgMapWidth => GetPcgRuntimeSettings().Width;
+
+    public static int ActivePcgMapHeight => GetPcgRuntimeSettings().Height;
+
+    public static IDisposable UsePcgRuntimeProfile(TotemPcgRuntimeProfile profile)
+    {
+        return new PcgRuntimeProfileScope(profile);
+    }
+
+    private static PcgRuntimeSettings GetPcgRuntimeSettings()
+    {
+        return pcgRuntimeProfile == TotemPcgRuntimeProfile.DiagnosticFast
+            ? PcgRuntimeSettings.DiagnosticFast
+            : PcgRuntimeSettings.Full;
+    }
+
+    private readonly struct PcgRuntimeSettings
+    {
+        public readonly int Width;
+        public readonly int Height;
+        public readonly int ObjectBudget;
+        public readonly int StampBudget;
+        public readonly int DecalBudget;
+        public readonly int MaxVisualSprites;
+        public readonly bool RenderUnderlay;
+
+        private PcgRuntimeSettings(
+            int width,
+            int height,
+            int objectBudget,
+            int stampBudget,
+            int decalBudget,
+            int maxVisualSprites,
+            bool renderUnderlay)
+        {
+            Width = width;
+            Height = height;
+            ObjectBudget = objectBudget;
+            StampBudget = stampBudget;
+            DecalBudget = decalBudget;
+            MaxVisualSprites = maxVisualSprites;
+            RenderUnderlay = renderUnderlay;
+        }
+
+        public static PcgRuntimeSettings Full => new PcgRuntimeSettings(PcgMapWidth, PcgMapHeight, 160, 24, 180, int.MaxValue, true);
+
+        public static PcgRuntimeSettings DiagnosticFast => new PcgRuntimeSettings(DiagnosticPcgMapWidth, DiagnosticPcgMapHeight, 36, 8, 48, 64, false);
+    }
+
+    private sealed class PcgRuntimeProfileScope : IDisposable
+    {
+        private readonly TotemPcgRuntimeProfile previousProfile;
+        private bool disposed;
+
+        public PcgRuntimeProfileScope(TotemPcgRuntimeProfile nextProfile)
+        {
+            previousProfile = pcgRuntimeProfile;
+            pcgRuntimeProfile = nextProfile;
+        }
+
+        public void Dispose()
+        {
+            if (disposed)
+            {
+                return;
+            }
+
+            pcgRuntimeProfile = previousProfile;
+            disposed = true;
+        }
+    }
 
     protected override void OnInitialize(TotemGameRuntime runtime)
     {
@@ -192,7 +275,8 @@ public sealed class TotemMapService : TotemRuntimeServiceBase
             return false;
         }
 
-        string cacheKey = BuildPcgCacheKey(seed, template);
+        var settings = GetPcgRuntimeSettings();
+        string cacheKey = BuildPcgCacheKey(seed, template, settings);
         if (pcgSnapshotCache.TryGetValue(cacheKey, out var cached))
         {
             map = CloneMapSnapshot(cached);
@@ -211,11 +295,11 @@ public sealed class TotemMapService : TotemRuntimeServiceBase
             var pcgMap = generator.Generate(new PCGMapGenerateRequest
             {
                 Seed = pcgSeed,
-                Width = PcgMapWidth,
-                Height = PcgMapHeight,
-                ObjectBudget = 160,
-                StampBudget = 24,
-                DecalBudget = 180,
+                Width = settings.Width,
+                Height = settings.Height,
+                ObjectBudget = settings.ObjectBudget,
+                StampBudget = settings.StampBudget,
+                DecalBudget = settings.DecalBudget,
                 EdgeMatchTolerance = PcgEdgeMatchTolerance,
                 TeamSpawnZoneWeight = 100,
                 LootZoneWeight = 100,
@@ -276,9 +360,9 @@ public sealed class TotemMapService : TotemRuntimeServiceBase
         }
     }
 
-    private static string BuildPcgCacheKey(int seed, TotemMapTemplateDefinition template)
+    private static string BuildPcgCacheKey(int seed, TotemMapTemplateDefinition template, PcgRuntimeSettings settings)
     {
-        return $"{seed}|{template.Id}|{template.MapSize:0.###}|{template.MinRoomSize:0.###}|{template.BspMaxDepth}|{template.TerrainPoolId}|{template.ThemeName}";
+        return $"{pcgRuntimeProfile}|{settings.Width}x{settings.Height}|{settings.ObjectBudget}|{settings.StampBudget}|{settings.DecalBudget}|{seed}|{template.Id}|{template.MapSize:0.###}|{template.MinRoomSize:0.###}|{template.BspMaxDepth}|{template.TerrainPoolId}|{template.ThemeName}";
     }
 
     private static TotemMapSnapshot CloneMapSnapshot(TotemMapSnapshot source)
@@ -1264,6 +1348,7 @@ public sealed class TotemMapService : TotemRuntimeServiceBase
     private void CreatePcgMapObjects(TotemMapSnapshot map)
     {
         var pcgMap = map.PcgMapData;
+        var settings = GetPcgRuntimeSettings();
         float cellSize = map.MapSize / Mathf.Max(1, pcgMap.Width);
         var tileRoot = CreatePcgTileRoot(cellSize);
         var underlayTilemap = CreatePcgTilemap(tileRoot, "PCG_UnderlayTilemap", -5);
@@ -1274,7 +1359,7 @@ public sealed class TotemMapService : TotemRuntimeServiceBase
             for (int x = 0; x < pcgMap.Width; x++)
             {
                 var cell = pcgMap.GetCell(x, y);
-                if (!string.IsNullOrEmpty(cell.UnderlayAsset))
+                if (settings.RenderUnderlay && !string.IsNullOrEmpty(cell.UnderlayAsset))
                 {
                     SetPcgTile(underlayTilemap, cell.UnderlayAsset, x, y, 0f, false, false);
                 }
@@ -1294,7 +1379,8 @@ public sealed class TotemMapService : TotemRuntimeServiceBase
             }
         }
 
-        for (int i = 0; i < pcgMap.Visuals.Count; i++)
+        int visualLimit = Mathf.Min(settings.MaxVisualSprites, pcgMap.Visuals.Count);
+        for (int i = 0; i < visualLimit; i++)
         {
             CreatePcgVisualSprite(pcgMap.Visuals[i], cellSize);
         }

@@ -88,6 +88,7 @@ namespace UGF.EditorTools
             {
                 RemoveMissingScripts(root);
                 EnsureRootComponents(root);
+                NormalizeLayer(root);
                 ReplaceFormComponent(root, formType);
                 ClearButtonPersistentCalls(root);
                 PrefabUtility.SaveAsPrefabAsset(root, targetPath);
@@ -109,9 +110,29 @@ namespace UGF.EditorTools
 
         private static void EnsureRootComponents(GameObject root)
         {
-            root.GetOrAddComponent<Canvas>();
+            var canvas = root.GetOrAddComponent<Canvas>();
+            canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+            canvas.worldCamera = null;
+            canvas.planeDistance = 100f;
+            canvas.overrideSorting = false;
             root.GetOrAddComponent<CanvasGroup>();
             root.GetOrAddComponent<GraphicRaycaster>();
+        }
+
+        private static void NormalizeLayer(GameObject root)
+        {
+            int uiLayer = LayerMask.NameToLayer("UI");
+            if (root == null || uiLayer < 0)
+            {
+                return;
+            }
+
+            var transforms = root.GetComponentsInChildren<Transform>(true);
+            for (int i = 0; i < transforms.Length; i++)
+            {
+                transforms[i].gameObject.layer = uiLayer;
+                EditorUtility.SetDirty(transforms[i].gameObject);
+            }
         }
 
         private static void ReplaceFormComponent(GameObject root, Type formType)

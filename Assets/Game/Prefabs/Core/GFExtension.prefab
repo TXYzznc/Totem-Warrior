@@ -665,7 +665,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waitingView: {fileID: 3417502393053188129}
-  joystickView: {fileID: 0}
+  joystickView: {fileID: 247522394994102394}
 --- !u!1 &7714986381554197258
 GameObject:
   m_ObjectHideFlags: 0
