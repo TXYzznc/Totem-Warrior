@@ -5,7 +5,7 @@
     "generatedBy": "tools/ai_index/build_gameplay_catalog_from_business_tables.py",
     "sourceRoot": "GameData/AIData/DataTables/Business",
     "sourceFileCount": 28,
-    "sourceContentHash": "cd07729db7edb933b3fb0274b0d1694ed46ff93c8c662244c320b7e19519f86d"
+    "sourceContentHash": "b068bb5cb4e03423bcfe2c4b0c2bc84952cdd6a6c6a69caefb28cf988ec64be3"
   },
   "items": [
     {
@@ -350,120 +350,7 @@
       "sellRatio": 0.3
     }
   ],
-  "resources": [
-    {
-      "id": 1001,
-      "name": "Tattoo.Part.Head",
-      "resourceType": "Sprite",
-      "loadPath": "Tattoo/Part/Head",
-      "assetKey": "tattoo.part.head",
-      "activeAssetPath": "Assets/Resources/Sprite/Tattoo/Part/Head.png"
-    },
-    {
-      "id": 1002,
-      "name": "Tattoo.Part.Torso",
-      "resourceType": "Sprite",
-      "loadPath": "Tattoo/Part/Torso",
-      "assetKey": "tattoo.part.torso",
-      "activeAssetPath": "Assets/Resources/Sprite/Tattoo/Part/Torso.png"
-    },
-    {
-      "id": 1003,
-      "name": "Tattoo.Part.LeftArm",
-      "resourceType": "Sprite",
-      "loadPath": "Tattoo/Part/LeftArm",
-      "assetKey": "tattoo.part.leftarm",
-      "activeAssetPath": "Assets/Resources/Sprite/Tattoo/Part/LeftArm.png"
-    },
-    {
-      "id": 1004,
-      "name": "Tattoo.Part.RightArm",
-      "resourceType": "Sprite",
-      "loadPath": "Tattoo/Part/RightArm",
-      "assetKey": "tattoo.part.rightarm",
-      "activeAssetPath": "Assets/Resources/Sprite/Tattoo/Part/RightArm.png"
-    },
-    {
-      "id": 1005,
-      "name": "Tattoo.Part.LeftLeg",
-      "resourceType": "Sprite",
-      "loadPath": "Tattoo/Part/LeftLeg",
-      "assetKey": "tattoo.part.leftleg",
-      "activeAssetPath": "Assets/Resources/Sprite/Tattoo/Part/LeftLeg.png"
-    },
-    {
-      "id": 1006,
-      "name": "Tattoo.Part.RightLeg",
-      "resourceType": "Sprite",
-      "loadPath": "Tattoo/Part/RightLeg",
-      "assetKey": "tattoo.part.rightleg",
-      "activeAssetPath": "Assets/Resources/Sprite/Tattoo/Part/RightLeg.png"
-    },
-    {
-      "id": 1201,
-      "name": "Tattoo.Pattern.Line",
-      "resourceType": "Sprite",
-      "loadPath": "Tattoo/Pattern/Line",
-      "assetKey": "tattoo.pattern.line",
-      "activeAssetPath": "Assets/Resources/Sprite/Tattoo/Pattern/Line.png"
-    },
-    {
-      "id": 1202,
-      "name": "Tattoo.Pattern.Ring",
-      "resourceType": "Sprite",
-      "loadPath": "Tattoo/Pattern/Ring",
-      "assetKey": "tattoo.pattern.ring",
-      "activeAssetPath": "Assets/Resources/Sprite/Tattoo/Pattern/Ring.png"
-    },
-    {
-      "id": 1203,
-      "name": "Tattoo.Pattern.Spiral",
-      "resourceType": "Sprite",
-      "loadPath": "Tattoo/Pattern/Spiral",
-      "assetKey": "tattoo.pattern.spiral",
-      "activeAssetPath": "Assets/Resources/Sprite/Tattoo/Pattern/Spiral.png"
-    },
-    {
-      "id": 1204,
-      "name": "Tattoo.Pattern.Zigzag",
-      "resourceType": "Sprite",
-      "loadPath": "Tattoo/Pattern/Zigzag",
-      "assetKey": "tattoo.pattern.zigzag",
-      "activeAssetPath": "Assets/Resources/Sprite/Tattoo/Pattern/Zigzag.png"
-    },
-    {
-      "id": 1205,
-      "name": "Tattoo.Pattern.Bolt",
-      "resourceType": "Sprite",
-      "loadPath": "Tattoo/Pattern/Bolt",
-      "assetKey": "tattoo.pattern.bolt",
-      "activeAssetPath": "Assets/Resources/Sprite/Tattoo/Pattern/Bolt.png"
-    },
-    {
-      "id": 1206,
-      "name": "Tattoo.Pattern.Star",
-      "resourceType": "Sprite",
-      "loadPath": "Tattoo/Pattern/Star",
-      "assetKey": "tattoo.pattern.star",
-      "activeAssetPath": "Assets/Resources/Sprite/Tattoo/Pattern/Star.png"
-    },
-    {
-      "id": 1207,
-      "name": "Tattoo.Pattern.Stream",
-      "resourceType": "Sprite",
-      "loadPath": "Tattoo/Pattern/Stream",
-      "assetKey": "tattoo.pattern.stream",
-      "activeAssetPath": "Assets/Resources/Sprite/Tattoo/Pattern/Stream.png"
-    },
-    {
-      "id": 1208,
-      "name": "Tattoo.Pattern.Beast",
-      "resourceType": "Sprite",
-      "loadPath": "Tattoo/Pattern/Beast",
-      "assetKey": "tattoo.pattern.beast",
-      "activeAssetPath": "Assets/Resources/Sprite/Tattoo/Pattern/Beast.png"
-    }
-  ],
+  "resources": [],
   "weapons": [
     {
       "weaponId": "knife_basic",

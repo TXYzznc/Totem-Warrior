@@ -2,17 +2,3 @@
 #	Id		Name	Type	LoadPath
 #	int		string	string	string
 #	GF_X numeric row id. Original business key is preserved as a data column when its name is not Id.	Note	资源标识名	资源类型，对应 Resources 下子目录名	相对 Resources/{Type}/ 的加载路径，不含扩展名
-	1001		Tattoo.Part.Head	Sprite	Tattoo/Part/Head
-	1002		Tattoo.Part.Torso	Sprite	Tattoo/Part/Torso
-	1003		Tattoo.Part.LeftArm	Sprite	Tattoo/Part/LeftArm
-	1004		Tattoo.Part.RightArm	Sprite	Tattoo/Part/RightArm
-	1005		Tattoo.Part.LeftLeg	Sprite	Tattoo/Part/LeftLeg
-	1006		Tattoo.Part.RightLeg	Sprite	Tattoo/Part/RightLeg
-	1201		Tattoo.Pattern.Line	Sprite	Tattoo/Pattern/Line
-	1202		Tattoo.Pattern.Ring	Sprite	Tattoo/Pattern/Ring
-	1203		Tattoo.Pattern.Spiral	Sprite	Tattoo/Pattern/Spiral
-	1204		Tattoo.Pattern.Zigzag	Sprite	Tattoo/Pattern/Zigzag
-	1205		Tattoo.Pattern.Bolt	Sprite	Tattoo/Pattern/Bolt
-	1206		Tattoo.Pattern.Star	Sprite	Tattoo/Pattern/Star
-	1207		Tattoo.Pattern.Stream	Sprite	Tattoo/Pattern/Stream
-	1208		Tattoo.Pattern.Beast	Sprite	Tattoo/Pattern/Beast

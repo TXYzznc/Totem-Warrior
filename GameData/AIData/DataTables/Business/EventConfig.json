@@ -4,8 +4,8 @@
   "tableName": "EventConfig",
   "relativePath": "Business/EventConfig",
   "sourceExcel": "GameData/DataTables/Business/EventConfig.xlsx",
-  "sourceExcelLastWriteUtc": "2026-07-09T10:00:57.2579504Z",
-  "generatedAtUtc": "2026-07-09T10:00:57.4199508Z",
+  "sourceExcelLastWriteUtc": "2026-07-10T08:08:01.3324165Z",
+  "generatedAtUtc": "2026-07-10T08:08:01.5494157Z",
   "tableComment": "Business table migrated from LegacyProjectArchive/Assets/Resources/DataTable/EventConfig.json. GF_X Id is numeric; original business keys are preserved as data columns.",
   "columns": [
     {

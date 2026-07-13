@@ -46,10 +46,13 @@ def json_cell(value: Any) -> Any:
 
 
 def resource_asset_key(name: str) -> str:
-    return re.sub(r"[^a-z0-9]+", ".", name.lower()).strip(".")
+    normalized = re.sub(r"([a-z0-9])([A-Z])", r"\1_\2", name)
+    return re.sub(r"[^a-z0-9_]+", ".", normalized.lower()).strip(".")
 
 
 def resource_active_asset_path(resource_type: str, load_path: str) -> str:
+    if load_path.startswith("Assets/"):
+        return load_path
     if resource_type.lower() == "sprite":
         return f"Assets/Resources/Sprite/{load_path}.png"
     return f"Assets/Resources/{resource_type}/{load_path}"

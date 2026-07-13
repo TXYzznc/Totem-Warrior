@@ -4,8 +4,8 @@
   "tableName": "TattooReadingTimeConfig",
   "relativePath": "Business/TattooReadingTimeConfig",
   "sourceExcel": "GameData/DataTables/Business/TattooReadingTimeConfig.xlsx",
-  "sourceExcelLastWriteUtc": "2026-07-09T10:01:02.6654518Z",
-  "generatedAtUtc": "2026-07-09T10:01:02.8454514Z",
+  "sourceExcelLastWriteUtc": "2026-07-10T08:08:07.2609159Z",
+  "generatedAtUtc": "2026-07-10T08:08:07.4469160Z",
   "tableComment": "Business table migrated from LegacyProjectArchive/Assets/Resources/DataTable/TattooReadingTimeConfig.json. GF_X Id is numeric; original business keys are preserved as data columns.",
   "columns": [
     {

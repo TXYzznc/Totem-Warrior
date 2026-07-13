@@ -4,8 +4,8 @@
   "tableName": "BossPhaseConfig",
   "relativePath": "Business/BossPhaseConfig",
   "sourceExcel": "GameData/DataTables/Business/BossPhaseConfig.xlsx",
-  "sourceExcelLastWriteUtc": "2026-07-09T10:00:55.5234519Z",
-  "generatedAtUtc": "2026-07-09T10:00:55.6859508Z",
+  "sourceExcelLastWriteUtc": "2026-07-10T08:07:59.4254158Z",
+  "generatedAtUtc": "2026-07-10T08:07:59.6074161Z",
   "tableComment": "Business table migrated from LegacyProjectArchive/Assets/Resources/DataTable/BossPhaseConfig.json. GF_X Id is numeric; original business keys are preserved as data columns.",
   "columns": [
     {

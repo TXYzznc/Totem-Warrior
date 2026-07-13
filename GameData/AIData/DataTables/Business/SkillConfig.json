@@ -4,8 +4,8 @@
   "tableName": "SkillConfig",
   "relativePath": "Business/SkillConfig",
   "sourceExcel": "GameData/DataTables/Business/SkillConfig.xlsx",
-  "sourceExcelLastWriteUtc": "2026-07-09T10:01:00.1389506Z",
-  "generatedAtUtc": "2026-07-09T10:01:00.3144510Z",
+  "sourceExcelLastWriteUtc": "2026-07-10T08:08:04.4489160Z",
+  "generatedAtUtc": "2026-07-10T08:08:04.6369161Z",
   "tableComment": "Business table migrated from LegacyProjectArchive/Assets/Resources/DataTable/SkillConfig.json. GF_X Id is numeric; original business keys are preserved as data columns.",
   "columns": [
     {
