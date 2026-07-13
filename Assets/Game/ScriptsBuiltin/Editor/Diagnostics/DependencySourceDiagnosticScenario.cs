@@ -56,7 +56,7 @@ namespace UGF.EditorTools
             const string oldDemigiantPath = "Assets/Demigiant";
             const string dotweenRoot = "Assets/Plugins/DOTween";
             const string dotweenAsmdef = "Assets/Plugins/DOTween/Modules/DOTween.Extension.asmdef";
-            const string dotweenSettings = "Assets/Resources/DOTweenSettings.asset";
+            const string dotweenSettings = "Assets/Game/DOTweenSettings.asset";
 
             context.Detail("forbidden.Assets/Demigiant", Directory.Exists(oldDemigiantPath));
             context.Assert(!Directory.Exists(oldDemigiantPath), "Old Demigiant DOTween/DOTweenPro must stay outside the active Unity assets path.");

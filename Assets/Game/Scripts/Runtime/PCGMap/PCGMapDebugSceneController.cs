@@ -106,7 +106,7 @@ public sealed class PCGMapDebugSceneController : MonoBehaviour
 
         try
         {
-            var assetIndex = PCGAssetIndex.LoadFromResources();
+            var assetIndex = PCGAssetIndex.LoadFromConfig();
             var generator = new PCGMapGenerator(assetIndex);
             var map = generator.Generate(new PCGMapGenerateRequest
             {
@@ -291,11 +291,16 @@ public sealed class PCGMapDebugSceneController : MonoBehaviour
         var position = new Vector3Int(x, y, 0);
         tilemap.SetTile(position, tile);
 
-        if (Mathf.Abs(rotationDegrees) > 0.01f || flipX)
-        {
-            var scale = flipX ? new Vector3(-1f, 1f, 1f) : Vector3.one;
-            tilemap.SetTransformMatrix(position, Matrix4x4.TRS(Vector3.zero, Quaternion.Euler(0f, 0f, rotationDegrees), scale));
-        }
+        Vector3 cellSize = tilemap.layoutGrid.cellSize;
+        Vector2 spriteSize = sprite.bounds.size;
+        float scaleX = spriteSize.x > 0.0001f ? cellSize.x / spriteSize.x : 1f;
+        float scaleY = spriteSize.y > 0.0001f ? cellSize.y / spriteSize.y : 1f;
+        var scale = new Vector3(flipX ? -scaleX : scaleX, scaleY, 1f);
+        tilemap.SetTileFlags(position, TileFlags.None);
+        tilemap.SetTransformMatrix(position, Matrix4x4.TRS(
+            Vector3.zero,
+            Quaternion.Euler(0f, 0f, rotationDegrees),
+            scale));
 
         return true;
     }
@@ -461,17 +466,9 @@ public sealed class PCGMapDebugSceneController : MonoBehaviour
             return cached;
         }
 
-        var sprite = Resources.Load<Sprite>(assetPath);
+        var sprite = PCGAssetIndex.LoadGameSprite(assetPath, pivot, 128f, out _);
         if (sprite != null)
         {
-            spriteCache[cacheKey] = sprite;
-            return sprite;
-        }
-
-        var texture = Resources.Load<Texture2D>(assetPath);
-        if (texture != null)
-        {
-            sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), pivot, 128f, 0, SpriteMeshType.FullRect);
             spriteCache[cacheKey] = sprite;
             return sprite;
         }

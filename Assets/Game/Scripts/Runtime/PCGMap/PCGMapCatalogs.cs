@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using Newtonsoft.Json;
 using UnityEngine;
 
@@ -273,6 +274,9 @@ namespace PCGMap
 
     public sealed class PCGAssetIndex
     {
+        public const string ConfigResourcesRoot = "PCG";
+        public const string GameSpriteRoot = "Assets/Game";
+
         readonly Dictionary<string, TerrainVisualEntry> _terrainById = new();
         readonly Dictionary<string, WorldObjectEntry> _objectById = new();
         readonly Dictionary<string, PoiEntry> _poiById = new();
@@ -285,25 +289,119 @@ namespace PCGMap
         public WorldObjectCatalog ObjectCatalog { get; private set; }
         public ZoneRuleCatalog ZoneCatalog { get; private set; }
 
-        public static PCGAssetIndex LoadFromResources(
-            string terrainCatalogPath = "PCG/TerrainVisualCatalog",
-            string objectCatalogPath = "PCG/WorldObjectCatalog",
-            string zoneCatalogPath = "PCG/ZoneRuleCatalog",
-            string terrainTileSetCatalogPath = "PCG/TerrainTileSetCatalog")
+        public static PCGAssetIndex LoadFromConfig(
+            string terrainCatalogPath = ConfigResourcesRoot + "/TerrainVisualCatalog",
+            string objectCatalogPath = ConfigResourcesRoot + "/WorldObjectCatalog",
+            string zoneCatalogPath = ConfigResourcesRoot + "/ZoneRuleCatalog",
+            string terrainTileSetCatalogPath = ConfigResourcesRoot + "/TerrainTileSetCatalog")
         {
-            var terrainAsset = Resources.Load<TextAsset>(terrainCatalogPath);
-            var objectAsset = Resources.Load<TextAsset>(objectCatalogPath);
-            var zoneAsset = Resources.Load<TextAsset>(zoneCatalogPath);
-            var terrainTileSetAsset = Resources.Load<TextAsset>(terrainTileSetCatalogPath);
+            string terrainJson = LoadGameConfigText(terrainCatalogPath, required: true);
+            string objectJson = LoadGameConfigText(objectCatalogPath, required: true);
+            string zoneJson = LoadGameConfigText(zoneCatalogPath, required: true);
+            string terrainTileSetJson = LoadGameConfigText(terrainTileSetCatalogPath, required: false);
 
-            if (terrainAsset == null)
-                throw new InvalidOperationException($"PCG terrain catalog not found: Resources/{terrainCatalogPath}.json");
-            if (objectAsset == null)
-                throw new InvalidOperationException($"PCG object catalog not found: Resources/{objectCatalogPath}.json");
-            if (zoneAsset == null)
-                throw new InvalidOperationException($"PCG zone catalog not found: Resources/{zoneCatalogPath}.json");
+            return FromJson(terrainJson, objectJson, zoneJson, terrainTileSetJson);
+        }
 
-            return FromJson(terrainAsset.text, objectAsset.text, zoneAsset.text, terrainTileSetAsset?.text);
+        public static string NormalizeGameAssetPath(string assetPath)
+        {
+            if (string.IsNullOrWhiteSpace(assetPath))
+            {
+                return string.Empty;
+            }
+
+            string normalized = assetPath.Replace('\\', '/').Trim();
+            if (!normalized.StartsWith("Assets/", StringComparison.Ordinal))
+            {
+                normalized = $"{GameSpriteRoot}/{normalized}";
+            }
+
+            if (!Path.HasExtension(normalized))
+            {
+                normalized += ".png";
+            }
+
+            return normalized;
+        }
+
+        public static Sprite LoadGameSprite(string assetPath, Vector2 pivot, float pixelsPerUnit, out bool createdFromTexture)
+        {
+            createdFromTexture = false;
+            string normalized = NormalizeGameAssetPath(assetPath);
+            if (string.IsNullOrEmpty(normalized))
+            {
+                return null;
+            }
+
+#if UNITY_EDITOR
+            var sprite = UnityEditor.AssetDatabase.LoadAssetAtPath<Sprite>(normalized);
+            if (sprite != null)
+            {
+                return sprite;
+            }
+
+            var texture = UnityEditor.AssetDatabase.LoadAssetAtPath<Texture2D>(normalized);
+            if (texture != null)
+            {
+                createdFromTexture = true;
+                return Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), pivot, pixelsPerUnit, 0, SpriteMeshType.FullRect);
+            }
+#endif
+
+            return null;
+        }
+
+        private static string LoadGameConfigText(string assetPath, bool required)
+        {
+            string normalized = NormalizeConfigResourcesPath(assetPath);
+
+            var resourcesAsset = Resources.Load<TextAsset>(normalized);
+            if (resourcesAsset != null)
+            {
+                return resourcesAsset.text;
+            }
+
+#if UNITY_EDITOR
+            var textAsset = UnityEditor.AssetDatabase.LoadAssetAtPath<TextAsset>($"Assets/Resources/{normalized}.json");
+            if (textAsset != null)
+            {
+                return textAsset.text;
+            }
+#endif
+
+            string filePath = Path.Combine(Directory.GetCurrentDirectory(), $"Assets/Resources/{normalized}.json");
+            if (File.Exists(filePath))
+            {
+                return File.ReadAllText(filePath);
+            }
+
+            if (required)
+            {
+                throw new InvalidOperationException($"PCG catalog not found: Resources/{normalized}.json");
+            }
+
+            return null;
+        }
+
+        private static string NormalizeConfigResourcesPath(string assetPath)
+        {
+            if (string.IsNullOrWhiteSpace(assetPath))
+            {
+                return string.Empty;
+            }
+
+            string normalized = assetPath.Replace('\\', '/').Trim();
+            if (normalized.StartsWith("Assets/Resources/", StringComparison.Ordinal))
+            {
+                normalized = normalized.Substring("Assets/Resources/".Length);
+            }
+
+            if (normalized.EndsWith(".json", StringComparison.OrdinalIgnoreCase))
+            {
+                normalized = normalized.Substring(0, normalized.Length - ".json".Length);
+            }
+
+            return normalized;
         }
 
         public static PCGAssetIndex FromJson(string terrainJson, string objectJson, string zoneJson, string terrainTileSetJson = null)

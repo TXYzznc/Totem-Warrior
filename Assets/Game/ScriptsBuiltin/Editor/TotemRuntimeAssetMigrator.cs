@@ -12,12 +12,12 @@ namespace UGF.EditorTools
 
         private static readonly RuntimePrefabRule[] Rules =
         {
-            new RuntimePrefabRule("actor.player", "Assets/Resources/Prefab/Character/Player1.prefab", $"{TargetRoot}/Player.prefab"),
-            new RuntimePrefabRule("actor.smartAi", "Assets/Resources/Prefab/Character/Player2.prefab", $"{TargetRoot}/SmartAI.prefab"),
-            new RuntimePrefabRule("actor.lightAi", "Assets/Resources/Prefab/Character/Player3.prefab", $"{TargetRoot}/LightAI.prefab"),
-            new RuntimePrefabRule("actor.boss", "Assets/Resources/Prefab/Character/Boss1.prefab", $"{TargetRoot}/Boss.prefab"),
-            new RuntimePrefabRule("npc.tattooist", "Assets/Resources/Prefab/Character/Player3.prefab", $"{TargetRoot}/NpcTattooist.prefab"),
-            new RuntimePrefabRule("npc.merchant", "Assets/Resources/Prefab/Character/Player2.prefab", $"{TargetRoot}/NpcMerchant.prefab"),
+            new RuntimePrefabRule("actor.player", $"{TargetRoot}/Player.prefab"),
+            new RuntimePrefabRule("actor.smartAi", $"{TargetRoot}/SmartAI.prefab"),
+            new RuntimePrefabRule("actor.lightAi", $"{TargetRoot}/LightAI.prefab"),
+            new RuntimePrefabRule("actor.boss", $"{TargetRoot}/Boss.prefab"),
+            new RuntimePrefabRule("npc.tattooist", $"{TargetRoot}/NpcTattooist.prefab"),
+            new RuntimePrefabRule("npc.merchant", $"{TargetRoot}/NpcMerchant.prefab"),
         };
 
         [MenuItem("Game Framework/GameTools/Totem/Prepare Runtime Entity Prefabs", false, 1032)]
@@ -28,20 +28,9 @@ namespace UGF.EditorTools
             for (int i = 0; i < Rules.Length; i++)
             {
                 var rule = Rules[i];
-                if (!File.Exists(rule.SourcePath))
+                if (!File.Exists(rule.TargetPath))
                 {
-                    GFTrace.Failure("TotemAssetMigrator", "SourceMissing", null, GFTrace.Data("key", rule.Key, "source", rule.SourcePath));
-                    continue;
-                }
-
-                if (File.Exists(rule.TargetPath))
-                {
-                    AssetDatabase.DeleteAsset(rule.TargetPath);
-                }
-
-                if (!AssetDatabase.CopyAsset(rule.SourcePath, rule.TargetPath))
-                {
-                    GFTrace.Failure("TotemAssetMigrator", "CopyFailed", null, GFTrace.Data("key", rule.Key, "source", rule.SourcePath, "target", rule.TargetPath));
+                    GFTrace.Failure("TotemAssetMigrator", "TargetMissing", null, GFTrace.Data("key", rule.Key, "target", rule.TargetPath));
                     continue;
                 }
 
@@ -109,13 +98,11 @@ namespace UGF.EditorTools
         public readonly struct RuntimePrefabRule
         {
             public readonly string Key;
-            public readonly string SourcePath;
             public readonly string TargetPath;
 
-            public RuntimePrefabRule(string key, string sourcePath, string targetPath)
+            public RuntimePrefabRule(string key, string targetPath)
             {
                 Key = key;
-                SourcePath = sourcePath;
                 TargetPath = targetPath;
             }
         }
