@@ -38,6 +38,11 @@ namespace UGF.EditorTools
             context.AssertEqual(15, catalog.weaponDrops.Length, "firstRound.weaponDrops");
             context.AssertEqual(6, catalog.chestRewards.Length, "firstRound.chestRewards");
             context.AssertEqual(14, catalog.skills.Length, "firstRound.skills");
+            context.AssertEqual(15, catalog.enemies.Length, "firstRound.enemies");
+            context.AssertEqual(25, catalog.enemyAbilities.Length, "firstRound.enemyAbilities");
+            context.AssertEqual(9, catalog.encounterSpawns.Length, "firstRound.encounterSpawns");
+            context.AssertEqual(37, catalog.enemyLoot.Length, "firstRound.enemyLoot");
+            context.AssertEqual(9, catalog.bossPhases.Length, "firstRound.bossPhases");
 
             var tattoos = catalog.CreateTattooDefinitions();
             context.AssertEqual(336, tattoos.Length, "firstRound.tattooCombinations");
@@ -53,7 +58,10 @@ namespace UGF.EditorTools
 
         private static void CheckActorAndAiCounts(GFDiagnosticScenarioContext context, TotemGameplayCatalog catalog)
         {
-            context.AssertEqual(3, catalog.enemies.Length, "firstRound.enemyRows");
+            var enemies = catalog.CreateEnemyDefinitions();
+            context.AssertEqual(8, enemies.Count(enemy => enemy.Tier == TotemEnemyTier.Light), "firstRound.enemyRows.light");
+            context.AssertEqual(4, enemies.Count(enemy => enemy.Tier == TotemEnemyTier.Elite), "firstRound.enemyRows.elite");
+            context.AssertEqual(3, enemies.Count(enemy => enemy.Tier == TotemEnemyTier.Boss), "firstRound.enemyRows.boss");
             context.AssertEqual(23, catalog.botProfiles.Length, "firstRound.botProfiles");
             context.AssertEqual(20, catalog.CreateBotProfiles().Count(profile => profile.ActorKind == TotemActorKind.SmartAi), "firstRound.smartProfiles");
             context.AssertEqual(3, catalog.CreateBotProfiles().Count(profile => profile.ActorKind == TotemActorKind.LightAi), "firstRound.lightProfiles");
@@ -66,22 +74,20 @@ namespace UGF.EditorTools
                 ColorId = 1,
                 WeaponId = "knife_basic",
                 PatternIds = new[] { 1 },
-            }, catalog.CreateEnemyDefinitions());
-            int nonBossActors = roster.Count(actor => actor.Kind != TotemActorKind.Boss);
-            int smartAiActors = roster.Count(actor => actor.Kind == TotemActorKind.SmartAi);
-            int lightAiRuntimeActors = roster.Count(actor => actor.Kind == TotemActorKind.LightAi);
-            int bossActors = roster.Count(actor => actor.Kind == TotemActorKind.Boss);
-            context.Detail("firstRound.contentSummary.nonBossActorsIncludingPlayer", nonBossActors);
-            context.Detail("firstRound.contentSummary.smartAiRuntimeActors", smartAiActors);
-            context.Detail("firstRound.contentSummary.lightAiRuntimeActorsFromReusedProfiles", lightAiRuntimeActors);
-            context.Detail("firstRound.contentSummary.bossActors", bossActors);
-            context.AssertEqual(51, roster.Length, "firstRound.actorRoster.totalIncludingBoss");
-            context.AssertEqual(50, nonBossActors, "firstRound.actorRoster.nonBossIncludingPlayer");
-            context.AssertEqual(1, roster.Count(actor => actor.Kind == TotemActorKind.Player), "firstRound.actorRoster.player");
-            context.AssertEqual(20, smartAiActors, "firstRound.actorRoster.smartAi");
-            context.AssertEqual(29, lightAiRuntimeActors, "firstRound.actorRoster.lightAiRuntimeActorsFromReusedProfiles");
-            context.AssertEqual(1, bossActors, "firstRound.actorRoster.boss");
-
+            });
+            int humanParticipants = roster.Count(actor => actor.ControllerKind == TotemParticipantControllerKind.Human);
+            int smartBotParticipants = roster.Count(actor => actor.ControllerKind == TotemParticipantControllerKind.SmartBot);
+            int lightBotParticipants = roster.Count(actor => actor.ControllerKind == TotemParticipantControllerKind.LightBot);
+            context.Detail("firstRound.contentSummary.participantCount", roster.Length);
+            context.Detail("firstRound.contentSummary.humanParticipants", humanParticipants);
+            context.Detail("firstRound.contentSummary.smartBotParticipants", smartBotParticipants);
+            context.Detail("firstRound.contentSummary.lightBotParticipants", lightBotParticipants);
+            context.AssertEqual(50, roster.Length, "firstRound.actorRoster.participantCount");
+            context.AssertEqual(1, humanParticipants, "firstRound.actorRoster.human");
+            context.AssertEqual(20, smartBotParticipants, "firstRound.actorRoster.smartBot");
+            context.AssertEqual(29, lightBotParticipants, "firstRound.actorRoster.lightBot");
+            context.Assert(roster.All(actor => TotemActorService.IsParticipantKind(actor.Kind)),
+                "First-round Actor roster must contain Participant kinds only.");
             var models = roster.Select(info => new TotemActorModel(info)).ToArray();
             var player = models.First(actor => actor.Kind == TotemActorKind.Player);
             var aiStates = TotemAIService.BuildInitialStates(models, player.Position, catalog.CreateBotProfiles(), catalog.CreateBotBuildPresets());
@@ -106,9 +112,8 @@ namespace UGF.EditorTools
             context.AssertEqual(6, catalog.events.Length, "firstRound.events");
             context.AssertEqual(11, catalog.choiceOptions.Length, "firstRound.choiceOptions");
             context.AssertEqual(3, catalog.zonePhases.Length, "firstRound.zonePhases");
-            context.AssertEqual(3, catalog.bossPhases.Length, "firstRound.bossPhases");
             context.AssertEqual(14, catalog.audioCues.Length, "firstRound.audioCues");
-            context.Detail("firstRound.contentSummary.shopNpcThreeChoiceZoneBoss", "shop=15 stocks/9 merchant slots; npc=5; threeChoice=11 options; zone=3 phases; boss=3 phases");
+            context.Detail("firstRound.contentSummary.shopNpcThreeChoiceZoneBoss", "shop=15 stocks/9 merchant slots; npc=5; threeChoice=11 options; zone=3 phases; boss=3 groups/9 phases");
 
             var map = TotemMapService.BuildLayout(seed: 408, themeId: 1);
             var npcs = catalog.CreateNpcModels(map);
@@ -116,7 +121,17 @@ namespace UGF.EditorTools
             context.Assert(npcs.Any(npc => npc.NpcId == "merchant_general"), "First-round NPC catalog must include merchant_general.");
             context.Assert(npcs.Any(npc => npc.NpcId == "merchant_alien"), "First-round NPC catalog must include merchant_alien.");
             context.Assert(catalog.CreateChoiceOptions().Any(option => option.EffectType == TotemChoiceEffectType.SkillAcquire), "First-round choices must include SkillAcquire.");
-            context.Assert(catalog.CreateBossPhases().Any(phase => phase.PhaseIndex == 3 && phase.EnrageMultiplier > 1f), "First-round boss phases must include phase 3 enrage.");
+            var bossPhases = catalog.CreateBossPhases();
+            var bossIds = catalog.CreateEnemyDefinitions()
+                .Where(enemy => enemy.Tier == TotemEnemyTier.Boss)
+                .Select(enemy => enemy.EnemyId)
+                .ToHashSet();
+            var phaseGroups = bossPhases.GroupBy(phase => phase.BossId).ToArray();
+            context.AssertEqual(3, phaseGroups.Length, "firstRound.bossPhaseGroups");
+            context.Assert(phaseGroups.All(group => bossIds.Contains(group.Key)), "Every first-round Boss phase group must resolve to a Boss EnemyConfig row.");
+            context.Assert(phaseGroups.All(group => group.Select(phase => phase.PhaseIndex).OrderBy(index => index).SequenceEqual(new[] { 1, 2, 3 })), "Every first-round Boss must define phases 1, 2, and 3.");
+            context.Assert(phaseGroups.All(group => group.Single(phase => phase.PhaseIndex == 3).EnrageMultiplier > 1f), "Every first-round Boss phase 3 must increase pressure.");
+            context.Assert(phaseGroups.All(group => !string.IsNullOrWhiteSpace(group.Single(phase => phase.PhaseIndex == 3).DeathPatternRecipeId)), "Every first-round Boss phase 3 must bind a death recipe.");
         }
     }
 }

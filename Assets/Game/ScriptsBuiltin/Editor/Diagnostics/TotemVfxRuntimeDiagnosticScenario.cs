@@ -114,21 +114,28 @@ namespace UGF.EditorTools
                 runtime.RegisterService(new TotemDataService());
                 runtime.RegisterService(new TotemAssetService());
                 runtime.RegisterService(new TotemMapService());
+                runtime.RegisterService(new TotemCombatRelationshipService());
                 runtime.RegisterService(new TotemActorService());
                 runtime.RegisterService(new TotemCameraService());
                 runtime.RegisterService(new TotemVfxService());
+                runtime.RegisterService(new TotemEnemyService());
                 runtime.StartRuntime();
 
                 var flow = runtime.GetService<TotemGameFlowService>();
                 var actor = runtime.GetService<TotemActorService>();
                 var camera = runtime.GetService<TotemCameraService>();
                 var vfx = runtime.GetService<TotemVfxService>();
+                var enemies = runtime.GetService<TotemEnemyService>();
                 flow.ConfirmStartup(1, "knife_basic", new[] { 1 });
 
                 context.Assert(actor.Player != null, "VFX feedback diagnostic should spawn a player.");
-                context.Assert(actor.Boss != null, "VFX feedback diagnostic should spawn a boss.");
+                context.Assert(enemies.TrySpawn(
+                    new TotemEnemySpawnRequest(920001, "boss_ai_core_zero", actor.Player.Position + Vector3.forward * 2f, 1, "diagnostic.vfx", 0f),
+                    out var boss,
+                    out var spawnReason), $"VFX feedback diagnostic should spawn a native Boss enemy: {spawnReason}");
+                context.AssertEqual(1, enemies.CaptureSnapshot().bossCount, "vfx.feedback.enemyBossCount");
 
-                actor.ApplyDamage(actor.Player, 10f, actor.Boss, "BossAttack");
+                actor.ApplyDamage(actor.Player, 10f, boss, "EnemyBossAbility:core_zero_pulse");
                 var firstFeedback = vfx.CaptureSnapshot();
                 context.AssertEqual(1, firstFeedback.cameraShakeRequestCount, "vfx.feedback.shakeRequestCount");
                 AssertNear(context, 0.10f, firstFeedback.lastCameraShakeAmplitude, "vfx.feedback.bossShakeAmplitude");
@@ -142,7 +149,7 @@ namespace UGF.EditorTools
                 context.Assert(cameraSnapshot.shakeRemainingSec > 0f, "Camera shake should remain active after one tick.");
                 context.Assert(cameraSnapshot.lastShakeOffset.sqrMagnitude > 0f, "Camera shake should produce a non-zero offset.");
 
-                actor.ApplyDamage(actor.Player, 70f, actor.Boss, "BossSkill:skill_beam");
+                actor.ApplyDamage(actor.Player, 70f, boss, "EnemyBossAbility:core_zero_beam");
                 vfx.Tick(0.25f);
                 var danger = vfx.CaptureSnapshot();
                 context.Assert(danger.vignettePulsing, "Low player health should start vignette pulse.");
@@ -150,6 +157,7 @@ namespace UGF.EditorTools
                 context.Assert(danger.vignetteIntensity > 0f, "Vignette intensity should become visible while pulsing.");
                 context.AssertEqual(1, danger.vignettePulseCount, "vfx.feedback.vignettePulseCount");
                 context.Assert(danger.playerHealthRatio < 0.3f, "VFX snapshot should expose low player health ratio.");
+                context.AssertEqual(boss.CombatantId, actor.LastDamage.Source?.CombatantId ?? 0, "vfx.feedback.enemyDamageSource");
 
                 int shakeCountBeforeStatus = danger.cameraShakeRequestCount;
                 int floatCountBeforeStatus = danger.floatingTextSpawnedCount;

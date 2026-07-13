@@ -28,10 +28,12 @@ namespace UGF.EditorTools
                 AddStep(timeline, $"Runtime ready: services={runtimeSnapshot.readyServiceCount}/{runtimeSnapshot.serviceCount}");
 
                 var flow = RequireService<TotemGameFlowService>(context, runtime, "GameFlow");
+                var clock = RequireService<TotemMatchClockService>(context, runtime, "MatchClock");
                 var input = RequireService<TotemInputService>(context, runtime, "Input");
                 var data = RequireService<TotemDataService>(context, runtime, "Data");
                 var map = RequireService<TotemMapService>(context, runtime, "Map");
                 var actor = RequireService<TotemActorService>(context, runtime, "Actor");
+                var readiness = RequireService<TotemParticipantReadinessService>(context, runtime, "ParticipantReadiness");
                 var economy = RequireService<TotemEconomyService>(context, runtime, "Economy");
                 var status = RequireService<TotemStatusService>(context, runtime, "Status");
                 var tattoo = RequireService<TotemTattooService>(context, runtime, "Tattoo");
@@ -41,11 +43,12 @@ namespace UGF.EditorTools
                 var chest = RequireService<TotemChestService>(context, runtime, "Chest");
                 var npc = RequireService<TotemNpcService>(context, runtime, "Npc");
                 var zone = RequireService<TotemZoneService>(context, runtime, "Zone");
-                var boss = RequireService<TotemBossService>(context, runtime, "Boss");
                 var ai = RequireService<TotemAIService>(context, runtime, "AI");
                 var interaction = RequireService<TotemInteractionService>(context, runtime, "Interaction");
                 var vfx = RequireService<TotemVfxService>(context, runtime, "VFX");
                 var audio = RequireService<TotemAudioService>(context, runtime, "Audio");
+                var enemyWorld = RequireService<TotemEnemyWorldService>(context, runtime, "EnemyWorld");
+                var enemies = RequireService<TotemEnemyService>(context, runtime, "Enemy");
 
                 context.Assert(data.GameplayCatalogLoadedFromFile && !data.GameplayCatalogUsingFallback, $"Causality smoke must use the external Business catalog: {data.GameplayCatalogMessage}");
                 AddStep(timeline, $"Catalog loaded: source={data.GameplayCatalog?.source}, hash={data.GameplayCatalogContentHash}");
@@ -62,17 +65,21 @@ namespace UGF.EditorTools
                 context.AssertEqual(TotemGameFlowState.CombatHud, flow.CurrentState, "causality.flow.state");
                 var player = actor.Player;
                 context.Assert(player != null, "Causality smoke should spawn a player.");
+                ActivateLocalParticipant(context, readiness, player, "CausalityReady");
+                clock.SetWorldTimeForDiagnostics(TotemCombatRelationshipService.ParticipantCombatGraceSeconds);
                 context.AssertEqual(50, actor.CaptureActorSnapshot().actorCount, "causality.actor.countWithoutBoss");
-                context.AssertEqual(1, actor.CaptureActorSnapshot().bossCount, "causality.actor.bossCount");
-                AddStep(timeline, $"Startup confirmed: player={player?.Name}, weapon=knife_basic, actors=50, boss=1");
+                context.Assert(actor.Actors.All(item => item.Domain == TotemCombatantDomain.Participant), "Causality Actor roster must contain Participants only.");
+                clock.Tick(0.1f);
+                enemyWorld.Tick(0.1f);
+                var initialEnemies = enemies.CaptureSnapshot();
+                context.Assert(initialEnemies.lightCount > 0, "Causality startup should spawn native Light enemies.");
+                AddStep(timeline, $"Startup confirmed: player={player?.Name}, weapon=knife_basic, participants=50, nativeEnemies={initialEnemies.aliveEnemyCount}");
 
                 var target = actor.Actors.FirstOrDefault(item => item.Kind == TotemActorKind.LightAi && item.IsAlive);
                 context.Assert(target != null, "Causality smoke requires a live Light AI target.");
-                MoveEnemiesAway(actor, player);
+                MoveOtherParticipantsAway(actor, player);
                 target.Position = player.Position + new Vector3(0f, 0f, 0.8f);
                 economy.AddCoins(target, 80);
-                actor.SetCombatElapsedSecondsForDiagnostics(TotemActorService.ParticipantDamageProtectionSeconds + 0.1f);
-
                 provider.ClearAll();
                 provider.SetMouse(0, held: true, down: true);
                 input.Tick(0.05f);
@@ -82,6 +89,8 @@ namespace UGF.EditorTools
                 context.AssertEqual(target.ActorId, attackSnapshot.lastTargetActorId, "causality.combat.attack.target");
                 context.Assert(attackSnapshot.lastDamage > 0f, "Causality attack should apply damage.");
                 AddStep(timeline, $"Attack resolved: target={target.Name}, damage={attackSnapshot.lastDamage:0.##}, hp={target.Health:0.##}");
+
+                actor.ApplyDamage(target, Mathf.Max(0f, target.Health - 1f), null, "DiagnosticSkillFinisherSetup");
 
                 provider.ClearAll();
                 provider.Press(KeyCode.E);
@@ -94,7 +103,12 @@ namespace UGF.EditorTools
                 context.AssertEqual(1, economy.PendingDeathChestCount, "causality.economy.deathChest.pendingAfterKill");
                 AddStep(timeline, $"Skill resolved: skill={skillSnapshot.lastSkillId}, damage={skillSnapshot.lastDamage:0.##}, killed={target.Name}, pendingDeathChests={economy.PendingDeathChestCount}");
 
-                context.Assert(economy.TryLootDeathChest(player, target, out var deathChest), "Player should loot the generated death chest.");
+                bool deathChestLooted = economy.TryLootDeathChest(player, target, out var deathChest);
+                context.Assert(deathChestLooted, "Player should loot the generated death chest.");
+                if (!deathChestLooted || deathChest == null)
+                {
+                    return;
+                }
                 var playerInventoryAfterLoot = economy.CaptureInventory(player);
                 context.Assert(playerInventoryAfterLoot.coins >= deathChest.coins, "Death chest loot should add coins to the player inventory.");
                 AddStep(timeline, $"Death chest looted: coins={deathChest.coins}, playerCoins={playerInventoryAfterLoot.coins}");
@@ -120,13 +134,32 @@ namespace UGF.EditorTools
                 context.Assert(player.Health < healthBeforeZone, "Shrink zone should damage the out-of-zone player.");
                 AddStep(timeline, $"Zone tick: phase={zoneSnapshot.currentPhaseId}, affected={zoneSnapshot.outZoneAffectedActorCount}, playerHp={player.Health:0.##}");
 
-                var bossActor = actor.Boss;
-                context.Assert(bossActor != null && bossActor.IsAlive, "Causality smoke requires an active boss.");
-                actor.ApplyDamage(bossActor, bossActor.MaxHealth * 0.4f, player, "CausalityBossPhaseDrop");
-                boss.Tick(0.1f);
-                var bossSnapshot = boss.CaptureSnapshot();
-                context.Assert(bossSnapshot.currentPhase >= 2, "Boss should enter phase 2 after the diagnostic HP drop.");
-                AddStep(timeline, $"Boss phase: phase={bossSnapshot.currentPhase}, hpRatio={bossSnapshot.hpRatio:0.##}, enrage={bossSnapshot.enrageMultiplier:0.##}");
+                context.Assert(enemies.TrySpawn(
+                    new TotemEnemySpawnRequest(940001, "boss_ai_core_zero", player.Position + Vector3.forward * 3f, 1, "diagnostic.causality", clock.WorldTime),
+                    out var bossEnemy,
+                    out var bossSpawnReason), $"Causality smoke should spawn a native Boss: {bossSpawnReason}");
+                int lastBossPhase = 0;
+                enemies.BossPhaseChanged += evt =>
+                {
+                    if (evt.Enemy == bossEnemy)
+                    {
+                        lastBossPhase = evt.CurrentPhase;
+                    }
+                };
+                enemies.Tick(0.1f);
+                context.Assert(enemies.TryApplyDamage(
+                    bossEnemy.CombatantId,
+                    player,
+                    bossEnemy.MaxHealth * 0.45f,
+                    "CausalityBossPhaseDrop",
+                    clock.WorldTime,
+                    out var bossDamage) && bossDamage > 0f,
+                    "Causality Boss damage should enter EnemyService.");
+                enemies.Tick(0.1f);
+                var bossController = enemies.FindController(bossEnemy.CombatantId);
+                context.Assert(bossController != null && bossController.BossPhase >= 2, "Native Boss should enter phase 2 after the diagnostic HP drop.");
+                context.AssertEqual(1, enemies.CaptureSnapshot().bossCount, "causality.enemy.bossCount");
+                AddStep(timeline, $"Native Boss phase: phase={lastBossPhase}, hpRatio={bossEnemy.Health / bossEnemy.MaxHealth:0.##}, enemyId={bossEnemy.EnemyId}");
 
                 int decisionsBefore = ai.CaptureSnapshot().totalDecisions;
                 var smartState = ai.States.FirstOrDefault(state => state.Actor != null && state.Actor.Kind == TotemActorKind.SmartAi && state.Actor.IsAlive);
@@ -148,6 +181,7 @@ namespace UGF.EditorTools
 
                 flow.EnterMainMenu();
                 context.AssertEqual(0, actor.CaptureActorSnapshot().actorCount, "causality.cleanup.actorCount");
+                context.AssertEqual(0, enemies.CaptureSnapshot().enemyCount, "causality.cleanup.enemyCount");
                 context.AssertEqual(0, chest.CaptureSnapshot().activeChestCount, "causality.cleanup.chestCount");
                 context.AssertEqual(0, npc.CaptureSnapshot().npcCount, "causality.cleanup.npcCount");
                 AddStep(timeline, "Cleanup: CombatHud left, actors/chests/npcs cleared");
@@ -160,18 +194,21 @@ namespace UGF.EditorTools
                     provider,
                     map,
                     actor,
+                    readiness,
                     economy,
                     status,
                     tattoo,
                     weapon,
                     skill,
                     zone,
-                    boss,
                     ai,
                     interaction,
                     vfx,
                     audio,
-                    combat);
+                    combat,
+                    clock,
+                    enemyWorld,
+                    enemies);
 
                 WriteTimeline(context, timeline);
                 context.Pass("Totem runtime causality smoke is ready.");
@@ -195,18 +232,21 @@ namespace UGF.EditorTools
             CausalityInputProvider provider,
             TotemMapService map,
             TotemActorService actor,
+            TotemParticipantReadinessService readiness,
             TotemEconomyService economy,
             TotemStatusService status,
             TotemTattooService tattoo,
             TotemWeaponService weapon,
             TotemSkillService skill,
             TotemZoneService zone,
-            TotemBossService boss,
             TotemAIService ai,
             TotemInteractionService interaction,
             TotemVfxService vfx,
             TotemAudioService audio,
-            TotemCombatService combat)
+            TotemCombatService combat,
+            TotemMatchClockService clock,
+            TotemEnemyWorldService enemyWorld,
+            TotemEnemyService enemies)
         {
             flow.EnterMainMenu();
             flow.EnterCharacterSelect();
@@ -216,23 +256,24 @@ namespace UGF.EditorTools
 
             var player = actor.Player;
             context.Assert(player != null && player.IsAlive, "Playable combat loop requires a live player.");
+            ActivateLocalParticipant(context, readiness, player, "PlayableLoopReady");
+            clock.SetWorldTimeForDiagnostics(TotemCombatRelationshipService.ParticipantCombatGraceSeconds);
             context.AssertEqual(TotemGameFlowState.CombatHud, flow.CurrentState, "playableLoop.flow.state");
             context.Assert(map.CurrentMap != null, "Playable combat loop requires an active runtime map.");
             context.Assert(combat.CaptureCombatSnapshot().active, "Playable combat loop requires active combat.");
-            actor.SetCombatElapsedSecondsForDiagnostics(TotemActorService.ParticipantDamageProtectionSeconds + 0.1f);
-
-            MoveEnemiesAway(actor, player);
+            MoveOtherParticipantsAway(actor, player);
+            MoveNativeEnemiesAway(enemies, player);
             KeyCode moveKey = FindWalkableMoveKey(map.CurrentMap, player.Position, out _);
             Vector3 loopStart = player.Position;
             provider.ClearAll();
             provider.SetKey(moveKey, held: true);
             for (int i = 0; i < 10; i++)
             {
-                TickGameplayFrame(0.1f, provider, input, actor, status, tattoo, weapon, skill, zone, boss, ai, interaction, vfx, audio, combat);
+                TickGameplayFrame(0.1f, provider, input, actor, status, tattoo, weapon, skill, zone, ai, interaction, vfx, audio, combat, clock, enemyWorld, enemies);
             }
 
             provider.ClearAll();
-            TickGameplayFrame(0.1f, provider, input, actor, status, tattoo, weapon, skill, zone, boss, ai, interaction, vfx, audio, combat);
+            TickGameplayFrame(0.1f, provider, input, actor, status, tattoo, weapon, skill, zone, ai, interaction, vfx, audio, combat, clock, enemyWorld, enemies);
             float movedDistance = FlatDistance(loopStart, player.Position);
             context.Detail("playableLoop.move.key", moveKey.ToString());
             context.Detail("playableLoop.move.distance", movedDistance.ToString("F2"));
@@ -242,9 +283,9 @@ namespace UGF.EditorTools
             provider.ClearAll();
             provider.SetKey(moveKey, held: true);
             provider.Press(KeyCode.Space);
-            TickGameplayFrame(0.1f, provider, input, actor, status, tattoo, weapon, skill, zone, boss, ai, interaction, vfx, audio, combat);
+            TickGameplayFrame(0.1f, provider, input, actor, status, tattoo, weapon, skill, zone, ai, interaction, vfx, audio, combat, clock, enemyWorld, enemies);
             provider.ClearAll();
-            TickGameplayFrame(0.1f, provider, input, actor, status, tattoo, weapon, skill, zone, boss, ai, interaction, vfx, audio, combat);
+            TickGameplayFrame(0.1f, provider, input, actor, status, tattoo, weapon, skill, zone, ai, interaction, vfx, audio, combat, clock, enemyWorld, enemies);
             float dodgeDistance = FlatDistance(beforeDodge, player.Position);
             context.Detail("playableLoop.dodge.distance", dodgeDistance.ToString("F2"));
             context.AssertEqual("Dodge", combat.CaptureCombatSnapshot().lastAction, "playableLoop.dodge.lastAction");
@@ -260,9 +301,9 @@ namespace UGF.EditorTools
             {
                 provider.ClearAll();
                 provider.SetMouse(0, held: true, down: true);
-                TickGameplayFrame(0.1f, provider, input, actor, status, tattoo, weapon, skill, zone, boss, ai, interaction, vfx, audio, combat);
+                TickGameplayFrame(0.1f, provider, input, actor, status, tattoo, weapon, skill, zone, ai, interaction, vfx, audio, combat, clock, enemyWorld, enemies);
                 provider.ClearAll();
-                TickGameplayFrame(0.4f, provider, input, actor, status, tattoo, weapon, skill, zone, boss, ai, interaction, vfx, audio, combat);
+                TickGameplayFrame(0.4f, provider, input, actor, status, tattoo, weapon, skill, zone, ai, interaction, vfx, audio, combat, clock, enemyWorld, enemies);
 
                 if (!target.IsAlive)
                 {
@@ -270,11 +311,11 @@ namespace UGF.EditorTools
                 }
 
                 provider.Press(KeyCode.E);
-                TickGameplayFrame(0.1f, provider, input, actor, status, tattoo, weapon, skill, zone, boss, ai, interaction, vfx, audio, combat);
+                TickGameplayFrame(0.1f, provider, input, actor, status, tattoo, weapon, skill, zone, ai, interaction, vfx, audio, combat, clock, enemyWorld, enemies);
                 provider.ClearAll();
                 for (int wait = 0; wait < 10 && target.IsAlive; wait++)
                 {
-                    TickGameplayFrame(0.1f, provider, input, actor, status, tattoo, weapon, skill, zone, boss, ai, interaction, vfx, audio, combat);
+                    TickGameplayFrame(0.1f, provider, input, actor, status, tattoo, weapon, skill, zone, ai, interaction, vfx, audio, combat, clock, enemyWorld, enemies);
                 }
             }
 
@@ -303,7 +344,7 @@ namespace UGF.EditorTools
             for (int i = 0; i < 16; i++)
             {
                 provider.ClearAll();
-                TickGameplayFrame(0.1f, provider, input, actor, status, tattoo, weapon, skill, zone, boss, ai, interaction, vfx, audio, combat);
+                TickGameplayFrame(0.1f, provider, input, actor, status, tattoo, weapon, skill, zone, ai, interaction, vfx, audio, combat, clock, enemyWorld, enemies);
             }
 
             var aiAfterPressure = ai.CaptureSnapshot();
@@ -322,11 +363,12 @@ namespace UGF.EditorTools
             for (int i = 0; i < 24; i++)
             {
                 provider.ClearAll();
-                TickGameplayFrame(0.1f, provider, input, actor, status, tattoo, weapon, skill, zone, boss, ai, interaction, vfx, audio, combat);
+                TickGameplayFrame(0.1f, provider, input, actor, status, tattoo, weapon, skill, zone, ai, interaction, vfx, audio, combat, clock, enemyWorld, enemies);
             }
 
             var finalCombat = combat.CaptureCombatSnapshot();
             var finalActors = actor.CaptureActorSnapshot();
+            var finalEnemies = enemies.CaptureSnapshot();
             var zoneSnapshot = zone.CaptureSnapshot();
             context.Detail("playableLoop.elapsedSec", finalCombat.elapsedSec.ToString("F1"));
             context.Detail("playableLoop.final.playerHealth", finalCombat.playerHealth.ToString("F1"));
@@ -336,10 +378,12 @@ namespace UGF.EditorTools
             context.Assert(finalCombat.active, "Playable combat loop should remain active instead of ending prematurely.");
             context.Assert(player.IsAlive, "Playable combat loop player should survive the baseline slice.");
             context.Assert(finalCombat.playerHealth > player.MaxHealth * 0.25f, "Playable combat loop should remain recoverably playable after the pressure slice.");
-            context.Assert(finalActors.aliveEnemyCount > 0, "Playable combat loop should leave enough enemies alive for continued play.");
+            context.AssertEqual(50, finalActors.participantCount, "playableLoop.final.participantCount");
+            context.Assert(finalEnemies.aliveEnemyCount > 0, "Playable combat loop should leave native enemies alive for continued play.");
 
             flow.EnterMainMenu();
             context.AssertEqual(0, actor.CaptureActorSnapshot().actorCount, "playableLoop.cleanup.actorCount");
+            context.AssertEqual(0, enemies.CaptureSnapshot().enemyCount, "playableLoop.cleanup.enemyCount");
             AddStep(timeline, $"Playable loop: moved={movedDistance:0.##}, dodge={dodgeDistance:0.##}, kills={killDelta}, aiAttacks={aiAfterPressure.totalAttacks - aiBeforePressure.totalAttacks}, playerHp={player.Health:0.##}, elapsed={finalCombat.elapsedSec:0.##}");
         }
 
@@ -353,22 +397,26 @@ namespace UGF.EditorTools
             TotemWeaponService weapon,
             TotemSkillService skill,
             TotemZoneService zone,
-            TotemBossService boss,
             TotemAIService ai,
             TotemInteractionService interaction,
             TotemVfxService vfx,
             TotemAudioService audio,
-            TotemCombatService combat)
+            TotemCombatService combat,
+            TotemMatchClockService clock,
+            TotemEnemyWorldService enemyWorld,
+            TotemEnemyService enemies)
         {
             provider.UnscaledTime += Mathf.Max(0f, deltaTime);
             input.Tick(deltaTime);
+            clock.Tick(deltaTime);
+            enemyWorld.Tick(deltaTime);
             actor.Tick(deltaTime);
             status.Tick(deltaTime);
             tattoo.Tick(deltaTime);
             weapon.Tick(deltaTime);
             skill.Tick(deltaTime);
             zone.Tick(deltaTime);
-            boss.Tick(deltaTime);
+            enemies.Tick(deltaTime);
             ai.Tick(deltaTime);
             interaction.Tick(deltaTime);
             vfx.Tick(deltaTime);
@@ -427,6 +475,29 @@ namespace UGF.EditorTools
             return Mathf.Sqrt(dx * dx + dz * dz);
         }
 
+        private static void ActivateLocalParticipant(
+            GFDiagnosticScenarioContext context,
+            TotemParticipantReadinessService readiness,
+            TotemActorModel player,
+            string reason)
+        {
+            context.Assert(readiness != null && player != null, "Causality readiness requires the active local Participant.");
+            if (readiness == null || player == null)
+            {
+                return;
+            }
+
+            readiness.ProtectionSeconds = 0f;
+            if (readiness.GetLifecycle(player) == TotemParticipantLifecycle.Loading)
+            {
+                context.Assert(readiness.NotifyLocalClientReady(player, reason),
+                    "Causality readiness should transition the local Participant out of Loading.");
+            }
+
+            readiness.Tick(0.01f);
+            context.Assert(readiness.CanAct(player), "Causality local Participant should be active before combat input.");
+        }
+
         private static TService RequireService<TService>(GFDiagnosticScenarioContext context, TotemGameRuntime runtime, string serviceName)
             where TService : class, ITotemRuntimeService
         {
@@ -435,13 +506,33 @@ namespace UGF.EditorTools
             return service;
         }
 
-        private static void MoveEnemiesAway(TotemActorService actor, TotemActorModel player)
+        private static void MoveOtherParticipantsAway(TotemActorService actor, TotemActorModel player)
         {
             int index = 0;
-            foreach (var enemy in actor.Actors.Where(TotemActorService.IsEnemy))
+            foreach (var participant in actor.Actors)
             {
-                enemy.Position = player.Position + new Vector3(25f + index, 0f, 25f + index);
+                if (participant == null || participant == player)
+                {
+                    continue;
+                }
+
+                participant.Position = player.Position + new Vector3(25f + index, 0f, 25f + index);
                 index++;
+            }
+        }
+
+        private static void MoveNativeEnemiesAway(TotemEnemyService enemies, TotemActorModel player)
+        {
+            var buffer = new TotemEnemyModel[TotemEnemyService.DefaultEnemyCapacity];
+            int count = enemies?.CopyAliveEnemies(buffer) ?? 0;
+            for (int i = 0; i < count; i++)
+            {
+                var enemy = buffer[i];
+                enemy.Position = player.Position + new Vector3(80f + i * 2f, 0f, 80f + i * 2f);
+                if (enemy.GameObject != null)
+                {
+                    enemy.GameObject.transform.position = enemy.Position;
+                }
             }
         }
 

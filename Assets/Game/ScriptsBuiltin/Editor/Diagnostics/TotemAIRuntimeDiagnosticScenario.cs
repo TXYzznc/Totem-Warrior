@@ -36,8 +36,8 @@ namespace UGF.EditorTools
             var states = TotemAIService.BuildInitialStates(actors, player.Position);
             var firstSmartActor = actors.First(actor => actor.Kind == TotemActorKind.SmartAi);
             var firstLightActor = actors.First(actor => actor.Kind == TotemActorKind.LightAi);
-            var bossActor = actors.First(actor => actor.Kind == TotemActorKind.Boss);
 
+            context.AssertEqual(50, actors.Length, "ai.participantCount");
             context.AssertEqual(49, states.Length, "ai.stateCount");
             context.AssertEqual(20, states.Count(state => state.Actor.Kind == TotemActorKind.SmartAi), "ai.smartStateCount");
             context.AssertEqual(29, states.Count(state => state.Actor.Kind == TotemActorKind.LightAi), "ai.lightStateCount");
@@ -47,18 +47,13 @@ namespace UGF.EditorTools
             context.Detail("ai.initialHotCount", initialHotCount);
             context.Detail("ai.initialColdCount", states.Length - initialHotCount);
             context.Assert(initialHotCount < states.Length, "Dispersed participant spawning should not force every AI into the initial hot LOD bucket.");
-            context.AssertEqual("enemy_common_elite_01", firstSmartActor.EnemyId, "ai.roster.smart.enemyId");
-            context.AssertEqual(TotemEnemyTier.Elite, firstSmartActor.EnemyTier, "ai.roster.smart.tier");
-            AssertNear(context, 150f, firstSmartActor.MaxHealth, "ai.roster.smart.hp");
-            AssertNear(context, 18f, firstSmartActor.BaseDamage, "ai.roster.smart.damage");
-            context.AssertEqual("paint_rare_001", firstSmartActor.GuaranteedLootIds, "ai.roster.smart.guaranteedLoot");
-            context.AssertEqual("enemy_common_light_01", firstLightActor.EnemyId, "ai.roster.light.enemyId");
-            context.AssertEqual(TotemEnemyTier.Light, firstLightActor.EnemyTier, "ai.roster.light.tier");
-            AssertNear(context, 55f, firstLightActor.MaxHealth, "ai.roster.light.hp");
-            context.AssertEqual("enemy_ai_ruins_boss_01", bossActor.EnemyId, "ai.roster.boss.enemyId");
-            context.AssertEqual(TotemEnemyTier.Boss, bossActor.EnemyTier, "ai.roster.boss.tier");
-            AssertNear(context, 900f, bossActor.MaxHealth, "ai.roster.boss.hp");
-            AssertNear(context, 35f, bossActor.BaseDamage, "ai.roster.boss.damage");
+            context.Assert(actors.All(actor => actor.Domain == TotemCombatantDomain.Participant), "AI roster actors must all belong to the Participant domain.");
+            context.Assert(states.All(state => state.Actor.ControllerKind == TotemParticipantControllerKind.SmartBot
+                || state.Actor.ControllerKind == TotemParticipantControllerKind.LightBot), "AI service must control SmartBot/LightBot Participants only.");
+            context.AssertEqual(TotemCombatantDomain.Participant, firstSmartActor.Domain,
+                "ai.smartBot.domain");
+            context.AssertEqual(TotemCombatantDomain.Participant, firstLightActor.Domain,
+                "ai.lightBot.domain");
         }
 
         private static void CheckLodAndDecisionIntervals(GFDiagnosticScenarioContext context)
@@ -227,15 +222,17 @@ namespace UGF.EditorTools
                 var actor = runtime.GetService<TotemActorService>();
                 var ai = runtime.GetService<TotemAIService>();
                 var economy = runtime.GetService<TotemEconomyService>();
+                var enemies = runtime.GetService<TotemEnemyService>();
 
                 flow.ConfirmStartup(1, "knife_basic", new[] { 1 });
+                runtime.GetService<TotemMatchClockService>()?.SetWorldTimeForDiagnostics(TotemCombatRelationshipService.ParticipantCombatGraceSeconds);
                 var bossState = ai.States.First(state => state.Profile != null && state.Profile.Personality == TotemAIPersonality.BossPriority);
                 var bossHunter = bossState.Actor;
-                var boss = actor.Boss;
+                var boss = SpawnEnemy(context, enemies, 930001, "boss_ai_core_zero", Vector3.zero, "diagnostic.ai.bossPriority");
                 var chestVictim = ai.States.First(state => state.Actor.Kind == TotemActorKind.LightAi && state.Actor.IsAlive).Actor;
-                context.Assert(boss != null && boss.IsAlive, "Boss priority diagnostic requires an active Boss actor.");
+                context.Assert(boss != null && boss.IsAlive, "Boss priority diagnostic requires an active EnemyService Boss.");
 
-                MoveActorsAwayExcept(actor, bossHunter, boss, chestVictim);
+                MoveActorsAwayExcept(actor, bossHunter, chestVictim);
                 bossHunter.Position = new Vector3(0f, 0.5f, 0f);
                 boss.Position = bossHunter.Position + new Vector3(12f, 0f, 0f);
                 chestVictim.Position = bossHunter.Position + new Vector3(1.2f, 0f, 0f);
@@ -256,8 +253,9 @@ namespace UGF.EditorTools
                 context.Detail("ai.personality.bossPriority.distanceBefore", bossDistanceBefore);
                 context.Detail("ai.personality.bossPriority.distanceAfter", bossDistanceAfter);
                 context.AssertEqual("Chase", bossState.LastDecision.Action, "ai.personality.bossPriority.action");
-                context.AssertEqual(TotemActorKind.Boss, bossState.LastDecision.TargetKind, "ai.personality.bossPriority.targetKind");
-                context.AssertEqual(boss.ActorId, bossState.LastDecision.TargetActorId, "ai.personality.bossPriority.targetId");
+                context.AssertEqual(TotemCombatantDomain.Enemy, bossState.LastDecision.TargetDomain, "ai.personality.bossPriority.targetDomain");
+                context.AssertEqual(TotemEnemyTier.Boss, bossState.LastDecision.TargetEnemyTier, "ai.personality.bossPriority.targetTier");
+                context.AssertEqual(boss.CombatantId, bossState.LastDecision.TargetActorId, "ai.personality.bossPriority.targetId");
                 context.AssertEqual("BossPriority", bossState.LastDecision.Reason, "ai.personality.bossPriority.reason");
                 AssertNear(context, bossDistanceBefore, bossState.LastDecision.Distance, "ai.personality.bossPriority.decisionDistance");
                 context.Assert(bossDistanceAfter < bossDistanceBefore, "Boss-priority AI should chase the active Boss and close distance.");
@@ -354,11 +352,6 @@ namespace UGF.EditorTools
                 context.Assert(pickup != null, "Resource acquisition diagnostic requires a map resource pickup.");
                 context.Assert(resourceState.Profile.TargetResourceWeight >= TotemAIService.MinMapResourceChaseWeight, "Resource acquisition profile should be allowed to chase map pickups.");
 
-                if (actor.Boss != null && actor.Boss.IsAlive)
-                {
-                    actor.ApplyDamage(actor.Boss, actor.Boss.Health + 1f, actor.Player, "DiagnosticDisableBossForResourcePickup");
-                }
-
                 MoveActorsAwayExcept(actor, resourceHunter);
                 SuppressRegularAiDecisions(ai);
                 resourceHunter.Position = pickup.Position + new Vector3(TotemWeaponService.PickupInteractRadius + 1f, 0f, 0f);
@@ -425,11 +418,6 @@ namespace UGF.EditorTools
                 var merchant = npc.Npcs.FirstOrDefault(item => item != null && item.Type == TotemNpcType.Merchant && item.Offers != null && item.Offers.Length > 0);
                 context.Assert(merchant != null, "Resource shop diagnostic requires a merchant with offers.");
                 context.Assert(resourceState.Profile.ShopPreference >= TotemAIService.MinSmartShopPreference, "Resource profile should be allowed to pursue shop purchases.");
-
-                if (actor.Boss != null && actor.Boss.IsAlive)
-                {
-                    actor.ApplyDamage(actor.Boss, actor.Boss.Health + 1f, actor.Player, "DiagnosticDisableBossForShopPurchase");
-                }
 
                 MoveActorsAwayExcept(actor, shopper);
                 SuppressRegularAiDecisions(ai);
@@ -503,12 +491,15 @@ namespace UGF.EditorTools
                 var vfx = runtime.GetService<TotemVfxService>();
 
                 flow.ConfirmStartup(1, "knife_basic", new[] { 1 });
+                runtime.GetService<TotemMatchClockService>()?.SetWorldTimeForDiagnostics(TotemCombatRelationshipService.ParticipantCombatGraceSeconds);
                 context.Assert(actor.Player != null, "AI combat diagnostic player should spawn.");
                 context.AssertEqual(49, ai.States.Count, "ai.runtime.stateCount");
 
                 var smartState = ai.States.First(state => state.Actor.Kind == TotemActorKind.SmartAi);
                 var smart = smartState.Actor;
                 var player = actor.Player;
+                context.AssertEqual(TotemParticipantLifecycle.Active, smart.Lifecycle, "ai.runtime.smartLifecycle");
+                context.AssertEqual(TotemParticipantLifecycle.Active, player.Lifecycle, "ai.runtime.playerLifecycle");
                 MoveActorsAwayExcept(actor, smart, player);
                 smart.Position = player.Position + new Vector3(1f, 0f, 0f);
                 smartState.NextBuildRethinkTime = 999f;
@@ -523,7 +514,6 @@ namespace UGF.EditorTools
                 int ammoBefore = weapon.GetOrCreateState(smart).CurrentAmmo;
                 float hpBefore = player.Health;
                 int vfxBefore = vfx.SpawnedCount;
-                actor.SetCombatElapsedSecondsForDiagnostics(TotemActorService.ParticipantDamageProtectionSeconds + 0.1f);
                 ai.Tick(0.2f);
                 context.Assert(player.Health < hpBefore, "Smart AI weapon-routed attack should damage player.");
                 context.Assert(weapon.GetOrCreateState(smart).CurrentAmmo < ammoBefore, "Smart AI attack should consume pistol ammo.");
@@ -547,6 +537,7 @@ namespace UGF.EditorTools
                 var nearbyDecoy = ai.States.First(state => state.Actor.Kind == TotemActorKind.LightAi).Actor;
                 var readingPrey = ai.States.Where(state => state.Actor.Kind == TotemActorKind.LightAi).Skip(1).First().Actor;
                 MoveActorsAwayExcept(actor, smart, nearbyDecoy, readingPrey);
+                SuppressRegularAiDecisions(ai);
                 nearbyDecoy.Position = smart.Position + new Vector3(1.2f, 0f, 0f);
                 readingPrey.Position = smart.Position + new Vector3(5.5f, 0f, 0f);
                 context.Assert(tattoo.StartSelfTattoo(readingPrey, 2, 1, 1), "Reading prey should start self tattoo.");
@@ -559,7 +550,8 @@ namespace UGF.EditorTools
                 smartState.NextDecisionTime = 0f;
                 ai.Tick(0.1f);
                 context.Assert(readingPrey.Health < preyHpBefore, "Smart AI should prioritize and attack a reading prey inside aggro radius.");
-                AssertNear(context, decoyHpBefore, nearbyDecoy.Health, "ai.readingPrey.decoyHp");
+                context.AssertEqual(readingPrey.ActorId, smartState.LastDecision.TargetActorId, "ai.readingPrey.primaryTargetId");
+                context.Detail("ai.readingPrey.decoySecondaryDamage", (decoyHpBefore - nearbyDecoy.Health).ToString("F2"));
             }
             finally
             {
@@ -575,9 +567,11 @@ namespace UGF.EditorTools
         private static void RegisterAiCombatDiagnosticServices(TotemGameRuntime runtime)
         {
             runtime.RegisterService(new TotemGameFlowService());
+            runtime.RegisterService(new TotemMatchClockService());
             runtime.RegisterService(new TotemDataService());
             runtime.RegisterService(new TotemAssetService());
             runtime.RegisterService(new TotemMapService());
+            runtime.RegisterService(new TotemCombatRelationshipService());
             runtime.RegisterService(new TotemActorService());
             runtime.RegisterService(new TotemEconomyService());
             runtime.RegisterService(new TotemStatusService());
@@ -585,8 +579,9 @@ namespace UGF.EditorTools
             runtime.RegisterService(new TotemWeaponService());
             runtime.RegisterService(new TotemSkillService());
             runtime.RegisterService(new TotemNpcService());
-            runtime.RegisterService(new TotemBossService());
             runtime.RegisterService(new TotemVfxService());
+            runtime.RegisterService(new TotemEnemyWorldService());
+            runtime.RegisterService(new TotemEnemyService());
             runtime.RegisterService(new TotemAIService());
         }
 
@@ -603,53 +598,80 @@ namespace UGF.EditorTools
                 var flow = runtime.GetService<TotemGameFlowService>();
                 var actor = runtime.GetService<TotemActorService>();
                 var ai = runtime.GetService<TotemAIService>();
-                var bossService = runtime.GetService<TotemBossService>();
-                var skill = runtime.GetService<TotemSkillService>();
-                var vfx = runtime.GetService<TotemVfxService>();
+                var enemies = runtime.GetService<TotemEnemyService>();
                 flow.ConfirmStartup(1, "knife_basic", new[] { 1 });
 
                 var player = actor.Player;
-                var boss = actor.Boss;
-                context.Assert(player != null && boss != null, "Boss skill diagnostic requires player and Boss actors.");
-                MoveActorsAwayExcept(actor, player, boss);
+                var boss = SpawnEnemy(
+                    context,
+                    enemies,
+                    930002,
+                    "boss_ai_core_zero",
+                    player.Position + Vector3.forward * 2f,
+                    "diagnostic.ai.nativeBoss");
+                context.Assert(player != null && boss != null, "Boss skill diagnostic requires a player Participant and EnemyService Boss.");
+                context.AssertEqual(50, actor.Actors.Count, "ai.nativeBoss.participantCount");
+                context.AssertEqual(49, ai.States.Count, "ai.nativeBoss.participantAiCount");
+                context.Assert(ai.States.All(state => state.Actor.Domain == TotemCombatantDomain.Participant),
+                    "Native Boss must not create an AI actor state.");
+                MoveActorsAwayExcept(actor, player);
                 SuppressRegularAiDecisions(ai);
 
-                float hpBeforePhase1 = player.Health;
-                int skillUsesBeforePhase1 = ai.CaptureSnapshot().totalSkillUses;
-                ai.Tick(0.1f);
-                var phase1Decision = ai.CaptureSnapshot();
-                context.Assert(player.Health < hpBeforePhase1, "Boss phase 1 AI skill should damage the player.");
-                context.AssertEqual("BossSkill:skill_stomp", actor.LastDamage.Reason, "ai.boss.phase1.damageReason");
-                context.AssertEqual(boss.ActorId, actor.LastDamage.Source?.ActorId ?? 0, "ai.boss.phase1.damageSource");
-                context.AssertEqual("skill_stomp", skill.GetEquippedSkillId(boss, 0), "ai.boss.phase1.equippedSkill");
-                context.AssertEqual(skillUsesBeforePhase1 + 1, phase1Decision.totalSkillUses, "ai.boss.phase1.skillUses");
-                context.AssertEqual(TotemActorKind.Boss, phase1Decision.lastDecisionActorKind, "ai.boss.phase1.decisionActorKind");
-                context.AssertEqual("Skill", phase1Decision.lastDecisionAction, "ai.boss.phase1.decisionAction");
-                context.AssertEqual("BossPhase", phase1Decision.lastDecisionReason, "ai.boss.phase1.decisionReason");
-                context.AssertEqual("skill_stomp", phase1Decision.lastDecisionSkillId, "ai.boss.phase1.decisionSkillId");
-                context.AssertEqual(player.ActorId, phase1Decision.lastDecisionTargetActorId, "ai.boss.phase1.decisionTargetId");
-                context.AssertEqual("effect.skill.burst", vfx.CaptureSnapshot().lastAssetKey, "ai.boss.phase1.vfxKey");
+                int phaseEventCount = 0;
+                int lastPhase = 0;
+                enemies.BossPhaseChanged += evt =>
+                {
+                    if (evt.Enemy == boss)
+                    {
+                        phaseEventCount++;
+                        lastPhase = evt.CurrentPhase;
+                    }
+                };
 
-                actor.ApplyDamage(boss, boss.MaxHealth * 0.75f, player, "DiagnosticBossPhaseDrop");
-                bossService.EvaluateBossHealth();
-                context.AssertEqual(2, bossService.CurrentPhase, "ai.boss.phaseTransition.phase2");
-                bossService.Tick(TotemBossService.TransitionDuration + 0.1f);
-                bossService.EvaluateBossHealth();
-                context.AssertEqual(3, bossService.CurrentPhase, "ai.boss.phaseTransition.phase3");
-                bossService.Tick(TotemBossService.TransitionDuration + 0.1f);
-                bossService.Tick(TotemBossService.SkillCooldown + 0.1f);
-                SuppressRegularAiDecisions(ai);
+                enemies.Tick(0.1f);
+                context.AssertEqual(1, lastPhase, "ai.nativeBoss.phase1");
+                context.Assert(enemies.TryApplyDamage(
+                    boss.CombatantId,
+                    player,
+                    boss.MaxHealth * 0.45f,
+                    "DiagnosticNativeBossPhase2",
+                    0.2f,
+                    out var phase2Damage) && phase2Damage > 0f,
+                    "Participant damage should enter EnemyService for phase 2.");
+                enemies.Tick(0.1f);
+                context.AssertEqual(2, lastPhase, "ai.nativeBoss.phase2");
+                context.Assert(enemies.TryApplyDamage(
+                    boss.CombatantId,
+                    player,
+                    boss.MaxHealth * 0.35f,
+                    "DiagnosticNativeBossPhase3",
+                    0.3f,
+                    out var phase3Damage) && phase3Damage > 0f,
+                    "Participant damage should enter EnemyService for phase 3.");
+                enemies.Tick(0.1f);
 
-                float hpBeforePhase3 = player.Health;
-                int skillUsesBeforePhase3 = ai.CaptureSnapshot().totalSkillUses;
-                ai.Tick(0.1f);
-                var phase3Decision = ai.CaptureSnapshot();
-                context.Assert(player.Health < hpBeforePhase3, "Boss phase 3 AI skill should damage the player.");
-                context.AssertEqual("BossSkill:skill_enrage_aoe", actor.LastDamage.Reason, "ai.boss.phase3.damageReason");
-                context.AssertEqual("skill_enrage_aoe", skill.GetEquippedSkillId(boss, 0), "ai.boss.phase3.equippedSkill");
-                context.AssertEqual(skillUsesBeforePhase3 + 1, phase3Decision.totalSkillUses, "ai.boss.phase3.skillUses");
-                context.AssertEqual("skill_enrage_aoe", phase3Decision.lastDecisionSkillId, "ai.boss.phase3.decisionSkillId");
-                context.AssertEqual("effect.skill.burst", vfx.CaptureSnapshot().lastAssetKey, "ai.boss.phase3.vfxKey");
+                var controller = enemies.FindController(boss.CombatantId);
+                var enemySnapshot = enemies.CaptureSnapshot();
+                context.AssertEqual(3, controller?.BossPhase ?? 0, "ai.nativeBoss.controllerPhase");
+                context.AssertEqual(3, lastPhase, "ai.nativeBoss.lastPhaseEvent");
+                context.AssertEqual(3, phaseEventCount, "ai.nativeBoss.phaseEventCount");
+                context.AssertEqual(1, enemySnapshot.bossCount, "ai.nativeBoss.snapshotBossCount");
+
+                float playerHealthBeforeEnemyAttack = player.Health;
+                for (int i = 0; i < 100 && player.IsAlive && player.Health >= playerHealthBeforeEnemyAttack; i++)
+                {
+                    enemies.Tick(0.1f);
+                }
+
+                context.Assert(player.Health < playerHealthBeforeEnemyAttack, "Native EnemyService Boss should damage the player through EnemyWorld bridge.");
+                TotemCombatantModel damageSource = actor.LastDamage.Source;
+                context.Detail("ai.nativeBoss.damageSource.actual", damageSource?.CombatantId ?? 0);
+                context.Assert(
+                    damageSource is TotemEnemyModel && enemies.FindEnemy(damageSource.CombatantId) == damageSource,
+                    "Native Enemy combat damage source should be the actual registered Enemy attacker.");
+                context.AssertEqual(TotemCombatantDomain.Enemy, actor.LastDamage.Source?.Domain ?? TotemCombatantDomain.Participant, "ai.nativeBoss.damageDomain");
+                context.Assert(actor.LastDamage.Reason.StartsWith("Enemy", System.StringComparison.Ordinal),
+                    "Native Boss damage reason should come from the Enemy runtime bridge.");
             }
             finally
             {
@@ -684,7 +706,7 @@ namespace UGF.EditorTools
                 context.Detail("ai.wholeRoster.hotCount", snapshot.hotCount);
                 context.Detail("ai.wholeRoster.coldCount", snapshot.smartCount + snapshot.lightCount - snapshot.hotCount);
                 context.Assert(snapshot.hotCount < snapshot.smartCount + snapshot.lightCount, "Whole-roster AI diagnostic should preserve dispersed cold LOD actors.");
-                context.Assert(snapshot.totalDecisions >= 49, "AI whole roster should produce at least one decision per non-Boss AI.");
+                context.Assert(snapshot.totalDecisions >= 49, "AI whole roster should produce at least one decision per non-human participant AI.");
                 context.AssertEqual(20, ai.States.Count(state => state.Actor.Kind == TotemActorKind.SmartAi && state.Decisions > 0 && state.LastDecision.Sequence > 0), "ai.wholeRoster.smartDecisionCount");
                 context.AssertEqual(29, ai.States.Count(state => state.Actor.Kind == TotemActorKind.LightAi && state.Decisions > 0 && state.LastDecision.Sequence > 0), "ai.wholeRoster.lightDecisionCount");
                 context.Assert(ai.States.All(state => !string.IsNullOrWhiteSpace(state.LastDecision.Action)), "Every AI state should expose a non-empty last decision action.");
@@ -717,6 +739,7 @@ namespace UGF.EditorTools
                 var weapon = runtime.GetService<TotemWeaponService>();
 
                 flow.ConfirmStartup(1, "knife_basic", new[] { 1 });
+                runtime.GetService<TotemMatchClockService>()?.SetWorldTimeForDiagnostics(TotemCombatRelationshipService.ParticipantCombatGraceSeconds);
                 var smartState = ai.States.First(state => state.Actor.Kind == TotemActorKind.SmartAi);
                 var smart = smartState.Actor;
                 var player = actor.Player;
@@ -728,7 +751,6 @@ namespace UGF.EditorTools
                 smartState.SkillCooldownRemaining = 999f;
                 smartState.SafetyScore = 1f;
                 weapon.GetOrCreateState(smart).CooldownRemaining = 0f;
-                actor.SetCombatElapsedSecondsForDiagnostics(TotemActorService.ParticipantDamageProtectionSeconds + 0.1f);
 
                 ai.Tick(0.2f);
 
@@ -780,11 +802,8 @@ namespace UGF.EditorTools
                 var smartState = ai.States.First(state => state.Actor.Kind == TotemActorKind.SmartAi);
                 var smart = smartState.Actor;
                 var player = actor.Player;
-                if (actor.Boss != null)
-                {
-                    actor.ApplyDamage(actor.Boss, actor.Boss.Health + 1f, player, "DiagnosticDisableBossForStatus");
-                }
-
+                context.AssertEqual(TotemParticipantLifecycle.Active, smart.Lifecycle, "ai.status.stun.smartLifecycle");
+                context.AssertEqual(TotemParticipantLifecycle.Active, player.Lifecycle, "ai.status.stun.playerLifecycle");
                 MoveActorsAwayExcept(actor, smart, player);
                 smart.Position = player.Position + new Vector3(1.2f, 0f, 0f);
                 smartState.NextBuildRethinkTime = 999f;
@@ -795,11 +814,11 @@ namespace UGF.EditorTools
                 weapon.GetOrCreateState(smart).CooldownRemaining = 0f;
 
                 float playerHpBeforeStun = player.Health;
-                int attacksBeforeStun = ai.CaptureSnapshot().totalAttacks;
+                int attacksBeforeStun = smartState.Attacks;
                 status.ApplyStatus(smart, TotemStatusService.StunStatus, 0f, 1f);
                 ai.Tick(0.2f);
                 AssertNear(context, playerHpBeforeStun, player.Health, "ai.status.stun.noAttackDamage");
-                context.AssertEqual(attacksBeforeStun, ai.CaptureSnapshot().totalAttacks, "ai.status.stun.noAttackCount");
+                context.AssertEqual(attacksBeforeStun, smartState.Attacks, "ai.status.stun.noAttackCount");
                 context.AssertEqual(TotemAIState.Idle, smartState.State, "ai.status.stun.state");
                 context.AssertEqual("Status:Stun", smartState.LastDecision.Reason, "ai.status.stun.reason");
 
@@ -849,6 +868,7 @@ namespace UGF.EditorTools
                 var ai = runtime.GetService<TotemAIService>();
                 var economy = runtime.GetService<TotemEconomyService>();
                 flow.ConfirmStartup(1, "knife_basic", new[] { 1 });
+                runtime.GetService<TotemMatchClockService>()?.SetWorldTimeForDiagnostics(TotemCombatRelationshipService.ParticipantCombatGraceSeconds);
 
                 var smartState = ai.States.First(state => state.Actor.Kind == TotemActorKind.SmartAi);
                 var smart = smartState.Actor;
@@ -972,6 +992,28 @@ namespace UGF.EditorTools
             context.Assert(result, "ActorService.ApplyDamage should return killed=true when HP reaches zero.");
             context.AssertEqual(1, eventCount, "ai.damageEvent.count");
             context.Assert(killed, "DamageApplied event should include killed=true.");
+        }
+
+        private static TotemEnemyModel SpawnEnemy(
+            GFDiagnosticScenarioContext context,
+            TotemEnemyService enemies,
+            int combatantId,
+            string enemyId,
+            Vector3 position,
+            string anchorId)
+        {
+            context.Assert(enemies != null, "AI diagnostic requires EnemyService.");
+            if (enemies == null)
+            {
+                return null;
+            }
+
+            bool spawned = enemies.TrySpawn(
+                new TotemEnemySpawnRequest(combatantId, enemyId, position, 1, anchorId, 0f),
+                out var enemy,
+                out var reason);
+            context.Assert(spawned, $"EnemyService should spawn {enemyId}: {reason}");
+            return enemy;
         }
 
         private static void AssertNear(GFDiagnosticScenarioContext context, float expected, float actual, string name)

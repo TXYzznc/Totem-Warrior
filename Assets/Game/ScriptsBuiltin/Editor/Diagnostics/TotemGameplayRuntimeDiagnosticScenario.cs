@@ -28,7 +28,7 @@ namespace UGF.EditorTools
             CheckInputMath(context);
             CheckSelfTattooUIInputRouting(context);
             CheckCombatMath(context);
-            CheckParticipantDamageGracePeriod(context);
+            CheckParticipantReadinessDamageProtection(context);
             CheckCombatStatusControl(context);
             CheckCameraRuntime(context);
             CheckCombatLifecycleCleanup(context);
@@ -50,7 +50,10 @@ namespace UGF.EditorTools
                 "TotemWeaponService",
                 "TotemSkillService",
                 "TotemZoneService",
-                "TotemBossService",
+                "TotemMatchClockService",
+                "TotemCombatRelationshipService",
+                "TotemEnemyWorldService",
+                "TotemEnemyService",
                 "TotemAIService",
                 "TotemNpcService",
                 "TotemChoiceService",
@@ -157,7 +160,7 @@ namespace UGF.EditorTools
             var sameSeed = TotemMapService.BuildLayout(seed: 77, themeId: 1);
             var differentSeed = TotemMapService.BuildLayout(seed: 78, themeId: 1);
 
-            context.AssertEqual(16, map.AnchorPlacements?.Length ?? 0, "map.anchor.count");
+            context.AssertEqual(24, map.AnchorPlacements?.Length ?? 0, "map.anchor.count");
             RequireAnchor(context, map, TotemMapAnchorKind.PlayerSpawn, "player.spawn");
             RequireAnchor(context, map, TotemMapAnchorKind.BossSpawn, "boss.spawn");
             RequireAnchor(context, map, TotemMapAnchorKind.Tattooist, "npc.tattooist.base");
@@ -166,6 +169,7 @@ namespace UGF.EditorTools
             context.AssertEqual(3, TotemMapService.FindAnchors(map, TotemMapAnchorKind.EnemySpawn).Length, "map.anchor.enemySpawnCount");
             context.AssertEqual(3, TotemMapService.FindAnchors(map, TotemMapAnchorKind.Resource).Length, "map.anchor.resourceCount");
             context.AssertEqual(2, TotemMapService.FindAnchors(map, TotemMapAnchorKind.Event).Length, "map.anchor.eventCount");
+            context.AssertEqual(8, TotemMapService.FindAnchors(map, TotemMapAnchorKind.Encounter).Length, "map.anchor.encounterCount");
             AssertAnchorWalkable(context, map);
             context.Assert(AnchorSetsEqual(map, sameSeed), "Map anchors must be deterministic for the same seed and theme.");
             context.Assert(!AnchorSetsEqual(map, differentSeed), "Map anchors should vary when seed changes.");
@@ -175,11 +179,15 @@ namespace UGF.EditorTools
         {
             var map = TotemMapService.BuildLayout(seed: 1, themeId: 1);
             var roster = TotemActorService.BuildActorRoster(map, new TotemStartupSelection());
-            context.AssertEqual(51, roster.Length, "actorRoster.totalIncludingBoss");
+            context.AssertEqual(50, roster.Length, "actorRoster.participantCount");
             context.AssertEqual(1, roster.Count(actor => actor.Kind == TotemActorKind.Player), "actorRoster.player");
             context.AssertEqual(20, roster.Count(actor => actor.Kind == TotemActorKind.SmartAi), "actorRoster.smartAi");
             context.AssertEqual(29, roster.Count(actor => actor.Kind == TotemActorKind.LightAi), "actorRoster.lightAi");
-            context.AssertEqual(1, roster.Count(actor => actor.Kind == TotemActorKind.Boss), "actorRoster.boss");
+            context.Assert(roster.All(actor => actor.ControllerKind == TotemParticipantControllerKind.Human
+                || actor.ControllerKind == TotemParticipantControllerKind.SmartBot
+                || actor.ControllerKind == TotemParticipantControllerKind.LightBot), "Actor roster must contain Participant controller kinds only.");
+            context.Assert(roster.All(actor => TotemActorService.IsParticipantKind(actor.Kind)),
+                "Actor roster must contain Participant kinds only.");
             AssertParticipantSpawnSeparation(context, roster, "actorRoster.participantMinDistance");
         }
 
@@ -190,11 +198,16 @@ namespace UGF.EditorTools
             var playerAnchor = TotemMapService.FindAnchor(map, TotemMapAnchorKind.PlayerSpawn);
             var bossAnchor = TotemMapService.FindAnchor(map, TotemMapAnchorKind.BossSpawn);
             var player = roster.FirstOrDefault(actor => actor.Kind == TotemActorKind.Player);
-            var boss = roster.FirstOrDefault(actor => actor.Kind == TotemActorKind.Boss);
             context.Assert(player != null && playerAnchor != null, "Anchor consumer diagnostic requires player spawn data.");
-            context.Assert(boss != null && bossAnchor != null, "Anchor consumer diagnostic requires boss spawn data.");
+            context.Assert(bossAnchor != null, "Anchor consumer diagnostic requires Boss spawn anchor data.");
             AssertNear(context, 0f, FlatDistance(player.Position, playerAnchor.Position), "map.anchor.consumer.player");
-            AssertNear(context, 0f, FlatDistance(boss.Position, bossAnchor.Position), "map.anchor.consumer.boss");
+            var enemies = new TotemEnemyService();
+            context.Assert(enemies.TrySpawn(
+                new TotemEnemySpawnRequest(950001, "boss_ai_core_zero", bossAnchor.Position, 1, bossAnchor.AnchorId, 0f),
+                out var boss,
+                out var bossSpawnReason), $"EnemyService should consume the Boss anchor: {bossSpawnReason}");
+            AssertNear(context, 0f, FlatDistance(boss.Position, bossAnchor.Position), "map.anchor.consumer.enemyBoss");
+            context.AssertEqual(1, enemies.CaptureSnapshot().bossCount, "map.anchor.consumer.enemyBossCount");
             AssertEnemySpawnAnchorConsumers(context, map, roster);
 
             var chestService = new TotemChestService();
@@ -359,7 +372,9 @@ namespace UGF.EditorTools
                 var flow = runtime.GetService<TotemGameFlowService>();
                 var mapService = runtime.GetService<TotemMapService>();
                 var actorService = runtime.GetService<TotemActorService>();
+                var clock = runtime.GetService<TotemMatchClockService>();
                 flow.ConfirmStartup(1, "knife_basic", new[] { 1 });
+                clock?.SetWorldTimeForDiagnostics(TotemCombatRelationshipService.ParticipantCombatGraceSeconds);
 
                 var map = mapService.CurrentMap;
                 var player = actorService.Player;
@@ -393,8 +408,8 @@ namespace UGF.EditorTools
                 context.AssertEqual(1, actorSnapshot.terrainHazardHitCount, "map.terrain.hazardHitCount");
                 AssertNear(context, 0.8f, actorSnapshot.lastTerrainHazardDamageTick, "map.terrain.hazardDamageTick");
 
-                var coverTarget = FindFirstAliveEnemy(actorService);
-                context.Assert(coverTarget != null, "Terrain movement diagnostic should find a cover damage target.");
+                var coverTarget = FindFirstAliveBotParticipant(actorService);
+                context.Assert(coverTarget != null, "Terrain movement diagnostic should find a cover damage Participant.");
                 var sourcePosition = FindRoomCenter(map, TotemRoomType.SpawnRoom);
                 SetActorPosition(player, sourcePosition);
                 context.Assert(FindCoverSample(map, sourcePosition, out var coverPosition), "Terrain movement diagnostic should find a cover sample far from the source.");
@@ -435,7 +450,10 @@ namespace UGF.EditorTools
             runtime.RegisterService(new TotemDataService());
             runtime.RegisterService(new TotemAssetService());
             runtime.RegisterService(new TotemMapService());
+            runtime.RegisterService(new TotemMatchClockService());
+            runtime.RegisterService(new TotemCombatRelationshipService());
             runtime.RegisterService(new TotemActorService());
+            runtime.RegisterService(new TotemEnemyService());
         }
 
         private static void CheckStartupSelectionRuntime(GFDiagnosticScenarioContext context)
@@ -545,17 +563,17 @@ namespace UGF.EditorTools
                 context.AssertEqual(1, attack.attackTriggerCount, "animation.attack.triggerCount");
                 context.AssertEqual("DiagnosticAttack", attack.lastReason, "animation.attack.reason");
 
-                var enemy = actor.Actors.FirstOrDefault(TotemActorService.IsEnemy);
-                context.Assert(enemy != null, "Animation diagnostic should have an enemy.");
-                actor.ApplyDamage(enemy, enemy.Health + 1f, player, "DiagnosticKill");
-                var death = actor.CaptureAnimationSnapshot(enemy);
+                var defeatedParticipant = actor.Actors.FirstOrDefault(item => item.ControllerKind == TotemParticipantControllerKind.SmartBot);
+                context.Assert(defeatedParticipant != null, "Animation diagnostic should have a SmartBot Participant.");
+                actor.ApplyDamage(defeatedParticipant, defeatedParticipant.Health + 1f, player, "DiagnosticParticipantKill");
+                var death = actor.CaptureAnimationSnapshot(defeatedParticipant);
                 context.Assert(death.animationDead, "Killed actor should mark animationDead.");
                 context.Assert(death.animatorDead, "Killed actor Animator should set Dead.");
                 context.AssertEqual(1, death.deathTriggerCount, "animation.death.triggerCount");
-                context.Assert(enemy.GameObject == null || enemy.GameObject.activeSelf, "Killed non-player actor should remain visible until death hide delay.");
+                context.Assert(defeatedParticipant.GameObject == null || defeatedParticipant.GameObject.activeSelf, "Killed non-player Participant should remain visible until death hide delay.");
 
                 actor.Tick(1f);
-                context.Assert(enemy.GameObject == null || !enemy.GameObject.activeSelf, "Killed non-player actor should hide after death delay.");
+                context.Assert(defeatedParticipant.GameObject == null || !defeatedParticipant.GameObject.activeSelf, "Killed non-player Participant should hide after death delay.");
             }
             finally
             {
@@ -686,37 +704,29 @@ namespace UGF.EditorTools
 
         private static void CheckCombatMath(GFDiagnosticScenarioContext context)
         {
-            var actors = new[]
-            {
-                new TotemActorModel(new TotemActorSpawnInfo { ActorId = 1, Name = "Player", Kind = TotemActorKind.Player, Position = Vector3.zero, MaxHealth = 100f }),
-                new TotemActorModel(new TotemActorSpawnInfo { ActorId = 2, Name = "Near", Kind = TotemActorKind.SmartAi, Position = new Vector3(0f, 0f, 5f), MaxHealth = 50f }),
-                new TotemActorModel(new TotemActorSpawnInfo { ActorId = 3, Name = "Far", Kind = TotemActorKind.LightAi, Position = new Vector3(0f, 0f, 10f), MaxHealth = 50f }),
-                new TotemActorModel(new TotemActorSpawnInfo { ActorId = 4, Name = "Side", Kind = TotemActorKind.LightAi, Position = new Vector3(10f, 0f, 0f), MaxHealth = 50f }),
-            };
+            var enemies = new TotemEnemyService();
+            context.Assert(enemies.TrySpawn(
+                new TotemEnemySpawnRequest(950101, "enemy_common_hunter", new Vector3(0f, 0f, 5f), 1, "combat.near", 0f),
+                out var near,
+                out var nearReason), $"Combat math should spawn near EnemyModel: {nearReason}");
+            context.Assert(enemies.TrySpawn(
+                new TotemEnemySpawnRequest(950102, "enemy_common_shooter", new Vector3(0f, 0f, 10f), 1, "combat.far", 0f),
+                out var far,
+                out var farReason), $"Combat math should spawn far EnemyModel: {farReason}");
+            context.Assert(enemies.TrySpawn(
+                new TotemEnemySpawnRequest(950103, "enemy_ai_servo", new Vector3(10f, 0f, 0f), 1, "combat.side", 0f),
+                out _,
+                out var sideReason), $"Combat math should spawn side EnemyModel: {sideReason}");
 
-            var closest = TotemCombatService.FindClosestAliveEnemy(actors, Vector3.zero, maxRange: 30f);
-            context.Assert(ReferenceEquals(actors[1], closest), "Closest alive enemy should be selected.");
+            context.Assert(ReferenceEquals(near, enemies.FindClosestAliveEnemy(Vector3.zero, 30f)),
+                "EnemyService should select the nearest alive EnemyModel.");
+            context.Assert(ReferenceEquals(near, enemies.FindBestAimTarget(Vector3.zero, Vector3.forward, 30f, 45f)),
+                "EnemyService cone targeting should prefer the centered near enemy.");
 
-            var cone = TotemCombatService.FindBestConeTarget(actors, Vector3.zero, Vector3.forward, maxRange: 30f, halfAngleDegrees: 45f);
-            context.Assert(ReferenceEquals(actors[1], cone), "Cone targeting should prefer the centered near enemy.");
-
-            var fullLock = TotemCombatService.SelectAimTarget(actors, Vector3.zero, Vector3.forward, maxRange: 1f, halfAngleDegrees: 180f, out string fullLockMode);
-            context.AssertEqual("FullLock", fullLockMode, "combat.targeting.fullLock.mode");
-            context.Assert(ReferenceEquals(actors[1], fullLock), "Full-lock targeting should ignore range and select the closest alive enemy like the old controller.");
-
-            var strict = TotemCombatService.SelectAimTarget(actors, Vector3.zero, Vector3.forward, maxRange: 30f, halfAngleDegrees: 0f, out string strictMode);
-            context.AssertEqual("RaycastGeometry", strictMode, "combat.targeting.strict.mode");
-            context.Assert(ReferenceEquals(actors[1], strict), "Strict geometry targeting should select the centered forward enemy.");
-
-            var scoredActors = new[]
-            {
-                new TotemActorModel(new TotemActorSpawnInfo { ActorId = 1, Name = "Player", Kind = TotemActorKind.Player, Position = Vector3.zero, MaxHealth = 100f }),
-                new TotemActorModel(new TotemActorSpawnInfo { ActorId = 2, Name = "NearSide", Kind = TotemActorKind.LightAi, Position = new Vector3(1f, 0f, 1f), MaxHealth = 50f }),
-                new TotemActorModel(new TotemActorSpawnInfo { ActorId = 3, Name = "CenteredFar", Kind = TotemActorKind.LightAi, Position = new Vector3(0f, 0f, 5f), MaxHealth = 50f }),
-            };
-            var scored = TotemCombatService.SelectAimTarget(scoredActors, Vector3.zero, Vector3.forward, maxRange: 30f, halfAngleDegrees: 45f, out string scoredMode);
-            context.AssertEqual("Cone", scoredMode, "combat.targeting.cone.mode");
-            context.Assert(ReferenceEquals(scoredActors[2], scored), "Cone targeting should use old score formula, not pure nearest distance.");
+            near.Position = new Vector3(1f, 0f, 1f);
+            far.Position = new Vector3(0f, 0f, 5f);
+            context.Assert(ReferenceEquals(far, enemies.FindBestAimTarget(Vector3.zero, Vector3.forward, 30f, 45f)),
+                "EnemyService aim score should prefer alignment over pure nearest distance.");
 
             var aimForward = TotemCombatService.ResolveAimForward(
                 new TotemInputSnapshot { hasAimWorldPoint = true, aimWorldPoint = new Vector3(4f, 0f, 0f) },
@@ -724,33 +734,64 @@ namespace UGF.EditorTools
                 Vector3.forward);
             AssertNear(context, 1f, aimForward.x, "combat.targeting.aimForward.x");
 
-            actors[1].ApplyDamage(60f);
-            context.Assert(!actors[1].IsAlive, "Damage should kill targets at or below zero HP.");
-            var nextClosest = TotemCombatService.FindClosestAliveEnemy(actors, Vector3.zero, maxRange: 30f);
-            context.Assert(ReferenceEquals(actors[2], nextClosest), "Dead targets must be skipped.");
+            var participant = new TotemActorModel(new TotemActorSpawnInfo
+            {
+                ActorId = 1,
+                Name = "Participant",
+                Kind = TotemActorKind.Player,
+                ControllerKind = TotemParticipantControllerKind.Human,
+                MaxHealth = 100f,
+            });
+            int deathEventCount = 0;
+            enemies.EnemyDied += evt =>
+            {
+                if (evt.Enemy == near && evt.Killer == participant)
+                {
+                    deathEventCount++;
+                }
+            };
+            context.Assert(enemies.TryApplyDamage(
+                near.CombatantId,
+                participant,
+                near.Health + 1f,
+                "DiagnosticCombatMathKill",
+                0.1f,
+                out var appliedDamage) && appliedDamage > 0f,
+                "Participant damage should kill through EnemyService.");
+            context.Assert(!near.IsAlive, "EnemyService damage should kill targets at or below zero HP.");
+            context.AssertEqual(1, deathEventCount, "combat.enemy.deathEventCount");
+            context.AssertEqual("enemy_common_hunter", enemies.CaptureDomainSnapshot().lastDiedEnemyId, "combat.enemy.lastDiedEnemyId");
+            context.Assert(ReferenceEquals(far, enemies.FindClosestAliveEnemy(Vector3.zero, 30f)), "Dead EnemyModels must be skipped.");
         }
 
-        private static void CheckParticipantDamageGracePeriod(GFDiagnosticScenarioContext context)
+        private static void CheckParticipantReadinessDamageProtection(GFDiagnosticScenarioContext context)
         {
-            var runtimeObject = new GameObject("[TotemParticipantGraceDiagnosticRuntime]");
+            var runtimeObject = new GameObject("[TotemParticipantReadinessDiagnosticRuntime]");
             TotemGameRuntime runtime = null;
             try
             {
                 runtime = runtimeObject.AddComponent<TotemGameRuntime>();
                 RegisterTerrainMovementRuntimeServices(runtime);
+                runtime.RegisterService(new TotemParticipantReadinessService());
                 runtime.StartRuntime();
 
                 var flow = runtime.GetService<TotemGameFlowService>();
                 var map = runtime.GetService<TotemMapService>();
                 var actor = runtime.GetService<TotemActorService>();
+                var readiness = runtime.GetService<TotemParticipantReadinessService>();
+                var enemies = runtime.GetService<TotemEnemyService>();
+                var clock = runtime.GetService<TotemMatchClockService>();
                 flow.ConfirmStartup(1, "knife_basic", new[] { 1 });
 
                 var player = actor.Player;
                 var smart = actor.Actors.FirstOrDefault(item => item.Kind == TotemActorKind.SmartAi);
                 var light = actor.Actors.FirstOrDefault(item => item.Kind == TotemActorKind.LightAi);
-                var boss = actor.Boss;
-                context.Assert(player != null && smart != null && light != null && boss != null, "Participant grace diagnostic requires player, AI and boss actors.");
-                if (player == null || smart == null || light == null || boss == null)
+                context.Assert(enemies.TrySpawn(
+                    new TotemEnemySpawnRequest(950201, "boss_ai_core_zero", player.Position + Vector3.forward * 2f, 1, "diagnostic.readiness", 0f),
+                    out var boss,
+                    out var bossReason), $"Participant readiness diagnostic should spawn EnemyService Boss: {bossReason}");
+                context.Assert(player != null && smart != null && light != null && boss != null && readiness != null, "Participant readiness diagnostic requires Participants, readiness and a native Boss enemy.");
+                if (player == null || smart == null || light == null || boss == null || readiness == null)
                 {
                     return;
                 }
@@ -758,20 +799,42 @@ namespace UGF.EditorTools
                 SetAllActorsPosition(actor, FindRoomCenter(map.CurrentMap, TotemRoomType.SpawnRoom));
                 float smartHealthBefore = smart.Health;
                 float playerHealthBefore = player.Health;
+                context.Assert(!actor.ApplyDamage(smart, 10f, player, "Readiness.PlayerLoadingSource"), "Loading player must not damage another Participant.");
+                context.Assert(!actor.ApplyDamage(player, 10f, light, "Readiness.PlayerLoadingTarget"), "Loading player must not receive damage.");
+                AssertNear(context, smartHealthBefore, smart.Health, "combat.readiness.loading.smartHealthUnchanged");
+                AssertNear(context, playerHealthBefore, player.Health, "combat.readiness.loading.playerHealthUnchanged");
+
+                readiness.ProtectionSeconds = 0f;
+                context.Assert(readiness.NotifyLocalClientReady(player, "DiagnosticHUDReady"), "HUD readiness must enter Protected lifecycle.");
+                readiness.Tick(0.01f);
+                context.AssertEqual(TotemParticipantLifecycle.Active, readiness.GetLifecycle(player), "combat.readiness.playerLifecycle");
+
+                float smartHealthDuringGrace = smart.Health;
+                float playerHealthDuringGrace = player.Health;
+                context.Assert(!actor.ApplyDamage(smart, 10f, player, "Participant.PlayerToSmart.BeforeGrace"), "Participant damage must remain blocked during the first 60 seconds.");
+                context.Assert(!actor.ApplyDamage(player, 10f, boss, "Enemy.BossToPlayer.DuringGrace"), "NPC damage should be non-lethal in this probe.");
+                AssertNear(context, smartHealthDuringGrace, smart.Health, "combat.readiness.grace.smartHealthUnchanged");
+                context.Assert(player.Health < playerHealthDuringGrace, "NPC damage must remain active during the participant grace period.");
+                clock.SetWorldTimeForDiagnostics(TotemCombatRelationshipService.ParticipantCombatGraceSeconds);
+                actor.ApplyDamage(smart, 10f, player, "Participant.PlayerToSmart.AfterGrace");
+                actor.ApplyDamage(player, 10f, light, "Participant.LightToPlayer.AfterGrace");
+                context.Assert(smart.Health < smartHealthBefore, "SmartBot health should change immediately after player activation.");
+                context.Assert(player.Health < playerHealthBefore, "Player health should change immediately after activation.");
+
                 float bossHealthBefore = boss.Health;
-                context.Assert(!actor.ApplyDamage(smart, 10f, player, "GracePeriod.PlayerToAI"), "Player-to-AI damage should be blocked during the 60s grace period.");
-                context.Assert(!actor.ApplyDamage(player, 10f, light, "GracePeriod.AIToPlayer"), "AI-to-player damage should be blocked during the 60s grace period.");
-                AssertNear(context, smartHealthBefore, smart.Health, "combat.grace.smartHealthUnchanged");
-                AssertNear(context, playerHealthBefore, player.Health, "combat.grace.playerHealthUnchanged");
-
-                actor.ApplyDamage(boss, 10f, player, "GracePeriod.PlayerToBoss");
-                context.Assert(boss.Health < bossHealthBefore, "Player should still be able to damage Boss/NPC targets during the grace period.");
-
-                actor.SetCombatElapsedSecondsForDiagnostics(TotemActorService.ParticipantDamageProtectionSeconds + 0.1f);
-                float postGraceSmartHealth = smart.Health;
-                actor.ApplyDamage(smart, 10f, player, "GracePeriod.Post60.PlayerToAI");
-                context.Assert(smart.Health < postGraceSmartHealth, "Player-to-AI damage should resume after the grace period.");
-                context.Detail("combat.grace.elapsed", actor.CombatElapsedSeconds.ToString("F1"));
+                context.Assert(enemies.TryApplyDamage(
+                    boss.CombatantId,
+                    player,
+                    10f,
+                    "Participant.PlayerToBoss",
+                    0f,
+                    out var bossDamage) && bossDamage > 0f,
+                    "Active player should damage EnemyService targets immediately.");
+                context.Assert(boss.Health < bossHealthBefore, "Native Boss health should change through EnemyService.");
+                float playerBeforeBossDamage = player.Health;
+                actor.ApplyDamage(player, 10f, boss, "Enemy.BossToPlayer");
+                context.Assert(player.Health < playerBeforeBossDamage, "EnemyService enemies should damage Active Participants.");
+                context.AssertEqual(boss.CombatantId, actor.LastDamage.Source?.CombatantId ?? 0, "combat.readiness.enemyDamageSource");
             }
             finally
             {
@@ -797,6 +860,7 @@ namespace UGF.EditorTools
                 var flow = runtime.GetService<TotemGameFlowService>();
                 var input = runtime.GetService<TotemInputService>();
                 var actor = runtime.GetService<TotemActorService>();
+                var enemies = runtime.GetService<TotemEnemyService>();
                 var status = runtime.GetService<TotemStatusService>();
                 var combat = runtime.GetService<TotemCombatService>();
                 var skill = runtime.GetService<TotemSkillService>();
@@ -811,15 +875,20 @@ namespace UGF.EditorTools
                 flow.ConfirmStartup(1, "knife_basic", new[] { 1 });
                 var player = actor.Player;
                 context.Assert(player != null, "Combat status diagnostic player should spawn.");
-                var combatTarget = actor.Actors.FirstOrDefault(TotemActorService.IsEnemy);
-                context.Assert(combatTarget != null, "Combat snapshot diagnostic should have an enemy target.");
-                var allCombatEnemies = actor.Actors.Where(TotemActorService.IsEnemy).ToArray();
+                context.Assert(enemies.TrySpawn(
+                    new TotemEnemySpawnRequest(950301, "enemy_common_hunter", player.Position + Vector3.forward, 1, "diagnostic.combat.primary", 0f),
+                    out var combatTarget,
+                    out var primaryReason), $"Combat snapshot diagnostic should spawn a primary EnemyModel: {primaryReason}");
+                context.Assert(enemies.TrySpawn(
+                    new TotemEnemySpawnRequest(950302, "enemy_ai_servo", player.Position + Vector3.right, 1, "diagnostic.combat.side", 0f),
+                    out var sideTarget,
+                    out var sideReason), $"Combat snapshot diagnostic should spawn a side EnemyModel: {sideReason}");
+                var allCombatEnemies = new[] { combatTarget, sideTarget };
                 for (int i = 0; i < allCombatEnemies.Length; i++)
                 {
                     allCombatEnemies[i].Position = player.Position + new Vector3(20f + i, 0f, 20f + i);
                 }
 
-                var sideTarget = allCombatEnemies.FirstOrDefault(item => !ReferenceEquals(item, combatTarget));
                 context.Assert(sideTarget != null, "Combat snapshot diagnostic should have a side enemy target.");
                 combatTarget.Position = player.Position + new Vector3(0f, 0f, 0.8f);
                 if (sideTarget != null)
@@ -834,8 +903,8 @@ namespace UGF.EditorTools
                 var attackSnapshot = combat.CaptureCombatSnapshot();
                 context.AssertEqual("Attack", attackSnapshot.lastAction, "combat.snapshot.attack.action");
                 context.AssertEqual("Applied", attackSnapshot.lastReason, "combat.snapshot.attack.reason");
-                context.AssertEqual(combatTarget.ActorId, attackSnapshot.lastTargetActorId, "combat.snapshot.attack.targetActorId");
-                context.AssertEqual("Cone", attackSnapshot.lastTargetingMode, "combat.snapshot.attack.targetingMode");
+                context.AssertEqual(combatTarget.CombatantId, attackSnapshot.lastTargetActorId, "combat.snapshot.attack.targetActorId");
+                context.AssertEqual("Cone:Enemy", attackSnapshot.lastTargetingMode, "combat.snapshot.attack.targetingMode");
                 AssertNear(context, 120f, attackSnapshot.lastAimSpreadHalfDegrees, "combat.snapshot.attack.aimSpread");
                 AssertNear(context, 1f, attackSnapshot.lastAimForward.z, "combat.snapshot.attack.aimForwardZ");
                 AssertNear(context, 18f, attackSnapshot.lastDamage, "combat.snapshot.attack.damage");
@@ -856,7 +925,7 @@ namespace UGF.EditorTools
                 context.Assert(skillSnapshot.lastTargetActorId > 0, "Combat skill snapshot should expose a target actor id when it hits.");
 
                 context.Assert(skill.EquipSkill(player, 1, "skill_chain_lightning_01"), "Combat diagnostic should equip Q skill slot.");
-                var qTarget = actor.Actors.FirstOrDefault(item => TotemActorService.IsEnemy(item) && item.IsAlive);
+                var qTarget = allCombatEnemies.FirstOrDefault(item => item != null && item.IsAlive);
                 context.Assert(qTarget != null, "Combat Q skill diagnostic should have an alive enemy target.");
                 for (int i = 0; i < allCombatEnemies.Length; i++)
                 {
@@ -877,10 +946,10 @@ namespace UGF.EditorTools
                 context.AssertEqual("Skill", qSkillSnapshot.lastAction, "combat.snapshot.skillQ.action");
                 context.AssertEqual("Applied", qSkillSnapshot.lastReason, "combat.snapshot.skillQ.reason");
                 context.AssertEqual("skill_chain_lightning_01", qSkillSnapshot.lastSkillId, "combat.snapshot.skillQ.skillId");
-                context.AssertEqual("Skill:Cone", qSkillSnapshot.lastTargetingMode, "combat.snapshot.skillQ.targetingMode");
+                context.AssertEqual("Skill:Cone:Enemy", qSkillSnapshot.lastTargetingMode, "combat.snapshot.skillQ.targetingMode");
                 AssertNear(context, 24.3f, qSkillSnapshot.lastDamage, "combat.snapshot.skillQ.damage");
                 context.AssertEqual(1, qSkillSnapshot.lastHitCount, "combat.snapshot.skillQ.hitCount");
-                context.AssertEqual(qTarget.ActorId, qSkillSnapshot.lastTargetActorId, "combat.snapshot.skillQ.targetActorId");
+                context.AssertEqual(qTarget.CombatantId, qSkillSnapshot.lastTargetActorId, "combat.snapshot.skillQ.targetActorId");
 
                 provider.Hold(KeyCode.W);
                 player.Position = Vector3.zero;
@@ -934,14 +1003,15 @@ namespace UGF.EditorTools
             runtime.RegisterService(new TotemDataService());
             runtime.RegisterService(new TotemAssetService());
             runtime.RegisterService(new TotemMapService());
+            runtime.RegisterService(new TotemCombatRelationshipService());
             runtime.RegisterService(new TotemActorService());
             runtime.RegisterService(new TotemEconomyService());
             runtime.RegisterService(new TotemStatusService());
             runtime.RegisterService(new TotemTattooService());
             runtime.RegisterService(new TotemWeaponService());
             runtime.RegisterService(new TotemSkillService());
-            runtime.RegisterService(new TotemBossService());
             runtime.RegisterService(new TotemVfxService());
+            runtime.RegisterService(new TotemEnemyService());
             runtime.RegisterService(new TotemCombatService());
         }
 
@@ -1052,8 +1122,10 @@ namespace UGF.EditorTools
                 runtime.StartRuntime();
 
                 var flow = runtime.GetService<TotemGameFlowService>();
+                var clock = runtime.GetService<TotemMatchClockService>();
                 var map = runtime.GetService<TotemMapService>();
                 var actor = runtime.GetService<TotemActorService>();
+                var readiness = runtime.GetService<TotemParticipantReadinessService>();
                 var economy = runtime.GetService<TotemEconomyService>();
                 var status = runtime.GetService<TotemStatusService>();
                 var tattoo = runtime.GetService<TotemTattooService>();
@@ -1061,31 +1133,40 @@ namespace UGF.EditorTools
                 var chest = runtime.GetService<TotemChestService>();
                 var skill = runtime.GetService<TotemSkillService>();
                 var zone = runtime.GetService<TotemZoneService>();
-                var boss = runtime.GetService<TotemBossService>();
                 var ai = runtime.GetService<TotemAIService>();
                 var npc = runtime.GetService<TotemNpcService>();
                 var camera = runtime.GetService<TotemCameraService>();
                 var vfx = runtime.GetService<TotemVfxService>();
                 var combat = runtime.GetService<TotemCombatService>();
+                var enemyWorld = runtime.GetService<TotemEnemyWorldService>();
+                var enemies = runtime.GetService<TotemEnemyService>();
 
                 flow.SelectCharacter(2);
                 flow.ConfirmStartup(1, "knife_basic", new[] { 1, 2 });
-
                 var player = actor.Player;
-                var target = actor.Actors.FirstOrDefault(TotemActorService.IsEnemy);
                 context.Assert(player != null, "Lifecycle diagnostic should spawn a player.");
-                context.Assert(target != null, "Lifecycle diagnostic should spawn enemies.");
+                readiness.ProtectionSeconds = 0f;
+                context.Assert(readiness.NotifyLocalClientReady(player, "LifecycleDiagnosticReady"),
+                    "Lifecycle diagnostic should move the local Participant out of Loading.");
+                readiness.Tick(0.01f);
+                context.Assert(readiness.CanAct(player), "Lifecycle diagnostic player should be active before combat assertions.");
+                clock.Tick(0.1f);
+                enemyWorld.Tick(0.1f);
+
+                var target = enemies.FindClosestAliveEnemy(player.Position);
+                context.Assert(target != null, "Lifecycle diagnostic should spawn EnemyService enemies.");
                 context.Assert(map.CurrentMap != null, "Lifecycle diagnostic should generate a map.");
                 context.Assert(map.CaptureRuntimeSnapshot().hasRoot, "Lifecycle diagnostic map root should exist in combat.");
                 var actorSnapshot = actor.CaptureActorSnapshot();
                 context.AssertEqual(50, actorSnapshot.actorCount, "lifecycle.combat.actorCount");
-                context.AssertEqual(1, actorSnapshot.bossCount, "lifecycle.combat.bossCount");
-                context.AssertEqual(actorSnapshot.actorCount + actorSnapshot.bossCount, actorSnapshot.visualAssetActorCount, "lifecycle.combat.actorVisualAssetCount");
+                context.AssertEqual(actorSnapshot.actorCount, actorSnapshot.visualAssetActorCount, "lifecycle.combat.actorVisualAssetCount");
                 context.AssertEqual(0, actorSnapshot.visualFallbackActorCount, "lifecycle.combat.actorVisualFallbackCount");
+                var enemySnapshot = enemies.CaptureSnapshot();
+                context.Assert(enemySnapshot.lightCount > 0, "Lifecycle diagnostic should expose native Light enemies.");
+                context.AssertEqual(enemySnapshot.aliveEnemyCount, enemyWorld.CaptureSnapshot().visualObjectCount, "lifecycle.combat.enemyVisualCount");
                 context.Assert(chest.CaptureSnapshot().activeChestCount > 0, "Lifecycle diagnostic should spawn chests.");
                 context.Assert(npc.CaptureSnapshot().npcCount > 0, "Lifecycle diagnostic should spawn NPCs.");
                 context.Assert(zone.CaptureSnapshot().active, "Lifecycle diagnostic zone should be active in combat.");
-                context.Assert(boss.CaptureSnapshot().active, "Lifecycle diagnostic boss should be active in combat.");
                 context.Assert(ai.CaptureSnapshot().active, "Lifecycle diagnostic AI should be active in combat.");
                 context.Assert(camera.CaptureSnapshot().following, "Lifecycle diagnostic camera should follow in combat.");
                 context.Assert(combat.CaptureCombatSnapshot().active, "Lifecycle diagnostic combat should be active.");
@@ -1109,7 +1190,16 @@ namespace UGF.EditorTools
 
                 if (target != null)
                 {
-                    actor.ApplyDamage(target, 25f, player, "LifecycleDiagnostic");
+                    float targetHealthBefore = target.Health;
+                    context.Assert(enemies.TryApplyDamage(
+                        target.CombatantId,
+                        player,
+                        25f,
+                        "LifecycleDiagnostic",
+                        clock.WorldTime,
+                        out var appliedDamage) && appliedDamage > 0f,
+                        "Lifecycle damage should route through EnemyService.");
+                    context.Assert(target.Health < targetHealthBefore, "Lifecycle EnemyModel should lose health.");
                 }
 
                 vfx.SpawnAttackHit(player.Position, "knife_basic", charged: false);
@@ -1118,7 +1208,7 @@ namespace UGF.EditorTools
                 context.AssertEqual(1, vfxCombat.spriteRequestCount, "lifecycle.combat.vfxSpriteRequestCount");
                 context.AssertEqual(0, vfxCombat.spriteMissingCount, "lifecycle.combat.vfxSpriteMissingCount");
                 context.AssertEqual("effect.attack.hit", vfxCombat.lastAssetKey, "lifecycle.combat.vfxLastAssetKey");
-                context.Assert(vfxCombat.floatingTextActiveCount > 0, "Lifecycle diagnostic should spawn damage floating text.");
+                context.AssertEqual(target?.CombatantId ?? 0, enemies.CaptureSnapshot().lastEnemyCombatantId, "lifecycle.combat.lastDamagedEnemyId");
 
                 flow.EnterMainMenu();
 
@@ -1126,6 +1216,8 @@ namespace UGF.EditorTools
                 context.Assert(map.CurrentMap == null, "Lifecycle cleanup should clear CurrentMap.");
                 context.Assert(!map.CaptureRuntimeSnapshot().hasRoot, "Lifecycle cleanup should destroy map root.");
                 context.AssertEqual(0, actor.CaptureActorSnapshot().actorCount, "lifecycle.cleanup.actorCount");
+                context.AssertEqual(0, enemies.CaptureSnapshot().enemyCount, "lifecycle.cleanup.enemyCount");
+                context.AssertEqual(0, enemyWorld.CaptureSnapshot().visualObjectCount, "lifecycle.cleanup.enemyVisualCount");
                 context.AssertEqual(0, chest.CaptureSnapshot().activeChestCount, "lifecycle.cleanup.chestCount");
                 context.AssertEqual(0, npc.CaptureSnapshot().npcCount, "lifecycle.cleanup.npcCount");
                 context.AssertEqual(0, weapon.CapturePickupSnapshot().activePickupCount, "lifecycle.cleanup.weaponPickupCount");
@@ -1134,7 +1226,6 @@ namespace UGF.EditorTools
                 context.Assert(string.IsNullOrEmpty(skill.GetEquippedSkillId(player, 0)), "Lifecycle cleanup should clear skill actor states.");
                 context.AssertEqual(0, tattoo.CaptureSnapshot().equippedCount, "lifecycle.cleanup.tattooCount");
                 context.Assert(!zone.CaptureSnapshot().active, "Lifecycle cleanup should deactivate zone.");
-                context.Assert(!boss.CaptureSnapshot().active, "Lifecycle cleanup should deactivate boss.");
                 context.Assert(!ai.CaptureSnapshot().active, "Lifecycle cleanup should deactivate AI.");
                 context.Assert(!camera.CaptureSnapshot().following, "Lifecycle cleanup should stop camera follow.");
                 var vfxCleanup = vfx.CaptureSnapshot();
@@ -1171,11 +1262,14 @@ namespace UGF.EditorTools
         private static void RegisterCombatLifecycleServices(TotemGameRuntime runtime)
         {
             runtime.RegisterService(new TotemGameFlowService());
+            runtime.RegisterService(new TotemMatchClockService());
             runtime.RegisterService(new TotemInputService());
             runtime.RegisterService(new TotemDataService());
             runtime.RegisterService(new TotemAssetService());
             runtime.RegisterService(new TotemMapService());
+            runtime.RegisterService(new TotemCombatRelationshipService());
             runtime.RegisterService(new TotemActorService());
+            runtime.RegisterService(new TotemParticipantReadinessService());
             runtime.RegisterService(new TotemEconomyService());
             runtime.RegisterService(new TotemStatusService());
             runtime.RegisterService(new TotemTattooService());
@@ -1183,13 +1277,14 @@ namespace UGF.EditorTools
             runtime.RegisterService(new TotemChestService());
             runtime.RegisterService(new TotemSkillService());
             runtime.RegisterService(new TotemZoneService());
-            runtime.RegisterService(new TotemBossService());
             runtime.RegisterService(new TotemAIService());
             runtime.RegisterService(new TotemNpcService());
             runtime.RegisterService(new TotemChoiceService());
             runtime.RegisterService(new TotemInteractionService());
             runtime.RegisterService(new TotemCameraService());
             runtime.RegisterService(new TotemVfxService());
+            runtime.RegisterService(new TotemEnemyWorldService());
+            runtime.RegisterService(new TotemEnemyService());
             runtime.RegisterService(new TotemCombatService());
         }
 
@@ -1439,13 +1534,16 @@ namespace UGF.EditorTools
             }
         }
 
-        private static TotemActorModel FindFirstAliveEnemy(TotemActorService actorService)
+        private static TotemActorModel FindFirstAliveBotParticipant(TotemActorService actorService)
         {
             var actors = actorService?.Actors;
             for (int i = 0; actors != null && i < actors.Count; i++)
             {
                 var actor = actors[i];
-                if (TotemActorService.IsEnemy(actor) && actor.IsAlive)
+                if (actor != null
+                    && actor.IsAlive
+                    && (actor.ControllerKind == TotemParticipantControllerKind.SmartBot
+                        || actor.ControllerKind == TotemParticipantControllerKind.LightBot))
                 {
                     return actor;
                 }
@@ -1524,7 +1622,7 @@ namespace UGF.EditorTools
 
             context.Detail($"{detailName}.participantCount", participantCount);
             context.Detail(detailName, minDistance);
-            context.AssertEqual(TotemActorService.RuntimeActorCountWithoutBoss, participantCount, $"{detailName}.participantCountExpected");
+            context.AssertEqual(TotemActorService.ParticipantCount, participantCount, $"{detailName}.participantCountExpected");
             context.Assert(minDistance >= TotemActorService.ParticipantSpawnMinDistance - 0.001f, $"{detailName} should be at least {TotemActorService.ParticipantSpawnMinDistance:0.#}.");
         }
 

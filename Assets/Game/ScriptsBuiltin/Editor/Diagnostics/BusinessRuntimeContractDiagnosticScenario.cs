@@ -96,6 +96,7 @@ namespace UGF.EditorTools
                 "ITotemRuntimeService",
                 "TotemRuntimeServiceBase",
                 "TotemGameFlowService",
+                "TotemMatchClockService",
                 "ITotemInputProvider",
                 "TotemInputService",
                 "TotemDataService",
@@ -104,7 +105,9 @@ namespace UGF.EditorTools
                 "TotemAudioService",
                 "TotemMetaProgressService",
                 "TotemMapService",
+                "TotemCombatRelationshipService",
                 "TotemActorService",
+                "TotemParticipantReadinessService",
                 "TotemEconomyService",
                 "TotemStatusService",
                 "TotemTattooService",
@@ -112,13 +115,15 @@ namespace UGF.EditorTools
                 "TotemChestService",
                 "TotemSkillService",
                 "TotemZoneService",
-                "TotemBossService",
                 "TotemAIService",
                 "TotemNpcService",
                 "TotemChoiceService",
                 "TotemInteractionService",
                 "TotemCameraService",
                 "TotemVfxService",
+                "TotemEnemyWorldService",
+                "TotemEnemyService",
+                "TotemEnemyLootService",
                 "TotemCombatService",
                 "TotemUIService",
             };
@@ -255,11 +260,6 @@ namespace UGF.EditorTools
                     File = "Assets/Game/Scripts/Runtime/Services/TotemZoneService.cs",
                     Snippet = "private static readonly TotemZonePhase[]",
                 },
-                new
-                {
-                    File = "Assets/Game/Scripts/Runtime/Services/TotemBossService.cs",
-                    Snippet = "private static readonly TotemBossPhase[]",
-                },
             };
 
             var hits = new List<string>();
@@ -368,7 +368,7 @@ namespace UGF.EditorTools
             context.Detail("aiServiceBossSkillFallbackHits", hasFallback ? 1 : 0);
             if (hasFallback)
             {
-                context.Fail("TotemAIService must use BossPhaseConfig skill ids from TotemBossService instead of hardcoding a fallback Boss skill.");
+                context.Fail("TotemAIService must use EnemyService Boss definitions instead of hardcoding a fallback Boss skill.");
             }
         }
 

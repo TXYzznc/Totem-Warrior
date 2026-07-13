@@ -39,6 +39,7 @@ namespace UGF.EditorTools
             var generalShop = catalog.CreateShopOffers("general_shop");
             var alienShop = catalog.CreateShopOffers("alien_shop");
 
+            CheckEnemyDomainEnvelope(context, enemies);
             CheckWeaponEnvelope(context, weapons, enemies);
             CheckSkillEnvelope(context, weapons, skills, enemies);
             CheckAiEnvelope(context, profiles);
@@ -46,6 +47,42 @@ namespace UGF.EditorTools
             CheckEconomyEnvelope(context, chestRewards, generalShop, alienShop);
 
             context.Pass("Totem first-round balance envelope is ready.");
+        }
+
+        private static void CheckEnemyDomainEnvelope(GFDiagnosticScenarioContext context, TotemEnemyDefinition[] enemies)
+        {
+            context.AssertEqual(15, enemies.Length, "balance.enemies.count");
+            var light = enemies.Where(enemy => enemy.Tier == TotemEnemyTier.Light).ToArray();
+            var elite = enemies.Where(enemy => enemy.Tier == TotemEnemyTier.Elite).ToArray();
+            var boss = enemies.Where(enemy => enemy.Tier == TotemEnemyTier.Boss).ToArray();
+            context.AssertEqual(8, light.Length, "balance.enemies.lightCount");
+            context.AssertEqual(4, elite.Length, "balance.enemies.eliteCount");
+            context.AssertEqual(3, boss.Length, "balance.enemies.bossCount");
+
+            AssertTierEnvelope(context, light, 45f, 100f, 6f, 14f, "balance.enemies.light");
+            AssertTierEnvelope(context, elite, 180f, 340f, 14f, 24f, "balance.enemies.elite");
+            AssertTierEnvelope(context, boss, 1100f, 1700f, 28f, 42f, "balance.enemies.boss");
+        }
+
+        private static void AssertTierEnvelope(
+            GFDiagnosticScenarioContext context,
+            TotemEnemyDefinition[] enemies,
+            float minHealth,
+            float maxHealth,
+            float minDamage,
+            float maxDamage,
+            string key)
+        {
+            if (enemies.Length == 0)
+            {
+                context.Assert(false, $"{key} requires at least one configured enemy.");
+                return;
+            }
+
+            context.Detail($"{key}.healthRange", $"{enemies.Min(enemy => enemy.BaseHP):0.##}-{enemies.Max(enemy => enemy.BaseHP):0.##}");
+            context.Detail($"{key}.damageRange", $"{enemies.Min(enemy => enemy.BaseDamage):0.##}-{enemies.Max(enemy => enemy.BaseDamage):0.##}");
+            context.Assert(enemies.All(enemy => enemy.BaseHP >= minHealth && enemy.BaseHP <= maxHealth), $"{key} health must stay inside the configured tier envelope.");
+            context.Assert(enemies.All(enemy => enemy.BaseDamage >= minDamage && enemy.BaseDamage <= maxDamage), $"{key} damage must stay inside the configured tier envelope.");
         }
 
         private static void CheckWeaponEnvelope(GFDiagnosticScenarioContext context, TotemWeaponDefinition[] weapons, TotemEnemyDefinition[] enemies)
@@ -83,8 +120,8 @@ namespace UGF.EditorTools
 
                 AssertInRange(context, weapon.Cooldown, 0.45f, 1.05f, $"{key}.cooldownEnvelope");
                 AssertInRange(context, dps, 28f, 50f, $"{key}.dpsEnvelope");
-                AssertInRange(context, lightTtk, 1.0f, 2.1f, $"{key}.lightTtkEnvelope");
-                AssertInRange(context, eliteTtk, 3.0f, 5.6f, $"{key}.eliteTtkEnvelope");
+                AssertInRange(context, lightTtk, 1.0f, 2.5f, $"{key}.lightTtkEnvelope");
+                AssertInRange(context, eliteTtk, 4.5f, 9.0f, $"{key}.eliteTtkEnvelope");
             }
 
             context.Assert(GetWeaponDps(pistol) <= GetWeaponDps(energyFist) + 0.001f, "Pistol should not out-DPS energy fist in the first-round envelope.");
@@ -181,7 +218,7 @@ namespace UGF.EditorTools
         private static void CheckZoneAndBossEnvelope(GFDiagnosticScenarioContext context, TotemZonePhase[] zones, TotemBossPhase[] bossPhases, TotemEnemyDefinition[] enemies)
         {
             context.AssertEqual(3, zones.Length, "balance.zone.phaseCount");
-            context.AssertEqual(3, bossPhases.Length, "balance.boss.phaseCount");
+            context.AssertEqual(9, bossPhases.Length, "balance.boss.phaseCount");
 
             var orderedZones = zones.OrderBy(phase => phase.Id).ToArray();
             for (int i = 1; i < orderedZones.Length; i++)
@@ -197,21 +234,30 @@ namespace UGF.EditorTools
             AssertInRange(context, finalZone.OutZoneDamage, 10f, 13f, "balance.zone.final.damageEnvelope");
             AssertInRange(context, finalOutZoneTtk, 8f, 12f, "balance.zone.final.playerTtkEnvelope");
 
-            var orderedBossPhases = bossPhases.OrderBy(phase => phase.PhaseIndex).ToArray();
-            for (int i = 1; i < orderedBossPhases.Length; i++)
+            var bossEnemies = enemies
+                .Where(enemy => enemy.Tier == TotemEnemyTier.Boss)
+                .ToDictionary(enemy => enemy.EnemyId, StringComparer.Ordinal);
+            var bossPhaseGroups = bossPhases.GroupBy(phase => phase.BossId).ToArray();
+            context.AssertEqual(3, bossPhaseGroups.Length, "balance.boss.groupCount");
+            foreach (var group in bossPhaseGroups)
             {
-                context.Assert(orderedBossPhases[i].HPThreshold < orderedBossPhases[i - 1].HPThreshold, $"Boss phase {orderedBossPhases[i].PhaseIndex} should trigger at a lower HP threshold.");
-                context.Assert(orderedBossPhases[i].EnrageMultiplier >= orderedBossPhases[i - 1].EnrageMultiplier, $"Boss phase {orderedBossPhases[i].PhaseIndex} should not reduce enrage pressure.");
-            }
+                context.Assert(bossEnemies.TryGetValue(group.Key, out var boss), $"Boss phase group must resolve EnemyConfig: {group.Key}");
+                var orderedBossPhases = group.OrderBy(phase => phase.PhaseIndex).ToArray();
+                context.AssertEqual(3, orderedBossPhases.Length, $"balance.boss.{group.Key}.phaseCount");
+                for (int i = 1; i < orderedBossPhases.Length; i++)
+                {
+                    context.Assert(orderedBossPhases[i].HPThreshold < orderedBossPhases[i - 1].HPThreshold, $"Boss {group.Key} phase {orderedBossPhases[i].PhaseIndex} should trigger at a lower HP threshold.");
+                    context.Assert(orderedBossPhases[i].EnrageMultiplier >= orderedBossPhases[i - 1].EnrageMultiplier, $"Boss {group.Key} phase {orderedBossPhases[i].PhaseIndex} should not reduce enrage pressure.");
+                }
 
-            var boss = RequireEnemy(context, enemies, TotemEnemyTier.Boss, "balance.boss.enemy");
-            var finalBossPhase = orderedBossPhases.LastOrDefault() ?? new TotemBossPhase();
-            float phaseThreeDamage = boss.BaseDamage * finalBossPhase.EnrageMultiplier;
-            context.Detail("balance.boss.phase3.enrage", finalBossPhase.EnrageMultiplier);
-            context.Detail("balance.boss.phase3.rawDamage", phaseThreeDamage);
-            AssertInRange(context, finalBossPhase.EnrageMultiplier, 1.25f, 1.35f, "balance.boss.phase3.enrageEnvelope");
-            AssertInRange(context, phaseThreeDamage, 40f, 50f, "balance.boss.phase3.damageEnvelope");
-            context.Assert(phaseThreeDamage < ReferencePlayerHealth * 0.5f, "Boss phase 3 raw hit should remain below half of the reference player HP.");
+                var finalBossPhase = orderedBossPhases.LastOrDefault() ?? new TotemBossPhase();
+                float phaseThreeDamage = (boss?.BaseDamage ?? 0f) * finalBossPhase.EnrageMultiplier;
+                context.Detail($"balance.boss.{group.Key}.phase3.enrage", finalBossPhase.EnrageMultiplier);
+                context.Detail($"balance.boss.{group.Key}.phase3.rawDamage", phaseThreeDamage);
+                AssertInRange(context, finalBossPhase.EnrageMultiplier, 1.35f, 1.45f, $"balance.boss.{group.Key}.phase3.enrageEnvelope");
+                AssertInRange(context, phaseThreeDamage, 40f, 55f, $"balance.boss.{group.Key}.phase3.damageEnvelope");
+                context.Assert(phaseThreeDamage < ReferencePlayerHealth * 0.6f, $"Boss {group.Key} phase 3 raw hit should remain below 60% of reference player HP.");
+            }
         }
 
         private static void CheckEconomyEnvelope(GFDiagnosticScenarioContext context, TotemChestRewardDefinition[] chestRewards, TotemShopOffer[] generalShop, TotemShopOffer[] alienShop)

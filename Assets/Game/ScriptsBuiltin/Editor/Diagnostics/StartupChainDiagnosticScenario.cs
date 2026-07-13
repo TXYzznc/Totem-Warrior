@@ -65,7 +65,7 @@ namespace UGF.EditorTools
             context.Assert(snapshot.started, "Totem runtime snapshot is not started.");
             context.Assert(snapshot.currentProcedure == nameof(TotemGameProcedure), $"Totem runtime procedure mismatch: {snapshot.currentProcedure}");
             context.Assert(snapshot.servicesReady, "Totem runtime services are not all ready.");
-            context.AssertEqual(26, snapshot.serviceCount, "runtime.default.serviceCount");
+            context.AssertEqual(31, snapshot.serviceCount, "runtime.default.serviceCount");
             context.AssertEqual(snapshot.serviceCount, snapshot.readyServiceCount, "runtime.default.readyServiceCount");
             context.AssertEqual(0, snapshot.failedServiceCount, "runtime.default.failedServiceCount");
             AssertDefaultServices(context, snapshot);

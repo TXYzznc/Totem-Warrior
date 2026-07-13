@@ -214,10 +214,23 @@ namespace UGF.EditorTools
             var minimapActors = new[]
             {
                 new TotemActorModel(new TotemActorSpawnInfo { ActorId = 1, Name = "Player", Kind = TotemActorKind.Player, Position = minimapMap.Rooms[0].CenterWorld, MaxHealth = 100f }),
-                new TotemActorModel(new TotemActorSpawnInfo { ActorId = 2, Name = "Enemy", Kind = TotemActorKind.LightAi, Position = minimapMap.Rooms[1].CenterWorld, MaxHealth = 20f }),
-                new TotemActorModel(new TotemActorSpawnInfo { ActorId = 1000, Name = "Boss", Kind = TotemActorKind.Boss, Position = minimapMap.Rooms[3].CenterWorld, MaxHealth = 300f }),
+                new TotemActorModel(new TotemActorSpawnInfo { ActorId = 2, Name = "LightBot", Kind = TotemActorKind.LightAi, Position = minimapMap.Rooms[1].CenterWorld, MaxHealth = 20f }),
             };
-            context.Assert(TotemCombatHUDForm.BuildMinimapPixels(minimapPixels, 32, minimapMap, minimapActors, new TotemZoneSnapshot { active = true, currentRadius = 30f }), "combatHud.minimap.buildPixels");
+            var minimapEnemies = new[]
+            {
+                new TotemEnemyModel(1000, "enemy_common_hunter", "Hunter", "common", TotemEnemyTier.Light, 80f, minimapMap.Rooms[2].CenterWorld),
+                new TotemEnemyModel(1001, "boss_ai_core_zero", "Core Zero", "ai_ruins", TotemEnemyTier.Boss, 300f, minimapMap.Rooms[3].CenterWorld),
+            };
+            context.Assert(
+                TotemCombatHUDForm.BuildMinimapPixels(
+                    minimapPixels,
+                    32,
+                    minimapMap,
+                    minimapActors,
+                    new TotemZoneSnapshot { active = true, currentRadius = 30f },
+                    minimapEnemies,
+                    minimapEnemies.Length),
+                "combatHud.minimap.buildPixels");
             context.Assert(TotemCombatHUDForm.CountMinimapPixelsDifferentFromBackground(minimapPixels) > 20, "combatHud.minimap.nonBackgroundPixels");
             context.AssertEqual("skill.skill_phase_dash", TotemCombatHUDForm.GetSkillAssetKey("skill_phase_dash"), "combatHud.dynamicSkillAssetKey");
         }
@@ -272,10 +285,10 @@ namespace UGF.EditorTools
             choice.State = TotemChoiceRuntimeState.Showing;
             context.Assert(!TotemTattooStudioForm.CanReuseChoice(choice, "tattoo_other"), "TattooStudio should not reuse a choice from another event.");
 
-            var combat = new TotemCombatSnapshot { playerHealth = 88f, aliveEnemyCount = 12, killCount = 4 };
-            context.AssertEqual("HP 88  Enemies 12  Kills 4", TotemPauseMenuForm.FormatStatus(combat), "pause.status");
+            var combat = new TotemCombatSnapshot { playerHealth = 88f, aliveParticipantCount = 38, aliveEnemyCount = 12, killCount = 4 };
+            context.AssertEqual("HP 88  Alive 38  Monsters 12  Kills 4", TotemPauseMenuForm.FormatStatus(combat), "pause.status");
 
-            var runResult = TotemCombatService.BuildRunResult(true, "AllEnemiesDefeated", 50, 72f, 0, 123.4f);
+            var runResult = TotemCombatService.BuildRunResult(true, "LastParticipantStanding", 50, 72f, 1, 123.4f);
             context.AssertEqual("Victory", TotemRunResultForm.FormatTitle(runResult), "runResult.title");
             context.Assert(TotemRunResultForm.FormatSummary(runResult).Contains("Kills: 50", StringComparison.Ordinal), "runResult.summary should contain kill count.");
 

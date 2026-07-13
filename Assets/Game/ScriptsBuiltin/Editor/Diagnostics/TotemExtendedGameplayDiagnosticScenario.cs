@@ -905,7 +905,14 @@ namespace UGF.EditorTools
                 var weapon = runtime.GetService<TotemWeaponService>();
                 var economy = runtime.GetService<TotemEconomyService>();
                 var interaction = runtime.GetService<TotemInteractionService>();
+                var enemies = runtime.GetService<TotemEnemyService>();
+                var enemyLoot = runtime.GetService<TotemEnemyLootService>();
                 flow.ConfirmStartup(1, "knife_basic", new[] { 1 });
+                runtime.GetService<TotemMatchClockService>()?.SetWorldTimeForDiagnostics(TotemCombatRelationshipService.ParticipantCombatGraceSeconds);
+                enemies.RegisterCatalogDefinitions(
+                    catalog.CreateEnemyDefinitions(),
+                    catalog.CreateEnemyAbilityDefinitions(),
+                    catalog.CreateBossPhases());
 
                 var player = actor.Player;
                 int mapResourcePickupCount = TotemMapService.FindAnchors(map.CurrentMap, TotemMapAnchorKind.Resource).Length;
@@ -944,10 +951,38 @@ namespace UGF.EditorTools
 
                 var smart = actor.Actors.First(item => item.Kind == TotemActorKind.SmartAi && item.IsAlive);
                 smart.Position = player.Position + new Vector3(TotemActorService.CoverMeleeBypassDistance * 0.5f, 0f, 0f);
-                context.Assert(actor.ApplyDamage(smart, smart.Health + 1f, player, "DiagnosticEliteWeaponDrop"), "Smart AI should die for elite weapon drop.");
-                var afterKill = weapon.CapturePickupSnapshot();
-                context.Assert(afterKill.activePickupCount > mapResourcePickupCount, "Smart AI death should spawn an Elite weapon pickup.");
-                context.Assert(afterKill.spawnedPickupCount >= mapResourcePickupCount + 3, "Weapon pickup spawned counter should include map resources, manual and elite pickups.");
+                var beforeSmartDeath = enemyLoot.CaptureSnapshot();
+                context.Assert(actor.ApplyDamage(smart, smart.Health + 1f, player, "DiagnosticParticipantDeath"), "Smart AI should die as a Participant.");
+                var afterSmartDeath = enemyLoot.CaptureSnapshot();
+                context.AssertEqual(beforeSmartDeath.processedEnemyDeathCount, afterSmartDeath.processedEnemyDeathCount, "enemyLoot.smartParticipant.processedDeathCount");
+                context.AssertEqual(beforeSmartDeath.totalSpawnedPickupCount, afterSmartDeath.totalSpawnedPickupCount, "enemyLoot.smartParticipant.spawnedPickupCount");
+
+                var eliteDefinition = catalog.CreateEnemyDefinitions().First(item => item.Tier == TotemEnemyTier.Elite);
+                bool eliteSpawned = enemies.TrySpawn(
+                        new TotemEnemySpawnRequest(9001, eliteDefinition.EnemyId, player.Position + Vector3.right * 3f, 1, "DiagnosticElite", 1f),
+                        out var elite,
+                        out var eliteSpawnReason);
+                context.Assert(eliteSpawned, $"A real Elite Enemy should spawn through EnemyService: {eliteSpawnReason}");
+                if (elite == null)
+                {
+                    return;
+                }
+
+                var eliteLootRows = catalog.CreateEnemyLootDefinitions()
+                    .Where(item => item.LootTableId == elite.LootTableId)
+                    .ToArray();
+                context.Assert(
+                    eliteLootRows.Any(item => item.Weight > 0 && (item.RewardType == TotemEnemyLootRewardType.Weapon || item.RewardType == TotemEnemyLootRewardType.Equipment)),
+                    "The real Elite loot table should contain weighted Weapon or Equipment rewards.");
+                context.Assert(
+                    enemies.TryApplyDamage(elite.CombatantId, player, elite.Health + 1f, "DiagnosticEliteDeath", 2f, out float eliteDamage)
+                    && eliteDamage > 0f,
+                    "A real Elite death should be owned by EnemyService.");
+                var afterEliteDeath = enemyLoot.CaptureSnapshot();
+                var elitePickups = enemyLoot.ActivePickups.Where(item => item.SourceEnemyCombatantId == elite.CombatantId).ToArray();
+                context.AssertEqual(beforeSmartDeath.processedEnemyDeathCount + 1, afterEliteDeath.processedEnemyDeathCount, "enemyLoot.elite.processedDeathCount");
+                context.Assert(elitePickups.Any(item => item.RewardType == TotemEnemyLootRewardType.Coin), "Elite death should create guaranteed Coin world loot.");
+                context.Assert(elitePickups.Any(item => item.RewardType == TotemEnemyLootRewardType.Paint), "Elite death should create guaranteed rare Paint world loot.");
             }
             finally
             {
@@ -966,12 +1001,16 @@ namespace UGF.EditorTools
             runtime.RegisterService(new TotemDataService());
             runtime.RegisterService(new TotemAssetService());
             runtime.RegisterService(new TotemMapService());
+            runtime.RegisterService(new TotemMatchClockService());
+            runtime.RegisterService(new TotemCombatRelationshipService());
             runtime.RegisterService(new TotemActorService());
             runtime.RegisterService(new TotemEconomyService());
             runtime.RegisterService(new TotemWeaponService());
             runtime.RegisterService(new TotemNpcService());
             runtime.RegisterService(new TotemChoiceService());
             runtime.RegisterService(new TotemInteractionService());
+            runtime.RegisterService(new TotemEnemyService());
+            runtime.RegisterService(new TotemEnemyLootService());
         }
 
         private static void CheckChestRuntime(GFDiagnosticScenarioContext context)
@@ -1558,25 +1597,28 @@ namespace UGF.EditorTools
             AssertNear(context, 12f, phases[2].OutZoneDamage, "zone.phase2.outDamage");
             context.AssertEqual("Fixed", phases[2].CenterOffsetMode, "zone.phase2.offsetMode");
 
-            var bossPhases = TotemBossService.GetPhases();
-            context.AssertEqual(3, bossPhases.Count, "boss.phaseCount");
-            context.AssertEqual(1, TotemBossService.ResolvePhaseByHpRatio(0.9f), "boss.phaseAt90");
-            context.AssertEqual(2, TotemBossService.ResolvePhaseByHpRatio(0.6f), "boss.phaseAt60");
-            context.AssertEqual(3, TotemBossService.ResolvePhaseByHpRatio(0.3f), "boss.phaseAt30");
-            AssertNear(context, 0.8f, TotemBossService.TransitionDuration, "boss.transitionDuration");
-            AssertNear(context, 4f, TotemBossService.SkillCooldown, "boss.skillCooldown");
-            context.AssertEqual("enemy_ai_ruins_boss_01", bossPhases[0].BossId, "boss.phase1.bossId");
-            context.AssertEqual("skill_stomp,skill_beam", bossPhases[0].SkillIds, "boss.phase1.skills");
-            context.AssertEqual("skill_summon", bossPhases[1].SkillIds, "boss.phase2.skills");
-            context.AssertEqual("skill_enrage_aoe", bossPhases[2].SkillIds, "boss.phase3.skills");
-            context.Assert(TotemSkillService.TryGetDefinition("skill_stomp", out _), "Boss phase skill_stomp should resolve through SkillService.");
-            context.Assert(TotemSkillService.TryGetDefinition("skill_beam", out _), "Boss phase skill_beam should resolve through SkillService.");
-            context.Assert(TotemSkillService.TryGetDefinition("skill_summon", out _), "Boss phase skill_summon should resolve through SkillService.");
-            context.Assert(TotemSkillService.TryGetDefinition("skill_enrage_aoe", out _), "Boss phase skill_enrage_aoe should resolve through SkillService.");
-            AssertNear(context, 1.35f, bossPhases[2].EnrageMultiplier, "boss.phase3.enrage");
-            context.AssertEqual("vfx_boss_phase3", bossPhases[2].PhaseVFXId, "boss.phase3.vfx");
-            context.AssertEqual("bgm_boss_phase3", bossPhases[2].PhaseBGMCueId, "boss.phase3.bgm");
-            context.AssertEqual("recipe_ai_ruins_boss", bossPhases[2].DeathPatternRecipeId, "boss.phase3.recipe");
+            var catalog = TotemDataService.LoadGameplayCatalogOrDefault();
+            var bossDefinitions = catalog.CreateEnemyDefinitions()
+                .Where(item => item.Tier == TotemEnemyTier.Boss)
+                .OrderBy(item => item.EnemyId, System.StringComparer.Ordinal)
+                .ToArray();
+            var bossPhases = catalog.CreateBossPhases();
+            context.AssertEqual(3, bossDefinitions.Length, "boss.definitionCount");
+            context.AssertEqual(9, bossPhases.Length, "boss.phaseRowCount");
+            foreach (var bossDefinition in bossDefinitions)
+            {
+                var groupedPhases = bossPhases
+                    .Where(item => item.BossId == bossDefinition.EnemyId)
+                    .OrderBy(item => item.PhaseIndex)
+                    .ToArray();
+                context.AssertEqual(3, groupedPhases.Length, $"boss.{bossDefinition.EnemyId}.phaseCount");
+                context.Assert(groupedPhases.Select(item => item.PhaseIndex).SequenceEqual(new[] { 1, 2, 3 }), $"{bossDefinition.EnemyId} should define phases 1, 2 and 3.");
+                AssertNear(context, 1f, groupedPhases[0].HPThreshold, $"boss.{bossDefinition.EnemyId}.phase1Threshold");
+                AssertNear(context, 0.6f, groupedPhases[1].HPThreshold, $"boss.{bossDefinition.EnemyId}.phase2Threshold");
+                AssertNear(context, 0.3f, groupedPhases[2].HPThreshold, $"boss.{bossDefinition.EnemyId}.phase3Threshold");
+                context.Assert(!string.IsNullOrWhiteSpace(groupedPhases[2].DeathPatternRecipeId), $"{bossDefinition.EnemyId} phase 3 should define a death recipe.");
+                context.Assert(!string.IsNullOrWhiteSpace(bossDefinition.AbilityIds), $"{bossDefinition.EnemyId} should bind native Enemy abilities.");
+            }
         }
 
         private static void CheckZoneDamageRuntime(GFDiagnosticScenarioContext context)
@@ -1593,19 +1635,34 @@ namespace UGF.EditorTools
                 var mapService = runtime.GetService<TotemMapService>();
                 var actorService = runtime.GetService<TotemActorService>();
                 var zoneService = runtime.GetService<TotemZoneService>();
+                var enemyService = runtime.GetService<TotemEnemyService>();
                 flow.ConfirmStartup(1, "knife_basic", new[] { 1 });
+
+                var catalog = runtime.GetService<TotemDataService>().GameplayCatalog;
+                enemyService.RegisterCatalogDefinitions(
+                    catalog.CreateEnemyDefinitions(),
+                    catalog.CreateEnemyAbilityDefinitions(),
+                    catalog.CreateBossPhases());
 
                 var map = mapService.CurrentMap;
                 var center = new Vector3(map.InitialZoneCenter.x, 0.5f, map.InitialZoneCenter.y);
                 var player = actorService.Player;
                 var smart = actorService.Actors.First(actor => actor.Kind == TotemActorKind.SmartAi);
                 var light = actorService.Actors.First(actor => actor.Kind == TotemActorKind.LightAi);
-                var boss = actorService.Boss;
+                context.Assert(actorService.Actors.All(actor => actor.Domain == TotemCombatantDomain.Participant), "Zone actor roster should contain Participants only.");
+                bool bossSpawned = enemyService.TrySpawn(
+                    new TotemEnemySpawnRequest(9101, "boss_ai_core_zero", new Vector3(-102f, 0.5f, -100f), 1, "DiagnosticZoneBoss", 0f),
+                    out var boss,
+                    out var bossSpawnReason);
+                context.Assert(bossSpawned, $"Zone diagnostic Boss should spawn through EnemyService: {bossSpawnReason}");
+                if (boss == null)
+                {
+                    return;
+                }
 
                 player.Position = new Vector3(-100f, 0.5f, -100f);
                 smart.Position = center;
                 light.Position = new Vector3(-101f, 0.5f, -100f);
-                boss.Position = new Vector3(-102f, 0.5f, -100f);
                 light.ApplyDamage(light.Health - 0.5f);
 
                 int eventCount = 0;
@@ -1632,12 +1689,13 @@ namespace UGF.EditorTools
                 context.Assert(!light.IsAlive, "Low-health Light AI outside zone should be killed by out-zone damage.");
                 context.Assert(light.AnimationDead, "Killed out-zone actor should enter actor death animation state.");
                 context.Assert(light.GameObject == null || light.GameObject.activeSelf, "Killed out-zone actor object should remain visible during death animation delay.");
-                context.Assert(boss.Health < bossHpBefore, "Boss outside zone should follow the same out-zone damage contract.");
-                context.AssertEqual(3, snapshot.outZoneAffectedActorCount, "zone.damage.affectedCount");
+                AssertNear(context, bossHpBefore, boss.Health, "zone.independentBoss.health");
+                context.AssertEqual(1, enemyService.CaptureSnapshot().bossCount, "zone.independentBoss.count");
+                context.AssertEqual(2, snapshot.outZoneAffectedActorCount, "zone.damage.affectedCount");
                 context.AssertEqual(1, snapshot.outZoneKilledActorCount, "zone.damage.killedCount");
                 context.Assert(snapshot.lastOutZoneDamageTick > 0f, "Zone snapshot should report last tick damage.");
                 context.Assert(snapshot.totalOutZoneDamage >= snapshot.lastOutZoneDamageTick, "Zone snapshot should accumulate total damage.");
-                context.AssertEqual(3, eventCount, "zone.damage.eventCount");
+                context.AssertEqual(2, eventCount, "zone.damage.eventCount");
                 context.AssertEqual(1, killedCount, "zone.damage.eventKilledCount");
                 actorService.Tick(1f);
                 context.Assert(light.GameObject == null || !light.GameObject.activeSelf, "Killed out-zone actor object should hide after death animation delay.");
@@ -1661,8 +1719,10 @@ namespace UGF.EditorTools
             runtime.RegisterService(new TotemDataService());
             runtime.RegisterService(new TotemAssetService());
             runtime.RegisterService(new TotemMapService());
+            runtime.RegisterService(new TotemCombatRelationshipService());
             runtime.RegisterService(new TotemActorService());
             runtime.RegisterService(new TotemZoneService());
+            runtime.RegisterService(new TotemEnemyService());
         }
 
         private static void CheckBossRewardRuntime(GFDiagnosticScenarioContext context)
@@ -1670,87 +1730,81 @@ namespace UGF.EditorTools
             var runtimeObject = new GameObject("[TotemBossRewardDiagnosticRuntime]");
             TotemGameRuntime runtime = null;
             string directory = Path.Combine(Path.GetTempPath(), "totem-warrior-diagnostics");
-            string statsFileName = Path.Combine(directory, "boss-reward-run-stats.json");
-            string statsBackupFile = statsFileName + ".bak";
-            string statsTempFile = statsFileName + ".tmp";
+            string metaFileName = Path.Combine(directory, "boss-reward-meta-progress.json");
+            string metaBackupFile = metaFileName + ".bak";
+            string metaTempFile = metaFileName + ".tmp";
             try
             {
-                DeleteIfExists(statsFileName);
-                DeleteIfExists(statsBackupFile);
-                DeleteIfExists(statsTempFile);
+                DeleteIfExists(metaFileName);
+                DeleteIfExists(metaBackupFile);
+                DeleteIfExists(metaTempFile);
 
                 runtime = runtimeObject.AddComponent<TotemGameRuntime>();
-                RegisterBossRewardDiagnosticServices(runtime, statsFileName);
+                RegisterBossRewardDiagnosticServices(runtime, metaFileName);
                 runtime.StartRuntime();
 
                 var flow = runtime.GetService<TotemGameFlowService>();
                 var actorService = runtime.GetService<TotemActorService>();
-                var bossService = runtime.GetService<TotemBossService>();
+                var enemyService = runtime.GetService<TotemEnemyService>();
+                var enemyLootService = runtime.GetService<TotemEnemyLootService>();
                 var economyService = runtime.GetService<TotemEconomyService>();
                 var combatService = runtime.GetService<TotemCombatService>();
-                var skillService = runtime.GetService<TotemSkillService>();
-                var runStatsService = runtime.GetService<TotemRunStatsService>();
-                var uiService = runtime.GetService<TotemUIService>();
+                var metaProgressService = runtime.GetService<TotemMetaProgressService>();
                 flow.ConfirmStartup(1, "knife_basic", new[] { 1 });
 
-                var boss = actorService.Boss;
+                var catalog = runtime.GetService<TotemDataService>().GameplayCatalog;
+                enemyService.RegisterCatalogDefinitions(
+                    catalog.CreateEnemyDefinitions(),
+                    catalog.CreateEnemyAbilityDefinitions(),
+                    catalog.CreateBossPhases());
                 var player = actorService.Player;
-                var beforeInventory = economyService.CaptureInventory(player);
-                string recipeId = bossService.CaptureSnapshot().deathPatternRecipeId;
-                context.Assert(!string.IsNullOrWhiteSpace(recipeId), "Boss reward runtime should expose a death recipe id.");
-                context.Assert(bossService.CanUseSkill(out string firstBossSkill), "Boss should expose its first phase skill.");
-                context.AssertEqual("skill_stomp", firstBossSkill, "bossReward.phase1.firstSkill");
-                context.Assert(skillService.TryGetRuntimeDefinition(firstBossSkill, out _), "Boss first skill should resolve in runtime SkillService.");
-                bossService.Tick(TotemBossService.SkillCooldown + 0.1f);
-                context.Assert(bossService.CanUseSkill(out string secondBossSkill), "Boss should rotate to its second phase skill after cooldown.");
-                context.AssertEqual("skill_beam", secondBossSkill, "bossReward.phase1.secondSkill");
-                context.Assert(skillService.TryGetRuntimeDefinition(secondBossSkill, out _), "Boss second skill should resolve in runtime SkillService.");
-
-                actorService.ApplyDamage(boss, boss.MaxHealth * 0.75f);
-                bossService.EvaluateBossHealth();
-                context.AssertEqual(2, bossService.CurrentPhase, "bossReward.phaseAfterHeavyDamage");
-                bossService.Tick(TotemBossService.TransitionDuration + 0.1f);
-                bossService.EvaluateBossHealth();
-                context.AssertEqual(3, bossService.CurrentPhase, "bossReward.phaseAfterTransition");
-
-                var actors = actorService.Actors.ToArray();
-                for (int i = 0; i < actors.Length; i++)
+                context.AssertEqual(50, actorService.Actors.Count, "bossReward.participantCount");
+                context.Assert(actorService.Actors.All(actor => actor.Domain == TotemCombatantDomain.Participant), "Boss reward actor roster should contain Participants only.");
+                bool bossSpawned = enemyService.TrySpawn(
+                    new TotemEnemySpawnRequest(9201, "boss_ai_core_zero", player.Position + Vector3.right * 5f, 1, "DiagnosticBossReward", 0f),
+                    out var boss,
+                    out var bossSpawnReason);
+                context.Assert(bossSpawned, $"Boss reward diagnostic should spawn through EnemyService: {bossSpawnReason}");
+                if (boss == null)
                 {
-                    var actor = actors[i];
-                    if (TotemActorService.IsEnemy(actor) && actor.IsAlive)
-                    {
-                        actorService.ApplyDamage(actor, actor.Health + actor.MaxHealth + 1f);
-                    }
+                    return;
                 }
 
+                enemyService.TryApplyDamage(boss.CombatantId, player, boss.MaxHealth * 0.45f, "DiagnosticBossPhase2", 1f, out _);
+                enemyService.Tick(0.1f);
+                var bossController = enemyService.FindController(boss.CombatantId);
+                context.Assert(bossController != null && bossController.BossPhase == 2, "Boss should enter its own phase 2 at 60% HP.");
+                if (bossController == null)
+                {
+                    return;
+                }
+
+                enemyService.TryApplyDamage(boss.CombatantId, player, boss.MaxHealth * 0.30f, "DiagnosticBossPhase3", 2f, out _);
+                enemyService.Tick(0.1f);
+                context.AssertEqual(3, bossController.BossPhase, "bossReward.phase3");
+
+                var lootBefore = enemyLootService.CaptureSnapshot();
+                context.Assert(
+                    enemyService.TryApplyDamage(boss.CombatantId, player, boss.Health + 1f, "DiagnosticBossDeath", 3f, out float bossDamage)
+                    && bossDamage > 0f,
+                    "Boss death should be owned by EnemyService.");
+                var lootAfter = enemyLootService.CaptureSnapshot();
+                var bossPickups = enemyLootService.ActivePickups.Where(item => item.SourceEnemyCombatantId == boss.CombatantId).ToArray();
+                context.AssertEqual(lootBefore.processedEnemyDeathCount + 1, lootAfter.processedEnemyDeathCount, "bossReward.processedEnemyDeathCount");
+                context.Assert(bossPickups.Any(item => item.RewardType == TotemEnemyLootRewardType.Coin), "Boss death should drop Coin immediately into the world.");
+                context.Assert(bossPickups.Any(item => item.RewardType == TotemEnemyLootRewardType.Paint && item.Count >= 2 && item.Count <= 3), "Boss death should drop 2-3 Paint immediately into the world.");
+                var recipePickup = bossPickups.FirstOrDefault(item => item.RewardType == TotemEnemyLootRewardType.Recipe);
+                context.Assert(recipePickup != null, "Boss death should drop its theme recipe immediately into the world.");
+                context.Assert(!metaProgressService.HasBossRecipe(recipePickup?.ItemId), "Boss recipe should not be granted before public pickup.");
                 combatService.Tick(0.1f);
-                var result = combatService.LastRunResult;
-                context.Assert(result != null, "Combat should build a run result after all enemies are dead.");
-                context.Assert(result.win, "Boss reward runtime should end in victory.");
-                context.AssertEqual("AllEnemiesDefeated", result.reason, "bossReward.runResult.reason");
-                context.Assert(result.bossRewardClaimed, "Victory result should claim the Boss death reward.");
-                context.AssertEqual(recipeId, result.bossDeathPatternRecipeId, "bossReward.runResult.recipeId");
-
-                var bossSnapshot = bossService.CaptureSnapshot();
-                context.Assert(bossSnapshot.deathRewardClaimed, "Boss snapshot should report claimed death reward.");
-                context.AssertEqual(recipeId, bossSnapshot.lastDeathRewardRecipeId, "bossReward.snapshot.recipeId");
-
-                var afterInventory = economyService.CaptureInventory(player);
-                context.AssertEqual(beforeInventory.recipeUnlockCount + 1, afterInventory.recipeUnlockCount, "bossReward.inventory.recipeUnlockCount");
-                context.Assert(afterInventory.recipeIds.Contains(recipeId), "Boss recipe should be unlocked in player inventory.");
-                context.Assert(!bossService.TryClaimDeathReward(out _), "Boss death reward should not be claimable twice.");
-                context.Assert(TotemRunResultForm.FormatSummary(result).Contains(recipeId, System.StringComparison.Ordinal), "Run result summary should expose the Boss recipe reward.");
-                context.Assert(result.cumulativeStats != null, "Run result should include cumulative stats from RunStatsService.");
-                context.AssertEqual(1, result.cumulativeStats.totalRuns, "bossReward.runStats.totalRuns");
-                context.AssertEqual(1, result.cumulativeStats.totalWins, "bossReward.runStats.totalWins");
-                context.AssertEqual(0, result.cumulativeStats.totalLosses, "bossReward.runStats.totalLosses");
-                context.AssertEqual("AllEnemiesDefeated", result.cumulativeStats.lastResultReason, "bossReward.runStats.lastReason");
-                context.Assert(runStatsService.LastSaveSucceeded, "RunStatsService should save after a real combat finish.");
-                context.Assert(File.Exists(statsFileName), "RunStatsService should write the diagnostic run stats file.");
-                context.Assert(TotemRunStatsService.TryReadSnapshotFromFile(statsFileName, out var savedStats, out string readStatsError), $"RunStatsService saved stats should be readable: {readStatsError}");
-                context.AssertEqual(1, savedStats.totalRuns, "bossReward.runStats.savedTotalRuns");
-                context.AssertEqual(1, savedStats.totalWins, "bossReward.runStats.savedTotalWins");
-                context.Assert(ReferenceEquals(result, uiService.ActiveRunResult), "Run result UI context should receive the finished run result.");
+                context.Assert(combatService.LastRunResult == null, "Boss death must not end the run while multiple Participants remain alive.");
+                TotemLootPickupResult recipeResult = default;
+                bool recipePickedUp = recipePickup != null && enemyLootService.TryPickup(recipePickup.PickupId, player, out recipeResult);
+                context.Assert(recipePickedUp, "The active Human Participant should be able to pick up the public Boss recipe.");
+                context.Assert(recipeResult.RecipeUnlocked, "Boss recipe pickup should persist a newly unlocked recipe.");
+                context.Assert(recipePickup != null && metaProgressService.HasBossRecipe(recipePickup.ItemId), "Picked Boss recipe should be persisted by MetaProgressService.");
+                context.AssertEqual(0, enemyService.CaptureSnapshot().bossCount, "bossReward.aliveBossCountAfterDeath");
+                context.Assert(economyService.CaptureInventory(player) != null, "Enemy loot runtime should keep Participant inventory available.");
             }
             finally
             {
@@ -1760,25 +1814,26 @@ namespace UGF.EditorTools
                 }
 
                 UnityEngine.Object.DestroyImmediate(runtimeObject);
-                DeleteIfExists(statsFileName);
-                DeleteIfExists(statsBackupFile);
-                DeleteIfExists(statsTempFile);
+                DeleteIfExists(metaFileName);
+                DeleteIfExists(metaBackupFile);
+                DeleteIfExists(metaTempFile);
             }
         }
 
-        private static void RegisterBossRewardDiagnosticServices(TotemGameRuntime runtime, string statsFileName)
+        private static void RegisterBossRewardDiagnosticServices(TotemGameRuntime runtime, string metaFileName)
         {
             runtime.RegisterService(new TotemGameFlowService());
+            runtime.RegisterService(new TotemInputService());
             runtime.RegisterService(new TotemDataService());
             runtime.RegisterService(new TotemAssetService());
+            runtime.RegisterService(new TotemMetaProgressService { FilePathOverride = metaFileName });
             runtime.RegisterService(new TotemMapService());
+            runtime.RegisterService(new TotemCombatRelationshipService());
             runtime.RegisterService(new TotemActorService());
             runtime.RegisterService(new TotemEconomyService());
-            runtime.RegisterService(new TotemRunStatsService { FilePathOverride = statsFileName });
-            runtime.RegisterService(new TotemSkillService());
-            runtime.RegisterService(new TotemBossService());
+            runtime.RegisterService(new TotemEnemyService());
+            runtime.RegisterService(new TotemEnemyLootService());
             runtime.RegisterService(new TotemCombatService());
-            runtime.RegisterService(new TotemUIService());
         }
 
         private static void CheckEconomyNpcAndChoices(GFDiagnosticScenarioContext context)
@@ -2412,7 +2467,7 @@ namespace UGF.EditorTools
 
         private static void CheckRunStatsPersistence(GFDiagnosticScenarioContext context, TotemRunResultSnapshot defeatResult)
         {
-            var victory = TotemCombatService.BuildRunResult(true, "AllEnemiesDefeated", 3, 25f, 0, 20f);
+            var victory = TotemCombatService.BuildRunResult(true, "LastParticipantStanding", 3, 25f, 1, 20f);
             var stats = TotemRunStatsService.ApplyRunResult(null, victory);
             stats = TotemRunStatsService.ApplyRunResult(stats, defeatResult);
             context.AssertEqual(2, stats.totalRuns, "runStats.totalRuns");

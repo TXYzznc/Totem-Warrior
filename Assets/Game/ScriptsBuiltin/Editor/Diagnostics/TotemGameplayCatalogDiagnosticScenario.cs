@@ -50,6 +50,9 @@ namespace UGF.EditorTools
             context.Detail("catalog.tattooEnchantAffixCount", catalog.tattooEnchantAffixes.Length);
             context.Detail("catalog.tattooEnchantRecipeCount", catalog.tattooEnchantRecipes.Length);
             context.Detail("catalog.enemyCount", catalog.enemies.Length);
+            context.Detail("catalog.enemyAbilityCount", catalog.enemyAbilities.Length);
+            context.Detail("catalog.encounterSpawnCount", catalog.encounterSpawns.Length);
+            context.Detail("catalog.enemyLootCount", catalog.enemyLoot.Length);
             context.Detail("catalog.audioCueCount", catalog.audioCues.Length);
             context.Detail("catalog.npcCount", catalog.npcs.Length);
             context.Detail("catalog.shopStockCount", catalog.shopStocks.Length);
@@ -223,37 +226,45 @@ namespace UGF.EditorTools
 
             var enemies = catalog.CreateEnemyDefinitions();
             context.Detail("catalog.firstRoundContent.enemyBodyRows", enemies.Length);
-            context.AssertEqual(3, enemies.Length, "catalog.enemies.count");
-            var lightEnemy = enemies.FirstOrDefault(item => item.EnemyId == "enemy_common_light_01");
-            var eliteEnemy = enemies.FirstOrDefault(item => item.EnemyId == "enemy_common_elite_01");
-            var bossEnemy = enemies.FirstOrDefault(item => item.EnemyId == "enemy_ai_ruins_boss_01");
-            context.Assert(lightEnemy != null && lightEnemy.Tier == TotemEnemyTier.Light, "Catalog must preserve common Light enemy.");
-            AssertNear(context, 55f, lightEnemy?.BaseHP ?? -1f, "catalog.enemy.light.hp");
-            AssertNear(context, 8f, lightEnemy?.BaseDamage ?? -1f, "catalog.enemy.light.damage");
-            context.AssertEqual("pool_common", lightEnemy?.PoolIds ?? string.Empty, "catalog.enemy.light.pool");
-            context.Assert(eliteEnemy != null && eliteEnemy.Tier == TotemEnemyTier.Elite, "Catalog must preserve common Elite enemy.");
-            AssertNear(context, 150f, eliteEnemy?.BaseHP ?? -1f, "catalog.enemy.elite.hp");
-            context.AssertEqual("paint_rare_001", eliteEnemy?.GuaranteedLootIds ?? string.Empty, "catalog.enemy.elite.guaranteedLoot");
-            context.Assert(eliteEnemy != null && eliteEnemy.ElitePaintDropRare, "Elite enemy should preserve rare paint flag.");
-            context.Assert(bossEnemy != null && bossEnemy.Tier == TotemEnemyTier.Boss, "Catalog must preserve AI ruins Boss enemy.");
-            AssertNear(context, 900f, bossEnemy?.BaseHP ?? -1f, "catalog.enemy.boss.hp");
-            AssertNear(context, 35f, bossEnemy?.BaseDamage ?? -1f, "catalog.enemy.boss.damage");
-            context.AssertEqual("skill_stomp,skill_beam,skill_summon", bossEnemy?.SkillIds ?? string.Empty, "catalog.enemy.boss.skills");
-            context.AssertEqual("loot_boss_ai_ruins", bossEnemy?.LootTableId ?? string.Empty, "catalog.enemy.boss.lootTable");
-            context.AssertEqual(80, bossEnemy?.CoinRewardMin ?? -1, "catalog.enemy.boss.coinMin");
-            context.AssertEqual(120, bossEnemy?.CoinRewardMax ?? -1, "catalog.enemy.boss.coinMax");
+            context.AssertEqual(15, enemies.Length, "catalog.enemies.count");
+            context.AssertEqual(8, enemies.Count(item => item.Tier == TotemEnemyTier.Light), "catalog.enemies.lightCount");
+            context.AssertEqual(4, enemies.Count(item => item.Tier == TotemEnemyTier.Elite), "catalog.enemies.eliteCount");
+            context.AssertEqual(3, enemies.Count(item => item.Tier == TotemEnemyTier.Boss), "catalog.enemies.bossCount");
+
+            var enemyAbilities = catalog.CreateEnemyAbilityDefinitions();
+            var encounters = catalog.CreateEncounterSpawnDefinitions();
+            var enemyLoot = catalog.CreateEnemyLootDefinitions();
+            context.AssertEqual(25, enemyAbilities.Length, "catalog.enemyAbilities.count");
+            context.AssertEqual(9, encounters.Length, "catalog.encounters.count");
+            context.AssertEqual(37, enemyLoot.Length, "catalog.enemyLoot.count");
+
+            var enemyIds = enemies.Select(item => item.EnemyId).ToHashSet(StringComparer.Ordinal);
+            var abilityIds = enemyAbilities.Select(item => item.AbilityId).ToHashSet(StringComparer.Ordinal);
+            var lootEntryIds = enemyLoot.Select(item => item.LootEntryId).ToHashSet(StringComparer.Ordinal);
+            var lootTableIds = enemyLoot.Select(item => item.LootTableId).ToHashSet(StringComparer.Ordinal);
+            var poolIds = enemies.SelectMany(item => SplitIds(item.PoolIds)).ToHashSet(StringComparer.Ordinal);
+            context.AssertEqual(enemies.Length, enemyIds.Count, "catalog.enemies.uniqueIds");
+            context.AssertEqual(enemyAbilities.Length, abilityIds.Count, "catalog.enemyAbilities.uniqueIds");
+            context.AssertEqual(enemyLoot.Length, lootEntryIds.Count, "catalog.enemyLoot.uniqueIds");
+            context.Assert(enemies.All(item => !string.IsNullOrWhiteSpace(item.RuntimeAssetKey)), "Every EnemyConfig row must bind a RuntimeAssetKey.");
+            context.Assert(enemies.All(item => !string.IsNullOrWhiteSpace(item.BehaviorProfileId)), "Every EnemyConfig row must bind a behavior profile.");
+            context.Assert(enemies.All(item => SplitIds(item.AbilityIds).All(abilityIds.Contains)), "Every EnemyConfig AbilityIds foreign key must resolve.");
+            context.Assert(enemies.All(item => lootTableIds.Contains(item.LootTableId)), "Every EnemyConfig LootTableId foreign key must resolve.");
+            context.Assert(enemies.All(item => SplitIds(item.GuaranteedLootIds).All(lootEntryIds.Contains)), "Every EnemyConfig GuaranteedLootIds foreign key must resolve.");
+            context.Assert(enemyAbilities.Where(item => item.AbilityType == TotemEnemyAbilityType.Summon).All(item => enemyIds.Contains(item.SummonEnemyId)), "Every summon ability must resolve its EnemyConfig foreign key.");
+            context.Assert(encounters.All(item => SplitIds(item.EnemyPoolIds).All(poolIds.Contains)), "Every EncounterSpawnConfig pool foreign key must resolve.");
+            context.AssertEqual(3, encounters.Count(item => item.Unique), "catalog.encounters.uniqueBossSchedules");
 
             var bossPhases = catalog.CreateBossPhases();
             context.Detail("catalog.firstRoundContent.bossPhaseRows", bossPhases.Length);
-            context.AssertEqual(3, bossPhases.Length, "catalog.bossPhases.count");
-            context.AssertEqual("enemy_ai_ruins_boss_01", bossPhases[0].BossId, "catalog.bossPhases.bossId");
-            context.AssertEqual("skill_stomp,skill_beam", bossPhases[0].SkillIds, "catalog.bossPhases.phase1.skills");
-            context.AssertEqual("skill_summon", bossPhases[1].SkillIds, "catalog.bossPhases.phase2.skills");
-            context.AssertEqual("skill_enrage_aoe", bossPhases[2].SkillIds, "catalog.bossPhases.phase3.skills");
-            AssertNear(context, 1.35f, bossPhases[2].EnrageMultiplier, "catalog.bossPhases.phase3.enrage");
-            context.AssertEqual("vfx_boss_phase3", bossPhases[2].PhaseVFXId, "catalog.bossPhases.phase3.vfx");
-            context.AssertEqual("bgm_boss_phase3", bossPhases[2].PhaseBGMCueId, "catalog.bossPhases.phase3.bgm");
-            context.AssertEqual("recipe_ai_ruins_boss", bossPhases[2].DeathPatternRecipeId, "catalog.bossPhases.phase3.recipe");
+            context.AssertEqual(9, bossPhases.Length, "catalog.bossPhases.count");
+            var bossIds = enemies.Where(item => item.Tier == TotemEnemyTier.Boss).Select(item => item.EnemyId).ToHashSet(StringComparer.Ordinal);
+            var phaseGroups = bossPhases.GroupBy(phase => phase.BossId).ToArray();
+            context.AssertEqual(3, phaseGroups.Length, "catalog.bossPhases.bossGroupCount");
+            context.Assert(phaseGroups.All(group => bossIds.Contains(group.Key)), "Every BossPhaseConfig BossId foreign key must resolve.");
+            context.Assert(phaseGroups.All(group => group.Count() == 3), "Each Boss must own exactly three phase rows.");
+            context.Assert(phaseGroups.All(group => group.Select(phase => phase.PhaseIndex).OrderBy(index => index).SequenceEqual(new[] { 1, 2, 3 })), "Each Boss must define phases 1, 2, and 3 exactly once.");
+            context.Assert(phaseGroups.All(group => !string.IsNullOrWhiteSpace(group.Single(phase => phase.PhaseIndex == 3).DeathPatternRecipeId)), "Each Boss phase 3 must bind a death recipe.");
 
             var audioCues = catalog.CreateAudioCueDefinitions();
             context.AssertEqual(14, audioCues.Length, "catalog.audioCues.count");
@@ -324,24 +335,25 @@ namespace UGF.EditorTools
             var botBuildPresets = catalog.CreateBotBuildPresets();
             int smartProfileCount = botProfiles.Count(profile => profile.ActorKind == TotemActorKind.SmartAi);
             int lightProfileCount = botProfiles.Count(profile => profile.ActorKind == TotemActorKind.LightAi);
-            var firstRoundRoster = TotemActorService.BuildActorRoster(map, new TotemStartupSelection(), enemies);
-            int nonBossActors = firstRoundRoster.Count(actor => actor.Kind != TotemActorKind.Boss);
-            int smartAiActors = firstRoundRoster.Count(actor => actor.Kind == TotemActorKind.SmartAi);
-            int lightAiRuntimeActors = firstRoundRoster.Count(actor => actor.Kind == TotemActorKind.LightAi);
-            int bossActors = firstRoundRoster.Count(actor => actor.Kind == TotemActorKind.Boss);
-            context.Detail("catalog.firstRoundContent.nonBossActorsIncludingPlayer", nonBossActors);
-            context.Detail("catalog.firstRoundContent.smartAiRuntimeActors", smartAiActors);
-            context.Detail("catalog.firstRoundContent.lightAiRuntimeActorsFromReusedProfiles", lightAiRuntimeActors);
-            context.Detail("catalog.firstRoundContent.bossActors", bossActors);
+            var firstRoundRoster = TotemActorService.BuildActorRoster(map, new TotemStartupSelection());
+            int humanParticipants = firstRoundRoster.Count(actor => actor.ControllerKind == TotemParticipantControllerKind.Human);
+            int smartBotParticipants = firstRoundRoster.Count(actor => actor.ControllerKind == TotemParticipantControllerKind.SmartBot);
+            int lightBotParticipants = firstRoundRoster.Count(actor => actor.ControllerKind == TotemParticipantControllerKind.LightBot);
+            context.Detail("catalog.firstRoundContent.participantCount", firstRoundRoster.Length);
+            context.Detail("catalog.firstRoundContent.humanParticipants", humanParticipants);
+            context.Detail("catalog.firstRoundContent.smartBotParticipants", smartBotParticipants);
+            context.Detail("catalog.firstRoundContent.lightBotParticipants", lightBotParticipants);
             context.Detail("catalog.firstRoundContent.smartAiProfileRows", smartProfileCount);
             context.Detail("catalog.firstRoundContent.lightAiProfileRowsReusedByRuntimeActors", lightProfileCount);
             context.AssertEqual(23, botProfiles.Length, "catalog.ai.profileCount");
             context.AssertEqual(20, smartProfileCount, "catalog.ai.smartProfileCount");
             context.AssertEqual(3, lightProfileCount, "catalog.ai.lightProfileCount.reusedBy29RuntimeActors");
-            context.AssertEqual(50, nonBossActors, "catalog.firstRoundContent.nonBossActorsIncludingPlayer");
-            context.AssertEqual(20, smartAiActors, "catalog.firstRoundContent.smartAiRuntimeActors");
-            context.AssertEqual(29, lightAiRuntimeActors, "catalog.firstRoundContent.lightAiRuntimeActorsFromReusedProfiles");
-            context.AssertEqual(1, bossActors, "catalog.firstRoundContent.bossActors");
+            context.AssertEqual(50, firstRoundRoster.Length, "catalog.firstRoundContent.participantCount");
+            context.AssertEqual(1, humanParticipants, "catalog.firstRoundContent.humanParticipants");
+            context.AssertEqual(20, smartBotParticipants, "catalog.firstRoundContent.smartBotParticipants");
+            context.AssertEqual(29, lightBotParticipants, "catalog.firstRoundContent.lightBotParticipants");
+            context.Assert(firstRoundRoster.All(actor => TotemActorService.IsParticipantKind(actor.Kind)),
+                "Catalog Actor roster must contain Participant kinds only.");
             context.AssertEqual(5, botProfiles.Count(profile => profile.ActorKind == TotemActorKind.SmartAi && profile.Personality == TotemAIPersonality.Aggressive), "catalog.ai.personality.aggressive");
             context.AssertEqual(3, botProfiles.Count(profile => profile.ActorKind == TotemActorKind.SmartAi && profile.Personality == TotemAIPersonality.Conservative), "catalog.ai.personality.conservative");
             context.AssertEqual(4, botProfiles.Count(profile => profile.ActorKind == TotemActorKind.SmartAi && profile.Personality == TotemAIPersonality.ResourceAcquisition), "catalog.ai.personality.resource");
@@ -382,7 +394,11 @@ namespace UGF.EditorTools
             context.AssertEqual(8, dataService.GameplayCatalog.tattooShapes.Length, "dataService.catalog.tattooShapeCount");
             context.AssertEqual(24, dataService.GameplayCatalog.tattooEnchantAffixes.Length, "dataService.catalog.tattooEnchantAffixCount");
             context.AssertEqual(3, dataService.GameplayCatalog.tattooEnchantRecipes.Length, "dataService.catalog.tattooEnchantRecipeCount");
-            context.AssertEqual(3, dataService.GameplayCatalog.enemies.Length, "dataService.catalog.enemyCount");
+            context.AssertEqual(15, dataService.GameplayCatalog.enemies.Length, "dataService.catalog.enemyCount");
+            context.AssertEqual(25, dataService.GameplayCatalog.enemyAbilities.Length, "dataService.catalog.enemyAbilityCount");
+            context.AssertEqual(9, dataService.GameplayCatalog.encounterSpawns.Length, "dataService.catalog.encounterSpawnCount");
+            context.AssertEqual(37, dataService.GameplayCatalog.enemyLoot.Length, "dataService.catalog.enemyLootCount");
+            context.AssertEqual(9, dataService.GameplayCatalog.bossPhases.Length, "dataService.catalog.bossPhaseCount");
             context.AssertEqual(14, dataService.GameplayCatalog.audioCues.Length, "dataService.catalog.audioCueCount");
             context.AssertEqual(15, dataService.GameplayCatalog.shopStocks.Length, "dataService.catalog.shopStockCount");
             context.AssertEqual(9, dataService.GameplayCatalog.merchantSlots.Length, "dataService.catalog.merchantSlotCount");
@@ -412,7 +428,7 @@ namespace UGF.EditorTools
             context.Assert(Directory.Exists(sourceDirectory), $"Gameplay catalog source directory must exist: {sourceDirectory}");
             string[] sourceFiles = Directory.GetFiles(sourceDirectory, "*.json", SearchOption.TopDirectoryOnly);
             context.Detail("catalog.generation.actualSourceFileCount", sourceFiles.Length);
-            context.AssertEqual(28, sourceFiles.Length, "catalog.generation.actualSourceFileCount");
+            context.AssertEqual(31, sourceFiles.Length, "catalog.generation.actualSourceFileCount");
             context.AssertEqual(sourceFiles.Length, generation.sourceFileCount, "catalog.generation.sourceFileCount.matchesActual");
 
             string actualHash = ComputeSourceFingerprint(sourceFiles);
@@ -424,6 +440,14 @@ namespace UGF.EditorTools
         {
             var assetsDirectory = Directory.GetParent(Application.dataPath);
             return assetsDirectory == null ? Directory.GetCurrentDirectory() : assetsDirectory.FullName;
+        }
+
+        private static IEnumerable<string> SplitIds(string value)
+        {
+            return (value ?? string.Empty)
+                .Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(item => item.Trim())
+                .Where(item => item.Length > 0);
         }
 
         private static string ComputeSourceFingerprint(string[] sourceFiles)

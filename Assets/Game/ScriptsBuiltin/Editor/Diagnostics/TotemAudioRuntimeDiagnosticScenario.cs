@@ -49,13 +49,19 @@ namespace UGF.EditorTools
                 runtime.StartRuntime();
 
                 var flow = runtime.GetService<TotemGameFlowService>();
+                var data = runtime.GetService<TotemDataService>();
                 var settings = runtime.GetService<TotemSettingsService>();
                 var actor = runtime.GetService<TotemActorService>();
                 var weapon = runtime.GetService<TotemWeaponService>();
-                var boss = runtime.GetService<TotemBossService>();
+                var enemies = runtime.GetService<TotemEnemyService>();
                 var audio = runtime.GetService<TotemAudioService>();
+                var clock = runtime.GetService<TotemMatchClockService>();
 
                 context.Assert(audio != null, "Audio service should be registered.");
+                enemies.RegisterCatalogDefinitions(
+                    data.GameplayCatalog.CreateEnemyDefinitions(),
+                    data.GameplayCatalog.CreateEnemyAbilityDefinitions(),
+                    data.GameplayCatalog.CreateBossPhases());
                 context.Assert(audio.TryGetCue("bgm_boss_phase3", out var phase3Cue) && phase3Cue.Kind == TotemAudioCueKind.Bgm, "Audio service should expose Boss phase 3 BGM cue.");
 
                 flow.EnterMainMenu();
@@ -66,17 +72,31 @@ namespace UGF.EditorTools
                 context.AssertEqual(1, menuSnapshot.bgmRequestCount, "audio.menu.bgmRequestCount");
 
                 flow.ConfirmStartup(1, "knife_basic", new[] { 1 });
+                clock?.SetWorldTimeForDiagnostics(TotemCombatRelationshipService.ParticipantCombatGraceSeconds);
                 var combatStartSnapshot = audio.CaptureSnapshot();
                 context.AssertEqual("bgm_in_game", combatStartSnapshot.currentBgmCueId, "audio.combat.startBgm");
                 context.AssertEqual("GameFlow.CombatHud", combatStartSnapshot.lastReason, "audio.combat.startReason");
                 context.AssertEqual(2, combatStartSnapshot.bgmRequestCount, "audio.combat.startBgmRequestCount");
-                audio.Tick(0.1f);
+                context.Assert(enemies.TrySpawn(
+                    new TotemEnemySpawnRequest(910001, "boss_ai_core_zero", actor.Player.Position + Vector3.forward * 4f, 1, "diagnostic.audio", 0f),
+                    out var bossEnemy,
+                    out var bossSpawnReason), $"Audio diagnostic should spawn a native Boss enemy: {bossSpawnReason}");
+                int bossPhaseEventCount = 0;
+                enemies.BossPhaseChanged += evt =>
+                {
+                    if (evt.Enemy == bossEnemy)
+                    {
+                        bossPhaseEventCount++;
+                    }
+                };
+                enemies.Tick(0.1f);
                 var combatSnapshot = audio.CaptureSnapshot();
                 context.AssertEqual("bgm_boss_phase1", combatSnapshot.currentBgmCueId, "audio.combat.bossPhase1Bgm");
                 context.AssertEqual(1, combatSnapshot.observedBossPhase, "audio.combat.observedBossPhase");
                 context.AssertEqual("bgm_boss_phase1", combatSnapshot.observedBossBgmCueId, "audio.combat.observedBossBgmCueId");
-                context.AssertEqual("Boss.Phase1", combatSnapshot.lastReason, "audio.combat.bossPhase1Reason");
+                context.AssertEqual("EnemyBoss.Phase1", combatSnapshot.lastReason, "audio.combat.bossPhase1Reason");
                 context.AssertEqual(3, combatSnapshot.bgmRequestCount, "audio.combat.bgmRequestCount");
+                context.AssertEqual(1, bossPhaseEventCount, "audio.combat.bossPhaseEventCount");
 
                 settings.BeginEdit();
                 settings.Preview(0.55f, 0.25f, 1);
@@ -85,40 +105,57 @@ namespace UGF.EditorTools
                 AssertNear(context, 0.25f, settingsSnapshot.sfxVolume, "audio.settings.sfx");
 
                 var player = actor.Player;
-                var bossActor = actor.Boss;
                 weapon.EquipWeapon(player, "knife_basic");
-                actor.ApplyDamage(bossActor, bossActor.MaxHealth * 0.45f, player, "PlayerAttack");
+                var hitTarget = actor.Actors.First(item => item.ControllerKind == TotemParticipantControllerKind.LightBot);
+                context.AssertEqual(TotemParticipantLifecycle.Active, player.Lifecycle, "audio.damage.sourceLifecycle");
+                context.AssertEqual(TotemParticipantLifecycle.Active, hitTarget.Lifecycle, "audio.damage.targetLifecycle");
+                actor.ApplyDamage(hitTarget, 10f, player, "PlayerAttack");
                 var hitSnapshot = audio.CaptureSnapshot();
                 context.AssertEqual("sfx_hit_melee", hitSnapshot.lastSfxCueId, "audio.damage.hitCue");
                 context.AssertEqual("SFX/hit_melee.wav", hitSnapshot.lastSfxAssetName, "audio.damage.hitAsset");
                 context.AssertEqual("Damage.PlayerAttack", hitSnapshot.lastReason, "audio.damage.hitReason");
-                boss.EvaluateBossHealth();
-                audio.Tick(0.1f);
+                context.Assert(enemies.TryApplyDamage(
+                    bossEnemy.CombatantId,
+                    player,
+                    bossEnemy.MaxHealth * 0.45f,
+                    "DiagnosticAudioBossPhase2",
+                    0.2f,
+                    out var phase2Damage) && phase2Damage > 0f,
+                    "Participant damage should enter EnemyService for Boss phase 2.");
+                enemies.Tick(0.1f);
                 var phase2Snapshot = audio.CaptureSnapshot();
                 context.AssertEqual("bgm_boss_phase2", phase2Snapshot.currentBgmCueId, "audio.boss.phase2Bgm");
                 context.AssertEqual("bgm_boss_phase2", phase2Snapshot.observedBossBgmCueId, "audio.boss.phase2ObservedBgm");
-                context.AssertEqual("Boss.Phase2", phase2Snapshot.lastReason, "audio.boss.phase2Reason");
+                context.AssertEqual("EnemyBoss.Phase2", phase2Snapshot.lastReason, "audio.boss.phase2Reason");
 
-                actor.ApplyDamage(bossActor, bossActor.MaxHealth * 0.35f, player, "PlayerAttack");
-                boss.EvaluateBossHealth();
-                audio.Tick(0.1f);
+                context.Assert(enemies.TryApplyDamage(
+                    bossEnemy.CombatantId,
+                    player,
+                    bossEnemy.MaxHealth * 0.35f,
+                    "DiagnosticAudioBossPhase3",
+                    0.3f,
+                    out var phase3Damage) && phase3Damage > 0f,
+                    "Participant damage should enter EnemyService for Boss phase 3.");
+                enemies.Tick(0.1f);
                 var phase3Snapshot = audio.CaptureSnapshot();
                 context.AssertEqual("bgm_boss_phase3", phase3Snapshot.currentBgmCueId, "audio.boss.phase3Bgm");
                 context.AssertEqual(3, phase3Snapshot.observedBossPhase, "audio.boss.phase3Observed");
                 context.AssertEqual("bgm_boss_phase3", phase3Snapshot.observedBossBgmCueId, "audio.boss.phase3ObservedBgm");
-                context.AssertEqual("Boss.Phase3", phase3Snapshot.lastReason, "audio.boss.phase3Reason");
+                context.AssertEqual("EnemyBoss.Phase3", phase3Snapshot.lastReason, "audio.boss.phase3Reason");
+                context.AssertEqual(3, bossPhaseEventCount, "audio.boss.phaseEventCount");
+                context.AssertEqual(3, enemies.FindController(bossEnemy.CombatantId)?.BossPhase ?? 0, "audio.boss.nativePhase");
 
                 var light = actor.Actors.First(item => item.Kind == TotemActorKind.LightAi);
-                actor.SetCombatElapsedSecondsForDiagnostics(TotemActorService.ParticipantDamageProtectionSeconds + 0.1f);
                 actor.ApplyDamage(light, light.Health + 1f, player, "PlayerAttack");
                 var killSnapshot = audio.CaptureSnapshot();
                 context.AssertEqual("sfx_kill", killSnapshot.lastSfxCueId, "audio.damage.killCue");
                 context.AssertEqual("Killed.PlayerAttack", killSnapshot.lastReason, "audio.damage.killReason");
 
-                actor.ApplyDamage(player, player.Health + 1f, bossActor, "BossAttack");
+                actor.ApplyDamage(player, player.Health + 1f, bossEnemy, "EnemyAbility:core_zero_beam");
                 var playerDiedSnapshot = audio.CaptureSnapshot();
                 context.AssertEqual("sfx_player_died", playerDiedSnapshot.lastSfxCueId, "audio.damage.playerDiedCue");
-                context.AssertEqual("PlayerDied.BossAttack", playerDiedSnapshot.lastReason, "audio.damage.playerDiedReason");
+                context.AssertEqual("PlayerDied.EnemyAbility:core_zero_beam", playerDiedSnapshot.lastReason, "audio.damage.playerDiedReason");
+                context.AssertEqual(bossEnemy.CombatantId, actor.LastDamage.Source?.CombatantId ?? 0, "audio.damage.playerDiedEnemySource");
 
                 int missingBefore = audio.CaptureSnapshot().missingCueCount;
                 context.Assert(!audio.PlaySfxCue("sfx_missing_diagnostic", Vector3.zero, "Diagnostic.MissingCue"), "Missing audio cue should fail without blocking.");
@@ -149,13 +186,15 @@ namespace UGF.EditorTools
         private static void RegisterAudioDiagnosticServices(TotemGameRuntime runtime)
         {
             runtime.RegisterService(new TotemGameFlowService());
+            runtime.RegisterService(new TotemMatchClockService());
             runtime.RegisterService(new TotemDataService());
             runtime.RegisterService(new TotemAssetService());
             runtime.RegisterService(new TotemSettingsService());
             runtime.RegisterService(new TotemMapService());
+            runtime.RegisterService(new TotemCombatRelationshipService());
             runtime.RegisterService(new TotemActorService());
             runtime.RegisterService(new TotemWeaponService());
-            runtime.RegisterService(new TotemBossService());
+            runtime.RegisterService(new TotemEnemyService());
             runtime.RegisterService(new TotemAudioService());
         }
 
