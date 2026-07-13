@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-09",
+  "generated_at": "2026-07-13",
   "source": "tools/ai_index/build_ai_manifests.py",
   "unity_tests": [],
   "playtest_reports": [
@@ -32,14 +32,6 @@
   ],
   "active_changes": [
     {
-      "id": "25-camera-2p5d-system",
-      "path": "openspec/changes/25-camera-2p5d-system",
-      "has_proposal": false,
-      "has_design": false,
-      "has_tasks": false,
-      "artifacts": []
-    },
-    {
       "id": "26-fixed-map-three-themes",
       "path": "openspec/changes/26-fixed-map-three-themes",
       "has_proposal": true,
@@ -62,6 +54,31 @@
       "artifacts": [
         ".openspec.yaml",
         "CONTRACT.md",
+        "design.md",
+        "proposal.md",
+        "tasks.md"
+      ]
+    },
+    {
+      "id": "28-pcg-map-runtime-integration",
+      "path": "openspec/changes/28-pcg-map-runtime-integration",
+      "has_proposal": true,
+      "has_design": true,
+      "has_tasks": true,
+      "artifacts": [
+        "design.md",
+        "proposal.md",
+        "tasks.md"
+      ]
+    },
+    {
+      "id": "additive-gameplay-loading-world-sorting",
+      "path": "openspec/changes/additive-gameplay-loading-world-sorting",
+      "has_proposal": true,
+      "has_design": true,
+      "has_tasks": true,
+      "artifacts": [
+        ".openspec.yaml",
         "design.md",
         "proposal.md",
         "tasks.md"
@@ -106,9 +123,33 @@
         "proposal.md",
         "tasks.md"
       ]
+    },
+    {
+      "id": "produce-totem-art-assets",
+      "path": "openspec/changes/produce-totem-art-assets",
+      "has_proposal": true,
+      "has_design": true,
+      "has_tasks": true,
+      "artifacts": [
+        ".openspec.yaml",
+        "design.md",
+        "proposal.md",
+        "tasks.md"
+      ]
+    },
+    {
+      "id": "remove-resources-load-paths",
+      "path": "openspec/changes/remove-resources-load-paths",
+      "has_proposal": true,
+      "has_design": true,
+      "has_tasks": true,
+      "artifacts": [
+        ".openspec.yaml",
+        "design.md",
+        "proposal.md",
+        "tasks.md"
+      ]
     }
   ],
-  "warnings": [
-    "25-camera-2p5d-system 缺少 proposal/design/tasks 中的一个或多个 artifact"
-  ]
+  "warnings": []
 }

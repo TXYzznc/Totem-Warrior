@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-09",
+  "generated_at": "2026-07-13",
   "source": "tools/ai_index/build_ai_manifests.py",
   "purpose": "Feature-slice index for design/art/program/QA handoffs during the GF_X rewrite.",
   "count": 13,
@@ -12,7 +12,7 @@
   "legacy_module_coverage_count": 24,
   "business_table_coverage_count": 28,
   "runtime_service_coverage_count": 26,
-  "runtime_asset_key_coverage_count": 38,
+  "runtime_asset_key_coverage_count": 25,
   "diagnostic_scenario_coverage_count": 16,
   "modules": [
     "Audio",
@@ -110,8 +110,6 @@
     "effect.projectile.arrow_bow",
     "effect.projectile.bullet_pistol",
     "effect.skill.burst",
-    "map.floor.ruins",
-    "map.wall.ruins",
     "npc.merchant",
     "npc.tattooist",
     "skill.skill_beam",
@@ -120,17 +118,6 @@
     "skill.skill_phase_dash",
     "skill.skill_stomp",
     "skill.skill_summon",
-    "tattoo.part.head",
-    "tattoo.part.left_arm",
-    "tattoo.part.left_leg",
-    "tattoo.part.right_arm",
-    "tattoo.part.right_leg",
-    "tattoo.part.torso",
-    "tattoo.pattern.beast",
-    "tattoo.pattern.line",
-    "ui.character.1",
-    "ui.character.2",
-    "ui.character.3",
     "ui.character.card.unlocked",
     "weapon.bow_charge",
     "weapon.energy_fist",
@@ -194,9 +181,6 @@
         "CombatHUD"
       ],
       "runtime_asset_keys": [
-        "ui.character.1",
-        "ui.character.2",
-        "ui.character.3",
         "ui.character.card.unlocked"
       ],
       "docs": [
@@ -425,16 +409,7 @@
         "TattooStudio",
         "CombatHUD"
       ],
-      "runtime_asset_keys": [
-        "tattoo.part.head",
-        "tattoo.part.torso",
-        "tattoo.part.left_arm",
-        "tattoo.part.right_arm",
-        "tattoo.part.left_leg",
-        "tattoo.part.right_leg",
-        "tattoo.pattern.line",
-        "tattoo.pattern.beast"
-      ],
+      "runtime_asset_keys": [],
       "docs": [
         "项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/modules/01-TattooModule.md",
         "openspec/specs/tattoo/spec.md"
@@ -815,10 +790,7 @@
       "ui_forms": [
         "CombatHUD"
       ],
-      "runtime_asset_keys": [
-        "map.floor.ruins",
-        "map.wall.ruins"
-      ],
+      "runtime_asset_keys": [],
       "docs": [
         "项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/modules/07-MapGenModule.md",
         "项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/systems/07-地图生成.md",
@@ -1116,10 +1088,7 @@
       ],
       "ui_forms": [],
       "runtime_asset_keys": [
-        "ui.character.1",
-        "weapon.knife_basic",
-        "tattoo.part.head",
-        "map.floor.ruins"
+        "weapon.knife_basic"
       ],
       "docs": [
         "openspec/changes/gf-x-business-runtime-refactor/DATATABLE_MIGRATION_MANIFEST.md",

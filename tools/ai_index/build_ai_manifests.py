@@ -31,7 +31,7 @@ OPENSPEC_DIR = ROOT / "openspec"
 RUNTIME_ASSET_CATALOG_PATH = ROOT / "GameData" / "AIData" / "GameplayCatalogs" / "totem_runtime_assets.json"
 UI_FORM_CONFIG_PATH = ROOT / "GameData" / "AIData" / "DataTables" / "Business" / "UIFormConfig.json"
 TODAY = date.today().isoformat()
-DIAGNOSTICS_COMMAND = "python .claude/skills/unity-skills/scripts/unity_skills.py totem_diagnostics_run_all --port 8092"
+DIAGNOSTICS_COMMAND = "python .claude/skills/unity-skills/scripts/unity_skills.py totem_diagnostics_run_all --port 8091"
 ART_EXTENSIONS = {
     ".anim",
     ".asset",
@@ -51,6 +51,7 @@ ART_EXTENSIONS = {
     ".ttf",
     ".wav",
 }
+UNITY_GUID_PATTERN = re.compile(r"guid:\s*([0-9a-fA-F]{32})")
 OBSOLETE_ART_PREFIXES = (
     "assets/resources/character/",
     "assets/resources/characters/",
@@ -293,9 +294,6 @@ FEATURE_SLICE_DEFINITIONS: tuple[dict[str, Any], ...] = (
         "runtime_services": ["TotemGameFlowService", "TotemUIService", "TotemInputService"],
         "ui_forms": ["MainMenu", "CharacterSelect", "StartupSelect", "CombatHUD"],
         "runtime_asset_keys": [
-            "ui.character.1",
-            "ui.character.2",
-            "ui.character.3",
             "ui.character.card.unlocked",
         ],
         "docs": [
@@ -397,16 +395,7 @@ FEATURE_SLICE_DEFINITIONS: tuple[dict[str, Any], ...] = (
         ],
         "runtime_services": ["TotemTattooService", "TotemEconomyService", "TotemNpcService", "TotemStatusService"],
         "ui_forms": ["SelfTattoo", "TattooEnchant", "TattooStudio", "CombatHUD"],
-        "runtime_asset_keys": [
-            "tattoo.part.head",
-            "tattoo.part.torso",
-            "tattoo.part.left_arm",
-            "tattoo.part.right_arm",
-            "tattoo.part.left_leg",
-            "tattoo.part.right_leg",
-            "tattoo.pattern.line",
-            "tattoo.pattern.beast",
-        ],
+        "runtime_asset_keys": [],
         "docs": [
             "项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/modules/01-TattooModule.md",
             "openspec/specs/tattoo/spec.md",
@@ -535,7 +524,7 @@ FEATURE_SLICE_DEFINITIONS: tuple[dict[str, Any], ...] = (
         "business_tables": ["MapTemplateConfig", "ZoneShrinkConfig", "ChestConfig", "NPCConfig"],
         "runtime_services": ["TotemMapService", "TotemZoneService", "TotemCameraService", "TotemActorService"],
         "ui_forms": ["CombatHUD"],
-        "runtime_asset_keys": ["map.floor.ruins", "map.wall.ruins"],
+        "runtime_asset_keys": [],
         "docs": [
             "项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/modules/07-MapGenModule.md",
             "项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/systems/07-地图生成.md",
@@ -676,10 +665,7 @@ FEATURE_SLICE_DEFINITIONS: tuple[dict[str, Any], ...] = (
         "runtime_services": ["TotemDataService", "TotemAssetService"],
         "ui_forms": [],
         "runtime_asset_keys": [
-            "ui.character.1",
             "weapon.knife_basic",
-            "tattoo.part.head",
-            "map.floor.ruins",
         ],
         "docs": [
             "openspec/changes/gf-x-business-runtime-refactor/DATATABLE_MIGRATION_MANIFEST.md",
@@ -1055,11 +1041,13 @@ def infer_art_system(path: Path) -> str:
         "assets/resources/appsettings.asset",
         "assets/resources/dotweensettings.asset",
         "assets/resources/newtonsoft.json-for-unity.converters.asset",
+        "assets/game/dotweensettings.asset",
+        "assets/game/newtonsoft.json-for-unity.converters.asset",
     }:
         return "GF_XCore"
     if "/prefab/ui/" in normalized or "/prefabs/ui/" in normalized or "/sprites/ui/" in normalized or "/sprite/ui/" in normalized:
         return "UI"
-    if "/prefabs/entity/actors/" in normalized or "/character" in normalized or "/characters/" in normalized or "/player" in normalized or "/boss" in normalized:
+    if "/prefabs/entity/actors/" in normalized or "/sprite/actors/" in normalized or "/sprite/npc/" in normalized or "/character" in normalized or "/characters/" in normalized or "/player" in normalized or "/boss" in normalized:
         return "Character"
     if "/weapon" in normalized or "/weapons/" in normalized or "/projectile" in normalized:
         return "Weapon"
@@ -1067,7 +1055,7 @@ def infer_art_system(path: Path) -> str:
         return "Skill"
     if "/sprite/tattoo/" in normalized or "/sprite/paints/" in normalized or "/sprite/affixes/" in normalized or "/sprite/recipes/" in normalized:
         return "Tattoo"
-    if "/sprite/environments/" in normalized or "/environment/" in normalized or "/environments/" in normalized:
+    if "/sprite/pcg/" in normalized or "/sprite/environments/" in normalized or "/environment/" in normalized or "/environments/" in normalized:
         return "Map"
     if "/sprite/items/" in normalized or "/sprite/consumables/" in normalized:
         return "Economy"
@@ -1192,6 +1180,33 @@ def runtime_usage_record(entry: dict[str, Any], source: str) -> dict[str, Any]:
     }
 
 
+def build_unity_guid_index(files: list[Path]) -> dict[str, Path]:
+    """Map Unity .meta GUIDs to art assets so prefab/controller dependencies stay traceable."""
+    guid_index: dict[str, Path] = {}
+    for path in files:
+        meta_path = path.with_name(f"{path.name}.meta")
+        if not meta_path.exists():
+            continue
+        try:
+            match = UNITY_GUID_PATTERN.search(read_text(meta_path))
+        except (OSError, UnicodeDecodeError):
+            continue
+        if match:
+            guid_index.setdefault(match.group(1).lower(), path)
+    return guid_index
+
+
+def unity_referenced_art_paths(path: Path, guid_index: dict[str, Path]) -> list[Path]:
+    """Return indexed art assets referenced by a text-serialized Unity asset."""
+    if path.suffix.lower() not in {".prefab", ".controller", ".anim", ".asset", ".mat"}:
+        return []
+    try:
+        guids = UNITY_GUID_PATTERN.findall(read_text(path))
+    except (OSError, UnicodeDecodeError):
+        return []
+    return [guid_index[guid.lower()] for guid in guids if guid.lower() in guid_index]
+
+
 def load_runtime_asset_catalog_entries() -> tuple[dict[str, Any], list[dict[str, Any]]]:
     summary: dict[str, Any] = {
         "path": rel(RUNTIME_ASSET_CATALOG_PATH),
@@ -1227,9 +1242,12 @@ def load_runtime_asset_catalog_entries() -> tuple[dict[str, Any], list[dict[str,
 
 
 def build_runtime_asset_usage_index(
-    indexed_paths: set[str],
+    files: list[Path],
 ) -> tuple[dict[str, list[dict[str, Any]]], dict[str, Any]]:
     summary, entries = load_runtime_asset_catalog_entries()
+    indexed_paths = {rel(path).lower() for path in files}
+    indexed_path_map = {rel(path).lower(): path for path in files}
+    guid_index = build_unity_guid_index(files)
     usage_index: dict[str, list[dict[str, Any]]] = {}
     active_usage_count = 0
     legacy_source_usage_count = 0
@@ -1239,6 +1257,29 @@ def build_runtime_asset_usage_index(
     legacy_source_paths: set[str] = set()
     missing_active_asset_paths: set[str] = set()
     missing_legacy_source_paths: set[str] = set()
+    dependency_usage_count = 0
+
+    def add_usage(path_key: str, entry: dict[str, Any], source: str) -> None:
+        nonlocal dependency_usage_count
+        usage_index.setdefault(path_key, []).append(runtime_usage_record(entry, source))
+        if source.endswith("Dependency"):
+            dependency_usage_count += 1
+
+    def add_dependency_usages(root_key: str, entry: dict[str, Any], source: str) -> None:
+        root = indexed_path_map.get(root_key)
+        if root is None:
+            return
+        pending = [root]
+        visited = {root_key}
+        while pending:
+            current = pending.pop()
+            for dependency in unity_referenced_art_paths(current, guid_index):
+                dependency_key = rel(dependency).lower()
+                if dependency_key in visited:
+                    continue
+                visited.add(dependency_key)
+                add_usage(dependency_key, entry, source)
+                pending.append(dependency)
 
     for entry in entries:
         active_path = normalize_project_path(entry.get("activeAssetPath"))
@@ -1250,7 +1291,8 @@ def build_runtime_asset_usage_index(
             active_key = active_path.lower()
             if active_key in indexed_paths:
                 indexed_active_usage_count += 1
-                usage_index.setdefault(active_key, []).append(runtime_usage_record(entry, "activeAssetPath"))
+                add_usage(active_key, entry, "activeAssetPath")
+                add_dependency_usages(active_key, entry, "activeAssetPathDependency")
             else:
                 missing_active_asset_paths.add(active_path)
 
@@ -1260,7 +1302,8 @@ def build_runtime_asset_usage_index(
             legacy_key = legacy_path.lower()
             if legacy_key in indexed_paths:
                 indexed_legacy_source_usage_count += 1
-                usage_index.setdefault(legacy_key, []).append(runtime_usage_record(entry, "legacySourcePath"))
+                add_usage(legacy_key, entry, "legacySourcePath")
+                add_dependency_usages(legacy_key, entry, "legacySourcePathDependency")
             else:
                 missing_legacy_source_paths.add(legacy_path)
 
@@ -1274,6 +1317,7 @@ def build_runtime_asset_usage_index(
             "legacy_source_path_count": len(legacy_source_paths),
             "missing_active_asset_paths": sorted(missing_active_asset_paths),
             "missing_legacy_source_paths": sorted(missing_legacy_source_paths),
+            "dependency_usage_count": dependency_usage_count,
         }
     )
     return usage_index, summary
@@ -1489,7 +1533,7 @@ def iter_art_files() -> list[Path]:
 def build_art_assets_manifest() -> dict[str, Any]:
     files = iter_art_files()
     indexed_paths = {rel(path).lower() for path in files}
-    runtime_usage_index, runtime_asset_summary = build_runtime_asset_usage_index(indexed_paths)
+    runtime_usage_index, runtime_asset_summary = build_runtime_asset_usage_index(files)
     ui_form_usage_index, ui_form_usage_summary = build_ui_form_usage_index(indexed_paths)
     name_counts: dict[str, int] = {}
     for path in files:

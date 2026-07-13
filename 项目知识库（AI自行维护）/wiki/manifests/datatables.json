@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-09",
+  "generated_at": "2026-07-13",
   "source": "tools/ai_index/build_ai_manifests.py",
   "registry": "LegacyProjectArchive/Assets/Scripts/DataTable/DataTableRegistry.cs",
   "count": 28,
@@ -1090,7 +1090,7 @@
         "legacy_field_count": 4,
         "business_column_count": 4,
         "business_data_field_count": 3,
-        "business_row_count": 14,
+        "business_row_count": 0,
         "id_column_role": "id",
         "legacy_fields_preserved_count": 4,
         "missing_legacy_fields": [],

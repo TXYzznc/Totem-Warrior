@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-09",
+  "generated_at": "2026-07-13",
   "source": "tools/ai_index/build_ai_manifests.py",
   "root": "Assets/Resources",
   "buckets": [
@@ -11,253 +11,61 @@
     },
     {
       "path": "Assets/Resources/Prefab",
-      "exists": true,
-      "files": 39,
-      "children": [
-        {
-          "name": "Bot",
-          "path": "Assets/Resources/Prefab/Bot",
-          "files": 0,
-          "png": 0,
-          "prefab": 0,
-          "json": 0,
-          "asset": 0
-        },
-        {
-          "name": "Character",
-          "path": "Assets/Resources/Prefab/Character",
-          "files": 8,
-          "png": 0,
-          "prefab": 4,
-          "json": 0,
-          "asset": 0
-        },
-        {
-          "name": "Enemy",
-          "path": "Assets/Resources/Prefab/Enemy",
-          "files": 0,
-          "png": 0,
-          "prefab": 0,
-          "json": 0,
-          "asset": 0
-        },
-        {
-          "name": "NPC",
-          "path": "Assets/Resources/Prefab/NPC",
-          "files": 0,
-          "png": 0,
-          "prefab": 0,
-          "json": 0,
-          "asset": 0
-        },
-        {
-          "name": "Player",
-          "path": "Assets/Resources/Prefab/Player",
-          "files": 0,
-          "png": 0,
-          "prefab": 0,
-          "json": 0,
-          "asset": 0
-        },
-        {
-          "name": "UI",
-          "path": "Assets/Resources/Prefab/UI",
-          "files": 24,
-          "png": 0,
-          "prefab": 12,
-          "json": 0,
-          "asset": 0
-        },
-        {
-          "name": "Weapon",
-          "path": "Assets/Resources/Prefab/Weapon",
-          "files": 0,
-          "png": 0,
-          "prefab": 0,
-          "json": 0,
-          "asset": 0
-        }
-      ]
+      "exists": false,
+      "files": 0,
+      "children": []
     },
     {
       "path": "Assets/Resources/Sprite",
-      "exists": true,
-      "files": 565,
-      "children": [
-        {
-          "name": "Affixes",
-          "path": "Assets/Resources/Sprite/Affixes",
-          "files": 16,
-          "png": 8,
-          "prefab": 0,
-          "json": 0,
-          "asset": 0
-        },
-        {
-          "name": "Character",
-          "path": "Assets/Resources/Sprite/Character",
-          "files": 115,
-          "png": 40,
-          "prefab": 0,
-          "json": 10,
-          "asset": 0
-        },
-        {
-          "name": "Characters",
-          "path": "Assets/Resources/Sprite/Characters",
-          "files": 30,
-          "png": 13,
-          "prefab": 0,
-          "json": 0,
-          "asset": 0
-        },
-        {
-          "name": "Consumables",
-          "path": "Assets/Resources/Sprite/Consumables",
-          "files": 10,
-          "png": 5,
-          "prefab": 0,
-          "json": 0,
-          "asset": 0
-        },
-        {
-          "name": "Effects",
-          "path": "Assets/Resources/Sprite/Effects",
-          "files": 0,
-          "png": 0,
-          "prefab": 0,
-          "json": 0,
-          "asset": 0
-        },
-        {
-          "name": "Environments",
-          "path": "Assets/Resources/Sprite/Environments",
-          "files": 16,
-          "png": 8,
-          "prefab": 0,
-          "json": 0,
-          "asset": 0
-        },
-        {
-          "name": "Items",
-          "path": "Assets/Resources/Sprite/Items",
-          "files": 10,
-          "png": 5,
-          "prefab": 0,
-          "json": 0,
-          "asset": 0
-        },
-        {
-          "name": "Paints",
-          "path": "Assets/Resources/Sprite/Paints",
-          "files": 42,
-          "png": 21,
-          "prefab": 0,
-          "json": 0,
-          "asset": 0
-        },
-        {
-          "name": "Recipes",
-          "path": "Assets/Resources/Sprite/Recipes",
-          "files": 16,
-          "png": 8,
-          "prefab": 0,
-          "json": 0,
-          "asset": 0
-        },
-        {
-          "name": "Skills",
-          "path": "Assets/Resources/Sprite/Skills",
-          "files": 16,
-          "png": 8,
-          "prefab": 0,
-          "json": 0,
-          "asset": 0
-        },
-        {
-          "name": "Tattoo",
-          "path": "Assets/Resources/Sprite/Tattoo",
-          "files": 30,
-          "png": 14,
-          "prefab": 0,
-          "json": 0,
-          "asset": 0
-        },
-        {
-          "name": "UI",
-          "path": "Assets/Resources/Sprite/UI",
-          "files": 241,
-          "png": 113,
-          "prefab": 0,
-          "json": 0,
-          "asset": 0
-        },
-        {
-          "name": "Weapons",
-          "path": "Assets/Resources/Sprite/Weapons",
-          "files": 10,
-          "png": 5,
-          "prefab": 0,
-          "json": 0,
-          "asset": 0
-        }
-      ]
+      "exists": false,
+      "files": 0,
+      "children": []
     },
     {
       "path": "Assets/Resources/Audio",
-      "exists": true,
+      "exists": false,
       "files": 0,
       "children": []
     },
     {
       "path": "Assets/Resources/Anim",
-      "exists": true,
-      "files": 93,
-      "children": [
-        {
-          "name": "Character",
-          "path": "Assets/Resources/Anim/Character",
-          "files": 92,
-          "png": 0,
-          "prefab": 0,
-          "json": 0,
-          "asset": 0
-        }
-      ]
+      "exists": false,
+      "files": 0,
+      "children": []
     },
     {
       "path": "Assets/Resources/Animation",
-      "exists": true,
+      "exists": false,
       "files": 0,
       "children": []
     },
     {
       "path": "Assets/Resources/Effect",
-      "exists": true,
+      "exists": false,
       "files": 0,
       "children": []
     },
     {
       "path": "Assets/Resources/Font",
-      "exists": true,
-      "files": 4,
+      "exists": false,
+      "files": 0,
       "children": []
     },
     {
       "path": "Assets/Resources/Material",
-      "exists": true,
+      "exists": false,
       "files": 0,
       "children": []
     },
     {
       "path": "Assets/Resources/Model",
-      "exists": true,
+      "exists": false,
       "files": 0,
       "children": []
     },
     {
       "path": "Assets/Resources/Texture",
-      "exists": true,
+      "exists": false,
       "files": 0,
       "children": []
     }

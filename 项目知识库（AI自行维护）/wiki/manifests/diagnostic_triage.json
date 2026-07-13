@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-09",
+  "generated_at": "2026-07-13",
   "source": "tools/ai_index/build_ai_manifests.py",
   "purpose": "Reverse index from GF_X diagnostic scenarios to feature slices and likely design/art/program/QA investigation surfaces.",
   "count": 16,
@@ -63,9 +63,6 @@
       ],
       "ui_forms": [],
       "runtime_asset_keys": [
-        "map.floor.ruins",
-        "tattoo.part.head",
-        "ui.character.1",
         "weapon.knife_basic"
       ],
       "docs": [
@@ -306,8 +303,6 @@
         "effect.attack.hit",
         "effect.projectile.arrow_bow",
         "effect.projectile.bullet_pistol",
-        "map.floor.ruins",
-        "map.wall.ruins",
         "skill.skill_fireball_01",
         "skill.skill_phase_dash",
         "weapon.bow_charge",
@@ -449,14 +444,6 @@
         "effect.projectile.bullet_pistol",
         "skill.skill_fireball_01",
         "skill.skill_phase_dash",
-        "tattoo.part.head",
-        "tattoo.part.left_arm",
-        "tattoo.part.left_leg",
-        "tattoo.part.right_arm",
-        "tattoo.part.right_leg",
-        "tattoo.part.torso",
-        "tattoo.pattern.beast",
-        "tattoo.pattern.line",
         "weapon.bow_charge",
         "weapon.energy_fist",
         "weapon.hammer_heavy",
@@ -598,9 +585,6 @@
         "ThreeChoice"
       ],
       "runtime_asset_keys": [
-        "ui.character.1",
-        "ui.character.2",
-        "ui.character.3",
         "ui.character.card.unlocked"
       ],
       "docs": [
@@ -694,16 +678,6 @@
         "TattooStudio"
       ],
       "runtime_asset_keys": [
-        "map.floor.ruins",
-        "tattoo.part.head",
-        "tattoo.part.left_arm",
-        "tattoo.part.left_leg",
-        "tattoo.part.right_arm",
-        "tattoo.part.right_leg",
-        "tattoo.part.torso",
-        "tattoo.pattern.beast",
-        "tattoo.pattern.line",
-        "ui.character.1",
         "weapon.knife_basic"
       ],
       "docs": [
@@ -842,20 +816,10 @@
         "effect.attack.hit",
         "effect.projectile.arrow_bow",
         "effect.projectile.bullet_pistol",
-        "map.floor.ruins",
-        "map.wall.ruins",
         "npc.merchant",
         "npc.tattooist",
         "skill.skill_fireball_01",
         "skill.skill_phase_dash",
-        "tattoo.part.head",
-        "tattoo.part.left_arm",
-        "tattoo.part.left_leg",
-        "tattoo.part.right_arm",
-        "tattoo.part.right_leg",
-        "tattoo.part.torso",
-        "tattoo.pattern.beast",
-        "tattoo.pattern.line",
         "weapon.bow_charge",
         "weapon.energy_fist",
         "weapon.hammer_heavy",
@@ -982,9 +946,6 @@
       ],
       "ui_forms": [],
       "runtime_asset_keys": [
-        "map.floor.ruins",
-        "tattoo.part.head",
-        "ui.character.1",
         "weapon.knife_basic"
       ],
       "docs": [
@@ -1095,14 +1056,11 @@
         "chest.chest_common",
         "chest.chest_rare",
         "effect.boss.bolt",
-        "map.floor.ruins",
         "npc.merchant",
         "skill.skill_beam",
         "skill.skill_enrage_aoe",
         "skill.skill_stomp",
         "skill.skill_summon",
-        "tattoo.part.head",
-        "ui.character.1",
         "weapon.knife_basic"
       ],
       "docs": [
@@ -1289,17 +1247,12 @@
         "effect.projectile.arrow_bow",
         "effect.projectile.bullet_pistol",
         "effect.skill.burst",
-        "map.floor.ruins",
-        "map.wall.ruins",
         "npc.merchant",
         "npc.tattooist",
         "skill.skill_beam",
         "skill.skill_enrage_aoe",
         "skill.skill_stomp",
         "skill.skill_summon",
-        "ui.character.1",
-        "ui.character.2",
-        "ui.character.3",
         "ui.character.card.unlocked",
         "weapon.knife_basic",
         "weapon.pistol_basic"
@@ -1445,9 +1398,6 @@
         "StartupSelect"
       ],
       "runtime_asset_keys": [
-        "ui.character.1",
-        "ui.character.2",
-        "ui.character.3",
         "ui.character.card.unlocked"
       ],
       "docs": [

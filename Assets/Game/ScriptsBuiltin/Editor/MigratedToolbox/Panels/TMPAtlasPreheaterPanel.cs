@@ -10,7 +10,7 @@ namespace GameTemplate.EditorTools
     /// 给 Dynamic 模式的 TMP_FontAsset「预烘」atlas。
     ///
     /// 用法：在 Unity开发工具箱中打开本面板。
-    /// 1. 选择要扫描的根目录（默认 Assets/Resources/Prefab，可改成场景/全工程）
+    /// 1. 选择要扫描的根目录（默认 Assets/Game/Prefabs，可改成场景/全工程）
     /// 2. 选择要预烘的目标 TMP_FontAsset（默认勾选当前所有 prefab 用到的字体）
     /// 3. 点「预烘 Atlas」→ 工具扫所有 prefab 里的 TMP_Text.text → 收集 Unicode 集合 → TryAddCharacters → SaveAssets
     ///
@@ -28,7 +28,7 @@ namespace GameTemplate.EditorTools
 
         public void OnEnable()
         {
-            _scanRoot = AssetDatabase.LoadAssetAtPath<DefaultAsset>("Assets/Resources/Prefab");
+            _scanRoot = AssetDatabase.LoadAssetAtPath<DefaultAsset>("Assets/Game/Prefabs");
             if (_targetFonts.Count == 0) AutoCollectFontsFromScanRoot();
         }
 
