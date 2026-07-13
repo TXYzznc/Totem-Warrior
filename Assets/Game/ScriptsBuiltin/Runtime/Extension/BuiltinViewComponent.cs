@@ -15,6 +15,7 @@ public class BuiltinViewComponent : GameFrameworkComponent
     [SerializeField] GameObject loadingProgressNode = null;
     [SerializeField] private TextMeshProUGUI loadSliderText;
     [SerializeField] private Slider loadSlider;
+    private string loadingStage = string.Empty;
 
     [Space(20)]
     [Header("Tips Dialog:")]
@@ -36,12 +37,20 @@ public class BuiltinViewComponent : GameFrameworkComponent
     public void SetLoadingProgress(float progress)
     {
         loadSlider.value = progress;
-        loadSliderText.text = Utility.Text.Format("{0:N0}%", loadSlider.value * 100);
+        string percent = Utility.Text.Format("{0:N0}%", loadSlider.value * 100);
+        loadSliderText.text = string.IsNullOrEmpty(loadingStage) ? percent : $"{loadingStage}\n{percent}";
+    }
+
+    public void SetLoadingStage(string stage)
+    {
+        loadingStage = stage ?? string.Empty;
+        SetLoadingProgress(loadSlider.value);
     }
 
     public void HideLoadingProgress()
     {
         loadingProgressNode.SetActive(false);
+        loadingStage = string.Empty;
     }
 
     public void ShowDialog(string title, string content, string yes_btn_title = "YES", string no_btn_title = "NO", UnityEngine.Events.UnityAction yes_cb = null, UnityEngine.Events.UnityAction no_cb = null)

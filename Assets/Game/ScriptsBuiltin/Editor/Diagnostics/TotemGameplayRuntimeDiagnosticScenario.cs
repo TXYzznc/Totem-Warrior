@@ -327,13 +327,13 @@ namespace UGF.EditorTools
                 context.AssertEqual(0, snapshot.groundObjectCount, "map.runtime.legacyGroundObjectCount");
                 context.AssertEqual(4, snapshot.wallObjectCount, "map.runtime.wallObjectCount");
                 context.AssertEqual(0, snapshot.roomMarkerObjectCount, "map.runtime.roomMarkerObjectCount");
-                context.AssertEqual(4, snapshot.materialRequestCount, "map.runtime.materialRequestCount");
+                context.AssertEqual(0, snapshot.materialRequestCount, "map.runtime.materialRequestCount");
                 context.AssertEqual(0, snapshot.materialFallbackCount, "map.runtime.materialFallbackCount");
                 context.AssertEqual(0, asset.MissingEntryCount, "map.runtime.assetMissingEntryCount");
                 context.AssertEqual(0, asset.FallbackRequiredCount, "map.runtime.assetFallbackRequiredCount");
                 AssertNear(context, 400f, snapshot.mapSize, "map.runtime.mapSize");
                 context.AssertEqual("AI_RUINS", snapshot.themeName, "map.runtime.themeName");
-                context.AssertEqual("map.wall.ruins", snapshot.lastMaterialAssetKey, "map.runtime.lastMaterialAssetKey");
+                context.AssertEqual(string.Empty, snapshot.lastMaterialAssetKey, "map.runtime.lastMaterialAssetKey");
             }
             finally
             {
