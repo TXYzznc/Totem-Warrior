@@ -1,11 +1,11 @@
 # Totem Warrior 当前项目总结与待做清单
 
 生成日期：2026-07-09  
-最近更新：2026-07-09 17:45，本次更新补充 PCG 接入完成状态、诊断报告和性能说明  
+最近更新：2026-07-10 18:30，本次更新完成 NPC 敌人领域的零分配、Boss 阶段、SpawnPlan、胜者归属和 PlayMode 验收闭环
 适用工程：`<project-root>`，当前工作区为 Totem-Warrior 工程根目录  
 Unity 版本：`2022.3.62f3`  
 当前启动场景：`Assets/Game/Scene/Launch.unity`  
-当前状态：GF_X 原生首轮业务重构基线已闭环，PCG 地图已接入游戏初始化链路，工程已清理 GF_X DemoGame 示例内容，进入后续产品化开发阶段。
+当前状态：GF_X 原生首轮业务重构基线已闭环，PCG 地图已接入游戏初始化链路，独立 NPC 敌人领域已接入运行时，工程已清理 GF_X DemoGame 示例内容，进入后续产品化开发阶段。
 
 ## 0. 总览结论
 
@@ -15,15 +15,17 @@ Unity 版本：`2022.3.62f3`
 
 - 使用 `Assets/Game/Scene/Launch.unity` 作为唯一启动场景。
 - 使用 GF_X 的 `PreloadProcedure -> WorkspaceProcedure -> TotemGameProcedure` 启动链。
-- 使用 `TotemGameRuntime` 和 26 个 Totem runtime service 承载业务。
+- 使用 `TotemGameRuntime` 和 31 个 Totem runtime service 承载业务。
 - 复现首轮旧功能范围：主菜单、角色选择、启动选择、战斗 HUD、地图、玩家、输入、相机、战斗、AI、纹身、商店、NPC、三选一、缩圈、Boss。
-- 复现首轮规模：1 玩家、20 Smart AI、29 Light AI、1 Boss；非 Boss actor 为 50，含 Boss 总 actor 为 51。
-- 建立 AI 友好的配置工作流：28 张 Business JSON、28 张 Business xlsx、runtime gameplay catalog、runtime asset catalog。
-- 建立非 UI 自动诊断闭环：最新 GF_X 全量诊断为 `27 success / 0 failure / 0 warning`。
+- 复现首轮规模：50 名参赛者（1 玩家、20 Smart AI、29 Light AI）与独立 NPC 敌人域；NPC 敌人不占参赛者数量，也不参与胜负统计。
+- 建立 AI 友好的配置工作流：31 张 Business JSON、31 张 Business xlsx、runtime gameplay catalog、runtime asset catalog。
+- 建立非 UI 自动诊断闭环：最新 GF_X 全量诊断为 `37 success / 0 failure / 0 warning`。
+- 完成 NPC 敌人首轮运行时闭环：15 种敌人定义、Light/Elite/Boss 子类策略、FSM、仇恨、索敌、13 类技能、遭遇刷新、掉落、生命周期和诊断追踪。
+- 明确战斗保护：对局前 60 秒参赛者之间不能互伤；NPC 仍可攻击 Active 参赛者；单名真人 Ready 后额外拥有 5 秒保护。
 - 接入外部 PCG 示例项目的地图生成能力：游戏初始化时优先生成 PCG 地图，并适配当前地形网格、锚点、缩圈、actor/NPC/resource/event 消费链路；迁入完成后源示例目录已从根目录清理。
 - 清理 GF_X 原框架 DemoGame 示例脚本和资源：`Assets/Game/Examples` 与 `GameData/Examples` 已删除。
 - 报告目录已收敛：`GameData/Diagnostics/Reports` 与 `GameData/AIData/Reports` 均只保留最新两个报告。
-- AI 资源索引已刷新：清理 DemoGame 后当前索引资源数为 349，示例资源不再进入活动资源索引。
+- AI 资源索引已刷新：当前索引资源数为 1679，DemoGame 示例资源不再进入活动资源索引，PCG 资源已分类为 `PCGMap`。
 
 当前边界也要明确：
 
@@ -31,6 +33,17 @@ Unity 版本：`2022.3.62f3`
 - UI 视觉、正式美术、角色帧动画、VFX 表现、音频表现、战斗手感、数值平衡仍需要后续产品化。
 - 旧存档不兼容是已确认边界；后续使用新的存档/运行记录体系。
 - 旧代码只作为证据，不允许恢复旧 `GameApp`、`ModuleRunner`、`EventBus`、`UIModule`、`DataTableModule`。
+
+### 0.1 NPC 敌人领域当前状态（2026-07-10）
+
+- `TotemEnemyWorldService` 负责 PCG 遭遇计划、刷新波次、活动上限、可达性/距离约束和运行时表现。
+- `TotemEnemyService` 负责独立敌人注册、生成、FSM Tick、仇恨、状态效果、技能执行、死亡事件和快照。
+- `TotemEnemyLootService` 负责普通怪、精英和 Boss 的公开掉落；掉落不绑定击杀者。
+- `TotemCombatRelationshipService` 是唯一伤害/索敌关系入口，统一处理参赛者就绪状态、60 秒互伤保护、NPC 攻击参赛者和敌人友伤规则。
+- 基础 AI 状态链为 `Dormant -> Spawn -> Patrol -> Alert -> Chase -> AttackWindup/Cast/Active -> Recover -> Dead`，Elite 和 Boss 只扩展策略/阶段，不复制整套 FSM。
+- 首轮敌人池为 8 Light、4 Elite、3 Boss，覆盖通用、AI 遗迹、异星巢穴和病毒沼泽主题。
+- Projectile 与 HazardZone 的实际伤害均由能力阶段结算，表现桥接不重复扣血；诊断已验证每种测试技能对目标只造成一次 5 点伤害。
+- 已建立可重复的稳态热路径采样：30 个敌人预热 64 帧、测量 256 帧，累计 7680 次 enemy tick、9600 次决策，当前测得托管分配为 0 B；后续新增 AI 行为时必须继续复跑该基线。
 
 ## 1. 目前已经实现的功能
 
@@ -67,7 +80,7 @@ Unity 版本：`2022.3.62f3`
 
 ### 1.2 运行时服务架构
 
-当前业务运行时由 26 个 GF_X 原生服务组成。服务集中在：
+当前业务运行时由 31 个 GF_X 原生服务组成。服务集中在：
 
 ```text
 Assets/Game/Scripts/Runtime/Services
@@ -83,8 +96,14 @@ Assets/Game/Scripts/Runtime/Services
 | `TotemUIService` | 打开/关闭 GF_X UI Form，驱动 HUD 与 overlay 数据 |
 | `TotemInputService` | 唯一输入入口，所有按键/模拟输入必须经过这里 |
 | `TotemMapService` | 游戏初始化时优先生成 PCG 地图，并适配 400m 兼容地图、地形网格、主题、锚点和交互布点 |
-| `TotemActorService` | 生成玩家、Smart AI、Light AI、Boss，维护 actor 状态 |
-| `TotemAIService` | 20 Smart AI、29 Light AI、Boss AI 决策与行为 |
+| `TotemMatchClockService` | 提供独立于单机加载速度的权威对局时间 |
+| `TotemParticipantReadinessService` | 管理 Reserved/Loading/Protected/Active/Eliminated/Disconnected 生命周期 |
+| `TotemCombatRelationshipService` | 统一伤害、索敌、60 秒互伤保护和敌人友伤关系 |
+| `TotemActorService` | 仅生成并维护 1 Human、20 SmartBot、29 LightBot 参赛者 |
+| `TotemAIService` | 仅负责 SmartBot、LightBot 参赛者决策与行为 |
+| `TotemEnemyWorldService` | 根据 PCG SpawnPlan 和权威时钟管理 NPC 敌人遭遇与表现生命周期 |
+| `TotemEnemyService` | 管理 NPC 敌人模型、FSM、仇恨、能力、伤害、状态和死亡 |
+| `TotemEnemyLootService` | 管理普通怪、精英、Boss 的公开世界掉落和配方进度 |
 | `TotemCombatService` | 移动、攻击、技能、闪避、伤害结算与战斗快照 |
 | `TotemWeaponService` | 武器装备、发射、升级、掉落和 Life Steal 等特性 |
 | `TotemSkillService` | 技能槽、技能释放、技能冷却与技能伤害 |
@@ -95,7 +114,6 @@ Assets/Game/Scripts/Runtime/Services
 | `TotemNpcService` | 商人、纹身师、NPC 交互与商店库存 |
 | `TotemChoiceService` | 三选一事件、选项权重、奖励发放 |
 | `TotemZoneService` | 缩圈阶段、半径变化、圈外伤害 |
-| `TotemBossService` | Boss 阶段、Boss 技能、阶段转换、Boss 奖励 |
 | `TotemCameraService` | 2.5D 正交相机、跟随、边界 clamp、shake |
 | `TotemVfxService` | 攻击、技能、弹道、Boss 临时 VFX 生命周期 |
 | `TotemAudioService` | BGM、SFX、Boss 阶段音频 cue 与重复播放节流 |
@@ -194,7 +212,7 @@ TotemInputService / ITotemInputProvider
 
 ### 1.5 配置表与 AI 友好数据工作流
 
-当前业务配置表有 28 张。AI 优先编辑 JSON，策划查看 xlsx，运行时读取汇总 catalog。
+当前业务配置表有 31 张。AI 优先编辑 JSON，策划查看 xlsx，运行时读取汇总 catalog。
 
 AI 可编辑源：
 
@@ -214,7 +232,7 @@ GameData/DataTables/Business/*.xlsx
 GameData/AIData/GameplayCatalogs/totem_gameplay_catalog.json
 ```
 
-当前 28 张 Business 表：
+当前 31 张 Business 表：
 
 | 表 | 主要职责 |
 |---|---|
@@ -222,7 +240,10 @@ GameData/AIData/GameplayCatalogs/totem_gameplay_catalog.json
 | `BotBuildPreset` | Smart AI build 预设、推荐纹身序列、技能槽倾向 |
 | `BotConfig` | Smart/Light AI 配置、五性格字段、权重和行为参数 |
 | `ChestConfig` | 宝箱奖励、奖励概率 |
-| `EnemyConfig` | Light、Elite、Boss 身体属性、掉落、奖励 |
+| `EncounterSpawnConfig` | 三主题遭遇池、波次、时间、数量和容量约束 |
+| `EnemyAbilityConfig` | 13 类 NPC 敌人能力的时序、范围、效果和打断参数 |
+| `EnemyConfig` | 8 Light、4 Elite、3 Boss 的身体、行为、能力和资源绑定 |
+| `EnemyLootConfig` | 普通怪、精英、Boss 的保证/权重掉落与配方奖励 |
 | `EventConfig` | 地图事件定义 |
 | `ItemConfig` | 物品、墨水、奖励条目 |
 | `MapTemplateConfig` | 地图主题、大小、地形、锚点基础 |
@@ -277,7 +298,7 @@ Core 表：
 - Business xlsx：28
 - Core JSON：5
 - Core xlsx：5
-- `totem_gameplay_catalog.json` 由 28 张 Business JSON 生成。
+- `totem_gameplay_catalog.json` 由 31 张 Business JSON 生成。
 - JSON/xlsx 同步检查为 0 changed cell、0 changed row。
 - `datatables.json` 索引已刷新。
 
@@ -293,7 +314,7 @@ Core 表：
 | Smart AI | 20 |
 | Light AI | 29 |
 | Boss | 1 |
-| 非 Boss actor，包括玩家 | 50 |
+| 参赛者（Human + SmartBot + LightBot） | 50 |
 | 总 actor，包括 Boss | 51 |
 | AI controller state | 49 |
 | Smart AI profile | 20 |
@@ -528,7 +549,7 @@ Smart AI 五性格已经接入：
   - 追商人。
   - 购买商店 offer。
   - 建立自纹身 build plan。
-- Boss AI 使用 Boss phase 技能。
+- `TotemAIService` 不再控制 Boss；NPC 敌人由独立 `TotemEnemyService` 控制器执行能力和阶段。
 - AI 行为通过 `TotemAIRuntimeDiagnosticScenario` 验证。
 
 当前边界：
@@ -576,25 +597,16 @@ Smart AI 五性格已经接入：
 
 ### 1.13 Boss
 
-当前 Boss 由 `TotemBossService`、`TotemAIService`、`TotemSkillService`、`TotemVfxService`、`TotemAudioService` 协同实现。
+当前 Boss 属于独立 NPC 敌人领域，由 `TotemEnemyWorldService`、`TotemEnemyService`、`TotemEnemyLootService`、`TotemVfxService`、`TotemAudioService` 协同实现。
 
 已实现内容：
 
-- Boss actor。
-- 3 个 Boss phase。
-- phase 1 技能：
-  - `skill_stomp`
-  - `skill_beam`
-- phase 2 技能：
-  - `skill_summon`
-- phase 3 技能：
-  - `skill_enrage_aoe`
-- phase BGM cue。
-- phase VFX cue。
-- phase enrage multiplier。
-- Boss 死亡配方奖励。
-- BossPriority Smart AI 追 Boss。
-- Boss 技能造成伤害并进入 AI/VFX/Audio 诊断。
+- 3 个主题 Boss：`boss_ai_core_zero`、`boss_alien_hive_mother`、`boss_virus_terminus`。
+- 每个 Boss 使用独立能力组合和三阶段单调转换；治疗不会使阶段倒退，重复跨阈值不会重复发事件。
+- Boss 由第 600 秒的权威对局时钟触发，每局最多生成一次，不占 50 名参赛者名额。
+- Boss 可对任意 Active 参赛者索敌，不固定优先真人。
+- Boss 死亡时立即生成公开掉落和配方；重复配方转换为两个高阶颜料。
+- phase、技能、VFX、Audio、死亡、掉落和 winner 均有 GFTrace/diagnostic 证据。
 
 当前边界：
 
@@ -644,7 +656,7 @@ AI 资源总索引：
 
 清理 GF_X DemoGame 后当前资源索引状态：
 
-- 当前索引资源：349。
+- 当前索引资源：1679。
 - runtime asset catalog entry：59。
 - runtime-bound asset：49。
 - UI form bound asset：12。
@@ -706,7 +718,7 @@ success=27, failure=0, warning=0
 - 慢感主要来自资源刷新和全量诊断：
   - PCG 首次接入导入了 1329 张 PNG 和较大的 `TerrainTileSetCatalog.json`。
   - GF_X 全量诊断会跑 PCG 生成、地图渲染、战斗初始化、AI、扩展玩法等完整链路。
-  - 最新全量诊断耗时约 222s，不应误判为编译失败。
+  - 最新全量诊断耗时约 72s，CLI 的 30 秒 HTTP 超时不代表诊断失败，应以最终报告为准。
 - 已完成性能修正：PCG 地面格从海量 `SpriteRenderer` 对象改为 `Tilemap`，避免运行时生成 4096+ 地面对象导致 UnitySkills 超时。
 
 当前诊断场景：
@@ -724,7 +736,7 @@ success=27, failure=0, warning=0
 | `Clean Workspace Contract` | 干净工作区、旧污染清理、示例删除、missing script |
 | `GF_X Dependency Source Contract` | UniTask/DOTween 等依赖来源检查 |
 | `Migration Path Contract` | 迁移路径、绝对路径、旧命名污染检查 |
-| `Totem AI Runtime` | AI、Boss AI、五性格、资源/商店行为 |
+| `Totem AI Runtime` | 参赛者 AI、五性格、资源/商店行为 |
 | `Totem Actor Visual Runtime` | actor 视觉资源和 fallback |
 | `Totem Audio Runtime` | BGM/SFX/cue/重复播放/缺失 cue |
 | `Totem Balance Envelope` | 数值边界与可玩性包络 |
@@ -746,7 +758,7 @@ success=27, failure=0, warning=0
 ```powershell
 python .claude\skills\unity-skills\scripts\unity_skills.py totem_diagnostics_run_all --port 8092
 python tools\ai_index\build_ai_manifests.py --check
-cmd /c openspec validate gf-x-business-runtime-refactor --strict
+cmd /c openspec validate native-enemy-domain-rebuild --strict
 ```
 
 ### 1.17 工程清理状态
@@ -857,7 +869,7 @@ cmd /c openspec validate gf-x-business-runtime-refactor --strict
 | `Procedures` | GF_X Procedure，当前含 `WorkspaceProcedure` / `TotemGameProcedure` |
 | `Runtime` | Totem runtime、catalog、模型、快照 |
 | `Runtime/PCGMap` | 从外部 PCG 示例迁入并适配的 PCG 地图数据、catalog、生成器和验证器 |
-| `Runtime/Services` | 26 个 Totem runtime service |
+| `Runtime/Services` | 31 个 Totem runtime service |
 | `ScriptableObject` | `AppConfigs` 等配置对象访问 |
 | `UI` | 当前 Totem UI Form 脚本 |
 | `UI/Core` | UI 基类、参数、item、对象池封装 |
@@ -907,11 +919,11 @@ cmd /c openspec validate gf-x-business-runtime-refactor --strict
 
 | 路径 | 作用 |
 |---|---|
-| `GameData/AIData/DataTables/Business` | 28 张业务 JSON，AI/程序优先编辑 |
+| `GameData/AIData/DataTables/Business` | 31 张业务 JSON，AI/程序优先编辑 |
 | `GameData/AIData/DataTables/Core` | 5 张 GF_X Core JSON 镜像 |
 | `GameData/AIData/GameplayCatalogs` | 运行时 catalog，包含 gameplay 和 runtime assets |
 | `GameData/AIData/Reports` | 导表/校验报告，只保留最新两个 |
-| `GameData/DataTables/Business` | 28 张业务 xlsx，策划可读 |
+| `GameData/DataTables/Business` | 31 张业务 xlsx，策划可读 |
 | `GameData/DataTables/Core` | 5 张 GF_X Core xlsx |
 | `GameData/Diagnostics/Reports` | GF_X 诊断报告，只保留最新两个 |
 | `GameData/Languages` | 当前语言表 |
@@ -1049,7 +1061,7 @@ python tools\ai_index\build_ai_manifests.py --check
 - [ ] 提交前确认 `GameData/Diagnostics/Reports` 只留两个最新报告。
 - [ ] 提交前确认 `GameData/AIData/Reports` 只留两个最新报告。
 - [ ] 提交前确认 `python tools\ai_index\build_ai_manifests.py --check` 通过。
-- [ ] 提交前确认 GF_X 全量诊断 27/0/0。
+- [ ] 提交前确认 GF_X 全量诊断 37/0/0。
 
 #### 3.1.2 Unity 编辑器人工验收
 
@@ -1076,7 +1088,7 @@ python tools\ai_index\build_ai_manifests.py --check
 #### 3.1.4 美术资源人工确认
 
 - [ ] 人工确认 `Assets/Resources/Sprite/UI` 中哪些占位图可以短期继续用。
-- [ ] 人工确认 349 个资源索引里 `duplicate_name_review` 资源是否需要重命名/合并。
+- [ ] 人工确认 1679 个资源索引里 `duplicate_name_review` 资源是否需要重命名/合并。
 - [ ] 人工确认当前 actor prefab 是否只是临时视觉。
 - [ ] 人工确认武器 sprite 是否需要全部重做。
 - [ ] 人工确认纹身图案/部位资源是否后续全部 AI 生成。
@@ -1337,7 +1349,7 @@ python tools\ai_index\build_ai_manifests.py --check
 - `GameData/AIData/Backups` 已删除，逆向导表如果重新生成备份，需要定期清理。
 - `GameData/Diagnostics/Reports` 当前策略是只保留最新两个。
 - `GameData/AIData/Reports` 当前策略是只保留最新两个。
-- PCG 已接入初始化地图生成链路；最新全量诊断耗时约 222s，主要是完整诊断和 PCG/战斗初始化开销，不是 C# 编译异常。
+- PCG 已接入初始化地图生成链路；最新全量诊断耗时约 72s，主要是完整诊断和 PCG/战斗初始化开销，不是 C# 编译异常。
 - PCG 地面渲染必须继续走 `Tilemap`，不要退回每格一个 `SpriteRenderer` 的实现。
 - `项目知识库（AI自行维护）/wiki/manifests/*.json` 是生成物，通常通过 `tools/ai_index/build_ai_manifests.py` 更新。
 - `.codex/agents/*.toml` 是镜像，不要直接改。
@@ -1357,7 +1369,7 @@ python .claude\skills\unity-skills\scripts\unity_skills.py totem_diagnostics_run
 涉及 openspec 时运行：
 
 ```powershell
-cmd /c openspec validate gf-x-business-runtime-refactor --strict
+cmd /c openspec validate native-enemy-domain-rebuild --strict
 ```
 
 需要刷新 Unity AssetDatabase 时：
@@ -1368,4 +1380,4 @@ python .claude\skills\unity-skills\scripts\unity_skills.py asset_refresh --port 
 
 ## 7. 一句话交接
 
-当前工程已经是一个干净的 GF_X 原生 Totem Warrior 开发基线：旧框架已归档、DemoGame 示例已删除、首轮旧功能已迁到 26 个 GF_X runtime service、PCG 地图已接入初始化链路、28 张业务表已进入 AI JSON/xlsx/catalog 工作流、资源索引和诊断闭环已建立。下一阶段应围绕 UI/美术/动画/战斗手感/AI 深化/PCG 地图产品化继续推进，并保持“配置先行、服务承载、诊断闭环、旧代码只作证据”的开发纪律。
+当前工程已经是一个干净的 GF_X 原生 Totem Warrior 开发基线：旧框架已归档、DemoGame 示例已删除、首轮旧功能已迁到 31 个 GF_X runtime service、PCG 地图与独立 NPC 敌人领域已接入初始化/战斗链路、31 张业务表已进入 AI JSON/xlsx/catalog 工作流、资源索引和诊断闭环已建立。下一阶段应围绕 UI/美术/动画/战斗手感/AI 深化/PCG 地图产品化继续推进，并保持“配置先行、服务承载、诊断闭环、旧代码只作证据”的开发纪律。

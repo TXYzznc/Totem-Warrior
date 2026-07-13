@@ -1,0 +1,450 @@
+# 美术资源核对清单
+
+生成时间: 2026-07-10 14:41
+
+范围：Assets/ 下项目自有资源；第三方插件与 TextMesh Pro 已排除。1667 个文件：387 个单项资源，1280 个 PCG 地形切片已合并为资源集合 5 套。
+
+填写说明：确认状态可填：保留、弃用、补索引或待确认。请在备注中填写用途及目标索引键。
+说明：现有索引仅表示发现了索引映射；未发现现有索引不代表资源未被使用。
+
+## PCG 地图 [49]
+
+| 资源编号 | 分类 | 路径 | 类型 | 现有索引 | 当前用途说明 | 建议动作 | 确认结果 | 备注 |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| ART-0191 | PCG 地图 | Assets/Resources/Sprite/PCG/Objects/obj_broken_arch.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0192 | PCG 地图 | Assets/Resources/Sprite/PCG/Objects/obj_bush_dense.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0193 | PCG 地图 | Assets/Resources/Sprite/PCG/Objects/obj_bush_round.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0194 | PCG 地图 | Assets/Resources/Sprite/PCG/Objects/obj_campfire_ring.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0195 | PCG 地图 | Assets/Resources/Sprite/PCG/Objects/obj_corrupt_crystal.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0196 | PCG 地图 | Assets/Resources/Sprite/PCG/Objects/obj_corrupt_mound.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0197 | PCG 地图 | Assets/Resources/Sprite/PCG/Objects/obj_corrupt_roots.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0198 | PCG 地图 | Assets/Resources/Sprite/PCG/Objects/obj_fallen_log.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0199 | PCG 地图 | Assets/Resources/Sprite/PCG/Objects/obj_grass_patch_l.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0200 | PCG 地图 | Assets/Resources/Sprite/PCG/Objects/obj_grass_tall.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0201 | PCG 地图 | Assets/Resources/Sprite/PCG/Objects/obj_hanging_totem_sign.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0202 | PCG 地图 | Assets/Resources/Sprite/PCG/Objects/obj_log_bundle.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0203 | PCG 地图 | Assets/Resources/Sprite/PCG/Objects/obj_log_pile.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0204 | PCG 地图 | Assets/Resources/Sprite/PCG/Objects/obj_mushroom_cluster.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0205 | PCG 地图 | Assets/Resources/Sprite/PCG/Objects/obj_ore_node.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0206 | PCG 地图 | Assets/Resources/Sprite/PCG/Objects/obj_resource_stones.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0207 | PCG 地图 | Assets/Resources/Sprite/PCG/Objects/obj_rock_cluster.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0208 | PCG 地图 | Assets/Resources/Sprite/PCG/Objects/obj_rock_l.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0209 | PCG 地图 | Assets/Resources/Sprite/PCG/Objects/obj_rock_pair.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0210 | PCG 地图 | Assets/Resources/Sprite/PCG/Objects/obj_rock_s.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0211 | PCG 地图 | Assets/Resources/Sprite/PCG/Objects/obj_ruin_altar.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0212 | PCG 地图 | Assets/Resources/Sprite/PCG/Objects/obj_ruin_pillar.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0213 | PCG 地图 | Assets/Resources/Sprite/PCG/Objects/obj_ruin_wall_low.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0214 | PCG 地图 | Assets/Resources/Sprite/PCG/Objects/obj_rune_stone.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0215 | PCG 地图 | Assets/Resources/Sprite/PCG/Objects/obj_spike_barricade.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0216 | PCG 地图 | Assets/Resources/Sprite/PCG/Objects/obj_stump.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0217 | PCG 地图 | Assets/Resources/Sprite/PCG/Objects/obj_supply_barrel.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0218 | PCG 地图 | Assets/Resources/Sprite/PCG/Objects/obj_supply_crate.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0219 | PCG 地图 | Assets/Resources/Sprite/PCG/Objects/obj_swamp_hut_small.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0220 | PCG 地图 | Assets/Resources/Sprite/PCG/Objects/obj_totem_marker.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0221 | PCG 地图 | Assets/Resources/Sprite/PCG/Objects/obj_totem_shard.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0222 | PCG 地图 | Assets/Resources/Sprite/PCG/Objects/obj_tree_dead.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0223 | PCG 地图 | Assets/Resources/Sprite/PCG/Objects/obj_tree_pine.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0224 | PCG 地图 | Assets/Resources/Sprite/PCG/Objects/obj_tree_round_l.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0225 | PCG 地图 | Assets/Resources/Sprite/PCG/Objects/obj_tree_round_s.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0226 | PCG 地图 | Assets/Resources/Sprite/PCG/POI/poi_cabin_wood_01.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0227 | PCG 地图 | Assets/Resources/Sprite/PCG/POI/poi_danger_nest_01.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0228 | PCG 地图 | Assets/Resources/Sprite/PCG/POI/poi_monster_camp_01.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0229 | PCG 地图 | Assets/Resources/Sprite/PCG/POI/poi_stone_gate_ruin_01.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0230 | PCG 地图 | Assets/Resources/Sprite/PCG/POI/poi_totem_camp_01.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0231 | PCG 地图 | Assets/Resources/Sprite/PCG/Route/route_boardwalk_curve.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0232 | PCG 地图 | Assets/Resources/Sprite/PCG/Route/route_boardwalk_straight.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0233 | PCG 地图 | Assets/Resources/Sprite/PCG/Route/route_bridge_broken.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0234 | PCG 地图 | Assets/Resources/Sprite/PCG/Route/route_bridge_long.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0235 | PCG 地图 | Assets/Resources/Sprite/PCG/Route/route_bridge_short.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0236 | PCG 地图 | Assets/Resources/Sprite/PCG/Route/route_crossing_marker.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0237 | PCG 地图 | Assets/Resources/Sprite/PCG/Route/route_shallow_ford.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0238 | PCG 地图 | Assets/Resources/Sprite/PCG/Route/route_stepping_stones.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0239 | PCG 地图 | Assets/Resources/Sprite/PCG/Route/route_wooden_dock.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+
+## PCG 地形切片集 [5]
+
+| 资源编号 | 分类 | 路径 | 类型 | 现有索引 | 当前用途说明 | 建议动作 | 确认结果 | 备注 |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| PCG-TILE-01 | PCG 地形切片集 | Assets/Resources/Sprite/PCG/Terrain/Sliced/ShallowRiverTotemWetland/corruption_grass_mud_sample_01/ | PCG 地形切片（PNG × 256） | PCG 索引 (TerrainTileSetCatalog) | 由 PCG 目录配置按资源路径加载 | 确认保留；是否纳入统一资产索引待确认 | 待确认 |  |
+| PCG-TILE-02 | PCG 地形切片集 | Assets/Resources/Sprite/PCG/Terrain/Sliced/ShallowRiverTotemWetland/grass_forest_sample_01/ | PCG 地形切片（PNG × 256） | PCG 索引 (TerrainTileSetCatalog) | 由 PCG 目录配置按资源路径加载 | 确认保留；是否纳入统一资产索引待确认 | 待确认 |  |
+| PCG-TILE-03 | PCG 地形切片集 | Assets/Resources/Sprite/PCG/Terrain/Sliced/ShallowRiverTotemWetland/grass_mud_water_sample_01/ | PCG 地形切片（PNG × 256） | PCG 索引 (TerrainTileSetCatalog) | 由 PCG 目录配置按资源路径加载 | 确认保留；是否纳入统一资产索引待确认 | 待确认 |  |
+| PCG-TILE-04 | PCG 地形切片集 | Assets/Resources/Sprite/PCG/Terrain/Sliced/ShallowRiverTotemWetland/grass_road_ruin_sample_01/ | PCG 地形切片（PNG × 256） | PCG 索引 (TerrainTileSetCatalog) | 由 PCG 目录配置按资源路径加载 | 确认保留；是否纳入统一资产索引待确认 | 待确认 |  |
+| PCG-TILE-05 | PCG 地形切片集 | Assets/Resources/Sprite/PCG/Terrain/Sliced/ShallowRiverTotemWetland/grass_water_sample_01/ | PCG 地形切片（PNG × 256） | PCG 索引 (TerrainTileSetCatalog) | 由 PCG 目录配置按资源路径加载 | 确认保留；是否纳入统一资产索引待确认 | 待确认 |  |
+
+## 材质 [3]
+
+| 资源编号 | 分类 | 路径 | 类型 | 现有索引 | 当前用途说明 | 建议动作 | 确认结果 | 备注 |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| ART-0005 | 材质 | Assets/Game/Materials/Common/UIHighLight.mat | 材质（MAT） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0006 | 材质 | Assets/Game/Materials/Common/UIMaskBg.mat | 材质（MAT） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0007 | 材质 | Assets/Game/Materials/Common/UIMasked.mat | 材质（MAT） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+
+## 技能 [8]
+
+| 资源编号 | 分类 | 路径 | 类型 | 现有索引 | 当前用途说明 | 建议动作 | 确认结果 | 备注 |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| ART-0248 | 技能 | Assets/Resources/Sprite/Skills/skill_chain_lightning.png | 图片（PNG） | 运行时索引：effect.boss.bolt | 运行时通过资源键 effect.boss.bolt 加载；原始用途说明见运行时资产索引。 | 确认保留，继续由运行时索引加载 | 待确认 |  |
+| ART-0249 | 技能 | Assets/Resources/Sprite/Skills/skill_fireball.png | 图片（PNG） | 运行时索引：effect.skill.burst | 运行时通过资源键 effect.skill.burst 加载；原始用途说明见运行时资产索引。 | 确认保留，继续由运行时索引加载 | 待确认 |  |
+| ART-0250 | 技能 | Assets/Resources/Sprite/Skills/skill_heal_aura.png | 图片（PNG） | 运行时索引：skill.skill_heal_aura_01 | 运行时通过资源键 skill.skill_heal_aura_01 加载；原始用途说明见运行时资产索引。 | 确认保留，继续由运行时索引加载 | 待确认 |  |
+| ART-0251 | 技能 | Assets/Resources/Sprite/Skills/skill_ice_field.png | 图片（PNG） | 运行时索引：skill.skill_frost_field_01 | 运行时通过资源键 skill.skill_frost_field_01 加载；原始用途说明见运行时资产索引。 | 确认保留，继续由运行时索引加载 | 待确认 |  |
+| ART-0252 | 技能 | Assets/Resources/Sprite/Skills/skill_shield.png | 图片（PNG） | 运行时索引：skill.skill_stomp | 运行时通过资源键 skill.skill_stomp 加载；原始用途说明见运行时资产索引。 | 确认保留，继续由运行时索引加载 | 待确认 |  |
+| ART-0253 | 技能 | Assets/Resources/Sprite/Skills/skill_stealth.png | 图片（PNG） | 运行时索引：skill.skill_phase_dash | 运行时通过资源键 skill.skill_phase_dash 加载；原始用途说明见运行时资产索引。 | 确认保留，继续由运行时索引加载 | 待确认 |  |
+| ART-0254 | 技能 | Assets/Resources/Sprite/Skills/skill_summon.png | 图片（PNG） | 运行时索引：skill.skill_summon | 运行时通过资源键 skill.skill_summon 加载；原始用途说明见运行时资产索引。 | 确认保留，继续由运行时索引加载 | 待确认 |  |
+| ART-0255 | 技能 | Assets/Resources/Sprite/Skills/skill_time_slow.png | 图片（PNG） | 运行时索引：skill.skill_time_slow_01 | 运行时通过资源键 skill.skill_time_slow_01 加载；原始用途说明见运行时资产索引。 | 确认保留，继续由运行时索引加载 | 待确认 |  |
+
+## 角色 [101]
+
+| 资源编号 | 分类 | 路径 | 类型 | 现有索引 | 当前用途说明 | 建议动作 | 确认结果 | 备注 |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| ART-0030 | 角色 | Assets/Resources/Anim/Character/Boss1/Attack_Down.anim | 动画（ANIM） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0031 | 角色 | Assets/Resources/Anim/Character/Boss1/Attack_Left.anim | 动画（ANIM） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0032 | 角色 | Assets/Resources/Anim/Character/Boss1/Attack_Right.anim | 动画（ANIM） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0033 | 角色 | Assets/Resources/Anim/Character/Boss1/Attack_Up.anim | 动画（ANIM） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0034 | 角色 | Assets/Resources/Anim/Character/Boss1/Controller.controller | 动画控制器（CONTROLLER） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0035 | 角色 | Assets/Resources/Anim/Character/Boss1/Death_Down.anim | 动画（ANIM） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0036 | 角色 | Assets/Resources/Anim/Character/Boss1/Death_Left.anim | 动画（ANIM） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0037 | 角色 | Assets/Resources/Anim/Character/Boss1/Death_Right.anim | 动画（ANIM） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0038 | 角色 | Assets/Resources/Anim/Character/Boss1/Death_Up.anim | 动画（ANIM） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0039 | 角色 | Assets/Resources/Anim/Character/Boss1/Idle_Down.anim | 动画（ANIM） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0040 | 角色 | Assets/Resources/Anim/Character/Boss1/Idle_Left.anim | 动画（ANIM） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0041 | 角色 | Assets/Resources/Anim/Character/Boss1/Idle_Right.anim | 动画（ANIM） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0042 | 角色 | Assets/Resources/Anim/Character/Boss1/Idle_Up.anim | 动画（ANIM） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0043 | 角色 | Assets/Resources/Anim/Character/Boss1/Walk_Down.anim | 动画（ANIM） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0044 | 角色 | Assets/Resources/Anim/Character/Boss1/Walk_Left.anim | 动画（ANIM） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0045 | 角色 | Assets/Resources/Anim/Character/Boss1/Walk_Right.anim | 动画（ANIM） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0046 | 角色 | Assets/Resources/Anim/Character/Boss1/Walk_Up.anim | 动画（ANIM） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0047 | 角色 | Assets/Resources/Anim/Character/Player1/Attack_Down.anim | 动画（ANIM） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0048 | 角色 | Assets/Resources/Anim/Character/Player1/Attack_Left.anim | 动画（ANIM） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0049 | 角色 | Assets/Resources/Anim/Character/Player1/Attack_Right.anim | 动画（ANIM） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0050 | 角色 | Assets/Resources/Anim/Character/Player1/Attack_Up.anim | 动画（ANIM） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0051 | 角色 | Assets/Resources/Anim/Character/Player1/Controller.controller | 动画控制器（CONTROLLER） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0052 | 角色 | Assets/Resources/Anim/Character/Player1/Death_Down.anim | 动画（ANIM） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0053 | 角色 | Assets/Resources/Anim/Character/Player1/Death_Left.anim | 动画（ANIM） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0054 | 角色 | Assets/Resources/Anim/Character/Player1/Death_Right.anim | 动画（ANIM） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0055 | 角色 | Assets/Resources/Anim/Character/Player1/Death_Up.anim | 动画（ANIM） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0056 | 角色 | Assets/Resources/Anim/Character/Player1/Idle_Down.anim | 动画（ANIM） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0057 | 角色 | Assets/Resources/Anim/Character/Player1/Idle_Left.anim | 动画（ANIM） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0058 | 角色 | Assets/Resources/Anim/Character/Player1/Idle_Right.anim | 动画（ANIM） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0059 | 角色 | Assets/Resources/Anim/Character/Player1/Idle_Up.anim | 动画（ANIM） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0060 | 角色 | Assets/Resources/Anim/Character/Player1/Walk_Down.anim | 动画（ANIM） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0061 | 角色 | Assets/Resources/Anim/Character/Player1/Walk_Left.anim | 动画（ANIM） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0062 | 角色 | Assets/Resources/Anim/Character/Player1/Walk_Right.anim | 动画（ANIM） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0063 | 角色 | Assets/Resources/Anim/Character/Player1/Walk_Up.anim | 动画（ANIM） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0064 | 角色 | Assets/Resources/Anim/Character/Player2/Controller.controller | 动画控制器（CONTROLLER） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0065 | 角色 | Assets/Resources/Anim/Character/Player2/Idle_Down.anim | 动画（ANIM） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0066 | 角色 | Assets/Resources/Anim/Character/Player2/Idle_Left.anim | 动画（ANIM） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0067 | 角色 | Assets/Resources/Anim/Character/Player2/Idle_Right.anim | 动画（ANIM） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0068 | 角色 | Assets/Resources/Anim/Character/Player2/Idle_Up.anim | 动画（ANIM） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0069 | 角色 | Assets/Resources/Anim/Character/Player3/Controller.controller | 动画控制器（CONTROLLER） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0070 | 角色 | Assets/Resources/Anim/Character/Player3/Idle_Down.anim | 动画（ANIM） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0071 | 角色 | Assets/Resources/Anim/Character/Player3/Idle_Left.anim | 动画（ANIM） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0072 | 角色 | Assets/Resources/Anim/Character/Player3/Idle_Right.anim | 动画（ANIM） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0073 | 角色 | Assets/Resources/Anim/Character/Player3/Idle_Up.anim | 动画（ANIM） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0075 | 角色 | Assets/Resources/Prefab/Character/Boss1.prefab | 预制体（PREFAB） | 运行时索引：actor.boss | 运行时通过资源键 actor.boss 加载；原始用途说明见运行时资产索引。 | 确认保留，继续由运行时索引加载 | 待确认 |  |
+| ART-0076 | 角色 | Assets/Resources/Prefab/Character/Player1.prefab | 预制体（PREFAB） | 运行时索引：actor.player.1 | 运行时通过资源键 actor.player.1 加载；原始用途说明见运行时资产索引。 | 确认保留，继续由运行时索引加载 | 待确认 |  |
+| ART-0077 | 角色 | Assets/Resources/Prefab/Character/Player2.prefab | 预制体（PREFAB） | 运行时索引：npc.merchant | 运行时通过资源键 npc.merchant 加载；原始用途说明见运行时资产索引。 | 确认保留，继续由运行时索引加载 | 待确认 |  |
+| ART-0078 | 角色 | Assets/Resources/Prefab/Character/Player3.prefab | 预制体（PREFAB） | 运行时索引：npc.tattooist | 运行时通过资源键 npc.tattooist 加载；原始用途说明见运行时资产索引。 | 确认保留，继续由运行时索引加载 | 待确认 |  |
+| ART-0099 | 角色 | Assets/Resources/Sprite/Character/Boss1/Attack/Down.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0100 | 角色 | Assets/Resources/Sprite/Character/Boss1/Attack/Left.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0101 | 角色 | Assets/Resources/Sprite/Character/Boss1/Attack/Right.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0102 | 角色 | Assets/Resources/Sprite/Character/Boss1/Attack/Up.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0103 | 角色 | Assets/Resources/Sprite/Character/Boss1/Death/Down.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0104 | 角色 | Assets/Resources/Sprite/Character/Boss1/Death/Left.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0105 | 角色 | Assets/Resources/Sprite/Character/Boss1/Death/Right.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0106 | 角色 | Assets/Resources/Sprite/Character/Boss1/Death/Up.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0107 | 角色 | Assets/Resources/Sprite/Character/Boss1/Idle/Down.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0108 | 角色 | Assets/Resources/Sprite/Character/Boss1/Idle/Left.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0109 | 角色 | Assets/Resources/Sprite/Character/Boss1/Idle/Right.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0110 | 角色 | Assets/Resources/Sprite/Character/Boss1/Idle/Up.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0111 | 角色 | Assets/Resources/Sprite/Character/Boss1/Walk/Down.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0112 | 角色 | Assets/Resources/Sprite/Character/Boss1/Walk/Left.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0113 | 角色 | Assets/Resources/Sprite/Character/Boss1/Walk/Right.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0114 | 角色 | Assets/Resources/Sprite/Character/Boss1/Walk/Up.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0115 | 角色 | Assets/Resources/Sprite/Character/Player1/Attack/Down.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0116 | 角色 | Assets/Resources/Sprite/Character/Player1/Attack/Left.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0117 | 角色 | Assets/Resources/Sprite/Character/Player1/Attack/Right.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0118 | 角色 | Assets/Resources/Sprite/Character/Player1/Attack/Up.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0119 | 角色 | Assets/Resources/Sprite/Character/Player1/Death/Down.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0120 | 角色 | Assets/Resources/Sprite/Character/Player1/Death/Left.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0121 | 角色 | Assets/Resources/Sprite/Character/Player1/Death/Right.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0122 | 角色 | Assets/Resources/Sprite/Character/Player1/Death/Up.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0123 | 角色 | Assets/Resources/Sprite/Character/Player1/Idle/Down.png | 图片（PNG） | 运行时索引：ui.character.1 | 运行时通过资源键 ui.character.1 加载；原始用途说明见运行时资产索引。 | 确认保留，继续由运行时索引加载 | 待确认 |  |
+| ART-0124 | 角色 | Assets/Resources/Sprite/Character/Player1/Idle/Left.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0125 | 角色 | Assets/Resources/Sprite/Character/Player1/Idle/Right.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0126 | 角色 | Assets/Resources/Sprite/Character/Player1/Idle/Up.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0127 | 角色 | Assets/Resources/Sprite/Character/Player1/Walk/Down.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0128 | 角色 | Assets/Resources/Sprite/Character/Player1/Walk/Left.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0129 | 角色 | Assets/Resources/Sprite/Character/Player1/Walk/Right.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0130 | 角色 | Assets/Resources/Sprite/Character/Player1/Walk/Up.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0131 | 角色 | Assets/Resources/Sprite/Character/Player2/Idle/Down.png | 图片（PNG） | 运行时索引：ui.character.2 | 运行时通过资源键 ui.character.2 加载；原始用途说明见运行时资产索引。 | 确认保留，继续由运行时索引加载 | 待确认 |  |
+| ART-0132 | 角色 | Assets/Resources/Sprite/Character/Player2/Idle/Left.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0133 | 角色 | Assets/Resources/Sprite/Character/Player2/Idle/Right.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0134 | 角色 | Assets/Resources/Sprite/Character/Player2/Idle/Up.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0135 | 角色 | Assets/Resources/Sprite/Character/Player3/Idle/Down.png | 图片（PNG） | 运行时索引：ui.character.3 | 运行时通过资源键 ui.character.3 加载；原始用途说明见运行时资产索引。 | 确认保留，继续由运行时索引加载 | 待确认 |  |
+| ART-0136 | 角色 | Assets/Resources/Sprite/Character/Player3/Idle/Left.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0137 | 角色 | Assets/Resources/Sprite/Character/Player3/Idle/Right.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0138 | 角色 | Assets/Resources/Sprite/Character/Player3/Idle/Up.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0139 | 角色 | Assets/Resources/Sprite/Characters/Bosses/boss_ai_guardian.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0140 | 角色 | Assets/Resources/Sprite/Characters/Bosses/boss_alien_consciousness.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0141 | 角色 | Assets/Resources/Sprite/Characters/Bosses/boss_virus_mutant.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0142 | 角色 | Assets/Resources/Sprite/Characters/NPCs/npc_merchant.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0143 | 角色 | Assets/Resources/Sprite/Characters/NPCs/npc_tattoo_artist.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0144 | 角色 | Assets/Resources/Sprite/Characters/Player/character_player_idle_r0c0.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0145 | 角色 | Assets/Resources/Sprite/Characters/Player/character_player_idle_r0c1.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0146 | 角色 | Assets/Resources/Sprite/Characters/Player/character_player_idle_r0c2.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0147 | 角色 | Assets/Resources/Sprite/Characters/Player/character_player_idle_r0c3.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0148 | 角色 | Assets/Resources/Sprite/Characters/Player/character_player_idle_r1c0.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0149 | 角色 | Assets/Resources/Sprite/Characters/Player/character_player_idle_r1c1.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0150 | 角色 | Assets/Resources/Sprite/Characters/Player/character_player_idle_r1c2.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0151 | 角色 | Assets/Resources/Sprite/Characters/Player/character_player_idle_r1c3.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+
+## 界面 [140]
+
+| 资源编号 | 分类 | 路径 | 类型 | 现有索引 | 当前用途说明 | 建议动作 | 确认结果 | 备注 |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| ART-0015 | 界面 | Assets/Game/Prefabs/UI/CharacterSelect.prefab | 预制体（PREFAB） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0016 | 界面 | Assets/Game/Prefabs/UI/CombatHUD.prefab | 预制体（PREFAB） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0017 | 界面 | Assets/Game/Prefabs/UI/MainMenu.prefab | 预制体（PREFAB） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0018 | 界面 | Assets/Game/Prefabs/UI/PauseMenu.prefab | 预制体（PREFAB） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0019 | 界面 | Assets/Game/Prefabs/UI/RunResult.prefab | 预制体（PREFAB） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0020 | 界面 | Assets/Game/Prefabs/UI/SelfTattoo.prefab | 预制体（PREFAB） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0021 | 界面 | Assets/Game/Prefabs/UI/Settings.prefab | 预制体（PREFAB） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0022 | 界面 | Assets/Game/Prefabs/UI/Shop.prefab | 预制体（PREFAB） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0023 | 界面 | Assets/Game/Prefabs/UI/StartupSelect.prefab | 预制体（PREFAB） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0024 | 界面 | Assets/Game/Prefabs/UI/TattooEnchant.prefab | 预制体（PREFAB） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0025 | 界面 | Assets/Game/Prefabs/UI/TattooStudio.prefab | 预制体（PREFAB） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0026 | 界面 | Assets/Game/Prefabs/UI/ThreeChoice.prefab | 预制体（PREFAB） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0027 | 界面 | Assets/Game/ScriptsBuiltin/Editor/UI/Templates/UIDialogTemplate.prefab | 预制体（PREFAB） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0028 | 界面 | Assets/Game/ScriptsBuiltin/Editor/UI/Templates/UIFormTemplate.prefab | 预制体（PREFAB） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0029 | 界面 | Assets/Game/ScriptsBuiltin/Editor/UI/Templates/UIItemTemplate.prefab | 预制体（PREFAB） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0079 | 界面 | Assets/Resources/Prefab/UI/CharacterSelect.prefab | 预制体（PREFAB） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0080 | 界面 | Assets/Resources/Prefab/UI/CombatHUD.prefab | 预制体（PREFAB） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0081 | 界面 | Assets/Resources/Prefab/UI/MainMenu.prefab | 预制体（PREFAB） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0082 | 界面 | Assets/Resources/Prefab/UI/PauseMenu.prefab | 预制体（PREFAB） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0083 | 界面 | Assets/Resources/Prefab/UI/RunResult.prefab | 预制体（PREFAB） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0084 | 界面 | Assets/Resources/Prefab/UI/SelfTattoo.prefab | 预制体（PREFAB） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0085 | 界面 | Assets/Resources/Prefab/UI/Settings.prefab | 预制体（PREFAB） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0086 | 界面 | Assets/Resources/Prefab/UI/Shop.prefab | 预制体（PREFAB） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0087 | 界面 | Assets/Resources/Prefab/UI/StartupSelect.prefab | 预制体（PREFAB） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0088 | 界面 | Assets/Resources/Prefab/UI/TattooEnchant.prefab | 预制体（PREFAB） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0089 | 界面 | Assets/Resources/Prefab/UI/TattooStudio.prefab | 预制体（PREFAB） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0090 | 界面 | Assets/Resources/Prefab/UI/ThreeChoice.prefab | 预制体（PREFAB） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0270 | 界面 | Assets/Resources/Sprite/UI/CharacterSelectForm/CharacterSelectForm.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0271 | 界面 | Assets/Resources/Sprite/UI/CharacterSelectForm/CharacterSelectForm_bg.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0272 | 界面 | Assets/Resources/Sprite/UI/CharacterSelectForm/CharacterSelectForm_button_idle.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0273 | 界面 | Assets/Resources/Sprite/UI/CharacterSelectForm/CharacterSelectForm_button_primary.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0274 | 界面 | Assets/Resources/Sprite/UI/CharacterSelectForm/CharacterSelectForm_card_frame_locked.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0275 | 界面 | Assets/Resources/Sprite/UI/CharacterSelectForm/CharacterSelectForm_card_frame_unlocked.png | 图片（PNG） | 运行时索引：ui.character.card.unlocked | 运行时通过资源键 ui.character.card.unlocked 加载；原始用途说明见运行时资产索引。 | 确认保留，继续由运行时索引加载 | 待确认 |  |
+| ART-0276 | 界面 | Assets/Resources/Sprite/UI/CharacterSelectForm/CharacterSelectForm_lock_icon.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0277 | 界面 | Assets/Resources/Sprite/UI/CombatHUDForm/boss_hp_bar.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0278 | 界面 | Assets/Resources/Sprite/UI/CombatHUDForm/boss_phase_icon.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0279 | 界面 | Assets/Resources/Sprite/UI/CombatHUDForm/buff_icon_crit.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0280 | 界面 | Assets/Resources/Sprite/UI/CombatHUDForm/buff_icon_fire.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0281 | 界面 | Assets/Resources/Sprite/UI/CombatHUDForm/buff_icon_ice.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0282 | 界面 | Assets/Resources/Sprite/UI/CombatHUDForm/CombatHUDForm.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0283 | 界面 | Assets/Resources/Sprite/UI/CombatHUDForm/CombatHUDForm_bg.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0284 | 界面 | Assets/Resources/Sprite/UI/CombatHUDForm/hp_bar_normal.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0285 | 界面 | Assets/Resources/Sprite/UI/CombatHUDForm/minimap_frame.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0286 | 界面 | Assets/Resources/Sprite/UI/CombatHUDForm/sidebar_panel_bg.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0287 | 界面 | Assets/Resources/Sprite/UI/CombatHUDForm/skill_slot_e_cooldown.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0288 | 界面 | Assets/Resources/Sprite/UI/CombatHUDForm/skill_slot_q_ready.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0289 | 界面 | Assets/Resources/Sprite/UI/CombatHUDForm/weapon_icon_dagger.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0290 | 界面 | Assets/Resources/Sprite/UI/CombatHUDForm/zone_timer_clock_icon.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0291 | 界面 | Assets/Resources/Sprite/UI/HUD/hud_ammo_box.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0292 | 界面 | Assets/Resources/Sprite/UI/HUD/hud_buff_slot.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0293 | 界面 | Assets/Resources/Sprite/UI/HUD/hud_build_row_bg.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0294 | 界面 | Assets/Resources/Sprite/UI/HUD/hud_hp_bar_frame.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0295 | 界面 | Assets/Resources/Sprite/UI/HUD/hud_minimap_frame.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0296 | 界面 | Assets/Resources/Sprite/UI/HUD/hud_shrink_timer.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0297 | 界面 | Assets/Resources/Sprite/UI/HUD/hud_skill_slot.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0298 | 界面 | Assets/Resources/Sprite/UI/HUD/hud_weapon_frame.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0299 | 界面 | Assets/Resources/Sprite/UI/MainMenuForm/MainMenuForm.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0300 | 界面 | Assets/Resources/Sprite/UI/MainMenuForm/MainMenuForm_bg.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0301 | 界面 | Assets/Resources/Sprite/UI/MainMenuForm/MainMenuForm_button_panel_highlighted.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0302 | 界面 | Assets/Resources/Sprite/UI/MainMenuForm/MainMenuForm_button_panel_idle.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0303 | 界面 | Assets/Resources/Sprite/UI/MainMenuForm/MainMenuForm_title_logo.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0304 | 界面 | Assets/Resources/Sprite/UI/PauseMenuForm/PauseMenuForm.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0305 | 界面 | Assets/Resources/Sprite/UI/PauseMenuForm/PauseMenuForm_bg.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0306 | 界面 | Assets/Resources/Sprite/UI/PauseMenuForm/PauseMenuForm_button_base_highlighted.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0307 | 界面 | Assets/Resources/Sprite/UI/PauseMenuForm/PauseMenuForm_button_base_idle.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0308 | 界面 | Assets/Resources/Sprite/UI/RunResultForm/RunResultForm.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0309 | 界面 | Assets/Resources/Sprite/UI/RunResultForm/RunResultForm_bg.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0310 | 界面 | Assets/Resources/Sprite/UI/RunResultForm/RunResultForm_icon_death.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0311 | 界面 | Assets/Resources/Sprite/UI/RunResultForm/RunResultForm_icon_depth.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0312 | 界面 | Assets/Resources/Sprite/UI/RunResultForm/RunResultForm_icon_gold.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0313 | 界面 | Assets/Resources/Sprite/UI/RunResultForm/RunResultForm_icon_kills.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0314 | 界面 | Assets/Resources/Sprite/UI/RunResultForm/RunResultForm_icon_tattoo_curse.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0315 | 界面 | Assets/Resources/Sprite/UI/RunResultForm/RunResultForm_icon_tattoo_fire.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0316 | 界面 | Assets/Resources/Sprite/UI/RunResultForm/RunResultForm_icon_tattoo_frost.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0317 | 界面 | Assets/Resources/Sprite/UI/RunResultForm/RunResultForm_icon_tattoo_holy.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0318 | 界面 | Assets/Resources/Sprite/UI/RunResultForm/RunResultForm_icon_tattoo_lightning.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0319 | 界面 | Assets/Resources/Sprite/UI/RunResultForm/RunResultForm_icon_tattoo_nature.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0320 | 界面 | Assets/Resources/Sprite/UI/RunResultForm/RunResultForm_panel_build_bg.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0321 | 界面 | Assets/Resources/Sprite/UI/RunResultForm/RunResultForm_panel_stats_bg.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0322 | 界面 | Assets/Resources/Sprite/UI/SelfTattooForm/SelfTattooForm.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0323 | 界面 | Assets/Resources/Sprite/UI/SelfTattooForm/SelfTattooForm_bg.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0324 | 界面 | Assets/Resources/Sprite/UI/SelfTattooForm/SelfTattooForm_body_idle.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0325 | 界面 | Assets/Resources/Sprite/UI/SelfTattooForm/SelfTattooForm_body_part_selected.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0326 | 界面 | Assets/Resources/Sprite/UI/SelfTattooForm/SelfTattooForm_color_locked_gray.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0327 | 界面 | Assets/Resources/Sprite/UI/SelfTattooForm/SelfTattooForm_color_selected_glow.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0328 | 界面 | Assets/Resources/Sprite/UI/SelfTattooForm/SelfTattooForm_divider_icon.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0329 | 界面 | Assets/Resources/Sprite/UI/SelfTattooForm/SelfTattooForm_hourglass_icon.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0330 | 界面 | Assets/Resources/Sprite/UI/SettingsForm/CancelButton.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0331 | 界面 | Assets/Resources/Sprite/UI/SettingsForm/CloseIcon_X.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0332 | 界面 | Assets/Resources/Sprite/UI/SettingsForm/KeyBindButton_Disabled.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0333 | 界面 | Assets/Resources/Sprite/UI/SettingsForm/PanelBg.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0334 | 界面 | Assets/Resources/Sprite/UI/SettingsForm/RadioCircle_Normal.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0335 | 界面 | Assets/Resources/Sprite/UI/SettingsForm/RadioCircle_Selected.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0336 | 界面 | Assets/Resources/Sprite/UI/SettingsForm/SaveButton.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0337 | 界面 | Assets/Resources/Sprite/UI/SettingsForm/SliderFill.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0338 | 界面 | Assets/Resources/Sprite/UI/SettingsForm/SliderHandle.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0339 | 界面 | Assets/Resources/Sprite/UI/SettingsForm/SliderTrack.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0340 | 界面 | Assets/Resources/Sprite/UI/ShopForm/ShopForm.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0341 | 界面 | Assets/Resources/Sprite/UI/ShopForm/ShopForm_bg.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0342 | 界面 | Assets/Resources/Sprite/UI/ShopForm/ShopForm_btn_close.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0343 | 界面 | Assets/Resources/Sprite/UI/ShopForm/ShopForm_btn_refresh_bg.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0344 | 界面 | Assets/Resources/Sprite/UI/ShopForm/ShopForm_icon_dagger.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0345 | 界面 | Assets/Resources/Sprite/UI/ShopForm/ShopForm_icon_gold.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0346 | 界面 | Assets/Resources/Sprite/UI/ShopForm/ShopForm_icon_potion.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0347 | 界面 | Assets/Resources/Sprite/UI/ShopForm/ShopForm_icon_ring.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0348 | 界面 | Assets/Resources/Sprite/UI/ShopForm/ShopForm_icon_scroll.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0349 | 界面 | Assets/Resources/Sprite/UI/ShopForm/ShopForm_icon_shield.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0350 | 界面 | Assets/Resources/Sprite/UI/ShopForm/ShopForm_icon_tattoo_ink.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0351 | 界面 | Assets/Resources/Sprite/UI/ShopForm/ShopForm_slot_bg.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0352 | 界面 | Assets/Resources/Sprite/UI/StatusIcon/burn.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0353 | 界面 | Assets/Resources/Sprite/UI/StatusIcon/poison.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0354 | 界面 | Assets/Resources/Sprite/UI/StatusIcon/stun.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0355 | 界面 | Assets/Resources/Sprite/UI/TattooEnchantForm/TattooEnchantForm.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0356 | 界面 | Assets/Resources/Sprite/UI/TattooEnchantForm/TattooEnchantForm_bg.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0357 | 界面 | Assets/Resources/Sprite/UI/TattooEnchantForm/TattooEnchantForm_card_panel_disabled.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0358 | 界面 | Assets/Resources/Sprite/UI/TattooEnchantForm/TattooEnchantForm_icon_rune_curse.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0359 | 界面 | Assets/Resources/Sprite/UI/TattooEnchantForm/TattooEnchantForm_icon_rune_frost.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0360 | 界面 | Assets/Resources/Sprite/UI/TattooEnchantForm/TattooEnchantForm_icon_rune_sun.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0361 | 界面 | Assets/Resources/Sprite/UI/TattooEnchantForm/TattooEnchantForm_progress_bar_fill.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0362 | 界面 | Assets/Resources/Sprite/UI/TattooEnchantForm/TattooEnchantForm_progress_bar_track.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0363 | 界面 | Assets/Resources/Sprite/UI/TattooStudioForm/TattooStudioForm.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0364 | 界面 | Assets/Resources/Sprite/UI/TattooStudioForm/TattooStudioForm_bg.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0365 | 界面 | Assets/Resources/Sprite/UI/TattooStudioForm/TattooStudioForm_button_close.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0366 | 界面 | Assets/Resources/Sprite/UI/TattooStudioForm/TattooStudioForm_humanoid_silhouette.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0367 | 界面 | Assets/Resources/Sprite/UI/TattooStudioForm/TattooStudioForm_icon_death_chest_marker.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0368 | 界面 | Assets/Resources/Sprite/UI/TattooStudioForm/TattooStudioForm_icon_enchant_fire.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0369 | 界面 | Assets/Resources/Sprite/UI/TattooStudioForm/TattooStudioForm_icon_enchant_frost.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0370 | 界面 | Assets/Resources/Sprite/UI/TattooStudioForm/TattooStudioForm_icon_enchant_nature.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0371 | 界面 | Assets/Resources/Sprite/UI/TattooStudioForm/TattooStudioForm_progressbar_fill.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0372 | 界面 | Assets/Resources/Sprite/UI/TattooStudioForm/TattooStudioForm_progressbar_track.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0373 | 界面 | Assets/Resources/Sprite/UI/TattooStudioForm/TattooStudioForm_slot_marker_fire.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0374 | 界面 | Assets/Resources/Sprite/UI/TattooStudioForm/TattooStudioForm_slot_marker_frost.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0375 | 界面 | Assets/Resources/Sprite/UI/ThreeChoiceForm/cardpanel_hover.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0376 | 界面 | Assets/Resources/Sprite/UI/ThreeChoiceForm/cardpanel_idle.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0377 | 界面 | Assets/Resources/Sprite/UI/ThreeChoiceForm/cardpanel_locked.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0378 | 界面 | Assets/Resources/Sprite/UI/ThreeChoiceForm/icon_tattoo_crit.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0379 | 界面 | Assets/Resources/Sprite/UI/ThreeChoiceForm/icon_tattoo_fire.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0380 | 界面 | Assets/Resources/Sprite/UI/ThreeChoiceForm/icon_tattoo_ice.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0381 | 界面 | Assets/Resources/Sprite/UI/ThreeChoiceForm/ThreeChoiceForm.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0382 | 界面 | Assets/Resources/Sprite/UI/ThreeChoiceForm/ThreeChoiceForm_bg.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+
+## 其他美术 [62]
+
+| 资源编号 | 分类 | 路径 | 类型 | 现有索引 | 当前用途说明 | 建议动作 | 确认结果 | 备注 |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| ART-0008 | 其他美术 | Assets/Game/Prefabs/Core/GFExtension.prefab | 预制体（PREFAB） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0009 | 其他美术 | Assets/Game/Prefabs/Entity/Actors/Boss.prefab | 预制体（PREFAB） | 运行时索引：actor.boss | 运行时通过资源键 actor.boss 加载；原始用途说明见运行时资产索引。 | 确认保留，继续由运行时索引加载 | 待确认 |  |
+| ART-0010 | 其他美术 | Assets/Game/Prefabs/Entity/Actors/LightAI.prefab | 预制体（PREFAB） | 运行时索引：actor.lightAi | 运行时通过资源键 actor.lightAi 加载；原始用途说明见运行时资产索引。 | 确认保留，继续由运行时索引加载 | 待确认 |  |
+| ART-0011 | 其他美术 | Assets/Game/Prefabs/Entity/Actors/NpcMerchant.prefab | 预制体（PREFAB） | 运行时索引：npc.merchant | 运行时通过资源键 npc.merchant 加载；原始用途说明见运行时资产索引。 | 确认保留，继续由运行时索引加载 | 待确认 |  |
+| ART-0012 | 其他美术 | Assets/Game/Prefabs/Entity/Actors/NpcTattooist.prefab | 预制体（PREFAB） | 运行时索引：npc.tattooist | 运行时通过资源键 npc.tattooist 加载；原始用途说明见运行时资产索引。 | 确认保留，继续由运行时索引加载 | 待确认 |  |
+| ART-0013 | 其他美术 | Assets/Game/Prefabs/Entity/Actors/Player.prefab | 预制体（PREFAB） | 运行时索引：actor.player.1 | 运行时通过资源键 actor.player.1 加载；原始用途说明见运行时资产索引。 | 确认保留，继续由运行时索引加载 | 待确认 |  |
+| ART-0014 | 其他美术 | Assets/Game/Prefabs/Entity/Actors/SmartAI.prefab | 预制体（PREFAB） | 运行时索引：actor.smartAi | 运行时通过资源键 actor.smartAi 加载；原始用途说明见运行时资产索引。 | 确认保留，继续由运行时索引加载 | 待确认 |  |
+| ART-0091 | 其他美术 | Assets/Resources/Sprite/Affixes/affix_accuracy.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0092 | 其他美术 | Assets/Resources/Sprite/Affixes/affix_attack_speed.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0093 | 其他美术 | Assets/Resources/Sprite/Affixes/affix_cooldown.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0094 | 其他美术 | Assets/Resources/Sprite/Affixes/affix_crit_chance.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0095 | 其他美术 | Assets/Resources/Sprite/Affixes/affix_crit_damage.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0096 | 其他美术 | Assets/Resources/Sprite/Affixes/affix_fire_damage.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0097 | 其他美术 | Assets/Resources/Sprite/Affixes/affix_lifesteal.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0098 | 其他美术 | Assets/Resources/Sprite/Affixes/affix_range.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0152 | 其他美术 | Assets/Resources/Sprite/Consumables/consumable_antidote.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0153 | 其他美术 | Assets/Resources/Sprite/Consumables/consumable_eraser.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0154 | 其他美术 | Assets/Resources/Sprite/Consumables/consumable_gold_pile.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0155 | 其他美术 | Assets/Resources/Sprite/Consumables/consumable_repair_kit.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0156 | 其他美术 | Assets/Resources/Sprite/Consumables/consumable_universal_paint.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0157 | 其他美术 | Assets/Resources/Sprite/Environments/env_floor_blood_rock.png | 图片（PNG） | 运行时索引：map.floor.blood | 运行时通过资源键 map.floor.blood 加载；原始用途说明见运行时资产索引。 | 确认保留，继续由运行时索引加载 | 待确认 |  |
+| ART-0158 | 其他美术 | Assets/Resources/Sprite/Environments/env_floor_metal.png | 图片（PNG） | 运行时索引：map.floor.metal | 运行时通过资源键 map.floor.metal 加载；原始用途说明见运行时资产索引。 | 确认保留，继续由运行时索引加载 | 待确认 |  |
+| ART-0159 | 其他美术 | Assets/Resources/Sprite/Environments/env_floor_ruins.png | 图片（PNG） | 运行时索引：map.floor.ruins | 运行时通过资源键 map.floor.ruins 加载；原始用途说明见运行时资产索引。 | 确认保留，继续由运行时索引加载 | 待确认 |  |
+| ART-0160 | 其他美术 | Assets/Resources/Sprite/Environments/env_light_pillar_a.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0161 | 其他美术 | Assets/Resources/Sprite/Environments/env_light_pillar_b.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0162 | 其他美术 | Assets/Resources/Sprite/Environments/env_wall_blood.png | 图片（PNG） | 运行时索引：map.wall.blood | 运行时通过资源键 map.wall.blood 加载；原始用途说明见运行时资产索引。 | 确认保留，继续由运行时索引加载 | 待确认 |  |
+| ART-0163 | 其他美术 | Assets/Resources/Sprite/Environments/env_wall_metal.png | 图片（PNG） | 运行时索引：map.wall.metal | 运行时通过资源键 map.wall.metal 加载；原始用途说明见运行时资产索引。 | 确认保留，继续由运行时索引加载 | 待确认 |  |
+| ART-0164 | 其他美术 | Assets/Resources/Sprite/Environments/env_wall_ruins.png | 图片（PNG） | 运行时索引：map.wall.ruins | 运行时通过资源键 map.wall.ruins 加载；原始用途说明见运行时资产索引。 | 确认保留，继续由运行时索引加载 | 待确认 |  |
+| ART-0165 | 其他美术 | Assets/Resources/Sprite/Items/item_chest_boss.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0166 | 其他美术 | Assets/Resources/Sprite/Items/item_chest_common.png | 图片（PNG） | 运行时索引：chest.chest_common | 运行时通过资源键 chest.chest_common 加载；原始用途说明见运行时资产索引。 | 确认保留，继续由运行时索引加载 | 待确认 |  |
+| ART-0167 | 其他美术 | Assets/Resources/Sprite/Items/item_chest_death.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0168 | 其他美术 | Assets/Resources/Sprite/Items/item_chest_rare.png | 图片（PNG） | 运行时索引：chest.chest_rare | 运行时通过资源键 chest.chest_rare 加载；原始用途说明见运行时资产索引。 | 确认保留，继续由运行时索引加载 | 待确认 |  |
+| ART-0169 | 其他美术 | Assets/Resources/Sprite/Items/item_recipe_book.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0170 | 其他美术 | Assets/Resources/Sprite/Paints/paint_blue_common.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0171 | 其他美术 | Assets/Resources/Sprite/Paints/paint_blue_legendary.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0172 | 其他美术 | Assets/Resources/Sprite/Paints/paint_blue_rare.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0173 | 其他美术 | Assets/Resources/Sprite/Paints/paint_gold_common.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0174 | 其他美术 | Assets/Resources/Sprite/Paints/paint_gold_legendary.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0175 | 其他美术 | Assets/Resources/Sprite/Paints/paint_gold_rare.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0176 | 其他美术 | Assets/Resources/Sprite/Paints/paint_green_common.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0177 | 其他美术 | Assets/Resources/Sprite/Paints/paint_green_legendary.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0178 | 其他美术 | Assets/Resources/Sprite/Paints/paint_green_rare.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0179 | 其他美术 | Assets/Resources/Sprite/Paints/paint_purple_common.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0180 | 其他美术 | Assets/Resources/Sprite/Paints/paint_purple_legendary.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0181 | 其他美术 | Assets/Resources/Sprite/Paints/paint_purple_rare.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0182 | 其他美术 | Assets/Resources/Sprite/Paints/paint_red_common.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0183 | 其他美术 | Assets/Resources/Sprite/Paints/paint_red_legendary.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0184 | 其他美术 | Assets/Resources/Sprite/Paints/paint_red_rare.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0185 | 其他美术 | Assets/Resources/Sprite/Paints/paint_white_common.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0186 | 其他美术 | Assets/Resources/Sprite/Paints/paint_white_legendary.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0187 | 其他美术 | Assets/Resources/Sprite/Paints/paint_white_rare.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0188 | 其他美术 | Assets/Resources/Sprite/Paints/paint_yellow_common.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0189 | 其他美术 | Assets/Resources/Sprite/Paints/paint_yellow_legendary.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0190 | 其他美术 | Assets/Resources/Sprite/Paints/paint_yellow_rare.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0240 | 其他美术 | Assets/Resources/Sprite/Recipes/recipe_scroll_beast.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0241 | 其他美术 | Assets/Resources/Sprite/Recipes/recipe_scroll_bolt.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0242 | 其他美术 | Assets/Resources/Sprite/Recipes/recipe_scroll_line.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0243 | 其他美术 | Assets/Resources/Sprite/Recipes/recipe_scroll_ring.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0244 | 其他美术 | Assets/Resources/Sprite/Recipes/recipe_scroll_spiral.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0245 | 其他美术 | Assets/Resources/Sprite/Recipes/recipe_scroll_star.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0246 | 其他美术 | Assets/Resources/Sprite/Recipes/recipe_scroll_stream.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0247 | 其他美术 | Assets/Resources/Sprite/Recipes/recipe_scroll_zigzag.png | 图片（PNG） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+
+## 纹身 [14]
+
+| 资源编号 | 分类 | 路径 | 类型 | 现有索引 | 当前用途说明 | 建议动作 | 确认结果 | 备注 |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| ART-0256 | 纹身 | Assets/Resources/Sprite/Tattoo/Part/Head.png | 图片（PNG） | 运行时索引：tattoo.part.head | 运行时通过资源键 tattoo.part.head 加载；原始用途说明见运行时资产索引。 | 确认保留，继续由运行时索引加载 | 待确认 |  |
+| ART-0257 | 纹身 | Assets/Resources/Sprite/Tattoo/Part/LeftArm.png | 图片（PNG） | 运行时索引：tattoo.part.left_arm | 运行时通过资源键 tattoo.part.left_arm 加载；原始用途说明见运行时资产索引。 | 确认保留，继续由运行时索引加载 | 待确认 |  |
+| ART-0258 | 纹身 | Assets/Resources/Sprite/Tattoo/Part/LeftLeg.png | 图片（PNG） | 运行时索引：tattoo.part.left_leg | 运行时通过资源键 tattoo.part.left_leg 加载；原始用途说明见运行时资产索引。 | 确认保留，继续由运行时索引加载 | 待确认 |  |
+| ART-0259 | 纹身 | Assets/Resources/Sprite/Tattoo/Part/RightArm.png | 图片（PNG） | 运行时索引：tattoo.part.right_arm | 运行时通过资源键 tattoo.part.right_arm 加载；原始用途说明见运行时资产索引。 | 确认保留，继续由运行时索引加载 | 待确认 |  |
+| ART-0260 | 纹身 | Assets/Resources/Sprite/Tattoo/Part/RightLeg.png | 图片（PNG） | 运行时索引：tattoo.part.right_leg | 运行时通过资源键 tattoo.part.right_leg 加载；原始用途说明见运行时资产索引。 | 确认保留，继续由运行时索引加载 | 待确认 |  |
+| ART-0261 | 纹身 | Assets/Resources/Sprite/Tattoo/Part/Torso.png | 图片（PNG） | 运行时索引：tattoo.part.torso | 运行时通过资源键 tattoo.part.torso 加载；原始用途说明见运行时资产索引。 | 确认保留，继续由运行时索引加载 | 待确认 |  |
+| ART-0262 | 纹身 | Assets/Resources/Sprite/Tattoo/Pattern/Beast.png | 图片（PNG） | 运行时索引：tattoo.pattern.beast | 运行时通过资源键 tattoo.pattern.beast 加载；原始用途说明见运行时资产索引。 | 确认保留，继续由运行时索引加载 | 待确认 |  |
+| ART-0263 | 纹身 | Assets/Resources/Sprite/Tattoo/Pattern/Bolt.png | 图片（PNG） | 运行时索引：tattoo.pattern.bolt | 运行时通过资源键 tattoo.pattern.bolt 加载；原始用途说明见运行时资产索引。 | 确认保留，继续由运行时索引加载 | 待确认 |  |
+| ART-0264 | 纹身 | Assets/Resources/Sprite/Tattoo/Pattern/Line.png | 图片（PNG） | 运行时索引：tattoo.pattern.line | 运行时通过资源键 tattoo.pattern.line 加载；原始用途说明见运行时资产索引。 | 确认保留，继续由运行时索引加载 | 待确认 |  |
+| ART-0265 | 纹身 | Assets/Resources/Sprite/Tattoo/Pattern/Ring.png | 图片（PNG） | 运行时索引：tattoo.pattern.ring | 运行时通过资源键 tattoo.pattern.ring 加载；原始用途说明见运行时资产索引。 | 确认保留，继续由运行时索引加载 | 待确认 |  |
+| ART-0266 | 纹身 | Assets/Resources/Sprite/Tattoo/Pattern/Spiral.png | 图片（PNG） | 运行时索引：tattoo.pattern.spiral | 运行时通过资源键 tattoo.pattern.spiral 加载；原始用途说明见运行时资产索引。 | 确认保留，继续由运行时索引加载 | 待确认 |  |
+| ART-0267 | 纹身 | Assets/Resources/Sprite/Tattoo/Pattern/Star.png | 图片（PNG） | 运行时索引：tattoo.pattern.star | 运行时通过资源键 tattoo.pattern.star 加载；原始用途说明见运行时资产索引。 | 确认保留，继续由运行时索引加载 | 待确认 |  |
+| ART-0268 | 纹身 | Assets/Resources/Sprite/Tattoo/Pattern/Stream.png | 图片（PNG） | 运行时索引：tattoo.pattern.stream | 运行时通过资源键 tattoo.pattern.stream 加载；原始用途说明见运行时资产索引。 | 确认保留，继续由运行时索引加载 | 待确认 |  |
+| ART-0269 | 纹身 | Assets/Resources/Sprite/Tattoo/Pattern/Zigzag.png | 图片（PNG） | 运行时索引：tattoo.pattern.zigzag | 运行时通过资源键 tattoo.pattern.zigzag 加载；原始用途说明见运行时资产索引。 | 确认保留，继续由运行时索引加载 | 待确认 |  |
+
+## 武器 [5]
+
+| 资源编号 | 分类 | 路径 | 类型 | 现有索引 | 当前用途说明 | 建议动作 | 确认结果 | 备注 |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| ART-0383 | 武器 | Assets/Resources/Sprite/Weapons/weapon_bow.png | 图片（PNG） | 运行时索引：effect.projectile.arrow_bow | 运行时通过资源键 effect.projectile.arrow_bow 加载；原始用途说明见运行时资产索引。 | 确认保留，继续由运行时索引加载 | 待确认 |  |
+| ART-0384 | 武器 | Assets/Resources/Sprite/Weapons/weapon_energy_fist.png | 图片（PNG） | 运行时索引：weapon.energy_fist | 运行时通过资源键 weapon.energy_fist 加载；原始用途说明见运行时资产索引。 | 确认保留，继续由运行时索引加载 | 待确认 |  |
+| ART-0385 | 武器 | Assets/Resources/Sprite/Weapons/weapon_heavy_hammer.png | 图片（PNG） | 运行时索引：weapon.hammer_heavy | 运行时通过资源键 weapon.hammer_heavy 加载；原始用途说明见运行时资产索引。 | 确认保留，继续由运行时索引加载 | 待确认 |  |
+| ART-0386 | 武器 | Assets/Resources/Sprite/Weapons/weapon_pistol.png | 图片（PNG） | 运行时索引：effect.projectile.bullet_pistol | 运行时通过资源键 effect.projectile.bullet_pistol 加载；原始用途说明见运行时资产索引。 | 确认保留，继续由运行时索引加载 | 待确认 |  |
+| ART-0387 | 武器 | Assets/Resources/Sprite/Weapons/weapon_short_blade.png | 图片（PNG） | 运行时索引：effect.attack.hit | 运行时通过资源键 effect.attack.hit 加载；原始用途说明见运行时资产索引。 | 确认保留，继续由运行时索引加载 | 待确认 |  |
+
+## 字体 [5]
+
+| 资源编号 | 分类 | 路径 | 类型 | 现有索引 | 当前用途说明 | 建议动作 | 确认结果 | 备注 |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| ART-0001 | 字体 | Assets/Game/Font/Common/AlibabaPuHuiTi-3-85-Bold.ttf | 字体（TTF） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0002 | 字体 | Assets/Game/Font/Common/AlibabaPuHuiTi-3-85-Bold-Title SDF.mat | 材质（MAT） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0003 | 字体 | Assets/Game/Font/Common/AlibabaSansJP.ttf | 字体（TTF） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0004 | 字体 | Assets/Game/Font/Common/AlibabaSansKR.ttf | 字体（TTF） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |
+| ART-0074 | 字体 | Assets/Resources/Font/SIMHEI.TTF | 字体（TTF） | 未发现现有索引 |  | 确认用途；在用则补索引，弃用则标记待删除 | 待确认 |  |

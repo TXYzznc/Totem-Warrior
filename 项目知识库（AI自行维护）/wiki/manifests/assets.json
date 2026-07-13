@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-09",
+  "generated_at": "2026-07-10",
   "source": "tools/ai_index/build_ai_manifests.py",
   "root": "Assets/Resources",
   "buckets": [
@@ -82,7 +82,7 @@
     {
       "path": "Assets/Resources/Sprite",
       "exists": true,
-      "files": 565,
+      "files": 3235,
       "children": [
         {
           "name": "Affixes",
@@ -152,6 +152,15 @@
           "path": "Assets/Resources/Sprite/Paints",
           "files": 42,
           "png": 21,
+          "prefab": 0,
+          "json": 0,
+          "asset": 0
+        },
+        {
+          "name": "PCG",
+          "path": "Assets/Resources/Sprite/PCG",
+          "files": 2669,
+          "png": 1329,
           "prefab": 0,
           "json": 0,
           "asset": 0

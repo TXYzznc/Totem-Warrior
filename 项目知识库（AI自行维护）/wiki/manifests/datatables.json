@@ -1,19 +1,22 @@
 {
-  "generated_at": "2026-07-09",
+  "generated_at": "2026-07-10",
   "source": "tools/ai_index/build_ai_manifests.py",
   "registry": "LegacyProjectArchive/Assets/Scripts/DataTable/DataTableRegistry.cs",
   "count": 28,
   "ai_datatable_bridge": {
     "target_workflow": "28 legacy business tables -> GameData/AIData/DataTables/Business JSON -> GameData/DataTables/Business xlsx -> GF_X DataTable export",
     "legacy_business_count": 28,
-    "business_ai_json_count": 28,
-    "business_xlsx_count": 28,
+    "business_ai_json_count": 31,
+    "business_xlsx_count": 31,
     "schema_bridge_table_count": 28,
     "schema_bridge_valid_table_count": 28,
     "schema_bridge_missing_legacy_field_table_count": 0,
-    "schema_bridge_added_business_field_table_count": 1,
+    "schema_bridge_added_business_field_table_count": 3,
     "schema_bridge_missing_legacy_fields": {},
     "schema_bridge_added_business_fields": {
+      "BossPhaseConfig": [
+        "AbilityIds"
+      ],
       "BotConfig": [
         "Personality",
         "ReadingTargetWeight",
@@ -23,6 +26,14 @@
         "TargetHumanoidAiWeight",
         "TargetPlayerWeight",
         "TargetResourceWeight"
+      ],
+      "EnemyConfig": [
+        "AbilityIds",
+        "BehaviorProfileId",
+        "FallbackRuntimeAssetKey",
+        "LeashRange",
+        "RuntimeAssetKey",
+        "SpawnCost"
       ]
     },
     "business_ai_jsons": [
@@ -30,7 +41,10 @@
       "GameData/AIData/DataTables/Business/BotBuildPreset.json",
       "GameData/AIData/DataTables/Business/BotConfig.json",
       "GameData/AIData/DataTables/Business/ChestConfig.json",
+      "GameData/AIData/DataTables/Business/EncounterSpawnConfig.json",
+      "GameData/AIData/DataTables/Business/EnemyAbilityConfig.json",
       "GameData/AIData/DataTables/Business/EnemyConfig.json",
+      "GameData/AIData/DataTables/Business/EnemyLootConfig.json",
       "GameData/AIData/DataTables/Business/EventConfig.json",
       "GameData/AIData/DataTables/Business/ItemConfig.json",
       "GameData/AIData/DataTables/Business/MapTemplateConfig.json",
@@ -60,7 +74,10 @@
       "GameData/DataTables/Business/BotBuildPreset.xlsx",
       "GameData/DataTables/Business/BotConfig.xlsx",
       "GameData/DataTables/Business/ChestConfig.xlsx",
+      "GameData/DataTables/Business/EncounterSpawnConfig.xlsx",
+      "GameData/DataTables/Business/EnemyAbilityConfig.xlsx",
       "GameData/DataTables/Business/EnemyConfig.xlsx",
+      "GameData/DataTables/Business/EnemyLootConfig.xlsx",
       "GameData/DataTables/Business/EventConfig.xlsx",
       "GameData/DataTables/Business/ItemConfig.xlsx",
       "GameData/DataTables/Business/MapTemplateConfig.xlsx",
@@ -99,7 +116,7 @@
       "primary_field": {
         "name": "BossId",
         "type": "string",
-        "desc": "对应 EnemyConfig.EnemyId"
+        "desc": "EnemyConfig boss id."
       },
       "uses_standard_id_primary_key": false,
       "field_count": 8,
@@ -108,62 +125,64 @@
         "business_json": "GameData/AIData/DataTables/Business/BossPhaseConfig.json",
         "business_exists": true,
         "legacy_field_count": 8,
-        "business_column_count": 9,
-        "business_data_field_count": 8,
-        "business_row_count": 3,
+        "business_column_count": 10,
+        "business_data_field_count": 9,
+        "business_row_count": 9,
         "id_column_role": "id",
         "legacy_fields_preserved_count": 8,
         "missing_legacy_fields": [],
-        "added_business_fields": [],
+        "added_business_fields": [
+          "AbilityIds"
+        ],
         "valid": true
       },
       "fields": [
         {
           "name": "BossId",
           "type": "string",
-          "desc": "对应 EnemyConfig.EnemyId",
+          "desc": "EnemyConfig boss id.",
           "desc_source": "Business AI DataTable"
         },
         {
           "name": "PhaseIndex",
           "type": "int",
-          "desc": "阶段编号：1 / 2 / 3",
+          "desc": "Phase number 1..3.",
           "desc_source": "Business AI DataTable"
         },
         {
           "name": "HPThreshold",
           "type": "float",
-          "desc": "进入本阶段的 HP 百分比：1.0=满血，0.6=60%HP",
+          "desc": "First-crossing HP ratio threshold.",
           "desc_source": "Business AI DataTable"
         },
         {
           "name": "NewSkillIds",
           "type": "string",
-          "desc": "本阶段解锁技能 ID，逗号分隔，叠加不替换",
+          "desc": "Legacy participant-skill bridge for the old boss service.",
           "desc_source": "Business AI DataTable"
         },
         {
           "name": "EnrageMultiplier",
           "type": "float",
-          "desc": "本阶段伤害倍率，1.0=无变化",
+          "desc": "Phase damage multiplier.",
           "desc_source": "Business AI DataTable"
         },
         {
           "name": "PhaseVFXId",
           "type": "string",
-          "desc": "阶段转换特效 ID",
+          "desc": "Phase VFX cue.",
           "desc_source": "Business AI DataTable"
         },
         {
           "name": "PhaseBGMCueId",
           "type": "string",
-          "desc": "阶段 BGM cue ID",
+          "desc": "Existing audio cue id.",
           "desc_source": "Business AI DataTable"
         },
         {
           "name": "DeathPatternRecipeId",
           "type": "string",
-          "desc": "v2.1 新增：Boss 死亡时必掉的主题配方 ID（仅 PhaseIndex=3 有效，其余填空）",
+          "desc": "Theme recipe emitted by phase three death.",
           "desc_source": "Business AI DataTable"
         }
       ]
@@ -448,7 +467,7 @@
       "primary_field": {
         "name": "EnemyId",
         "type": "string",
-        "desc": "怪物唯一 ID，如 enemy_ai_servo_light"
+        "desc": "Stable enemy definition id."
       },
       "uses_standard_id_primary_key": false,
       "field_count": 18,
@@ -457,122 +476,129 @@
         "business_json": "GameData/AIData/DataTables/Business/EnemyConfig.json",
         "business_exists": true,
         "legacy_field_count": 18,
-        "business_column_count": 19,
-        "business_data_field_count": 18,
-        "business_row_count": 3,
+        "business_column_count": 25,
+        "business_data_field_count": 24,
+        "business_row_count": 15,
         "id_column_role": "id",
         "legacy_fields_preserved_count": 18,
         "missing_legacy_fields": [],
-        "added_business_fields": [],
+        "added_business_fields": [
+          "AbilityIds",
+          "BehaviorProfileId",
+          "FallbackRuntimeAssetKey",
+          "LeashRange",
+          "RuntimeAssetKey",
+          "SpawnCost"
+        ],
         "valid": true
       },
       "fields": [
         {
           "name": "EnemyId",
           "type": "string",
-          "desc": "怪物唯一 ID，如 enemy_ai_servo_light",
+          "desc": "Stable enemy definition id.",
           "desc_source": "Business AI DataTable"
         },
         {
           "name": "DisplayName",
           "type": "string",
-          "desc": "本地化键，如 enemy.ai_servo",
+          "desc": "Localization key.",
           "desc_source": "Business AI DataTable"
         },
         {
           "name": "ThemeId",
           "type": "string",
-          "desc": "AI_RUINS | ALIEN_HIVE | VIRUS_SWAMP | common",
+          "desc": "common | ai_ruins | alien_hive | virus_swamp.",
           "desc_source": "Business AI DataTable"
         },
         {
           "name": "Tier",
           "type": "string",
-          "desc": "Light | Elite | Boss",
+          "desc": "Light | Elite | Boss.",
           "desc_source": "Business AI DataTable"
         },
         {
           "name": "BaseHP",
           "type": "float",
-          "desc": "Run 第 0 分钟基础 HP",
+          "desc": "Base health points at world minute zero.",
           "desc_source": "Business AI DataTable"
         },
         {
           "name": "HPCurveK",
           "type": "float",
-          "desc": "HP 线性增长系数，HP_t = BaseHP × (1 + K × t_min)",
+          "desc": "HP multiplier slope per world minute.",
           "desc_source": "Business AI DataTable"
         },
         {
           "name": "BaseDamage",
           "type": "float",
-          "desc": "基础攻击伤害 (point)",
+          "desc": "Base damage points.",
           "desc_source": "Business AI DataTable"
         },
         {
           "name": "DamageCurveK",
           "type": "float",
-          "desc": "伤害随时间增长系数",
+          "desc": "Damage multiplier slope per world minute.",
           "desc_source": "Business AI DataTable"
         },
         {
           "name": "MoveSpeed",
           "type": "float",
-          "desc": "移动速度 (m/s)",
+          "desc": "Movement speed in meters per second.",
           "desc_source": "Business AI DataTable"
         },
         {
           "name": "AttackRange",
           "type": "float",
-          "desc": "攻击判定范围 (m)",
+          "desc": "Preferred attack range in meters.",
           "desc_source": "Business AI DataTable"
         },
         {
           "name": "DetectRange",
           "type": "float",
-          "desc": "感知半径 (m)；失追距离 = DetectRange × 2",
+          "desc": "Detection range in meters.",
           "desc_source": "Business AI DataTable"
         },
         {
           "name": "SkillIds",
           "type": "string",
-          "desc": "技能 ID 逗号分隔；Light 通常空",
+          "desc": "Legacy participant skill bridge; empty for native enemies when possible.",
           "desc_source": "Business AI DataTable"
         },
         {
           "name": "LootTableId",
           "type": "string",
-          "desc": "随机掉落表 ID",
+          "desc": "EnemyLootConfig table id.",
           "desc_source": "Business AI DataTable"
         },
         {
           "name": "GuaranteedLootIds",
           "type": "string",
-          "desc": "v2.1 新增：必掉物品 ID 逗号分隔；Elite 必含稀有颜料 ID",
+          "desc": "Comma-separated guaranteed EnemyLootConfig entry ids.",
           "desc_source": "Business AI DataTable"
         },
         {
           "name": "ElitePaintDropRare",
           "type": "int",
-          "desc": "v2.1 新增：精英必掉稀有颜料标记；1=必掉，0=不掉",
+          "desc": "Legacy compatibility flag derived from EnemyLootConfig.",
           "desc_source": "Business AI DataTable"
         },
         {
           "name": "XPReward",
           "type": "int",
-          "desc": "击杀奖励 XP",
+          "desc": "Kill XP reward.",
           "desc_source": "Business AI DataTable"
         },
         {
           "name": "CoinReward",
           "type": "string",
-          "desc": "击杀掉落金币范围，格式 min-max",
+          "desc": "Legacy coin range mirror in min-max form.",
           "desc_source": "Business AI DataTable"
         },
         {
           "name": "PoolIds",
           "type": "string",
-          "desc": "所属怪物池 ID，逗号分隔",
+          "desc": "Comma-separated encounter pool ids.",
           "desc_source": "Business AI DataTable"
         }
       ]

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-09",
+  "generated_at": "2026-07-10",
   "source": "tools/ai_index/build_ai_manifests.py",
   "unity_tests": [],
   "playtest_reports": [
@@ -68,6 +68,18 @@
       ]
     },
     {
+      "id": "28-pcg-map-runtime-integration",
+      "path": "openspec/changes/28-pcg-map-runtime-integration",
+      "has_proposal": true,
+      "has_design": true,
+      "has_tasks": true,
+      "artifacts": [
+        "design.md",
+        "proposal.md",
+        "tasks.md"
+      ]
+    },
+    {
       "id": "gf-x-business-runtime-refactor",
       "path": "openspec/changes/gf-x-business-runtime-refactor",
       "has_proposal": true,
@@ -102,6 +114,21 @@
         "CONTRACT.md",
         "MIGRATION_INVENTORY.md",
         "MIGRATION_RECORD.md",
+        "design.md",
+        "proposal.md",
+        "tasks.md"
+      ]
+    },
+    {
+      "id": "native-enemy-domain-rebuild",
+      "path": "openspec/changes/native-enemy-domain-rebuild",
+      "has_proposal": true,
+      "has_design": true,
+      "has_tasks": true,
+      "artifacts": [
+        ".openspec.yaml",
+        "BASELINE_AUDIT.md",
+        "VERIFICATION_REPORT.md",
         "design.md",
         "proposal.md",
         "tasks.md"

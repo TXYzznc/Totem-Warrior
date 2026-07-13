@@ -2,15 +2,17 @@
 
 > 由 `tools/ai_index/build_ai_manifests.py` 生成。用于提醒 AI 当前项目状态和任务前检查项。
 >
-> 生成日期：2026-07-09
+> 生成日期：2026-07-10
 
 ## 1. 活跃 OpenSpec Change
 
 - `25-camera-2p5d-system`：openspec/changes/25-camera-2p5d-system（proposal=False，design=False，tasks=False）
 - `26-fixed-map-three-themes`：openspec/changes/26-fixed-map-three-themes（proposal=True，design=True，tasks=True）
 - `27-ai-information-contract`：openspec/changes/27-ai-information-contract（proposal=True，design=True，tasks=True）
+- `28-pcg-map-runtime-integration`：openspec/changes/28-pcg-map-runtime-integration（proposal=True，design=True，tasks=True）
 - `gf-x-business-runtime-refactor`：openspec/changes/gf-x-business-runtime-refactor（proposal=True，design=True，tasks=True）
 - `gf-x-framework-migration-phase1`：openspec/changes/gf-x-framework-migration-phase1（proposal=True，design=True，tasks=True）
+- `native-enemy-domain-rebuild`：openspec/changes/native-enemy-domain-rebuild（proposal=True，design=True，tasks=True）
 
 ## 2. 任务前检查
 
@@ -31,7 +33,7 @@
 
 ## 4. 当前索引健康
 
-状态：`warning`，warning 数：2，功能切片数：13，诊断定位场景数：16
+状态：`warning`，warning 数：2，功能切片数：14，诊断定位场景数：19
 
 - 旧版证据表使用业务主键而不是 Id:int；当前 Business AI DataTables 已补 GF_X Id:int。只有重跑旧生成器或改旧证据表时才需要处理这些主键: BossPhaseConfig.BossId:string, BotBuildPreset.PresetId:int, BotConfig.BotId:int, ChestConfig.ChestId:string, EnemyConfig.EnemyId:string, EventConfig.EventId:string, ItemConfig.ItemId:int, MerchantConfig.SlotIndex:int, ProjectileConfig.ProjectileId:string, SkillConfig.SkillId:string, TattooReadingTimeConfig.PartId:int, ThreeChoiceOptionConfig.OptionId:string, WeaponConfig.WeaponId:string, WeaponDropConfig.DropId:string, WeaponTraitConfig.TraitId:string
 - 25-camera-2p5d-system 缺少 proposal/design/tasks 中的一个或多个 artifact
