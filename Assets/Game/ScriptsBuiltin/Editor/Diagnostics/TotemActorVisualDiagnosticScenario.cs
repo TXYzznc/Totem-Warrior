@@ -97,8 +97,9 @@ namespace UGF.EditorTools
                 int actorObjectsWithShadow = actor.Actors.Count(item => item.GameObject != null && item.GameObject.transform.Find(TotemActorVisualHelper.ShadowName) != null);
                 context.AssertEqual(actor.Actors.Count, actorObjectsWithShadow, "actorVisual.runtime.shadowCount");
                 int actorObjectsWithFactionRing = actor.Actors.Count(item => item.GameObject != null && item.GameObject.transform.Find(TotemActorVisualHelper.FactionRingName) != null);
-                context.AssertEqual(actor.Actors.Count - 1, actorObjectsWithFactionRing, "actorVisual.runtime.factionRingCount");
-                context.Assert(actor.Boss?.GameObject?.transform.Find(TotemActorVisualHelper.FactionRingName) == null, "Spawned Boss should not have a player or AI faction ring.");
+                context.AssertEqual(TotemActorService.ParticipantCount, actor.Actors.Count, "actorVisual.runtime.participantCount");
+                context.Assert(actor.Actors.All(TotemActorService.IsParticipantActor), "ActorService should only own participants; NPC enemies and Bosses belong to TotemEnemyService.");
+                context.AssertEqual(actor.Actors.Count, actorObjectsWithFactionRing, "actorVisual.runtime.factionRingCount");
             }
             finally
             {

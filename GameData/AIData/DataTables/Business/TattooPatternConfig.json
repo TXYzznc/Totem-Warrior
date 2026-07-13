@@ -4,8 +4,8 @@
   "tableName": "TattooPatternConfig",
   "relativePath": "Business/TattooPatternConfig",
   "sourceExcel": "GameData/DataTables/Business/TattooPatternConfig.xlsx",
-  "sourceExcelLastWriteUtc": "2026-07-10T08:08:06.9024172Z",
-  "generatedAtUtc": "2026-07-10T08:08:07.0794162Z",
+  "sourceExcelLastWriteUtc": "2026-07-13T13:58:56.7125710Z",
+  "generatedAtUtc": "2026-07-13T13:58:56.8955703Z",
   "tableComment": "Business table migrated from LegacyProjectArchive/Assets/Resources/DataTable/TattooPatternConfig.json. GF_X Id is numeric; original business keys are preserved as data columns.",
   "columns": [
     {

@@ -4,8 +4,8 @@
   "tableName": "BossPhaseConfig",
   "relativePath": "Business/BossPhaseConfig",
   "sourceExcel": "GameData/DataTables/Business/BossPhaseConfig.xlsx",
-  "sourceExcelLastWriteUtc": "2026-07-10T08:55:50.0129169Z",
-  "generatedAtUtc": "2026-07-10T08:55:50.2414159Z",
+  "sourceExcelLastWriteUtc": "2026-07-13T13:58:48.3625708Z",
+  "generatedAtUtc": "2026-07-13T13:58:48.5460713Z",
   "tableComment": "Deterministic three-phase Boss configuration with 60% and 30% transitions.",
   "columns": [
     {

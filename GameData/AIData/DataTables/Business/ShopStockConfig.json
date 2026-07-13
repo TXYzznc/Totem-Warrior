@@ -4,8 +4,8 @@
   "tableName": "ShopStockConfig",
   "relativePath": "Business/ShopStockConfig",
   "sourceExcel": "GameData/DataTables/Business/ShopStockConfig.xlsx",
-  "sourceExcelLastWriteUtc": "2026-07-10T08:08:04.0234168Z",
-  "generatedAtUtc": "2026-07-10T08:08:04.2234163Z",
+  "sourceExcelLastWriteUtc": "2026-07-13T13:58:54.0885707Z",
+  "generatedAtUtc": "2026-07-13T13:58:54.2675709Z",
   "tableComment": "Business table migrated from LegacyProjectArchive/Assets/Resources/DataTable/ShopStockConfig.json. GF_X Id is numeric; original business keys are preserved as data columns.",
   "columns": [
     {

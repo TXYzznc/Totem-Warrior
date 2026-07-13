@@ -52,7 +52,7 @@ namespace UGF.EditorTools
         private const string ArchivedLegacyDataTablePath = "LegacyProjectArchive/Assets/Resources/DataTable";
         private const string BusinessAIDataTablePath = "GameData/AIData/DataTables/Business";
         private const string BusinessXlsxDataTablePath = "GameData/DataTables/Business";
-        private const string LegacyUIPrefabPath = "Assets/Resources/Prefab/UI";
+        private const string ActiveUIPrefabPath = "Assets/Game/Prefabs/UI";
         private static readonly string[] NativeEnemyExtensionTableNames =
         {
             "EncounterSpawnConfig",
@@ -1221,7 +1221,7 @@ namespace UGF.EditorTools
         private static void CheckLegacyEvidenceInventory(GFDiagnosticScenarioContext context)
         {
             context.RequireDirectory(ArchivedLegacyDataTablePath);
-            context.RequireDirectory(LegacyUIPrefabPath);
+            context.RequireDirectory(ActiveUIPrefabPath);
             context.RequireDirectory(ArchivedLegacyScriptPath);
             context.RequireDirectory(ArchivedLegacyModulesPath);
             context.RequireDirectory(BusinessAIDataTablePath);
@@ -1245,8 +1245,8 @@ namespace UGF.EditorTools
             int businessXlsxDataTableCount = Directory.Exists(BusinessXlsxDataTablePath)
                 ? Directory.GetFiles(BusinessXlsxDataTablePath, "*.xlsx", SearchOption.TopDirectoryOnly).Length
                 : 0;
-            int legacyUIPrefabCount = Directory.Exists(LegacyUIPrefabPath)
-                ? Directory.GetFiles(LegacyUIPrefabPath, "*.prefab", SearchOption.TopDirectoryOnly).Length
+            int activeUIPrefabCount = Directory.Exists(ActiveUIPrefabPath)
+                ? Directory.GetFiles(ActiveUIPrefabPath, "*.prefab", SearchOption.TopDirectoryOnly).Length
                 : 0;
             int archivedLegacyScriptCount = Directory.Exists(ArchivedLegacyScriptPath)
                 ? Directory.GetFiles(ArchivedLegacyScriptPath, "*.cs", SearchOption.AllDirectories).Length
@@ -1271,7 +1271,7 @@ namespace UGF.EditorTools
             context.Detail("archivedLegacyDataTableCount", archivedLegacyDataTableCount);
             context.Detail("businessAIDataTableCount", businessAIDataTableCount);
             context.Detail("businessXlsxDataTableCount", businessXlsxDataTableCount);
-            context.Detail("legacyUIPrefabCount", legacyUIPrefabCount);
+            context.Detail("activeUIPrefabCount", activeUIPrefabCount);
             context.Detail("archivedLegacyScriptCount", archivedLegacyScriptCount);
             context.Detail("archivedLegacyModuleDirectoryCount", archivedLegacyModuleDirectoryCount);
             context.Detail("archivedLegacyTestCount", archivedLegacyTestCount);
@@ -1280,8 +1280,8 @@ namespace UGF.EditorTools
             context.Assert(businessAIDataTableCount == 31, $"Expected 31 Business AI DataTable json files, actual {businessAIDataTableCount}.");
             context.Assert(businessXlsxDataTableCount == 31, $"Expected 31 Business xlsx DataTable files, actual {businessXlsxDataTableCount}.");
             CheckBusinessDataTableBridgeMapping(context);
-            context.Assert(legacyUIPrefabCount == 12, $"Expected 12 legacy UI prefabs as evidence, actual {legacyUIPrefabCount}.");
-            CheckLegacyUIPrefabInventory(context);
+            context.Assert(activeUIPrefabCount == 12, $"Expected 12 active GF_X UI prefabs, actual {activeUIPrefabCount}.");
+            CheckActiveUIPrefabInventory(context);
             context.Assert(archivedLegacyScriptCount > 0, "Archived legacy scripts should remain available as rewrite evidence.");
             context.Assert(archivedLegacyModuleDirectoryCount == 24, $"Expected 24 archived legacy module directories as behavior evidence, actual {archivedLegacyModuleDirectoryCount}.");
             CheckLegacyModuleAnalysisCards(context);
@@ -1331,7 +1331,7 @@ namespace UGF.EditorTools
             context.Assert(staleReferences.Count == 0, "Root generated .csproj/.sln files must not reference archived Assets/Scripts, old tests, or stale GameDesinger.sln.");
         }
 
-        private static void CheckLegacyUIPrefabInventory(GFDiagnosticScenarioContext context)
+        private static void CheckActiveUIPrefabInventory(GFDiagnosticScenarioContext context)
         {
             string[] expected =
             {
@@ -1349,9 +1349,9 @@ namespace UGF.EditorTools
                 "ThreeChoice",
             };
 
-            string[] actual = GetFileBaseNames(LegacyUIPrefabPath, "*.prefab");
-            context.Detail("legacyUIPrefabNames", string.Join(",", actual));
-            AssertSameNames(context, expected, actual, "Legacy UI prefab evidence");
+            string[] actual = GetFileBaseNames(ActiveUIPrefabPath, "*.prefab");
+            context.Detail("activeUIPrefabNames", string.Join(",", actual));
+            AssertSameNames(context, expected, actual, "Active GF_X UI prefab inventory");
         }
 
         private static void CheckBusinessDataTableBridgeMapping(GFDiagnosticScenarioContext context)

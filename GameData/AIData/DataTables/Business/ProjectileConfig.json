@@ -4,8 +4,8 @@
   "tableName": "ProjectileConfig",
   "relativePath": "Business/ProjectileConfig",
   "sourceExcel": "GameData/DataTables/Business/ProjectileConfig.xlsx",
-  "sourceExcelLastWriteUtc": "2026-07-10T08:08:03.2779158Z",
-  "generatedAtUtc": "2026-07-10T08:08:03.4489159Z",
+  "sourceExcelLastWriteUtc": "2026-07-13T13:58:53.3485703Z",
+  "generatedAtUtc": "2026-07-13T13:58:53.5230712Z",
   "tableComment": "Business table migrated from LegacyProjectArchive/Assets/Resources/DataTable/ProjectileConfig.json. GF_X Id is numeric; original business keys are preserved as data columns.",
   "columns": [
     {

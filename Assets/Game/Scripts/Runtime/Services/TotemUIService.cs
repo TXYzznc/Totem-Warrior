@@ -55,6 +55,7 @@ public sealed class TotemUIService : TotemRuntimeServiceBase, ITotemRuntimeTickS
         {
             if (CanUseGFUI() && GF.UI.TryCloseTopEscapeUIForm())
             {
+                overlayCloseRequestCount++;
                 return;
             }
 

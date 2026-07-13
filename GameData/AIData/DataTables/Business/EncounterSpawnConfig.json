@@ -4,8 +4,8 @@
   "tableName": "EncounterSpawnConfig",
   "relativePath": "Business/EncounterSpawnConfig",
   "sourceExcel": "GameData/DataTables/Business/EncounterSpawnConfig.xlsx",
-  "sourceExcelLastWriteUtc": "2026-07-10T08:55:51.5599172Z",
-  "generatedAtUtc": "2026-07-10T08:55:51.7299170Z",
+  "sourceExcelLastWriteUtc": "2026-07-13T13:58:49.8655702Z",
+  "generatedAtUtc": "2026-07-13T13:58:50.0395714Z",
   "tableComment": "World-clock encounter schedules and theme/common pool selection.",
   "columns": [
     {

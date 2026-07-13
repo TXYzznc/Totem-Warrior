@@ -32,6 +32,14 @@
   ],
   "active_changes": [
     {
+      "id": "25-camera-2p5d-system",
+      "path": "openspec/changes/25-camera-2p5d-system",
+      "has_proposal": false,
+      "has_design": false,
+      "has_tasks": false,
+      "artifacts": []
+    },
+    {
       "id": "26-fixed-map-three-themes",
       "path": "openspec/changes/26-fixed-map-three-themes",
       "has_proposal": true,
@@ -125,6 +133,21 @@
       ]
     },
     {
+      "id": "native-enemy-domain-rebuild",
+      "path": "openspec/changes/native-enemy-domain-rebuild",
+      "has_proposal": true,
+      "has_design": true,
+      "has_tasks": true,
+      "artifacts": [
+        ".openspec.yaml",
+        "BASELINE_AUDIT.md",
+        "VERIFICATION_REPORT.md",
+        "design.md",
+        "proposal.md",
+        "tasks.md"
+      ]
+    },
+    {
       "id": "produce-totem-art-assets",
       "path": "openspec/changes/produce-totem-art-assets",
       "has_proposal": true,
@@ -151,5 +174,7 @@
       ]
     }
   ],
-  "warnings": []
+  "warnings": [
+    "25-camera-2p5d-system 缺少 proposal/design/tasks 中的一个或多个 artifact"
+  ]
 }

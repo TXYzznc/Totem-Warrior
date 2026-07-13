@@ -31,7 +31,7 @@ OPENSPEC_DIR = ROOT / "openspec"
 RUNTIME_ASSET_CATALOG_PATH = ROOT / "GameData" / "AIData" / "GameplayCatalogs" / "totem_runtime_assets.json"
 UI_FORM_CONFIG_PATH = ROOT / "GameData" / "AIData" / "DataTables" / "Business" / "UIFormConfig.json"
 TODAY = date.today().isoformat()
-DIAGNOSTICS_COMMAND = "python .claude/skills/unity-skills/scripts/unity_skills.py totem_diagnostics_run_all --port 8091"
+DIAGNOSTICS_COMMAND = "python .claude/skills/unity-skills/scripts/unity_skills.py totem_diagnostics_run_all --port 8092"
 ART_EXTENSIONS = {
     ".anim",
     ".asset",
@@ -52,6 +52,27 @@ ART_EXTENSIONS = {
     ".wav",
 }
 UNITY_GUID_PATTERN = re.compile(r"guid:\s*([0-9a-fA-F]{32})")
+BUSINESS_SCHEMA_EXTENSION_FIELDS: dict[str, tuple[str, ...]] = {
+    "BossPhaseConfig": ("AbilityIds",),
+    "BotConfig": (
+        "Personality",
+        "ReadingTargetWeight",
+        "RiskTolerance",
+        "ShopPreference",
+        "TargetBossWeight",
+        "TargetHumanoidAiWeight",
+        "TargetPlayerWeight",
+        "TargetResourceWeight",
+    ),
+    "EnemyConfig": (
+        "AbilityIds",
+        "BehaviorProfileId",
+        "FallbackRuntimeAssetKey",
+        "LeashRange",
+        "RuntimeAssetKey",
+        "SpawnCost",
+    ),
+}
 OBSOLETE_ART_PREFIXES = (
     "assets/resources/character/",
     "assets/resources/characters/",
@@ -816,7 +837,12 @@ def business_table_schema_bridge(table_name: str, legacy_fields: list[dict[str, 
         None,
     )
     missing_legacy_fields = sorted(field for field in legacy_field_names if field not in business_field_names)
-    added_business_fields = sorted(field for field in business_data_field_names if field not in legacy_field_names)
+    expected_extension_fields = BUSINESS_SCHEMA_EXTENSION_FIELDS.get(table_name, ())
+    added_business_fields = sorted(
+        field
+        for field in expected_extension_fields
+        if field in business_data_field_names
+    )
 
     return {
         "business_json": rel(business_path),

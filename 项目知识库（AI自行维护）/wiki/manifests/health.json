@@ -2,8 +2,9 @@
   "generated_at": "2026-07-13",
   "source": "tools/ai_index/build_ai_manifests.py",
   "status": "warning",
-  "warning_count": 1,
+  "warning_count": 2,
   "warnings": [
-    "旧版证据表使用业务主键而不是 Id:int；当前 Business AI DataTables 已补 GF_X Id:int。只有重跑旧生成器或改旧证据表时才需要处理这些主键: BossPhaseConfig.BossId:string, BotBuildPreset.PresetId:int, BotConfig.BotId:int, ChestConfig.ChestId:string, EnemyConfig.EnemyId:string, EventConfig.EventId:string, ItemConfig.ItemId:int, MerchantConfig.SlotIndex:int, ProjectileConfig.ProjectileId:string, SkillConfig.SkillId:string, TattooReadingTimeConfig.PartId:int, ThreeChoiceOptionConfig.OptionId:string, WeaponConfig.WeaponId:string, WeaponDropConfig.DropId:string, WeaponTraitConfig.TraitId:string"
+    "旧版证据表使用业务主键而不是 Id:int；当前 Business AI DataTables 已补 GF_X Id:int。只有重跑旧生成器或改旧证据表时才需要处理这些主键: BossPhaseConfig.BossId:string, BotBuildPreset.PresetId:int, BotConfig.BotId:int, ChestConfig.ChestId:string, EnemyConfig.EnemyId:string, EventConfig.EventId:string, ItemConfig.ItemId:int, MerchantConfig.SlotIndex:int, ProjectileConfig.ProjectileId:string, SkillConfig.SkillId:string, TattooReadingTimeConfig.PartId:int, ThreeChoiceOptionConfig.OptionId:string, WeaponConfig.WeaponId:string, WeaponDropConfig.DropId:string, WeaponTraitConfig.TraitId:string",
+    "25-camera-2p5d-system 缺少 proposal/design/tasks 中的一个或多个 artifact"
   ]
 }

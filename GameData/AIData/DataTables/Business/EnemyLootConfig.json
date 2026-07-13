@@ -4,8 +4,8 @@
   "tableName": "EnemyLootConfig",
   "relativePath": "Business/EnemyLootConfig",
   "sourceExcel": "GameData/DataTables/Business/EnemyLootConfig.xlsx",
-  "sourceExcelLastWriteUtc": "2026-07-10T08:55:52.8254168Z",
-  "generatedAtUtc": "2026-07-10T08:55:53.0319162Z",
+  "sourceExcelLastWriteUtc": "2026-07-13T13:58:51.0580711Z",
+  "generatedAtUtc": "2026-07-13T13:58:51.2420709Z",
   "tableComment": "Public Enemy loot rows; independent from participant death chests.",
   "columns": [
     {

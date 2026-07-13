@@ -4,8 +4,8 @@
   "tableName": "ZoneShrinkConfig",
   "relativePath": "Business/ZoneShrinkConfig",
   "sourceExcel": "GameData/DataTables/Business/ZoneShrinkConfig.xlsx",
-  "sourceExcelLastWriteUtc": "2026-07-10T08:08:10.0039163Z",
-  "generatedAtUtc": "2026-07-10T08:08:10.2309160Z",
+  "sourceExcelLastWriteUtc": "2026-07-13T13:58:59.9915713Z",
+  "generatedAtUtc": "2026-07-13T13:59:00.2100703Z",
   "tableComment": "Business table migrated from LegacyProjectArchive/Assets/Resources/DataTable/ZoneShrinkConfig.json. GF_X Id is numeric; original business keys are preserved as data columns.",
   "columns": [
     {
