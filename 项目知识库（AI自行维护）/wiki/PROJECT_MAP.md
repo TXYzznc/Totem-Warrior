@@ -82,7 +82,6 @@ AGENTS.md
 
 | Change | 路径 | Artifact 状态 |
 |---|---|---|
-| `25-camera-2p5d-system` | `openspec/changes/25-camera-2p5d-system` | proposal=False / design=False / tasks=False |
 | `26-fixed-map-three-themes` | `openspec/changes/26-fixed-map-three-themes` | proposal=True / design=True / tasks=True |
 | `27-ai-information-contract` | `openspec/changes/27-ai-information-contract` | proposal=True / design=True / tasks=True |
 | `28-pcg-map-runtime-integration` | `openspec/changes/28-pcg-map-runtime-integration` | proposal=True / design=True / tasks=True |
@@ -100,6 +99,6 @@ AGENTS.md
 3. 再查 `Assets/Game/Scripts` 中的当前 GF_X 服务/UI/Procedure；需要旧效果证据时再读 `LegacyProjectArchive/Assets/Scripts/Modules/<Module>/MODULE.md`。
 4. 配置改动优先改 `GameData/AIData/DataTables/Business`，再用导表/逆向导表流程同步 xlsx 和 runtime catalog。
 5. 小改直接修改并验证；中大型改动先创建/推进 openspec change。
-6. 改完优先运行 `python .claude/skills/unity-skills/scripts/unity_skills.py totem_diagnostics_run_all --port 8092` 生成 GF_X 诊断报告。
+6. 改完优先运行 `python .claude/skills/unity-skills/scripts/unity_skills.py totem_diagnostics_run_all --port 8091` 生成 GF_X 诊断报告。
 7. 若诊断失败，先用 `manifests/diagnostic_triage.json` 从失败场景反查功能切片和改动面。
 8. 至少运行 `python tools/ai_index/build_ai_manifests.py --check` 确认索引未过期。

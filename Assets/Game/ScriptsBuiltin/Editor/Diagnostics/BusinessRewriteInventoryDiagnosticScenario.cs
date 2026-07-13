@@ -1309,12 +1309,6 @@ namespace UGF.EditorTools
             foreach (string path in projectFiles)
             {
                 string fileName = Path.GetFileName(path);
-                if (string.Equals(fileName, "GameDesinger.sln", StringComparison.OrdinalIgnoreCase))
-                {
-                    staleReferences.Add(fileName);
-                    continue;
-                }
-
                 string text = File.ReadAllText(path);
                 foreach (string signature in staleSignatures)
                 {
@@ -1328,7 +1322,7 @@ namespace UGF.EditorTools
             context.Detail("rootGeneratedProjectFile.count", projectFiles.Length);
             context.Detail("rootGeneratedProjectFile.staleReferenceCount", staleReferences.Count);
             context.Detail("rootGeneratedProjectFile.staleReferences", string.Join(", ", staleReferences));
-            context.Assert(staleReferences.Count == 0, "Root generated .csproj/.sln files must not reference archived Assets/Scripts, old tests, or stale GameDesinger.sln.");
+            context.Assert(staleReferences.Count == 0, "Root generated .csproj/.sln files must not reference archived Assets/Scripts or old test assemblies.");
         }
 
         private static void CheckActiveUIPrefabInventory(GFDiagnosticScenarioContext context)

@@ -10789,7 +10789,7 @@
       "usage_status_reason": "Inferred as reusable project art, but not currently runtime-bound.",
       "duplicate_name": false,
       "needs_review": false,
-      "size_bytes": 134335720
+      "size_bytes": 134335141
     },
     {
       "path": "Assets/Game/Font/Common/SIMHEI.TTF",

@@ -31,7 +31,7 @@ OPENSPEC_DIR = ROOT / "openspec"
 RUNTIME_ASSET_CATALOG_PATH = ROOT / "GameData" / "AIData" / "GameplayCatalogs" / "totem_runtime_assets.json"
 UI_FORM_CONFIG_PATH = ROOT / "GameData" / "AIData" / "DataTables" / "Business" / "UIFormConfig.json"
 TODAY = date.today().isoformat()
-DIAGNOSTICS_COMMAND = "python .claude/skills/unity-skills/scripts/unity_skills.py totem_diagnostics_run_all --port 8092"
+DIAGNOSTICS_COMMAND = "python .claude/skills/unity-skills/scripts/unity_skills.py totem_diagnostics_run_all --port 8091"
 ART_EXTENSIONS = {
     ".anim",
     ".asset",
