@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
+using System.Xml.Linq;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEditor.TestTools.TestRunner.Api;
@@ -188,7 +190,8 @@ namespace UnitySkills
             var metadata = new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase)
             {
                 ["testMode"] = testMode ?? "EditMode",
-                ["filter"] = filter ?? string.Empty
+                ["filter"] = filter ?? string.Empty,
+                ["testResultsPath"] = Path.Combine(Application.persistentDataPath, "TestResults.xml")
             };
 
             job = CreateJob(
@@ -240,6 +243,10 @@ namespace UnitySkills
                 description = job.resultSummary
             });
             BatchPersistence.UpsertJob(job);
+            // PlayMode execution may trigger a domain reload before the next editor tick.
+            // Persist the accepted job before handing control to TestRunnerApi so polling
+            // can recover the same job after the reload.
+            BatchPersistence.FlushIfDirty();
 
             var runnerJobId = api.Execute(new ExecutionSettings
             {
@@ -741,13 +748,30 @@ namespace UnitySkills
                 var testMode = GetMetadataString(job, "testMode", "EditMode");
                 var elapsed = DateTimeOffset.UtcNow.ToUnixTimeSeconds() - job.startedAt;
 
-                // PlayMode tests cannot recover after Domain Reload (Unity limitation)
-                // Also fail if more than 5 minutes have elapsed
-                if (string.Equals(testMode, "PlayMode", StringComparison.OrdinalIgnoreCase) || elapsed > 300)
+                // PlayMode runs cause a domain reload, which drops the in-memory callback.
+                // Unity Test Runner still persists its authoritative result XML, so recover
+                // from that result before declaring the diagnostic job unrecoverable.
+                if (string.Equals(testMode, "PlayMode", StringComparison.OrdinalIgnoreCase))
+                {
+                    if (TryCompletePlayModeFromPersistedResult(job))
+                        return;
+
+                    if (elapsed > 300)
+                    {
+                        FailJob(job.jobId,
+                            $"PlayMode test result was not persisted within {elapsed} seconds after domain reload.",
+                            "failed_reload_result_missing");
+                    }
+
+                    return;
+                }
+
+                if (elapsed > 300)
                 {
                     FailJob(job.jobId,
-                        $"Test run ({testMode}) cannot recover after domain reload.",
+                        $"Test run ({testMode}) could not recover within {elapsed} seconds after domain reload.",
                         "failed_reload_unrecoverable");
+                    CleanupTestRuntime(job.jobId);
                     return;
                 }
 
@@ -780,6 +804,94 @@ namespace UnitySkills
                     FailJob(job.jobId, $"Failed to restart tests: {ex.Message}", "failed_reconnect");
                 }
             }
+        }
+
+        private static bool TryCompletePlayModeFromPersistedResult(BatchJobRecord job)
+        {
+            if (job == null)
+                return false;
+
+            var resultPath = GetMetadataString(
+                job,
+                "testResultsPath",
+                Path.Combine(Application.persistentDataPath, "TestResults.xml"));
+            if (string.IsNullOrWhiteSpace(resultPath) || !File.Exists(resultPath))
+                return false;
+
+            DateTime startedUtc = DateTimeOffset.FromUnixTimeSeconds(job.startedAt).UtcDateTime.AddSeconds(-2);
+            if (File.GetLastWriteTimeUtc(resultPath) < startedUtc)
+                return false;
+
+            XDocument document;
+            try
+            {
+                document = XDocument.Load(resultPath, LoadOptions.None);
+            }
+            catch (Exception)
+            {
+                // Unity may still be replacing the result file. Retry on the next editor tick.
+                return false;
+            }
+
+            XElement root = document.Root;
+            if (root == null || !string.Equals(root.Name.LocalName, "test-run", StringComparison.OrdinalIgnoreCase))
+                return false;
+
+            string result = root.Attribute("result")?.Value ?? string.Empty;
+            bool isKnownResult = result.StartsWith("Passed", StringComparison.OrdinalIgnoreCase)
+                || result.StartsWith("Failed", StringComparison.OrdinalIgnoreCase)
+                || result.StartsWith("Skipped", StringComparison.OrdinalIgnoreCase)
+                || result.StartsWith("Inconclusive", StringComparison.OrdinalIgnoreCase);
+            if (!isKnownResult)
+            {
+                return false;
+            }
+
+            int total = ReadXmlInt(root, "total", ReadXmlInt(root, "testcasecount", 0));
+            int passed = ReadXmlInt(root, "passed", 0);
+            int failed = ReadXmlInt(root, "failed", 0);
+            int skipped = ReadXmlInt(root, "skipped", 0);
+            int inconclusive = ReadXmlInt(root, "inconclusive", 0);
+            var failedNames = root.Descendants("test-case")
+                .Where(test => string.Equals(test.Attribute("result")?.Value, "Failed", StringComparison.OrdinalIgnoreCase))
+                .Select(test => test.Attribute("fullname")?.Value ?? test.Attribute("name")?.Value ?? string.Empty)
+                .Where(name => !string.IsNullOrWhiteSpace(name))
+                .Distinct(StringComparer.OrdinalIgnoreCase)
+                .ToList();
+
+            if (total <= 0)
+                total = passed + failed + skipped + inconclusive;
+
+            job.resultData["totalTests"] = total;
+            job.resultData["passedTests"] = passed;
+            job.resultData["failedTests"] = failed;
+            job.resultData["skippedTests"] = skipped;
+            job.resultData["inconclusiveTests"] = inconclusive;
+            job.resultData["otherTests"] = 0;
+            job.resultData["failedTestNames"] = failedNames;
+            job.metadata["resultSource"] = "UnityTestRunner.TestResults.xml";
+            job.metadata["testResultsPath"] = resultPath;
+
+            string summary = failed == 0
+                ? $"PlayMode test run recovered: {passed}/{total} passed."
+                : $"PlayMode test run recovered: {passed}/{total} passed, {failed} failed.";
+            if (failed > 0)
+            {
+                FailJob(job.jobId, summary, "completed_with_failures", job.resultData);
+            }
+            else
+            {
+                CompleteJob(job.jobId, summary, job.resultData);
+            }
+
+            CleanupTestRuntime(job.jobId);
+            return true;
+        }
+
+        private static int ReadXmlInt(XElement element, string attributeName, int fallback)
+        {
+            int value;
+            return int.TryParse(element?.Attribute(attributeName)?.Value, out value) ? value : fallback;
         }
 
         private static void ProcessSmokeJob(BatchJobRecord job)

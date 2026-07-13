@@ -316,14 +316,14 @@ FEATURE_SLICE_DEFINITIONS: tuple[dict[str, Any], ...] = (
     },
     {
         "id": "first_round_population",
-        "name": "首轮 50 actor 战斗人口",
+        "name": "首轮 50 名参赛者",
         "status": "covered",
-        "product_goal": "复现 1 玩家 + 20 Smart AI + 29 Light AI + Boss 的首轮规模模型。",
+        "product_goal": "复现 1 玩家 + 20 Smart AI + 29 Light AI 的 50 名参赛者规模；NPC 敌人不占参赛者名额。",
         "modules": ["Spawner", "Bot", "Enemy", "Combat", "GameState"],
         "business_tables": ["BotConfig", "BotBuildPreset", "EnemyConfig"],
         "runtime_services": ["TotemActorService", "TotemAIService", "TotemGameFlowService"],
         "ui_forms": ["CombatHUD"],
-        "runtime_asset_keys": ["actor.player", "actor.smartAi", "actor.lightAi", "actor.boss"],
+        "runtime_asset_keys": ["actor.player", "actor.smartAi", "actor.lightAi"],
         "docs": [
             "openspec/changes/gf-x-business-runtime-refactor/REQUIREMENTS_INVENTORY.md",
             "openspec/changes/gf-x-business-runtime-refactor/SMART_AI_PERSONALITY_DRAFT.md",
@@ -334,8 +334,8 @@ FEATURE_SLICE_DEFINITIONS: tuple[dict[str, Any], ...] = (
             "Scenario/BusinessRuntime/Totem Runtime Causality Smoke",
         ],
         "discipline_handoff": {
-            "design": "维护 Smart/Light 数量、个性分配、Boss 同场规则和首轮目标。",
-            "art": "检查 actor.* runtime key 对应的临时角色/Boss 视觉，后续替换保持 key 不漂移。",
+            "design": "维护 Smart/Light 数量、个性分配、参赛者身份和最后存活者胜利规则。",
+            "art": "检查 actor.* runtime key 对应的临时参赛者视觉，后续替换保持 key 不漂移。",
             "program": "人口创建、状态和 AI 决策归 TotemActorService/TotemAIService，不挂旧 ModuleRunner。",
             "qa": "用 First Round Contract 和 AI Runtime 证明数量、状态、性格和首轮模型。",
         },
@@ -347,7 +347,7 @@ FEATURE_SLICE_DEFINITIONS: tuple[dict[str, Any], ...] = (
         "product_goal": "GF_X 原生重写攻击、命中、技能、武器冷却、状态概率和伤害结算。",
         "modules": ["Combat", "Weapon", "Skill", "Status", "VFX"],
         "business_tables": ["WeaponConfig", "WeaponTraitConfig", "WeaponDropConfig", "ProjectileConfig", "SkillConfig"],
-        "runtime_services": ["TotemCombatService", "TotemWeaponService", "TotemSkillService", "TotemStatusService", "TotemVfxService"],
+        "runtime_services": ["TotemCombatService", "TotemCombatRelationshipService", "TotemWeaponService", "TotemSkillService", "TotemStatusService", "TotemVfxService"],
         "ui_forms": ["CombatHUD", "SkillAcquire"],
         "runtime_asset_keys": [
             "weapon.knife_basic",
@@ -559,10 +559,10 @@ FEATURE_SLICE_DEFINITIONS: tuple[dict[str, Any], ...] = (
         "status": "covered_with_tuning_boundary",
         "product_goal": "Boss 生成、阶段切换、技能、死亡掉落和 AI Boss 优先策略都可被诊断追踪。",
         "modules": ["Enemy", "Bot", "Combat", "Skill", "Economy", "VFX"],
-        "business_tables": ["EnemyConfig", "BossPhaseConfig", "SkillConfig", "ChestConfig", "BotConfig"],
-        "runtime_services": ["TotemBossService", "TotemAIService", "TotemCombatService", "TotemSkillService", "TotemVfxService"],
+        "business_tables": ["EnemyConfig", "EnemyAbilityConfig", "EncounterSpawnConfig", "EnemyLootConfig", "BossPhaseConfig", "BotConfig"],
+        "runtime_services": ["TotemEnemyService", "TotemEnemyWorldService", "TotemEnemyLootService", "TotemAIService", "TotemCombatService", "TotemVfxService"],
         "ui_forms": ["CombatHUD"],
-        "runtime_asset_keys": ["actor.boss", "skill.skill_stomp", "skill.skill_beam", "skill.skill_summon", "skill.skill_enrage_aoe", "effect.boss.bolt"],
+        "runtime_asset_keys": ["enemy.boss_ai_core_zero", "enemy.boss_alien_hive_mother", "enemy.boss_virus_terminus", "enemy.fallback.ai_ruins.boss", "enemy.fallback.alien_hive.boss", "enemy.fallback.virus_swamp.boss"],
         "docs": [
             "项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/modules/08-EnemyModule+BossModule.md",
             "项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/systems/11-怪物与Boss.md",
@@ -574,9 +574,53 @@ FEATURE_SLICE_DEFINITIONS: tuple[dict[str, Any], ...] = (
         ],
         "discipline_handoff": {
             "design": "Boss 阶段阈值、倍率、技能、掉落和 BossPriority 权重优先由表维护。",
-            "art": "Boss、BossPhaseConfig 技能和特效通过 actor.boss、skill.skill_stomp、skill.skill_beam、skill.skill_summon、skill.skill_enrage_aoe 和 effect.boss.bolt key 管理。",
-            "program": "Boss 阶段归 TotemBossService，技能释放走 Skill/VFX，AI 只消费 Boss 目标信息。",
+            "art": "Boss 视觉通过 enemy.<enemyId> 与 enemy.fallback.<theme>.boss key 管理；阶段特效和音频由 BossPhaseConfig cue 驱动。",
+            "program": "Boss 是 Enemy 域中的 Boss tier，由 TotemEnemyService 管理阶段、能力和死亡事件，TotemEnemyWorldService 负责世界表现。",
             "qa": "用 AI Runtime、Causality Smoke 和 Catalog Binding 验证阶段、技能和优先策略。",
+        },
+    },
+    {
+        "id": "native_enemy_domain",
+        "name": "独立 NPC 敌人、遭遇与掉落",
+        "status": "covered_with_placeholder_art_boundary",
+        "product_goal": "NPC 敌人作为独立怪物域运行，拥有基础 FSM、仇恨索敌、数据驱动能力、Light/Elite/Boss 策略、PCG 遭遇刷新和公开掉落。",
+        "modules": ["Enemy", "Combat", "Spawner", "MapGen", "Economy"],
+        "business_tables": ["EnemyConfig", "EnemyAbilityConfig", "EncounterSpawnConfig", "EnemyLootConfig", "BossPhaseConfig"],
+        "runtime_services": [
+            "TotemMatchClockService",
+            "TotemCombatRelationshipService",
+            "TotemParticipantReadinessService",
+            "TotemEnemyWorldService",
+            "TotemEnemyService",
+            "TotemEnemyLootService",
+            "TotemActorService",
+            "TotemCombatService"
+        ],
+        "ui_forms": ["CombatHUD"],
+        "runtime_asset_keys": [
+            "enemy.boss_ai_core_zero",
+            "enemy.boss_alien_hive_mother",
+            "enemy.boss_virus_terminus",
+            "enemy.fallback.ai_ruins.boss",
+            "enemy.fallback.alien_hive.boss",
+            "enemy.fallback.virus_swamp.boss"
+        ],
+        "docs": [
+            "openspec/changes/native-enemy-domain-rebuild/design.md",
+            "openspec/changes/native-enemy-domain-rebuild/specs/enemy-ai-runtime/spec.md",
+            "openspec/changes/native-enemy-domain-rebuild/specs/enemy-encounter-spawning/spec.md",
+            "openspec/changes/native-enemy-domain-rebuild/specs/enemy-loot-progression/spec.md"
+        ],
+        "diagnostic_scenarios": [
+            "Scenario/BusinessRuntime/Totem Enemy Pure Logic",
+            "Scenario/BusinessRuntime/Totem Enemy Domain Runtime",
+            "Scenario/BusinessRuntime/Totem Enemy Status Fast"
+        ],
+        "discipline_handoff": {
+            "design": "敌人身份、能力、遭遇预算、掉落和 Boss 阶段从 Business JSON 维护；参赛者与怪物不可再次合并。",
+            "art": "当前敌人使用 enemy.* 与 enemy.fallback.* 占位资源；正式替换保持 runtime key 和单敌人生命周期稳定。",
+            "program": "EnemyService 负责怪物逻辑，EnemyWorldService 负责世界/表现桥接，EnemyLootService 负责公开掉落；所有伤害先过关系服务。",
+            "qa": "用 Enemy Pure Logic、Enemy Domain Runtime、Enemy Status 和 PlayMode smoke 验证 FSM、能力、刷新、掉落、清理与性能。"
         },
     },
     {
@@ -586,7 +630,7 @@ FEATURE_SLICE_DEFINITIONS: tuple[dict[str, Any], ...] = (
         "product_goal": "命中特效、伤害飘字、Boss/技能反馈和音频 cue 都能通过 GF_X 诊断定位。",
         "modules": ["VFX", "Audio", "Combat", "Skill", "Enemy"],
         "business_tables": ["SkillConfig", "BossPhaseConfig"],
-        "runtime_services": ["TotemVfxService", "TotemAudioService", "TotemCombatService", "TotemBossService"],
+        "runtime_services": ["TotemVfxService", "TotemAudioService", "TotemCombatService", "TotemEnemyService", "TotemEnemyWorldService"],
         "ui_forms": ["CombatHUD"],
         "runtime_asset_keys": [
             "effect.attack.hit",
@@ -1057,6 +1101,8 @@ def infer_art_system(path: Path) -> str:
         "assets/resources/newtonsoft.json-for-unity.converters.asset",
     }:
         return "GF_XCore"
+    if "/sprite/pcg/" in normalized:
+        return "PCGMap"
     if "/prefab/ui/" in normalized or "/prefabs/ui/" in normalized or "/sprites/ui/" in normalized or "/sprite/ui/" in normalized:
         return "UI"
     if "/prefabs/entity/actors/" in normalized or "/character" in normalized or "/characters/" in normalized or "/player" in normalized or "/boss" in normalized:
@@ -1094,6 +1140,8 @@ def infer_art_role(path: Path, system: str, asset_type: str) -> str:
         return "framework example/reference asset, not part of clean startup runtime"
     if system == "GF_XCore":
         return "GF_X core/runtime support asset"
+    if system == "PCGMap":
+        return "PCG terrain, object, POI, route or overlay visual selected by the PCG catalogs"
     if system == "UI":
         if asset_type == "prefab":
             return "UI screen/form prefab candidate for GF_X UIForm rewrite"
@@ -1137,6 +1185,9 @@ def lifecycle_policy(path: Path, system: str) -> str:
     review_state, _, review_lifecycle = art_review_state(path)
     if review_state and review_lifecycle:
         return review_lifecycle
+
+    if system == "PCGMap":
+        return "runtime-bound through PCG catalogs and the GF_X PCG map lifecycle; do not require one runtime asset key per source image"
 
     normalized = rel(path).lower()
     if "/examples/" in normalized:
@@ -1412,6 +1463,8 @@ def art_usage_guidance(
 ) -> str:
     if review_state == "obsolete":
         return "已确认废弃；不要作为新的 GF_X 运行时美术资源使用。"
+    if system == "PCGMap":
+        return "PCG 地图运行资源；由 Terrain/WorldObject/Zone 等 PCG catalog 选择，并由 GF_X PCG 地图生命周期加载。"
     if usages:
         keys = ", ".join(usage["key"] for usage in usages[:6] if usage.get("key"))
         suffix = "..." if len(usages) > 6 else ""
@@ -1436,6 +1489,8 @@ def art_usage_status(
 ) -> str:
     if review_state == "obsolete":
         return "obsolete"
+    if system == "PCGMap":
+        return "pcg_catalog_bound"
     if usages and review_state == "placeholder":
         return "runtime_bound_placeholder"
     if usages:
@@ -1470,6 +1525,7 @@ def art_usage_status_reason(status: str) -> str:
         "classification_needed": "Path/name inference is not enough. Ask for confirmation or add runtime catalog context before use.",
         "gf_x_core_support": "GF_X support asset. Treat as framework/runtime support rather than game content.",
         "reusable_candidate": "Inferred as reusable project art, but not currently runtime-bound.",
+        "pcg_catalog_bound": "PCG map source art selected by PCG catalogs and consumed by the GF_X PCG runtime lifecycle.",
     }
     return reasons.get(status, "Unknown generated status; inspect asset manually before use.")
 
@@ -1590,20 +1646,17 @@ def runtime_asset_catalog_keys() -> set[str]:
 
 
 def active_runtime_service_names() -> set[str]:
-    services_dir = GAME_DIR / "Scripts" / "Runtime" / "Services"
-    if not services_dir.exists():
+    runtime_path = GAME_DIR / "Scripts" / "Runtime" / "TotemGameRuntime.cs"
+    if not runtime_path.exists():
         return set()
 
-    return {
-        path.stem
-        for path in services_dir.glob("Totem*Service.cs")
-        if path.is_file()
-    }
+    return set(re.findall(r"RegisterService\(new\s+(Totem\w+Service)\s*\(", read_text(runtime_path)))
 
 
 def build_feature_slices_manifest(modules: dict[str, Any], datatables: dict[str, Any]) -> dict[str, Any]:
     module_names = {module["name"] for module in modules["modules"]}
     table_names = {table["name"] for table in datatables["tables"]}
+    table_names.update(path.stem for path in (AI_DATATABLE_DIR / "Business").glob("*.json"))
     runtime_keys = runtime_asset_catalog_keys()
     runtime_service_names = active_runtime_service_names()
     required_disciplines = ("design", "art", "program", "qa")

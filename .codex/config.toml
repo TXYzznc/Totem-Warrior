@@ -26,6 +26,12 @@ UV_PYTHON_PREFERENCE = "only-managed"
 [mcp_servers.codebase-memory]
 command = "tools/codebase-memory-mcp/codebase-memory-mcp.exe"
 
+[mcp_servers.codebase-memory.tools.list_projects]
+approval_mode = "approve"
+
+[mcp_servers.codebase-memory.tools.search_code]
+approval_mode = "approve"
+
 [mcp_servers.frame-ronin]
 command = ".venv/Scripts/frame-ronin-mcp.exe"
 
