@@ -2,7 +2,7 @@
 
 > 由 `tools/ai_index/build_ai_manifests.py` 生成。项目级任务先读本文件，再进入具体模块。
 >
-> 生成日期：2026-07-10
+> 生成日期：2026-07-13
 
 ## 1. 读取入口
 
@@ -72,23 +72,24 @@ AGENTS.md
 - 旧运行时加载证据：`LegacyProjectArchive/Assets/Scripts/Modules/DataTable/DataTableModule.cs`
 - 旧注册表证据：`LegacyProjectArchive/Assets/Scripts/DataTable/DataTableRegistry.cs`
 - 业务配置表数量：28
-- 跨岗位功能切片数量：14
+- 跨岗位功能切片数量：13
 - 功能切片覆盖旧模块数量：24/24
-- 功能切片覆盖运行时服务数量：31
+- 功能切片覆盖运行时服务数量：26
 - 功能切片入口：`项目知识库（AI自行维护）/wiki/manifests/feature_slices.json`
-- 诊断定位入口：`项目知识库（AI自行维护）/wiki/manifests/diagnostic_triage.json`（19 个诊断场景）
+- 诊断定位入口：`项目知识库（AI自行维护）/wiki/manifests/diagnostic_triage.json`（16 个诊断场景）
 
 ## 5. 活跃 OpenSpec
 
 | Change | 路径 | Artifact 状态 |
 |---|---|---|
-| `25-camera-2p5d-system` | `openspec/changes/25-camera-2p5d-system` | proposal=False / design=False / tasks=False |
 | `26-fixed-map-three-themes` | `openspec/changes/26-fixed-map-three-themes` | proposal=True / design=True / tasks=True |
 | `27-ai-information-contract` | `openspec/changes/27-ai-information-contract` | proposal=True / design=True / tasks=True |
 | `28-pcg-map-runtime-integration` | `openspec/changes/28-pcg-map-runtime-integration` | proposal=True / design=True / tasks=True |
+| `additive-gameplay-loading-world-sorting` | `openspec/changes/additive-gameplay-loading-world-sorting` | proposal=True / design=True / tasks=True |
 | `gf-x-business-runtime-refactor` | `openspec/changes/gf-x-business-runtime-refactor` | proposal=True / design=True / tasks=True |
 | `gf-x-framework-migration-phase1` | `openspec/changes/gf-x-framework-migration-phase1` | proposal=True / design=True / tasks=True |
-| `native-enemy-domain-rebuild` | `openspec/changes/native-enemy-domain-rebuild` | proposal=True / design=True / tasks=True |
+| `produce-totem-art-assets` | `openspec/changes/produce-totem-art-assets` | proposal=True / design=True / tasks=True |
+| `remove-resources-load-paths` | `openspec/changes/remove-resources-load-paths` | proposal=True / design=True / tasks=True |
 
 ## 6. AI 修改任务的推荐流程
 
@@ -97,6 +98,6 @@ AGENTS.md
 3. 再查 `Assets/Game/Scripts` 中的当前 GF_X 服务/UI/Procedure；需要旧效果证据时再读 `LegacyProjectArchive/Assets/Scripts/Modules/<Module>/MODULE.md`。
 4. 配置改动优先改 `GameData/AIData/DataTables/Business`，再用导表/逆向导表流程同步 xlsx 和 runtime catalog。
 5. 小改直接修改并验证；中大型改动先创建/推进 openspec change。
-6. 改完优先运行 `python .claude/skills/unity-skills/scripts/unity_skills.py totem_diagnostics_run_all --port 8092` 生成 GF_X 诊断报告。
+6. 改完优先运行 `python .claude/skills/unity-skills/scripts/unity_skills.py totem_diagnostics_run_all --port 8091` 生成 GF_X 诊断报告。
 7. 若诊断失败，先用 `manifests/diagnostic_triage.json` 从失败场景反查功能切片和改动面。
 8. 至少运行 `python tools/ai_index/build_ai_manifests.py --check` 确认索引未过期。

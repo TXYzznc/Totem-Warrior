@@ -38,11 +38,7 @@ namespace UGF.EditorTools
             ForbidDirectory(context, "Assets/TutorialInfo", "Unity template tutorial assets must stay under LegacyProjectArchive/Assets/TutorialInfo.");
             ForbidDirectory(context, "Assets/Screenshots", "Playtest screenshots must stay under tools/playtest/screenshots, not active Unity assets.");
             ForbidDirectory(context, "Assets/TestResults", "Playtest results must stay under tools/playtest/test-results, not active Unity assets.");
-            ForbidDirectory(context, "Assets/Resources/Character", "Confirmed obsolete Character art must stay out of active Resources.");
-            ForbidDirectory(context, "Assets/Resources/Characters", "Confirmed obsolete Characters art must stay out of active Resources.");
-            ForbidDirectory(context, "Assets/Resources/Environments", "Confirmed obsolete Environments art must stay out of active Resources.");
-            ForbidDirectory(context, "Assets/Resources/Recipes", "Confirmed obsolete Recipes art must stay out of active Resources.");
-            ForbidDirectory(context, "Assets/Resources/Tattoo", "Confirmed obsolete Tattoo art must stay out of active Resources.");
+            ValidateResourcesWhitelist(context);
             ForbidUISpriteSidecarFiles(context);
             ForbidRuntimeResidues(context);
             ForbidPrefabMissingScripts(context);
@@ -76,9 +72,42 @@ namespace UGF.EditorTools
             context.Assert(!exists, $"{message} Path: {directoryName}");
         }
 
+        private static void ValidateResourcesWhitelist(GFDiagnosticScenarioContext context)
+        {
+            const string resourcesRoot = "Assets/Resources";
+            var allowedEntries = new HashSet<string>(System.StringComparer.OrdinalIgnoreCase)
+            {
+                "AppSettings.asset",
+                "AppSettings.asset.meta",
+                "Obfuz",
+                "Obfuz.meta",
+                "PCG",
+                "PCG.meta",
+                "AotDlls",
+                "AotDlls.meta",
+            };
+
+            if (!Directory.Exists(resourcesRoot))
+            {
+                context.Detail("resourcesWhitelist.exists", false);
+                return;
+            }
+
+            var unexpected = Directory.EnumerateFileSystemEntries(resourcesRoot)
+                .Select(Path.GetFileName)
+                .Where(name => !string.IsNullOrEmpty(name) && !allowedEntries.Contains(name))
+                .OrderBy(name => name)
+                .ToArray();
+
+            context.Detail("resourcesWhitelist.exists", true);
+            context.Detail("resourcesWhitelist.unexpectedCount", unexpected.Length);
+            context.Detail("resourcesWhitelist.unexpected", string.Join(", ", unexpected));
+            context.Assert(unexpected.Length == 0, "Assets/Resources may only contain startup/config whitelist entries: AppSettings, Obfuz, PCG, AotDlls.");
+        }
+
         private static void ForbidUISpriteSidecarFiles(GFDiagnosticScenarioContext context)
         {
-            const string uiSpriteRoot = "Assets/Resources/Sprite/UI";
+            const string uiSpriteRoot = "Assets/Game/Sprite/UI";
             string[] forbiddenExtensions =
             {
                 ".json",
@@ -101,7 +130,7 @@ namespace UGF.EditorTools
 
             context.Detail("forbidden.uiSpriteSidecarFiles", hits.Count);
             context.Detail("forbidden.uiSpriteSidecarExamples", string.Join(", ", hits.Take(10)));
-            context.Assert(hits.Count == 0, "UI sprite Resources should contain art assets only. Move README/log/json sidecars to LegacyProjectArchive/Assets/Resources/Sprite/UI_Docs or 项目知识库（AI自行维护）/raw.");
+            context.Assert(hits.Count == 0, "UI sprite assets should contain art assets only. Move README/log/json sidecars to 项目知识库（AI自行维护）/raw.");
         }
 
         private static void ForbidRuntimeResidues(GFDiagnosticScenarioContext context)

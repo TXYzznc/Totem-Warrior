@@ -1,7 +1,7 @@
 ---
 module: UI
 owner: client-unity
-generated_at: 2026-07-10
+generated_at: 2026-07-13
 source: tools/ai_index/build_ai_manifests.py
 ---
 

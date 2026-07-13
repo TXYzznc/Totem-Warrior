@@ -4,8 +4,8 @@
   "tableName": "MapTemplateConfig",
   "relativePath": "Business/MapTemplateConfig",
   "sourceExcel": "GameData/DataTables/Business/MapTemplateConfig.xlsx",
-  "sourceExcelLastWriteUtc": "2026-07-10T08:55:54.0279168Z",
-  "generatedAtUtc": "2026-07-10T08:55:54.2009167Z",
+  "sourceExcelLastWriteUtc": "2026-07-10T08:08:02.1589160Z",
+  "generatedAtUtc": "2026-07-10T08:08:02.3279159Z",
   "tableComment": "Business table migrated from LegacyProjectArchive/Assets/Resources/DataTable/MapTemplateConfig.json. GF_X Id is numeric; original business keys are preserved as data columns.",
   "columns": [
     {

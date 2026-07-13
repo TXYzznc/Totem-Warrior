@@ -136,7 +136,6 @@ public sealed class TotemStartupSelectForm : TotemUIFormBase
 
         ActorService?.BeginPlayerStartupProtection("StartupSelect.Confirmed");
         FlowService?.ConfirmStartup(selectedColorId, selectedWeaponId, selectedPatternIds.ToArray());
-        UIService?.OpenCombatHud();
     }
 
     private void OnCancelClicked()

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -591,23 +591,10 @@ public sealed class TotemGameplayCatalog
 
     private static TotemResourceCatalogEntry[] BuildDefaultResources()
     {
-        return new[]
-        {
-            new TotemResourceCatalogEntry { id = 1001, name = "Tattoo.Part.Head", resourceType = "Sprite", loadPath = "Tattoo/Part/Head", assetKey = "tattoo.part.head", activeAssetPath = "Assets/Resources/Sprite/Tattoo/Part/Head.png" },
-            new TotemResourceCatalogEntry { id = 1002, name = "Tattoo.Part.Torso", resourceType = "Sprite", loadPath = "Tattoo/Part/Torso", assetKey = "tattoo.part.torso", activeAssetPath = "Assets/Resources/Sprite/Tattoo/Part/Torso.png" },
-            new TotemResourceCatalogEntry { id = 1003, name = "Tattoo.Part.LeftArm", resourceType = "Sprite", loadPath = "Tattoo/Part/LeftArm", assetKey = "tattoo.part.left_arm", activeAssetPath = "Assets/Resources/Sprite/Tattoo/Part/LeftArm.png" },
-            new TotemResourceCatalogEntry { id = 1004, name = "Tattoo.Part.RightArm", resourceType = "Sprite", loadPath = "Tattoo/Part/RightArm", assetKey = "tattoo.part.right_arm", activeAssetPath = "Assets/Resources/Sprite/Tattoo/Part/RightArm.png" },
-            new TotemResourceCatalogEntry { id = 1005, name = "Tattoo.Part.LeftLeg", resourceType = "Sprite", loadPath = "Tattoo/Part/LeftLeg", assetKey = "tattoo.part.left_leg", activeAssetPath = "Assets/Resources/Sprite/Tattoo/Part/LeftLeg.png" },
-            new TotemResourceCatalogEntry { id = 1006, name = "Tattoo.Part.RightLeg", resourceType = "Sprite", loadPath = "Tattoo/Part/RightLeg", assetKey = "tattoo.part.right_leg", activeAssetPath = "Assets/Resources/Sprite/Tattoo/Part/RightLeg.png" },
-            new TotemResourceCatalogEntry { id = 1201, name = "Tattoo.Pattern.Line", resourceType = "Sprite", loadPath = "Tattoo/Pattern/Line", assetKey = "tattoo.pattern.line", activeAssetPath = "Assets/Resources/Sprite/Tattoo/Pattern/Line.png" },
-            new TotemResourceCatalogEntry { id = 1202, name = "Tattoo.Pattern.Ring", resourceType = "Sprite", loadPath = "Tattoo/Pattern/Ring", assetKey = "tattoo.pattern.ring", activeAssetPath = "Assets/Resources/Sprite/Tattoo/Pattern/Ring.png" },
-            new TotemResourceCatalogEntry { id = 1203, name = "Tattoo.Pattern.Spiral", resourceType = "Sprite", loadPath = "Tattoo/Pattern/Spiral", assetKey = "tattoo.pattern.spiral", activeAssetPath = "Assets/Resources/Sprite/Tattoo/Pattern/Spiral.png" },
-            new TotemResourceCatalogEntry { id = 1204, name = "Tattoo.Pattern.Zigzag", resourceType = "Sprite", loadPath = "Tattoo/Pattern/Zigzag", assetKey = "tattoo.pattern.zigzag", activeAssetPath = "Assets/Resources/Sprite/Tattoo/Pattern/Zigzag.png" },
-            new TotemResourceCatalogEntry { id = 1205, name = "Tattoo.Pattern.Bolt", resourceType = "Sprite", loadPath = "Tattoo/Pattern/Bolt", assetKey = "tattoo.pattern.bolt", activeAssetPath = "Assets/Resources/Sprite/Tattoo/Pattern/Bolt.png" },
-            new TotemResourceCatalogEntry { id = 1206, name = "Tattoo.Pattern.Star", resourceType = "Sprite", loadPath = "Tattoo/Pattern/Star", assetKey = "tattoo.pattern.star", activeAssetPath = "Assets/Resources/Sprite/Tattoo/Pattern/Star.png" },
-            new TotemResourceCatalogEntry { id = 1207, name = "Tattoo.Pattern.Stream", resourceType = "Sprite", loadPath = "Tattoo/Pattern/Stream", assetKey = "tattoo.pattern.stream", activeAssetPath = "Assets/Resources/Sprite/Tattoo/Pattern/Stream.png" },
-            new TotemResourceCatalogEntry { id = 1208, name = "Tattoo.Pattern.Beast", resourceType = "Sprite", loadPath = "Tattoo/Pattern/Beast", assetKey = "tattoo.pattern.beast", activeAssetPath = "Assets/Resources/Sprite/Tattoo/Pattern/Beast.png" },
-        };
+        // Tattoo sprite bindings were retired when the old Assets/Game/Sprite/Tattoo art was
+        // deleted. Keep Tattoo gameplay tables active, but leave visual ResourceConfig rows
+        // empty until the replacement art pass produces approved sprites.
+        return Array.Empty<TotemResourceCatalogEntry>();
     }
 
     private static TotemMerchantSlotCatalogEntry[] BuildDefaultMerchantSlots()
@@ -3069,8 +3056,7 @@ public static class TotemGameplayCatalogValidator
         Require(catalog.schemaVersion > 0, errors, "schemaVersion must be positive.");
         Require(catalog.items.Length >= 31, errors, "At least 31 ItemConfig rows are required.");
         Require(ItemsAreValid(catalog), errors, "Items must preserve old ItemConfig ids, types, stack limits and prices.");
-        Require(catalog.resources.Length >= 14, errors, "At least 14 ResourceConfig rows are required.");
-        Require(ResourcesAreValid(catalog), errors, "Resources must preserve tattoo part/pattern sprite paths.");
+        Require(ResourcesAreValid(catalog), errors, "ResourceConfig rows must be valid and must not reference retired sprite folders.");
         Require(catalog.weapons.Length >= 5, errors, "At least 5 weapons are required.");
         Require(catalog.projectiles.Length >= 2, errors, "At least 2 projectile rows are required.");
         Require(catalog.weaponTraits.Length >= 10, errors, "At least 10 weapon trait rows are required.");
@@ -3204,8 +3190,6 @@ public static class TotemGameplayCatalogValidator
     private static bool ResourcesAreValid(TotemGameplayCatalog catalog)
     {
         var ids = new HashSet<int>();
-        bool[] parts = new bool[7];
-        bool[] patterns = new bool[9];
         for (int i = 0; i < catalog.resources.Length; i++)
         {
             var resource = catalog.resources[i];
@@ -3217,38 +3201,27 @@ public static class TotemGameplayCatalogValidator
                 return false;
             }
 
-            if (!string.Equals(resource.resourceType, "Sprite", StringComparison.OrdinalIgnoreCase))
-            {
-                return false;
-            }
-
-            if (resource.id >= 1001 && resource.id <= 1006)
-            {
-                parts[resource.id - 1000] = true;
-            }
-            else if (resource.id >= 1201 && resource.id <= 1208)
-            {
-                patterns[resource.id - 1200] = true;
-            }
-        }
-
-        for (int part = 1; part <= 6; part++)
-        {
-            if (!parts[part])
-            {
-                return false;
-            }
-        }
-
-        for (int pattern = 1; pattern <= 8; pattern++)
-        {
-            if (!patterns[pattern])
+            if (ReferencesRetiredSpriteFolder(resource.loadPath) || ReferencesRetiredSpriteFolder(resource.activeAssetPath))
             {
                 return false;
             }
         }
 
         return true;
+    }
+
+    private static bool ReferencesRetiredSpriteFolder(string assetPath)
+    {
+        if (string.IsNullOrWhiteSpace(assetPath))
+        {
+            return false;
+        }
+
+        return assetPath.StartsWith("Assets/Game/Sprite/Character/", StringComparison.Ordinal) ||
+               assetPath.StartsWith("Assets/Game/Sprite/Characters/", StringComparison.Ordinal) ||
+               assetPath.StartsWith("Assets/Game/Sprite/Environments/", StringComparison.Ordinal) ||
+               assetPath.StartsWith("Assets/Game/Sprite/Recipes/", StringComparison.Ordinal) ||
+               assetPath.StartsWith("Assets/Game/Sprite/Tattoo/", StringComparison.Ordinal);
     }
 
     private static bool MerchantSlotsAreValid(TotemGameplayCatalog catalog)

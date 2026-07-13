@@ -11,9 +11,9 @@ public sealed class TotemCharacterSelectForm : TotemUIFormBase
 
     private static readonly CharacterOption[] CharacterOptions =
     {
-        new CharacterOption(1, "角色 1", "ui.character.1"),
-        new CharacterOption(2, "角色 2", "ui.character.2"),
-        new CharacterOption(3, "角色 3", "ui.character.3"),
+        new CharacterOption(1, "角色 1", string.Empty),
+        new CharacterOption(2, "角色 2", "ui.character.portrait.2"),
+        new CharacterOption(3, "角色 3", "ui.character.portrait.3"),
     };
 
     [SerializeField] private Transform characterRoot;

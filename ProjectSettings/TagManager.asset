@@ -41,3 +41,21 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Ground
+    uniqueID: 1001
+    locked: 0
+  - name: GroundDecal
+    uniqueID: 1002
+    locked: 0
+  - name: World
+    uniqueID: 1003
+    locked: 0
+  - name: Character
+    uniqueID: 1004
+    locked: 0
+  - name: VFX
+    uniqueID: 1005
+    locked: 0
+  - name: UI
+    uniqueID: 1006
+    locked: 0

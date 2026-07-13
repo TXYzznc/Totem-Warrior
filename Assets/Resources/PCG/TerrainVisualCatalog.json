@@ -1,12 +1,12 @@
-﻿{
+{
     "schemaVersion":  2,
     "catalogId":  "terrain_visual_catalog",
-    "assetPathMode":  "resources_path",
+    "assetPathMode":  "game_asset_path",
     "pixelsPerUnit":  128,
     "tiles":  [
                   {
                       "id":  "grass_inner_01",
-                      "asset":  "Sprite/PCG/Terrain/Base/grass_inner_01",
+                      "asset":  "Assets/Game/Sprite/PCG/Terrain/Sliced/ShallowRiverTotemWetland/grass_water_sample_01/grass_water_sample_01_x00_y00.png",
                       "biome":  "forest",
                       "terrain":  "grass",
                       "useCase":  "inner",
@@ -32,7 +32,7 @@
                   },
                   {
                       "id":  "grass_inner_02",
-                      "asset":  "Sprite/PCG/Terrain/Base/grass_inner_02",
+                      "asset":  "Assets/Game/Sprite/PCG/Terrain/Sliced/ShallowRiverTotemWetland/grass_water_sample_01/grass_water_sample_01_x00_y00.png",
                       "biome":  "grassland",
                       "terrain":  "grass",
                       "useCase":  "inner",
@@ -58,7 +58,7 @@
                   },
                   {
                       "id":  "grass_inner_03",
-                      "asset":  "Sprite/PCG/Terrain/Base/grass_inner_03",
+                      "asset":  "Assets/Game/Sprite/PCG/Terrain/Sliced/ShallowRiverTotemWetland/grass_water_sample_01/grass_water_sample_01_x00_y00.png",
                       "biome":  "grassland",
                       "terrain":  "grass",
                       "useCase":  "inner",
@@ -84,7 +84,7 @@
                   },
                   {
                       "id":  "forest_ground_inner_01",
-                      "asset":  "Sprite/PCG/Terrain/Base/forest_ground_inner_01",
+                      "asset":  "Assets/Game/Sprite/PCG/Terrain/Sliced/ShallowRiverTotemWetland/grass_forest_sample_01/grass_forest_sample_01_x00_y00.png",
                       "biome":  "forest",
                       "terrain":  "forest_ground",
                       "useCase":  "inner",
@@ -110,7 +110,7 @@
                   },
                   {
                       "id":  "forest_ground_inner_02",
-                      "asset":  "Sprite/PCG/Terrain/Base/forest_ground_inner_02",
+                      "asset":  "Assets/Game/Sprite/PCG/Terrain/Sliced/ShallowRiverTotemWetland/grass_forest_sample_01/grass_forest_sample_01_x00_y00.png",
                       "biome":  "forest",
                       "terrain":  "forest_ground",
                       "useCase":  "inner",
@@ -136,7 +136,7 @@
                   },
                   {
                       "id":  "forest_ground_inner_03",
-                      "asset":  "Sprite/PCG/Terrain/Base/forest_ground_inner_03",
+                      "asset":  "Assets/Game/Sprite/PCG/Terrain/Sliced/ShallowRiverTotemWetland/grass_forest_sample_01/grass_forest_sample_01_x00_y00.png",
                       "biome":  "forest",
                       "terrain":  "forest_ground",
                       "useCase":  "inner",
@@ -162,7 +162,7 @@
                   },
                   {
                       "id":  "mud_inner_01",
-                      "asset":  "Sprite/PCG/Terrain/Base/mud_inner_01",
+                      "asset":  "Assets/Game/Sprite/PCG/Terrain/Sliced/ShallowRiverTotemWetland/grass_mud_water_sample_01/grass_mud_water_sample_01_x00_y00.png",
                       "biome":  "swamp",
                       "terrain":  "mud",
                       "useCase":  "inner",
@@ -188,7 +188,7 @@
                   },
                   {
                       "id":  "mud_inner_02",
-                      "asset":  "Sprite/PCG/Terrain/Base/mud_inner_02",
+                      "asset":  "Assets/Game/Sprite/PCG/Terrain/Sliced/ShallowRiverTotemWetland/grass_mud_water_sample_01/grass_mud_water_sample_01_x00_y00.png",
                       "biome":  "swamp",
                       "terrain":  "mud",
                       "useCase":  "inner",
@@ -214,7 +214,7 @@
                   },
                   {
                       "id":  "shallow_water_01",
-                      "asset":  "Sprite/PCG/Terrain/Base/shallow_water_01",
+                      "asset":  "Assets/Game/Sprite/PCG/Terrain/Sliced/ShallowRiverTotemWetland/grass_water_sample_01/grass_water_sample_01_x00_y00.png",
                       "biome":  "swamp",
                       "terrain":  "water",
                       "useCase":  "inner",
@@ -240,7 +240,7 @@
                   },
                   {
                       "id":  "shallow_water_02",
-                      "asset":  "Sprite/PCG/Terrain/Base/shallow_water_02",
+                      "asset":  "Assets/Game/Sprite/PCG/Terrain/Sliced/ShallowRiverTotemWetland/grass_water_sample_01/grass_water_sample_01_x00_y00.png",
                       "biome":  "grassland",
                       "terrain":  "water",
                       "useCase":  "inner",
@@ -266,7 +266,7 @@
                   },
                   {
                       "id":  "dirt_road_01",
-                      "asset":  "Sprite/PCG/Terrain/Base/dirt_road_01",
+                      "asset":  "Assets/Game/Sprite/PCG/Terrain/Sliced/ShallowRiverTotemWetland/grass_road_ruin_sample_01/grass_road_ruin_sample_01_x00_y00.png",
                       "biome":  "neutral",
                       "terrain":  "road",
                       "useCase":  "inner",
@@ -292,7 +292,7 @@
                   },
                   {
                       "id":  "dirt_road_02",
-                      "asset":  "Sprite/PCG/Terrain/Base/dirt_road_02",
+                      "asset":  "Assets/Game/Sprite/PCG/Terrain/Sliced/ShallowRiverTotemWetland/grass_road_ruin_sample_01/grass_road_ruin_sample_01_x00_y00.png",
                       "biome":  "neutral",
                       "terrain":  "road",
                       "useCase":  "inner",
@@ -318,7 +318,7 @@
                   },
                   {
                       "id":  "grass_to_mud_north_01",
-                      "asset":  "Sprite/PCG/Terrain/Transition/grass_to_mud_north_01",
+                      "asset":  "Assets/Game/Sprite/PCG/Terrain/Sliced/ShallowRiverTotemWetland/grass_mud_water_sample_01/grass_mud_water_sample_01_x00_y00.png",
                       "biome":  "transition",
                       "terrain":  "grass",
                       "useCase":  "edge",
@@ -345,7 +345,7 @@
                   },
                   {
                       "id":  "grass_to_mud_east_01",
-                      "asset":  "Sprite/PCG/Terrain/Transition/grass_to_mud_east_01",
+                      "asset":  "Assets/Game/Sprite/PCG/Terrain/Sliced/ShallowRiverTotemWetland/grass_mud_water_sample_01/grass_mud_water_sample_01_x00_y00.png",
                       "biome":  "transition",
                       "terrain":  "grass",
                       "useCase":  "edge",
@@ -372,7 +372,7 @@
                   },
                   {
                       "id":  "grass_to_mud_south_01",
-                      "asset":  "Sprite/PCG/Terrain/Transition/grass_to_mud_south_01",
+                      "asset":  "Assets/Game/Sprite/PCG/Terrain/Sliced/ShallowRiverTotemWetland/grass_mud_water_sample_01/grass_mud_water_sample_01_x00_y00.png",
                       "biome":  "transition",
                       "terrain":  "grass",
                       "useCase":  "edge",
@@ -399,7 +399,7 @@
                   },
                   {
                       "id":  "grass_to_mud_west_01",
-                      "asset":  "Sprite/PCG/Terrain/Transition/grass_to_mud_west_01",
+                      "asset":  "Assets/Game/Sprite/PCG/Terrain/Sliced/ShallowRiverTotemWetland/grass_mud_water_sample_01/grass_mud_water_sample_01_x00_y00.png",
                       "biome":  "transition",
                       "terrain":  "grass",
                       "useCase":  "edge",
@@ -426,7 +426,7 @@
                   },
                   {
                       "id":  "mud_to_water_north_01",
-                      "asset":  "Sprite/PCG/Terrain/Transition/mud_to_water_north_01",
+                      "asset":  "Assets/Game/Sprite/PCG/Terrain/Sliced/ShallowRiverTotemWetland/grass_mud_water_sample_01/grass_mud_water_sample_01_x00_y00.png",
                       "biome":  "transition",
                       "terrain":  "mud",
                       "useCase":  "edge",
@@ -453,7 +453,7 @@
                   },
                   {
                       "id":  "mud_to_water_east_01",
-                      "asset":  "Sprite/PCG/Terrain/Transition/mud_to_water_east_01",
+                      "asset":  "Assets/Game/Sprite/PCG/Terrain/Sliced/ShallowRiverTotemWetland/grass_mud_water_sample_01/grass_mud_water_sample_01_x00_y00.png",
                       "biome":  "transition",
                       "terrain":  "mud",
                       "useCase":  "edge",
@@ -480,7 +480,7 @@
                   },
                   {
                       "id":  "mud_to_water_south_01",
-                      "asset":  "Sprite/PCG/Terrain/Transition/mud_to_water_south_01",
+                      "asset":  "Assets/Game/Sprite/PCG/Terrain/Sliced/ShallowRiverTotemWetland/grass_mud_water_sample_01/grass_mud_water_sample_01_x00_y00.png",
                       "biome":  "transition",
                       "terrain":  "mud",
                       "useCase":  "edge",
@@ -507,7 +507,7 @@
                   },
                   {
                       "id":  "mud_to_water_west_01",
-                      "asset":  "Sprite/PCG/Terrain/Transition/mud_to_water_west_01",
+                      "asset":  "Assets/Game/Sprite/PCG/Terrain/Sliced/ShallowRiverTotemWetland/grass_mud_water_sample_01/grass_mud_water_sample_01_x00_y00.png",
                       "biome":  "transition",
                       "terrain":  "mud",
                       "useCase":  "edge",
@@ -534,7 +534,7 @@
                   },
                   {
                       "id":  "grass_to_forest_north_01",
-                      "asset":  "Sprite/PCG/Terrain/Transition/grass_to_forest_north_01",
+                      "asset":  "Assets/Game/Sprite/PCG/Terrain/Sliced/ShallowRiverTotemWetland/grass_forest_sample_01/grass_forest_sample_01_x00_y00.png",
                       "biome":  "transition",
                       "terrain":  "grass",
                       "useCase":  "edge",
@@ -561,7 +561,7 @@
                   },
                   {
                       "id":  "grass_to_forest_east_01",
-                      "asset":  "Sprite/PCG/Terrain/Transition/grass_to_forest_east_01",
+                      "asset":  "Assets/Game/Sprite/PCG/Terrain/Sliced/ShallowRiverTotemWetland/grass_forest_sample_01/grass_forest_sample_01_x00_y00.png",
                       "biome":  "transition",
                       "terrain":  "grass",
                       "useCase":  "edge",
@@ -588,7 +588,7 @@
                   },
                   {
                       "id":  "grass_to_forest_south_01",
-                      "asset":  "Sprite/PCG/Terrain/Transition/grass_to_forest_south_01",
+                      "asset":  "Assets/Game/Sprite/PCG/Terrain/Sliced/ShallowRiverTotemWetland/grass_forest_sample_01/grass_forest_sample_01_x00_y00.png",
                       "biome":  "transition",
                       "terrain":  "grass",
                       "useCase":  "edge",
@@ -615,7 +615,7 @@
                   },
                   {
                       "id":  "grass_to_forest_west_01",
-                      "asset":  "Sprite/PCG/Terrain/Transition/grass_to_forest_west_01",
+                      "asset":  "Assets/Game/Sprite/PCG/Terrain/Sliced/ShallowRiverTotemWetland/grass_forest_sample_01/grass_forest_sample_01_x00_y00.png",
                       "biome":  "transition",
                       "terrain":  "grass",
                       "useCase":  "edge",
@@ -642,7 +642,7 @@
                   },
                   {
                       "id":  "road_edge_north_01",
-                      "asset":  "Sprite/PCG/Terrain/Transition/road_edge_north_01",
+                      "asset":  "Assets/Game/Sprite/PCG/Terrain/Sliced/ShallowRiverTotemWetland/grass_road_ruin_sample_01/grass_road_ruin_sample_01_x00_y00.png",
                       "biome":  "transition",
                       "terrain":  "grass",
                       "useCase":  "edge",
@@ -669,7 +669,7 @@
                   },
                   {
                       "id":  "road_edge_east_01",
-                      "asset":  "Sprite/PCG/Terrain/Transition/road_edge_east_01",
+                      "asset":  "Assets/Game/Sprite/PCG/Terrain/Sliced/ShallowRiverTotemWetland/grass_road_ruin_sample_01/grass_road_ruin_sample_01_x00_y00.png",
                       "biome":  "transition",
                       "terrain":  "grass",
                       "useCase":  "edge",
@@ -696,7 +696,7 @@
                   },
                   {
                       "id":  "road_edge_south_01",
-                      "asset":  "Sprite/PCG/Terrain/Transition/road_edge_south_01",
+                      "asset":  "Assets/Game/Sprite/PCG/Terrain/Sliced/ShallowRiverTotemWetland/grass_road_ruin_sample_01/grass_road_ruin_sample_01_x00_y00.png",
                       "biome":  "transition",
                       "terrain":  "grass",
                       "useCase":  "edge",
@@ -723,7 +723,7 @@
                   },
                   {
                       "id":  "road_edge_west_01",
-                      "asset":  "Sprite/PCG/Terrain/Transition/road_edge_west_01",
+                      "asset":  "Assets/Game/Sprite/PCG/Terrain/Sliced/ShallowRiverTotemWetland/grass_road_ruin_sample_01/grass_road_ruin_sample_01_x00_y00.png",
                       "biome":  "transition",
                       "terrain":  "grass",
                       "useCase":  "edge",
@@ -776,236 +776,10 @@
                               }
                           ],
     "transitionMasks":  [
-                            {
-                                "id":  "soft_noise_edge_north_01",
-                                "asset":  "Sprite/PCG/Terrain/Mask/soft_noise_edge_north_01",
-                                "maskSet":  "soft_noise_edge",
-                                "direction":  "north",
-                                "rotationDegrees":  0,
-                                "sortingOffset":  40,
-                                "weight":  100,
-                                "tags":  [
-                                             "generic_mask",
-                                             "shoreline",
-                                             "north"
-                                         ]
-                            },
-                            {
-                                "id":  "soft_noise_edge_east_01",
-                                "asset":  "Sprite/PCG/Terrain/Mask/soft_noise_edge_east_01",
-                                "maskSet":  "soft_noise_edge",
-                                "direction":  "east",
-                                "rotationDegrees":  0,
-                                "sortingOffset":  40,
-                                "weight":  100,
-                                "tags":  [
-                                             "generic_mask",
-                                             "shoreline",
-                                             "east"
-                                         ]
-                            },
-                            {
-                                "id":  "soft_noise_edge_south_01",
-                                "asset":  "Sprite/PCG/Terrain/Mask/soft_noise_edge_south_01",
-                                "maskSet":  "soft_noise_edge",
-                                "direction":  "south",
-                                "rotationDegrees":  0,
-                                "sortingOffset":  40,
-                                "weight":  100,
-                                "tags":  [
-                                             "generic_mask",
-                                             "shoreline",
-                                             "south"
-                                         ]
-                            },
-                            {
-                                "id":  "soft_noise_edge_west_01",
-                                "asset":  "Sprite/PCG/Terrain/Mask/soft_noise_edge_west_01",
-                                "maskSet":  "soft_noise_edge",
-                                "direction":  "west",
-                                "rotationDegrees":  0,
-                                "sortingOffset":  40,
-                                "weight":  100,
-                                "tags":  [
-                                             "generic_mask",
-                                             "shoreline",
-                                             "west"
-                                         ]
-                            },
-                            {
-                                "id":  "soft_noise_corner_south_west_01",
-                                "asset":  "Sprite/PCG/Terrain/Mask/soft_noise_corner_south_west_01",
-                                "maskSet":  "soft_noise_edge",
-                                "direction":  "south_west",
-                                "rotationDegrees":  0,
-                                "sortingOffset":  41,
-                                "weight":  100,
-                                "tags":  [
-                                             "imagegen",
-                                             "shoreline",
-                                             "corner",
-                                             "south_west"
-                                         ]
-                            },
-                            {
-                                "id":  "soft_noise_corner_south_east_01",
-                                "asset":  "Sprite/PCG/Terrain/Mask/soft_noise_corner_south_east_01",
-                                "maskSet":  "soft_noise_edge",
-                                "direction":  "south_east",
-                                "rotationDegrees":  0,
-                                "sortingOffset":  41,
-                                "weight":  100,
-                                "tags":  [
-                                             "imagegen",
-                                             "shoreline",
-                                             "corner",
-                                             "south_east"
-                                         ]
-                            },
-                            {
-                                "id":  "soft_noise_corner_north_west_01",
-                                "asset":  "Sprite/PCG/Terrain/Mask/soft_noise_corner_north_west_01",
-                                "maskSet":  "soft_noise_edge",
-                                "direction":  "north_west",
-                                "rotationDegrees":  0,
-                                "sortingOffset":  41,
-                                "weight":  100,
-                                "tags":  [
-                                             "imagegen",
-                                             "shoreline",
-                                             "corner",
-                                             "north_west"
-                                         ]
-                            },
-                            {
-                                "id":  "soft_noise_corner_north_east_01",
-                                "asset":  "Sprite/PCG/Terrain/Mask/soft_noise_corner_north_east_01",
-                                "maskSet":  "soft_noise_edge",
-                                "direction":  "north_east",
-                                "rotationDegrees":  0,
-                                "sortingOffset":  41,
-                                "weight":  100,
-                                "tags":  [
-                                             "imagegen",
-                                             "shoreline",
-                                             "corner",
-                                             "north_east"
-                                         ]
-                            },
-                            {
-                                "id":  "shore_cutback_north_01",
-                                "asset":  "Sprite/PCG/Terrain/Mask/shore_cutback_north_01",
-                                "maskSet":  "shore_cutback",
-                                "direction":  "north",
-                                "rotationDegrees":  0,
-                                "sortingOffset":  35,
-                                "weight":  100,
-                                "tags":  [
-                                             "imagegen",
-                                             "shoreline",
-                                             "water_cutback",
-                                             "north"
-                                         ]
-                            },
-                            {
-                                "id":  "shore_cutback_south_01",
-                                "asset":  "Sprite/PCG/Terrain/Mask/shore_cutback_south_01",
-                                "maskSet":  "shore_cutback",
-                                "direction":  "south",
-                                "rotationDegrees":  0,
-                                "sortingOffset":  35,
-                                "weight":  100,
-                                "tags":  [
-                                             "imagegen",
-                                             "shoreline",
-                                             "water_cutback",
-                                             "south"
-                                         ]
-                            },
-                            {
-                                "id":  "shore_cutback_east_01",
-                                "asset":  "Sprite/PCG/Terrain/Mask/shore_cutback_east_01",
-                                "maskSet":  "shore_cutback",
-                                "direction":  "east",
-                                "rotationDegrees":  0,
-                                "sortingOffset":  35,
-                                "weight":  100,
-                                "tags":  [
-                                             "imagegen",
-                                             "shoreline",
-                                             "water_cutback",
-                                             "east"
-                                         ]
-                            },
-                            {
-                                "id":  "shore_cutback_west_01",
-                                "asset":  "Sprite/PCG/Terrain/Mask/shore_cutback_west_01",
-                                "maskSet":  "shore_cutback",
-                                "direction":  "west",
-                                "rotationDegrees":  0,
-                                "sortingOffset":  35,
-                                "weight":  100,
-                                "tags":  [
-                                             "imagegen",
-                                             "shoreline",
-                                             "water_cutback",
-                                             "west"
-                                         ]
-                            }
+
                         ],
     "transitionDetails":  [
-                              {
-                                  "id":  "shore_foam_01",
-                                  "asset":  "Sprite/PCG/Terrain/Detail/Shore/shore_foam_01",
-                                  "detailSet":  "shore_soft_detail",
-                                  "sortingOffset":  52,
-                                  "chance":  1.0,
-                                  "weight":  90,
-                                  "tags":  [
-                                               "shoreline_detail",
-                                               "imagegen",
-                                               "foam"
-                                           ]
-                              },
-                              {
-                                  "id":  "shore_pebble_01",
-                                  "asset":  "Sprite/PCG/Terrain/Detail/Shore/shore_pebble_01",
-                                  "detailSet":  "shore_soft_detail",
-                                  "sortingOffset":  52,
-                                  "chance":  1.0,
-                                  "weight":  75,
-                                  "tags":  [
-                                               "shoreline_detail",
-                                               "imagegen",
-                                               "pebble"
-                                           ]
-                              },
-                              {
-                                  "id":  "shore_grass_tuft_01",
-                                  "asset":  "Sprite/PCG/Terrain/Detail/Shore/shore_grass_tuft_01",
-                                  "detailSet":  "shore_soft_detail",
-                                  "sortingOffset":  52,
-                                  "chance":  1.0,
-                                  "weight":  65,
-                                  "tags":  [
-                                               "shoreline_detail",
-                                               "imagegen",
-                                               "grass"
-                                           ]
-                              },
-                              {
-                                  "id":  "shore_sand_speckle_01",
-                                  "asset":  "Sprite/PCG/Terrain/Detail/Shore/shore_sand_speckle_01",
-                                  "detailSet":  "shore_soft_detail",
-                                  "sortingOffset":  52,
-                                  "chance":  1.0,
-                                  "weight":  60,
-                                  "tags":  [
-                                               "shoreline_detail",
-                                               "imagegen",
-                                               "sand"
-                                           ]
-                              }
+
                           ],
     "transitionRules":  [
 

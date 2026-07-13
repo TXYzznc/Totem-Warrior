@@ -82,9 +82,7 @@ namespace UGF.EditorTools
             context.Assert(items.Any(item => item.ItemId == 5001 && item.ItemType == TotemItemType.Antidote && item.SubType == "Detox"), "Catalog must preserve Detox antidote.");
 
             var resources = catalog.CreateResourceDefinitions();
-            context.AssertEqual(14, resources.Length, "catalog.resources.count");
-            context.Assert(resources.Any(item => item.Id == 1001 && item.AssetKey == "tattoo.part.head" && item.ActiveAssetPath.EndsWith("Head.png")), "Catalog must preserve Head tattoo resource.");
-            context.Assert(resources.Any(item => item.Id == 1208 && item.AssetKey == "tattoo.pattern.beast" && item.ActiveAssetPath.EndsWith("Beast.png")), "Catalog must preserve Beast pattern resource.");
+            context.AssertEqual(0, resources.Length, "catalog.resources.count");
 
             var weapons = catalog.CreateWeaponDefinitions();
             context.AssertEqual(5, weapons.Length, "catalog.weapons.count");
@@ -388,7 +386,7 @@ namespace UGF.EditorTools
             context.AssertEqual(6, dataService.GameplayCatalog.chestRewards.Length, "dataService.catalog.chestRewardCount");
             context.AssertEqual(3, dataService.GameplayCatalog.mapTemplates.Length, "dataService.catalog.mapTemplateCount");
             context.AssertEqual(31, dataService.GameplayCatalog.items.Length, "dataService.catalog.itemCount");
-            context.AssertEqual(14, dataService.GameplayCatalog.resources.Length, "dataService.catalog.resourceCount");
+            context.AssertEqual(0, dataService.GameplayCatalog.resources.Length, "dataService.catalog.resourceCount");
             context.AssertEqual(6, dataService.GameplayCatalog.tattooReadingTimes.Length, "dataService.catalog.tattooReadingTimeCount");
             context.AssertEqual(7, dataService.GameplayCatalog.tattooElements.Length, "dataService.catalog.tattooElementCount");
             context.AssertEqual(8, dataService.GameplayCatalog.tattooShapes.Length, "dataService.catalog.tattooShapeCount");

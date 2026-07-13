@@ -9,7 +9,6 @@ namespace UGF.EditorTools
 {
     public static class TotemFirstSlicePrefabMigrator
     {
-        private const string SourceRoot = "Assets/Resources/Prefab/UI";
         private const string TargetRoot = "Assets/Game/Prefabs/UI";
 
         private static readonly PrefabMigrationRule[] Rules =
@@ -33,30 +32,16 @@ namespace UGF.EditorTools
         {
             Directory.CreateDirectory(TargetRoot);
 
-            int copiedCount = 0;
             int preparedCount = 0;
             for (int i = 0; i < Rules.Length; i++)
             {
                 var rule = Rules[i];
-                string sourcePath = GetSourcePath(rule.PrefabName);
                 string targetPath = GetTargetPath(rule.PrefabName);
-                if (!File.Exists(sourcePath))
-                {
-                    Debug.LogError($"First slice UI source prefab does not exist: {sourcePath}");
-                    GFTrace.Failure("TotemPrefabMigrator", "SourceMissing", null, GFTrace.Data("prefab", rule.PrefabName, "source", sourcePath));
-                    continue;
-                }
-
                 if (!File.Exists(targetPath))
                 {
-                    if (!AssetDatabase.CopyAsset(sourcePath, targetPath))
-                    {
-                        Debug.LogError($"Failed to copy first slice UI prefab: {sourcePath} -> {targetPath}");
-                        GFTrace.Failure("TotemPrefabMigrator", "CopyFailed", null, GFTrace.Data("prefab", rule.PrefabName, "source", sourcePath, "target", targetPath));
-                        continue;
-                    }
-
-                    copiedCount++;
+                    Debug.LogError($"First slice UI prefab does not exist: {targetPath}");
+                    GFTrace.Failure("TotemPrefabMigrator", "TargetMissing", null, GFTrace.Data("prefab", rule.PrefabName, "target", targetPath));
+                    continue;
                 }
 
                 PreparePrefab(targetPath, rule.FormType);
@@ -65,20 +50,14 @@ namespace UGF.EditorTools
 
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
-            Debug.Log($"Prepared first slice UI prefabs. copied={copiedCount}, prepared={preparedCount}");
+            Debug.Log($"Prepared first slice UI prefabs. prepared={preparedCount}");
             GFTrace.Success("TotemPrefabMigrator", "PrepareFirstSliceUIPrefabs", null, GFTrace.Data(
-                "copiedCount", copiedCount.ToString(),
                 "preparedCount", preparedCount.ToString()));
         }
 
         public static string GetTargetPath(string prefabName)
         {
             return $"{TargetRoot}/{prefabName}.prefab";
-        }
-
-        private static string GetSourcePath(string prefabName)
-        {
-            return $"{SourceRoot}/{prefabName}.prefab";
         }
 
         private static void PreparePrefab(string targetPath, Type formType)

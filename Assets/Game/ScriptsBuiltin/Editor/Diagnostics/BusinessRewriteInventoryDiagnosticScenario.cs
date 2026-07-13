@@ -497,7 +497,7 @@ namespace UGF.EditorTools
             context.AssertEqual(manifestUiFormBoundAssetCount, uiFormBoundUsageStatusAssetCount, "artAssets.uiFormBoundUsageStatusAssetCount");
             context.AssertEqual(manifestUiFormBoundAssetCount, uiFormBoundUsageStatusCount, "artAssets.uiFormBoundUsageStatusCount");
             context.AssertEqual(placeholderReviewStateCount, placeholderUsageStatusCount, "artAssets.placeholderUsageStatusCount");
-            context.Assert(runtimeEntryCount >= 49, "art_assets.json must link against the current first-round runtime asset catalog.");
+            context.Assert(runtimeEntryCount >= 36, "art_assets.json must link against the current first-round runtime asset catalog.");
             context.Assert(activeUsageCount >= runtimeEntryCount, "Runtime asset catalog active usage count must cover every entry.");
             context.AssertEqual(activeUsageCount, indexedActiveUsageCount, "runtimeAssetCatalog.indexedActiveUsageCountFromArtIndex");
             context.AssertEqual(0, missingActivePathCount, "runtimeAssetCatalog.missingActiveAssetPathCountFromArtIndex");
@@ -634,7 +634,7 @@ namespace UGF.EditorTools
             context.AssertEqual(31, businessTableCoverageCount, "featureSlices.businessTableCoverageCount");
             context.AssertEqual(activeRuntimeServiceCount, runtimeServiceCoverageCount, "featureSlices.runtimeServiceCoverageCount");
             context.AssertEqual(0, uncoveredRuntimeServiceCount, "featureSlices.uncoveredRuntimeServiceCount");
-            context.Assert(runtimeAssetKeyCoverageCount >= 30, "feature_slices.json should cover first-round runtime art keys.");
+            context.Assert(runtimeAssetKeyCoverageCount >= 25, "feature_slices.json should cover first-round runtime art keys.");
             context.Assert(diagnosticScenarioCoverageCount >= 10, "feature_slices.json should link feature work to GF_X diagnostics.");
             context.Assert(validationValid, "feature_slices.json validation must be true.");
             context.AssertEqual(0, missingModules, "featureSlices.validation.missingModuleFeatureCount");

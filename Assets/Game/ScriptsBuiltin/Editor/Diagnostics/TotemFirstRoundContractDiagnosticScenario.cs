@@ -31,7 +31,7 @@ namespace UGF.EditorTools
         private static void CheckCatalogCounts(GFDiagnosticScenarioContext context, TotemGameplayCatalog catalog)
         {
             context.AssertEqual(31, catalog.items.Length, "firstRound.items");
-            context.AssertEqual(14, catalog.resources.Length, "firstRound.resources");
+            context.AssertEqual(0, catalog.resources.Length, "firstRound.resources");
             context.AssertEqual(5, catalog.weapons.Length, "firstRound.weapons");
             context.AssertEqual(10, catalog.weaponTraits.Length, "firstRound.weaponTraits");
             context.AssertEqual(2, catalog.projectiles.Length, "firstRound.projectiles");

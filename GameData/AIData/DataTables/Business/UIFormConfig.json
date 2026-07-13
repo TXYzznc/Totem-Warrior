@@ -4,8 +4,8 @@
   "tableName": "UIFormConfig",
   "relativePath": "Business/UIFormConfig",
   "sourceExcel": "GameData/DataTables/Business/UIFormConfig.xlsx",
-  "sourceExcelLastWriteUtc": "2026-07-10T08:56:00.5204174Z",
-  "generatedAtUtc": "2026-07-10T08:56:00.7299162Z",
+  "sourceExcelLastWriteUtc": "2026-07-10T08:08:08.3609160Z",
+  "generatedAtUtc": "2026-07-10T08:08:08.5369158Z",
   "tableComment": "Business table migrated from LegacyProjectArchive/Assets/Resources/DataTable/UIFormConfig.json. GF_X Id is numeric; original business keys are preserved as data columns.",
   "columns": [
     {

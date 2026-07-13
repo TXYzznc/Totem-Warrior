@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-07-10",
+  "generated_at": "2026-07-13",
   "source": "tools/ai_index/build_ai_manifests.py",
   "purpose": "Feature-slice index for design/art/program/QA handoffs during the GF_X rewrite.",
-  "count": 14,
+  "count": 13,
   "discipline_columns": [
     "design",
     "art",
@@ -10,10 +10,10 @@
     "qa"
   ],
   "legacy_module_coverage_count": 24,
-  "business_table_coverage_count": 31,
-  "runtime_service_coverage_count": 31,
-  "runtime_asset_key_coverage_count": 39,
-  "diagnostic_scenario_coverage_count": 19,
+  "business_table_coverage_count": 28,
+  "runtime_service_coverage_count": 26,
+  "runtime_asset_key_coverage_count": 25,
+  "diagnostic_scenario_coverage_count": 16,
   "modules": [
     "Audio",
     "Bot",
@@ -45,10 +45,7 @@
     "BotBuildPreset",
     "BotConfig",
     "ChestConfig",
-    "EncounterSpawnConfig",
-    "EnemyAbilityConfig",
     "EnemyConfig",
-    "EnemyLootConfig",
     "EventConfig",
     "ItemConfig",
     "MapTemplateConfig",
@@ -78,24 +75,19 @@
     "TotemActorService",
     "TotemAssetService",
     "TotemAudioService",
+    "TotemBossService",
     "TotemCameraService",
     "TotemChestService",
     "TotemChoiceService",
-    "TotemCombatRelationshipService",
     "TotemCombatService",
     "TotemDataService",
     "TotemEconomyService",
-    "TotemEnemyLootService",
-    "TotemEnemyService",
-    "TotemEnemyWorldService",
     "TotemGameFlowService",
     "TotemInputService",
     "TotemInteractionService",
     "TotemMapService",
-    "TotemMatchClockService",
     "TotemMetaProgressService",
     "TotemNpcService",
-    "TotemParticipantReadinessService",
     "TotemRunStatsService",
     "TotemSettingsService",
     "TotemSkillService",
@@ -107,6 +99,7 @@
     "TotemZoneService"
   ],
   "runtime_asset_keys": [
+    "actor.boss",
     "actor.lightAi",
     "actor.player",
     "actor.smartAi",
@@ -117,29 +110,14 @@
     "effect.projectile.arrow_bow",
     "effect.projectile.bullet_pistol",
     "effect.skill.burst",
-    "enemy.boss_ai_core_zero",
-    "enemy.boss_alien_hive_mother",
-    "enemy.boss_virus_terminus",
-    "enemy.fallback.ai_ruins.boss",
-    "enemy.fallback.alien_hive.boss",
-    "enemy.fallback.virus_swamp.boss",
-    "map.floor.ruins",
-    "map.wall.ruins",
     "npc.merchant",
     "npc.tattooist",
+    "skill.skill_beam",
+    "skill.skill_enrage_aoe",
     "skill.skill_fireball_01",
     "skill.skill_phase_dash",
-    "tattoo.part.head",
-    "tattoo.part.left_arm",
-    "tattoo.part.left_leg",
-    "tattoo.part.right_arm",
-    "tattoo.part.right_leg",
-    "tattoo.part.torso",
-    "tattoo.pattern.beast",
-    "tattoo.pattern.line",
-    "ui.character.1",
-    "ui.character.2",
-    "ui.character.3",
+    "skill.skill_stomp",
+    "skill.skill_summon",
     "ui.character.card.unlocked",
     "weapon.bow_charge",
     "weapon.energy_fist",
@@ -153,9 +131,6 @@
     "Scenario/BusinessRuntime/Totem Audio Runtime",
     "Scenario/BusinessRuntime/Totem Balance Envelope",
     "Scenario/BusinessRuntime/Totem Choice Runtime",
-    "Scenario/BusinessRuntime/Totem Enemy Domain Runtime",
-    "Scenario/BusinessRuntime/Totem Enemy Pure Logic",
-    "Scenario/BusinessRuntime/Totem Enemy Status Fast",
     "Scenario/BusinessRuntime/Totem Extended Gameplay",
     "Scenario/BusinessRuntime/Totem First Round Contract",
     "Scenario/BusinessRuntime/Totem First Slice UI",
@@ -206,9 +181,6 @@
         "CombatHUD"
       ],
       "runtime_asset_keys": [
-        "ui.character.1",
-        "ui.character.2",
-        "ui.character.3",
         "ui.character.card.unlocked"
       ],
       "docs": [
@@ -248,9 +220,9 @@
     },
     {
       "id": "first_round_population",
-      "name": "首轮 50 名参赛者",
+      "name": "首轮 50 actor 战斗人口",
       "status": "covered",
-      "product_goal": "复现 1 玩家 + 20 Smart AI + 29 Light AI 的 50 名参赛者规模；NPC 敌人不占参赛者名额。",
+      "product_goal": "复现 1 玩家 + 20 Smart AI + 29 Light AI + Boss 的首轮规模模型。",
       "modules": [
         "Spawner",
         "Bot",
@@ -274,7 +246,8 @@
       "runtime_asset_keys": [
         "actor.player",
         "actor.smartAi",
-        "actor.lightAi"
+        "actor.lightAi",
+        "actor.boss"
       ],
       "docs": [
         "openspec/changes/gf-x-business-runtime-refactor/REQUIREMENTS_INVENTORY.md",
@@ -286,8 +259,8 @@
         "Scenario/BusinessRuntime/Totem Runtime Causality Smoke"
       ],
       "discipline_handoff": {
-        "design": "维护 Smart/Light 数量、个性分配、参赛者身份和最后存活者胜利规则。",
-        "art": "检查 actor.* runtime key 对应的临时参赛者视觉，后续替换保持 key 不漂移。",
+        "design": "维护 Smart/Light 数量、个性分配、Boss 同场规则和首轮目标。",
+        "art": "检查 actor.* runtime key 对应的临时角色/Boss 视觉，后续替换保持 key 不漂移。",
         "program": "人口创建、状态和 AI 决策归 TotemActorService/TotemAIService，不挂旧 ModuleRunner。",
         "qa": "用 First Round Contract 和 AI Runtime 证明数量、状态、性格和首轮模型。"
       },
@@ -336,7 +309,6 @@
       ],
       "runtime_services": [
         "TotemCombatService",
-        "TotemCombatRelationshipService",
         "TotemWeaponService",
         "TotemSkillService",
         "TotemStatusService",
@@ -437,16 +409,7 @@
         "TattooStudio",
         "CombatHUD"
       ],
-      "runtime_asset_keys": [
-        "tattoo.part.head",
-        "tattoo.part.torso",
-        "tattoo.part.left_arm",
-        "tattoo.part.right_arm",
-        "tattoo.part.left_leg",
-        "tattoo.part.right_leg",
-        "tattoo.pattern.line",
-        "tattoo.pattern.beast"
-      ],
+      "runtime_asset_keys": [],
       "docs": [
         "项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/modules/01-TattooModule.md",
         "openspec/specs/tattoo/spec.md"
@@ -827,10 +790,7 @@
       "ui_forms": [
         "CombatHUD"
       ],
-      "runtime_asset_keys": [
-        "map.floor.ruins",
-        "map.wall.ruins"
-      ],
+      "runtime_asset_keys": [],
       "docs": [
         "项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/modules/07-MapGenModule.md",
         "项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/systems/07-地图生成.md",
@@ -888,30 +848,28 @@
       ],
       "business_tables": [
         "EnemyConfig",
-        "EnemyAbilityConfig",
-        "EncounterSpawnConfig",
-        "EnemyLootConfig",
         "BossPhaseConfig",
+        "SkillConfig",
+        "ChestConfig",
         "BotConfig"
       ],
       "runtime_services": [
-        "TotemEnemyService",
-        "TotemEnemyWorldService",
-        "TotemEnemyLootService",
+        "TotemBossService",
         "TotemAIService",
         "TotemCombatService",
+        "TotemSkillService",
         "TotemVfxService"
       ],
       "ui_forms": [
         "CombatHUD"
       ],
       "runtime_asset_keys": [
-        "enemy.boss_ai_core_zero",
-        "enemy.boss_alien_hive_mother",
-        "enemy.boss_virus_terminus",
-        "enemy.fallback.ai_ruins.boss",
-        "enemy.fallback.alien_hive.boss",
-        "enemy.fallback.virus_swamp.boss"
+        "actor.boss",
+        "skill.skill_stomp",
+        "skill.skill_beam",
+        "skill.skill_summon",
+        "skill.skill_enrage_aoe",
+        "effect.boss.bolt"
       ],
       "docs": [
         "项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/modules/08-EnemyModule+BossModule.md",
@@ -924,110 +882,23 @@
       ],
       "discipline_handoff": {
         "design": "Boss 阶段阈值、倍率、技能、掉落和 BossPriority 权重优先由表维护。",
-        "art": "Boss 视觉通过 enemy.<enemyId> 与 enemy.fallback.<theme>.boss key 管理；阶段特效和音频由 BossPhaseConfig cue 驱动。",
-        "program": "Boss 是 Enemy 域中的 Boss tier，由 TotemEnemyService 管理阶段、能力和死亡事件，TotemEnemyWorldService 负责世界表现。",
+        "art": "Boss、BossPhaseConfig 技能和特效通过 actor.boss、skill.skill_stomp、skill.skill_beam、skill.skill_summon、skill.skill_enrage_aoe 和 effect.boss.bolt key 管理。",
+        "program": "Boss 阶段归 TotemBossService，技能释放走 Skill/VFX，AI 只消费 Boss 目标信息。",
         "qa": "用 AI Runtime、Causality Smoke 和 Catalog Binding 验证阶段、技能和优先策略。"
       },
       "business_json_paths": [
         "GameData/AIData/DataTables/Business/EnemyConfig.json",
-        "GameData/AIData/DataTables/Business/EnemyAbilityConfig.json",
-        "GameData/AIData/DataTables/Business/EncounterSpawnConfig.json",
-        "GameData/AIData/DataTables/Business/EnemyLootConfig.json",
         "GameData/AIData/DataTables/Business/BossPhaseConfig.json",
+        "GameData/AIData/DataTables/Business/SkillConfig.json",
+        "GameData/AIData/DataTables/Business/ChestConfig.json",
         "GameData/AIData/DataTables/Business/BotConfig.json"
       ],
       "business_xlsx_paths": [
         "GameData/DataTables/Business/EnemyConfig.xlsx",
-        "GameData/DataTables/Business/EnemyAbilityConfig.xlsx",
-        "GameData/DataTables/Business/EncounterSpawnConfig.xlsx",
-        "GameData/DataTables/Business/EnemyLootConfig.xlsx",
         "GameData/DataTables/Business/BossPhaseConfig.xlsx",
+        "GameData/DataTables/Business/SkillConfig.xlsx",
+        "GameData/DataTables/Business/ChestConfig.xlsx",
         "GameData/DataTables/Business/BotConfig.xlsx"
-      ],
-      "art_lookup": {
-        "manifest": "项目知识库（AI自行维护）/wiki/manifests/art_assets.json",
-        "query": "Find assets whose runtime_keys contains any runtime_asset_keys listed by this feature."
-      },
-      "runtime_asset_catalog": "GameData/AIData/GameplayCatalogs/totem_runtime_assets.json",
-      "validation": {
-        "missing_modules": [],
-        "missing_business_tables": [],
-        "missing_runtime_services": [],
-        "missing_runtime_asset_keys": [],
-        "missing_required_fields": [],
-        "valid": true
-      }
-    },
-    {
-      "id": "native_enemy_domain",
-      "name": "独立 NPC 敌人、遭遇与掉落",
-      "status": "covered_with_placeholder_art_boundary",
-      "product_goal": "NPC 敌人作为独立怪物域运行，拥有基础 FSM、仇恨索敌、数据驱动能力、Light/Elite/Boss 策略、PCG 遭遇刷新和公开掉落。",
-      "modules": [
-        "Enemy",
-        "Combat",
-        "Spawner",
-        "MapGen",
-        "Economy"
-      ],
-      "business_tables": [
-        "EnemyConfig",
-        "EnemyAbilityConfig",
-        "EncounterSpawnConfig",
-        "EnemyLootConfig",
-        "BossPhaseConfig"
-      ],
-      "runtime_services": [
-        "TotemMatchClockService",
-        "TotemCombatRelationshipService",
-        "TotemParticipantReadinessService",
-        "TotemEnemyWorldService",
-        "TotemEnemyService",
-        "TotemEnemyLootService",
-        "TotemActorService",
-        "TotemCombatService"
-      ],
-      "ui_forms": [
-        "CombatHUD"
-      ],
-      "runtime_asset_keys": [
-        "enemy.boss_ai_core_zero",
-        "enemy.boss_alien_hive_mother",
-        "enemy.boss_virus_terminus",
-        "enemy.fallback.ai_ruins.boss",
-        "enemy.fallback.alien_hive.boss",
-        "enemy.fallback.virus_swamp.boss"
-      ],
-      "docs": [
-        "openspec/changes/native-enemy-domain-rebuild/design.md",
-        "openspec/changes/native-enemy-domain-rebuild/specs/enemy-ai-runtime/spec.md",
-        "openspec/changes/native-enemy-domain-rebuild/specs/enemy-encounter-spawning/spec.md",
-        "openspec/changes/native-enemy-domain-rebuild/specs/enemy-loot-progression/spec.md"
-      ],
-      "diagnostic_scenarios": [
-        "Scenario/BusinessRuntime/Totem Enemy Pure Logic",
-        "Scenario/BusinessRuntime/Totem Enemy Domain Runtime",
-        "Scenario/BusinessRuntime/Totem Enemy Status Fast"
-      ],
-      "discipline_handoff": {
-        "design": "敌人身份、能力、遭遇预算、掉落和 Boss 阶段从 Business JSON 维护；参赛者与怪物不可再次合并。",
-        "art": "当前敌人使用 enemy.* 与 enemy.fallback.* 占位资源；正式替换保持 runtime key 和单敌人生命周期稳定。",
-        "program": "EnemyService 负责怪物逻辑，EnemyWorldService 负责世界/表现桥接，EnemyLootService 负责公开掉落；所有伤害先过关系服务。",
-        "qa": "用 Enemy Pure Logic、Enemy Domain Runtime、Enemy Status 和 PlayMode smoke 验证 FSM、能力、刷新、掉落、清理与性能。"
-      },
-      "business_json_paths": [
-        "GameData/AIData/DataTables/Business/EnemyConfig.json",
-        "GameData/AIData/DataTables/Business/EnemyAbilityConfig.json",
-        "GameData/AIData/DataTables/Business/EncounterSpawnConfig.json",
-        "GameData/AIData/DataTables/Business/EnemyLootConfig.json",
-        "GameData/AIData/DataTables/Business/BossPhaseConfig.json"
-      ],
-      "business_xlsx_paths": [
-        "GameData/DataTables/Business/EnemyConfig.xlsx",
-        "GameData/DataTables/Business/EnemyAbilityConfig.xlsx",
-        "GameData/DataTables/Business/EncounterSpawnConfig.xlsx",
-        "GameData/DataTables/Business/EnemyLootConfig.xlsx",
-        "GameData/DataTables/Business/BossPhaseConfig.xlsx"
       ],
       "art_lookup": {
         "manifest": "项目知识库（AI自行维护）/wiki/manifests/art_assets.json",
@@ -1063,8 +934,7 @@
         "TotemVfxService",
         "TotemAudioService",
         "TotemCombatService",
-        "TotemEnemyService",
-        "TotemEnemyWorldService"
+        "TotemBossService"
       ],
       "ui_forms": [
         "CombatHUD"
@@ -1218,10 +1088,7 @@
       ],
       "ui_forms": [],
       "runtime_asset_keys": [
-        "ui.character.1",
-        "weapon.knife_basic",
-        "tattoo.part.head",
-        "map.floor.ruins"
+        "weapon.knife_basic"
       ],
       "docs": [
         "openspec/changes/gf-x-business-runtime-refactor/DATATABLE_MIGRATION_MANIFEST.md",

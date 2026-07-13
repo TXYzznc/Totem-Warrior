@@ -1,12 +1,12 @@
-{
+﻿{
   "schemaVersion": 1,
   "catalogId": "world_object_catalog",
-  "assetPathMode": "resources_path",
+  "assetPathMode": "game_asset_path",
   "pixelsPerUnit": 128,
   "objects": [
     {
       "id": "obj_tree_round_s",
-      "asset": "Sprite/PCG/Objects/obj_tree_round_s",
+      "asset": "Assets/Game/Sprite/PCG/Objects/obj_tree_round_s.png",
       "objectRole": "vegetation",
       "combatRole": "soft_sight_cover",
       "allowedBiomes": [
@@ -42,7 +42,7 @@
     },
     {
       "id": "obj_tree_round_l",
-      "asset": "Sprite/PCG/Objects/obj_tree_round_l",
+      "asset": "Assets/Game/Sprite/PCG/Objects/obj_tree_round_l.png",
       "objectRole": "vegetation",
       "combatRole": "hard_sight_blocker",
       "allowedBiomes": [
@@ -77,7 +77,7 @@
     },
     {
       "id": "obj_tree_pine",
-      "asset": "Sprite/PCG/Objects/obj_tree_pine",
+      "asset": "Assets/Game/Sprite/PCG/Objects/obj_tree_pine.png",
       "objectRole": "vegetation",
       "combatRole": "vertical_sight_blocker",
       "allowedBiomes": [
@@ -111,7 +111,7 @@
     },
     {
       "id": "obj_tree_dead",
-      "asset": "Sprite/PCG/Objects/obj_tree_dead",
+      "asset": "Assets/Game/Sprite/PCG/Objects/obj_tree_dead.png",
       "objectRole": "dead_vegetation",
       "combatRole": "landmark_cover",
       "allowedBiomes": [
@@ -149,7 +149,7 @@
     },
     {
       "id": "obj_stump",
-      "asset": "Sprite/PCG/Objects/obj_stump",
+      "asset": "Assets/Game/Sprite/PCG/Objects/obj_stump.png",
       "objectRole": "stump",
       "combatRole": "low_obstacle",
       "allowedBiomes": [
@@ -184,7 +184,7 @@
     },
     {
       "id": "obj_fallen_log",
-      "asset": "Sprite/PCG/Objects/obj_fallen_log",
+      "asset": "Assets/Game/Sprite/PCG/Objects/obj_fallen_log.png",
       "objectRole": "fallen_log",
       "combatRole": "linear_obstacle",
       "allowedBiomes": [
@@ -220,7 +220,7 @@
     },
     {
       "id": "obj_log_pile",
-      "asset": "Sprite/PCG/Objects/obj_log_pile",
+      "asset": "Assets/Game/Sprite/PCG/Objects/obj_log_pile.png",
       "objectRole": "wood_pile",
       "combatRole": "resource_point",
       "allowedBiomes": [
@@ -256,7 +256,7 @@
     },
     {
       "id": "obj_bush_round",
-      "asset": "Sprite/PCG/Objects/obj_bush_round",
+      "asset": "Assets/Game/Sprite/PCG/Objects/obj_bush_round.png",
       "objectRole": "bush",
       "combatRole": "soft_cover",
       "allowedBiomes": [
@@ -292,7 +292,7 @@
     },
     {
       "id": "obj_bush_dense",
-      "asset": "Sprite/PCG/Objects/obj_bush_dense",
+      "asset": "Assets/Game/Sprite/PCG/Objects/obj_bush_dense.png",
       "objectRole": "bush",
       "combatRole": "concealment",
       "allowedBiomes": [
@@ -328,7 +328,7 @@
     },
     {
       "id": "obj_grass_tall",
-      "asset": "Sprite/PCG/Objects/obj_grass_tall",
+      "asset": "Assets/Game/Sprite/PCG/Objects/obj_grass_tall.png",
       "objectRole": "tall_grass",
       "combatRole": "concealment_marker",
       "allowedBiomes": [
@@ -364,7 +364,7 @@
     },
     {
       "id": "obj_grass_patch_l",
-      "asset": "Sprite/PCG/Objects/obj_grass_patch_l",
+      "asset": "Assets/Game/Sprite/PCG/Objects/obj_grass_patch_l.png",
       "objectRole": "tall_grass_patch",
       "combatRole": "soft_concealment_field",
       "allowedBiomes": [
@@ -400,7 +400,7 @@
     },
     {
       "id": "obj_mushroom_cluster",
-      "asset": "Sprite/PCG/Objects/obj_mushroom_cluster",
+      "asset": "Assets/Game/Sprite/PCG/Objects/obj_mushroom_cluster.png",
       "objectRole": "gatherable",
       "combatRole": "minor_resource",
       "allowedBiomes": [
@@ -436,7 +436,7 @@
     },
     {
       "id": "obj_rock_s",
-      "asset": "Sprite/PCG/Objects/obj_rock_s",
+      "asset": "Assets/Game/Sprite/PCG/Objects/obj_rock_s.png",
       "objectRole": "rock",
       "combatRole": "low_cover",
       "allowedBiomes": [
@@ -474,7 +474,7 @@
     },
     {
       "id": "obj_rock_l",
-      "asset": "Sprite/PCG/Objects/obj_rock_l",
+      "asset": "Assets/Game/Sprite/PCG/Objects/obj_rock_l.png",
       "objectRole": "rock",
       "combatRole": "hard_cover",
       "allowedBiomes": [
@@ -512,7 +512,7 @@
     },
     {
       "id": "obj_rock_pair",
-      "asset": "Sprite/PCG/Objects/obj_rock_pair",
+      "asset": "Assets/Game/Sprite/PCG/Objects/obj_rock_pair.png",
       "objectRole": "rock",
       "combatRole": "hard_cover",
       "allowedBiomes": [
@@ -548,7 +548,7 @@
     },
     {
       "id": "obj_rock_cluster",
-      "asset": "Sprite/PCG/Objects/obj_rock_cluster",
+      "asset": "Assets/Game/Sprite/PCG/Objects/obj_rock_cluster.png",
       "objectRole": "rock_cluster",
       "combatRole": "area_blocker",
       "allowedBiomes": [
@@ -584,7 +584,7 @@
     },
     {
       "id": "obj_ore_node",
-      "asset": "Sprite/PCG/Objects/obj_ore_node",
+      "asset": "Assets/Game/Sprite/PCG/Objects/obj_ore_node.png",
       "objectRole": "gatherable",
       "combatRole": "mining_resource_cover",
       "allowedBiomes": [
@@ -621,7 +621,7 @@
     },
     {
       "id": "obj_rune_stone",
-      "asset": "Sprite/PCG/Objects/obj_rune_stone",
+      "asset": "Assets/Game/Sprite/PCG/Objects/obj_rune_stone.png",
       "objectRole": "landmark",
       "combatRole": "sight_marker",
       "allowedBiomes": [
@@ -658,7 +658,7 @@
     },
     {
       "id": "obj_totem_shard",
-      "asset": "Sprite/PCG/Objects/obj_totem_shard",
+      "asset": "Assets/Game/Sprite/PCG/Objects/obj_totem_shard.png",
       "objectRole": "landmark",
       "combatRole": "sight_marker",
       "allowedBiomes": [
@@ -694,7 +694,7 @@
     },
     {
       "id": "obj_resource_stones",
-      "asset": "Sprite/PCG/Objects/obj_resource_stones",
+      "asset": "Assets/Game/Sprite/PCG/Objects/obj_resource_stones.png",
       "objectRole": "gatherable",
       "combatRole": "minor_resource",
       "allowedBiomes": [
@@ -730,7 +730,7 @@
     },
     {
       "id": "obj_corrupt_crystal",
-      "asset": "Sprite/PCG/Objects/obj_corrupt_crystal",
+      "asset": "Assets/Game/Sprite/PCG/Objects/obj_corrupt_crystal.png",
       "objectRole": "danger_resource",
       "combatRole": "danger_cover",
       "allowedBiomes": [
@@ -767,7 +767,7 @@
     },
     {
       "id": "obj_ruin_wall_low",
-      "asset": "Sprite/PCG/Objects/obj_ruin_wall_low",
+      "asset": "Assets/Game/Sprite/PCG/Objects/obj_ruin_wall_low.png",
       "objectRole": "ruin_wall",
       "combatRole": "linear_cover",
       "allowedBiomes": [
@@ -803,7 +803,7 @@
     },
     {
       "id": "obj_supply_crate",
-      "asset": "Sprite/PCG/Objects/obj_supply_crate",
+      "asset": "Assets/Game/Sprite/PCG/Objects/obj_supply_crate.png",
       "objectRole": "loot_container",
       "combatRole": "contest_point",
       "allowedBiomes": [
@@ -841,7 +841,7 @@
     },
     {
       "id": "obj_log_bundle",
-      "asset": "Sprite/PCG/Objects/obj_log_bundle",
+      "asset": "Assets/Game/Sprite/PCG/Objects/obj_log_bundle.png",
       "objectRole": "wood_pile",
       "combatRole": "resource_point",
       "allowedBiomes": [
@@ -878,7 +878,7 @@
     },
     {
       "id": "obj_totem_marker",
-      "asset": "Sprite/PCG/Objects/obj_totem_marker",
+      "asset": "Assets/Game/Sprite/PCG/Objects/obj_totem_marker.png",
       "objectRole": "totem_marker",
       "combatRole": "landmark_cover",
       "allowedBiomes": [
@@ -916,7 +916,7 @@
     },
     {
       "id": "obj_campfire_ring",
-      "asset": "Sprite/PCG/Objects/obj_campfire_ring",
+      "asset": "Assets/Game/Sprite/PCG/Objects/obj_campfire_ring.png",
       "objectRole": "camp_marker",
       "combatRole": "soft_cover",
       "allowedBiomes": [
@@ -954,7 +954,7 @@
     },
     {
       "id": "obj_hanging_totem_sign",
-      "asset": "Sprite/PCG/Objects/obj_hanging_totem_sign",
+      "asset": "Assets/Game/Sprite/PCG/Objects/obj_hanging_totem_sign.png",
       "objectRole": "totem_marker",
       "combatRole": "sight_marker",
       "allowedBiomes": [
@@ -991,7 +991,7 @@
     },
     {
       "id": "obj_swamp_hut_small",
-      "asset": "Sprite/PCG/Objects/obj_swamp_hut_small",
+      "asset": "Assets/Game/Sprite/PCG/Objects/obj_swamp_hut_small.png",
       "objectRole": "small_building",
       "combatRole": "hard_sight_blocker",
       "allowedBiomes": [
@@ -1028,7 +1028,7 @@
     },
     {
       "id": "obj_supply_barrel",
-      "asset": "Sprite/PCG/Objects/obj_supply_barrel",
+      "asset": "Assets/Game/Sprite/PCG/Objects/obj_supply_barrel.png",
       "objectRole": "loot_container",
       "combatRole": "contest_point",
       "allowedBiomes": [
@@ -1066,7 +1066,7 @@
     },
     {
       "id": "obj_broken_arch",
-      "asset": "Sprite/PCG/Objects/obj_broken_arch",
+      "asset": "Assets/Game/Sprite/PCG/Objects/obj_broken_arch.png",
       "objectRole": "ruin",
       "combatRole": "hard_cover",
       "allowedBiomes": [
@@ -1102,7 +1102,7 @@
     },
     {
       "id": "obj_ruin_pillar",
-      "asset": "Sprite/PCG/Objects/obj_ruin_pillar",
+      "asset": "Assets/Game/Sprite/PCG/Objects/obj_ruin_pillar.png",
       "objectRole": "ruin",
       "combatRole": "vertical_sight_blocker",
       "allowedBiomes": [
@@ -1138,7 +1138,7 @@
     },
     {
       "id": "obj_corrupt_roots",
-      "asset": "Sprite/PCG/Objects/obj_corrupt_roots",
+      "asset": "Assets/Game/Sprite/PCG/Objects/obj_corrupt_roots.png",
       "objectRole": "danger_growth",
       "combatRole": "danger_cover",
       "allowedBiomes": [
@@ -1174,7 +1174,7 @@
     },
     {
       "id": "obj_corrupt_mound",
-      "asset": "Sprite/PCG/Objects/obj_corrupt_mound",
+      "asset": "Assets/Game/Sprite/PCG/Objects/obj_corrupt_mound.png",
       "objectRole": "danger_growth",
       "combatRole": "danger_cover",
       "allowedBiomes": [
@@ -1210,7 +1210,7 @@
     },
     {
       "id": "obj_ruin_altar",
-      "asset": "Sprite/PCG/Objects/obj_ruin_altar",
+      "asset": "Assets/Game/Sprite/PCG/Objects/obj_ruin_altar.png",
       "objectRole": "ruin_landmark",
       "combatRole": "contest_point",
       "allowedBiomes": [
@@ -1248,7 +1248,7 @@
     },
     {
       "id": "obj_spike_barricade",
-      "asset": "Sprite/PCG/Objects/obj_spike_barricade",
+      "asset": "Assets/Game/Sprite/PCG/Objects/obj_spike_barricade.png",
       "objectRole": "barricade",
       "combatRole": "linear_obstacle",
       "allowedBiomes": [
@@ -1287,7 +1287,7 @@
   "pois": [
     {
       "id": "poi_cabin_wood_01",
-      "asset": "Sprite/PCG/POI/poi_cabin_wood_01",
+      "asset": "Assets/Game/Sprite/PCG/POI/poi_cabin_wood_01.png",
       "zoneRole": "low_risk_loot",
       "footprint": {
         "width": 7,
@@ -1314,7 +1314,7 @@
     },
     {
       "id": "poi_totem_camp_01",
-      "asset": "Sprite/PCG/POI/poi_totem_camp_01",
+      "asset": "Assets/Game/Sprite/PCG/POI/poi_totem_camp_01.png",
       "zoneRole": "medium_risk_landmark",
       "footprint": {
         "width": 9,
@@ -1341,7 +1341,7 @@
     },
     {
       "id": "poi_stone_gate_ruin_01",
-      "asset": "Sprite/PCG/POI/poi_stone_gate_ruin_01",
+      "asset": "Assets/Game/Sprite/PCG/POI/poi_stone_gate_ruin_01.png",
       "zoneRole": "high_risk_ruin_gate",
       "footprint": {
         "width": 10,
@@ -1368,7 +1368,7 @@
     },
     {
       "id": "poi_monster_camp_01",
-      "asset": "Sprite/PCG/POI/poi_monster_camp_01",
+      "asset": "Assets/Game/Sprite/PCG/POI/poi_monster_camp_01.png",
       "zoneRole": "high_risk_monster_camp",
       "footprint": {
         "width": 11,
@@ -1395,7 +1395,7 @@
     },
     {
       "id": "poi_danger_nest_01",
-      "asset": "Sprite/PCG/POI/poi_danger_nest_01",
+      "asset": "Assets/Game/Sprite/PCG/POI/poi_danger_nest_01.png",
       "zoneRole": "danger_nest_core",
       "footprint": {
         "width": 12,

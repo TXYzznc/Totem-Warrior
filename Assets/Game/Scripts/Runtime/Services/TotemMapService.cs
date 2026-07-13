@@ -487,7 +487,7 @@ public sealed class TotemMapService : TotemRuntimeServiceBase
 
         try
         {
-            cachedPcgAssetIndex = PCGAssetIndex.LoadFromResources();
+            cachedPcgAssetIndex = PCGAssetIndex.LoadFromConfig();
             cachedPcgAssetIndexError = string.Empty;
             index = cachedPcgAssetIndex;
             return index != null;
@@ -1567,8 +1567,8 @@ public sealed class TotemMapService : TotemRuntimeServiceBase
         var settings = GetPcgRuntimeSettings();
         float cellSize = map.MapSize / Mathf.Max(1, pcgMap.Width);
         var tileRoot = CreatePcgTileRoot(cellSize);
-        var underlayTilemap = CreatePcgTilemap(tileRoot, "PCG_UnderlayTilemap", -5);
-        var groundTilemap = CreatePcgTilemap(tileRoot, "PCG_GroundTilemap", 0);
+        var underlayTilemap = CreatePcgTilemap(tileRoot, "PCG_UnderlayTilemap", "GroundDecal", -10);
+        var groundTilemap = CreatePcgTilemap(tileRoot, "PCG_GroundTilemap", "Ground", 0);
 
         for (int y = 0; y < pcgMap.Height; y++)
         {
@@ -1614,13 +1614,14 @@ public sealed class TotemMapService : TotemRuntimeServiceBase
         return go.transform;
     }
 
-    private static Tilemap CreatePcgTilemap(Transform parent, string objectName, int sortingOrder)
+    private static Tilemap CreatePcgTilemap(Transform parent, string objectName, string sortingLayerName, int sortingOrder)
     {
         var go = new GameObject(objectName);
         go.transform.SetParent(parent, false);
         var tilemap = go.AddComponent<Tilemap>();
         tilemap.tileAnchor = new Vector3(0.5f, 0.5f, 0f);
         var renderer = go.AddComponent<TilemapRenderer>();
+        renderer.sortingLayerName = sortingLayerName;
         renderer.sortingOrder = sortingOrder;
         return tilemap;
     }
@@ -1637,11 +1638,16 @@ public sealed class TotemMapService : TotemRuntimeServiceBase
         var position = new Vector3Int(x, y, 0);
         tilemap.SetTile(position, tile);
 
-        if (Mathf.Abs(rotationDegrees) > 0.01f || flipX)
-        {
-            var scale = flipX ? new Vector3(-1f, 1f, 1f) : Vector3.one;
-            tilemap.SetTransformMatrix(position, Matrix4x4.TRS(Vector3.zero, Quaternion.Euler(0f, 0f, rotationDegrees), scale));
-        }
+        Vector3 cellSize = tilemap.layoutGrid.cellSize;
+        Vector2 spriteSize = sprite.bounds.size;
+        float scaleX = spriteSize.x > 0.0001f ? cellSize.x / spriteSize.x : 1f;
+        float scaleY = spriteSize.y > 0.0001f ? cellSize.y / spriteSize.y : 1f;
+        var scale = new Vector3(flipX ? -scaleX : scaleX, scaleY, 1f);
+        tilemap.SetTileFlags(position, TileFlags.None);
+        tilemap.SetTransformMatrix(position, Matrix4x4.TRS(
+            Vector3.zero,
+            Quaternion.Euler(0f, 0f, rotationDegrees),
+            scale));
 
         return true;
     }
@@ -1734,6 +1740,7 @@ public sealed class TotemMapService : TotemRuntimeServiceBase
         go.transform.rotation = Quaternion.Euler(90f, 0f, rotationDegrees);
 
         var renderer = go.AddComponent<SpriteRenderer>();
+        renderer.sortingLayerName = "GroundDecal";
         renderer.sortingOrder = sortingOrder;
         renderer.flipX = flipX;
 
@@ -1786,6 +1793,7 @@ public sealed class TotemMapService : TotemRuntimeServiceBase
         go.transform.rotation = Quaternion.identity;
 
         var renderer = go.AddComponent<SpriteRenderer>();
+        renderer.sortingLayerName = TotemActorDepthSorter.WorldSortingLayer;
         renderer.sortingOrder = sortingOrder;
 
         var sprite = GetPcgSprite(assetPath, new Vector2(0.5f, 0f), true);
@@ -1805,6 +1813,12 @@ public sealed class TotemMapService : TotemRuntimeServiceBase
             renderer.color = Color.magenta;
             go.transform.localScale = new Vector3(footprintWidth * cellSize, footprintWidth * cellSize, 1f);
         }
+
+        var sorter = go.AddComponent<TotemActorDepthSorter>();
+        sorter.BaseOffset = TotemActorDepthSorter.DefaultWorldBaseOffset;
+        sorter.SortingLayerName = TotemActorDepthSorter.WorldSortingLayer;
+        sorter.RefreshRenderers();
+        sorter.ForceRecalculate();
 
         pcgVisualObjectCount++;
     }
@@ -1827,20 +1841,15 @@ public sealed class TotemMapService : TotemRuntimeServiceBase
             return cached;
         }
 
-        var sprite = Resources.Load<Sprite>(assetPath);
+        var sprite = PCGAssetIndex.LoadGameSprite(assetPath, pivot, 128f, out bool createdFromTexture);
         if (sprite != null)
         {
             pcgSpriteLoadCount++;
-            pcgSpriteCache[cacheKey] = sprite;
-            return sprite;
-        }
+            if (createdFromTexture)
+            {
+                pcgSpriteCreateCount++;
+            }
 
-        var texture = Resources.Load<Texture2D>(assetPath);
-        if (texture != null)
-        {
-            sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), pivot, 128f, 0, SpriteMeshType.FullRect);
-            pcgSpriteLoadCount++;
-            pcgSpriteCreateCount++;
             pcgSpriteCache[cacheKey] = sprite;
             return sprite;
         }
@@ -1990,8 +1999,14 @@ public sealed class TotemMapService : TotemRuntimeServiceBase
             return;
         }
 
-        materialRequestCount++;
         lastMaterialAssetKey = assetKey ?? string.Empty;
+        if (string.IsNullOrWhiteSpace(assetKey))
+        {
+            SetColor(go, fallbackColor);
+            return;
+        }
+
+        materialRequestCount++;
         if (assetService != null && assetService.TryCreateTexturedMaterial(assetKey, fallbackColor, out var material) && material != null)
         {
             renderer.material = material;
@@ -2005,21 +2020,12 @@ public sealed class TotemMapService : TotemRuntimeServiceBase
 
     private static string ResolveFloorAssetKey(TotemRoomType roomType)
     {
-        switch (roomType)
-        {
-            case TotemRoomType.Merchant:
-            case TotemRoomType.TattooStudio:
-                return "map.floor.metal";
-            case TotemRoomType.BossRoom:
-                return "map.floor.blood";
-            default:
-                return "map.floor.ruins";
-        }
+        return string.Empty;
     }
 
     private static string ResolveWallAssetKey()
     {
-        return "map.wall.ruins";
+        return string.Empty;
     }
 
     private static Color GetRoomColor(TotemRoomType roomType)

@@ -78,7 +78,14 @@ public sealed class TotemGameFlowService : TotemRuntimeServiceBase
             "weaponId", StartupSelection.WeaponId,
             "patterns", string.Join(",", StartupSelection.PatternIds)));
 
-        EnterCombatHud();
+        if (UnityEngine.Application.isPlaying)
+        {
+            TotemGameplaySceneLoader.Begin(TotemGameRuntime.Instance);
+        }
+        else
+        {
+            EnterCombatHud();
+        }
     }
 
     private void ChangeState(TotemGameFlowState nextState)

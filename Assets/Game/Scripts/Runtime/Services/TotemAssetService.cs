@@ -98,10 +98,6 @@ public sealed class TotemAssetService : TotemRuntimeServiceBase
         {
             RecordCacheMiss(key, "Prefab");
             prefab = LoadEditorAsset<GameObject>(entry.activeAssetPath);
-            if (prefab == null && !string.IsNullOrWhiteSpace(entry.legacySourcePath))
-            {
-                prefab = LoadEditorAsset<GameObject>(entry.legacySourcePath);
-            }
 
             if (prefab != null)
             {
@@ -118,7 +114,7 @@ public sealed class TotemAssetService : TotemRuntimeServiceBase
             instance = UnityEngine.Object.Instantiate(prefab, parent);
             instance.transform.position = position;
             instance.transform.localScale = entry.Scale == Vector3.one ? fallbackScale : entry.Scale;
-            ApplyTint(instance, entry.tint);
+            ApplyCatalogVisuals(instance, key, entry.tint);
             GFTrace.Info("TotemAsset", "Instantiate.EditorAsset", null, GFTrace.Data(
                 "key", key,
                 "asset", entry.activeAssetPath));
@@ -148,10 +144,6 @@ public sealed class TotemAssetService : TotemRuntimeServiceBase
         {
             RecordCacheMiss(key, "Texture");
             texture = LoadEditorAsset<Texture2D>(entry.activeAssetPath);
-            if (texture == null && !string.IsNullOrWhiteSpace(entry.legacySourcePath))
-            {
-                texture = LoadEditorAsset<Texture2D>(entry.legacySourcePath);
-            }
 
             if (texture != null)
             {
@@ -167,7 +159,7 @@ public sealed class TotemAssetService : TotemRuntimeServiceBase
         {
             GFTrace.Info("TotemAsset", "Texture.EditorAsset", null, GFTrace.Data(
                 "key", key,
-                "asset", string.IsNullOrWhiteSpace(entry.activeAssetPath) ? entry.legacySourcePath : entry.activeAssetPath));
+                "asset", entry.activeAssetPath));
             return true;
         }
 #endif
@@ -194,10 +186,6 @@ public sealed class TotemAssetService : TotemRuntimeServiceBase
         {
             RecordCacheMiss(key, "Sprite");
             sprite = LoadEditorSprite(entry.activeAssetPath);
-            if (sprite == null && !string.IsNullOrWhiteSpace(entry.legacySourcePath))
-            {
-                sprite = LoadEditorSprite(entry.legacySourcePath);
-            }
 
             if (sprite != null)
             {
@@ -213,7 +201,7 @@ public sealed class TotemAssetService : TotemRuntimeServiceBase
         {
             GFTrace.Info("TotemAsset", "Sprite.EditorAsset", null, GFTrace.Data(
                 "key", key,
-                "asset", string.IsNullOrWhiteSpace(entry.activeAssetPath) ? entry.legacySourcePath : entry.activeAssetPath));
+                "asset", entry.activeAssetPath));
             return true;
         }
 #endif
@@ -307,6 +295,17 @@ public sealed class TotemAssetService : TotemRuntimeServiceBase
             catalog = null;
             return false;
         }
+    }
+
+    private static void ApplyCatalogVisuals(GameObject instance, string key, string colorText)
+    {
+        if (TotemActorVisualHelper.TryResolveFactionRingColor(key, out var factionColor))
+        {
+            TotemActorVisualHelper.AttachFactionRing(instance, factionColor);
+            return;
+        }
+
+        ApplyTint(instance, colorText);
     }
 
     private static void ApplyTint(GameObject instance, string colorText)

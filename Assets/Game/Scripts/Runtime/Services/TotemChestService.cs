@@ -402,7 +402,11 @@ public sealed class TotemChestService : TotemRuntimeServiceBase
             var renderer = spriteGo.AddComponent<SpriteRenderer>();
             renderer.sprite = sprite;
             renderer.color = GetChestColor(chest.ChestId);
-            renderer.sortingOrder = 2;
+            var sorter = spriteGo.AddComponent<TotemActorDepthSorter>();
+            sorter.BaseOffset = TotemActorDepthSorter.DefaultWorldBaseOffset;
+            sorter.SortingLayerName = TotemActorDepthSorter.WorldSortingLayer;
+            sorter.RefreshRenderers();
+            sorter.ForceRecalculate();
             return spriteGo;
         }
 

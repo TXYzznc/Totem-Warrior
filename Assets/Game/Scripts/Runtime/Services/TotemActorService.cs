@@ -899,6 +899,10 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
         go.transform.position = actor.Position;
         go.transform.localScale = GetActorScale(actor.Kind);
         SetColor(go, GetActorColor(actor.Kind));
+        if (TotemActorVisualHelper.TryResolveFactionRingColor(actor.Kind, out var factionColor))
+        {
+            TotemActorVisualHelper.AttachFactionRing(go, factionColor);
+        }
         actor.VisualAssetKey = $"primitive.{actor.Kind}";
         TotemActorVisualHelper.AttachActorVisuals(go, actor.Kind);
         spawnedObjects.Add(go);

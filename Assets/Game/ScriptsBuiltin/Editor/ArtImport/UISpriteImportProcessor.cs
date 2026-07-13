@@ -5,7 +5,7 @@ namespace TotemWarrior.EditorTools
 {
     internal static class UISpriteImportSettings
     {
-        internal const string UISpriteRoot = "Assets/Resources/Sprite/UI/";
+        internal const string UISpriteRoot = "Assets/Game/Sprite/UI/";
         internal const int DefaultMaxTextureSize = 2048;
         internal const int DefaultPixelsPerUnit = 100;
 
@@ -27,7 +27,7 @@ namespace TotemWarrior.EditorTools
     }
 
     /// <summary>
-    /// Applies default import settings for UI sprites under Assets/Resources/Sprite/UI.
+    /// Applies default import settings for UI sprites under Assets/Game/Sprite/UI.
     /// </summary>
     public sealed class UISpriteImportProcessor : AssetPostprocessor
     {

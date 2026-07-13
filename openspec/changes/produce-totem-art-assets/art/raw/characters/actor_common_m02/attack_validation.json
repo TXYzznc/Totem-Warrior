@@ -1,0 +1,638 @@
+{
+  "action": "attack",
+  "directions": {
+    "down": {
+      "sheet": "actor_common_m02_attack_down_sheet.png",
+      "sheet_size": [
+        2172,
+        724
+      ],
+      "sheet_corners_alpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "sheet_green_residual_pixels": 0,
+      "normalization_scale": 0.834753,
+      "frames": [
+        {
+          "frame": "actor_common_m02_attack_down_01.png",
+          "source_component": {
+            "x": 39,
+            "y": 70,
+            "width": 247,
+            "height": 583,
+            "area": 60645
+          },
+          "size": [
+            512,
+            512
+          ],
+          "corners_alpha": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "lowest_alpha_row": 511,
+          "green_residual_pixels": 0,
+          "sha256": "AF3C76784CD697F7C5054D3D1FD77A1BA93B106B1DF9E465465B4FB279C1CA5F"
+        },
+        {
+          "frame": "actor_common_m02_attack_down_02.png",
+          "source_component": {
+            "x": 383,
+            "y": 75,
+            "width": 305,
+            "height": 579,
+            "area": 63543
+          },
+          "size": [
+            512,
+            512
+          ],
+          "corners_alpha": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "lowest_alpha_row": 511,
+          "green_residual_pixels": 0,
+          "sha256": "0D75BF5D8AE913809C981D64CB724D13D065744509A45B914DA5BD7C4CBD2A4A"
+        },
+        {
+          "frame": "actor_common_m02_attack_down_03.png",
+          "source_component": {
+            "x": 756,
+            "y": 86,
+            "width": 334,
+            "height": 568,
+            "area": 62062
+          },
+          "size": [
+            512,
+            512
+          ],
+          "corners_alpha": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "lowest_alpha_row": 511,
+          "green_residual_pixels": 0,
+          "sha256": "F5B4046DD89F4EBECA887F792F9062FD1B5C9A42740B040C137B1450EEE0638D"
+        },
+        {
+          "frame": "actor_common_m02_attack_down_04.png",
+          "source_component": {
+            "x": 1151,
+            "y": 80,
+            "width": 270,
+            "height": 576,
+            "area": 57712
+          },
+          "size": [
+            512,
+            512
+          ],
+          "corners_alpha": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "lowest_alpha_row": 511,
+          "green_residual_pixels": 0,
+          "sha256": "887B3FC2CE187471547B5D345D721E22AD716BAA34739E8252187E9FF6F1806F"
+        },
+        {
+          "frame": "actor_common_m02_attack_down_05.png",
+          "source_component": {
+            "x": 1477,
+            "y": 81,
+            "width": 292,
+            "height": 573,
+            "area": 60888
+          },
+          "size": [
+            512,
+            512
+          ],
+          "corners_alpha": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "lowest_alpha_row": 511,
+          "green_residual_pixels": 0,
+          "sha256": "33AEF5EBF62F029F89C18250020618477CBB79FF7270E636E4F091E1182D9BC4"
+        },
+        {
+          "frame": "actor_common_m02_attack_down_06.png",
+          "source_component": {
+            "x": 1872,
+            "y": 71,
+            "width": 244,
+            "height": 582,
+            "area": 60253
+          },
+          "size": [
+            512,
+            512
+          ],
+          "corners_alpha": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "lowest_alpha_row": 511,
+          "green_residual_pixels": 0,
+          "sha256": "22E327D800402CEACBA150B1BC2AAE3E495C79F1674A8C4CA2A366614E3104EB"
+        }
+      ],
+      "extraction": "six largest connected alpha components across complete sheet, sorted by horizontal centroid; prevents adjacent-frame fragments during attack extension."
+    },
+    "up": {
+      "sheet": "actor_common_m02_attack_up_sheet.png",
+      "sheet_size": [
+        2172,
+        724
+      ],
+      "sheet_corners_alpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "sheet_green_residual_pixels": 0,
+      "normalization_scale": 0.739065,
+      "frames": [
+        {
+          "frame": "actor_common_m02_attack_up_01.png",
+          "source_component": {
+            "x": 53,
+            "y": 26,
+            "width": 254,
+            "height": 659,
+            "area": 76792
+          },
+          "size": [
+            512,
+            512
+          ],
+          "corners_alpha": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "lowest_alpha_row": 511,
+          "green_residual_pixels": 0,
+          "sha256": "B0775717A01D1E73602AF259A7D8ECE5D5A48417F5E98AE0934757D1A3C2CFCF"
+        },
+        {
+          "frame": "actor_common_m02_attack_up_02.png",
+          "source_component": {
+            "x": 385,
+            "y": 45,
+            "width": 306,
+            "height": 646,
+            "area": 76866
+          },
+          "size": [
+            512,
+            512
+          ],
+          "corners_alpha": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "lowest_alpha_row": 511,
+          "green_residual_pixels": 0,
+          "sha256": "3B5391F92B26BA7FC5E8B168C84906702EF78087214AD72C4B82189DE4F9FFE2"
+        },
+        {
+          "frame": "actor_common_m02_attack_up_03.png",
+          "source_component": {
+            "x": 787,
+            "y": 63,
+            "width": 286,
+            "height": 629,
+            "area": 65350
+          },
+          "size": [
+            512,
+            512
+          ],
+          "corners_alpha": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "lowest_alpha_row": 511,
+          "green_residual_pixels": 0,
+          "sha256": "176817E35157CD4EB403714ED4E7E063EA86F60F2F87AF9EA09BB4A0194087BC"
+        },
+        {
+          "frame": "actor_common_m02_attack_up_04.png",
+          "source_component": {
+            "x": 1101,
+            "y": 72,
+            "width": 390,
+            "height": 617,
+            "area": 66251
+          },
+          "size": [
+            512,
+            512
+          ],
+          "corners_alpha": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "lowest_alpha_row": 511,
+          "green_residual_pixels": 0,
+          "sha256": "DE8B138EF6157B62645F28EADB2599A8E0BD96A94C2FFF3B76696CDB7DE37A6E"
+        },
+        {
+          "frame": "actor_common_m02_attack_up_05.png",
+          "source_component": {
+            "x": 1459,
+            "y": 50,
+            "width": 311,
+            "height": 638,
+            "area": 70368
+          },
+          "size": [
+            512,
+            512
+          ],
+          "corners_alpha": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "lowest_alpha_row": 511,
+          "green_residual_pixels": 0,
+          "sha256": "90CBDEE170C27A1DF8EA606B33E561E528C6F7CA191AEF413FE9E49AE6CFE5D9"
+        },
+        {
+          "frame": "actor_common_m02_attack_up_06.png",
+          "source_component": {
+            "x": 1862,
+            "y": 26,
+            "width": 255,
+            "height": 659,
+            "area": 76760
+          },
+          "size": [
+            512,
+            512
+          ],
+          "corners_alpha": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "lowest_alpha_row": 511,
+          "green_residual_pixels": 0,
+          "sha256": "65BEDD376C0CB7F8656F29B41F9C70E4179612C005FAB4B218E707FC576D02CC"
+        }
+      ],
+      "extraction": "six largest connected alpha components across complete sheet, sorted by horizontal centroid; prevents adjacent-frame fragments during attack extension."
+    },
+    "left": {
+      "sheet": "actor_common_m02_attack_left_sheet.png",
+      "sheet_size": [
+        2172,
+        724
+      ],
+      "sheet_corners_alpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "sheet_green_residual_pixels": 0,
+      "normalization_scale": 0.862676,
+      "frames": [
+        {
+          "frame": "actor_common_m02_attack_left_01.png",
+          "source_component": {
+            "x": 93,
+            "y": 99,
+            "width": 249,
+            "height": 564,
+            "area": 57007
+          },
+          "size": [
+            512,
+            512
+          ],
+          "corners_alpha": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "lowest_alpha_row": 511,
+          "green_residual_pixels": 0,
+          "sha256": "BC3D1070F6217925F189A748121E5C7FE70903FBB254178C5393410B84952CB9"
+        },
+        {
+          "frame": "actor_common_m02_attack_left_02.png",
+          "source_component": {
+            "x": 430,
+            "y": 102,
+            "width": 301,
+            "height": 558,
+            "area": 61169
+          },
+          "size": [
+            512,
+            512
+          ],
+          "corners_alpha": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "lowest_alpha_row": 511,
+          "green_residual_pixels": 0,
+          "sha256": "CAC66A57EE4FC139C5D870D9CA20D810A187A39666442BEE0E0D3235FB7C9F57"
+        },
+        {
+          "frame": "actor_common_m02_attack_left_03.png",
+          "source_component": {
+            "x": 731,
+            "y": 114,
+            "width": 380,
+            "height": 544,
+            "area": 58006
+          },
+          "size": [
+            512,
+            512
+          ],
+          "corners_alpha": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "lowest_alpha_row": 511,
+          "green_residual_pixels": 0,
+          "sha256": "DC29E4A4D28ED6F48065CAAC4BC019B8276173ACF30822BA681C1707CE61D50F"
+        },
+        {
+          "frame": "actor_common_m02_attack_left_04.png",
+          "source_component": {
+            "x": 1081,
+            "y": 108,
+            "width": 408,
+            "height": 552,
+            "area": 61782
+          },
+          "size": [
+            512,
+            512
+          ],
+          "corners_alpha": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "lowest_alpha_row": 511,
+          "green_residual_pixels": 0,
+          "sha256": "A0EE3FA8A587A1761FA59B2B6DD7886545C71B10867E3DA3E2D211D5486EC39A"
+        },
+        {
+          "frame": "actor_common_m02_attack_left_05.png",
+          "source_component": {
+            "x": 1544,
+            "y": 107,
+            "width": 248,
+            "height": 557,
+            "area": 55536
+          },
+          "size": [
+            512,
+            512
+          ],
+          "corners_alpha": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "lowest_alpha_row": 511,
+          "green_residual_pixels": 0,
+          "sha256": "056188DD4E5697415A07B90A03AE5178961FA5BFFB5B360E2E5F94AFE715DF7E"
+        },
+        {
+          "frame": "actor_common_m02_attack_left_06.png",
+          "source_component": {
+            "x": 1870,
+            "y": 99,
+            "width": 249,
+            "height": 564,
+            "area": 57052
+          },
+          "size": [
+            512,
+            512
+          ],
+          "corners_alpha": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "lowest_alpha_row": 511,
+          "green_residual_pixels": 0,
+          "sha256": "E08E7C2825435DB84EAE34B12C1A1A60407EA27C9023DE9601149404321D33D8"
+        }
+      ],
+      "extraction": "six largest connected alpha components across complete sheet, sorted by horizontal centroid; prevents adjacent-frame fragments during attack extension."
+    },
+    "right": {
+      "sheet": "actor_common_m02_attack_right_sheet.png",
+      "sheet_size": [
+        2172,
+        724
+      ],
+      "sheet_corners_alpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "sheet_green_residual_pixels": 0,
+      "normalization_scale": 0.826307,
+      "frames": [
+        {
+          "frame": "actor_common_m02_attack_right_01.png",
+          "source_component": {
+            "x": 26,
+            "y": 69,
+            "width": 227,
+            "height": 589,
+            "area": 56760
+          },
+          "size": [
+            512,
+            512
+          ],
+          "corners_alpha": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "lowest_alpha_row": 511,
+          "green_residual_pixels": 0,
+          "sha256": "C0FCC74BA97E87B2561D406CD3879735733B64C11811317385A6E25291D0715F"
+        },
+        {
+          "frame": "actor_common_m02_attack_right_02.png",
+          "source_component": {
+            "x": 364,
+            "y": 75,
+            "width": 269,
+            "height": 582,
+            "area": 60548
+          },
+          "size": [
+            512,
+            512
+          ],
+          "corners_alpha": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "lowest_alpha_row": 511,
+          "green_residual_pixels": 0,
+          "sha256": "4F2509B8FD6A09963F1B9DC0F3CFCDBF1D75248B62FA7605B65744A17BC167D3"
+        },
+        {
+          "frame": "actor_common_m02_attack_right_03.png",
+          "source_component": {
+            "x": 686,
+            "y": 108,
+            "width": 435,
+            "height": 549,
+            "area": 60993
+          },
+          "size": [
+            512,
+            512
+          ],
+          "corners_alpha": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "lowest_alpha_row": 511,
+          "green_residual_pixels": 0,
+          "sha256": "0568CD6452C4D7074842EA106CA1503C01C39AE483015AEC5E1CB1F040226286"
+        },
+        {
+          "frame": "actor_common_m02_attack_right_04.png",
+          "source_component": {
+            "x": 1096,
+            "y": 115,
+            "width": 471,
+            "height": 543,
+            "area": 60185
+          },
+          "size": [
+            512,
+            512
+          ],
+          "corners_alpha": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "lowest_alpha_row": 511,
+          "green_residual_pixels": 0,
+          "sha256": "59EDD5B565AC7D6ED31C207432E0DD840FDDE60C0B54368D2A0FEE9010FDCE75"
+        },
+        {
+          "frame": "actor_common_m02_attack_right_05.png",
+          "source_component": {
+            "x": 1542,
+            "y": 92,
+            "width": 260,
+            "height": 571,
+            "area": 56358
+          },
+          "size": [
+            512,
+            512
+          ],
+          "corners_alpha": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "lowest_alpha_row": 511,
+          "green_residual_pixels": 0,
+          "sha256": "9CCA87BA437D9A471830097C89A104F7617B09DA061DBCFDA16081B35300FEFD"
+        },
+        {
+          "frame": "actor_common_m02_attack_right_06.png",
+          "source_component": {
+            "x": 1887,
+            "y": 75,
+            "width": 233,
+            "height": 588,
+            "area": 56582
+          },
+          "size": [
+            512,
+            512
+          ],
+          "corners_alpha": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "lowest_alpha_row": 511,
+          "green_residual_pixels": 0,
+          "sha256": "F6778EF795766860515E70597530F2EEF47BA4B4ECF67794E8DC917DB4D9CEA5"
+        }
+      ],
+      "extraction": "six largest connected alpha components across complete sheet, sorted by horizontal centroid; prevents adjacent-frame fragments during attack extension."
+    }
+  },
+  "frame_contract": {
+    "mode": "RGBA",
+    "size": [
+      512,
+      512
+    ],
+    "baseline_y": 511,
+    "green_rule": "alpha > 15 && G > R + 25 && G > B + 25 && G > 100"
+  }
+}

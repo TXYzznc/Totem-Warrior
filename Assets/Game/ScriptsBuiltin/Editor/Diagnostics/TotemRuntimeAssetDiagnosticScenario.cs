@@ -37,13 +37,10 @@ namespace UGF.EditorTools
             context.Detail("runtimeAssetCatalog.prefabCount", catalog.entries.Count(item => string.Equals(item.assetKind, "Prefab", System.StringComparison.OrdinalIgnoreCase)));
             context.Detail("runtimeAssetCatalog.textureCount", catalog.entries.Count(item => string.Equals(item.assetKind, "Texture", System.StringComparison.OrdinalIgnoreCase)));
             context.Detail("runtimeAssetCatalog.spriteCount", catalog.entries.Count(item => string.Equals(item.assetKind, "Sprite", System.StringComparison.OrdinalIgnoreCase)));
-            context.Assert(catalog.entries.Length >= 49, "Runtime asset catalog should include actor, selected-character actor, CharacterSelect UI, NPC, chest, map, weapon, all skill, VFX, and tattoo visual entries.");
+            context.Assert(catalog.entries.Length >= 36, "Runtime asset catalog should include active actor, CharacterSelect frame, NPC, chest, weapon, skill, and VFX entries.");
             context.Assert(catalog.TryGetEntry("actor.player.1", out _), "Runtime asset catalog should include selected character actor.player.1.");
             context.Assert(catalog.TryGetEntry("actor.player.2", out _), "Runtime asset catalog should include selected character actor.player.2.");
             context.Assert(catalog.TryGetEntry("actor.player.3", out _), "Runtime asset catalog should include selected character actor.player.3.");
-            context.Assert(catalog.TryGetEntry("tattoo.part.head", out _), "Runtime asset catalog should include tattoo.part.head.");
-            context.Assert(catalog.TryGetEntry("tattoo.pattern.beast", out _), "Runtime asset catalog should include tattoo.pattern.beast.");
-            context.Assert(catalog.TryGetEntry("ui.character.1", out _), "Runtime asset catalog should include CharacterSelect portrait ui.character.1.");
             context.Assert(catalog.TryGetEntry("ui.character.card.unlocked", out _), "Runtime asset catalog should include CharacterSelect unlocked card frame.");
             context.Assert(catalog.TryGetEntry("skill.skill_phase_dash", out _), "Runtime asset catalog should include SkillAcquire icon skill.skill_phase_dash.");
             context.Assert(catalog.TryGetEntry("skill.skill_ink_shield", out _), "Runtime asset catalog should include SkillAcquire icon skill.skill_ink_shield.");
@@ -57,7 +54,6 @@ namespace UGF.EditorTools
             for (int i = 0; i < rules.Length; i++)
             {
                 var rule = rules[i];
-                context.Assert(File.Exists(rule.SourcePath), $"Legacy visual source must exist: {rule.SourcePath}");
                 context.Assert(File.Exists(rule.TargetPath), $"Active GF_X runtime prefab must exist: {rule.TargetPath}");
                 if (File.Exists(rule.TargetPath))
                 {
@@ -126,11 +122,18 @@ namespace UGF.EditorTools
             {
                 context.Assert(service.TryInstantiateGameObject(actorKeys[i], null, Vector3.zero, Vector3.one, out var instance), $"Asset service should instantiate {actorKeys[i]} in editor.");
                 context.Assert(instance != null, $"Instantiated {actorKeys[i]} should not be null.");
+                CheckFactionRing(context, actorKeys[i], instance, true, new Color32(0x34, 0xA6, 0xFF, 0xFF));
                 if (instance != null)
                 {
                     Object.DestroyImmediate(instance);
                 }
             }
+
+            CheckFactionRingInstantiation(context, service, "actor.smartAi", true, new Color32(0xFF, 0x59, 0x40, 0xFF));
+            CheckFactionRingInstantiation(context, service, "actor.lightAi", true, new Color32(0xFF, 0xC0, 0x40, 0xFF));
+            CheckFactionRingInstantiation(context, service, "actor.boss", false, Color.clear);
+            CheckFactionRingInstantiation(context, service, "npc.tattooist", false, Color.clear);
+            CheckFactionRingInstantiation(context, service, "npc.merchant", false, Color.clear);
 
             DetailFallbackCounters(context, service, "runtimeAsset.instantiate");
             context.AssertEqual(0, service.MissingEntryCount, "runtimeAsset.instantiate.missingEntryCount");
@@ -142,17 +145,12 @@ namespace UGF.EditorTools
             var service = new TotemAssetService();
             service.ReloadRuntimeAssetCatalog();
             context.Assert(service.RuntimeAssetCatalogLoadedFromFile, $"Runtime asset catalog should load from file: {service.RuntimeAssetCatalogMessage}");
-            context.Assert(service.TryLoadTexture("map.floor.ruins", out var floorTexture), "Asset service should load map.floor.ruins texture.");
-            context.Assert(floorTexture != null, "Loaded map.floor.ruins texture should not be null.");
             context.Assert(service.TryLoadSprite("weapon.knife_basic", out var weaponSprite), "Asset service should load weapon.knife_basic sprite.");
             context.Assert(weaponSprite != null, "Loaded weapon.knife_basic sprite should not be null.");
             context.Assert(service.TryLoadSprite("skill.skill_fireball_01", out var skillSprite), "Asset service should load skill.skill_fireball_01 sprite.");
             context.Assert(skillSprite != null, "Loaded skill.skill_fireball_01 sprite should not be null.");
             string[] characterUiKeys =
             {
-                "ui.character.1",
-                "ui.character.2",
-                "ui.character.3",
                 "ui.character.card.unlocked",
             };
             for (int i = 0; i < characterUiKeys.Length; i++)
@@ -187,12 +185,6 @@ namespace UGF.EditorTools
             context.Assert(commonChestSprite != null, "Loaded chest.chest_common sprite should not be null.");
             context.Assert(service.TryLoadSprite("chest.chest_rare", out var rareChestSprite), "Asset service should load chest.chest_rare sprite.");
             context.Assert(rareChestSprite != null, "Loaded chest.chest_rare sprite should not be null.");
-            context.Assert(service.TryLoadSprite("tattoo.part.head", out var tattooPartSprite), "Asset service should load tattoo.part.head sprite.");
-            context.Assert(tattooPartSprite != null, "Loaded tattoo.part.head sprite should not be null.");
-            context.Assert(service.TryLoadSprite("tattoo.pattern.line", out var tattooPatternSprite), "Asset service should load tattoo.pattern.line sprite.");
-            context.Assert(tattooPatternSprite != null, "Loaded tattoo.pattern.line sprite should not be null.");
-            context.Assert(service.TryCreateTexturedMaterial("map.wall.ruins", Color.gray, out var material), "Asset service should create map.wall.ruins material.");
-            context.Assert(material != null, "Created map.wall.ruins material should not be null.");
             DetailFallbackCounters(context, service, "runtimeAsset.visual");
             context.AssertEqual(0, service.MissingEntryCount, "runtimeAsset.visual.missingEntryCount");
             context.AssertEqual(0, service.FallbackRequiredCount, "runtimeAsset.visual.fallbackRequiredCount");
@@ -217,12 +209,12 @@ namespace UGF.EditorTools
             context.AssertEqual("weapon.knife_basic", service.LastCacheKey, "runtimeAsset.cache.afterSprite.lastKey");
             context.AssertEqual("Sprite", service.LastCacheKind, "runtimeAsset.cache.afterSprite.lastKind");
 
-            context.Assert(service.TryLoadTexture("map.floor.ruins", out var firstTexture), "Asset cache diagnostic should load map.floor.ruins texture first.");
-            context.Assert(service.TryLoadTexture("map.floor.ruins", out var secondTexture), "Asset cache diagnostic should load map.floor.ruins texture second.");
-            context.Assert(firstTexture == secondTexture, "Second texture load should reuse the cached Texture2D instance.");
-            context.AssertEqual(2, service.CachedAssetCount, "runtimeAsset.cache.afterTexture.cachedCount");
-            context.AssertEqual(2, service.CacheHitCount, "runtimeAsset.cache.afterTexture.hits");
-            context.AssertEqual(2, service.CacheMissCount, "runtimeAsset.cache.afterTexture.misses");
+            context.Assert(service.TryLoadSprite("skill.skill_fireball_01", out var firstSkillSprite), "Asset cache diagnostic should load skill.skill_fireball_01 sprite first.");
+            context.Assert(service.TryLoadSprite("skill.skill_fireball_01", out var secondSkillSprite), "Asset cache diagnostic should load skill.skill_fireball_01 sprite second.");
+            context.Assert(firstSkillSprite == secondSkillSprite, "Second skill sprite load should reuse the cached Sprite instance.");
+            context.AssertEqual(2, service.CachedAssetCount, "runtimeAsset.cache.afterSecondSprite.cachedCount");
+            context.AssertEqual(2, service.CacheHitCount, "runtimeAsset.cache.afterSecondSprite.hits");
+            context.AssertEqual(2, service.CacheMissCount, "runtimeAsset.cache.afterSecondSprite.misses");
 
             context.Assert(service.TryInstantiateGameObject("actor.player.1", null, Vector3.zero, Vector3.one, out var firstInstance), "Asset cache diagnostic should instantiate actor.player.1 first.");
             context.Assert(service.TryInstantiateGameObject("actor.player.1", null, Vector3.zero, Vector3.one, out var secondInstance), "Asset cache diagnostic should instantiate actor.player.1 second.");
@@ -287,6 +279,49 @@ namespace UGF.EditorTools
             context.Detail($"{prefix}.fallbackRequiredCount", service.FallbackRequiredCount);
             context.Detail($"{prefix}.lastFallbackKey", service.LastFallbackKey);
             context.Detail($"{prefix}.lastFallbackReason", service.LastFallbackReason);
+        }
+
+        private static void CheckFactionRingInstantiation(GFDiagnosticScenarioContext context, TotemAssetService service, string key, bool expectedRing, Color expectedColor)
+        {
+            context.Assert(service.TryInstantiateGameObject(key, null, Vector3.zero, Vector3.one, out var instance), $"Asset service should instantiate {key} in editor.");
+            CheckFactionRing(context, key, instance, expectedRing, expectedColor);
+            if (instance != null)
+            {
+                Object.DestroyImmediate(instance);
+            }
+        }
+
+        private static void CheckFactionRing(GFDiagnosticScenarioContext context, string key, GameObject instance, bool expectedRing, Color expectedColor)
+        {
+            var ring = instance == null ? null : instance.transform.Find(TotemActorVisualHelper.FactionRingName);
+            context.Assert((ring != null) == expectedRing, $"{key} faction ring presence should be {expectedRing}.");
+            if (!expectedRing)
+            {
+                return;
+            }
+
+            var renderer = ring == null ? null : ring.GetComponent<SpriteRenderer>();
+            context.Assert(renderer != null && renderer.sprite != null, $"{key} faction ring should have a generated SpriteRenderer.");
+            context.Assert(renderer != null && Approximately(expectedColor, renderer.color), $"{key} faction ring color should match its faction.");
+
+            var bodyRenderers = instance.GetComponentsInChildren<SpriteRenderer>(true);
+            for (int i = 0; i < bodyRenderers.Length; i++)
+            {
+                if (bodyRenderers[i] == null || bodyRenderers[i].transform == ring)
+                {
+                    continue;
+                }
+
+                context.Assert(Approximately(Color.white, bodyRenderers[i].color), $"{key} body SpriteRenderer should remain neutral white.");
+            }
+        }
+
+        private static bool Approximately(Color expected, Color actual)
+        {
+            return Mathf.Abs(expected.r - actual.r) <= 0.001f
+                && Mathf.Abs(expected.g - actual.g) <= 0.001f
+                && Mathf.Abs(expected.b - actual.b) <= 0.001f
+                && Mathf.Abs(expected.a - actual.a) <= 0.001f;
         }
     }
 }

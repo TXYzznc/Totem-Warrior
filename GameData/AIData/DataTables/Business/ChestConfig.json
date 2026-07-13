@@ -4,8 +4,8 @@
   "tableName": "ChestConfig",
   "relativePath": "Business/ChestConfig",
   "sourceExcel": "GameData/DataTables/Business/ChestConfig.xlsx",
-  "sourceExcelLastWriteUtc": "2026-07-10T08:55:51.1974159Z",
-  "generatedAtUtc": "2026-07-10T08:55:51.3659167Z",
+  "sourceExcelLastWriteUtc": "2026-07-10T08:08:00.5979160Z",
+  "generatedAtUtc": "2026-07-10T08:08:00.7694164Z",
   "tableComment": "Business table migrated from LegacyProjectArchive/Assets/Resources/DataTable/ChestConfig.json. GF_X Id is numeric; original business keys are preserved as data columns.",
   "columns": [
     {
