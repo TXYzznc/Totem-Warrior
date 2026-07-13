@@ -3,11 +3,21 @@
 public static class TotemActorVisualHelper
 {
     public const string ShadowName = "TotemActorShadow";
+    public const string FactionRingName = "TotemFactionRing";
 
     private const int ShadowTextureSize = 64;
+    private const int FactionRingTextureSize = 64;
     private const float DefaultShadowYOffset = -0.42f;
+    private const float DefaultFactionRingYOffset = -0.43f;
+    private const float FactionRingOuterRadius = 0.46f;
+    private const float FactionRingInnerRadius = 0.31f;
 
     private static Sprite shadowSprite;
+    private static Sprite factionRingSprite;
+
+    private static readonly Color PlayerFactionColor = new Color32(0x34, 0xA6, 0xFF, 0xFF);
+    private static readonly Color SmartAiFactionColor = new Color32(0xFF, 0x59, 0x40, 0xFF);
+    private static readonly Color LightAiFactionColor = new Color32(0xFF, 0xC0, 0x40, 0xFF);
 
     public static TotemActorVisualAttachment AttachActorVisuals(GameObject actorObject, TotemActorKind kind)
     {
@@ -36,6 +46,85 @@ public static class TotemActorVisualHelper
         }
 
         return attachment;
+    }
+
+    public static bool TryResolveFactionRingColor(string assetKey, out Color color)
+    {
+        if (!string.IsNullOrWhiteSpace(assetKey) && assetKey.StartsWith("actor.player", System.StringComparison.Ordinal))
+        {
+            color = PlayerFactionColor;
+            return true;
+        }
+
+        switch (assetKey)
+        {
+            case "actor.smartAi":
+                color = SmartAiFactionColor;
+                return true;
+            case "actor.lightAi":
+                color = LightAiFactionColor;
+                return true;
+            default:
+                color = default;
+                return false;
+        }
+    }
+
+    public static bool TryResolveFactionRingColor(TotemActorKind kind, out Color color)
+    {
+        switch (kind)
+        {
+            case TotemActorKind.Player:
+                color = PlayerFactionColor;
+                return true;
+            case TotemActorKind.SmartAi:
+                color = SmartAiFactionColor;
+                return true;
+            case TotemActorKind.LightAi:
+                color = LightAiFactionColor;
+                return true;
+            default:
+                color = default;
+                return false;
+        }
+    }
+
+    public static bool AttachFactionRing(GameObject actorObject, Color color)
+    {
+        if (actorObject == null)
+        {
+            return false;
+        }
+
+        var ring = actorObject.transform.Find(FactionRingName);
+        if (ring == null)
+        {
+            ring = new GameObject(FactionRingName).transform;
+            ring.SetParent(actorObject.transform, false);
+            ring.localPosition = new Vector3(0f, DefaultFactionRingYOffset, 0f);
+            ring.localRotation = Quaternion.identity;
+            ring.localScale = Vector3.one;
+        }
+
+        EnsureFactionRingSprite();
+        var renderer = ring.GetComponent<SpriteRenderer>();
+        if (renderer == null)
+        {
+            renderer = ring.gameObject.AddComponent<SpriteRenderer>();
+        }
+
+        renderer.sprite = factionRingSprite;
+        renderer.color = color;
+        renderer.sortingOrder = -1;
+
+        var sorter = actorObject.GetComponent<TotemActorDepthSorter>();
+        if (sorter != null)
+        {
+            sorter.RefreshRenderers();
+            sorter.ForceRecalculate();
+        }
+
+        return true;
     }
 
     private static bool AttachShadow(GameObject actorObject, float radius, float yOffset)
@@ -140,6 +229,48 @@ public static class TotemActorVisualHelper
         shadowSprite.name = "TotemActorShadowSprite";
         shadowSprite.hideFlags = HideFlags.HideAndDontSave;
     }
+
+    private static void EnsureFactionRingSprite()
+    {
+        if (factionRingSprite != null)
+        {
+            return;
+        }
+
+        var texture = new Texture2D(FactionRingTextureSize, FactionRingTextureSize, TextureFormat.RGBA32, false)
+        {
+            name = "TotemFactionRingSprite",
+            wrapMode = TextureWrapMode.Clamp,
+            filterMode = FilterMode.Bilinear,
+            hideFlags = HideFlags.HideAndDontSave,
+        };
+
+        var pixels = new Color32[FactionRingTextureSize * FactionRingTextureSize];
+        float center = (FactionRingTextureSize - 1) * 0.5f;
+        float maxRadius = FactionRingTextureSize * 0.5f;
+        for (int y = 0; y < FactionRingTextureSize; y++)
+        {
+            for (int x = 0; x < FactionRingTextureSize; x++)
+            {
+                float dx = x - center;
+                float dy = y - center;
+                float radius = Mathf.Sqrt(dx * dx + dy * dy) / maxRadius;
+                pixels[y * FactionRingTextureSize + x] = radius >= FactionRingInnerRadius && radius <= FactionRingOuterRadius
+                    ? new Color32(255, 255, 255, 255)
+                    : new Color32(255, 255, 255, 0);
+            }
+        }
+
+        texture.SetPixels32(pixels);
+        texture.Apply(false, true);
+        factionRingSprite = Sprite.Create(
+            texture,
+            new Rect(0, 0, FactionRingTextureSize, FactionRingTextureSize),
+            new Vector2(0.5f, 0.5f),
+            FactionRingTextureSize);
+        factionRingSprite.name = "TotemFactionRingSprite";
+        factionRingSprite.hideFlags = HideFlags.HideAndDontSave;
+    }
 }
 
 public sealed class TotemActorVisualAttachment
@@ -153,13 +284,17 @@ public sealed class TotemActorVisualAttachment
 [DisallowMultipleComponent]
 public sealed class TotemActorDepthSorter : MonoBehaviour
 {
+    public const int DefaultWorldBaseOffset = 10000;
+    public const string WorldSortingLayer = "World";
     private const float SortScale = 100f;
     private const float DirtyEpsSq = 0.0001f;
 
-    public int BaseOffset;
+    public int BaseOffset = DefaultWorldBaseOffset;
+    public string SortingLayerName = WorldSortingLayer;
 
     private SpriteRenderer[] spriteRenderers = System.Array.Empty<SpriteRenderer>();
     private SpriteRenderer shadowRenderer;
+    private SpriteRenderer factionRingRenderer;
     private Vector3 lastPosition;
     private bool initialized;
 
@@ -190,6 +325,8 @@ public sealed class TotemActorDepthSorter : MonoBehaviour
         spriteRenderers = GetComponentsInChildren<SpriteRenderer>(true);
         var shadow = transform.Find(TotemActorVisualHelper.ShadowName);
         shadowRenderer = shadow == null ? null : shadow.GetComponent<SpriteRenderer>();
+        var factionRing = transform.Find(TotemActorVisualHelper.FactionRingName);
+        factionRingRenderer = factionRing == null ? null : factionRing.GetComponent<SpriteRenderer>();
     }
 
     public void ForceRecalculate()
@@ -201,6 +338,7 @@ public sealed class TotemActorDepthSorter : MonoBehaviour
             {
                 if (spriteRenderers[i] != null)
                 {
+                    spriteRenderers[i].sortingLayerName = SortingLayerName;
                     spriteRenderers[i].sortingOrder = order;
                 }
             }
@@ -208,7 +346,14 @@ public sealed class TotemActorDepthSorter : MonoBehaviour
 
         if (shadowRenderer != null)
         {
-            shadowRenderer.sortingOrder = order - 1;
+            shadowRenderer.sortingLayerName = SortingLayerName;
+            shadowRenderer.sortingOrder = order - 2;
+        }
+
+        if (factionRingRenderer != null)
+        {
+            factionRingRenderer.sortingLayerName = SortingLayerName;
+            factionRingRenderer.sortingOrder = order - 1;
         }
 
         lastPosition = transform.position;

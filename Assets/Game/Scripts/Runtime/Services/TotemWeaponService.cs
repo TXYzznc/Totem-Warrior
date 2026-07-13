@@ -1361,7 +1361,11 @@ public sealed class TotemWeaponService : TotemRuntimeServiceBase, ITotemRuntimeT
         {
             var renderer = go.AddComponent<SpriteRenderer>();
             renderer.sprite = sprite;
-            renderer.sortingOrder = 5;
+            var sorter = go.AddComponent<TotemActorDepthSorter>();
+            sorter.BaseOffset = TotemActorDepthSorter.DefaultWorldBaseOffset;
+            sorter.SortingLayerName = TotemActorDepthSorter.WorldSortingLayer;
+            sorter.RefreshRenderers();
+            sorter.ForceRecalculate();
             go.transform.localScale = Vector3.one * 0.75f;
             pickup.VisualAssetKey = assetKey;
             return go;

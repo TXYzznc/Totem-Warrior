@@ -135,7 +135,6 @@ public sealed class TotemStartupSelectForm : TotemUIFormBase
         }
 
         FlowService?.ConfirmStartup(selectedColorId, selectedWeaponId, selectedPatternIds.ToArray());
-        UIService?.OpenCombatHud();
     }
 
     private void OnCancelClicked()

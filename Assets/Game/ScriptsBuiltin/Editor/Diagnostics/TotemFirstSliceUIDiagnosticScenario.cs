@@ -150,10 +150,9 @@ namespace UGF.EditorTools
             service.ReloadRuntimeAssetCatalog();
             context.Assert(service.RuntimeAssetCatalogLoadedFromFile, $"Runtime asset catalog should load from file: {service.RuntimeAssetCatalogMessage}");
 
-            AssertSpriteLoads(context, service, "ui.character.1");
-            AssertSpriteLoads(context, service, "ui.character.2");
-            AssertSpriteLoads(context, service, "ui.character.3");
             AssertSpriteLoads(context, service, "ui.character.card.unlocked");
+            AssertSpriteLoads(context, service, "ui.character.portrait.2");
+            AssertSpriteLoads(context, service, "ui.character.portrait.3");
             AssertSpriteLoads(context, service, "weapon.knife_basic");
             AssertSpriteLoads(context, service, "weapon.hammer_heavy");
             AssertSpriteLoads(context, service, "weapon.pistol_basic");
@@ -224,9 +223,9 @@ namespace UGF.EditorTools
 
         private static void CheckStartupPatternUnlocks(GFDiagnosticScenarioContext context)
         {
-            context.AssertEqual("ui.character.1", TotemCharacterSelectForm.GetCharacterAssetKey(1), "characterSelect.assetKey.1");
-            context.AssertEqual("ui.character.2", TotemCharacterSelectForm.GetCharacterAssetKey(2), "characterSelect.assetKey.2");
-            context.AssertEqual("ui.character.3", TotemCharacterSelectForm.GetCharacterAssetKey(3), "characterSelect.assetKey.3");
+            context.AssertEqual(string.Empty, TotemCharacterSelectForm.GetCharacterAssetKey(1), "characterSelect.assetKey.1");
+            context.AssertEqual("ui.character.portrait.2", TotemCharacterSelectForm.GetCharacterAssetKey(2), "characterSelect.assetKey.2");
+            context.AssertEqual("ui.character.portrait.3", TotemCharacterSelectForm.GetCharacterAssetKey(3), "characterSelect.assetKey.3");
 
             var defaultPatternIds = TotemStartupSelectForm.GetUnlockedPatternOptionIds(null);
             context.AssertEqual(2, defaultPatternIds.Length, "startup.patternFallback.count");
