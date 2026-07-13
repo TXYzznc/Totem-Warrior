@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿
 using UnityEngine;
 
 public sealed class TotemCombatService : TotemRuntimeServiceBase, ITotemRuntimeTickService
@@ -21,7 +21,9 @@ public sealed class TotemCombatService : TotemRuntimeServiceBase, ITotemRuntimeT
     private TotemSkillService skillService;
     private TotemStatusService statusService;
     private TotemTattooService tattooService;
-    private TotemBossService bossService;
+    private TotemCombatRelationshipService relationshipService;
+    private TotemMatchClockService matchClock;
+    private TotemEnemyService enemyService;
     private TotemEconomyService economyService;
     private TotemVfxService vfxService;
     private TotemAudioService audioService;
@@ -47,6 +49,7 @@ public sealed class TotemCombatService : TotemRuntimeServiceBase, ITotemRuntimeT
     private float lastAimSpreadHalfDegrees;
     private Vector3 lastAimForward = Vector3.forward;
     private TotemRunResultSnapshot lastRunResult;
+    private readonly TotemEnemyModel[] enemyTargetBuffer = new TotemEnemyModel[TotemEnemyService.DefaultEnemyCapacity];
 
     public override string ServiceName => "Combat";
 
@@ -61,7 +64,9 @@ public sealed class TotemCombatService : TotemRuntimeServiceBase, ITotemRuntimeT
         skillService = runtime.GetService<TotemSkillService>();
         statusService = runtime.GetService<TotemStatusService>();
         tattooService = runtime.GetService<TotemTattooService>();
-        bossService = runtime.GetService<TotemBossService>();
+        relationshipService = runtime.GetService<TotemCombatRelationshipService>();
+        matchClock = runtime.GetService<TotemMatchClockService>();
+        enemyService = runtime.GetService<TotemEnemyService>();
         economyService = runtime.GetService<TotemEconomyService>();
         vfxService = runtime.GetService<TotemVfxService>();
         audioService = runtime.GetService<TotemAudioService>();
@@ -88,7 +93,9 @@ public sealed class TotemCombatService : TotemRuntimeServiceBase, ITotemRuntimeT
         skillService = null;
         statusService = null;
         tattooService = null;
-        bossService = null;
+        relationshipService = null;
+        matchClock = null;
+        enemyService = null;
         economyService = null;
         vfxService = null;
         audioService = null;
@@ -116,6 +123,13 @@ public sealed class TotemCombatService : TotemRuntimeServiceBase, ITotemRuntimeT
         }
 
         var input = inputService?.Current ?? TotemInputSnapshot.Empty;
+        var readiness = Runtime.GetService<TotemParticipantReadinessService>();
+        if (readiness != null && !readiness.CanAct(actorService.Player))
+        {
+            EvaluateRunEnd();
+            return;
+        }
+
         TickMovement(input, deltaTime);
         TickAttack(input);
         TickSkill(input);
@@ -129,7 +143,9 @@ public sealed class TotemCombatService : TotemRuntimeServiceBase, ITotemRuntimeT
         {
             active = active,
             playerHealth = actorService?.Player?.Health ?? 0f,
-            aliveEnemyCount = actorSnapshot?.aliveEnemyCount ?? 0,
+            aliveParticipantCount = actorSnapshot?.aliveParticipantCount ?? 0,
+            aliveEnemyCount = enemyService?.CaptureSnapshot().aliveEnemyCount ?? 0,
+            winnerParticipantId = lastRunResult?.winnerParticipantId ?? 0,
             killCount = killCount,
             lastAction = lastAction,
             lastReason = lastReason,
@@ -150,7 +166,7 @@ public sealed class TotemCombatService : TotemRuntimeServiceBase, ITotemRuntimeT
         };
     }
 
-    public static TotemRunResultSnapshot BuildRunResult(bool win, string reason, int killCount, float playerHealth, int aliveEnemyCount, float elapsedSec)
+    public static TotemRunResultSnapshot BuildRunResult(bool win, string reason, int killCount, float playerHealth, int aliveParticipantCount, float elapsedSec)
     {
         return new TotemRunResultSnapshot
         {
@@ -158,91 +174,9 @@ public sealed class TotemCombatService : TotemRuntimeServiceBase, ITotemRuntimeT
             reason = string.IsNullOrWhiteSpace(reason) ? (win ? "Victory" : "Defeat") : reason,
             killCount = Mathf.Max(0, killCount),
             playerHealth = Mathf.Max(0f, playerHealth),
-            aliveEnemyCount = Mathf.Max(0, aliveEnemyCount),
+            aliveParticipantCount = Mathf.Max(0, aliveParticipantCount),
             elapsedSec = Mathf.Max(0f, elapsedSec),
         };
-    }
-
-    public static TotemActorModel FindBestConeTarget(IReadOnlyList<TotemActorModel> actors, Vector3 origin, Vector3 forward, float maxRange, float halfAngleDegrees)
-    {
-        if (actors == null || actors.Count <= 0)
-        {
-            return null;
-        }
-
-        forward.y = 0f;
-        if (forward.sqrMagnitude < 0.0001f)
-        {
-            forward = Vector3.forward;
-        }
-        else
-        {
-            forward.Normalize();
-        }
-
-        if (halfAngleDegrees >= 179.99f)
-        {
-            return FindClosestAliveEnemy(actors, origin, maxRange: 0f);
-        }
-
-        float cosHalfAngle = Mathf.Cos(halfAngleDegrees * Mathf.Deg2Rad);
-        float bestScore = float.MaxValue;
-        TotemActorModel bestTarget = null;
-        for (int i = 0; i < actors.Count; i++)
-        {
-            var actor = actors[i];
-            if (!TotemActorService.IsEnemy(actor) || !actor.IsAlive)
-            {
-                continue;
-            }
-
-            Vector3 toEnemy = actor.Position - origin;
-            toEnemy.y = 0f;
-            float distance = toEnemy.magnitude;
-            if (distance > maxRange || distance < 0.001f)
-            {
-                continue;
-            }
-
-            float dot = Vector3.Dot(forward, toEnemy / distance);
-            if (dot < cosHalfAngle)
-            {
-                continue;
-            }
-
-            float score = (1f - dot) * 100f + distance;
-            if (score < bestScore)
-            {
-                bestScore = score;
-                bestTarget = actor;
-            }
-        }
-
-        return bestTarget;
-    }
-
-    public static TotemActorModel SelectAimTarget(
-        IReadOnlyList<TotemActorModel> actors,
-        Vector3 origin,
-        Vector3 forward,
-        float maxRange,
-        float halfAngleDegrees,
-        out string targetingMode)
-    {
-        if (halfAngleDegrees >= 179.99f)
-        {
-            targetingMode = "FullLock";
-            return FindClosestAliveEnemy(actors, origin, maxRange: 0f);
-        }
-
-        if (halfAngleDegrees <= 0.01f)
-        {
-            targetingMode = "RaycastGeometry";
-            return FindBestConeTarget(actors, origin, forward, maxRange, 0.01f);
-        }
-
-        targetingMode = "Cone";
-        return FindBestConeTarget(actors, origin, forward, maxRange, halfAngleDegrees);
     }
 
     public static Vector3 ResolveAimForward(TotemInputSnapshot input, Vector3 origin, Vector3 fallbackForward)
@@ -269,32 +203,6 @@ public sealed class TotemCombatService : TotemRuntimeServiceBase, ITotemRuntimeT
         }
 
         return Vector3.forward;
-    }
-
-    public static TotemActorModel FindClosestAliveEnemy(IReadOnlyList<TotemActorModel> actors, Vector3 origin, float maxRange)
-    {
-        float maxRangeSqr = maxRange <= 0f ? float.MaxValue : maxRange * maxRange;
-        float bestDistance = float.MaxValue;
-        TotemActorModel bestTarget = null;
-        for (int i = 0; i < actors.Count; i++)
-        {
-            var actor = actors[i];
-            if (!TotemActorService.IsEnemy(actor) || !actor.IsAlive)
-            {
-                continue;
-            }
-
-            float sqrDistance = (actor.Position - origin).sqrMagnitude;
-            if (sqrDistance > maxRangeSqr || sqrDistance >= bestDistance)
-            {
-                continue;
-            }
-
-            bestDistance = sqrDistance;
-            bestTarget = actor;
-        }
-
-        return bestTarget;
     }
 
     private void TickMovement(TotemInputSnapshot input, float deltaTime)
@@ -356,8 +264,7 @@ public sealed class TotemCombatService : TotemRuntimeServiceBase, ITotemRuntimeT
         }
 
         Vector3 aimForward = ResolveAimForward(input, actorService.Player.Position, GetActorFallbackForward(actorService.Player));
-        var target = SelectAimTarget(
-            actorService.Actors,
+        TotemCombatantModel target = SelectRuntimeAimTarget(
             actorService.Player.Position,
             aimForward,
             maxRange,
@@ -383,7 +290,7 @@ public sealed class TotemCombatService : TotemRuntimeServiceBase, ITotemRuntimeT
         float baseDamage = fireResult?.Damage ?? (charged ? ChargedDamage : BasicDamage);
         float damage = tattooService == null
             ? baseDamage
-            : tattooService.ResolveAttackDamage(actorService.Player, target, baseDamage, out _);
+            : tattooService.ResolveAttackDamage(actorService.Player, target as TotemActorModel, baseDamage, out _);
         actorService.NotifyActorAttack(actorService.Player, charged ? "PlayerChargedAttack" : "PlayerAttack");
         bool killed = ApplyDamageAndEvaluate(target, damage, actorService.Player, charged ? "PlayerChargedAttack" : "PlayerAttack");
         if (killed)
@@ -391,10 +298,24 @@ public sealed class TotemCombatService : TotemRuntimeServiceBase, ITotemRuntimeT
             killCount++;
         }
 
-        weaponService?.ApplyTraitEffect(fireResult, actorService.Player, target, killed);
+        if (target is TotemActorModel participantTarget)
+        {
+            weaponService?.ApplyTraitEffect(fireResult, actorService.Player, participantTarget, killed);
+        }
+        else if (target is TotemEnemyModel enemyTarget)
+        {
+            weaponService?.ApplyTraitEffect(fireResult, actorService.Player, enemyTarget, killed);
+        }
         vfxService?.SpawnProjectileTrail(actorService.Player.Position, target.Position, fireResult?.Projectile, true, charged);
         vfxService?.SpawnAttackHit(target.Position, fireResult?.Weapon?.WeaponId, charged);
-        tattooService?.Trigger("AttackHitEvent", actorService.Player, target, baseDamage);
+        if (target is TotemEnemyModel tattooEnemyTarget)
+        {
+            tattooService?.TriggerEnemy("AttackHitEvent", actorService.Player, tattooEnemyTarget, baseDamage);
+        }
+        else
+        {
+            tattooService?.Trigger("AttackHitEvent", actorService.Player, target as TotemActorModel, baseDamage);
+        }
         attackCooldownRemaining = fireResult == null ? AttackCooldown : 0f;
         RecordCombatAction(
             charged ? "ChargedAttack" : "Attack",
@@ -443,7 +364,7 @@ public sealed class TotemCombatService : TotemRuntimeServiceBase, ITotemRuntimeT
         Vector3 origin = actorService.Player.Position;
         int hitCount = 0;
         bool skillKilled = false;
-        TotemActorModel lastSkillTarget = null;
+        TotemCombatantModel lastSkillTarget = null;
 
         if (skill != null && skill.HitShape != TotemSkillHitShape.Circle)
         {
@@ -457,8 +378,7 @@ public sealed class TotemCombatService : TotemRuntimeServiceBase, ITotemRuntimeT
             float maxRange = Mathf.Max(skillRadius, weaponRange);
             float aimSpreadHalfDegrees = weaponState?.Weapon?.AimSpreadHalfDegrees ?? 180f;
             Vector3 aimForward = ResolveAimForward(input, origin, GetActorFallbackForward(actorService.Player));
-            var target = SelectAimTarget(
-                actorService.Actors,
+            TotemCombatantModel target = SelectRuntimeAimTarget(
                 origin,
                 aimForward,
                 maxRange,
@@ -478,6 +398,10 @@ public sealed class TotemCombatService : TotemRuntimeServiceBase, ITotemRuntimeT
 
                 lastSkillTarget = target;
                 hitCount = 1;
+                if (target is TotemEnemyModel enemyTarget && enemyTarget.IsAlive)
+                {
+                    tattooService?.TriggerEnemy("SkillCastEvent", actorService.Player, enemyTarget, skillDamage);
+                }
             }
         }
         else
@@ -489,7 +413,7 @@ public sealed class TotemCombatService : TotemRuntimeServiceBase, ITotemRuntimeT
             for (int i = 0; i < actorService.Actors.Count; i++)
             {
                 var actor = actorService.Actors[i];
-                if (!TotemActorService.IsEnemy(actor) || !actor.IsAlive)
+                if (!IsLegalParticipantTarget(actor))
                 {
                     continue;
                 }
@@ -511,6 +435,33 @@ public sealed class TotemCombatService : TotemRuntimeServiceBase, ITotemRuntimeT
 
                 lastSkillTarget = actor;
                 hitCount++;
+            }
+
+            int enemyCount = enemyService?.CopyAliveEnemies(enemyTargetBuffer) ?? 0;
+            for (int i = 0; i < enemyCount; i++)
+            {
+                TotemEnemyModel enemy = enemyTargetBuffer[i];
+                if (enemy == null || (enemy.Position - origin).sqrMagnitude > radiusSqr)
+                {
+                    continue;
+                }
+
+                if (skillDamage > 0f)
+                {
+                    bool killed = ApplyDamageAndEvaluate(enemy, skillDamage, actorService.Player, skill == null ? "PlayerSkill" : $"PlayerSkill:{skill.SkillId}");
+                    if (killed)
+                    {
+                        killCount++;
+                        skillKilled = true;
+                    }
+                }
+
+                lastSkillTarget = enemy;
+                hitCount++;
+                if (enemy.IsAlive)
+                {
+                    tattooService?.TriggerEnemy("SkillCastEvent", actorService.Player, enemy, skillDamage);
+                }
             }
         }
 
@@ -537,10 +488,102 @@ public sealed class TotemCombatService : TotemRuntimeServiceBase, ITotemRuntimeT
         return -1;
     }
 
+    private TotemCombatantModel SelectRuntimeAimTarget(
+        Vector3 origin,
+        Vector3 forward,
+        float maxRange,
+        float halfAngleDegrees,
+        out string targetingMode)
+    {
+        forward.y = 0f;
+        forward = forward.sqrMagnitude <= 0.0001f ? Vector3.forward : forward.normalized;
+        float maxSqr = maxRange <= 0f ? float.MaxValue : maxRange * maxRange;
+        float cosHalfAngle = halfAngleDegrees >= 179.99f
+            ? -1f
+            : Mathf.Cos(Mathf.Clamp(halfAngleDegrees, 0f, 180f) * Mathf.Deg2Rad);
+        TotemActorModel participantTarget = null;
+        float participantScore = float.MaxValue;
+        var actors = actorService?.Actors;
+        if (actors != null)
+        {
+            for (int i = 0; i < actors.Count; i++)
+            {
+                TotemActorModel candidate = actors[i];
+                if (!IsLegalParticipantTarget(candidate))
+                {
+                    continue;
+                }
+
+                Vector3 delta = candidate.Position - origin;
+                delta.y = 0f;
+                float sqr = delta.sqrMagnitude;
+                if (sqr <= 0.0001f || sqr > maxSqr)
+                {
+                    continue;
+                }
+
+                float distance = Mathf.Sqrt(sqr);
+                float dot = Vector3.Dot(forward, delta / distance);
+                if (dot < cosHalfAngle)
+                {
+                    continue;
+                }
+
+                float score = (1f - dot) * 100f + distance;
+                if (score < participantScore)
+                {
+                    participantScore = score;
+                    participantTarget = candidate;
+                }
+            }
+        }
+
+        TotemEnemyModel enemyTarget = enemyService?.FindBestAimTarget(origin, forward, maxRange, halfAngleDegrees);
+        float enemyScore = enemyTarget == null
+            ? float.MaxValue
+            : ComputeAimScore(origin, forward, enemyTarget.Position);
+        TotemCombatantModel result = enemyScore <= participantScore ? enemyTarget : participantTarget;
+        string shape = halfAngleDegrees >= 179.99f ? "FullLock" : halfAngleDegrees <= 0.01f ? "RaycastGeometry" : "Cone";
+        targetingMode = result == null ? shape : shape + ":" + result.Domain;
+        return result;
+    }
+
+    private bool IsLegalParticipantTarget(TotemActorModel candidate)
+    {
+        if (candidate == null || candidate == actorService?.Player || !candidate.IsAlive)
+        {
+            return false;
+        }
+
+        if (relationshipService == null)
+        {
+            return true;
+        }
+
+        var decision = relationshipService.EvaluateDamage(
+            actorService.Player,
+            candidate,
+            new TotemCombatRelationshipContext(matchClock?.WorldTime ?? elapsedSec));
+        return decision.Allowed;
+    }
+
+    private static float ComputeAimScore(Vector3 origin, Vector3 forward, Vector3 target)
+    {
+        Vector3 delta = target - origin;
+        delta.y = 0f;
+        float distance = delta.magnitude;
+        if (distance <= 0.0001f)
+        {
+            return 0f;
+        }
+
+        return (1f - Vector3.Dot(forward, delta / distance)) * 100f + distance;
+    }
+
     private void RecordCombatAction(
         string action,
         string reason = null,
-        TotemActorModel target = null,
+        TotemCombatantModel target = null,
         float damage = 0f,
         bool killed = false,
         string weaponId = null,
@@ -550,7 +593,7 @@ public sealed class TotemCombatService : TotemRuntimeServiceBase, ITotemRuntimeT
     {
         lastAction = action ?? string.Empty;
         lastReason = reason ?? string.Empty;
-        lastTargetActorId = target?.ActorId ?? 0;
+        lastTargetActorId = target?.CombatantId ?? 0;
         lastTargetName = target?.Name ?? string.Empty;
         lastDamage = Mathf.Max(0f, damage);
         lastKilled = killed;
@@ -560,15 +603,27 @@ public sealed class TotemCombatService : TotemRuntimeServiceBase, ITotemRuntimeT
         lastHitCount = Mathf.Max(0, hitCount);
     }
 
-    private bool ApplyDamageAndEvaluate(TotemActorModel target, float damage, TotemActorModel source = null, string reason = null)
+    private bool ApplyDamageAndEvaluate(TotemCombatantModel target, float damage, TotemActorModel source = null, string reason = null)
     {
-        bool killed = actorService.ApplyDamage(target, damage, source, reason);
-        if (target != null && target.Kind == TotemActorKind.Boss)
+        if (target is TotemActorModel participant)
         {
-            bossService?.EvaluateBossHealth();
+            return actorService.ApplyDamage(participant, damage, source, reason);
         }
 
-        return killed;
+        if (target is TotemEnemyModel enemy && enemyService != null)
+        {
+            bool wasAlive = enemy.IsAlive;
+            enemyService.TryApplyDamage(
+                enemy.CombatantId,
+                source,
+                damage,
+                reason,
+                matchClock?.WorldTime ?? elapsedSec,
+                out _);
+            return wasAlive && !enemy.IsAlive;
+        }
+
+        return false;
     }
 
     private void OnFlowStateChanged(TotemGameFlowState previousState, TotemGameFlowState nextState)
@@ -606,19 +661,28 @@ public sealed class TotemCombatService : TotemRuntimeServiceBase, ITotemRuntimeT
         }
 
         var snapshot = actorService.CaptureActorSnapshot();
-        if (!actorService.Player.IsAlive)
+        if (snapshot.aliveParticipantCount == 1)
         {
-            FinishRun(false, "PlayerDefeated", snapshot);
+            var winner = actorService.FindUniqueAliveParticipant();
+            int winnerParticipantId = winner?.ActorId ?? 0;
+            bool localPlayerWon = ReferenceEquals(winner, actorService.Player);
+            FinishRun(localPlayerWon, "LastParticipantStanding", snapshot, winnerParticipantId);
             return;
         }
 
-        if (snapshot.aliveEnemyCount <= 0)
+        if (snapshot.aliveParticipantCount == 0)
         {
-            FinishRun(true, "AllEnemiesDefeated", snapshot);
+            FinishRun(false, "NoParticipantsAlive", snapshot, 0);
+            return;
+        }
+
+        if (!actorService.Player.IsAlive)
+        {
+            FinishRun(false, "PlayerDefeated", snapshot, 0);
         }
     }
 
-    private void FinishRun(bool win, string reason, TotemActorSnapshot actorSnapshot)
+    private void FinishRun(bool win, string reason, TotemActorSnapshot actorSnapshot, int winnerParticipantId)
     {
         runFinished = true;
         active = false;
@@ -627,46 +691,32 @@ public sealed class TotemCombatService : TotemRuntimeServiceBase, ITotemRuntimeT
             reason,
             killCount,
             actorService?.Player?.Health ?? 0f,
-            actorSnapshot?.aliveEnemyCount ?? 0,
+            actorSnapshot?.aliveParticipantCount ?? 0,
             elapsedSec);
-        ApplyVictoryRewards(result);
+        result.aliveEnemyCount = enemyService?.CaptureSnapshot().aliveEnemyCount ?? 0;
+        result.winnerParticipantId = winnerParticipantId;
         lastRunResult = result;
         lastAction = win ? "RunWin" : "RunDefeat";
+        if (winnerParticipantId > 0)
+        {
+            GFTrace.Success("TotemCombat", "Run.WinnerResolved", null, GFTrace.Data(
+                "winnerParticipantId", winnerParticipantId.ToString(),
+                "localPlayerWon", win.ToString(),
+                "reason", result.reason));
+        }
+
         GFTrace.Success("TotemCombat", "Run.Ended", null, GFTrace.Data(
             "win", win.ToString(),
             "reason", result.reason,
             "killCount", result.killCount.ToString(),
+            "aliveParticipantCount", result.aliveParticipantCount.ToString(),
             "aliveEnemyCount", result.aliveEnemyCount.ToString(),
-            "elapsed", result.elapsedSec.ToString("F1"),
-            "bossReward", result.bossDeathPatternRecipeId ?? string.Empty));
+            "winnerParticipantId", result.winnerParticipantId.ToString(),
+            "elapsed", result.elapsedSec.ToString("F1")));
         runStatsService ??= Runtime.GetService<TotemRunStatsService>();
         result.cumulativeStats = runStatsService?.RecordRun(result);
         uiService ??= Runtime.GetService<TotemUIService>();
         uiService?.OpenRunResult(result);
-    }
-
-    private void ApplyVictoryRewards(TotemRunResultSnapshot result)
-    {
-        if (result == null || !result.win)
-        {
-            return;
-        }
-
-        bossService ??= Runtime.GetService<TotemBossService>();
-        if (bossService == null || !bossService.TryClaimDeathReward(out string recipeId))
-        {
-            return;
-        }
-
-        result.bossRewardClaimed = true;
-        result.bossDeathPatternRecipeId = recipeId;
-        economyService ??= Runtime.GetService<TotemEconomyService>();
-        bool unlocked = economyService != null
-            && actorService?.Player != null
-            && economyService.UnlockRecipe(actorService.Player, recipeId);
-        GFTrace.Success("TotemCombat", "BossReward.Applied", null, GFTrace.Data(
-            "recipeId", recipeId,
-            "unlocked", unlocked.ToString()));
     }
 
     private static Vector3 GetActorFallbackForward(TotemActorModel actor)

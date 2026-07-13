@@ -4,8 +4,8 @@
   "tableName": "MerchantConfig",
   "relativePath": "Business/MerchantConfig",
   "sourceExcel": "GameData/DataTables/Business/MerchantConfig.xlsx",
-  "sourceExcelLastWriteUtc": "2026-07-09T10:00:58.2904514Z",
-  "generatedAtUtc": "2026-07-09T10:00:58.4589506Z",
+  "sourceExcelLastWriteUtc": "2026-07-10T08:55:54.3819162Z",
+  "generatedAtUtc": "2026-07-10T08:55:54.5514170Z",
   "tableComment": "Business table migrated from LegacyProjectArchive/Assets/Resources/DataTable/MerchantConfig.json. GF_X Id is numeric; original business keys are preserved as data columns.",
   "columns": [
     {

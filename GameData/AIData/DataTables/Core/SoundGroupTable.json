@@ -4,8 +4,8 @@
   "tableName": "SoundGroupTable",
   "relativePath": "Core/SoundGroupTable",
   "sourceExcel": "GameData/DataTables/Core/SoundGroupTable.xlsx",
-  "sourceExcelLastWriteUtc": "2026-07-09T10:01:06.3769522Z",
-  "generatedAtUtc": "2026-07-09T10:01:06.5444526Z",
+  "sourceExcelLastWriteUtc": "2026-07-10T08:56:04.8699167Z",
+  "generatedAtUtc": "2026-07-10T08:56:05.0829165Z",
   "tableComment": "SoundGroup",
   "columns": [
     {

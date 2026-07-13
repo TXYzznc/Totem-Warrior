@@ -4,8 +4,8 @@
   "tableName": "ItemConfig",
   "relativePath": "Business/ItemConfig",
   "sourceExcel": "GameData/DataTables/Business/ItemConfig.xlsx",
-  "sourceExcelLastWriteUtc": "2026-07-09T10:00:57.6044508Z",
-  "generatedAtUtc": "2026-07-09T10:00:57.7669515Z",
+  "sourceExcelLastWriteUtc": "2026-07-10T08:55:53.6534165Z",
+  "generatedAtUtc": "2026-07-10T08:55:53.8374170Z",
   "tableComment": "Business table migrated from LegacyProjectArchive/Assets/Resources/DataTable/ItemConfig.json. GF_X Id is numeric; original business keys are preserved as data columns.",
   "columns": [
     {

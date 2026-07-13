@@ -9,6 +9,8 @@ public sealed class TotemWeaponService : TotemRuntimeServiceBase, ITotemRuntimeT
     public const float PickupInteractRadius = 2.5f;
     public const int PickupDuplicateConvertBaseGold = 50;
 
+    private const int TraitHitBufferCapacity = TotemEnemyService.DefaultEnemyCapacity;
+
     private readonly Dictionary<int, TotemWeaponState> states = new Dictionary<int, TotemWeaponState>(64);
     private readonly List<TotemWeaponPickupModel> activePickups = new List<TotemWeaponPickupModel>(32);
     private TotemGameFlowService flowService;
@@ -18,6 +20,11 @@ public sealed class TotemWeaponService : TotemRuntimeServiceBase, ITotemRuntimeT
     private TotemMapService mapService;
     private TotemStatusService statusService;
     private TotemTattooService tattooService;
+    private TotemCombatRelationshipService relationshipService;
+    private TotemMatchClockService matchClock;
+    private TotemEnemyService enemyService;
+    private readonly TotemEnemyModel[] enemyTraitBuffer = new TotemEnemyModel[TotemEnemyService.DefaultEnemyCapacity];
+    private readonly int[] traitHitActorIdBuffer = new int[TraitHitBufferCapacity];
     private TotemWeaponDefinition[] runtimeCatalog = Array.Empty<TotemWeaponDefinition>();
     private TotemProjectileDefinition[] runtimeProjectileCatalog = Array.Empty<TotemProjectileDefinition>();
     private TotemWeaponTraitDefinition[] runtimeTraitCatalog = Array.Empty<TotemWeaponTraitDefinition>();
@@ -47,6 +54,9 @@ public sealed class TotemWeaponService : TotemRuntimeServiceBase, ITotemRuntimeT
         mapService = runtime.GetService<TotemMapService>();
         statusService = runtime.GetService<TotemStatusService>();
         tattooService = runtime.GetService<TotemTattooService>();
+        relationshipService = runtime.GetService<TotemCombatRelationshipService>();
+        matchClock = runtime.GetService<TotemMatchClockService>();
+        enemyService = runtime.GetService<TotemEnemyService>();
         var catalog = runtime.GetService<TotemDataService>()?.GameplayCatalog ?? TotemDataService.LoadGameplayCatalogOrDefault();
         runtimeCatalog = NonEmpty(catalog.CreateWeaponDefinitions(), LoadWeaponCatalog());
         runtimeProjectileCatalog = NonEmpty(catalog.CreateProjectileDefinitions(), LoadProjectileCatalog());
@@ -57,10 +67,6 @@ public sealed class TotemWeaponService : TotemRuntimeServiceBase, ITotemRuntimeT
             flowService.StateChanged += OnFlowStateChanged;
         }
 
-        if (actorService != null)
-        {
-            actorService.DamageResolved += OnDamageResolved;
-        }
     }
 
     protected override void OnShutdown()
@@ -71,11 +77,6 @@ public sealed class TotemWeaponService : TotemRuntimeServiceBase, ITotemRuntimeT
             flowService = null;
         }
 
-        if (actorService != null)
-        {
-            actorService.DamageResolved -= OnDamageResolved;
-        }
-
         DestroyAllPickups();
         actorService = null;
         economyService = null;
@@ -83,6 +84,9 @@ public sealed class TotemWeaponService : TotemRuntimeServiceBase, ITotemRuntimeT
         mapService = null;
         statusService = null;
         tattooService = null;
+        relationshipService = null;
+        matchClock = null;
+        enemyService = null;
         runtimeCatalog = Array.Empty<TotemWeaponDefinition>();
         runtimeProjectileCatalog = Array.Empty<TotemProjectileDefinition>();
         runtimeTraitCatalog = Array.Empty<TotemWeaponTraitDefinition>();
@@ -327,7 +331,7 @@ public sealed class TotemWeaponService : TotemRuntimeServiceBase, ITotemRuntimeT
         return GetOrCreateState(actor)?.Level ?? 0;
     }
 
-    public TotemWeaponFireResult FireWeapon(TotemActorModel actor, TotemActorModel target, bool isCharged, float chargeRatio)
+    public TotemWeaponFireResult FireWeapon(TotemActorModel actor, TotemCombatantModel target, bool isCharged, float chargeRatio)
     {
         var state = GetOrCreateState(actor);
         if (state == null || state.Weapon == null)
@@ -385,6 +389,11 @@ public sealed class TotemWeaponService : TotemRuntimeServiceBase, ITotemRuntimeT
         float enchantCooldownMul = tattooService == null ? 1f : tattooService.ResolveWeaponCooldownMultiplier(actor);
         float enchantRangeMul = tattooService == null ? 1f : tattooService.ResolveRangeMultiplier(actor);
         state.CooldownRemaining = weapon.Cooldown * multipliers.CooldownMul * enchantCooldownMul;
+        unchecked
+        {
+            state.FireSequence++;
+        }
+
         return new TotemWeaponFireResult
         {
             Fired = true,
@@ -395,6 +404,7 @@ public sealed class TotemWeaponService : TotemRuntimeServiceBase, ITotemRuntimeT
             Damage = damage,
             Range = (weapon.Range + multipliers.RangeAdd) * enchantRangeMul,
             IsCharged = isCharged,
+            FireSequence = state.FireSequence,
         };
     }
 
@@ -419,9 +429,9 @@ public sealed class TotemWeaponService : TotemRuntimeServiceBase, ITotemRuntimeT
         switch (trait.EffectType)
         {
             case TotemWeaponTraitEffectType.Status:
-                return ApplyStatusTrait(trait, source, target, DeriveStatusName(trait), trait.EffectParam1, trait.EffectParam2);
+                return ApplyStatusTrait(trait, fireResult, source, target, DeriveStatusName(trait), trait.EffectParam1, trait.EffectParam2);
             case TotemWeaponTraitEffectType.Stun:
-                return ApplyStatusTrait(trait, source, target, "Stun", 0f, trait.EffectParam1);
+                return ApplyStatusTrait(trait, fireResult, source, target, "Stun", 0f, trait.EffectParam1);
             case TotemWeaponTraitEffectType.Quick:
                 return ApplyQuickTrait(trait, fireResult, source, target);
             case TotemWeaponTraitEffectType.Pierce:
@@ -439,13 +449,169 @@ public sealed class TotemWeaponService : TotemRuntimeServiceBase, ITotemRuntimeT
         }
     }
 
+    public TotemWeaponTraitEffectResult ApplyTraitEffect(
+        TotemWeaponFireResult fireResult,
+        TotemActorModel source,
+        TotemEnemyModel target,
+        bool targetKilled)
+    {
+        TotemWeaponTraitDefinition trait = fireResult?.ActiveTrait;
+        var result = new TotemWeaponTraitEffectResult
+        {
+            traitId = trait?.TraitId ?? string.Empty,
+            effectType = trait?.EffectType.ToString() ?? string.Empty,
+            sourceActorId = source?.ActorId ?? 0,
+            targetActorId = target?.CombatantId ?? 0,
+        };
+        if (fireResult == null || !fireResult.Fired || trait == null || target == null || targetKilled || !target.IsAlive || enemyService == null)
+        {
+            result.reason = "TargetUnavailable";
+            return RecordTraitEffect(result);
+        }
+
+        float worldTime = matchClock?.WorldTime ?? enemyService.WorldTime;
+        switch (trait.EffectType)
+        {
+            case TotemWeaponTraitEffectType.Quick:
+                if (string.Equals(trait.TraitId, "trait_lifesteal", StringComparison.Ordinal))
+                {
+                    float heal = source?.Heal(Mathf.Min(
+                        trait.EffectParam2 <= 0f ? float.MaxValue : trait.EffectParam2,
+                        Mathf.Max(0f, fireResult.Damage) * Mathf.Clamp01(trait.EffectParam1))) ?? 0f;
+                    result.applied = heal > 0f;
+                    result.reason = result.applied ? "Applied" : "NoMissingHealth";
+                    result.sourceHeal = heal;
+                    return RecordTraitEffect(result);
+                }
+
+                if (source != null && states.TryGetValue(source.ActorId, out TotemWeaponState state))
+                {
+                    float before = state.CooldownRemaining;
+                    state.CooldownRemaining *= 1f - Mathf.Clamp(trait.EffectParam1, 0f, 0.95f);
+                    result.applied = state.CooldownRemaining < before;
+                    result.reason = result.applied ? "Applied" : "NoCooldown";
+                    result.cooldownRemaining = state.CooldownRemaining;
+                }
+                return RecordTraitEffect(result);
+
+            case TotemWeaponTraitEffectType.Status:
+            case TotemWeaponTraitEffectType.Stun:
+                float chanceBonus = tattooService?.ResolveStatusChanceBonus(source) ?? 0f;
+                float chance = TotemTattooService.ComputeStatusApplyChance(TotemTattooService.DefaultStatusApplyChance, chanceBonus);
+                float roll = ResolveDeterministicStatusRoll(
+                    trait.TraitId,
+                    source?.ActorId ?? 0,
+                    target.CombatantId,
+                    fireResult.FireSequence,
+                    chance);
+                string statusName = trait.EffectType == TotemWeaponTraitEffectType.Stun ? TotemStatusService.StunStatus : DeriveStatusName(trait);
+                float statusPower = trait.EffectType == TotemWeaponTraitEffectType.Stun ? 0f : Mathf.Max(0f, trait.EffectParam1);
+                float statusDuration = trait.EffectType == TotemWeaponTraitEffectType.Stun
+                    ? (trait.EffectParam1 > 0f ? trait.EffectParam1 : 2f)
+                    : (trait.EffectParam2 > 0f ? trait.EffectParam2 : 2f);
+                bool chancePassed = TotemTattooService.ShouldApplyStatus(chance, roll);
+                TotemEnemyStatusApplyResult statusResult = TotemEnemyStatusApplyResult.InvalidDefinition;
+                bool applies = chancePassed && enemyService.TryApplyStatus(
+                    target.CombatantId,
+                    source,
+                    statusName,
+                    statusPower,
+                    statusDuration,
+                    "WeaponTrait:" + trait.TraitId,
+                    worldTime,
+                    out statusResult);
+                result.applied = applies;
+                result.reason = applies ? statusResult.ToString() : chancePassed ? statusResult.ToString() : "StatusChanceMiss";
+                result.statusName = statusName;
+                result.statusDps = statusPower;
+                result.statusDuration = statusDuration;
+                result.statusApplied = applies;
+                result.statusChance = chance;
+                result.statusChanceBonus = chanceBonus;
+                result.statusRoll = roll;
+                return RecordTraitEffect(result);
+
+            case TotemWeaponTraitEffectType.Pull:
+                if (source == null)
+                {
+                    result.reason = "InvalidPullContext";
+                    return RecordTraitEffect(result);
+                }
+                Vector3 pullDelta = source.Position - target.Position;
+                pullDelta.y = 0f;
+                float distance = pullDelta.magnitude;
+                float maxDistance = trait.EffectParam2 <= 0f ? float.MaxValue : trait.EffectParam2;
+                float pullDistance = distance <= maxDistance
+                    ? Mathf.Min(Mathf.Max(0f, trait.EffectParam1), Mathf.Max(0f, distance - 0.75f))
+                    : 0f;
+                result.applied = pullDistance > 0f
+                    && enemyService.TryDisplaceEnemy(target.CombatantId, pullDelta.normalized * pullDistance);
+                result.reason = result.applied ? "Applied" : "PullBlocked";
+                result.displacement = result.applied ? pullDistance : 0f;
+                return RecordTraitEffect(result);
+
+            case TotemWeaponTraitEffectType.Pierce:
+            case TotemWeaponTraitEffectType.Chain:
+            case TotemWeaponTraitEffectType.Explosive:
+            case TotemWeaponTraitEffectType.MultiShot:
+                int maxHits = trait.EffectType == TotemWeaponTraitEffectType.Explosive
+                    ? int.MaxValue
+                    : Mathf.Max(0, Mathf.RoundToInt(trait.EffectParam1));
+                float radius = trait.EffectType == TotemWeaponTraitEffectType.Explosive
+                    ? Mathf.Max(0.1f, trait.EffectParam1)
+                    : Mathf.Max(3f, fireResult.Range * (trait.EffectType == TotemWeaponTraitEffectType.Chain ? 0.5f : 1f));
+                float radiusSqr = radius * radius;
+                int count = enemyService.CopyAliveEnemies(enemyTraitBuffer);
+                int hitCount = 0;
+                float totalDamage = 0f;
+                for (int i = 0; i < count && hitCount < maxHits; i++)
+                {
+                    TotemEnemyModel candidate = enemyTraitBuffer[i];
+                    if (candidate == null
+                        || candidate == target
+                        || (candidate.Position - target.Position).sqrMagnitude > radiusSqr)
+                    {
+                        continue;
+                    }
+
+                    float multiplier = trait.EffectType == TotemWeaponTraitEffectType.Explosive
+                        ? (trait.EffectParam2 <= 0f ? 0.5f : trait.EffectParam2)
+                        : Mathf.Clamp01(1f - Mathf.Max(0f, trait.EffectParam2) * (hitCount + 1));
+                    float damage = Mathf.Max(1f, fireResult.Damage * multiplier);
+                    if (enemyService.TryApplyDamage(
+                            candidate.CombatantId,
+                            source,
+                            damage,
+                            "WeaponTrait:" + trait.TraitId,
+                            worldTime,
+                            out float appliedDamage))
+                    {
+                        hitCount++;
+                        totalDamage += appliedDamage;
+                    }
+                }
+
+                result.applied = hitCount > 0;
+                result.reason = result.applied ? "Applied" : "NoSecondaryEnemy";
+                result.secondaryHitCount = hitCount;
+                result.secondaryDamage = totalDamage;
+                result.extraProjectileCount = trait.EffectType == TotemWeaponTraitEffectType.MultiShot ? maxHits : 0;
+                result.effectRadius = radius;
+                return RecordTraitEffect(result);
+
+            default:
+                result.reason = "Unsupported:" + trait.EffectType;
+                return RecordTraitEffect(result);
+        }
+    }
+
     private TotemWeaponTraitEffectResult ApplyPierceTrait(
         TotemWeaponTraitDefinition trait,
         TotemWeaponFireResult fireResult,
         TotemActorModel source,
         TotemActorModel target)
     {
-        int maxExtraHits = Mathf.Max(0, Mathf.RoundToInt(trait.EffectParam1));
+        int maxExtraHits = Mathf.Min(traitHitActorIdBuffer.Length, Mathf.Max(0, Mathf.RoundToInt(trait.EffectParam1)));
         if (maxExtraHits <= 0)
         {
             return RecordTraitEffect(BuildTraitSkipped(trait, source, target, "NoPierceCount"));
@@ -458,18 +624,17 @@ public sealed class TotemWeaponService : TotemRuntimeServiceBase, ITotemRuntimeT
 
         float maxRadius = ResolveTraitSearchRadius(fireResult, source, target);
         float falloff = Mathf.Clamp01(trait.EffectParam2);
-        var hitActorIds = new int[maxExtraHits];
         int hitCount = 0;
         float totalDamage = 0f;
         for (int i = 0; i < maxExtraHits; i++)
         {
-            var candidate = FindNearestTraitTarget(target.Position, source, target, hitActorIds, hitCount, maxRadius);
+            var candidate = FindNearestTraitTarget(target.Position, source, target, traitHitActorIdBuffer, hitCount, maxRadius);
             if (candidate == null)
             {
                 break;
             }
 
-            hitActorIds[hitCount++] = candidate.ActorId;
+            traitHitActorIdBuffer[hitCount++] = candidate.ActorId;
             float damage = Mathf.Max(1f, fireResult.Damage * (1f - falloff * hitCount));
             totalDamage += damage;
             actorService.ApplyDamage(candidate, damage, source, $"WeaponTrait:{trait.TraitId}");
@@ -488,7 +653,7 @@ public sealed class TotemWeaponService : TotemRuntimeServiceBase, ITotemRuntimeT
         TotemActorModel source,
         TotemActorModel target)
     {
-        int maxJumps = Mathf.Max(0, Mathf.RoundToInt(trait.EffectParam1));
+        int maxJumps = Mathf.Min(traitHitActorIdBuffer.Length, Mathf.Max(0, Mathf.RoundToInt(trait.EffectParam1)));
         if (maxJumps <= 0)
         {
             return RecordTraitEffect(BuildTraitSkipped(trait, source, target, "NoChainCount"));
@@ -501,19 +666,18 @@ public sealed class TotemWeaponService : TotemRuntimeServiceBase, ITotemRuntimeT
 
         float jumpRadius = Mathf.Max(3f, ResolveTraitSearchRadius(fireResult, source, target) * 0.5f);
         float falloff = Mathf.Clamp01(trait.EffectParam2);
-        var hitActorIds = new int[maxJumps];
         int hitCount = 0;
         float totalDamage = 0f;
         var jumpOrigin = target;
         for (int i = 0; i < maxJumps; i++)
         {
-            var candidate = FindNearestTraitTarget(jumpOrigin.Position, source, target, hitActorIds, hitCount, jumpRadius);
+            var candidate = FindNearestTraitTarget(jumpOrigin.Position, source, target, traitHitActorIdBuffer, hitCount, jumpRadius);
             if (candidate == null)
             {
                 break;
             }
 
-            hitActorIds[hitCount++] = candidate.ActorId;
+            traitHitActorIdBuffer[hitCount++] = candidate.ActorId;
             float damage = Mathf.Max(1f, fireResult.Damage * (1f - falloff * hitCount));
             totalDamage += damage;
             actorService.ApplyDamage(candidate, damage, source, $"WeaponTrait:{trait.TraitId}");
@@ -589,18 +753,18 @@ public sealed class TotemWeaponService : TotemRuntimeServiceBase, ITotemRuntimeT
         }
 
         float maxRadius = ResolveTraitSearchRadius(fireResult, source, target);
-        var hitActorIds = new int[extraProjectiles];
+        int maxSecondaryHits = Mathf.Min(extraProjectiles, traitHitActorIdBuffer.Length);
         int hitCount = 0;
         float totalDamage = 0f;
-        for (int i = 0; i < extraProjectiles; i++)
+        for (int i = 0; i < maxSecondaryHits; i++)
         {
-            var candidate = FindNearestTraitTarget(target.Position, source, target, hitActorIds, hitCount, maxRadius);
+            var candidate = FindNearestTraitTarget(target.Position, source, target, traitHitActorIdBuffer, hitCount, maxRadius);
             if (candidate == null)
             {
                 break;
             }
 
-            hitActorIds[hitCount++] = candidate.ActorId;
+            traitHitActorIdBuffer[hitCount++] = candidate.ActorId;
             float damage = Mathf.Max(1f, fireResult.Damage);
             totalDamage += damage;
             actorService.ApplyDamage(candidate, damage, source, $"WeaponTrait:{trait.TraitId}");
@@ -702,6 +866,7 @@ public sealed class TotemWeaponService : TotemRuntimeServiceBase, ITotemRuntimeT
 
     private TotemWeaponTraitEffectResult ApplyStatusTrait(
         TotemWeaponTraitDefinition trait,
+        TotemWeaponFireResult fireResult,
         TotemActorModel source,
         TotemActorModel target,
         string statusName,
@@ -718,7 +883,12 @@ public sealed class TotemWeaponService : TotemRuntimeServiceBase, ITotemRuntimeT
         float resolvedDps = Mathf.Max(0f, dps);
         float statusChanceBonus = tattooService?.ResolveStatusChanceBonus(source) ?? 0f;
         float statusChance = TotemTattooService.ComputeStatusApplyChance(TotemTattooService.DefaultStatusApplyChance, statusChanceBonus);
-        float statusRoll = ResolveStatusTraitRoll(trait, source, target, statusChance);
+        float statusRoll = ResolveDeterministicStatusRoll(
+            trait?.TraitId,
+            source?.ActorId ?? 0,
+            target?.ActorId ?? 0,
+            fireResult?.FireSequence ?? 0u,
+            statusChance);
         if (!TotemTattooService.ShouldApplyStatus(statusChance, statusRoll))
         {
             return RecordTraitEffect(new TotemWeaponTraitEffectResult
@@ -758,7 +928,12 @@ public sealed class TotemWeaponService : TotemRuntimeServiceBase, ITotemRuntimeT
         });
     }
 
-    private static float ResolveStatusTraitRoll(TotemWeaponTraitDefinition trait, TotemActorModel source, TotemActorModel target, float statusChance)
+    public static float ResolveDeterministicStatusRoll(
+        string traitId,
+        int sourceCombatantId,
+        int targetCombatantId,
+        uint fireSequence,
+        float statusChance)
     {
         if (statusChance >= 1f)
         {
@@ -767,12 +942,17 @@ public sealed class TotemWeaponService : TotemRuntimeServiceBase, ITotemRuntimeT
 
         unchecked
         {
-            int seed = 37;
-            seed = seed * 31 + StableHash(trait?.TraitId);
-            seed = seed * 31 + (source?.ActorId ?? 0);
-            seed = seed * 31 + (target?.ActorId ?? 0);
-            var rng = new System.Random(seed);
-            return (float)rng.NextDouble();
+            uint hash = 2166136261u;
+            hash = (hash ^ (uint)StableHash(traitId)) * 16777619u;
+            hash = (hash ^ (uint)sourceCombatantId) * 16777619u;
+            hash = (hash ^ (uint)targetCombatantId) * 16777619u;
+            hash = (hash ^ fireSequence) * 16777619u;
+            hash ^= hash >> 16;
+            hash *= 0x7feb352du;
+            hash ^= hash >> 15;
+            hash *= 0x846ca68bu;
+            hash ^= hash >> 16;
+            return (hash & 0x00ffffffu) * (1f / 16777216f);
         }
     }
 
@@ -901,29 +1081,22 @@ public sealed class TotemWeaponService : TotemRuntimeServiceBase, ITotemRuntimeT
         return best;
     }
 
-    private static bool IsValidTraitTarget(TotemActorModel candidate, TotemActorModel source, TotemActorModel primaryTarget)
+    private bool IsValidTraitTarget(TotemActorModel candidate, TotemActorModel source, TotemActorModel primaryTarget)
     {
         if (candidate == null || !candidate.IsAlive || ReferenceEquals(candidate, source) || ReferenceEquals(candidate, primaryTarget))
         {
             return false;
         }
 
-        if (source == null)
+        if (source == null || relationshipService == null)
         {
             return true;
         }
 
-        if (source.Kind == TotemActorKind.Player)
-        {
-            return candidate.Kind == TotemActorKind.SmartAi || candidate.Kind == TotemActorKind.LightAi || candidate.Kind == TotemActorKind.Boss;
-        }
-
-        if (source.Kind == TotemActorKind.SmartAi || source.Kind == TotemActorKind.LightAi || source.Kind == TotemActorKind.Boss)
-        {
-            return candidate.Kind == TotemActorKind.Player;
-        }
-
-        return true;
+        return relationshipService.EvaluateDamage(
+            source,
+            candidate,
+            new TotemCombatRelationshipContext(matchClock?.WorldTime ?? 0f)).Allowed;
     }
 
     private static bool IsExcluded(int actorId, int[] excludedActorIds, int excludedCount)
@@ -1264,29 +1437,6 @@ public sealed class TotemWeaponService : TotemRuntimeServiceBase, ITotemRuntimeT
     private static T[] NonEmpty<T>(T[] primary, T[] fallback)
     {
         return primary == null || primary.Length <= 0 ? fallback : primary;
-    }
-
-    private void OnDamageResolved(TotemDamageRecord record)
-    {
-        if (!record.Killed || record.Target == null || record.Target.Kind != TotemActorKind.SmartAi)
-        {
-            return;
-        }
-
-        int roomIndex = ResolveRoomIndex(record.Target.Position);
-        int seed = record.Sequence * 97 + record.Target.ActorId * 31;
-        if (!SpawnWeightedWeaponPickup("Elite", roomIndex, record.Target.Position + Vector3.up * 0.25f, seed, out var pickup))
-        {
-            GFTrace.Info("TotemWeapon", "Pickup.EliteSkipped", null, GFTrace.Data(
-                "actor", record.Target.Name,
-                "roomIndex", roomIndex.ToString()));
-            return;
-        }
-
-        GFTrace.Success("TotemWeapon", "Pickup.EliteDrop", null, GFTrace.Data(
-            "actor", record.Target.Name,
-            "roomIndex", roomIndex.ToString(),
-            "weaponId", pickup.WeaponId));
     }
 
     private bool IsDropCandidate(TotemWeaponDropDefinition drop, string source, int roomIndex)

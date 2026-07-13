@@ -40,7 +40,7 @@ public sealed class TotemRunResultForm : TotemOverlayFormBase
             return "No run result.";
         }
 
-        string runSummary = $"Reason: {result.reason}\nKills: {result.killCount}  Alive: {result.aliveEnemyCount}\nHP: {result.playerHealth:F0}  Time: {result.elapsedSec:F1}s";
+        string runSummary = $"Reason: {result.reason}\nKills: {result.killCount}  Participants: {result.aliveParticipantCount}  Monsters: {result.aliveEnemyCount}\nHP: {result.playerHealth:F0}  Time: {result.elapsedSec:F1}s";
         if (result.bossRewardClaimed && !string.IsNullOrWhiteSpace(result.bossDeathPatternRecipeId))
         {
             runSummary += $"\nBoss Recipe: {result.bossDeathPatternRecipeId}";

@@ -123,6 +123,53 @@ public sealed class TotemMetaProgressService : TotemRuntimeServiceBase
         return true;
     }
 
+    public bool HasBossRecipe(string recipeId)
+    {
+        if (string.IsNullOrWhiteSpace(recipeId))
+        {
+            return false;
+        }
+
+        current = Sanitize(current);
+        return Array.IndexOf(current.unlockedBossRecipes, NormalizeId(recipeId)) >= 0;
+    }
+
+    public bool TryUnlockBossRecipe(string recipeId, out bool newlyUnlocked)
+    {
+        newlyUnlocked = false;
+        if (string.IsNullOrWhiteSpace(recipeId))
+        {
+            return false;
+        }
+
+        current = Sanitize(current);
+        string normalizedId = NormalizeId(recipeId);
+        if (Array.IndexOf(current.unlockedBossRecipes, normalizedId) >= 0)
+        {
+            return true;
+        }
+
+        var previous = Clone(current);
+        var recipes = new List<string>(current.unlockedBossRecipes) { normalizedId };
+        current.unlockedBossRecipes = NormalizeStringSet(recipes);
+
+        // Boss recipes are pickup-time progression and deliberately bypass the optional AutoSave toggle.
+        if (!SaveCurrent(out string saveError))
+        {
+            current = previous;
+            GFTrace.Warning("TotemMetaProgress", "BossRecipe.PersistenceFailed", null, GFTrace.Data(
+                "recipeId", normalizedId,
+                "error", saveError ?? string.Empty));
+            return false;
+        }
+
+        newlyUnlocked = true;
+        GFTrace.Success("TotemMetaProgress", "BossRecipe.Unlocked", null, GFTrace.Data(
+            "recipeId", normalizedId,
+            "persisted", bool.TrueString));
+        return true;
+    }
+
     public bool SetDecorationUnlocked(string decorationId, bool unlocked = true)
     {
         return SetStringFlag(MetaStringSetKind.Decoration, decorationId, unlocked, "DecorationChanged");
@@ -200,6 +247,7 @@ public sealed class TotemMetaProgressService : TotemRuntimeServiceBase
         {
             characterSlots = new bool[CharacterSlotCount],
             patternUnlocks = Array.Empty<TotemPatternUnlockSnapshot>(),
+            unlockedBossRecipes = Array.Empty<string>(),
             unlockedDecorations = Array.Empty<string>(),
             unlockedTitles = Array.Empty<string>(),
             unlockedGallery = Array.Empty<string>(),
@@ -213,7 +261,7 @@ public sealed class TotemMetaProgressService : TotemRuntimeServiceBase
     public static string FormatSnapshot(TotemMetaProgressSnapshot value)
     {
         var snapshot = Sanitize(value);
-        return $"Characters: {CountUnlockedCharacters(snapshot)}/{CharacterSlotCount}  Patterns: {CountUnlockedPatternSlots(snapshot)}  Decorations: {snapshot.unlockedDecorations.Length}  Titles: {snapshot.unlockedTitles.Length}  Gallery: {snapshot.unlockedGallery.Length}  Achievements: {snapshot.completedAchievements.Length}";
+        return $"Characters: {CountUnlockedCharacters(snapshot)}/{CharacterSlotCount}  Patterns: {CountUnlockedPatternSlots(snapshot)}  Boss Recipes: {snapshot.unlockedBossRecipes.Length}  Decorations: {snapshot.unlockedDecorations.Length}  Titles: {snapshot.unlockedTitles.Length}  Gallery: {snapshot.unlockedGallery.Length}  Achievements: {snapshot.completedAchievements.Length}";
     }
 
     public static int CountUnlockedCharacters(TotemMetaProgressSnapshot value)
@@ -425,6 +473,7 @@ public sealed class TotemMetaProgressService : TotemRuntimeServiceBase
         {
             characterSlots = EnsureCharacterSlots(source.characterSlots),
             patternUnlocks = NormalizePatternUnlocks(source.patternUnlocks),
+            unlockedBossRecipes = NormalizeStringSet(source.unlockedBossRecipes),
             unlockedDecorations = NormalizeStringSet(source.unlockedDecorations),
             unlockedTitles = NormalizeStringSet(source.unlockedTitles),
             unlockedGallery = NormalizeStringSet(source.unlockedGallery),
@@ -446,6 +495,7 @@ public sealed class TotemMetaProgressService : TotemRuntimeServiceBase
                     slots = EnsureBoolArray(item.slots, PatternSlotCount),
                 })
                 .ToArray(),
+            unlockedBossRecipes = NormalizeStringSet(snapshot.unlockedBossRecipes),
             unlockedDecorations = NormalizeStringSet(snapshot.unlockedDecorations),
             unlockedTitles = NormalizeStringSet(snapshot.unlockedTitles),
             unlockedGallery = NormalizeStringSet(snapshot.unlockedGallery),

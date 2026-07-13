@@ -4,8 +4,8 @@
   "tableName": "BotBuildPreset",
   "relativePath": "Business/BotBuildPreset",
   "sourceExcel": "GameData/DataTables/Business/BotBuildPreset.xlsx",
-  "sourceExcelLastWriteUtc": "2026-07-09T10:00:55.8679507Z",
-  "generatedAtUtc": "2026-07-09T10:00:56.0364507Z",
+  "sourceExcelLastWriteUtc": "2026-07-10T08:55:50.4479172Z",
+  "generatedAtUtc": "2026-07-10T08:55:50.6304171Z",
   "tableComment": "Business table migrated from LegacyProjectArchive/Assets/Resources/DataTable/BotBuildPreset.json. GF_X Id is numeric; original business keys are preserved as data columns.",
   "columns": [
     {

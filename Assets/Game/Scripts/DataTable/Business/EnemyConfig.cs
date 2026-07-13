@@ -15,13 +15,13 @@ using UnityGameFramework.Runtime;
 [Obfuz.ObfuzIgnore(Obfuz.ObfuzScope.TypeName | Obfuz.ObfuzScope.MethodName)]
 #endif
 /// <summary>
-/// Business table migrated from LegacyProjectArchive/Assets/Resources/DataTable/EnemyConfig.json. GF_X Id is numeric; original business keys are preserved as data columns.
+/// Native Enemy definitions. JSON is the editable source; xlsx is generated from this manifest.
 /// </summary>
 public class EnemyConfig : DataRowBase
 {
 	private int m_Id = 0;
 	/// <summary>
-    /// GF_X numeric row id. Original business key is preserved as a data column when its name is not Id.
+    /// GF_X numeric row id.
     /// </summary>
     public override int Id
     {
@@ -29,7 +29,7 @@ public class EnemyConfig : DataRowBase
     }
 
         /// <summary>
-        /// 怪物唯一 ID，如 enemy_ai_servo_light
+        /// Stable enemy definition id.
         /// </summary>
         public string EnemyId
         {
@@ -38,7 +38,7 @@ public class EnemyConfig : DataRowBase
         }
 
         /// <summary>
-        /// 本地化键，如 enemy.ai_servo
+        /// Localization key.
         /// </summary>
         public string DisplayName
         {
@@ -47,7 +47,7 @@ public class EnemyConfig : DataRowBase
         }
 
         /// <summary>
-        /// AI_RUINS | ALIEN_HIVE | VIRUS_SWAMP | common
+        /// common | ai_ruins | alien_hive | virus_swamp.
         /// </summary>
         public string ThemeId
         {
@@ -56,7 +56,7 @@ public class EnemyConfig : DataRowBase
         }
 
         /// <summary>
-        /// Light | Elite | Boss
+        /// Light | Elite | Boss.
         /// </summary>
         public string Tier
         {
@@ -65,7 +65,43 @@ public class EnemyConfig : DataRowBase
         }
 
         /// <summary>
-        /// Run 第 0 分钟基础 HP
+        /// Final enemy runtime asset key.
+        /// </summary>
+        public string RuntimeAssetKey
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// Explicit Theme/Tier fallback runtime asset key.
+        /// </summary>
+        public string FallbackRuntimeAssetKey
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// Enemy controller policy profile id.
+        /// </summary>
+        public string BehaviorProfileId
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// Comma-separated EnemyAbilityConfig ids.
+        /// </summary>
+        public string AbilityIds
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// Base health points at world minute zero.
         /// </summary>
         public float BaseHP
         {
@@ -74,7 +110,7 @@ public class EnemyConfig : DataRowBase
         }
 
         /// <summary>
-        /// HP 线性增长系数，HP_t = BaseHP × (1 + K × t_min)
+        /// HP multiplier slope per world minute.
         /// </summary>
         public float HPCurveK
         {
@@ -83,7 +119,7 @@ public class EnemyConfig : DataRowBase
         }
 
         /// <summary>
-        /// 基础攻击伤害 (point)
+        /// Base damage points.
         /// </summary>
         public float BaseDamage
         {
@@ -92,7 +128,7 @@ public class EnemyConfig : DataRowBase
         }
 
         /// <summary>
-        /// 伤害随时间增长系数
+        /// Damage multiplier slope per world minute.
         /// </summary>
         public float DamageCurveK
         {
@@ -101,7 +137,7 @@ public class EnemyConfig : DataRowBase
         }
 
         /// <summary>
-        /// 移动速度 (m/s)
+        /// Movement speed in meters per second.
         /// </summary>
         public float MoveSpeed
         {
@@ -110,7 +146,7 @@ public class EnemyConfig : DataRowBase
         }
 
         /// <summary>
-        /// 攻击判定范围 (m)
+        /// Preferred attack range in meters.
         /// </summary>
         public float AttackRange
         {
@@ -119,7 +155,7 @@ public class EnemyConfig : DataRowBase
         }
 
         /// <summary>
-        /// 感知半径 (m)；失追距离 = DetectRange × 2
+        /// Detection range in meters.
         /// </summary>
         public float DetectRange
         {
@@ -128,16 +164,16 @@ public class EnemyConfig : DataRowBase
         }
 
         /// <summary>
-        /// 技能 ID 逗号分隔；Light 通常空
+        /// Maximum pursuit distance in meters.
         /// </summary>
-        public string SkillIds
+        public float LeashRange
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 随机掉落表 ID
+        /// EnemyLootConfig table id.
         /// </summary>
         public string LootTableId
         {
@@ -146,7 +182,7 @@ public class EnemyConfig : DataRowBase
         }
 
         /// <summary>
-        /// v2.1 新增：必掉物品 ID 逗号分隔；Elite 必含稀有颜料 ID
+        /// Comma-separated guaranteed EnemyLootConfig entry ids.
         /// </summary>
         public string GuaranteedLootIds
         {
@@ -155,7 +191,34 @@ public class EnemyConfig : DataRowBase
         }
 
         /// <summary>
-        /// v2.1 新增：精英必掉稀有颜料标记；1=必掉，0=不掉
+        /// Encounter budget cost.
+        /// </summary>
+        public int SpawnCost
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// Comma-separated encounter pool ids.
+        /// </summary>
+        public string PoolIds
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// Legacy participant skill bridge; empty for native enemies when possible.
+        /// </summary>
+        public string SkillIds
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// Legacy compatibility flag derived from EnemyLootConfig.
         /// </summary>
         public int ElitePaintDropRare
         {
@@ -164,7 +227,7 @@ public class EnemyConfig : DataRowBase
         }
 
         /// <summary>
-        /// 击杀奖励 XP
+        /// Kill XP reward.
         /// </summary>
         public int XPReward
         {
@@ -173,18 +236,9 @@ public class EnemyConfig : DataRowBase
         }
 
         /// <summary>
-        /// 击杀掉落金币范围，格式 min-max
+        /// Legacy coin range mirror in min-max form.
         /// </summary>
         public string CoinReward
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 所属怪物池 ID，逗号分隔
-        /// </summary>
-        public string PoolIds
         {
             get;
             private set;
@@ -206,6 +260,10 @@ public class EnemyConfig : DataRowBase
             DisplayName = columnStrings[index++];
             ThemeId = columnStrings[index++];
             Tier = columnStrings[index++];
+            RuntimeAssetKey = columnStrings[index++];
+            FallbackRuntimeAssetKey = columnStrings[index++];
+            BehaviorProfileId = columnStrings[index++];
+            AbilityIds = columnStrings[index++];
             BaseHP = float.Parse(columnStrings[index++]);
             HPCurveK = float.Parse(columnStrings[index++]);
             BaseDamage = float.Parse(columnStrings[index++]);
@@ -213,13 +271,15 @@ public class EnemyConfig : DataRowBase
             MoveSpeed = float.Parse(columnStrings[index++]);
             AttackRange = float.Parse(columnStrings[index++]);
             DetectRange = float.Parse(columnStrings[index++]);
-            SkillIds = columnStrings[index++];
+            LeashRange = float.Parse(columnStrings[index++]);
             LootTableId = columnStrings[index++];
             GuaranteedLootIds = columnStrings[index++];
+            SpawnCost = int.Parse(columnStrings[index++]);
+            PoolIds = columnStrings[index++];
+            SkillIds = columnStrings[index++];
             ElitePaintDropRare = int.Parse(columnStrings[index++]);
             XPReward = int.Parse(columnStrings[index++]);
             CoinReward = columnStrings[index++];
-            PoolIds = columnStrings[index++];
 
             return true;
         }
@@ -235,6 +295,10 @@ public class EnemyConfig : DataRowBase
                     DisplayName = binaryReader.ReadString();
                     ThemeId = binaryReader.ReadString();
                     Tier = binaryReader.ReadString();
+                    RuntimeAssetKey = binaryReader.ReadString();
+                    FallbackRuntimeAssetKey = binaryReader.ReadString();
+                    BehaviorProfileId = binaryReader.ReadString();
+                    AbilityIds = binaryReader.ReadString();
                     BaseHP = binaryReader.ReadSingle();
                     HPCurveK = binaryReader.ReadSingle();
                     BaseDamage = binaryReader.ReadSingle();
@@ -242,13 +306,15 @@ public class EnemyConfig : DataRowBase
                     MoveSpeed = binaryReader.ReadSingle();
                     AttackRange = binaryReader.ReadSingle();
                     DetectRange = binaryReader.ReadSingle();
-                    SkillIds = binaryReader.ReadString();
+                    LeashRange = binaryReader.ReadSingle();
                     LootTableId = binaryReader.ReadString();
                     GuaranteedLootIds = binaryReader.ReadString();
+                    SpawnCost = binaryReader.Read7BitEncodedInt32();
+                    PoolIds = binaryReader.ReadString();
+                    SkillIds = binaryReader.ReadString();
                     ElitePaintDropRare = binaryReader.Read7BitEncodedInt32();
                     XPReward = binaryReader.Read7BitEncodedInt32();
                     CoinReward = binaryReader.ReadString();
-                    PoolIds = binaryReader.ReadString();
                 }
             }
 

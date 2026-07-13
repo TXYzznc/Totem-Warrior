@@ -13,11 +13,15 @@ public abstract class TotemUIFormBase : UIFormBase
 
     protected TotemActorService ActorService => Runtime?.GetService<TotemActorService>();
 
+    protected TotemInputService InputService => Runtime?.GetService<TotemInputService>();
+
+    protected TotemParticipantReadinessService ReadinessService => Runtime?.GetService<TotemParticipantReadinessService>();
+
     protected TotemCombatService CombatService => Runtime?.GetService<TotemCombatService>();
 
     protected TotemAssetService AssetService => Runtime?.GetService<TotemAssetService>();
 
-    protected TotemBossService BossService => Runtime?.GetService<TotemBossService>();
+    protected TotemEnemyService EnemyService => Runtime?.GetService<TotemEnemyService>();
 
     protected TotemZoneService ZoneService => Runtime?.GetService<TotemZoneService>();
 

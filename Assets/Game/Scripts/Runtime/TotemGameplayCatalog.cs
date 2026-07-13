@@ -26,6 +26,9 @@ public sealed class TotemGameplayCatalog
     public TotemTattooEnchantRecipeCatalogEntry[] tattooEnchantRecipes = Array.Empty<TotemTattooEnchantRecipeCatalogEntry>();
     public TotemSkillCatalogEntry[] skills = Array.Empty<TotemSkillCatalogEntry>();
     public TotemEnemyCatalogEntry[] enemies = Array.Empty<TotemEnemyCatalogEntry>();
+    public TotemEnemyAbilityCatalogEntry[] enemyAbilities = Array.Empty<TotemEnemyAbilityCatalogEntry>();
+    public TotemEncounterSpawnCatalogEntry[] encounterSpawns = Array.Empty<TotemEncounterSpawnCatalogEntry>();
+    public TotemEnemyLootCatalogEntry[] enemyLoot = Array.Empty<TotemEnemyLootCatalogEntry>();
     public TotemZonePhaseCatalogEntry[] zonePhases = Array.Empty<TotemZonePhaseCatalogEntry>();
     public TotemBossPhaseCatalogEntry[] bossPhases = Array.Empty<TotemBossPhaseCatalogEntry>();
     public TotemAudioCueCatalogEntry[] audioCues = Array.Empty<TotemAudioCueCatalogEntry>();
@@ -59,6 +62,9 @@ public sealed class TotemGameplayCatalog
         if (tattooEnchantRecipes == null) tattooEnchantRecipes = Array.Empty<TotemTattooEnchantRecipeCatalogEntry>();
         if (skills == null) skills = Array.Empty<TotemSkillCatalogEntry>();
         if (enemies == null) enemies = Array.Empty<TotemEnemyCatalogEntry>();
+        if (enemyAbilities == null) enemyAbilities = Array.Empty<TotemEnemyAbilityCatalogEntry>();
+        if (encounterSpawns == null) encounterSpawns = Array.Empty<TotemEncounterSpawnCatalogEntry>();
+        if (enemyLoot == null) enemyLoot = Array.Empty<TotemEnemyLootCatalogEntry>();
         if (zonePhases == null) zonePhases = Array.Empty<TotemZonePhaseCatalogEntry>();
         if (bossPhases == null) bossPhases = Array.Empty<TotemBossPhaseCatalogEntry>();
         if (audioCues == null) audioCues = Array.Empty<TotemAudioCueCatalogEntry>();
@@ -338,6 +344,39 @@ public sealed class TotemGameplayCatalog
         return result;
     }
 
+    public TotemEnemyAbilityDefinition[] CreateEnemyAbilityDefinitions()
+    {
+        var result = new TotemEnemyAbilityDefinition[enemyAbilities.Length];
+        for (int i = 0; i < enemyAbilities.Length; i++)
+        {
+            result[i] = enemyAbilities[i].ToDefinition();
+        }
+
+        return result;
+    }
+
+    public TotemEncounterSpawnDefinition[] CreateEncounterSpawnDefinitions()
+    {
+        var result = new TotemEncounterSpawnDefinition[encounterSpawns.Length];
+        for (int i = 0; i < encounterSpawns.Length; i++)
+        {
+            result[i] = encounterSpawns[i].ToDefinition();
+        }
+
+        return result;
+    }
+
+    public TotemEnemyLootDefinition[] CreateEnemyLootDefinitions()
+    {
+        var result = new TotemEnemyLootDefinition[enemyLoot.Length];
+        for (int i = 0; i < enemyLoot.Length; i++)
+        {
+            result[i] = enemyLoot[i].ToDefinition();
+        }
+
+        return result;
+    }
+
     public TotemBossPhase[] CreateBossPhases()
     {
         var result = new TotemBossPhase[bossPhases.Length];
@@ -490,6 +529,9 @@ public sealed class TotemGameplayCatalog
             tattooEnchantRecipes = BuildDefaultTattooEnchantRecipes(),
             skills = BuildDefaultSkills(),
             enemies = BuildDefaultEnemies(),
+            enemyAbilities = BuildDefaultEnemyAbilities(),
+            encounterSpawns = BuildDefaultEncounterSpawns(),
+            enemyLoot = BuildDefaultEnemyLoot(),
             zonePhases = new[]
             {
                 new TotemZonePhaseCatalogEntry { id = 0, phaseName = "Phase0_Slow", startTime = 0f, duration = 180f, targetRadius = 65f, outZoneDamage = 2f, centerOffsetMode = "None" },
@@ -763,9 +805,199 @@ public sealed class TotemGameplayCatalog
     {
         return new[]
         {
-            new TotemEnemyCatalogEntry { enemyId = "enemy_common_light_01", displayName = "enemy.common_light", themeId = "common", tier = "Light", baseHP = 55f, hpCurveK = 0.10f, baseDamage = 8f, damageCurveK = 0.05f, moveSpeed = 3.5f, attackRange = 1.5f, detectRange = 10f, skillIds = string.Empty, lootTableId = "loot_light_common", guaranteedLootIds = string.Empty, elitePaintDropRare = 0, xpReward = 5, coinReward = "2-6", poolIds = "pool_common" },
-            new TotemEnemyCatalogEntry { enemyId = "enemy_common_elite_01", displayName = "enemy.common_elite", themeId = "common", tier = "Elite", baseHP = 150f, hpCurveK = 0.12f, baseDamage = 18f, damageCurveK = 0.07f, moveSpeed = 4f, attackRange = 2f, detectRange = 14f, skillIds = "skill_slash", lootTableId = "loot_elite_common", guaranteedLootIds = "paint_rare_001", elitePaintDropRare = 1, xpReward = 20, coinReward = "10-20", poolIds = "pool_common,pool_elite" },
-            new TotemEnemyCatalogEntry { enemyId = "enemy_ai_ruins_boss_01", displayName = "enemy.ai_ruins_boss", themeId = "AI_RUINS", tier = "Boss", baseHP = 900f, hpCurveK = 0f, baseDamage = 35f, damageCurveK = 0f, moveSpeed = 5f, attackRange = 3f, detectRange = 30f, skillIds = "skill_stomp,skill_beam,skill_summon", lootTableId = "loot_boss_ai_ruins", guaranteedLootIds = string.Empty, elitePaintDropRare = 0, xpReward = 200, coinReward = "80-120", poolIds = "pool_boss" },
+            Enemy("enemy_common_hunter", "common", "Light", "light_hunter", "ability_melee_claw", 64f, 8f, 3.8f, 1.7f, 18f, 32f, "loot_light_common", "loot_light_common_coin", 1, "pool_common_light"),
+            Enemy("enemy_common_shooter", "common", "Light", "light_kiter", "ability_projectile_bolt", 50f, 7f, 3.4f, 10f, 22f, 36f, "loot_light_common", "loot_light_common_coin", 1, "pool_common_light"),
+            Enemy("enemy_common_guardian", "common", "Elite", "elite_support", "ability_shield_guardian,ability_area_guardian", 240f, 16f, 2.8f, 5f, 24f, 40f, "loot_elite_common", "loot_elite_common_coin,loot_elite_common_paint", 4, "pool_common_elite"),
+            Enemy("enemy_ai_servo", "ai_ruins", "Light", "light_pack_alert", "ability_melee_shock", 70f, 9f, 4f, 1.8f, 20f, 34f, "loot_light_ai_ruins", "loot_light_ai_ruins_coin", 1, "pool_ai_ruins_light"),
+            Enemy("enemy_ai_arc_drone", "ai_ruins", "Light", "light_strafer", "ability_beam_arc", 54f, 8f, 4.3f, 11f, 24f, 38f, "loot_light_ai_ruins", "loot_light_ai_ruins_coin", 2, "pool_ai_ruins_light"),
+            Enemy("enemy_ai_manager", "ai_ruins", "Elite", "elite_commander", "ability_shield_manager,ability_area_emp,ability_summon_servo", 220f, 17f, 3.1f, 8f, 28f, 44f, "loot_elite_ai_ruins", "loot_elite_ai_ruins_coin,loot_elite_ai_ruins_paint", 5, "pool_ai_ruins_elite"),
+            Enemy("boss_ai_core_zero", "ai_ruins", "Boss", "boss_phase_controller", "ability_area_emp,ability_beam_core,ability_summon_servo,ability_hazard_overload,ability_phase_transition", 1250f, 32f, 3f, 14f, 45f, 60f, "loot_boss_ai_ruins", "loot_boss_ai_ruins_recipe,loot_boss_ai_ruins_paint,loot_boss_ai_ruins_coin", 12, "pool_ai_ruins_boss", "skill_stomp,skill_beam,skill_summon"),
+            Enemy("enemy_alien_crawler", "alien_hive", "Light", "light_flanker", "ability_leap_crawler,ability_melee_claw", 76f, 10f, 4.6f, 2f, 20f, 35f, "loot_light_alien_hive", "loot_light_alien_hive_coin", 2, "pool_alien_hive_light"),
+            Enemy("enemy_alien_spitter", "alien_hive", "Light", "light_kiter", "ability_projectile_acid,ability_hazard_acid", 58f, 8f, 3.5f, 12f, 25f, 40f, "loot_light_alien_hive", "loot_light_alien_hive_coin", 2, "pool_alien_hive_light"),
+            Enemy("enemy_alien_guard", "alien_hive", "Elite", "elite_zone_control", "ability_cone_alien,ability_summon_crawler,ability_hazard_acid", 270f, 19f, 3.2f, 7f, 28f, 45f, "loot_elite_alien_hive", "loot_elite_alien_hive_coin,loot_elite_alien_hive_paint", 5, "pool_alien_hive_elite"),
+            Enemy("boss_alien_hive_mother", "alien_hive", "Boss", "boss_phase_controller", "ability_cone_alien,ability_summon_crawler,ability_hazard_acid,ability_phase_transition", 1380f, 34f, 3.4f, 10f, 46f, 62f, "loot_boss_alien_hive", "loot_boss_alien_hive_recipe,loot_boss_alien_hive_paint,loot_boss_alien_hive_coin", 12, "pool_alien_hive_boss", "skill_stomp,skill_summon,skill_enrage_aoe"),
+            Enemy("enemy_virus_mutant", "virus_swamp", "Light", "light_berserker", "ability_charge_mutant", 82f, 11f, 4.1f, 5f, 21f, 36f, "loot_light_virus_swamp", "loot_light_virus_swamp_coin", 2, "pool_virus_swamp_light"),
+            Enemy("enemy_virus_spore_carrier", "virus_swamp", "Light", "light_suicide_zoner", "ability_projectile_spore,ability_death_burst_spore,ability_hazard_virus", 62f, 9f, 3.6f, 10f, 24f, 38f, "loot_light_virus_swamp", "loot_light_virus_swamp_coin", 2, "pool_virus_swamp_light"),
+            Enemy("enemy_virus_spore_host", "virus_swamp", "Elite", "elite_regenerator", "ability_area_spore,ability_regenerate_spore,ability_summon_spore", 290f, 18f, 2.9f, 7f, 28f, 46f, "loot_elite_virus_swamp", "loot_elite_virus_swamp_coin,loot_elite_virus_swamp_paint", 5, "pool_virus_swamp_elite"),
+            Enemy("boss_virus_terminus", "virus_swamp", "Boss", "boss_split_controller", "ability_charge_boss,ability_hazard_virus,ability_summon_spore,ability_regenerate_spore,ability_phase_transition", 1500f, 36f, 3.6f, 8f, 48f, 65f, "loot_boss_virus_swamp", "loot_boss_virus_swamp_recipe,loot_boss_virus_swamp_paint,loot_boss_virus_swamp_coin", 13, "pool_virus_swamp_boss", "skill_stomp,skill_summon,skill_enrage_aoe"),
+        };
+    }
+
+    private static TotemEnemyCatalogEntry Enemy(string id, string theme, string tier, string behavior, string abilities,
+        float hp, float damage, float speed, float attackRange, float detectRange, float leashRange,
+        string lootTable, string guaranteedLoot, int spawnCost, string pools, string legacySkills = "")
+    {
+        string assetKey = "enemy." + id;
+        return new TotemEnemyCatalogEntry
+        {
+            enemyId = id,
+            displayName = id.Replace('_', '.'),
+            themeId = theme,
+            tier = tier,
+            runtimeAssetKey = assetKey,
+            fallbackRuntimeAssetKey = "enemy.fallback." + theme + "." + tier.ToLowerInvariant(),
+            behaviorProfileId = behavior,
+            abilityIds = abilities,
+            baseHP = hp,
+            hpCurveK = tier == "Boss" ? 0f : 0.1f,
+            baseDamage = damage,
+            damageCurveK = tier == "Boss" ? 0f : 0.05f,
+            moveSpeed = speed,
+            attackRange = attackRange,
+            detectRange = detectRange,
+            leashRange = leashRange,
+            lootTableId = lootTable,
+            guaranteedLootIds = guaranteedLoot,
+            spawnCost = spawnCost,
+            poolIds = pools,
+            skillIds = legacySkills,
+            elitePaintDropRare = tier == "Elite" ? 1 : 0,
+            xpReward = tier == "Boss" ? 220 : tier == "Elite" ? 28 : 8,
+            coinReward = tier == "Boss" ? "90-150" : tier == "Elite" ? "12-28" : "2-9",
+        };
+    }
+
+    private static TotemEnemyAbilityCatalogEntry[] BuildDefaultEnemyAbilities()
+    {
+        return new[]
+        {
+            Ability("ability_melee_claw", "Melee"), Ability("ability_melee_shock", "Melee", statusId: "Shock", statusChance: 0.35f),
+            Ability("ability_projectile_bolt", "Projectile"), Ability("ability_projectile_acid", "Projectile", statusId: "Poison", statusChance: 0.4f), Ability("ability_projectile_spore", "Projectile", statusId: "Slow", statusChance: 0.35f),
+            Ability("ability_charge_mutant", "Charge"), Ability("ability_charge_boss", "Charge"), Ability("ability_leap_crawler", "Leap"),
+            Ability("ability_beam_arc", "Beam"), Ability("ability_beam_core", "Beam", statusId: "Shock", statusChance: 0.5f), Ability("ability_cone_alien", "ConeSweep"),
+            Ability("ability_area_guardian", "AreaPulse"), Ability("ability_area_emp", "AreaPulse"), Ability("ability_area_spore", "AreaPulse"),
+            Ability("ability_hazard_overload", "HazardZone"), Ability("ability_hazard_acid", "HazardZone"), Ability("ability_hazard_virus", "HazardZone", statusId: "Poison", statusChance: 0.6f),
+            Ability("ability_shield_guardian", "Shield", 0f), Ability("ability_shield_manager", "Shield", 0f),
+            Ability("ability_summon_servo", "Summon", 0f, "enemy_ai_servo", 2),
+            Ability("ability_summon_crawler", "Summon", 0f, "enemy_alien_crawler", 2),
+            Ability("ability_summon_spore", "Summon", 0f, "enemy_virus_spore_carrier", 2),
+            Ability("ability_regenerate_spore", "Regenerate", 0f), Ability("ability_death_burst_spore", "DeathBurst"),
+            Ability("ability_phase_transition", "PhaseTransition", 0f),
+        };
+    }
+
+    private static TotemEnemyAbilityCatalogEntry Ability(string id, string type, float damageMultiplier = 1f, string summonEnemyId = "", int summonCount = 0,
+        string statusId = "", float statusChance = 0f)
+    {
+        return new TotemEnemyAbilityCatalogEntry
+        {
+            abilityId = id,
+            abilityType = type,
+            range = type == "Melee" ? 2f : 12f,
+            radius = 1f,
+            cooldown = type == "DeathBurst" || type == "PhaseTransition" ? 0f : 4f,
+            windup = type == "DeathBurst" ? 0f : 0.5f,
+            active = 0.1f,
+            recovery = type == "DeathBurst" ? 0f : 0.6f,
+            damageMultiplier = damageMultiplier,
+            statusId = statusId,
+            statusChance = statusChance,
+            summonEnemyId = summonEnemyId,
+            summonCount = summonCount,
+            audioCueId = type == "Projectile" || type == "Beam" ? "sfx_hit_ranged" : "sfx_hit_special",
+            parametersJson = "{}",
+        };
+    }
+
+    private static TotemEncounterSpawnCatalogEntry[] BuildDefaultEncounterSpawns()
+    {
+        return new[]
+        {
+            Encounter("ai_ruins", "light", "pool_common_light,pool_ai_ruins_light", 0f, 18, 30, 60, false),
+            Encounter("ai_ruins", "elite", "pool_common_elite,pool_ai_ruins_elite", 240f, 5, 8, 8, false),
+            Encounter("ai_ruins", "boss", "pool_ai_ruins_boss", 600f, 1, 1, 1, true),
+            Encounter("alien_hive", "light", "pool_common_light,pool_alien_hive_light", 0f, 18, 30, 60, false),
+            Encounter("alien_hive", "elite", "pool_common_elite,pool_alien_hive_elite", 240f, 5, 8, 8, false),
+            Encounter("alien_hive", "boss", "pool_alien_hive_boss", 600f, 1, 1, 1, true),
+            Encounter("virus_swamp", "light", "pool_common_light,pool_virus_swamp_light", 0f, 18, 30, 60, false),
+            Encounter("virus_swamp", "elite", "pool_common_elite,pool_virus_swamp_elite", 240f, 5, 8, 8, false),
+            Encounter("virus_swamp", "boss", "pool_virus_swamp_boss", 600f, 1, 1, 1, true),
+        };
+    }
+
+    private static TotemEncounterSpawnCatalogEntry Encounter(string theme, string tier, string pools, float startTime,
+        int initialCount, int activeCap, int totalCap, bool unique)
+    {
+        bool isBoss = tier == "boss";
+        bool isElite = tier == "elite";
+        return new TotemEncounterSpawnCatalogEntry
+        {
+            encounterId = "encounter_" + theme + "." + tier,
+            themeId = theme,
+            zoneRoles = isBoss ? "BossSpawn" : isElite ? "EliteSpawn" : "EnemySpawn",
+            enemyPoolIds = pools,
+            startTime = startTime,
+            endTime = isElite ? 599f : 0f,
+            initialCount = initialCount,
+            activeCap = activeCap,
+            totalCap = totalCap,
+            waveMin = isBoss ? 1 : isElite ? 1 : 4,
+            waveMax = isBoss ? 1 : isElite ? 2 : 6,
+            waveInterval = isBoss ? 0f : isElite ? 60f : 45f,
+            minParticipantDistance = isBoss ? 45f : isElite ? 35f : 25f,
+            minSpacing = isBoss ? 12f : isElite ? 8f : 4f,
+            weight = 100,
+            unique = unique,
+        };
+    }
+
+    private static TotemEnemyLootCatalogEntry[] BuildDefaultEnemyLoot()
+    {
+        var result = new List<TotemEnemyLootCatalogEntry>(37);
+        AddLightLoot(result, "common", "2101", "5001", "Item");
+        AddLightLoot(result, "ai_ruins", "2401", "5003", "Item");
+        AddLightLoot(result, "alien_hive", "2601", "4001", "Equipment");
+        AddLightLoot(result, "virus_swamp", "2501", "5001", "Item");
+        AddEliteLoot(result, "common", "2303", "knife_basic", "4002");
+        AddEliteLoot(result, "ai_ruins", "2403", "pistol_basic", "4003");
+        AddEliteLoot(result, "alien_hive", "2603", "bow_charge", "4003");
+        AddEliteLoot(result, "virus_swamp", "2503", "energy_fist", "4003");
+        AddBossLoot(result, "ai_ruins", "recipe_ai_ruins_boss", "2403");
+        AddBossLoot(result, "alien_hive", "recipe_alien_hive_boss", "2603");
+        AddBossLoot(result, "virus_swamp", "recipe_virus_swamp_boss", "2503");
+        return result.ToArray();
+    }
+
+    private static void AddLightLoot(List<TotemEnemyLootCatalogEntry> rows, string theme, string paintId, string supplyId, string supplyType)
+    {
+        string table = "loot_light_" + theme;
+        rows.Add(Loot(table + "_coin", table, "1", "Coin", 2, 9, 0, true, "Light", theme));
+        rows.Add(Loot(table + "_paint", table, paintId, "Paint", 1, 1, 28, false, "Light", theme));
+        rows.Add(Loot(table + "_supply", table, supplyId, supplyType, 1, 1, 12, false, "Light", theme));
+    }
+
+    private static void AddEliteLoot(List<TotemEnemyLootCatalogEntry> rows, string theme, string paintId, string weaponId, string equipmentId)
+    {
+        string table = "loot_elite_" + theme;
+        rows.Add(Loot(table + "_coin", table, "1", "Coin", 12, 28, 0, true, "Elite", theme));
+        rows.Add(Loot(table + "_paint", table, paintId, "Paint", 1, 1, 0, true, "Elite", theme));
+        rows.Add(Loot(table + "_weapon", table, weaponId, "Weapon", 1, 1, 55, false, "Elite", theme));
+        rows.Add(Loot(table + "_equipment", table, equipmentId, "Equipment", 1, 1, 45, false, "Elite", theme));
+    }
+
+    private static void AddBossLoot(List<TotemEnemyLootCatalogEntry> rows, string theme, string recipeId, string paintId)
+    {
+        string table = "loot_boss_" + theme;
+        rows.Add(Loot(table + "_recipe", table, recipeId, "Recipe", 1, 1, 0, true, "Boss", theme));
+        rows.Add(Loot(table + "_paint", table, paintId, "Paint", 2, 3, 0, true, "Boss", theme));
+        rows.Add(Loot(table + "_coin", table, "1", "Coin", 90, 150, 0, true, "Boss", theme));
+    }
+
+    private static TotemEnemyLootCatalogEntry Loot(string entryId, string tableId, string itemId, string rewardType,
+        int minCount, int maxCount, int weight, bool guaranteed, string tier, string theme)
+    {
+        return new TotemEnemyLootCatalogEntry
+        {
+            lootEntryId = entryId,
+            lootTableId = tableId,
+            itemId = itemId,
+            rewardType = rewardType,
+            minCount = minCount,
+            maxCount = maxCount,
+            weight = weight,
+            guaranteed = guaranteed,
+            tierFilter = tier,
+            themeId = theme,
         };
     }
 
@@ -773,9 +1005,32 @@ public sealed class TotemGameplayCatalog
     {
         return new[]
         {
-            new TotemBossPhaseCatalogEntry { bossId = "enemy_ai_ruins_boss_01", phaseIndex = 1, hpThreshold = 1.0f, skillIds = "skill_stomp,skill_beam", enrageMultiplier = 1.0f, phaseVFXId = "vfx_boss_enter", phaseBGMCueId = "bgm_boss_phase1", deathPatternRecipeId = string.Empty },
-            new TotemBossPhaseCatalogEntry { bossId = "enemy_ai_ruins_boss_01", phaseIndex = 2, hpThreshold = 0.6f, skillIds = "skill_summon", enrageMultiplier = 1.18f, phaseVFXId = "vfx_boss_phase2", phaseBGMCueId = "bgm_boss_phase2", deathPatternRecipeId = string.Empty },
-            new TotemBossPhaseCatalogEntry { bossId = "enemy_ai_ruins_boss_01", phaseIndex = 3, hpThreshold = 0.3f, skillIds = "skill_enrage_aoe", enrageMultiplier = 1.35f, phaseVFXId = "vfx_boss_phase3", phaseBGMCueId = "bgm_boss_phase3", deathPatternRecipeId = "recipe_ai_ruins_boss" },
+            BossPhase("boss_ai_core_zero", 1, "ability_area_emp,ability_beam_core", "skill_stomp,skill_beam", 1f, "ai", ""),
+            BossPhase("boss_ai_core_zero", 2, "ability_summon_servo,ability_hazard_overload", "skill_summon", 1.18f, "ai", ""),
+            BossPhase("boss_ai_core_zero", 3, "ability_phase_transition,ability_beam_core,ability_hazard_overload", "skill_enrage_aoe", 1.38f, "ai", "recipe_ai_ruins_boss"),
+            BossPhase("boss_alien_hive_mother", 1, "ability_cone_alien,ability_hazard_acid", "skill_stomp", 1f, "alien", ""),
+            BossPhase("boss_alien_hive_mother", 2, "ability_summon_crawler,ability_hazard_acid", "skill_summon", 1.2f, "alien", ""),
+            BossPhase("boss_alien_hive_mother", 3, "ability_phase_transition,ability_cone_alien,ability_summon_crawler", "skill_enrage_aoe", 1.4f, "alien", "recipe_alien_hive_boss"),
+            BossPhase("boss_virus_terminus", 1, "ability_charge_boss,ability_hazard_virus", "skill_stomp", 1f, "virus", ""),
+            BossPhase("boss_virus_terminus", 2, "ability_summon_spore,ability_regenerate_spore", "skill_summon", 1.22f, "virus", ""),
+            BossPhase("boss_virus_terminus", 3, "ability_phase_transition,ability_charge_boss,ability_death_burst_spore", "skill_enrage_aoe", 1.42f, "virus", "recipe_virus_swamp_boss"),
+        };
+    }
+
+    private static TotemBossPhaseCatalogEntry BossPhase(string bossId, int phaseIndex, string abilities, string skills,
+        float enrageMultiplier, string theme, string recipeId)
+    {
+        return new TotemBossPhaseCatalogEntry
+        {
+            bossId = bossId,
+            phaseIndex = phaseIndex,
+            hpThreshold = phaseIndex == 1 ? 1f : phaseIndex == 2 ? 0.6f : 0.3f,
+            abilityIds = abilities,
+            skillIds = skills,
+            enrageMultiplier = enrageMultiplier,
+            phaseVFXId = "vfx_boss_" + theme + "_phase" + phaseIndex,
+            phaseBGMCueId = "bgm_boss_phase" + phaseIndex,
+            deathPatternRecipeId = recipeId,
         };
     }
 
@@ -1617,6 +1872,10 @@ public sealed class TotemEnemyCatalogEntry
     public string displayName;
     public string themeId;
     public string tier;
+    public string runtimeAssetKey;
+    public string fallbackRuntimeAssetKey;
+    public string behaviorProfileId;
+    public string abilityIds;
     public float baseHP;
     public float hpCurveK;
     public float baseDamage;
@@ -1624,9 +1883,11 @@ public sealed class TotemEnemyCatalogEntry
     public float moveSpeed;
     public float attackRange;
     public float detectRange;
+    public float leashRange;
     public string skillIds;
     public string lootTableId;
     public string guaranteedLootIds;
+    public int spawnCost;
     public int elitePaintDropRare;
     public int xpReward;
     public string coinReward;
@@ -1641,6 +1902,10 @@ public sealed class TotemEnemyCatalogEntry
             DisplayName = displayName ?? string.Empty,
             ThemeId = themeId ?? string.Empty,
             Tier = TotemCatalogEnum.Parse(tier, TotemEnemyTier.Unknown),
+            RuntimeAssetKey = runtimeAssetKey ?? string.Empty,
+            FallbackRuntimeAssetKey = fallbackRuntimeAssetKey ?? string.Empty,
+            BehaviorProfileId = behaviorProfileId ?? string.Empty,
+            AbilityIds = abilityIds ?? string.Empty,
             BaseHP = Mathf.Max(1f, baseHP),
             HPCurveK = Mathf.Max(0f, hpCurveK),
             BaseDamage = Mathf.Max(0f, baseDamage),
@@ -1648,9 +1913,11 @@ public sealed class TotemEnemyCatalogEntry
             MoveSpeed = Mathf.Max(0f, moveSpeed),
             AttackRange = Mathf.Max(0f, attackRange),
             DetectRange = Mathf.Max(0f, detectRange),
+            LeashRange = Mathf.Max(0f, leashRange),
             SkillIds = skillIds ?? string.Empty,
             LootTableId = lootTableId ?? string.Empty,
             GuaranteedLootIds = guaranteedLootIds ?? string.Empty,
+            SpawnCost = Mathf.Max(1, spawnCost),
             ElitePaintDropRare = elitePaintDropRare != 0,
             XPReward = Mathf.Max(0, xpReward),
             CoinRewardMin = coinMin,
@@ -1698,6 +1965,10 @@ public sealed class TotemEnemyDefinition
     public string DisplayName;
     public string ThemeId;
     public TotemEnemyTier Tier;
+    public string RuntimeAssetKey;
+    public string FallbackRuntimeAssetKey;
+    public string BehaviorProfileId;
+    public string AbilityIds;
     public float BaseHP;
     public float HPCurveK;
     public float BaseDamage;
@@ -1705,14 +1976,219 @@ public sealed class TotemEnemyDefinition
     public float MoveSpeed;
     public float AttackRange;
     public float DetectRange;
+    public float LeashRange;
     public string SkillIds;
     public string LootTableId;
     public string GuaranteedLootIds;
+    public int SpawnCost;
     public bool ElitePaintDropRare;
     public int XPReward;
     public int CoinRewardMin;
     public int CoinRewardMax;
     public string PoolIds;
+}
+
+public enum TotemEnemyAbilityType
+{
+    Unknown = 0,
+    Melee,
+    Projectile,
+    Charge,
+    Leap,
+    Beam,
+    ConeSweep,
+    AreaPulse,
+    HazardZone,
+    Shield,
+    Summon,
+    Regenerate,
+    DeathBurst,
+    PhaseTransition,
+}
+
+[Serializable]
+public sealed class TotemEnemyAbilityCatalogEntry
+{
+    public string abilityId;
+    public string abilityType;
+    public float range;
+    public float radius;
+    public float cooldown;
+    public float windup;
+    public float active;
+    public float recovery;
+    public float damageMultiplier;
+    public string statusId;
+    public float statusChance;
+    public string summonEnemyId;
+    public int summonCount;
+    public string vfxId;
+    public string audioCueId;
+    public string parametersJson;
+
+    public TotemEnemyAbilityDefinition ToDefinition()
+    {
+        return new TotemEnemyAbilityDefinition
+        {
+            AbilityId = abilityId ?? string.Empty,
+            AbilityType = TotemCatalogEnum.Parse(abilityType, TotemEnemyAbilityType.Unknown),
+            Range = Mathf.Max(0f, range),
+            Radius = Mathf.Max(0f, radius),
+            Cooldown = Mathf.Max(0f, cooldown),
+            Windup = Mathf.Max(0f, windup),
+            Active = Mathf.Max(0f, active),
+            Recovery = Mathf.Max(0f, recovery),
+            DamageMultiplier = Mathf.Max(0f, damageMultiplier),
+            StatusId = statusId ?? string.Empty,
+            StatusChance = Mathf.Clamp01(statusChance),
+            SummonEnemyId = summonEnemyId ?? string.Empty,
+            SummonCount = Mathf.Max(0, summonCount),
+            VfxId = vfxId ?? string.Empty,
+            AudioCueId = audioCueId ?? string.Empty,
+            ParametersJson = parametersJson ?? "{}",
+        };
+    }
+}
+
+public sealed class TotemEnemyAbilityDefinition
+{
+    public string AbilityId;
+    public TotemEnemyAbilityType AbilityType;
+    public float Range;
+    public float Radius;
+    public float Cooldown;
+    public float Windup;
+    public float Active;
+    public float Recovery;
+    public float DamageMultiplier;
+    public string StatusId;
+    public float StatusChance;
+    public string SummonEnemyId;
+    public int SummonCount;
+    public string VfxId;
+    public string AudioCueId;
+    public string ParametersJson;
+}
+
+[Serializable]
+public sealed class TotemEncounterSpawnCatalogEntry
+{
+    public string encounterId;
+    public string themeId;
+    public string zoneRoles;
+    public string enemyPoolIds;
+    public float startTime;
+    public float endTime;
+    public int initialCount;
+    public int activeCap;
+    public int totalCap;
+    public int waveMin;
+    public int waveMax;
+    public float waveInterval;
+    public float minParticipantDistance;
+    public float minSpacing;
+    public int weight;
+    public bool unique;
+
+    public TotemEncounterSpawnDefinition ToDefinition()
+    {
+        return new TotemEncounterSpawnDefinition
+        {
+            EncounterId = encounterId ?? string.Empty,
+            ThemeId = themeId ?? string.Empty,
+            ZoneRoles = zoneRoles ?? string.Empty,
+            EnemyPoolIds = enemyPoolIds ?? string.Empty,
+            StartTime = Mathf.Max(0f, startTime),
+            EndTime = Mathf.Max(0f, endTime),
+            InitialCount = Mathf.Max(0, initialCount),
+            ActiveCap = Mathf.Max(0, activeCap),
+            TotalCap = Mathf.Max(0, totalCap),
+            WaveMin = Mathf.Max(0, waveMin),
+            WaveMax = Mathf.Max(0, waveMax),
+            WaveInterval = Mathf.Max(0f, waveInterval),
+            MinParticipantDistance = Mathf.Max(0f, minParticipantDistance),
+            MinSpacing = Mathf.Max(0f, minSpacing),
+            Weight = Mathf.Max(0, weight),
+            Unique = unique,
+        };
+    }
+}
+
+public sealed class TotemEncounterSpawnDefinition
+{
+    public string EncounterId;
+    public string ThemeId;
+    public string ZoneRoles;
+    public string EnemyPoolIds;
+    public float StartTime;
+    public float EndTime;
+    public int InitialCount;
+    public int ActiveCap;
+    public int TotalCap;
+    public int WaveMin;
+    public int WaveMax;
+    public float WaveInterval;
+    public float MinParticipantDistance;
+    public float MinSpacing;
+    public int Weight;
+    public bool Unique;
+}
+
+public enum TotemEnemyLootRewardType
+{
+    Unknown = 0,
+    Coin,
+    Item,
+    Paint,
+    Weapon,
+    Equipment,
+    Recipe,
+}
+
+[Serializable]
+public sealed class TotemEnemyLootCatalogEntry
+{
+    public string lootEntryId;
+    public string lootTableId;
+    public string itemId;
+    public string rewardType;
+    public int minCount;
+    public int maxCount;
+    public int weight;
+    public bool guaranteed;
+    public string tierFilter;
+    public string themeId;
+
+    public TotemEnemyLootDefinition ToDefinition()
+    {
+        return new TotemEnemyLootDefinition
+        {
+            LootEntryId = lootEntryId ?? string.Empty,
+            LootTableId = lootTableId ?? string.Empty,
+            ItemId = itemId ?? string.Empty,
+            RewardType = TotemCatalogEnum.Parse(rewardType, TotemEnemyLootRewardType.Unknown),
+            MinCount = Mathf.Max(0, minCount),
+            MaxCount = Mathf.Max(0, maxCount),
+            Weight = Mathf.Max(0, weight),
+            Guaranteed = guaranteed,
+            TierFilter = TotemCatalogEnum.Parse(tierFilter, TotemEnemyTier.Unknown),
+            ThemeId = themeId ?? string.Empty,
+        };
+    }
+}
+
+public sealed class TotemEnemyLootDefinition
+{
+    public string LootEntryId;
+    public string LootTableId;
+    public string ItemId;
+    public TotemEnemyLootRewardType RewardType;
+    public int MinCount;
+    public int MaxCount;
+    public int Weight;
+    public bool Guaranteed;
+    public TotemEnemyTier TierFilter;
+    public string ThemeId;
 }
 
 [Serializable]
@@ -1747,6 +2223,7 @@ public sealed class TotemBossPhaseCatalogEntry
     public string bossId;
     public int phaseIndex;
     public float hpThreshold;
+    public string abilityIds;
     public string skillIds;
     public float enrageMultiplier;
     public string phaseVFXId;
@@ -2560,7 +3037,7 @@ public sealed class TotemAITuningDefinition
         lightColdInterval = TotemAIService.LightColdInterval,
         smartAttackRange = TotemAIService.SmartAttackRange,
         lightAttackRange = TotemAIService.LightAttackRange,
-        bossAttackRange = TotemAIService.BossAttackRange,
+        bossAttackRange = 5f,
         smartMoveSpeed = 4.2f,
         lightMoveSpeed = 2.4f,
         bossMoveSpeed = 3.0f,
@@ -2621,12 +3098,15 @@ public static class TotemGameplayCatalogValidator
         Require(TattooEnchantAffixesAreValid(catalog), errors, "Tattoo enchant affixes must define unique ids, known types, valid tiers and weights.");
         Require(catalog.skills.Length >= 8, errors, "At least 8 migrated SkillConfig rows are required.");
         Require(SkillsAreValid(catalog), errors, "Skills must preserve valid SkillConfig timing, charge model and hit metadata.");
-        Require(catalog.enemies.Length >= 3, errors, "At least 3 EnemyConfig rows are required.");
-        Require(EnemiesAreValid(catalog), errors, "Enemies must define Light/Elite/Boss rows with valid stats, rewards and pools.");
+        Require(catalog.enemies.Length == 15, errors, "EnemyConfig must contain the 15 confirmed enemy definitions.");
+        Require(catalog.enemyAbilities.Length >= 13, errors, "EnemyAbilityConfig must contain all reusable ability types.");
+        Require(catalog.encounterSpawns.Length == 9, errors, "EncounterSpawnConfig must contain three schedules per map theme.");
+        Require(catalog.enemyLoot.Length >= 37, errors, "EnemyLootConfig must contain Light, Elite and Boss loot rows.");
+        Require(EnemyDomainIsValid(catalog), errors, "Enemy data must preserve ids, abilities, pools, loot, assets and foreign keys.");
         Require(catalog.zonePhases.Length == 3, errors, "Zone phase count must be 3.");
         Require(ZonePhasesAreValid(catalog), errors, "Zone phases must preserve tuned ZoneShrinkConfig timing, radii, damage and offset modes.");
-        Require(catalog.bossPhases.Length == 3, errors, "Boss phase count must be 3.");
-        Require(BossPhasesAreValid(catalog), errors, "Boss phases must preserve boss id, skills, VFX/BGM cues, thresholds and final death recipe.");
+        Require(catalog.bossPhases.Length == 9, errors, "Boss phase count must be 9 across three bosses.");
+        Require(BossPhasesAreValid(catalog), errors, "Each Boss must preserve three ability phases, thresholds, VFX/BGM cues and death recipe.");
         Require(catalog.audioCues.Length >= 14, errors, "At least 14 audio cue rows are required.");
         Require(AudioCuesAreValid(catalog), errors, "Audio cues must define BGM/SFX ids, GF_X asset names and Boss phase BGM refs.");
         Require(catalog.npcs.Length == 5, errors, "NPC count must be 5.");
@@ -2999,49 +3479,168 @@ public static class TotemGameplayCatalogValidator
         return true;
     }
 
-    private static bool EnemiesAreValid(TotemGameplayCatalog catalog)
+    private static bool EnemyDomainIsValid(TotemGameplayCatalog catalog)
     {
-        bool hasLight = false;
-        bool hasElite = false;
-        bool hasBoss = false;
-        var ids = new HashSet<string>(StringComparer.Ordinal);
-        for (int i = 0; i < catalog.enemies.Length; i++)
+        var expectedEnemies = new HashSet<string>(StringComparer.Ordinal)
         {
-            var enemy = catalog.enemies[i];
-            if (enemy == null || string.IsNullOrWhiteSpace(enemy.enemyId) || !ids.Add(enemy.enemyId) ||
-                string.IsNullOrWhiteSpace(enemy.displayName) || string.IsNullOrWhiteSpace(enemy.themeId) ||
-                enemy.baseHP <= 0f || enemy.baseDamage < 0f || enemy.moveSpeed <= 0f ||
-                enemy.attackRange <= 0f || enemy.detectRange < enemy.attackRange ||
-                enemy.xpReward < 0 || string.IsNullOrWhiteSpace(enemy.coinReward) || string.IsNullOrWhiteSpace(enemy.poolIds))
+            "enemy_common_hunter", "enemy_common_shooter", "enemy_common_guardian",
+            "enemy_ai_servo", "enemy_ai_arc_drone", "enemy_ai_manager", "boss_ai_core_zero",
+            "enemy_alien_crawler", "enemy_alien_spitter", "enemy_alien_guard", "boss_alien_hive_mother",
+            "enemy_virus_mutant", "enemy_virus_spore_carrier", "enemy_virus_spore_host", "boss_virus_terminus",
+        };
+        var enemyIds = new HashSet<string>(StringComparer.Ordinal);
+        var abilityIds = new HashSet<string>(StringComparer.Ordinal);
+        var poolIds = new HashSet<string>(StringComparer.Ordinal);
+        var lootTables = new HashSet<string>(StringComparer.Ordinal);
+        var lootIds = new HashSet<string>(StringComparer.Ordinal);
+        var recipeIds = new HashSet<string>(StringComparer.Ordinal);
+        var audioCueIds = new HashSet<string>(StringComparer.Ordinal);
+        var abilityTypes = new HashSet<TotemEnemyAbilityType>();
+
+        for (int i = 0; i < catalog.audioCues.Length; i++)
+        {
+            if (catalog.audioCues[i] != null) audioCueIds.Add(catalog.audioCues[i].cueId);
+        }
+        for (int i = 0; i < catalog.bossPhases.Length; i++)
+        {
+            if (!string.IsNullOrWhiteSpace(catalog.bossPhases[i]?.deathPatternRecipeId)) recipeIds.Add(catalog.bossPhases[i].deathPatternRecipeId);
+        }
+        for (int i = 0; i < catalog.enemyLoot.Length; i++)
+        {
+            var loot = catalog.enemyLoot[i];
+            if (loot == null || string.IsNullOrWhiteSpace(loot.lootEntryId) || !lootIds.Add(loot.lootEntryId) ||
+                string.IsNullOrWhiteSpace(loot.lootTableId) || string.IsNullOrWhiteSpace(loot.itemId) ||
+                loot.minCount <= 0 || loot.maxCount < loot.minCount || (!loot.guaranteed && loot.weight <= 0))
             {
                 return false;
             }
-
-            var definition = enemy.ToDefinition();
-            if (definition.Tier == TotemEnemyTier.Unknown || definition.CoinRewardMax < definition.CoinRewardMin)
+            lootTables.Add(loot.lootTableId);
+            var rewardType = TotemCatalogEnum.Parse(loot.rewardType, TotemEnemyLootRewardType.Unknown);
+            if (rewardType == TotemEnemyLootRewardType.Unknown || TotemCatalogEnum.Parse(loot.tierFilter, TotemEnemyTier.Unknown) == TotemEnemyTier.Unknown)
             {
                 return false;
             }
-
-            if (definition.Tier == TotemEnemyTier.Light)
+            if (rewardType == TotemEnemyLootRewardType.Weapon)
             {
-                hasLight = true;
+                if (!WeaponExists(catalog, loot.itemId)) return false;
             }
-            else if (definition.Tier == TotemEnemyTier.Elite)
+            else if (rewardType == TotemEnemyLootRewardType.Recipe)
             {
-                hasElite = true;
+                if (!recipeIds.Contains(loot.itemId)) return false;
             }
-            else if (definition.Tier == TotemEnemyTier.Boss)
+            else if (!int.TryParse(loot.itemId, out int itemId) || !ItemExists(catalog, itemId))
             {
-                hasBoss = true;
-                if (string.IsNullOrWhiteSpace(enemy.skillIds) || string.IsNullOrWhiteSpace(enemy.lootTableId))
-                {
-                    return false;
-                }
+                return false;
             }
         }
 
-        return hasLight && hasElite && hasBoss;
+        for (int i = 0; i < catalog.enemyAbilities.Length; i++)
+        {
+            var ability = catalog.enemyAbilities[i];
+            if (ability == null || string.IsNullOrWhiteSpace(ability.abilityId) || !abilityIds.Add(ability.abilityId) ||
+                ability.cooldown < 0f || ability.windup < 0f || ability.active < 0f || ability.recovery < 0f ||
+                ability.statusChance < 0f || ability.statusChance > 1f || string.IsNullOrWhiteSpace(ability.parametersJson))
+            {
+                return false;
+            }
+            var abilityType = TotemCatalogEnum.Parse(ability.abilityType, TotemEnemyAbilityType.Unknown);
+            if (abilityType == TotemEnemyAbilityType.Unknown ||
+                (!string.IsNullOrWhiteSpace(ability.audioCueId) && !audioCueIds.Contains(ability.audioCueId)))
+            {
+                return false;
+            }
+            abilityTypes.Add(abilityType);
+        }
+        for (int type = (int)TotemEnemyAbilityType.Melee; type <= (int)TotemEnemyAbilityType.PhaseTransition; type++)
+        {
+            if (!abilityTypes.Contains((TotemEnemyAbilityType)type)) return false;
+        }
+
+        for (int i = 0; i < catalog.enemies.Length; i++)
+        {
+            var enemy = catalog.enemies[i];
+            if (enemy == null || string.IsNullOrWhiteSpace(enemy.enemyId) || !enemyIds.Add(enemy.enemyId) ||
+                string.IsNullOrWhiteSpace(enemy.displayName) || string.IsNullOrWhiteSpace(enemy.themeId) ||
+                string.IsNullOrWhiteSpace(enemy.runtimeAssetKey) || string.IsNullOrWhiteSpace(enemy.fallbackRuntimeAssetKey) ||
+                string.IsNullOrWhiteSpace(enemy.behaviorProfileId) || string.IsNullOrWhiteSpace(enemy.abilityIds) ||
+                enemy.baseHP <= 0f || enemy.baseDamage < 0f || enemy.moveSpeed <= 0f ||
+                enemy.attackRange <= 0f || enemy.detectRange < enemy.attackRange || enemy.leashRange < enemy.detectRange ||
+                enemy.spawnCost <= 0 || !lootTables.Contains(enemy.lootTableId) || string.IsNullOrWhiteSpace(enemy.poolIds))
+            {
+                return false;
+            }
+            if (!AllDelimitedIdsExist(enemy.abilityIds, abilityIds)) return false;
+            AddDelimitedIds(enemy.poolIds, poolIds);
+            var guaranteed = new HashSet<string>(StringComparer.Ordinal);
+            AddDelimitedIds(enemy.guaranteedLootIds, guaranteed);
+            foreach (string lootId in guaranteed)
+            {
+                if (!lootIds.Contains(lootId) || !GuaranteedLootMatches(catalog, lootId, enemy.lootTableId)) return false;
+            }
+        }
+        if (!enemyIds.SetEquals(expectedEnemies)) return false;
+
+        for (int i = 0; i < catalog.enemyAbilities.Length; i++)
+        {
+            var ability = catalog.enemyAbilities[i];
+            if (string.Equals(ability.abilityType, "Summon", StringComparison.OrdinalIgnoreCase) &&
+                (ability.summonCount <= 0 || !enemyIds.Contains(ability.summonEnemyId))) return false;
+        }
+        for (int i = 0; i < catalog.encounterSpawns.Length; i++)
+        {
+            var encounter = catalog.encounterSpawns[i];
+            if (encounter == null || string.IsNullOrWhiteSpace(encounter.encounterId) || string.IsNullOrWhiteSpace(encounter.themeId) ||
+                string.IsNullOrWhiteSpace(encounter.zoneRoles) || !AllDelimitedIdsExist(encounter.enemyPoolIds, poolIds) ||
+                encounter.initialCount > encounter.activeCap || encounter.activeCap > encounter.totalCap ||
+                encounter.waveMin > encounter.waveMax || encounter.minParticipantDistance <= 0f || encounter.minSpacing <= 0f)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private static bool ItemExists(TotemGameplayCatalog catalog, int itemId)
+    {
+        for (int i = 0; i < catalog.items.Length; i++)
+        {
+            if (catalog.items[i] != null && catalog.items[i].itemId == itemId) return true;
+        }
+        return false;
+    }
+
+    private static bool GuaranteedLootMatches(TotemGameplayCatalog catalog, string lootEntryId, string lootTableId)
+    {
+        for (int i = 0; i < catalog.enemyLoot.Length; i++)
+        {
+            var loot = catalog.enemyLoot[i];
+            if (loot != null && loot.guaranteed && string.Equals(loot.lootEntryId, lootEntryId, StringComparison.Ordinal) &&
+                string.Equals(loot.lootTableId, lootTableId, StringComparison.Ordinal)) return true;
+        }
+        return false;
+    }
+
+    private static bool AllDelimitedIdsExist(string value, HashSet<string> ids)
+    {
+        var parsed = new HashSet<string>(StringComparer.Ordinal);
+        AddDelimitedIds(value, parsed);
+        if (parsed.Count == 0) return false;
+        foreach (string id in parsed)
+        {
+            if (!ids.Contains(id)) return false;
+        }
+        return true;
+    }
+
+    private static void AddDelimitedIds(string value, HashSet<string> target)
+    {
+        if (string.IsNullOrWhiteSpace(value)) return;
+        string[] parts = value.Split(',');
+        for (int i = 0; i < parts.Length; i++)
+        {
+            string id = parts[i].Trim();
+            if (!string.IsNullOrWhiteSpace(id)) target.Add(id);
+        }
     }
 
     private static bool ZonePhasesAreValid(TotemGameplayCatalog catalog)
@@ -3079,49 +3678,44 @@ public static class TotemGameplayCatalogValidator
 
     private static bool BossPhasesAreValid(TotemGameplayCatalog catalog)
     {
-        var seen = new bool[4];
-        float previousThreshold = float.MaxValue;
+        var abilityIds = new HashSet<string>(StringComparer.Ordinal);
+        var bossIds = new HashSet<string>(StringComparer.Ordinal);
+        var phaseKeys = new HashSet<string>(StringComparer.Ordinal);
+        var finalRecipes = new HashSet<string>(StringComparer.Ordinal);
+        for (int i = 0; i < catalog.enemyAbilities.Length; i++)
+        {
+            if (catalog.enemyAbilities[i] != null) abilityIds.Add(catalog.enemyAbilities[i].abilityId);
+        }
+        for (int i = 0; i < catalog.enemies.Length; i++)
+        {
+            var enemy = catalog.enemies[i];
+            if (enemy != null && string.Equals(enemy.tier, "Boss", StringComparison.OrdinalIgnoreCase)) bossIds.Add(enemy.enemyId);
+        }
         for (int i = 0; i < catalog.bossPhases.Length; i++)
         {
             var phase = catalog.bossPhases[i];
-            if (phase == null || phase.phaseIndex < 1 || phase.phaseIndex > 3 || seen[phase.phaseIndex] ||
-                string.IsNullOrWhiteSpace(phase.bossId) || string.IsNullOrWhiteSpace(phase.skillIds) ||
+            if (phase == null || phase.phaseIndex < 1 || phase.phaseIndex > 3 ||
+                string.IsNullOrWhiteSpace(phase.bossId) || !bossIds.Contains(phase.bossId) ||
+                !phaseKeys.Add(phase.bossId + ":" + phase.phaseIndex) ||
+                string.IsNullOrWhiteSpace(phase.abilityIds) || string.IsNullOrWhiteSpace(phase.skillIds) ||
                 string.IsNullOrWhiteSpace(phase.phaseVFXId) || string.IsNullOrWhiteSpace(phase.phaseBGMCueId) ||
                 phase.hpThreshold <= 0f || phase.hpThreshold > 1f || phase.enrageMultiplier <= 0f)
             {
                 return false;
             }
-
-            if (phase.hpThreshold > previousThreshold)
+            float expectedThreshold = phase.phaseIndex == 1 ? 1f : phase.phaseIndex == 2 ? 0.6f : 0.3f;
+            if (Mathf.Abs(phase.hpThreshold - expectedThreshold) > 0.001f ||
+                !AllDelimitedIdsExist(phase.abilityIds, abilityIds) || !AllSkillIdsExist(catalog, phase.skillIds))
             {
                 return false;
             }
-
-            if (!AllSkillIdsExist(catalog, phase.skillIds))
+            if (phase.phaseIndex == 3)
             {
-                return false;
-            }
-
-            previousThreshold = phase.hpThreshold;
-            seen[phase.phaseIndex] = true;
-        }
-
-        return seen[1] && seen[2] && seen[3] &&
-            !string.IsNullOrWhiteSpace(GetBossPhase(catalog, 3)?.deathPatternRecipeId);
-    }
-
-    private static TotemBossPhaseCatalogEntry GetBossPhase(TotemGameplayCatalog catalog, int phaseIndex)
-    {
-        for (int i = 0; i < catalog.bossPhases.Length; i++)
-        {
-            var phase = catalog.bossPhases[i];
-            if (phase != null && phase.phaseIndex == phaseIndex)
-            {
-                return phase;
+                if (string.IsNullOrWhiteSpace(phase.deathPatternRecipeId)) return false;
+                finalRecipes.Add(phase.bossId);
             }
         }
-
-        return null;
+        return bossIds.Count == 3 && phaseKeys.Count == 9 && finalRecipes.SetEquals(bossIds);
     }
 
     private static bool AudioCuesAreValid(TotemGameplayCatalog catalog)

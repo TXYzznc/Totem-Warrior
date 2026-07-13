@@ -67,7 +67,7 @@ public sealed class TotemStatusService : TotemRuntimeServiceBase, ITotemRuntimeT
         }
     }
 
-    public void ApplyStatus(TotemActorModel target, string statusName, float dps, float duration, TotemActorModel source = null, string sourceReason = null)
+    public void ApplyStatus(TotemActorModel target, string statusName, float dps, float duration, TotemCombatantModel source = null, string sourceReason = null)
     {
         if (target == null || string.IsNullOrWhiteSpace(statusName) || duration <= 0f)
         {
@@ -329,7 +329,7 @@ public sealed class TotemStatusService : TotemRuntimeServiceBase, ITotemRuntimeT
         }
     }
 
-    private bool ApplyDamage(TotemActorModel target, float damage, TotemActorModel source, string reason)
+    private bool ApplyDamage(TotemActorModel target, float damage, TotemCombatantModel source, string reason)
     {
         if (actorService != null)
         {

@@ -65,8 +65,6 @@ public static class TotemActorVisualHelper
         {
             case TotemActorKind.Player:
                 return 0.55f;
-            case TotemActorKind.Boss:
-                return 1.0f;
             default:
                 return 0.50f;
         }

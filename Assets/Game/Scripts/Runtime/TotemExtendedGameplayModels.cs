@@ -391,6 +391,7 @@ public sealed class TotemWeaponState
     public int Level = 1;
     public int CurrentAmmo;
     public float CooldownRemaining;
+    public uint FireSequence;
 }
 
 public struct TotemWeaponMultipliers
@@ -417,6 +418,7 @@ public sealed class TotemWeaponFireResult
     public float Damage;
     public float Range;
     public bool IsCharged;
+    public uint FireSequence;
 }
 
 public sealed class TotemWeaponTraitEffectResult
@@ -590,7 +592,7 @@ public sealed class TotemSkillSlotState
 public sealed class TotemStatusInstance
 {
     public TotemActorModel Target;
-    public TotemActorModel Source;
+    public TotemCombatantModel Source;
     public string StatusName;
     public string SourceReason;
     public float DPS;
@@ -674,6 +676,7 @@ public sealed class TotemInventorySnapshot
     public int recipeUnlockCount;
     public string[] recipeIds;
     public int equipmentCount;
+    public TotemLootInventoryStackSnapshot[] lootItems = Array.Empty<TotemLootInventoryStackSnapshot>();
 }
 
 public sealed class TotemDeathChestSnapshot
@@ -683,6 +686,7 @@ public sealed class TotemDeathChestSnapshot
     public int inkBottleCount;
     public int recipeCopyCount;
     public int equipmentCount;
+    public TotemLootInventoryStackSnapshot[] lootItems = Array.Empty<TotemLootInventoryStackSnapshot>();
 }
 
 [Serializable]
@@ -700,7 +704,9 @@ public sealed class TotemRunResultSnapshot
     public string reason;
     public int killCount;
     public float playerHealth;
+    public int aliveParticipantCount;
     public int aliveEnemyCount;
+    public int winnerParticipantId;
     public float elapsedSec;
     public bool bossRewardClaimed;
     public string bossDeathPatternRecipeId;
@@ -733,6 +739,7 @@ public sealed class TotemMetaProgressSnapshot
 {
     public bool[] characterSlots = Array.Empty<bool>();
     public TotemPatternUnlockSnapshot[] patternUnlocks = Array.Empty<TotemPatternUnlockSnapshot>();
+    public string[] unlockedBossRecipes = Array.Empty<string>();
     public string[] unlockedDecorations = Array.Empty<string>();
     public string[] unlockedTitles = Array.Empty<string>();
     public string[] unlockedGallery = Array.Empty<string>();
@@ -906,6 +913,7 @@ public sealed class TotemAIActorState
 public sealed class TotemAISnapshot
 {
     public bool active;
+    public bool playerStartupTargetSuppressed;
     public int smartCount;
     public int lightCount;
     public int hotCount;
@@ -936,6 +944,8 @@ public sealed class TotemAISnapshot
     public int lastDecisionTargetActorId;
     public string lastDecisionTargetName;
     public TotemActorKind lastDecisionTargetKind;
+    public TotemCombatantDomain lastDecisionTargetDomain;
+    public TotemEnemyTier lastDecisionTargetEnemyTier;
     public float lastDecisionDistance;
     public float lastDecisionSafetyScore;
     public int lastDecisionProfileBotId;
@@ -968,6 +978,8 @@ public sealed class TotemAIDecisionRecord
     public int TargetActorId;
     public string TargetName;
     public TotemActorKind TargetKind;
+    public TotemCombatantDomain TargetDomain;
+    public TotemEnemyTier TargetEnemyTier;
     public float Distance;
     public float ActorHealth;
     public float TargetHealth;

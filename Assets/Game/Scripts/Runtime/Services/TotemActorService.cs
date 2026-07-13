@@ -6,11 +6,10 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
 {
     public const int SmartAiCount = 20;
     public const int LightAiCount = 29;
-    public const int RuntimeActorCountWithoutBoss = 50;
+    public const int ParticipantCount = 50;
     public const float CoverIncomingDamageMultiplier = 0.6f;
     public const float CoverMeleeBypassDistance = 4f;
     public const float ParticipantSpawnMinDistance = 18f;
-    public const float ParticipantDamageProtectionSeconds = 60f;
     private const float DeathHideDelay = 0.75f;
     private const float TerrainEffectTickInterval = 0.2f;
     private const int ParticipantSpawnRadialAttempts = 256;
@@ -31,7 +30,6 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
     private TotemGameFlowService flowService;
     private TotemMapService mapService;
     private TotemAssetService assetService;
-    private TotemEnemyDefinition[] enemyDefinitions = Array.Empty<TotemEnemyDefinition>();
     private GameObject actorRoot;
     private int damageSequence;
     private float terrainEffectAccumulator;
@@ -41,6 +39,9 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
     private float lastTerrainCoverDamageBefore;
     private float lastTerrainCoverDamageAfter;
     private float combatElapsedSec;
+    private bool playerStartupInvulnerable;
+    private int playerStartupDamageBlockedCount;
+    private string playerStartupProtectionReason = string.Empty;
 
     public override string ServiceName => "Actor";
 
@@ -48,16 +49,55 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
 
     public TotemActorModel Player { get; private set; }
 
-    public TotemActorModel Boss { get; private set; }
-
     public float CombatElapsedSeconds => combatElapsedSec;
 
-#if UNITY_EDITOR
-    public void SetCombatElapsedSecondsForDiagnostics(float elapsedSeconds)
+    public bool PlayerStartupInvulnerable => playerStartupInvulnerable;
+
+    public int PlayerStartupDamageBlockedCount => playerStartupDamageBlockedCount;
+
+    public void BeginPlayerStartupProtection(string reason)
     {
-        combatElapsedSec = Mathf.Max(combatElapsedSec, elapsedSeconds);
+        if (playerStartupInvulnerable)
+        {
+            return;
+        }
+
+        playerStartupInvulnerable = true;
+        playerStartupDamageBlockedCount = 0;
+        playerStartupProtectionReason = string.IsNullOrWhiteSpace(reason) ? "Startup" : reason;
+        GFTrace.Success("TotemActor", "PlayerStartupProtection.Enabled", null, GFTrace.Data(
+            "reason", playerStartupProtectionReason,
+            "flowState", flowService?.CurrentState.ToString() ?? string.Empty));
     }
-#endif
+
+    public bool TryReleasePlayerStartupProtection(TotemActorModel expectedPlayer, string reason)
+    {
+        if (!playerStartupInvulnerable
+            || expectedPlayer == null
+            || Player != expectedPlayer
+            || !expectedPlayer.IsAlive
+            || flowService?.CurrentState != TotemGameFlowState.CombatHud)
+        {
+            return false;
+        }
+
+        playerStartupInvulnerable = false;
+        playerStartupProtectionReason = string.IsNullOrWhiteSpace(reason) ? "Ready" : reason;
+        terrainEffectAccumulator = 0f;
+        GFTrace.Success("TotemActor", "PlayerStartupProtection.Released", null, GFTrace.Data(
+            "reason", playerStartupProtectionReason,
+            "blockedDamageCount", playerStartupDamageBlockedCount.ToString()));
+        return true;
+    }
+
+    public bool CanEnemyTarget(TotemActorModel target)
+    {
+        var readiness = Runtime?.GetService<TotemParticipantReadinessService>();
+        return target != null
+            && target.IsAlive
+            && (readiness == null || !IsParticipantActor(target) || readiness.CanBeTargeted(target))
+            && (!playerStartupInvulnerable || target != Player);
+    }
 
     public event Action<TotemActorModel, float, bool> DamageApplied;
 
@@ -70,7 +110,6 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
         flowService = runtime.GetService<TotemGameFlowService>();
         mapService = runtime.GetService<TotemMapService>();
         assetService = runtime.GetService<TotemAssetService>();
-        enemyDefinitions = NonEmpty(runtime.GetService<TotemDataService>()?.GameplayCatalog?.CreateEnemyDefinitions(), LoadEnemyDefinitions());
         if (flowService != null)
         {
             flowService.StateChanged += OnFlowStateChanged;
@@ -87,7 +126,9 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
 
         DespawnActors();
         assetService = null;
-        enemyDefinitions = Array.Empty<TotemEnemyDefinition>();
+        playerStartupInvulnerable = false;
+        playerStartupDamageBlockedCount = 0;
+        playerStartupProtectionReason = string.Empty;
         DamageApplied = null;
         DamageResolved = null;
         LastDamage = default;
@@ -109,6 +150,7 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
     public TotemActorSnapshot CaptureActorSnapshot()
     {
         var snapshot = new TotemActorSnapshot();
+        var readiness = Runtime?.GetService<TotemParticipantReadinessService>();
         for (int i = 0; i < actors.Count; i++)
         {
             var actor = actors[i];
@@ -131,61 +173,63 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
             {
                 case TotemActorKind.Player:
                     snapshot.playerCount++;
+                    if (readiness == null ? actor.IsAlive : readiness.CountsAsAlive(actor))
+                    {
+                        snapshot.aliveParticipantCount++;
+                    }
                     break;
                 case TotemActorKind.SmartAi:
                     snapshot.smartAiCount++;
-                    if (actor.IsAlive)
+                    if (readiness == null ? actor.IsAlive : readiness.CountsAsAlive(actor))
                     {
-                        snapshot.aliveEnemyCount++;
+                        snapshot.aliveParticipantCount++;
                     }
                     break;
                 case TotemActorKind.LightAi:
                     snapshot.lightAiCount++;
-                    if (actor.IsAlive)
+                    if (readiness == null ? actor.IsAlive : readiness.CountsAsAlive(actor))
                     {
-                        snapshot.aliveEnemyCount++;
-                    }
-                    break;
-                case TotemActorKind.Boss:
-                    snapshot.bossCount++;
-                    if (actor.IsAlive)
-                    {
-                        snapshot.aliveEnemyCount++;
+                        snapshot.aliveParticipantCount++;
                     }
                     break;
             }
         }
 
         snapshot.actorCount = snapshot.playerCount + snapshot.smartAiCount + snapshot.lightAiCount;
+        snapshot.participantCount = snapshot.actorCount;
         snapshot.terrainHazardHitCount = terrainHazardHitCount;
         snapshot.lastTerrainHazardDamageTick = lastTerrainHazardDamageTick;
         snapshot.terrainCoverReducedHitCount = terrainCoverReducedHitCount;
         snapshot.lastTerrainCoverDamageBefore = lastTerrainCoverDamageBefore;
         snapshot.lastTerrainCoverDamageAfter = lastTerrainCoverDamageAfter;
+        snapshot.playerStartupInvulnerable = playerStartupInvulnerable;
+        snapshot.playerStartupDamageBlockedCount = playerStartupDamageBlockedCount;
+        snapshot.playerStartupProtectionReason = playerStartupProtectionReason;
         return snapshot;
     }
 
-    public TotemActorModel FindClosestAliveEnemy(Vector3 origin)
+    public TotemActorModel FindUniqueAliveParticipant()
     {
-        TotemActorModel best = null;
-        float bestDistance = float.MaxValue;
+        TotemActorModel uniqueParticipant = null;
+        var readiness = Runtime?.GetService<TotemParticipantReadinessService>();
         for (int i = 0; i < actors.Count; i++)
         {
             var actor = actors[i];
-            if (!IsEnemy(actor) || !actor.IsAlive)
+            if (!IsParticipantActor(actor)
+                || !(readiness == null ? actor.IsAlive : readiness.CountsAsAlive(actor)))
             {
                 continue;
             }
 
-            float sqrDistance = (actor.Position - origin).sqrMagnitude;
-            if (sqrDistance < bestDistance)
+            if (uniqueParticipant != null)
             {
-                bestDistance = sqrDistance;
-                best = actor;
+                return null;
             }
+
+            uniqueParticipant = actor;
         }
 
-        return best;
+        return uniqueParticipant;
     }
 
     public void MoveActor(TotemActorModel actor, Vector3 delta)
@@ -228,24 +272,75 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
         UpdateActorMovementAnimation(actor, next - previous);
     }
 
-    public bool ApplyDamage(TotemActorModel target, float amount, TotemActorModel source = null, string reason = null)
+    public bool ApplyDamage(TotemActorModel target, float amount, TotemCombatantModel source = null, string reason = null)
     {
         if (target == null || amount <= 0f || !target.IsAlive)
         {
             return false;
         }
 
-        float originalAmount = amount;
-        if (IsParticipantDamageProtected(source, target, reason))
+        var readiness = Runtime?.GetService<TotemParticipantReadinessService>();
+        if (readiness != null
+            && IsParticipantActor(target)
+            && !readiness.CanBeTargeted(target))
         {
-            GFTrace.Info("TotemActor", "Damage.Blocked.ParticipantGrace", null, GFTrace.Data(
+            if (target == Player)
+            {
+                playerStartupDamageBlockedCount++;
+            }
+
+            GFTrace.Info("TotemActor", "Damage.Blocked.ParticipantReadiness", null, GFTrace.Data(
                 "source", source?.Name ?? string.Empty,
                 "target", target.Name,
-                "elapsed", combatElapsedSec.ToString("F1"),
+                "lifecycle", readiness.GetLifecycle(target).ToString(),
                 "reason", string.IsNullOrWhiteSpace(reason) ? "Damage" : reason));
             return false;
         }
 
+        var sourceParticipant = source as TotemActorModel;
+        if (readiness != null
+            && IsParticipantActor(sourceParticipant)
+            && !readiness.CanAct(sourceParticipant))
+        {
+            GFTrace.Info("TotemActor", "Damage.Blocked.ParticipantCannotAct", null, GFTrace.Data(
+                "source", source.Name,
+                "target", target.Name,
+                "lifecycle", readiness.GetLifecycle(sourceParticipant).ToString(),
+                "reason", string.IsNullOrWhiteSpace(reason) ? "Damage" : reason));
+            return false;
+        }
+
+        var relationship = Runtime?.GetService<TotemCombatRelationshipService>();
+        if (relationship != null)
+        {
+            float worldTime = Runtime?.GetService<TotemMatchClockService>()?.WorldTime ?? combatElapsedSec;
+            var decision = relationship.EvaluateDamage(
+                source,
+                target,
+                new TotemCombatRelationshipContext(worldTime));
+            if (!decision.Allowed)
+            {
+                GFTrace.Info("TotemActor", "Damage.Blocked.Relationship", null, GFTrace.Data(
+                    "source", source?.Name ?? string.Empty,
+                    "target", target.Name,
+                    "relationship", decision.Reason.ToString(),
+                    "reason", string.IsNullOrWhiteSpace(reason) ? "Damage" : reason));
+                return false;
+            }
+        }
+
+        if (playerStartupInvulnerable && target == Player)
+        {
+            playerStartupDamageBlockedCount++;
+            GFTrace.Info("TotemActor", "Damage.Blocked.PlayerStartupProtection", null, GFTrace.Data(
+                "source", source?.Name ?? string.Empty,
+                "target", target.Name,
+                "amount", amount.ToString("F1"),
+                "reason", string.IsNullOrWhiteSpace(reason) ? "Damage" : reason));
+            return false;
+        }
+
+        float originalAmount = amount;
         amount = ResolveTerrainAdjustedDamage(source, target, amount, reason);
         if (amount <= 0f)
         {
@@ -282,7 +377,22 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
         return killed;
     }
 
-    public float ResolveTerrainAdjustedDamage(TotemActorModel source, TotemActorModel target, float amount, string reason = null)
+    /// <summary>
+    /// Resolves damage through the same policy as ApplyDamage and reports whether
+    /// a damage record was committed, independent of whether the hit was lethal.
+    /// </summary>
+    public bool TryApplyDamage(
+        TotemActorModel target,
+        float amount,
+        TotemCombatantModel source = null,
+        string reason = null)
+    {
+        int sequenceBefore = damageSequence;
+        ApplyDamage(target, amount, source, reason);
+        return damageSequence > sequenceBefore;
+    }
+
+    public float ResolveTerrainAdjustedDamage(TotemCombatantModel source, TotemActorModel target, float amount, string reason = null)
     {
         if (amount <= 0f || source == null || target == null || source == target || mapService?.CurrentMap == null)
         {
@@ -428,7 +538,7 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
             spawnedObjects.Add(actorRoot);
         }
 
-        var spawnInfos = BuildActorRoster(map, selection, enemyDefinitions);
+        var spawnInfos = BuildActorRoster(map, selection);
         for (int i = 0; i < spawnInfos.Length; i++)
         {
             var actor = new TotemActorModel(spawnInfos[i]);
@@ -443,10 +553,6 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
             {
                 Player = actor;
             }
-            else if (actor.Kind == TotemActorKind.Boss)
-            {
-                Boss = actor;
-            }
         }
 
         var snapshot = CaptureActorSnapshot();
@@ -454,19 +560,10 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
             "actorCount", snapshot.actorCount.ToString(),
             "smartAi", snapshot.smartAiCount.ToString(),
             "lightAi", snapshot.lightAiCount.ToString(),
-            "boss", snapshot.bossCount.ToString(),
-            "enemyRows", (enemyDefinitions?.Length ?? 0).ToString()));
+            "participantCount", snapshot.actorCount.ToString()));
     }
 
     public static TotemActorSpawnInfo[] BuildActorRoster(TotemMapSnapshot map, TotemStartupSelection selection)
-    {
-        return BuildActorRoster(map, selection, LoadEnemyDefinitions());
-    }
-
-    public static TotemActorSpawnInfo[] BuildActorRoster(
-        TotemMapSnapshot map,
-        TotemStartupSelection selection,
-        IReadOnlyList<TotemEnemyDefinition> enemyDefinitions)
     {
         if (map == null)
         {
@@ -478,81 +575,63 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
             TotemMapAnchorKind.PlayerSpawn,
             FindRoom(map, TotemRoomType.SpawnRoom)?.CenterWorld ?? new Vector3(82f, 0f, 82f));
         playerPosition.y = 0.5f;
-        var participantPositions = new List<Vector3>(RuntimeActorCountWithoutBoss);
+        var participantPositions = new List<Vector3>(ParticipantCount);
         playerPosition = ResolveParticipantSpawnPosition(map, playerPosition, playerPosition, participantPositions, 0);
         participantPositions.Add(playerPosition);
-        Vector3 bossPosition = TotemMapService.ResolveAnchorPosition(
-            map,
-            TotemMapAnchorKind.BossSpawn,
-            FindRoom(map, TotemRoomType.BossRoom)?.CenterWorld ?? new Vector3(324f, 0f, 82f));
-        bossPosition.y = 0.5f;
-
-        var result = new TotemActorSpawnInfo[RuntimeActorCountWithoutBoss + 1];
+        var result = new TotemActorSpawnInfo[ParticipantCount];
         int cursor = 0;
         result[cursor++] = new TotemActorSpawnInfo
         {
             ActorId = selection != null && selection.CharacterId > 0 ? selection.CharacterId : 1,
             Name = "Player",
             Kind = TotemActorKind.Player,
+            ControllerKind = TotemParticipantControllerKind.Human,
             Position = playerPosition,
             MaxHealth = 100f,
         };
 
-        int enemyIndex = 0;
+        int participantIndex = 0;
         int[] ringCounts = { 14, 17, 18 };
         float[] fallbackRingRadii = { 8f, 13f, 18f };
         float[] anchoredGroupRadii = { 0.75f, 0.9f, 1.05f };
-        var enemyAnchors = TotemMapService.FindAnchors(map, TotemMapAnchorKind.EnemySpawn);
-        for (int ring = 0; ring < ringCounts.Length && enemyIndex < SmartAiCount + LightAiCount; ring++)
+        var participantAnchors = TotemMapService.FindAnchors(map, TotemMapAnchorKind.EnemySpawn);
+        for (int ring = 0; ring < ringCounts.Length && participantIndex < SmartAiCount + LightAiCount; ring++)
         {
             int count = ringCounts[ring];
-            var enemyAnchor = FindEnemySpawnAnchor(enemyAnchors, ring);
-            Vector3 groupCenter = enemyAnchor == null ? playerPosition : enemyAnchor.Position;
+            var participantAnchor = FindParticipantSpawnAnchor(participantAnchors, ring);
+            Vector3 groupCenter = participantAnchor == null ? playerPosition : participantAnchor.Position;
             groupCenter.y = 0.5f;
-            float radius = enemyAnchor == null ? fallbackRingRadii[ring] : anchoredGroupRadii[ring];
-            for (int slot = 0; slot < count && enemyIndex < SmartAiCount + LightAiCount; slot++)
+            float radius = participantAnchor == null ? fallbackRingRadii[ring] : anchoredGroupRadii[ring];
+            for (int slot = 0; slot < count && participantIndex < SmartAiCount + LightAiCount; slot++)
             {
-                bool smart = enemyIndex < SmartAiCount;
+                bool smart = participantIndex < SmartAiCount;
                 float angle = (slot + ring * 0.3f) * Mathf.PI * 2f / count;
                 var desiredPosition = new Vector3(
                     groupCenter.x + Mathf.Cos(angle) * radius,
                     0.5f,
                     groupCenter.z + Mathf.Sin(angle) * radius);
-                var position = ResolveWalkableEnemySpawnPosition(map, desiredPosition, groupCenter, playerPosition);
-                position = ResolveParticipantSpawnPosition(map, position, groupCenter, participantPositions, enemyIndex + 1);
+                var position = ResolveWalkableParticipantSpawnPosition(map, desiredPosition, groupCenter, playerPosition);
+                position = ResolveParticipantSpawnPosition(map, position, groupCenter, participantPositions, participantIndex + 1);
 
-                var definition = ResolveEnemyDefinition(smart ? TotemActorKind.SmartAi : TotemActorKind.LightAi, map.ThemeName, enemyDefinitions);
                 var spawnInfo = new TotemActorSpawnInfo
                 {
-                    ActorId = enemyIndex + 2,
-                    Name = smart ? $"SmartAI{enemyIndex + 1:00}" : $"LightAI{enemyIndex - SmartAiCount + 1:00}",
+                    ActorId = participantIndex + 2,
+                    Name = smart ? $"SmartAI{participantIndex + 1:00}" : $"LightAI{participantIndex - SmartAiCount + 1:00}",
                     Kind = smart ? TotemActorKind.SmartAi : TotemActorKind.LightAi,
+                    ControllerKind = smart ? TotemParticipantControllerKind.SmartBot : TotemParticipantControllerKind.LightBot,
                     Position = position,
-                    MaxHealth = definition?.BaseHP ?? 50f,
+                    MaxHealth = 100f,
                 };
-                ApplyEnemyDefinition(spawnInfo, definition);
                 result[cursor++] = spawnInfo;
                 participantPositions.Add(position);
-                enemyIndex++;
+                participantIndex++;
             }
         }
-
-        var bossDefinition = ResolveEnemyDefinition(TotemActorKind.Boss, map.ThemeName, enemyDefinitions);
-        var bossInfo = new TotemActorSpawnInfo
-        {
-            ActorId = 1000,
-            Name = "Boss",
-            Kind = TotemActorKind.Boss,
-            Position = bossPosition,
-            MaxHealth = bossDefinition?.BaseHP ?? 300f,
-        };
-        ApplyEnemyDefinition(bossInfo, bossDefinition);
-        result[cursor] = bossInfo;
 
         return result;
     }
 
-    private static TotemMapAnchor FindEnemySpawnAnchor(IReadOnlyList<TotemMapAnchor> anchors, int groupIndex)
+    private static TotemMapAnchor FindParticipantSpawnAnchor(IReadOnlyList<TotemMapAnchor> anchors, int groupIndex)
     {
         if (anchors == null || anchors.Count <= 0)
         {
@@ -572,7 +651,7 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
         return groupIndex >= 0 && groupIndex < anchors.Count ? anchors[groupIndex] : null;
     }
 
-    private static Vector3 ResolveWalkableEnemySpawnPosition(TotemMapSnapshot map, Vector3 desiredPosition, Vector3 groupCenter, Vector3 fallback)
+    private static Vector3 ResolveWalkableParticipantSpawnPosition(TotemMapSnapshot map, Vector3 desiredPosition, Vector3 groupCenter, Vector3 fallback)
     {
         if (IsWalkableSpawnPosition(map, desiredPosition))
         {
@@ -641,7 +720,7 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
             return bestPosition;
         }
 
-        return ResolveWalkableEnemySpawnPosition(map, desiredPosition, groupCenter, desiredPosition);
+        return ResolveWalkableParticipantSpawnPosition(map, desiredPosition, groupCenter, desiredPosition);
     }
 
     private static bool TryEvaluateParticipantSpawnCandidate(
@@ -739,47 +818,6 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
         }
     }
 
-    public static TotemEnemyDefinition ResolveEnemyDefinition(
-        TotemActorKind kind,
-        string themeName,
-        IReadOnlyList<TotemEnemyDefinition> definitions)
-    {
-        var tier = ToEnemyTier(kind);
-        if (definitions == null || definitions.Count <= 0 || tier == TotemEnemyTier.Unknown)
-        {
-            return null;
-        }
-
-        TotemEnemyDefinition commonMatch = null;
-        TotemEnemyDefinition firstTierMatch = null;
-        for (int i = 0; i < definitions.Count; i++)
-        {
-            var definition = definitions[i];
-            if (definition == null || definition.Tier != tier)
-            {
-                continue;
-            }
-
-            firstTierMatch ??= definition;
-            if (IsThemeMatch(definition.ThemeId, themeName))
-            {
-                return definition;
-            }
-
-            if (string.Equals(definition.ThemeId, "common", StringComparison.OrdinalIgnoreCase))
-            {
-                commonMatch ??= definition;
-            }
-        }
-
-        return commonMatch ?? firstTierMatch;
-    }
-
-    public static bool IsEnemy(TotemActorModel actor)
-    {
-        return actor != null && actor.Kind != TotemActorKind.Player;
-    }
-
     public static bool IsParticipantActor(TotemActorModel actor)
     {
         return actor != null && IsParticipantKind(actor.Kind);
@@ -790,68 +828,6 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
         return kind == TotemActorKind.Player
             || kind == TotemActorKind.SmartAi
             || kind == TotemActorKind.LightAi;
-    }
-
-    private static TotemEnemyTier ToEnemyTier(TotemActorKind kind)
-    {
-        switch (kind)
-        {
-            case TotemActorKind.SmartAi:
-                return TotemEnemyTier.Elite;
-            case TotemActorKind.LightAi:
-                return TotemEnemyTier.Light;
-            case TotemActorKind.Boss:
-                return TotemEnemyTier.Boss;
-            default:
-                return TotemEnemyTier.Unknown;
-        }
-    }
-
-    private static bool IsThemeMatch(string definitionTheme, string mapTheme)
-    {
-        return !string.IsNullOrWhiteSpace(definitionTheme)
-            && !string.IsNullOrWhiteSpace(mapTheme)
-            && string.Equals(definitionTheme, mapTheme, StringComparison.OrdinalIgnoreCase);
-    }
-
-    private static void ApplyEnemyDefinition(TotemActorSpawnInfo spawnInfo, TotemEnemyDefinition definition)
-    {
-        if (spawnInfo == null || definition == null)
-        {
-            return;
-        }
-
-        spawnInfo.EnemyId = definition.EnemyId;
-        spawnInfo.DisplayName = definition.DisplayName;
-        spawnInfo.ThemeId = definition.ThemeId;
-        spawnInfo.EnemyTier = definition.Tier;
-        spawnInfo.MaxHealth = definition.BaseHP;
-        spawnInfo.HpCurveK = definition.HPCurveK;
-        spawnInfo.BaseDamage = definition.BaseDamage;
-        spawnInfo.DamageCurveK = definition.DamageCurveK;
-        spawnInfo.MoveSpeed = definition.MoveSpeed;
-        spawnInfo.AttackRange = definition.AttackRange;
-        spawnInfo.DetectRange = definition.DetectRange;
-        spawnInfo.SkillIds = definition.SkillIds;
-        spawnInfo.LootTableId = definition.LootTableId;
-        spawnInfo.GuaranteedLootIds = definition.GuaranteedLootIds;
-        spawnInfo.ElitePaintDropRare = definition.ElitePaintDropRare;
-        spawnInfo.XPReward = definition.XPReward;
-        spawnInfo.CoinRewardMin = definition.CoinRewardMin;
-        spawnInfo.CoinRewardMax = definition.CoinRewardMax;
-        spawnInfo.PoolIds = definition.PoolIds;
-    }
-
-    private static TotemEnemyDefinition[] LoadEnemyDefinitions()
-    {
-        return NonEmpty(
-            TotemDataService.LoadGameplayCatalogOrDefault().CreateEnemyDefinitions(),
-            Array.Empty<TotemEnemyDefinition>());
-    }
-
-    private static T[] NonEmpty<T>(T[] primary, T[] fallback)
-    {
-        return primary == null || primary.Length <= 0 ? fallback : primary;
     }
 
     private static bool IsEnvironmentOrStatusDamage(string reason)
@@ -866,25 +842,6 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
             || reason.StartsWith("Status:", StringComparison.Ordinal)
             || reason.StartsWith("StatusTick:", StringComparison.Ordinal)
             || reason.IndexOf("Status", StringComparison.OrdinalIgnoreCase) >= 0;
-    }
-
-    private bool IsParticipantDamageProtected(TotemActorModel source, TotemActorModel target, string reason)
-    {
-        return flowService != null
-            && flowService.CurrentState == TotemGameFlowState.CombatHud
-            && combatElapsedSec < ParticipantDamageProtectionSeconds
-            && !IsDamageProtectionBypassReason(reason)
-            && source != null
-            && target != null
-            && source != target
-            && IsParticipantActor(source)
-            && IsParticipantActor(target);
-    }
-
-    private static bool IsDamageProtectionBypassReason(string reason)
-    {
-        return !string.IsNullOrWhiteSpace(reason)
-            && reason.IndexOf("Diagnostic", StringComparison.Ordinal) >= 0;
     }
 
     private static float FlatDistance(Vector3 a, Vector3 b)
@@ -906,6 +863,8 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
 
         if (previousState == TotemGameFlowState.CombatHud)
         {
+            playerStartupInvulnerable = false;
+            playerStartupProtectionReason = "CombatHud.Exit";
             DespawnActors();
             LastDamage = default;
             damageSequence = 0;
@@ -934,8 +893,7 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
             return instance;
         }
 
-        PrimitiveType primitive = actor.Kind == TotemActorKind.Boss ? PrimitiveType.Cube : PrimitiveType.Capsule;
-        var go = GameObject.CreatePrimitive(primitive);
+        var go = GameObject.CreatePrimitive(PrimitiveType.Capsule);
         go.name = $"Totem_{actor.Name}";
         go.transform.SetParent(actorRoot.transform, false);
         go.transform.position = actor.Position;
@@ -995,8 +953,6 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
                 return "actor.smartAi";
             case TotemActorKind.LightAi:
                 return "actor.lightAi";
-            case TotemActorKind.Boss:
-                return "actor.boss";
             default:
                 return string.Empty;
         }
@@ -1015,7 +971,6 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
         spawnedObjects.Clear();
         actors.Clear();
         Player = null;
-        Boss = null;
         actorRoot = null;
         LastDamage = default;
         damageSequence = 0;
@@ -1053,8 +1008,6 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
         {
             case TotemActorKind.Player:
                 return new Vector3(0.8f, 0.8f, 0.8f);
-            case TotemActorKind.Boss:
-                return new Vector3(2.0f, 2.0f, 2.0f);
             default:
                 return new Vector3(0.7f, 0.7f, 0.7f);
         }
@@ -1070,8 +1023,6 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
                 return new Color(1f, 0.35f, 0.25f);
             case TotemActorKind.LightAi:
                 return new Color(1f, 0.75f, 0.25f);
-            case TotemActorKind.Boss:
-                return new Color(0.65f, 0.15f, 0.85f);
             default:
                 return Color.gray;
         }

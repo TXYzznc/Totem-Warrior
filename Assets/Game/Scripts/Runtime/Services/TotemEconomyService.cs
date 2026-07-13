@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public sealed class TotemEconomyService : TotemRuntimeServiceBase
@@ -120,18 +121,39 @@ public sealed class TotemEconomyService : TotemRuntimeServiceBase
         inventories[actor.ActorId] = new RuntimeInventory();
     }
 
+    public void RegisterParticipant(TotemParticipantModel participant)
+    {
+        if (participant == null || inventories.ContainsKey(participant.ParticipantId))
+        {
+            return;
+        }
+
+        inventories[participant.ParticipantId] = new RuntimeInventory();
+    }
+
     public TotemInventorySnapshot CaptureInventory(TotemActorModel actor)
     {
-        var inventory = GetOrCreateInventory(actor);
+        return CaptureInventory(actor?.ActorId ?? 0);
+    }
+
+    public TotemInventorySnapshot CaptureInventory(TotemParticipantModel participant)
+    {
+        return CaptureInventory(participant?.ParticipantId ?? 0);
+    }
+
+    private TotemInventorySnapshot CaptureInventory(int participantId)
+    {
+        var inventory = GetOrCreateInventory(participantId);
         return new TotemInventorySnapshot
         {
-            actorId = actor?.ActorId ?? 0,
+            actorId = participantId,
             coins = inventory.Coins,
             inkBottleCount = inventory.InkBottleCount,
             recipeShardCount = inventory.RecipeShardCount,
             recipeUnlockCount = inventory.RecipeIds.Count,
             recipeIds = inventory.RecipeIds.ToArray(),
             equipmentCount = inventory.EquipmentCount,
+            lootItems = CreateLootItemSnapshots(inventory),
         };
     }
 
@@ -213,6 +235,34 @@ public sealed class TotemEconomyService : TotemRuntimeServiceBase
             default:
                 return false;
         }
+    }
+
+    public bool TryAddEnemyLoot(
+        TotemParticipantModel participant,
+        TotemEnemyLootRewardType rewardType,
+        string itemId,
+        int count)
+    {
+        if (participant == null || count <= 0 || string.IsNullOrWhiteSpace(itemId))
+        {
+            return false;
+        }
+
+        return TryAddEnemyLoot(GetOrCreateInventory(participant.ParticipantId), rewardType, itemId, count);
+    }
+
+    public bool TryAddEnemyLoot(
+        TotemActorModel participant,
+        TotemEnemyLootRewardType rewardType,
+        string itemId,
+        int count)
+    {
+        if (participant == null || count <= 0 || string.IsNullOrWhiteSpace(itemId))
+        {
+            return false;
+        }
+
+        return TryAddEnemyLoot(GetOrCreateInventory(participant.ActorId), rewardType, itemId, count);
     }
 
     public bool UnlockRecipe(TotemActorModel actor, string recipeId)
@@ -314,14 +364,76 @@ public sealed class TotemEconomyService : TotemRuntimeServiceBase
 
     private RuntimeInventory GetOrCreateInventory(TotemActorModel actor)
     {
-        int actorId = actor?.ActorId ?? 0;
-        if (!inventories.TryGetValue(actorId, out var inventory))
+        return GetOrCreateInventory(actor?.ActorId ?? 0);
+    }
+
+    private RuntimeInventory GetOrCreateInventory(int participantId)
+    {
+        if (!inventories.TryGetValue(participantId, out var inventory))
         {
             inventory = new RuntimeInventory();
-            inventories[actorId] = inventory;
+            inventories[participantId] = inventory;
         }
 
         return inventory;
+    }
+
+    private static bool TryAddEnemyLoot(
+        RuntimeInventory inventory,
+        TotemEnemyLootRewardType rewardType,
+        string itemId,
+        int count)
+    {
+        if (inventory == null || count <= 0 || string.IsNullOrWhiteSpace(itemId))
+        {
+            return false;
+        }
+
+        if (rewardType == TotemEnemyLootRewardType.Coin)
+        {
+            inventory.Coins = Mathf.Max(0, inventory.Coins + count);
+            return true;
+        }
+
+        if (rewardType == TotemEnemyLootRewardType.Unknown || rewardType == TotemEnemyLootRewardType.Recipe)
+        {
+            return false;
+        }
+
+        string key = BuildLootStackKey(rewardType, itemId);
+        inventory.LootStacks.TryGetValue(key, out int current);
+        inventory.LootStacks[key] = current + count;
+        return true;
+    }
+
+    private static TotemLootInventoryStackSnapshot[] CreateLootItemSnapshots(RuntimeInventory inventory)
+    {
+        if (inventory == null || inventory.LootStacks.Count <= 0)
+        {
+            return Array.Empty<TotemLootInventoryStackSnapshot>();
+        }
+
+        var keys = new List<string>(inventory.LootStacks.Keys);
+        keys.Sort(StringComparer.Ordinal);
+        var result = new TotemLootInventoryStackSnapshot[keys.Count];
+        for (int i = 0; i < keys.Count; i++)
+        {
+            string key = keys[i];
+            int separator = key.IndexOf(':');
+            result[i] = new TotemLootInventoryStackSnapshot
+            {
+                rewardType = separator < 0 ? string.Empty : key.Substring(0, separator),
+                itemId = separator < 0 || separator >= key.Length - 1 ? key : key.Substring(separator + 1),
+                count = inventory.LootStacks[key],
+            };
+        }
+
+        return result;
+    }
+
+    private static string BuildLootStackKey(TotemEnemyLootRewardType rewardType, string itemId)
+    {
+        return rewardType + ":" + itemId.Trim();
     }
 
     private void OnFlowStateChanged(TotemGameFlowState previousState, TotemGameFlowState nextState)
@@ -487,6 +599,7 @@ public sealed class TotemEconomyService : TotemRuntimeServiceBase
     private sealed class RuntimeInventory
     {
         public readonly List<string> RecipeIds = new List<string>(8);
+        public readonly Dictionary<string, int> LootStacks = new Dictionary<string, int>(16, StringComparer.Ordinal);
         public int Coins;
         public int InkBottleCount;
         public int RecipeShardCount;

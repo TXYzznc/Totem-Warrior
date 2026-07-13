@@ -14,7 +14,6 @@ public enum TotemActorKind
     Player = 0,
     SmartAi = 1,
     LightAi = 2,
-    Boss = 3,
 }
 
 public enum TotemEnemyTier
@@ -189,6 +188,7 @@ public enum TotemMapAnchorKind : byte
     Chest = 6,
     Resource = 7,
     Event = 8,
+    Encounter = 9,
 }
 
 public sealed class TotemMapAnchor
@@ -199,6 +199,10 @@ public sealed class TotemMapAnchor
     public Vector3 Position;
     public int Order;
     public string PayloadId;
+    public string ZoneRole;
+    public string EnemyPoolIds;
+    public float SearchRadius;
+    public bool IsReachable;
 }
 
 public sealed class TotemMapSnapshot
@@ -278,125 +282,51 @@ public sealed class TotemActorSpawnInfo
     public int ActorId;
     public string Name;
     public TotemActorKind Kind;
+    public TotemParticipantControllerKind ControllerKind;
     public Vector3 Position;
     public float MaxHealth;
-    public string EnemyId;
-    public string DisplayName;
-    public string ThemeId;
-    public TotemEnemyTier EnemyTier;
-    public float HpCurveK;
-    public float BaseDamage;
-    public float DamageCurveK;
-    public float MoveSpeed;
-    public float AttackRange;
-    public float DetectRange;
-    public string SkillIds;
-    public string LootTableId;
-    public string GuaranteedLootIds;
-    public bool ElitePaintDropRare;
-    public int XPReward;
-    public int CoinRewardMin;
-    public int CoinRewardMax;
-    public string PoolIds;
 }
 
-public sealed class TotemActorModel
+public sealed class TotemActorModel : TotemParticipantModel
 {
-    public int ActorId { get; }
-    public string Name { get; }
+    public int ActorId => ParticipantId;
     public TotemActorKind Kind { get; }
-    public float MaxHealth { get; }
-    public float Health { get; private set; }
-    public Vector3 Position { get; set; }
-    public GameObject GameObject { get; set; }
-    public string VisualAssetKey { get; set; }
     public bool AnimationMoving { get; set; }
     public int AnimationDirection { get; set; }
     public bool AnimationDead { get; set; }
     public int AnimationAttackTriggerCount { get; set; }
     public int AnimationDeathTriggerCount { get; set; }
     public string AnimationLastReason { get; set; } = string.Empty;
-    public string EnemyId { get; }
-    public string DisplayName { get; }
-    public string ThemeId { get; }
-    public TotemEnemyTier EnemyTier { get; }
-    public float HpCurveK { get; }
-    public float BaseDamage { get; }
-    public float DamageCurveK { get; }
-    public float MoveSpeed { get; }
-    public float AttackRange { get; }
-    public float DetectRange { get; }
-    public string SkillIds { get; }
-    public string LootTableId { get; }
-    public string GuaranteedLootIds { get; }
-    public bool ElitePaintDropRare { get; }
-    public int XPReward { get; }
-    public int CoinRewardMin { get; }
-    public int CoinRewardMax { get; }
-    public string PoolIds { get; }
-
     public TotemActorModel(TotemActorSpawnInfo spawnInfo)
+        : base(
+            spawnInfo?.ActorId ?? throw new ArgumentNullException(nameof(spawnInfo)),
+            string.IsNullOrWhiteSpace(spawnInfo.Name) ? $"Actor{spawnInfo.ActorId}" : spawnInfo.Name,
+            ResolveControllerKind(spawnInfo),
+            spawnInfo.MaxHealth,
+            spawnInfo.Position,
+            TotemParticipantLifecycle.Active)
     {
-        if (spawnInfo == null)
-        {
-            throw new ArgumentNullException(nameof(spawnInfo));
-        }
-
-        ActorId = spawnInfo.ActorId;
-        Name = string.IsNullOrWhiteSpace(spawnInfo.Name) ? $"Actor{spawnInfo.ActorId}" : spawnInfo.Name;
         Kind = spawnInfo.Kind;
-        MaxHealth = spawnInfo.MaxHealth <= 0f ? 1f : spawnInfo.MaxHealth;
-        Health = MaxHealth;
-        Position = spawnInfo.Position;
-        EnemyId = spawnInfo.EnemyId ?? string.Empty;
-        DisplayName = string.IsNullOrWhiteSpace(spawnInfo.DisplayName) ? Name : spawnInfo.DisplayName;
-        ThemeId = spawnInfo.ThemeId ?? string.Empty;
-        EnemyTier = spawnInfo.EnemyTier;
-        HpCurveK = Mathf.Max(0f, spawnInfo.HpCurveK);
-        BaseDamage = Mathf.Max(0f, spawnInfo.BaseDamage);
-        DamageCurveK = Mathf.Max(0f, spawnInfo.DamageCurveK);
-        MoveSpeed = Mathf.Max(0f, spawnInfo.MoveSpeed);
-        AttackRange = Mathf.Max(0f, spawnInfo.AttackRange);
-        DetectRange = Mathf.Max(0f, spawnInfo.DetectRange);
-        SkillIds = spawnInfo.SkillIds ?? string.Empty;
-        LootTableId = spawnInfo.LootTableId ?? string.Empty;
-        GuaranteedLootIds = spawnInfo.GuaranteedLootIds ?? string.Empty;
-        ElitePaintDropRare = spawnInfo.ElitePaintDropRare;
-        XPReward = Mathf.Max(0, spawnInfo.XPReward);
-        CoinRewardMin = Mathf.Max(0, spawnInfo.CoinRewardMin);
-        CoinRewardMax = Mathf.Max(CoinRewardMin, spawnInfo.CoinRewardMax);
-        PoolIds = spawnInfo.PoolIds ?? string.Empty;
     }
 
-    public bool IsAlive => Health > 0f;
-
-    public void ApplyDamage(float amount)
+    private static TotemParticipantControllerKind ResolveControllerKind(TotemActorSpawnInfo spawnInfo)
     {
-        if (amount <= 0f || Health <= 0f)
+        switch (spawnInfo.Kind)
         {
-            return;
+            case TotemActorKind.SmartAi:
+                return TotemParticipantControllerKind.SmartBot;
+            case TotemActorKind.LightAi:
+                return TotemParticipantControllerKind.LightBot;
+            default:
+                return spawnInfo.ControllerKind;
         }
-
-        Health = Mathf.Max(0f, Health - amount);
-    }
-
-    public float Heal(float amount)
-    {
-        if (amount <= 0f || Health <= 0f)
-        {
-            return 0f;
-        }
-
-        float before = Health;
-        Health = Mathf.Min(MaxHealth, Health + amount);
-        return Health - before;
     }
 }
 
 public struct TotemDamageRecord
 {
     public int Sequence;
-    public TotemActorModel Source;
+    public TotemCombatantModel Source;
     public TotemActorModel Target;
     public float Amount;
     public bool Killed;
@@ -407,11 +337,11 @@ public struct TotemDamageRecord
 public sealed class TotemActorSnapshot
 {
     public int actorCount;
+    public int participantCount;
+    public int aliveParticipantCount;
     public int playerCount;
     public int smartAiCount;
     public int lightAiCount;
-    public int bossCount;
-    public int aliveEnemyCount;
     public int visualAssetActorCount;
     public int visualFallbackActorCount;
     public string lastVisualAssetKey;
@@ -421,6 +351,9 @@ public sealed class TotemActorSnapshot
     public int terrainCoverReducedHitCount;
     public float lastTerrainCoverDamageBefore;
     public float lastTerrainCoverDamageAfter;
+    public bool playerStartupInvulnerable;
+    public int playerStartupDamageBlockedCount;
+    public string playerStartupProtectionReason;
 }
 
 public sealed class TotemActorAnimationSnapshot
@@ -492,7 +425,9 @@ public sealed class TotemCombatSnapshot
 {
     public bool active;
     public float playerHealth;
+    public int aliveParticipantCount;
     public int aliveEnemyCount;
+    public int winnerParticipantId;
     public int killCount;
     public string lastAction;
     public string lastReason;

@@ -91,6 +91,7 @@ public sealed class TotemUIService : TotemRuntimeServiceBase, ITotemRuntimeTickS
 
     public int OpenCombatHud()
     {
+        Runtime.GetService<TotemActorService>()?.BeginPlayerStartupProtection("UI.OpenCombatHud");
         Runtime.GetService<TotemGameFlowService>()?.EnterCombatHud();
         return OpenExclusive(UIViews.CombatHUD);
     }

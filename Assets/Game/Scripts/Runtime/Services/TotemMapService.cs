@@ -167,6 +167,10 @@ public sealed class TotemMapService : TotemRuntimeServiceBase
             "roomCount", CurrentMap.Rooms.Length.ToString(),
             "mapSize", CurrentMap.MapSize.ToString("F1"),
             "zoneCenter", $"{CurrentMap.InitialZoneCenter.x:F1},{CurrentMap.InitialZoneCenter.y:F1}"));
+        GF.Log($"[TotemMap] Generated. seed={seed}, theme={CurrentMap.ThemeName}({CurrentMap.ThemeId}), " +
+            $"pcg={CurrentMap.IsPcgGenerated}, rooms={CurrentMap.Rooms.Length}, mapSize={CurrentMap.MapSize:F1}, " +
+            $"root={(mapRoot == null ? "<none>" : mapRoot.name)}, rootChildren={(mapRoot == null ? 0 : mapRoot.transform.childCount)}, " +
+            $"visuals={pcgVisualObjectCount}, missingSprites={pcgMissingSpriteCount}.");
 
         return CurrentMap;
     }
@@ -462,6 +466,10 @@ public sealed class TotemMapService : TotemRuntimeServiceBase
                 Position = anchor.Position,
                 Order = anchor.Order,
                 PayloadId = anchor.PayloadId,
+                ZoneRole = anchor.ZoneRole,
+                EnemyPoolIds = anchor.EnemyPoolIds,
+                SearchRadius = anchor.SearchRadius,
+                IsReachable = anchor.IsReachable,
             };
         }
 
@@ -793,7 +801,7 @@ public sealed class TotemMapService : TotemRuntimeServiceBase
             return Array.Empty<TotemMapAnchor>();
         }
 
-        var anchors = new List<TotemMapAnchor>(16);
+        var anchors = new List<TotemMapAnchor>(32);
         var rng = new System.Random(unchecked(map.Seed * 1009 + map.ThemeId * 9176));
 
         AddAnchor(anchors, map, rng, "player.spawn", TotemMapAnchorKind.PlayerSpawn, TotemRoomType.SpawnRoom, Vector3.zero, string.Empty);
@@ -813,7 +821,62 @@ public sealed class TotemMapService : TotemRuntimeServiceBase
         AddAnchor(anchors, map, rng, "event.choice.altar", TotemMapAnchorKind.Event, TotemRoomType.TattooStudio, new Vector3(-14f, 0f, 10f), "event_choice_001");
         AddAnchor(anchors, map, rng, "event.choice.forge", TotemMapAnchorKind.Event, TotemRoomType.Merchant, new Vector3(14f, 0f, 10f), "event_choice_002");
 
+        var reachable = BuildReachableMask(map, anchors[0].Position);
+        string themePoolId = $"pool_{NormalizeThemeId(map.ThemeName)}";
+        string encounterPools = $"pool_common,{themePoolId}";
+        var bossAnchor = anchors[1];
+        bossAnchor.IsReachable = false;
+        if (TryResolveReachablePosition(map, reachable, bossAnchor.Position, out var reachableBossPosition))
+        {
+            bossAnchor.Position = reachableBossPosition;
+            bossAnchor.IsReachable = true;
+        }
+
+        bossAnchor.ZoneRole = "boss";
+        bossAnchor.EnemyPoolIds = encounterPools;
+        bossAnchor.SearchRadius = 60f;
+        AddEncounterAnchor(anchors, map, reachable, "encounter.inner.west", TotemRoomType.SpawnRoom, new Vector2(0.24f, 0.32f), "inner", encounterPools, 44f);
+        AddEncounterAnchor(anchors, map, reachable, "encounter.inner.east", TotemRoomType.SpawnRoom, new Vector2(0.44f, 0.28f), "inner", encounterPools, 44f);
+        AddEncounterAnchor(anchors, map, reachable, "encounter.mid.center", TotemRoomType.Merchant, new Vector2(0.52f, 0.50f), "mid", encounterPools, 52f);
+        AddEncounterAnchor(anchors, map, reachable, "encounter.mid.north", TotemRoomType.TattooStudio, new Vector2(0.34f, 0.68f), "mid", encounterPools, 48f);
+        AddEncounterAnchor(anchors, map, reachable, "encounter.mid.east", TotemRoomType.Merchant, new Vector2(0.70f, 0.54f), "mid", encounterPools, 48f);
+        AddEncounterAnchor(anchors, map, reachable, "encounter.outer.north", TotemRoomType.TattooStudio, new Vector2(0.58f, 0.78f), "outer", encounterPools, 56f);
+        AddEncounterAnchor(anchors, map, reachable, "encounter.outer.east", TotemRoomType.BossRoom, new Vector2(0.78f, 0.62f), "outer", encounterPools, 56f);
+        AddEncounterAnchor(anchors, map, reachable, "encounter.danger", TotemRoomType.BossRoom, new Vector2(0.78f, 0.78f), "danger", encounterPools, 60f);
+
         return anchors.ToArray();
+    }
+
+    private static void AddEncounterAnchor(
+        List<TotemMapAnchor> anchors,
+        TotemMapSnapshot map,
+        bool[] reachable,
+        string anchorId,
+        TotemRoomType roomType,
+        Vector2 normalizedPosition,
+        string zoneRole,
+        string enemyPoolIds,
+        float searchRadius)
+    {
+        float mapSize = Mathf.Max(1f, map.MapSize);
+        var preferred = new Vector3(
+            Mathf.Clamp01(normalizedPosition.x) * mapSize,
+            0.5f,
+            Mathf.Clamp01(normalizedPosition.y) * mapSize);
+        bool resolved = TryResolveReachablePosition(map, reachable, preferred, out var position);
+        anchors.Add(new TotemMapAnchor
+        {
+            AnchorId = anchorId ?? string.Empty,
+            Kind = TotemMapAnchorKind.Encounter,
+            RoomType = roomType,
+            Position = resolved ? position : ResolveWalkableAnchorPosition(map, FindRoom(map, roomType), preferred, preferred),
+            Order = anchors.Count,
+            PayloadId = zoneRole ?? string.Empty,
+            ZoneRole = zoneRole ?? string.Empty,
+            EnemyPoolIds = enemyPoolIds ?? string.Empty,
+            SearchRadius = Mathf.Max(TerrainCellSize, searchRadius),
+            IsReachable = resolved,
+        });
     }
 
     private static void AddAnchor(
@@ -840,7 +903,160 @@ public sealed class TotemMapService : TotemRuntimeServiceBase
             Position = position,
             Order = anchors.Count,
             PayloadId = payloadId ?? string.Empty,
+            ZoneRole = string.Empty,
+            EnemyPoolIds = string.Empty,
+            SearchRadius = 0f,
+            IsReachable = IsTerrainWalkable(QueryTerrain(map, position)),
         });
+    }
+
+    private static bool[] BuildReachableMask(TotemMapSnapshot map, Vector3 origin)
+    {
+        int width = map?.TerrainGridWidth ?? 0;
+        int height = map?.TerrainGridHeight ?? 0;
+        if (width <= 0 || height <= 0)
+        {
+            return Array.Empty<bool>();
+        }
+
+        var reachable = new bool[width * height];
+        var queue = new int[reachable.Length];
+        if (!TryWorldToTerrainCell(map, origin, out int startX, out int startZ))
+        {
+            return reachable;
+        }
+
+        int startIndex = startZ * width + startX;
+        if (!IsTerrainWalkable(QueryTerrainCell(map, startX, startZ)))
+        {
+            return reachable;
+        }
+
+        int head = 0;
+        int tail = 0;
+        reachable[startIndex] = true;
+        queue[tail++] = startIndex;
+        while (head < tail)
+        {
+            int index = queue[head++];
+            int x = index % width;
+            int z = index / width;
+            EnqueueReachableCell(map, reachable, queue, ref tail, x - 1, z);
+            EnqueueReachableCell(map, reachable, queue, ref tail, x + 1, z);
+            EnqueueReachableCell(map, reachable, queue, ref tail, x, z - 1);
+            EnqueueReachableCell(map, reachable, queue, ref tail, x, z + 1);
+        }
+
+        return reachable;
+    }
+
+    private static void EnqueueReachableCell(
+        TotemMapSnapshot map,
+        bool[] reachable,
+        int[] queue,
+        ref int tail,
+        int x,
+        int z)
+    {
+        int width = map.TerrainGridWidth;
+        int height = map.TerrainGridHeight;
+        if (x < 0 || z < 0 || x >= width || z >= height)
+        {
+            return;
+        }
+
+        int index = z * width + x;
+        if (reachable[index] || !IsTerrainWalkable(QueryTerrainCell(map, x, z)))
+        {
+            return;
+        }
+
+        reachable[index] = true;
+        queue[tail++] = index;
+    }
+
+    private static bool TryResolveReachablePosition(
+        TotemMapSnapshot map,
+        bool[] reachable,
+        Vector3 preferred,
+        out Vector3 position)
+    {
+        position = default;
+        if (reachable == null || reachable.Length <= 0 || !TryWorldToTerrainCell(map, preferred, out int originX, out int originZ))
+        {
+            return false;
+        }
+
+        int width = map.TerrainGridWidth;
+        int height = map.TerrainGridHeight;
+        int maxRadius = Mathf.Max(width, height);
+        for (int radius = 0; radius <= maxRadius; radius++)
+        {
+            for (int dz = -radius; dz <= radius; dz++)
+            {
+                for (int dx = -radius; dx <= radius; dx++)
+                {
+                    if (radius > 0 && Mathf.Abs(dx) != radius && Mathf.Abs(dz) != radius)
+                    {
+                        continue;
+                    }
+
+                    int x = originX + dx;
+                    int z = originZ + dz;
+                    if (x < 0 || z < 0 || x >= width || z >= height || !reachable[z * width + x])
+                    {
+                        continue;
+                    }
+
+                    position = TerrainCellToWorld(map, x, z);
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    private static bool TryWorldToTerrainCell(TotemMapSnapshot map, Vector3 worldPosition, out int x, out int z)
+    {
+        x = 0;
+        z = 0;
+        if (map == null || map.TerrainCellSize <= 0 || map.TerrainGridWidth <= 0 || map.TerrainGridHeight <= 0)
+        {
+            return false;
+        }
+
+        x = Mathf.FloorToInt(worldPosition.x / map.TerrainCellSize);
+        z = Mathf.FloorToInt(worldPosition.z / map.TerrainCellSize);
+        return x >= 0 && z >= 0 && x < map.TerrainGridWidth && z < map.TerrainGridHeight;
+    }
+
+    private static TotemTerrainType QueryTerrainCell(TotemMapSnapshot map, int x, int z)
+    {
+        var grid = map?.TerrainGrid;
+        int index = z * map.TerrainGridWidth + x;
+        if (grid == null || index < 0 || index >= grid.Length)
+        {
+            return TotemTerrainType.Blocked;
+        }
+
+        return NormalizeTerrainType((TotemTerrainType)grid[index]);
+    }
+
+    private static Vector3 TerrainCellToWorld(TotemMapSnapshot map, int x, int z)
+    {
+        float cellSize = Mathf.Max(1f, map.TerrainCellSize);
+        return new Vector3((x + 0.5f) * cellSize, 0.5f, (z + 0.5f) * cellSize);
+    }
+
+    private static string NormalizeThemeId(string themeName)
+    {
+        if (string.IsNullOrWhiteSpace(themeName))
+        {
+            return "common";
+        }
+
+        return themeName.Trim().ToLowerInvariant().Replace('-', '_').Replace(' ', '_');
     }
 
     private static Vector3 BuildAnchorJitter(System.Random rng, TotemMapAnchorKind kind)

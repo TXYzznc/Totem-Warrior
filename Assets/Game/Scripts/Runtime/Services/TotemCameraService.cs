@@ -126,6 +126,7 @@ public sealed class TotemCameraService : TotemRuntimeServiceBase, ITotemRuntimeL
         GFTrace.Success("TotemCamera", "CombatCamera.Activated", null, GFTrace.Data(
             "orthographicSize", OrthographicSize.ToString("F1"),
             "tiltX", CameraTiltX.ToString("F1")));
+        LogRenderConfiguration();
     }
 
     public void DeactivateCombatCamera()
@@ -243,6 +244,33 @@ public sealed class TotemCameraService : TotemRuntimeServiceBase, ITotemRuntimeL
         float tiltRad = CameraTiltX * Mathf.Deg2Rad;
         const float targetHeight = 18f;
         cameraDistance = targetHeight / Mathf.Sin(tiltRad);
+    }
+
+    private void LogRenderConfiguration()
+    {
+        var uiCamera = GameObject.Find("UICamera")?.GetComponent<Camera>();
+        var mainCameraData = mainCamera == null
+            ? null
+            : mainCamera.GetComponent<UnityEngine.Rendering.Universal.UniversalAdditionalCameraData>();
+        var uiCameraData = uiCamera == null
+            ? null
+            : uiCamera.GetComponent<UnityEngine.Rendering.Universal.UniversalAdditionalCameraData>();
+
+        int stackCount = mainCameraData == null ? 0 : mainCameraData.cameraStack.Count;
+        bool uiInStack = false;
+        for (int i = 0; i < stackCount; i++)
+        {
+            if (mainCameraData.cameraStack[i] == uiCamera)
+            {
+                uiInStack = true;
+                break;
+            }
+        }
+
+        GF.Log($"[TotemRender] MainCamera name={mainCamera?.name}, pos={mainCamera?.transform.position}, rot={mainCamera?.transform.eulerAngles}, " +
+            $"orthoSize={mainCamera?.orthographicSize:F2}, cullingMask={mainCamera?.cullingMask}, urpType={mainCameraData?.renderType}, stackCount={stackCount}.");
+        GF.Log($"[TotemRender] UICamera name={uiCamera?.name}, cullingMask={uiCamera?.cullingMask}, urpType={uiCameraData?.renderType}, " +
+            $"inMainStack={uiInStack}, canvasExpectedLayerMask=32.");
     }
 
     private bool ClampFocus(ref Vector3 focus)

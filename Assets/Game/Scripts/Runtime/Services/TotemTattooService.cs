@@ -21,6 +21,7 @@ public sealed class TotemTattooService : TotemRuntimeServiceBase, ITotemRuntimeT
     private readonly List<TotemTattooPendingTrigger> pendingTriggers = new List<TotemTattooPendingTrigger>(8);
     private readonly List<TotemTattooMarkState> markStates = new List<TotemTattooMarkState>(64);
     private readonly List<TotemActorModel> shapeTargetBuffer = new List<TotemActorModel>(8);
+    private readonly TotemEnemyModel[] enemyShapeTargetBuffer = new TotemEnemyModel[TotemEnemyService.DefaultEnemyCapacity];
     private readonly List<TotemTattooEnchantAffixDefinition> activeEnchantAffixes = new List<TotemTattooEnchantAffixDefinition>(8);
     private TotemTattooDefinition[] runtimeCatalog = Array.Empty<TotemTattooDefinition>();
     private TotemTattooReadingTimeDefinition[] runtimeReadingTimes = Array.Empty<TotemTattooReadingTimeDefinition>();
@@ -62,6 +63,9 @@ public sealed class TotemTattooService : TotemRuntimeServiceBase, ITotemRuntimeT
     private TotemGameFlowService flowService;
     private TotemStatusService statusService;
     private TotemActorService actorService;
+    private TotemCombatRelationshipService relationshipService;
+    private TotemMatchClockService matchClock;
+    private TotemEnemyService enemyService;
 
     public override string ServiceName => "Tattoo";
 
@@ -76,6 +80,9 @@ public sealed class TotemTattooService : TotemRuntimeServiceBase, ITotemRuntimeT
         flowService = runtime.GetService<TotemGameFlowService>();
         statusService = runtime.GetService<TotemStatusService>();
         actorService = runtime.GetService<TotemActorService>();
+        relationshipService = runtime.GetService<TotemCombatRelationshipService>();
+        matchClock = runtime.GetService<TotemMatchClockService>();
+        enemyService = runtime.GetService<TotemEnemyService>();
         if (actorService != null)
         {
             actorService.DamageResolved += OnDamageResolved;
@@ -101,6 +108,9 @@ public sealed class TotemTattooService : TotemRuntimeServiceBase, ITotemRuntimeT
         }
 
         statusService = null;
+        relationshipService = null;
+        matchClock = null;
+        enemyService = null;
         if (actorService != null)
         {
             actorService.DamageResolved -= OnDamageResolved;
@@ -585,6 +595,46 @@ public sealed class TotemTattooService : TotemRuntimeServiceBase, ITotemRuntimeT
         }
 
         ConsumePendingTriggers(triggerEvent, source, target, sourcePendingTriggers, sourceEffectLog, results, sourceState);
+        return results.Count == 0 ? Array.Empty<TotemTattooEffectResult>() : results.ToArray();
+    }
+
+    public TotemTattooEffectResult[] TriggerEnemy(
+        string triggerEvent,
+        TotemActorModel source,
+        TotemEnemyModel target,
+        float baseMagnitude)
+    {
+        HandleSelfTattooInterruption(triggerEvent, source, baseMagnitude);
+        HandleAfterDodgeEnchant(triggerEvent, source);
+        var sourceEquipped = ResolveSourceEquipped(source, out var sourceEffectLog, out var sourcePendingTriggers, out var sourceState);
+        if (target == null
+            || enemyService == null
+            || string.IsNullOrWhiteSpace(triggerEvent)
+            || ((sourceEquipped == null || sourceEquipped.Count <= 0) && (sourcePendingTriggers == null || sourcePendingTriggers.Count <= 0)))
+        {
+            return Array.Empty<TotemTattooEffectResult>();
+        }
+
+        var results = new List<TotemTattooEffectResult>((sourceEquipped?.Count ?? 0) + (sourcePendingTriggers?.Count ?? 0));
+        for (int i = 0; sourceEquipped != null && i < sourceEquipped.Count; i++)
+        {
+            TotemTattooDefinition definition = sourceEquipped[i];
+            if (!string.Equals(definition.TriggerEvent, triggerEvent, StringComparison.Ordinal))
+            {
+                continue;
+            }
+
+            TotemTattooEffectResult result = ShouldCreatePendingTrigger(definition)
+                ? CreatePendingTriggerResult(definition, source, baseMagnitude, sourcePendingTriggers, sourceState)
+                : ApplyEnemyDefinition(definition, source, target, baseMagnitude);
+            if (result != null)
+            {
+                results.Add(result);
+                sourceEffectLog?.Add(result);
+            }
+        }
+
+        ConsumeEnemyPendingTriggers(triggerEvent, source, target, sourcePendingTriggers, sourceEffectLog, results, sourceState);
         return results.Count == 0 ? Array.Empty<TotemTattooEffectResult>() : results.ToArray();
     }
 
@@ -1091,6 +1141,240 @@ public sealed class TotemTattooService : TotemRuntimeServiceBase, ITotemRuntimeT
         return result;
     }
 
+    private TotemTattooEffectResult ApplyEnemyDefinition(
+        TotemTattooDefinition definition,
+        TotemActorModel source,
+        TotemEnemyModel target,
+        float baseMagnitude,
+        bool magnitudeAlreadyResolved = false,
+        string note = "Applied",
+        string reasonOverride = null)
+    {
+        if (definition == null)
+        {
+            return null;
+        }
+
+        float magnitude = magnitudeAlreadyResolved ? Mathf.Max(0f, baseMagnitude) : ResolveDefinitionMagnitude(definition, baseMagnitude);
+        if (!magnitudeAlreadyResolved && ShouldUseGlobalEnchantAffixes(source))
+        {
+            magnitude *= 1f + SumEnchantAffixValue(
+                TotemTattooEnchantAffixType.ElementDamageBonus,
+                source,
+                null,
+                evaluateConditions: true,
+                consumeAfterDodge: true);
+        }
+
+        string damageReason = string.IsNullOrWhiteSpace(reasonOverride) ? "Tattoo:" + definition.TriggerEvent : reasonOverride;
+        var result = new TotemTattooEffectResult
+        {
+            Definition = definition,
+            Source = source,
+            BaseDamage = magnitude,
+            StatusName = GetStatusName(definition.Element),
+            Note = note,
+        };
+        if (target == null || !target.IsAlive || enemyService == null)
+        {
+            result.Note = "NoTarget";
+            return result;
+        }
+
+        switch (definition.Shape)
+        {
+            case TotemTattooShape.AOEBurst:
+                ApplyEnemyArea(definition, source, target, magnitude, damageReason, result, chain: false);
+                break;
+            case TotemTattooShape.MultiHit:
+                int segments = Mathf.Max(1, definition.ShapeParam1 > 0f ? Mathf.RoundToInt(definition.ShapeParam1) : 4);
+                float perHit = magnitude / segments;
+                for (int i = 0; i < segments && target.IsAlive; i++)
+                {
+                    ApplyEnemySingleDamage(definition, source, target, perHit, damageReason, result);
+                }
+                result.StatusName = "x" + result.HitCount + "/" + GetStatusName(definition.Element);
+                break;
+            case TotemTattooShape.ChainJump:
+                ApplyEnemyArea(definition, source, target, magnitude, damageReason, result, chain: true);
+                break;
+            case TotemTattooShape.StackingMark:
+                int threshold = Mathf.Max(1, definition.ShapeParam1 > 0f ? Mathf.RoundToInt(definition.ShapeParam1) : 5);
+                int stacks = IncrementMarkStack(source?.ActorId ?? 0, target.CombatantId, definition, threshold, out bool burst);
+                result.StackCount = stacks;
+                result.StackThreshold = threshold;
+                result.BurstTriggered = burst;
+                if (burst)
+                {
+                    float burstMultiplier = definition.ShapeParam2 > 0f ? definition.ShapeParam2 : 4f;
+                    ApplyEnemySingleDamage(definition, source, target, magnitude * burstMultiplier, damageReason, result);
+                    result.StatusName = "BurstAt" + threshold + "/" + GetStatusName(definition.Element);
+                }
+                else
+                {
+                    result.StatusName = "Stack" + stacks + "/" + threshold;
+                    result.Note = "StackingMark:Stack" + stacks + "/" + threshold;
+                }
+                break;
+            case TotemTattooShape.ProbBurst:
+                float probability = Mathf.Clamp01(definition.ShapeParam1 > 0f ? definition.ShapeParam1 : 1f);
+                if (ResolveEnemyDeterministicRoll(source, target, definition) <= probability)
+                {
+                    float multiplier = definition.ShapeParam2 > 0f ? definition.ShapeParam2 : 2f;
+                    ApplyEnemySingleDamage(definition, source, target, magnitude * multiplier, damageReason, result);
+                    result.BurstTriggered = true;
+                    result.StatusName = "x" + multiplier.ToString("F1") + "/" + GetStatusName(definition.Element);
+                }
+                else
+                {
+                    result.StatusName = "miss";
+                    result.Note = "ProbBurst:Miss";
+                }
+                break;
+            case TotemTattooShape.TrailZone:
+                int ticks = Mathf.Max(1, definition.ShapeParam2 > 0f ? Mathf.RoundToInt(definition.ShapeParam2) : 3);
+                float tickDamage = magnitude * (definition.ShapeParam1 > 0f ? definition.ShapeParam1 : 0.4f);
+                for (int i = 0; i < ticks && target.IsAlive; i++)
+                {
+                    ApplyEnemySingleDamage(definition, source, target, tickDamage, damageReason, result);
+                }
+                result.StatusName = "trail/" + GetStatusName(definition.Element);
+                break;
+            case TotemTattooShape.SummonForm:
+                ApplyEnemySingleDamage(definition, source, target, magnitude * Mathf.Max(1f, definition.ShapeParam1), damageReason, result);
+                result.StatusName = "summon/" + GetStatusName(definition.Element);
+                break;
+            default:
+                ApplyEnemySingleDamage(definition, source, target, magnitude, damageReason, result);
+                break;
+        }
+
+        result.SourceHeal = ApplySourceElementEffect(definition, source, result.Damage);
+        if (result.HitCount <= 0 && !result.BurstTriggered && string.Equals(result.Note, note, StringComparison.Ordinal))
+        {
+            result.Note = "NoTarget";
+        }
+        else if (!string.IsNullOrWhiteSpace(result.StatusName) && string.Equals(result.Note, note, StringComparison.Ordinal))
+        {
+            result.Note = note + "/" + result.StatusName;
+        }
+
+        return result;
+    }
+
+    private void ApplyEnemyArea(
+        TotemTattooDefinition definition,
+        TotemActorModel source,
+        TotemEnemyModel primary,
+        float magnitude,
+        string damageReason,
+        TotemTattooEffectResult result,
+        bool chain)
+    {
+        int maxTargets = chain
+            ? (definition.ShapeParam1 > 0f ? Mathf.RoundToInt(definition.ShapeParam1) : 3)
+            : (definition.ShapeParam2 > 0f ? Mathf.RoundToInt(definition.ShapeParam2) : 5);
+        maxTargets = Mathf.Max(1, maxTargets);
+        float radiusSqr = 64f;
+        float damage = chain ? magnitude : magnitude * (definition.ShapeParam1 > 0f ? definition.ShapeParam1 : 0.6f);
+        float decay = chain && definition.ShapeParam2 > 0f ? definition.ShapeParam2 : 0.7f;
+        ApplyEnemySingleDamage(definition, source, primary, damage, damageReason, result);
+        int count = enemyService.CopyAliveEnemies(enemyShapeTargetBuffer);
+        int appliedTargets = 1;
+        for (int i = 0; i < count && appliedTargets < maxTargets; i++)
+        {
+            TotemEnemyModel candidate = enemyShapeTargetBuffer[i];
+            if (candidate == null || candidate == primary || (candidate.Position - primary.Position).sqrMagnitude > radiusSqr)
+            {
+                continue;
+            }
+
+            if (chain)
+            {
+                damage *= decay;
+            }
+            ApplyEnemySingleDamage(definition, source, candidate, damage, damageReason, result);
+            appliedTargets++;
+        }
+
+        result.StatusName = (chain ? "jumps" : "aoe") + result.HitCount + "/" + GetStatusName(definition.Element);
+    }
+
+    private void ApplyEnemySingleDamage(
+        TotemTattooDefinition definition,
+        TotemActorModel source,
+        TotemEnemyModel target,
+        float damage,
+        string damageReason,
+        TotemTattooEffectResult result)
+    {
+        if (target == null || !target.IsAlive || damage <= 0f || enemyService == null)
+        {
+            return;
+        }
+
+        float worldTime = matchClock?.WorldTime ?? enemyService.WorldTime;
+        if (!enemyService.TryApplyDamage(
+                target.CombatantId,
+                source,
+                damage,
+                damageReason,
+                worldTime,
+                out float appliedDamage))
+        {
+            return;
+        }
+
+        result.Damage += appliedDamage;
+        result.HitCount++;
+        ApplyEnemyElementStatus(definition, source, target, damage, damageReason, result, worldTime);
+    }
+
+    private void ApplyEnemyElementStatus(
+        TotemTattooDefinition definition,
+        TotemActorModel source,
+        TotemEnemyModel target,
+        float damage,
+        string damageReason,
+        TotemTattooEffectResult result,
+        float worldTime)
+    {
+        string statusName = GetStatusName(definition.Element);
+        if (string.IsNullOrWhiteSpace(statusName) || target == null || !target.IsAlive)
+        {
+            return;
+        }
+
+        float statusChanceBonus = ResolveStatusChanceBonus(source);
+        float statusChance = ComputeStatusApplyChance(ResolveBaseStatusApplyChance(definition), statusChanceBonus);
+        float statusRoll = ResolveEnemyStatusRoll(source, target, definition, result?.HitCount ?? 0, statusChance);
+        if (result != null)
+        {
+            result.StatusChance = statusChance;
+            result.StatusChanceBonus = statusChanceBonus;
+            result.StatusRoll = statusRoll;
+        }
+
+        if (!ShouldApplyStatus(statusChance, statusRoll))
+        {
+            return;
+        }
+
+        if (enemyService.TryApplyStatus(
+                target.CombatantId,
+                source,
+                statusName,
+                ResolveStatusPower(definition, damage),
+                ResolveStatusDuration(definition),
+                damageReason,
+                worldTime,
+                out _)
+            && result != null)
+        {
+            result.StatusApplied = true;
+        }
+    }
+
     private void ApplyAreaBurst(
         TotemTattooDefinition definition,
         TotemActorModel source,
@@ -1399,31 +1683,22 @@ public sealed class TotemTattooService : TotemRuntimeServiceBase, ITotemRuntimeT
         return best;
     }
 
-    private static bool IsValidShapeTarget(TotemActorModel source, TotemActorModel candidate)
+    private bool IsValidShapeTarget(TotemActorModel source, TotemActorModel candidate)
     {
-        if (candidate == null || candidate.Kind == TotemActorKind.Boss)
+        if (candidate == null || candidate == source || !candidate.IsAlive)
         {
             return false;
         }
 
-        if (source == null)
+        if (source == null || relationshipService == null)
         {
             return true;
         }
 
-        if (source.Kind == TotemActorKind.Player)
-        {
-            return TotemActorService.IsEnemy(candidate);
-        }
-
-        if (source.Kind == TotemActorKind.Boss)
-        {
-            return candidate.Kind == TotemActorKind.Player;
-        }
-
-        return candidate.Kind == TotemActorKind.Player ||
-               candidate.Kind == TotemActorKind.SmartAi ||
-               candidate.Kind == TotemActorKind.LightAi;
+        return relationshipService.EvaluateDamage(
+            source,
+            candidate,
+            new TotemCombatRelationshipContext(matchClock?.WorldTime ?? 0f)).Allowed;
     }
 
     private int IncrementMarkStack(
@@ -1433,8 +1708,18 @@ public sealed class TotemTattooService : TotemRuntimeServiceBase, ITotemRuntimeT
         int threshold,
         out bool burst)
     {
+        return IncrementMarkStack(source?.ActorId ?? 0, target?.ActorId ?? 0, definition, threshold, out burst);
+    }
+
+    private int IncrementMarkStack(
+        int sourceId,
+        int targetId,
+        TotemTattooDefinition definition,
+        int threshold,
+        out bool burst)
+    {
         burst = false;
-        var mark = GetOrCreateMarkState(source, target, definition);
+        var mark = GetOrCreateMarkState(sourceId, targetId, definition);
         mark.Stacks++;
         if (mark.Stacks >= threshold)
         {
@@ -1448,8 +1733,11 @@ public sealed class TotemTattooService : TotemRuntimeServiceBase, ITotemRuntimeT
 
     private TotemTattooMarkState GetOrCreateMarkState(TotemActorModel source, TotemActorModel target, TotemTattooDefinition definition)
     {
-        int sourceId = source?.ActorId ?? 0;
-        int targetId = target?.ActorId ?? 0;
+        return GetOrCreateMarkState(source?.ActorId ?? 0, target?.ActorId ?? 0, definition);
+    }
+
+    private TotemTattooMarkState GetOrCreateMarkState(int sourceId, int targetId, TotemTattooDefinition definition)
+    {
         for (int i = 0; i < markStates.Count; i++)
         {
             var item = markStates[i];
@@ -1491,6 +1779,22 @@ public sealed class TotemTattooService : TotemRuntimeServiceBase, ITotemRuntimeT
         }
     }
 
+    private static float ResolveEnemyDeterministicRoll(
+        TotemActorModel source,
+        TotemEnemyModel target,
+        TotemTattooDefinition definition)
+    {
+        unchecked
+        {
+            uint hash = (uint)(source?.ActorId ?? 0) * 73856093u;
+            hash ^= (uint)(target?.CombatantId ?? 0) * 19349663u;
+            hash ^= (uint)(definition?.PartId ?? 0) * 83492791u;
+            hash ^= (uint)(definition?.ColorId ?? 0) * 2654435761u;
+            hash ^= (uint)(definition?.PatternId ?? 0) * 2246822519u;
+            return (hash & 0x00FFFFFFu) / 16777215f;
+        }
+    }
+
     private static float ResolveBaseStatusApplyChance(TotemTattooDefinition definition)
     {
         return DefaultStatusApplyChance;
@@ -1514,6 +1818,30 @@ public sealed class TotemTattooService : TotemRuntimeServiceBase, ITotemRuntimeT
             seed = seed * 31 + Mathf.Max(0, hitIndex);
             var rng = new System.Random(seed);
             return (float)rng.NextDouble();
+        }
+    }
+
+    private static float ResolveEnemyStatusRoll(
+        TotemActorModel source,
+        TotemEnemyModel target,
+        TotemTattooDefinition definition,
+        int hitIndex,
+        float statusChance)
+    {
+        if (statusChance >= 1f)
+        {
+            return 0f;
+        }
+
+        unchecked
+        {
+            uint hash = (uint)(source?.ActorId ?? 0) * 73856093u;
+            hash ^= (uint)(target?.CombatantId ?? 0) * 19349663u;
+            hash ^= (uint)(definition?.PartId ?? 0) * 83492791u;
+            hash ^= (uint)(definition?.ColorId ?? 0) * 2654435761u;
+            hash ^= (uint)(definition?.PatternId ?? 0) * 2246822519u;
+            hash ^= (uint)Mathf.Max(0, hitIndex) * 3266489917u;
+            return (hash & 0x00FFFFFFu) / 16777215f;
         }
     }
 
@@ -1591,6 +1919,67 @@ public sealed class TotemTattooService : TotemRuntimeServiceBase, ITotemRuntimeT
                 magnitudeAlreadyResolved: true,
                 note: $"ConsumedPending@{triggerEvent}",
                 reasonOverride: $"Tattoo:PendingTrigger:{pending.SourcePart}");
+            if (result != null)
+            {
+                results?.Add(result);
+                sourceEffectLog?.Add(result);
+            }
+
+            RecordPendingConsumed(sourceState, pending, triggerEvent);
+            if (pending.ExpiresAfter > 0)
+            {
+                pending.ExpiresAfter--;
+            }
+
+            if (pending.ExpiresAfter == 0)
+            {
+                sourcePendingTriggers.RemoveAt(i);
+            }
+        }
+    }
+
+    private void ConsumeEnemyPendingTriggers(
+        string triggerEvent,
+        TotemActorModel source,
+        TotemEnemyModel target,
+        List<TotemTattooPendingTrigger> sourcePendingTriggers,
+        List<TotemTattooEffectResult> sourceEffectLog,
+        List<TotemTattooEffectResult> results,
+        TotemActorTattooRuntimeState sourceState)
+    {
+        if (sourcePendingTriggers == null || sourcePendingTriggers.Count <= 0 || string.IsNullOrWhiteSpace(triggerEvent))
+        {
+            return;
+        }
+
+        for (int i = sourcePendingTriggers.Count - 1; i >= 0; i--)
+        {
+            TotemTattooPendingTrigger pending = sourcePendingTriggers[i];
+            if (pending == null || pending.Definition == null)
+            {
+                sourcePendingTriggers.RemoveAt(i);
+                continue;
+            }
+
+            if (!string.Equals(pending.ConsumeEvent, triggerEvent, StringComparison.Ordinal))
+            {
+                continue;
+            }
+
+            float magnitude = pending.Magnitude * (1f + SumEnchantAffixValue(
+                TotemTattooEnchantAffixType.ElementDamageBonus,
+                source,
+                null,
+                evaluateConditions: true,
+                consumeAfterDodge: true));
+            TotemTattooEffectResult result = ApplyEnemyDefinition(
+                pending.Definition,
+                source,
+                target,
+                magnitude,
+                magnitudeAlreadyResolved: true,
+                note: "ConsumedPending@" + triggerEvent,
+                reasonOverride: "Tattoo:PendingTrigger:" + pending.SourcePart);
             if (result != null)
             {
                 results?.Add(result);
@@ -1699,8 +2088,8 @@ public sealed class TotemTattooService : TotemRuntimeServiceBase, ITotemRuntimeT
 
         CancelSelfTattoo(record.Target, "Damaged");
         if (resolvingDamageTriggeredTattoo ||
-            record.Source == null ||
-            !record.Source.IsAlive ||
+            !(record.Source is TotemActorModel sourceActor) ||
+            !sourceActor.IsAlive ||
             !record.Target.IsAlive)
         {
             return;
@@ -1709,7 +2098,7 @@ public sealed class TotemTattooService : TotemRuntimeServiceBase, ITotemRuntimeT
         resolvingDamageTriggeredTattoo = true;
         try
         {
-            Trigger("DamagedEvent", record.Target, record.Source, record.Amount);
+            Trigger("DamagedEvent", record.Target, sourceActor, record.Amount);
         }
         finally
         {

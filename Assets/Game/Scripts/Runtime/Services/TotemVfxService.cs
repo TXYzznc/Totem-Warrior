@@ -307,7 +307,7 @@ public sealed class TotemVfxService : TotemRuntimeServiceBase, ITotemRuntimeTick
 
         bool strong = IsStrongHit(record);
         string text = Mathf.RoundToInt(record.Amount).ToString();
-        Vector3 position = record.Target.Position + Vector3.up * (record.Target.Kind == TotemActorKind.Boss ? 2.2f : 1.35f);
+        Vector3 position = record.Target.Position + Vector3.up * 1.35f;
         position.x += Mathf.Sin((record.Sequence + 1) * 12.9898f) * 0.22f;
 
         var go = new GameObject($"TotemDamageFloat_{text}");
@@ -658,7 +658,7 @@ public sealed class TotemVfxService : TotemRuntimeServiceBase, ITotemRuntimeTick
         }
 
         return record.Target?.Kind == TotemActorKind.Player
-            || record.Source?.Kind == TotemActorKind.Player
+            || (record.Source is TotemActorModel sourceActor && sourceActor.ControllerKind == TotemParticipantControllerKind.Human)
             || reason.IndexOf("Attack", StringComparison.OrdinalIgnoreCase) >= 0
             || reason.IndexOf("Skill", StringComparison.OrdinalIgnoreCase) >= 0
             || reason.IndexOf("Tattoo", StringComparison.OrdinalIgnoreCase) >= 0

@@ -121,14 +121,17 @@ public sealed class TotemGameRuntime : MonoBehaviour
     {
         if (ServicesReady)
         {
+            GF.Log($"[TotemStartup] Runtime already ready. services={services.Count}, procedure={CurrentProcedure}.");
             return;
         }
 
         RegisterDefaultServices();
+        GF.Log($"[TotemStartup] Initializing {services.Count} runtime services. procedure={CurrentProcedure}.");
         int readyCount = 0;
         for (int i = 0; i < services.Count; i++)
         {
             services[i].Initialize(this);
+            GF.Log($"[TotemStartup] Service initialized. name={services[i].ServiceName}, state={services[i].State}.");
             if (services[i].State == TotemRuntimeServiceState.Ready)
             {
                 readyCount++;
@@ -139,6 +142,7 @@ public sealed class TotemGameRuntime : MonoBehaviour
         GFTrace.Success("TotemRuntime", "Services.Ready", null, GFTrace.Data(
             "readyCount", readyCount.ToString(),
             "serviceCount", services.Count.ToString()));
+        GF.Log($"[TotemStartup] Runtime initialization complete. ready={readyCount}/{services.Count}, allReady={ServicesReady}.");
     }
 
     public void RegisterService(ITotemRuntimeService service)
@@ -227,6 +231,7 @@ public sealed class TotemGameRuntime : MonoBehaviour
         }
 
         RegisterService(new TotemGameFlowService());
+        RegisterService(new TotemMatchClockService());
         RegisterService(new TotemInputService());
         RegisterService(new TotemDataService());
         RegisterService(new TotemAssetService());
@@ -235,7 +240,9 @@ public sealed class TotemGameRuntime : MonoBehaviour
         RegisterService(new TotemRunStatsService());
         RegisterService(new TotemMetaProgressService());
         RegisterService(new TotemMapService());
+        RegisterService(new TotemCombatRelationshipService());
         RegisterService(new TotemActorService());
+        RegisterService(new TotemParticipantReadinessService());
         RegisterService(new TotemEconomyService());
         RegisterService(new TotemStatusService());
         RegisterService(new TotemTattooService());
@@ -243,13 +250,15 @@ public sealed class TotemGameRuntime : MonoBehaviour
         RegisterService(new TotemChestService());
         RegisterService(new TotemSkillService());
         RegisterService(new TotemZoneService());
-        RegisterService(new TotemBossService());
         RegisterService(new TotemAIService());
         RegisterService(new TotemNpcService());
         RegisterService(new TotemChoiceService());
         RegisterService(new TotemInteractionService());
         RegisterService(new TotemCameraService());
         RegisterService(new TotemVfxService());
+        RegisterService(new TotemEnemyWorldService());
+        RegisterService(new TotemEnemyService());
+        RegisterService(new TotemEnemyLootService());
         RegisterService(new TotemCombatService());
         RegisterService(new TotemUIService());
     }

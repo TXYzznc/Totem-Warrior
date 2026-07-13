@@ -36,6 +36,7 @@ public sealed class TotemCombatHUDForm : TotemUIFormBase
     private readonly WaitForSeconds refreshWait = new WaitForSeconds(RefreshIntervalSeconds);
     private readonly List<TMP_Text> logRows = new List<TMP_Text>(MaxLogRows);
     private Coroutine refreshCoroutine;
+    private Coroutine startupProtectionReleaseCoroutine;
     private string lastSkillSlotEAssetKey = string.Empty;
     private string lastSkillSlotQAssetKey = string.Empty;
     private string lastCombatLogSignature = string.Empty;
@@ -43,6 +44,7 @@ public sealed class TotemCombatHUDForm : TotemUIFormBase
     private TMP_Text buildSummaryText;
     private Texture2D minimapTexture;
     private Color32[] minimapPixels;
+    private readonly TotemEnemyModel[] minimapEnemyBuffer = new TotemEnemyModel[TotemEnemyService.DefaultEnemyCapacity];
 
     protected override void OnInit(object userData)
     {
@@ -144,6 +146,12 @@ public sealed class TotemCombatHUDForm : TotemUIFormBase
 
     protected override void OnClose(bool isShutdown, object userData)
     {
+        if (startupProtectionReleaseCoroutine != null)
+        {
+            StopCoroutine(startupProtectionReleaseCoroutine);
+            startupProtectionReleaseCoroutine = null;
+        }
+
         if (refreshCoroutine != null)
         {
             StopCoroutine(refreshCoroutine);
@@ -152,6 +160,39 @@ public sealed class TotemCombatHUDForm : TotemUIFormBase
 
         ResetDynamicHudRows();
         base.OnClose(isShutdown, userData);
+    }
+
+    protected override void OnOpenAnimationComplete()
+    {
+        base.OnOpenAnimationComplete();
+        if (startupProtectionReleaseCoroutine != null)
+        {
+            StopCoroutine(startupProtectionReleaseCoroutine);
+        }
+
+        startupProtectionReleaseCoroutine = StartCoroutine(ReleaseStartupProtectionAfterControllableFrame());
+    }
+
+    private IEnumerator ReleaseStartupProtectionAfterControllableFrame()
+    {
+        var actorService = ActorService;
+        var expectedPlayer = actorService?.Player;
+        yield return null;
+
+        while (isActiveAndEnabled && actorService != null && expectedPlayer != null)
+        {
+            if (Camera.main != null
+                && InputService != null
+                && ReadinessService != null
+                && ReadinessService.NotifyLocalClientReady(expectedPlayer, "CombatHUD.Interactable"))
+            {
+                break;
+            }
+
+            yield return null;
+        }
+
+        startupProtectionReleaseCoroutine = null;
     }
 
     private void ApplyInitialHudState()
@@ -207,9 +248,8 @@ public sealed class TotemCombatHUDForm : TotemUIFormBase
 
     private void RefreshBossHp()
     {
-        var boss = ActorService?.Boss;
-        var bossSnapshot = BossService?.CaptureSnapshot();
-        bool showBoss = boss != null && boss.IsAlive && bossSnapshot != null && bossSnapshot.active;
+        var boss = EnemyService?.FindClosestAliveEnemy(Vector3.zero, 0f, TotemEnemyTier.Boss);
+        bool showBoss = boss != null && boss.IsAlive;
         if (bossHpRoot != null && bossHpRoot.activeSelf != showBoss)
         {
             bossHpRoot.SetActive(showBoss);
@@ -217,7 +257,7 @@ public sealed class TotemCombatHUDForm : TotemUIFormBase
 
         if (bossHpBar != null)
         {
-            bossHpBar.fillAmount = showBoss ? Mathf.Clamp01(bossSnapshot.hpRatio) : 0f;
+            bossHpBar.fillAmount = showBoss ? Mathf.Clamp01(boss.Health / boss.MaxHealth) : 0f;
         }
     }
 
@@ -321,7 +361,8 @@ public sealed class TotemCombatHUDForm : TotemUIFormBase
         }
 
         EnsureMinimapTexture();
-        if (!BuildMinimapPixels(minimapPixels, MinimapSize, MapService.CurrentMap, ActorService?.Actors, ZoneService?.CaptureSnapshot()))
+        int enemyCount = EnemyService?.CopyAliveEnemies(minimapEnemyBuffer) ?? 0;
+        if (!BuildMinimapPixels(minimapPixels, MinimapSize, MapService.CurrentMap, ActorService?.Actors, ZoneService?.CaptureSnapshot(), minimapEnemyBuffer, enemyCount))
         {
             return;
         }
@@ -334,8 +375,7 @@ public sealed class TotemCombatHUDForm : TotemUIFormBase
 
     private void RefreshZoneText()
     {
-        var actorSnapshot = ActorService?.CaptureActorSnapshot();
-        int aliveEnemyCount = actorSnapshot?.aliveEnemyCount ?? 0;
+        int aliveEnemyCount = EnemyService?.CaptureSnapshot().aliveEnemyCount ?? 0;
         var interaction = InteractionService?.CaptureSnapshot();
         string prompt = interaction?.prompt ?? string.Empty;
         string statusSummary = TotemStatusService.FormatStatusSummary(StatusService?.CaptureSnapshot(ActorService?.Player));
@@ -478,6 +518,18 @@ public sealed class TotemCombatHUDForm : TotemUIFormBase
 
     public static bool BuildMinimapPixels(Color32[] pixels, int size, TotemMapSnapshot map, IReadOnlyList<TotemActorModel> actors, TotemZoneSnapshot zone)
     {
+        return BuildMinimapPixels(pixels, size, map, actors, zone, null, 0);
+    }
+
+    public static bool BuildMinimapPixels(
+        Color32[] pixels,
+        int size,
+        TotemMapSnapshot map,
+        IReadOnlyList<TotemActorModel> actors,
+        TotemZoneSnapshot zone,
+        TotemEnemyModel[] enemies,
+        int enemyCount)
+    {
         if (pixels == null || size <= 0 || pixels.Length < size * size || map == null || map.MapSize <= 0f)
         {
             return false;
@@ -505,11 +557,21 @@ public sealed class TotemCombatHUDForm : TotemUIFormBase
                 continue;
             }
 
-            Color32 color = actor.Kind == TotemActorKind.Player
-                ? MinimapPlayer
-                : actor.Kind == TotemActorKind.Boss ? MinimapBoss : MinimapEnemy;
-            int radiusPx = actor.Kind == TotemActorKind.Boss ? 2 : 1;
+            Color32 color = actor.ControllerKind == TotemParticipantControllerKind.Human ? MinimapPlayer : MinimapEnemy;
+            int radiusPx = actor.ControllerKind == TotemParticipantControllerKind.Human ? 2 : 1;
             DrawDot(pixels, size, map.MapSize, actor.Position, radiusPx, color);
+        }
+
+        for (int i = 0; enemies != null && i < enemyCount && i < enemies.Length; i++)
+        {
+            TotemEnemyModel enemy = enemies[i];
+            if (enemy == null || !enemy.IsAlive)
+            {
+                continue;
+            }
+
+            bool boss = enemy.Tier == TotemEnemyTier.Boss;
+            DrawDot(pixels, size, map.MapSize, enemy.Position, boss ? 2 : 1, boss ? MinimapBoss : new Color32(255, 55, 55, 255));
         }
 
         return true;

@@ -4,8 +4,8 @@
   "tableName": "UIGroupTable",
   "relativePath": "Core/UIGroupTable",
   "sourceExcel": "GameData/DataTables/Core/UIGroupTable.xlsx",
-  "sourceExcelLastWriteUtc": "2026-07-09T10:01:06.7294509Z",
-  "generatedAtUtc": "2026-07-09T10:01:06.8909513Z",
+  "sourceExcelLastWriteUtc": "2026-07-10T08:56:05.3474167Z",
+  "generatedAtUtc": "2026-07-10T08:56:05.5619164Z",
   "tableComment": "UIGroup",
   "columns": [
     {

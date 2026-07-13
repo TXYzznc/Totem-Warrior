@@ -22,7 +22,7 @@ public sealed class TotemAudioService : TotemRuntimeServiceBase, ITotemRuntimeTi
     private TotemSettingsService settingsService;
     private TotemActorService actorService;
     private TotemWeaponService weaponService;
-    private TotemBossService bossService;
+    private TotemEnemyService enemyService;
 
     private bool active;
     private bool backendAvailable;
@@ -55,7 +55,11 @@ public sealed class TotemAudioService : TotemRuntimeServiceBase, ITotemRuntimeTi
         settingsService = runtime.GetService<TotemSettingsService>();
         actorService = runtime.GetService<TotemActorService>();
         weaponService = runtime.GetService<TotemWeaponService>();
-        bossService = runtime.GetService<TotemBossService>();
+        enemyService = runtime.GetService<TotemEnemyService>();
+        if (enemyService != null)
+        {
+            enemyService.BossPhaseChanged += OnBossPhaseChanged;
+        }
 
         if (flowService != null)
         {
@@ -106,7 +110,11 @@ public sealed class TotemAudioService : TotemRuntimeServiceBase, ITotemRuntimeTi
         }
 
         weaponService = null;
-        bossService = null;
+        if (enemyService != null)
+        {
+            enemyService.BossPhaseChanged -= OnBossPhaseChanged;
+            enemyService = null;
+        }
         cues.Clear();
         lastSfxTimes.Clear();
         active = false;
@@ -120,7 +128,6 @@ public sealed class TotemAudioService : TotemRuntimeServiceBase, ITotemRuntimeTi
         }
 
         backendAvailable = TryGetSoundComponent(out _);
-        ObserveBossPhaseBgm();
     }
 
     public bool TryGetCue(string cueId, out TotemAudioCueDefinition cue)
@@ -337,7 +344,7 @@ public sealed class TotemAudioService : TotemRuntimeServiceBase, ITotemRuntimeTi
             return;
         }
 
-        if (TotemActorService.IsEnemy(record.Target))
+        if (record.Target.ControllerKind != TotemParticipantControllerKind.Human)
         {
             PlaySfxCue(ResolveHitCue(record), record.Target.Position, $"Damage.{record.Reason}");
             if (record.Killed)
@@ -348,7 +355,7 @@ public sealed class TotemAudioService : TotemRuntimeServiceBase, ITotemRuntimeTi
             return;
         }
 
-        if (record.Target.Kind == TotemActorKind.Player && record.Killed)
+        if (record.Target.ControllerKind == TotemParticipantControllerKind.Human && record.Killed)
         {
             PlaySfxCue(PlayerDiedCueId, record.Target.Position, $"PlayerDied.{record.Reason}");
         }
@@ -362,9 +369,9 @@ public sealed class TotemAudioService : TotemRuntimeServiceBase, ITotemRuntimeTi
             return SkillCastCueId;
         }
 
-        if (weaponService != null && record.Source != null && record.Source.Kind == TotemActorKind.Player)
+        if (weaponService != null && record.Source is TotemActorModel sourceActor && sourceActor.ControllerKind == TotemParticipantControllerKind.Human)
         {
-            var state = weaponService.GetOrCreateState(record.Source);
+            var state = weaponService.GetOrCreateState(sourceActor);
             switch (state?.Weapon?.Class ?? TotemWeaponClass.Melee)
             {
                 case TotemWeaponClass.Melee:
@@ -379,48 +386,24 @@ public sealed class TotemAudioService : TotemRuntimeServiceBase, ITotemRuntimeTi
         return HitDefaultCueId;
     }
 
-    private void ObserveBossPhaseBgm()
+    private void OnBossPhaseChanged(TotemBossPhaseChangedEvent evt)
     {
-        if (flowService == null || flowService.CurrentState != TotemGameFlowState.CombatHud || bossService == null)
+        if (flowService == null
+            || flowService.CurrentState != TotemGameFlowState.CombatHud
+            || evt.CurrentPhase <= 0
+            || string.IsNullOrWhiteSpace(evt.AudioCueId))
         {
             return;
         }
 
-        int phaseIndex = bossService.CurrentPhase;
-        string cueId = ResolveBossPhaseCue(phaseIndex);
-        if (phaseIndex <= 0 || string.IsNullOrWhiteSpace(cueId))
+        if (evt.CurrentPhase == observedBossPhase && string.Equals(evt.AudioCueId, observedBossBgmCueId, StringComparison.Ordinal))
         {
             return;
         }
 
-        if (phaseIndex == observedBossPhase && string.Equals(cueId, observedBossBgmCueId, StringComparison.Ordinal))
-        {
-            return;
-        }
-
-        observedBossPhase = phaseIndex;
-        observedBossBgmCueId = cueId;
-        PlayBgmCue(cueId, $"Boss.Phase{phaseIndex}");
-    }
-
-    private string ResolveBossPhaseCue(int phaseIndex)
-    {
-        var phases = bossService?.GetRuntimePhases();
-        if (phases == null)
-        {
-            return string.Empty;
-        }
-
-        for (int i = 0; i < phases.Count; i++)
-        {
-            var phase = phases[i];
-            if (phase != null && phase.PhaseIndex == phaseIndex)
-            {
-                return phase.PhaseBGMCueId ?? string.Empty;
-            }
-        }
-
-        return string.Empty;
+        observedBossPhase = evt.CurrentPhase;
+        observedBossBgmCueId = evt.AudioCueId;
+        PlayBgmCue(evt.AudioCueId, $"EnemyBoss.Phase{evt.CurrentPhase}");
     }
 
     private static bool TryGetSoundComponent(out SoundComponent soundComponent)

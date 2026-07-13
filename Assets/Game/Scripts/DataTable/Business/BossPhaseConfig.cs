@@ -15,13 +15,13 @@ using UnityGameFramework.Runtime;
 [Obfuz.ObfuzIgnore(Obfuz.ObfuzScope.TypeName | Obfuz.ObfuzScope.MethodName)]
 #endif
 /// <summary>
-/// Business table migrated from LegacyProjectArchive/Assets/Resources/DataTable/BossPhaseConfig.json. GF_X Id is numeric; original business keys are preserved as data columns.
+/// Deterministic three-phase Boss configuration with 60% and 30% transitions.
 /// </summary>
 public class BossPhaseConfig : DataRowBase
 {
 	private int m_Id = 0;
 	/// <summary>
-    /// GF_X numeric row id. Original business key is preserved as a data column when its name is not Id.
+    /// GF_X numeric row id.
     /// </summary>
     public override int Id
     {
@@ -29,7 +29,7 @@ public class BossPhaseConfig : DataRowBase
     }
 
         /// <summary>
-        /// 对应 EnemyConfig.EnemyId
+        /// EnemyConfig boss id.
         /// </summary>
         public string BossId
         {
@@ -38,7 +38,7 @@ public class BossPhaseConfig : DataRowBase
         }
 
         /// <summary>
-        /// 阶段编号：1 / 2 / 3
+        /// Phase number 1..3.
         /// </summary>
         public int PhaseIndex
         {
@@ -47,7 +47,7 @@ public class BossPhaseConfig : DataRowBase
         }
 
         /// <summary>
-        /// 进入本阶段的 HP 百分比：1.0=满血，0.6=60%HP
+        /// First-crossing HP ratio threshold.
         /// </summary>
         public float HPThreshold
         {
@@ -56,7 +56,16 @@ public class BossPhaseConfig : DataRowBase
         }
 
         /// <summary>
-        /// 本阶段解锁技能 ID，逗号分隔，叠加不替换
+        /// Comma-separated EnemyAbilityConfig ids enabled in this phase.
+        /// </summary>
+        public string AbilityIds
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// Legacy participant-skill bridge for the old boss service.
         /// </summary>
         public string NewSkillIds
         {
@@ -65,7 +74,7 @@ public class BossPhaseConfig : DataRowBase
         }
 
         /// <summary>
-        /// 本阶段伤害倍率，1.0=无变化
+        /// Phase damage multiplier.
         /// </summary>
         public float EnrageMultiplier
         {
@@ -74,7 +83,7 @@ public class BossPhaseConfig : DataRowBase
         }
 
         /// <summary>
-        /// 阶段转换特效 ID
+        /// Phase VFX cue.
         /// </summary>
         public string PhaseVFXId
         {
@@ -83,7 +92,7 @@ public class BossPhaseConfig : DataRowBase
         }
 
         /// <summary>
-        /// 阶段 BGM cue ID
+        /// Existing audio cue id.
         /// </summary>
         public string PhaseBGMCueId
         {
@@ -92,7 +101,7 @@ public class BossPhaseConfig : DataRowBase
         }
 
         /// <summary>
-        /// v2.1 新增：Boss 死亡时必掉的主题配方 ID（仅 PhaseIndex=3 有效，其余填空）
+        /// Theme recipe emitted by phase three death.
         /// </summary>
         public string DeathPatternRecipeId
         {
@@ -115,6 +124,7 @@ public class BossPhaseConfig : DataRowBase
             BossId = columnStrings[index++];
             PhaseIndex = int.Parse(columnStrings[index++]);
             HPThreshold = float.Parse(columnStrings[index++]);
+            AbilityIds = columnStrings[index++];
             NewSkillIds = columnStrings[index++];
             EnrageMultiplier = float.Parse(columnStrings[index++]);
             PhaseVFXId = columnStrings[index++];
@@ -134,6 +144,7 @@ public class BossPhaseConfig : DataRowBase
                     BossId = binaryReader.ReadString();
                     PhaseIndex = binaryReader.Read7BitEncodedInt32();
                     HPThreshold = binaryReader.ReadSingle();
+                    AbilityIds = binaryReader.ReadString();
                     NewSkillIds = binaryReader.ReadString();
                     EnrageMultiplier = binaryReader.ReadSingle();
                     PhaseVFXId = binaryReader.ReadString();
