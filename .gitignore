@@ -116,3 +116,4 @@ ehthumbs.db
 tools/LocalizationStringScanner/LocalizationCodeScanner
 tools/Jenkins/jenkins.war
 Assets/Game/Font/Common/SIMHEI SDF.asset
+.vscode/settings.json
