@@ -19,6 +19,7 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
     private static readonly int IsMovingHash = Animator.StringToHash("IsMoving");
     private static readonly int DirectionHash = Animator.StringToHash("Direction");
     private static readonly int AttackTriggerHash = Animator.StringToHash("AttackTrigger");
+    private static readonly int DodgeTriggerHash = Animator.StringToHash("DodgeTrigger");
     private static readonly int DieHash = Animator.StringToHash("Die");
     private static readonly int DeadHash = Animator.StringToHash("Dead");
 
@@ -479,6 +480,27 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
         if (mask.hasAttackTrigger)
         {
             animator.SetTrigger(AttackTriggerHash);
+        }
+    }
+
+    public void NotifyActorDodge(TotemActorModel actor, string reason = null)
+    {
+        if (actor == null || !actor.IsAlive)
+        {
+            return;
+        }
+
+        actor.AnimationLastReason = string.IsNullOrWhiteSpace(reason) ? "Dodge" : reason;
+        var animator = FindAnimator(actor);
+        if (animator == null)
+        {
+            return;
+        }
+
+        var mask = GetAnimatorParameterMask(animator);
+        if (mask.hasDodgeTrigger)
+        {
+            animator.SetTrigger(DodgeTriggerHash);
         }
     }
 
@@ -1307,6 +1329,10 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
                 {
                     mask.hasAttackTrigger = true;
                 }
+                else if (parameter.nameHash == DodgeTriggerHash && parameter.type == AnimatorControllerParameterType.Trigger)
+                {
+                    mask.hasDodgeTrigger = true;
+                }
                 else if (parameter.nameHash == DieHash && parameter.type == AnimatorControllerParameterType.Trigger)
                 {
                     mask.hasDie = true;
@@ -1333,6 +1359,7 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
         public bool hasIsMoving;
         public bool hasDirection;
         public bool hasAttackTrigger;
+        public bool hasDodgeTrigger;
         public bool hasDie;
         public bool hasDead;
     }

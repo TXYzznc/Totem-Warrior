@@ -230,6 +230,7 @@ public sealed class TotemCombatService : TotemRuntimeServiceBase, ITotemRuntimeT
                 : Vector3.forward;
             float dodgeDistance = DodgeDistance * movementMultiplier;
             actorService.MoveActor(actorService.Player, dodgeDirection.normalized * dodgeDistance);
+            actorService.NotifyActorDodge(actorService.Player, "PlayerDodge");
             tattooService?.Trigger("DodgePressedEvent", actorService.Player, null, dodgeDistance);
             audioService?.PlaySfxCue("sfx_dodge", actorService.Player.Position, "Combat.Dodge");
             RecordCombatAction("Dodge", "Applied", null, 0f, false, null, null, null, 0);

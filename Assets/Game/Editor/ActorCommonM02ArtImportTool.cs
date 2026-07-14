@@ -28,7 +28,7 @@ internal static class ActorCommonM02ArtImportTool
     private const float PixelsPerUnit = 512f;
     private const float FrameRate = 12f;
 
-    private static readonly string[] Actions = { "idle", "walk", "attack", "death" };
+    private static readonly string[] Actions = { "idle", "walk", "attack", "hit", "roll", "sprint", "death" };
     private static readonly string[] Directions = { "down", "up", "left", "right" };
     private static readonly string[] ParticipantPrefabPaths = { PlayerPrefabPath, SmartAiPrefabPath, LightAiPrefabPath };
 
@@ -43,7 +43,6 @@ internal static class ActorCommonM02ArtImportTool
 
         string rawFrameDirectory = Path.Combine(projectRoot, RawFrameRelativeDirectory);
         ValidateRawFrames(rawFrameDirectory);
-        EnsureTargetIsNew();
         EnsureFolder("Assets/Game/Sprite");
         EnsureFolder("Assets/Game/Sprite/Actors");
         EnsureFolder(SpriteDirectory);
@@ -70,7 +69,7 @@ internal static class ActorCommonM02ArtImportTool
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh(ImportAssetOptions.ForceSynchronousImport);
 
-        Debug.Log($"Imported {CharacterId}: 96 frames, 16 clips, and {ControllerPath}. Player, SmartAI, and LightAI share this visual controller.");
+        Debug.Log($"Imported {CharacterId}: 168 frames, 28 clips, and {ControllerPath}. Player, SmartAI, and LightAI share this visual controller.");
     }
 
     [MenuItem("Game/Totem/Art/Validate Actor Common M02 Import")]
@@ -89,7 +88,7 @@ internal static class ActorCommonM02ArtImportTool
             ValidateParticipantPrefab(ParticipantPrefabPaths[i], controller);
         }
 
-        Debug.Log("Actor Common M02 import validation passed: 96 Sprites, 16 clips, shared controller, and three participant prefabs.");
+        Debug.Log("Actor Common M02 import validation passed: 168 Sprites, 28 clips, shared controller, and three participant prefabs.");
     }
 
     private static void ValidateRawFrames(string rawFrameDirectory)
@@ -116,15 +115,6 @@ internal static class ActorCommonM02ArtImportTool
                     }
                 }
             }
-        }
-    }
-
-    private static void EnsureTargetIsNew()
-    {
-        if (AssetDatabase.IsValidFolder(SpriteDirectory) || AssetDatabase.IsValidFolder(AnimationDirectory) || File.Exists(ControllerPath))
-        {
-            throw new InvalidOperationException(
-                "Actor Common M02 import destination already exists. This importer deliberately does not overwrite generated runtime art.");
         }
     }
 
@@ -159,7 +149,7 @@ internal static class ActorCommonM02ArtImportTool
                     string fileName = GetFrameName(action, direction, frame);
                     string source = Path.Combine(rawFrameDirectory, fileName);
                     string destination = Path.GetFullPath(SpriteDirectory + "/" + fileName);
-                    File.Copy(source, destination, false);
+                    File.Copy(source, destination, true);
                 }
             }
         }
@@ -234,7 +224,7 @@ internal static class ActorCommonM02ArtImportTool
 
     private static Dictionary<string, AnimationClip> CreateAnimationClips()
     {
-        var clips = new Dictionary<string, AnimationClip>(16);
+        var clips = new Dictionary<string, AnimationClip>(Actions.Length * Directions.Length);
         for (int actionIndex = 0; actionIndex < Actions.Length; actionIndex++)
         {
             string action = Actions[actionIndex];
@@ -244,7 +234,13 @@ internal static class ActorCommonM02ArtImportTool
                 string direction = Directions[directionIndex];
                 string key = action + "_" + direction;
                 string clipPath = AnimationDirectory + "/" + CharacterId + "_" + key + ".anim";
-                var clip = new AnimationClip { name = CharacterId + "_" + key, frameRate = FrameRate };
+                var clip = AssetDatabase.LoadAssetAtPath<AnimationClip>(clipPath);
+                if (clip == null)
+                {
+                    clip = new AnimationClip { name = CharacterId + "_" + key, frameRate = FrameRate };
+                    AssetDatabase.CreateAsset(clip, clipPath);
+                }
+                clip.frameRate = FrameRate;
                 var keyframes = new ObjectReferenceKeyframe[frameCount];
                 for (int index = 0; index < frameCount; index++)
                 {
@@ -259,9 +255,9 @@ internal static class ActorCommonM02ArtImportTool
 
                 AnimationUtility.SetObjectReferenceCurve(clip, EditorCurveBinding.PPtrCurve(string.Empty, typeof(SpriteRenderer), "m_Sprite"), keyframes);
                 AnimationClipSettings settings = AnimationUtility.GetAnimationClipSettings(clip);
-                settings.loopTime = !string.Equals(action, "death", StringComparison.Ordinal);
+                settings.loopTime = IsLoopingAction(action);
                 AnimationUtility.SetAnimationClipSettings(clip, settings);
-                AssetDatabase.CreateAsset(clip, clipPath);
+                EditorUtility.SetDirty(clip);
                 clips.Add(key, clip);
             }
         }
@@ -271,12 +267,19 @@ internal static class ActorCommonM02ArtImportTool
 
     private static AnimatorController CreateAnimatorController(Dictionary<string, AnimationClip> clips)
     {
+        if (AssetDatabase.LoadAssetAtPath<AnimatorController>(ControllerPath) != null)
+        {
+            AssetDatabase.DeleteAsset(ControllerPath);
+        }
         AnimatorController controller = AnimatorController.CreateAnimatorControllerAtPath(ControllerPath);
         controller.AddParameter("IsMoving", AnimatorControllerParameterType.Bool);
         controller.AddParameter("Direction", AnimatorControllerParameterType.Int);
         controller.AddParameter("AttackTrigger", AnimatorControllerParameterType.Trigger);
         controller.AddParameter("Die", AnimatorControllerParameterType.Trigger);
         controller.AddParameter("Dead", AnimatorControllerParameterType.Bool);
+        controller.AddParameter("HitTrigger", AnimatorControllerParameterType.Trigger);
+        controller.AddParameter("DodgeTrigger", AnimatorControllerParameterType.Trigger);
+        controller.AddParameter("IsSprinting", AnimatorControllerParameterType.Bool);
 
         AnimatorStateMachine stateMachine = controller.layers[0].stateMachine;
         var idleStates = new AnimatorState[Directions.Length];
@@ -307,10 +310,15 @@ internal static class ActorCommonM02ArtImportTool
         for (int direction = 0; direction < Directions.Length; direction++)
         {
             string name = Directions[direction];
-            AnimatorState attackState = stateMachine.AddState("Attack_" + name);
-            attackState.motion = clips["attack_" + name];
-            AddAnyStateTransition(stateMachine, attackState, AnimatorConditionMode.If, 0f, "AttackTrigger", AnimatorConditionMode.Equals, direction, "Direction");
-            AddTransition(attackState, idleStates[direction], true, 0.05f);
+            AddTriggeredActionState(stateMachine, "Attack_" + name, clips["attack_" + name], "AttackTrigger", direction, idleStates[direction]);
+            AddTriggeredActionState(stateMachine, "Hit_" + name, clips["hit_" + name], "HitTrigger", direction, idleStates[direction]);
+            AddTriggeredActionState(stateMachine, "Roll_" + name, clips["roll_" + name], "DodgeTrigger", direction, idleStates[direction]);
+
+            AnimatorState sprintState = stateMachine.AddState("Sprint_" + name);
+            sprintState.motion = clips["sprint_" + name];
+            AddAnyStateTransition(stateMachine, sprintState, AnimatorConditionMode.If, 0f, "IsSprinting", AnimatorConditionMode.Equals, direction, "Direction");
+            AddTransition(sprintState, walkStates[direction], false, 0.05f, AnimatorConditionMode.IfNot, 0f, "IsSprinting", AnimatorConditionMode.If, 0f, "IsMoving", AnimatorConditionMode.Equals, direction, "Direction");
+            AddTransition(sprintState, idleStates[direction], false, 0.05f, AnimatorConditionMode.IfNot, 0f, "IsSprinting", AnimatorConditionMode.IfNot, 0f, "IsMoving", AnimatorConditionMode.Equals, direction, "Direction");
 
             AnimatorState deathState = stateMachine.AddState("Death_" + name);
             deathState.motion = clips["death_" + name];
@@ -318,7 +326,16 @@ internal static class ActorCommonM02ArtImportTool
         }
 
         EditorUtility.SetDirty(controller);
-        return controller;
+        AssetDatabase.SaveAssets();
+        return AssetDatabase.LoadAssetAtPath<AnimatorController>(ControllerPath);
+    }
+
+    private static void AddTriggeredActionState(AnimatorStateMachine stateMachine, string stateName, AnimationClip clip, string trigger, int direction, AnimatorState idleState)
+    {
+        AnimatorState state = stateMachine.AddState(stateName);
+        state.motion = clip;
+        AddAnyStateTransition(stateMachine, state, AnimatorConditionMode.If, 0f, trigger, AnimatorConditionMode.Equals, direction, "Direction");
+        AddTransition(state, idleState, true, 0.05f);
     }
 
     private static void AddAnyStateTransition(AnimatorStateMachine stateMachine, AnimatorState destination, AnimatorConditionMode firstMode, float firstThreshold, string firstParameter, AnimatorConditionMode secondMode, float secondThreshold, string secondParameter)
@@ -367,6 +384,9 @@ internal static class ActorCommonM02ArtImportTool
                 spriteRenderer.sprite = firstSprite;
                 spriteRenderer.color = Color.white;
                 animator.runtimeAnimatorController = controller;
+                EditorUtility.SetDirty(spriteRenderer);
+                EditorUtility.SetDirty(animator);
+                EditorUtility.SetDirty(prefabRoot);
                 PrefabUtility.SaveAsPrefabAsset(prefabRoot, prefabPath);
             }
             finally
@@ -383,19 +403,28 @@ internal static class ActorCommonM02ArtImportTool
         Animator animator = prefab == null ? null : prefab.GetComponent<Animator>();
         if (spriteRenderer == null || spriteRenderer.sprite == null || animator == null || animator.runtimeAnimatorController != controller || spriteRenderer.color != Color.white)
         {
-            throw new InvalidOperationException("Actor Common M02 prefab binding is invalid: " + prefabPath);
+            throw new InvalidOperationException(
+                "Actor Common M02 prefab binding is invalid: " + prefabPath
+                + " sprite=" + (spriteRenderer?.sprite == null ? "null" : spriteRenderer.sprite.name)
+                + " animator=" + (animator == null ? "null" : animator.name)
+                + " controller=" + (animator?.runtimeAnimatorController == null ? "null" : animator.runtimeAnimatorController.name)
+                + " expected=" + (controller == null ? "null" : controller.name)
+                + " color=" + (spriteRenderer == null ? "null" : spriteRenderer.color.ToString()));
         }
     }
 
     private static void ValidateControllerParameters(AnimatorController controller)
     {
         AnimatorControllerParameter[] parameters = controller.parameters;
-        if (parameters.Length != 5
+        if (parameters.Length != 8
             || !HasParameter(parameters, "IsMoving", AnimatorControllerParameterType.Bool)
             || !HasParameter(parameters, "Direction", AnimatorControllerParameterType.Int)
             || !HasParameter(parameters, "AttackTrigger", AnimatorControllerParameterType.Trigger)
             || !HasParameter(parameters, "Die", AnimatorControllerParameterType.Trigger)
-            || !HasParameter(parameters, "Dead", AnimatorControllerParameterType.Bool))
+            || !HasParameter(parameters, "Dead", AnimatorControllerParameterType.Bool)
+            || !HasParameter(parameters, "HitTrigger", AnimatorControllerParameterType.Trigger)
+            || !HasParameter(parameters, "DodgeTrigger", AnimatorControllerParameterType.Trigger)
+            || !HasParameter(parameters, "IsSprinting", AnimatorControllerParameterType.Bool))
         {
             throw new InvalidOperationException("Actor Common M02 controller parameters do not match TotemActorService.");
         }
@@ -416,7 +445,14 @@ internal static class ActorCommonM02ArtImportTool
 
     private static int GetFrameCount(string action)
     {
-        return string.Equals(action, "idle", StringComparison.Ordinal) ? 4 : string.Equals(action, "death", StringComparison.Ordinal) ? 8 : 6;
+        return string.Equals(action, "idle", StringComparison.Ordinal) || string.Equals(action, "hit", StringComparison.Ordinal) ? 4 : string.Equals(action, "death", StringComparison.Ordinal) || string.Equals(action, "roll", StringComparison.Ordinal) ? 8 : 6;
+    }
+
+    private static bool IsLoopingAction(string action)
+    {
+        return string.Equals(action, "idle", StringComparison.Ordinal)
+            || string.Equals(action, "walk", StringComparison.Ordinal)
+            || string.Equals(action, "sprint", StringComparison.Ordinal);
     }
 
     private static string GetFrameName(string action, string direction, int frame)
