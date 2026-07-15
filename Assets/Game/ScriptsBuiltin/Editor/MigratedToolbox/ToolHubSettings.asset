@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ToolHubSettings
   m_EditorClassIdentifier: 
   locked: 0
-  selectedIndex: 1
+  selectedIndex: 2
   tools:
   - typeName: TotemWarrior.EditorTools.UISpriteImportBatchPanel, Builtin.Editor,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
