@@ -16,59 +16,10 @@ public struct TotemTattooVisualPlacement
 }
 
 [Serializable]
-public struct TotemTattooFrameBinding
+public struct TotemTattooPartVisualPlacement
 {
-    public Sprite sprite;
-    public Texture2D tattooMap;
-}
-
-/// <summary>
-/// Serialized Sprite-to-TattooMap bindings for the shared M02 sprite set.
-/// A binding is intentionally data-only: the Player presenter owns the runtime lookup.
-/// </summary>
-public sealed class TotemTattooFrameMapSet : ScriptableObject
-{
-    [SerializeField] private TotemTattooFrameBinding[] bindings = Array.Empty<TotemTattooFrameBinding>();
-
-    private Dictionary<Sprite, Texture2D> lookup;
-
-    public int Count => bindings == null ? 0 : bindings.Length;
-
-    public bool TryGetTattooMap(Sprite sprite, out Texture2D tattooMap)
-    {
-        tattooMap = null;
-        EnsureLookup();
-        return sprite != null && lookup.TryGetValue(sprite, out tattooMap) && tattooMap != null;
-    }
-
-    public void SetBindings(TotemTattooFrameBinding[] value)
-    {
-        bindings = value ?? Array.Empty<TotemTattooFrameBinding>();
-        lookup = null;
-    }
-
-    private void EnsureLookup()
-    {
-        if (lookup != null)
-        {
-            return;
-        }
-
-        lookup = new Dictionary<Sprite, Texture2D>(bindings == null ? 0 : bindings.Length);
-        if (bindings == null)
-        {
-            return;
-        }
-
-        for (int index = 0; index < bindings.Length; index++)
-        {
-            TotemTattooFrameBinding binding = bindings[index];
-            if (binding.sprite != null && binding.tattooMap != null)
-            {
-                lookup[binding.sprite] = binding.tattooMap;
-            }
-        }
-    }
+    [Range(1, TotemTattooService.PartCount)] public int partId;
+    public TotemTattooVisualPlacement placement;
 }
 
 /// <summary>
@@ -102,6 +53,7 @@ public sealed class TotemTattooVisualPresenter : MonoBehaviour
         offset = new Vector2(0.5f, 0.5f),
         scale = 1f,
     };
+    [SerializeField] private TotemTattooPartVisualPlacement[] partPlacements = Array.Empty<TotemTattooPartVisualPlacement>();
 
     private readonly Vector4[] partDescriptors = new Vector4[TotemTattooService.PartCount];
     private readonly Vector4[] partTransforms = new Vector4[TotemTattooService.PartCount];
@@ -112,14 +64,51 @@ public sealed class TotemTattooVisualPresenter : MonoBehaviour
 
     void Awake()
     {
+        EnsurePartPlacementSlots();
         Initialize();
     }
 
     void OnEnable()
     {
+        EnsurePartPlacementSlots();
         Initialize();
         lastSprite = null;
         lastVisualHash = int.MinValue;
+    }
+
+    /// <summary>
+    /// Future UI/save integration point. No player-facing control calls this in the current release.
+    /// Offset is normalized inside the already approved body-part region; scale must stay positive.
+    /// </summary>
+    public bool SetPartPlacement(int partId, Vector2 offset, float scale)
+    {
+        if (partId < 1 || partId > TotemTattooService.PartCount)
+        {
+            return false;
+        }
+
+        EnsurePartPlacementSlots();
+        for (int index = 0; index < partPlacements.Length; index++)
+        {
+            if (partPlacements[index].partId != partId)
+            {
+                continue;
+            }
+
+            var value = partPlacements[index];
+            value.placement.offset = new Vector2(Mathf.Clamp01(offset.x), Mathf.Clamp01(offset.y));
+            value.placement.scale = Mathf.Max(0.01f, scale);
+            partPlacements[index] = value;
+            lastVisualHash = int.MinValue;
+            return true;
+        }
+
+        return false;
+    }
+
+    public TotemTattooVisualPlacement GetPartPlacement(int partId)
+    {
+        return ResolvePlacement(partId);
     }
 
     void LateUpdate()
@@ -186,12 +175,11 @@ public sealed class TotemTattooVisualPresenter : MonoBehaviour
 
     private void FillDescriptors(IReadOnlyList<TotemTattooDefinition> equipped)
     {
-        float scale = Mathf.Max(0.01f, defaultPlacement.scale);
-        Vector4 defaultTransform = new Vector4(defaultPlacement.offset.x, defaultPlacement.offset.y, scale, 0f);
         for (int index = 0; index < TotemTattooService.PartCount; index++)
         {
             partDescriptors[index] = Vector4.zero;
-            partTransforms[index] = defaultTransform;
+            TotemTattooVisualPlacement placement = ResolvePlacement(index + 1);
+            partTransforms[index] = new Vector4(placement.offset.x, placement.offset.y, placement.scale, 0f);
         }
 
         for (int index = 0; equipped != null && index < equipped.Count; index++)
@@ -206,6 +194,99 @@ public sealed class TotemTattooVisualPresenter : MonoBehaviour
             Color color = ResolveColor(definition.ColorId);
             partDescriptors[partIndex] = new Vector4(color.r, color.g, color.b, Mathf.Clamp(definition.PatternId, 1, TotemTattooService.PatternCount));
         }
+    }
+
+    private TotemTattooVisualPlacement ResolvePlacement(int partId)
+    {
+        TotemTattooVisualPlacement fallback = NormalizePlacement(defaultPlacement);
+        if (partPlacements == null)
+        {
+            return fallback;
+        }
+
+        for (int index = 0; index < partPlacements.Length; index++)
+        {
+            if (partPlacements[index].partId == partId)
+            {
+                return NormalizePlacement(partPlacements[index].placement);
+            }
+        }
+
+        return fallback;
+    }
+
+    /// <summary>
+    /// Keeps the future public placement API independent of prefab authoring order. This runs
+    /// during initialization or an explicit placement write, never from LateUpdate.
+    /// </summary>
+    private void EnsurePartPlacementSlots()
+    {
+        if (HasCompletePartPlacementSlots())
+        {
+            return;
+        }
+
+        var normalized = new TotemTattooPartVisualPlacement[TotemTattooService.PartCount];
+        var assigned = new bool[TotemTattooService.PartCount];
+        for (int partId = 1; partId <= TotemTattooService.PartCount; partId++)
+        {
+            normalized[partId - 1] = new TotemTattooPartVisualPlacement
+            {
+                partId = partId,
+                placement = NormalizePlacement(defaultPlacement),
+            };
+        }
+
+        for (int index = 0; partPlacements != null && index < partPlacements.Length; index++)
+        {
+            TotemTattooPartVisualPlacement existing = partPlacements[index];
+            int partIndex = existing.partId - 1;
+            if (partIndex < 0 || partIndex >= TotemTattooService.PartCount || assigned[partIndex])
+            {
+                continue;
+            }
+
+            existing.placement = NormalizePlacement(existing.placement);
+            normalized[partIndex] = existing;
+            assigned[partIndex] = true;
+        }
+
+        partPlacements = normalized;
+    }
+
+    private bool HasCompletePartPlacementSlots()
+    {
+        if (partPlacements == null || partPlacements.Length != TotemTattooService.PartCount)
+        {
+            return false;
+        }
+
+        for (int partId = 1; partId <= TotemTattooService.PartCount; partId++)
+        {
+            bool found = false;
+            for (int index = 0; index < partPlacements.Length; index++)
+            {
+                if (partPlacements[index].partId == partId)
+                {
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!found)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private static TotemTattooVisualPlacement NormalizePlacement(TotemTattooVisualPlacement value)
+    {
+        value.offset = new Vector2(Mathf.Clamp01(value.offset.x), Mathf.Clamp01(value.offset.y));
+        value.scale = Mathf.Max(0.01f, value.scale);
+        return value;
     }
 
     private static int ComputeVisualHash(IReadOnlyList<TotemTattooDefinition> equipped)

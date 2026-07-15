@@ -103,7 +103,10 @@ Shader "Totem/Actor Tattoo Sprite"
                         float safeScale = max(transform.z, 0.01);
                         float2 patternUv = (map.rg - transform.xy) / safeScale + 0.5;
                         float insidePattern = step(0.0, patternUv.x) * step(patternUv.x, 1.0) * step(0.0, patternUv.y) * step(patternUv.y, 1.0);
-                        half inkAlpha = SamplePattern(patternUv, descriptor.w) * map.a * insidePattern * body.a * 0.86;
+                        // The review prototype atlas is solid white, so the test scene renders
+                        // every approved skin region as one continuous 80% opaque colour block.
+                        // Real tattoo atlases may still supply a patterned alpha later.
+                        half inkAlpha = SamplePattern(patternUv, descriptor.w) * map.a * insidePattern * body.a * 0.80;
                         body.rgb = lerp(body.rgb, descriptor.rgb, inkAlpha);
                     }
                 }

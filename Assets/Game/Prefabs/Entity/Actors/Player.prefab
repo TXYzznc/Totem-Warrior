@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2000235704975489331}
   - component: {fileID: 6012394159354892682}
   - component: {fileID: 913947603420535367}
+  - component: {fileID: 2595994126795723321}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -106,3 +107,47 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2595994126795723321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7598590131207493264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6277c88402ccd8943be5572058773aba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 6012394159354892682}
+  tattooMaterial: {fileID: 2100000, guid: 6be08d018ccaa0d44809c1edf839b8ed, type: 2}
+  tattooPatternAtlas: {fileID: 2800000, guid: 7f976d3f18ebe6745a9ac121833078a1, type: 3}
+  frameMapSet: {fileID: 11400000, guid: 4346bc2732c7201468b5f8c11f95b373, type: 2}
+  defaultPlacement:
+    offset: {x: 0.5, y: 0.5}
+    scale: 1
+  partPlacements:
+  - partId: 1
+    placement:
+      offset: {x: 0.5, y: 0.5}
+      scale: 1
+  - partId: 2
+    placement:
+      offset: {x: 0.5, y: 0.5}
+      scale: 1
+  - partId: 3
+    placement:
+      offset: {x: 0.5, y: 0.5}
+      scale: 1
+  - partId: 4
+    placement:
+      offset: {x: 0.5, y: 0.5}
+      scale: 1
+  - partId: 5
+    placement:
+      offset: {x: 0.5, y: 0.5}
+      scale: 1
+  - partId: 6
+    placement:
+      offset: {x: 0.5, y: 0.5}
+      scale: 1
