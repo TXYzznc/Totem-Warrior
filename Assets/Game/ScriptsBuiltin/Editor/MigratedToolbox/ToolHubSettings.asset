@@ -23,3 +23,7 @@ MonoBehaviour:
       PublicKeyToken=null
     displayName: "Console\u65E5\u5FD7\u5BFC\u51FA"
     description: "\u5BFC\u51FA Unity Console \u5F53\u524D\u65E5\u5FD7\u5230\u672C\u5730\u6587\u4EF6"
+  - typeName: TattooRegionMarkerPanel, Builtin.Editor, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+    displayName: "\u7EB9\u8EAB\u533A\u57DF\u6807\u8BB0\u5668"
+    description: "\u624B\u5DE5\u6807\u8BB0\u89D2\u8272\u7EB9\u8EAB\u533A\u57DF\uFF1A\u89C4\u6574\u4E2D\u5FC3\u7EBF/\u77E9\u5F62\u3001\u76AE\u80A4\u88C1\u526A\u9884\u89C8\u3001\u79FB\u52A8\u4E0E\u8FB9\u6846\u7F29\u653E"

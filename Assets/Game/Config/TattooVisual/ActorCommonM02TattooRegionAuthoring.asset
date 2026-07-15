@@ -1,0 +1,1479 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b50e03523ac8214cada5e15cc34bc41, type: 3}
+  m_Name: ActorCommonM02TattooRegionAuthoring
+  m_EditorClassIdentifier: 
+  frames:
+  - action: idle
+    direction: right
+    frame: 1
+    regions:
+    - partId: 4
+      shape: 0
+      start: {x: 241.92009, y: 84.694466}
+      end: {x: 212.90695, y: 227.2002}
+      width: 63.11358
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+    - partId: 6
+      shape: 0
+      start: {x: 247.5763, y: 284.07098}
+      end: {x: 238.09065, y: 464.85458}
+      width: 59.826935
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+    - partId: 1
+      shape: 1
+      start: {x: 0, y: 0}
+      end: {x: 0, y: 0}
+      width: 36
+      center: {x: 278.0837, y: 42.47247}
+      size: {x: 33.592102, y: 42.301155}
+      rotationDegrees: 0
+    - partId: 2
+      shape: 1
+      start: {x: 0, y: 0}
+      end: {x: 0, y: 0}
+      width: 36
+      center: {x: 298.02637, y: 148.48071}
+      size: {x: 24.319855, y: 104.53263}
+      rotationDegrees: 0
+  - action: idle
+    direction: right
+    frame: 2
+    regions:
+    - partId: 4
+      shape: 0
+      start: {x: 241.92009, y: 84.694466}
+      end: {x: 212.90695, y: 227.2002}
+      width: 63.11358
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+    - partId: 6
+      shape: 0
+      start: {x: 247.5763, y: 284.07098}
+      end: {x: 238.09065, y: 464.85458}
+      width: 59.826935
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+    - partId: 1
+      shape: 1
+      start: {x: 0, y: 0}
+      end: {x: 0, y: 0}
+      width: 36
+      center: {x: 278.0837, y: 42.47247}
+      size: {x: 33.592102, y: 42.301155}
+      rotationDegrees: 0
+    - partId: 2
+      shape: 1
+      start: {x: 0, y: 0}
+      end: {x: 0, y: 0}
+      width: 36
+      center: {x: 298.02637, y: 148.48071}
+      size: {x: 24.319855, y: 104.53263}
+      rotationDegrees: 0
+  - action: idle
+    direction: right
+    frame: 3
+    regions:
+    - partId: 4
+      shape: 0
+      start: {x: 241.92009, y: 84.694466}
+      end: {x: 212.90695, y: 227.2002}
+      width: 63.11358
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+    - partId: 6
+      shape: 0
+      start: {x: 247.5763, y: 284.07098}
+      end: {x: 238.09065, y: 464.85458}
+      width: 59.826935
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+    - partId: 1
+      shape: 1
+      start: {x: 0, y: 0}
+      end: {x: 0, y: 0}
+      width: 36
+      center: {x: 278.0837, y: 42.47247}
+      size: {x: 33.592102, y: 42.301155}
+      rotationDegrees: 0
+    - partId: 2
+      shape: 1
+      start: {x: 0, y: 0}
+      end: {x: 0, y: 0}
+      width: 36
+      center: {x: 298.02637, y: 148.48071}
+      size: {x: 24.319855, y: 104.53263}
+      rotationDegrees: 0
+  - action: idle
+    direction: right
+    frame: 4
+    regions:
+    - partId: 4
+      shape: 0
+      start: {x: 241.92009, y: 84.694466}
+      end: {x: 212.90695, y: 227.2002}
+      width: 63.11358
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+    - partId: 6
+      shape: 0
+      start: {x: 247.5763, y: 284.07098}
+      end: {x: 238.09065, y: 464.85458}
+      width: 59.826935
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+    - partId: 1
+      shape: 1
+      start: {x: 0, y: 0}
+      end: {x: 0, y: 0}
+      width: 36
+      center: {x: 278.0837, y: 42.47247}
+      size: {x: 33.592102, y: 42.301155}
+      rotationDegrees: 0
+    - partId: 2
+      shape: 1
+      start: {x: 0, y: 0}
+      end: {x: 0, y: 0}
+      width: 36
+      center: {x: 298.02637, y: 148.48071}
+      size: {x: 24.319855, y: 104.53263}
+      rotationDegrees: 0
+  - action: idle
+    direction: left
+    frame: 4
+    regions:
+    - partId: 2
+      shape: 1
+      start: {x: 0, y: 0}
+      end: {x: 0, y: 0}
+      width: 36
+      center: {x: 216.69133, y: 144.73648}
+      size: {x: 30.647446, y: 107.48814}
+      rotationDegrees: 0
+    - partId: 3
+      shape: 0
+      start: {x: 273.7666, y: 79.4441}
+      end: {x: 282.64996, y: 231.3488}
+      width: 60.019184
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+    - partId: 5
+      shape: 0
+      start: {x: 249.23021, y: 292.89536}
+      end: {x: 279.69424, y: 464.848}
+      width: 70.07676
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+  - action: idle
+    direction: left
+    frame: 3
+    regions:
+    - partId: 2
+      shape: 1
+      start: {x: 0, y: 0}
+      end: {x: 0, y: 0}
+      width: 36
+      center: {x: 216.69133, y: 144.73648}
+      size: {x: 30.647446, y: 107.48814}
+      rotationDegrees: 0
+    - partId: 3
+      shape: 0
+      start: {x: 273.7666, y: 79.4441}
+      end: {x: 282.64996, y: 231.3488}
+      width: 60.019184
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+    - partId: 5
+      shape: 0
+      start: {x: 249.23021, y: 292.89536}
+      end: {x: 279.69424, y: 464.848}
+      width: 70.07676
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+  - action: idle
+    direction: left
+    frame: 2
+    regions:
+    - partId: 2
+      shape: 1
+      start: {x: 0, y: 0}
+      end: {x: 0, y: 0}
+      width: 36
+      center: {x: 216.69133, y: 144.73648}
+      size: {x: 30.647446, y: 107.48814}
+      rotationDegrees: 0
+    - partId: 3
+      shape: 0
+      start: {x: 273.7666, y: 79.4441}
+      end: {x: 282.64996, y: 231.3488}
+      width: 60.019184
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+    - partId: 5
+      shape: 0
+      start: {x: 249.23021, y: 292.89536}
+      end: {x: 279.69424, y: 464.848}
+      width: 70.07676
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+  - action: idle
+    direction: left
+    frame: 1
+    regions:
+    - partId: 2
+      shape: 1
+      start: {x: 0, y: 0}
+      end: {x: 0, y: 0}
+      width: 36
+      center: {x: 216.69133, y: 144.73648}
+      size: {x: 30.647446, y: 107.48814}
+      rotationDegrees: 0
+    - partId: 3
+      shape: 0
+      start: {x: 273.7666, y: 79.4441}
+      end: {x: 282.64996, y: 231.3488}
+      width: 60.019184
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+    - partId: 5
+      shape: 0
+      start: {x: 249.23021, y: 292.89536}
+      end: {x: 279.69424, y: 464.848}
+      width: 70.07676
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+  - action: idle
+    direction: up
+    frame: 4
+    regions:
+    - partId: 1
+      shape: 1
+      start: {x: 0, y: 0}
+      end: {x: 0, y: 0}
+      width: 36
+      center: {x: 277.46036, y: 40.471786}
+      size: {x: 12.317444, y: 38.84733}
+      rotationDegrees: 0
+    - partId: 3
+      shape: 0
+      start: {x: 195.65326, y: 88.51594}
+      end: {x: 145.80162, y: 238.07089}
+      width: 43.144897
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+    - partId: 4
+      shape: 0
+      start: {x: 307.60083, y: 87.64136}
+      end: {x: 361.82544, y: 235.44713}
+      width: 58.91433
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+    - partId: 5
+      shape: 0
+      start: {x: 216.64343, y: 304.53976}
+      end: {x: 196.72221, y: 477.07703}
+      width: 58.91433
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+    - partId: 6
+      shape: 0
+      start: {x: 292.22043, y: 303.2632}
+      end: {x: 312.53918, y: 477.29788}
+      width: 57.34248
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+  - action: idle
+    direction: up
+    frame: 3
+    regions:
+    - partId: 1
+      shape: 1
+      start: {x: 0, y: 0}
+      end: {x: 0, y: 0}
+      width: 36
+      center: {x: 277.46036, y: 40.471786}
+      size: {x: 12.317444, y: 38.84733}
+      rotationDegrees: 0
+    - partId: 3
+      shape: 0
+      start: {x: 195.65326, y: 88.51594}
+      end: {x: 145.80162, y: 238.07089}
+      width: 43.144897
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+    - partId: 4
+      shape: 0
+      start: {x: 307.60083, y: 87.64136}
+      end: {x: 361.82544, y: 235.44713}
+      width: 58.91433
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+    - partId: 5
+      shape: 0
+      start: {x: 216.64343, y: 304.53976}
+      end: {x: 196.72221, y: 477.07703}
+      width: 58.91433
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+    - partId: 6
+      shape: 0
+      start: {x: 292.22043, y: 303.2632}
+      end: {x: 312.53918, y: 477.29788}
+      width: 57.34248
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+  - action: idle
+    direction: up
+    frame: 2
+    regions:
+    - partId: 1
+      shape: 1
+      start: {x: 0, y: 0}
+      end: {x: 0, y: 0}
+      width: 36
+      center: {x: 277.46036, y: 40.471786}
+      size: {x: 12.317444, y: 38.84733}
+      rotationDegrees: 0
+    - partId: 3
+      shape: 0
+      start: {x: 195.65326, y: 88.51594}
+      end: {x: 145.80162, y: 238.07089}
+      width: 43.144897
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+    - partId: 4
+      shape: 0
+      start: {x: 307.60083, y: 87.64136}
+      end: {x: 361.82544, y: 235.44713}
+      width: 58.91433
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+    - partId: 5
+      shape: 0
+      start: {x: 216.64343, y: 304.53976}
+      end: {x: 196.72221, y: 477.07703}
+      width: 58.91433
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+    - partId: 6
+      shape: 0
+      start: {x: 292.22043, y: 303.2632}
+      end: {x: 312.53918, y: 477.29788}
+      width: 57.34248
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+  - action: idle
+    direction: up
+    frame: 1
+    regions:
+    - partId: 1
+      shape: 1
+      start: {x: 0, y: 0}
+      end: {x: 0, y: 0}
+      width: 36
+      center: {x: 277.46036, y: 40.471786}
+      size: {x: 12.317444, y: 38.84733}
+      rotationDegrees: 0
+    - partId: 3
+      shape: 0
+      start: {x: 195.65326, y: 88.51594}
+      end: {x: 145.80162, y: 238.07089}
+      width: 43.144897
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+    - partId: 4
+      shape: 0
+      start: {x: 307.60083, y: 87.64136}
+      end: {x: 361.82544, y: 235.44713}
+      width: 58.91433
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+    - partId: 5
+      shape: 0
+      start: {x: 216.64343, y: 304.53976}
+      end: {x: 196.72221, y: 477.07703}
+      width: 58.91433
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+    - partId: 6
+      shape: 0
+      start: {x: 292.22043, y: 303.2632}
+      end: {x: 312.53918, y: 477.29788}
+      width: 57.34248
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+  - action: idle
+    direction: down
+    frame: 4
+    regions:
+    - partId: 1
+      shape: 1
+      start: {x: 0, y: 0}
+      end: {x: 0, y: 0}
+      width: 36
+      center: {x: 244.23389, y: 46.020008}
+      size: {x: 30.77295, y: 60.942467}
+      rotationDegrees: 0
+    - partId: 2
+      shape: 1
+      start: {x: 0, y: 0}
+      end: {x: 0, y: 0}
+      width: 36
+      center: {x: 255.6983, y: 149.80322}
+      size: {x: 65.76959, y: 111.6273}
+      rotationDegrees: 0
+    - partId: 3
+      shape: 0
+      start: {x: 322.373, y: 87.35227}
+      end: {x: 359.17984, y: 230.3559}
+      width: 54.452034
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+    - partId: 4
+      shape: 0
+      start: {x: 195.66092, y: 87.35227}
+      end: {x: 157.64731, y: 233.37285}
+      width: 54.452034
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+    - partId: 5
+      shape: 0
+      start: {x: 291.86685, y: 284.9694}
+      end: {x: 314.85843, y: 462.46432}
+      width: 62.42878
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+    - partId: 6
+      shape: 0
+      start: {x: 216.4545, y: 290.48737}
+      end: {x: 199.90056, y: 467.9823}
+      width: 67.84642
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+  - action: idle
+    direction: down
+    frame: 3
+    regions:
+    - partId: 1
+      shape: 1
+      start: {x: 0, y: 0}
+      end: {x: 0, y: 0}
+      width: 36
+      center: {x: 244.23389, y: 46.020008}
+      size: {x: 30.77295, y: 60.942467}
+      rotationDegrees: 0
+    - partId: 2
+      shape: 1
+      start: {x: 0, y: 0}
+      end: {x: 0, y: 0}
+      width: 36
+      center: {x: 255.6983, y: 149.80322}
+      size: {x: 65.76959, y: 111.6273}
+      rotationDegrees: 0
+    - partId: 3
+      shape: 0
+      start: {x: 322.373, y: 87.35227}
+      end: {x: 359.17984, y: 230.3559}
+      width: 54.452034
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+    - partId: 4
+      shape: 0
+      start: {x: 195.66092, y: 87.35227}
+      end: {x: 157.64731, y: 233.37285}
+      width: 54.452034
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+    - partId: 5
+      shape: 0
+      start: {x: 291.86685, y: 284.9694}
+      end: {x: 314.85843, y: 462.46432}
+      width: 62.42878
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+    - partId: 6
+      shape: 0
+      start: {x: 216.4545, y: 290.48737}
+      end: {x: 199.90056, y: 467.9823}
+      width: 67.84642
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+  - action: idle
+    direction: down
+    frame: 2
+    regions:
+    - partId: 1
+      shape: 1
+      start: {x: 0, y: 0}
+      end: {x: 0, y: 0}
+      width: 36
+      center: {x: 244.23389, y: 46.020008}
+      size: {x: 30.77295, y: 60.942467}
+      rotationDegrees: 0
+    - partId: 2
+      shape: 1
+      start: {x: 0, y: 0}
+      end: {x: 0, y: 0}
+      width: 36
+      center: {x: 255.6983, y: 149.80322}
+      size: {x: 65.76959, y: 111.6273}
+      rotationDegrees: 0
+    - partId: 3
+      shape: 0
+      start: {x: 322.373, y: 87.35227}
+      end: {x: 359.17984, y: 230.3559}
+      width: 54.452034
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+    - partId: 4
+      shape: 0
+      start: {x: 195.66092, y: 87.35227}
+      end: {x: 157.64731, y: 233.37285}
+      width: 54.452034
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+    - partId: 5
+      shape: 0
+      start: {x: 291.86685, y: 284.9694}
+      end: {x: 314.85843, y: 462.46432}
+      width: 62.42878
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+    - partId: 6
+      shape: 0
+      start: {x: 216.4545, y: 290.48737}
+      end: {x: 199.90056, y: 467.9823}
+      width: 67.84642
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+  - action: idle
+    direction: down
+    frame: 1
+    regions:
+    - partId: 1
+      shape: 1
+      start: {x: 0, y: 0}
+      end: {x: 0, y: 0}
+      width: 36
+      center: {x: 244.23389, y: 46.020008}
+      size: {x: 30.77295, y: 60.942467}
+      rotationDegrees: 0
+    - partId: 2
+      shape: 1
+      start: {x: 0, y: 0}
+      end: {x: 0, y: 0}
+      width: 36
+      center: {x: 255.6983, y: 149.80322}
+      size: {x: 65.76959, y: 111.6273}
+      rotationDegrees: 0
+    - partId: 3
+      shape: 0
+      start: {x: 322.373, y: 87.35227}
+      end: {x: 359.17984, y: 230.3559}
+      width: 54.452034
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+    - partId: 4
+      shape: 0
+      start: {x: 195.66092, y: 87.35227}
+      end: {x: 157.64731, y: 233.37285}
+      width: 54.452034
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+    - partId: 5
+      shape: 0
+      start: {x: 291.86685, y: 284.9694}
+      end: {x: 314.85843, y: 462.46432}
+      width: 62.42878
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+    - partId: 6
+      shape: 0
+      start: {x: 216.4545, y: 290.48737}
+      end: {x: 199.90056, y: 467.9823}
+      width: 67.84642
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+  - action: walk
+    direction: down
+    frame: 4
+    regions:
+    - partId: 1
+      shape: 1
+      start: {x: 0, y: 0}
+      end: {x: 0, y: 0}
+      width: 36
+      center: {x: 244.00818, y: 46.143436}
+      size: {x: 31.978134, y: 67.382515}
+      rotationDegrees: 0
+    - partId: 2
+      shape: 1
+      start: {x: 0, y: 0}
+      end: {x: 0, y: 0}
+      width: 36
+      center: {x: 257.71313, y: 149.50136}
+      size: {x: 67.38245, y: 118.77596}
+      rotationDegrees: 0
+    - partId: 3
+      shape: 0
+      start: {x: 319.37747, y: 93.28365}
+      end: {x: 344.3012, y: 232.14442}
+      width: 49.876347
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+    - partId: 4
+      shape: 0
+      start: {x: 185.50145, y: 91.859436}
+      end: {x: 168.41089, y: 245.67445}
+      width: 49.876347
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+    - partId: 5
+      shape: 0
+      start: {x: 286.62057, y: 294.0977}
+      end: {x: 286.62057, y: 442.21585}
+      width: 61.7716
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+    - partId: 6
+      shape: 0
+      start: {x: 222.53099, y: 300.50665}
+      end: {x: 226.09152, y: 465.00327}
+      width: 54.786057
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+  - action: walk
+    direction: down
+    frame: 3
+    regions:
+    - partId: 1
+      shape: 1
+      start: {x: 0, y: 0}
+      end: {x: 0, y: 0}
+      width: 36
+      center: {x: 244.00818, y: 46.143436}
+      size: {x: 31.978134, y: 67.382515}
+      rotationDegrees: 0
+    - partId: 2
+      shape: 1
+      start: {x: 0, y: 0}
+      end: {x: 0, y: 0}
+      width: 36
+      center: {x: 257.71313, y: 149.50136}
+      size: {x: 67.38245, y: 118.77596}
+      rotationDegrees: 0
+    - partId: 3
+      shape: 0
+      start: {x: 322.93802, y: 85.45048}
+      end: {x: 349.28595, y: 244.25023}
+      width: 49.876347
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+    - partId: 4
+      shape: 0
+      start: {x: 190.48619, y: 84.02627}
+      end: {x: 170.54721, y: 229.296}
+      width: 49.876347
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+    - partId: 5
+      shape: 0
+      start: {x: 289.469, y: 286.97662}
+      end: {x: 281.63583, y: 467.85168}
+      width: 61.7716
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+    - partId: 6
+      shape: 0
+      start: {x: 222.53099, y: 300.50665}
+      end: {x: 223.24309, y: 402.3379}
+      width: 54.786057
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+  - action: walk
+    direction: down
+    frame: 2
+    regions:
+    - partId: 1
+      shape: 1
+      start: {x: 0, y: 0}
+      end: {x: 0, y: 0}
+      width: 36
+      center: {x: 244.00818, y: 46.143436}
+      size: {x: 31.978134, y: 67.382515}
+      rotationDegrees: 0
+    - partId: 2
+      shape: 1
+      start: {x: 0, y: 0}
+      end: {x: 0, y: 0}
+      width: 36
+      center: {x: 257.71313, y: 149.50136}
+      size: {x: 67.38245, y: 118.77596}
+      rotationDegrees: 0
+    - partId: 3
+      shape: 0
+      start: {x: 324.3622, y: 96.13208}
+      end: {x: 343.58908, y: 228.5839}
+      width: 49.876347
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+    - partId: 4
+      shape: 0
+      start: {x: 184.78934, y: 94.70786}
+      end: {x: 167.69878, y: 246.38655}
+      width: 49.876347
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+    - partId: 5
+      shape: 0
+      start: {x: 288.7569, y: 296.234}
+      end: {x: 285.19635, y: 427.2616}
+      width: 53.427
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+    - partId: 6
+      shape: 0
+      start: {x: 221.4628, y: 290.35913}
+      end: {x: 211.27968, y: 456.42236}
+      width: 50.73469
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+  - action: walk
+    direction: down
+    frame: 1
+    regions:
+    - partId: 1
+      shape: 1
+      start: {x: 0, y: 0}
+      end: {x: 0, y: 0}
+      width: 36
+      center: {x: 244.00818, y: 46.143436}
+      size: {x: 31.978134, y: 67.382515}
+      rotationDegrees: 0
+    - partId: 2
+      shape: 1
+      start: {x: 0, y: 0}
+      end: {x: 0, y: 0}
+      width: 36
+      center: {x: 257.71313, y: 149.50136}
+      size: {x: 67.38245, y: 118.77596}
+      rotationDegrees: 0
+    - partId: 3
+      shape: 0
+      start: {x: 311.20038, y: 86.90922}
+      end: {x: 358.7869, y: 240.45506}
+      width: 49.876347
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+    - partId: 4
+      shape: 0
+      start: {x: 196.99272, y: 88.1782}
+      end: {x: 165.26837, y: 233.47572}
+      width: 49.876347
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+    - partId: 5
+      shape: 0
+      start: {x: 285.05396, y: 278.25333}
+      end: {x: 286.62057, y: 465.71536}
+      width: 49.69888
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+    - partId: 6
+      shape: 0
+      start: {x: 218.40077, y: 282.24112}
+      end: {x: 227.51573, y: 413.01947}
+      width: 56.19356
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+  - action: walk
+    direction: down
+    frame: 5
+    regions:
+    - partId: 1
+      shape: 1
+      start: {x: 0, y: 0}
+      end: {x: 0, y: 0}
+      width: 36
+      center: {x: 244.00818, y: 46.143436}
+      size: {x: 31.978134, y: 67.382515}
+      rotationDegrees: 0
+    - partId: 2
+      shape: 1
+      start: {x: 0, y: 0}
+      end: {x: 0, y: 0}
+      width: 36
+      center: {x: 257.71313, y: 149.50136}
+      size: {x: 67.38245, y: 118.77596}
+      rotationDegrees: 0
+    - partId: 3
+      shape: 0
+      start: {x: 324.3622, y: 89.72312}
+      end: {x: 339.31647, y: 225.02336}
+      width: 49.876347
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+    - partId: 4
+      shape: 0
+      start: {x: 185.50145, y: 91.859436}
+      end: {x: 168.41089, y: 245.67445}
+      width: 49.876347
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+    - partId: 5
+      shape: 0
+      start: {x: 288.0448, y: 303.35507}
+      end: {x: 284.48425, y: 423.70108}
+      width: 61.7716
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+    - partId: 6
+      shape: 0
+      start: {x: 220.39467, y: 286.26453}
+      end: {x: 224.66731, y: 457.17007}
+      width: 54.786057
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+  - action: walk
+    direction: down
+    frame: 6
+    regions:
+    - partId: 1
+      shape: 1
+      start: {x: 0, y: 0}
+      end: {x: 0, y: 0}
+      width: 36
+      center: {x: 244.00818, y: 46.143436}
+      size: {x: 31.978134, y: 67.382515}
+      rotationDegrees: 0
+    - partId: 2
+      shape: 1
+      start: {x: 0, y: 0}
+      end: {x: 0, y: 0}
+      width: 36
+      center: {x: 257.71313, y: 149.50136}
+      size: {x: 67.38245, y: 118.77596}
+      rotationDegrees: 0
+    - partId: 3
+      shape: 0
+      start: {x: 324.3622, y: 89.72312}
+      end: {x: 339.31647, y: 225.02336}
+      width: 49.876347
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+    - partId: 4
+      shape: 0
+      start: {x: 185.50145, y: 91.859436}
+      end: {x: 168.41089, y: 245.67445}
+      width: 49.876347
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+    - partId: 5
+      shape: 0
+      start: {x: 288.0448, y: 296.9461}
+      end: {x: 283.77216, y: 425.1253}
+      width: 61.7716
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+    - partId: 6
+      shape: 0
+      start: {x: 220.39467, y: 286.26453}
+      end: {x: 224.66731, y: 457.17007}
+      width: 54.786057
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+  - action: walk
+    direction: up
+    frame: 6
+    regions:
+    - partId: 1
+      shape: 1
+      start: {x: 0, y: 0}
+      end: {x: 0, y: 0}
+      width: 36
+      center: {x: 275.939, y: 46.28462}
+      size: {x: 15.666321, y: 48.423244}
+      rotationDegrees: 0
+    - partId: 3
+      shape: 0
+      start: {x: 201.8799, y: 89.01101}
+      end: {x: 162.71404, y: 239.26549}
+      width: 49.876347
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+    - partId: 4
+      shape: 0
+      start: {x: 357.1191, y: 247.81076}
+      end: {x: 322.93802, y: 93.28365}
+      width: 60.712166
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+    - partId: 5
+      shape: 0
+      start: {x: 191.9104, y: 306.2035}
+      end: {x: 198.31937, y: 434.3827}
+      width: 27.060028
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+    - partId: 6
+      shape: 0
+      start: {x: 303.71112, y: 306.2035}
+      end: {x: 290.1811, y: 477.10907}
+      width: 32.11825
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+  - action: walk
+    direction: up
+    frame: 5
+    regions:
+    - partId: 1
+      shape: 1
+      start: {x: 0, y: 0}
+      end: {x: 0, y: 0}
+      width: 36
+      center: {x: 274.51477, y: 37.73934}
+      size: {x: 15.666321, y: 48.423244}
+      rotationDegrees: 0
+    - partId: 3
+      shape: 0
+      start: {x: 201.8799, y: 89.01101}
+      end: {x: 162.71404, y: 223.59915}
+      width: 49.876347
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+    - partId: 4
+      shape: 0
+      start: {x: 349.99805, y: 239.26549}
+      end: {x: 322.93802, y: 93.28365}
+      width: 44.052536
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+    - partId: 5
+      shape: 0
+      start: {x: 198.31937, y: 290.53714}
+      end: {x: 204.72832, y: 469.2759}
+      width: 29.00526
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+    - partId: 6
+      shape: 0
+      start: {x: 312.9685, y: 299.08243}
+      end: {x: 296.59006, y: 451.47324}
+      width: 32.11825
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+  - action: walk
+    direction: up
+    frame: 3
+    regions:
+    - partId: 1
+      shape: 1
+      start: {x: 0, y: 0}
+      end: {x: 0, y: 0}
+      width: 36
+      center: {x: 282.34793, y: 33.4667}
+      size: {x: 15.666321, y: 48.423244}
+      rotationDegrees: 0
+    - partId: 3
+      shape: 0
+      start: {x: 201.8799, y: 89.01101}
+      end: {x: 168.41089, y: 251.3713}
+      width: 49.876347
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+    - partId: 4
+      shape: 0
+      start: {x: 350.71017, y: 226.44757}
+      end: {x: 322.93802, y: 93.28365}
+      width: 44.052536
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+    - partId: 5
+      shape: 0
+      start: {x: 208.28885, y: 308.3398}
+      end: {x: 212.5615, y: 442.92795}
+      width: 29.00526
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+    - partId: 6
+      shape: 0
+      start: {x: 320.08957, y: 296.234}
+      end: {x: 305.13535, y: 455.74588}
+      width: 32.11825
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+  - action: walk
+    direction: up
+    frame: 2
+    regions:
+    - partId: 1
+      shape: 1
+      start: {x: 0, y: 0}
+      end: {x: 0, y: 0}
+      width: 36
+      center: {x: 278.78738, y: 45.572514}
+      size: {x: 15.666321, y: 48.423244}
+      rotationDegrees: 0
+    - partId: 3
+      shape: 0
+      start: {x: 201.8799, y: 89.01101}
+      end: {x: 168.41089, y: 251.3713}
+      width: 49.876347
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+    - partId: 4
+      shape: 0
+      start: {x: 345.7254, y: 237.12917}
+      end: {x: 322.93802, y: 93.28365}
+      width: 44.052536
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+    - partId: 5
+      shape: 0
+      start: {x: 208.28885, y: 308.3398}
+      end: {x: 213.27359, y: 477.8212}
+      width: 29.00526
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+    - partId: 6
+      shape: 0
+      start: {x: 324.3622, y: 306.91562}
+      end: {x: 317.24118, y: 425.8374}
+      width: 32.11825
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+  - action: walk
+    direction: up
+    frame: 1
+    regions:
+    - partId: 1
+      shape: 1
+      start: {x: 0, y: 0}
+      end: {x: 0, y: 0}
+      width: 36
+      center: {x: 286.62057, y: 44.1483}
+      size: {x: 15.666321, y: 48.423244}
+      rotationDegrees: 0
+    - partId: 3
+      shape: 0
+      start: {x: 201.8799, y: 89.01101}
+      end: {x: 167.69878, y: 240.6897}
+      width: 49.876347
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+    - partId: 4
+      shape: 0
+      start: {x: 345.7254, y: 237.12917}
+      end: {x: 322.93802, y: 93.28365}
+      width: 44.052536
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+    - partId: 5
+      shape: 0
+      start: {x: 214.69781, y: 299.79456}
+      end: {x: 223.24309, y: 455.74588}
+      width: 20.103931
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+    - partId: 6
+      shape: 0
+      start: {x: 322.2259, y: 287.68875}
+      end: {x: 305.84747, y: 448.62482}
+      width: 30.320719
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+  - action: walk
+    direction: up
+    frame: 4
+    regions:
+    - partId: 1
+      shape: 1
+      start: {x: 0, y: 0}
+      end: {x: 0, y: 0}
+      width: 36
+      center: {x: 279.4995, y: 37.73934}
+      size: {x: 15.666321, y: 48.423244}
+      rotationDegrees: 0
+    - partId: 3
+      shape: 0
+      start: {x: 201.8799, y: 89.01101}
+      end: {x: 165.56247, y: 239.26549}
+      width: 49.876347
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+    - partId: 4
+      shape: 0
+      start: {x: 349.99805, y: 239.26549}
+      end: {x: 322.93802, y: 93.28365}
+      width: 44.052536
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+    - partId: 5
+      shape: 0
+      start: {x: 200.45569, y: 287.68872}
+      end: {x: 212.5615, y: 471.41223}
+      width: 29.00526
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+    - partId: 6
+      shape: 0
+      start: {x: 317.24115, y: 276.295}
+      end: {x: 306.55957, y: 379.55048}
+      width: 32.11825
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+  - action: walk
+    direction: left
+    frame: 6
+    regions: []
+  - action: walk
+    direction: left
+    frame: 5
+    regions: []
+  - action: walk
+    direction: left
+    frame: 4
+    regions: []
+  - action: walk
+    direction: left
+    frame: 3
+    regions: []
+  - action: walk
+    direction: left
+    frame: 2
+    regions: []
+  - action: walk
+    direction: left
+    frame: 1
+    regions: []
+  - action: walk
+    direction: right
+    frame: 1
+    regions:
+    - partId: 1
+      shape: 1
+      start: {x: 0, y: 0}
+      end: {x: 0, y: 0}
+      width: 36
+      center: {x: 269.8685, y: 54.604843}
+      size: {x: 30.148972, y: 51.85623}
+      rotationDegrees: 0
+    - partId: 2
+      shape: 1
+      start: {x: 0, y: 0}
+      end: {x: 0, y: 0}
+      width: 36
+      center: {x: 286.14893, y: 165.55307}
+      size: {x: 24.119171, y: 97.68268}
+      rotationDegrees: 0
+    - partId: 4
+      shape: 0
+      start: {x: 222.23312, y: 85.3568}
+      end: {x: 180.02455, y: 244.54338}
+      width: 52.515728
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+    - partId: 6
+      shape: 0
+      start: {x: 265.64764, y: 298.81152}
+      end: {x: 318.70984, y: 471.26364}
+      width: 68.72933
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+  - action: walk
+    direction: right
+    frame: 2
+    regions:
+    - partId: 1
+      shape: 1
+      start: {x: 0, y: 0}
+      end: {x: 0, y: 0}
+      width: 36
+      center: {x: 266.55136, y: 53.141785}
+      size: {x: 36.078796, y: 52.416386}
+      rotationDegrees: 0
+    - partId: 2
+      shape: 1
+      start: {x: 0, y: 0}
+      end: {x: 0, y: 0}
+      width: 36
+      center: {x: 275.0605, y: 156.06207}
+      size: {x: 24.506348, y: 109.857346}
+      rotationDegrees: 0
+    - partId: 4
+      shape: 0
+      start: {x: 222.23312, y: 85.3568}
+      end: {x: 193.2901, y: 242.13147}
+      width: 52.515728
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+    - partId: 6
+      shape: 0
+      start: {x: 248.76422, y: 286.75195}
+      end: {x: 233.08675, y: 478.4994}
+      width: 54.043644
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+    - partId: 5
+      shape: 0
+      start: {x: 290.97278, y: 296.3996}
+      end: {x: 274.08936, y: 397.70016}
+      width: 37.21497
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+  - action: walk
+    direction: right
+    frame: 3
+    regions:
+    - partId: 1
+      shape: 1
+      start: {x: 0, y: 0}
+      end: {x: 0, y: 0}
+      width: 36
+      center: {x: 295.73633, y: 56.64704}
+      size: {x: 30.148972, y: 51.85623}
+      rotationDegrees: 0
+    - partId: 2
+      shape: 1
+      start: {x: 0, y: 0}
+      end: {x: 0, y: 0}
+      width: 36
+      center: {x: 310.65527, y: 160.10721}
+      size: {x: 24.119171, y: 97.68268}
+      rotationDegrees: 0
+    - partId: 4
+      shape: 0
+      start: {x: 230.67484, y: 86.56276}
+      end: {x: 300.62045, y: 237.30763}
+      width: 63.700615
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+    - partId: 6
+      shape: 0
+      start: {x: 283.73703, y: 303.63538}
+      end: {x: 178.8186, y: 430.26105}
+      width: 54.043644
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+  - action: walk
+    direction: right
+    frame: 4
+    regions:
+    - partId: 1
+      shape: 1
+      start: {x: 0, y: 0}
+      end: {x: 0, y: 0}
+      width: 36
+      center: {x: 260.18695, y: 52.865196}
+      size: {x: 30.148972, y: 51.85623}
+      rotationDegrees: 0
+    - partId: 2
+      shape: 1
+      start: {x: 0, y: 0}
+      end: {x: 0, y: 0}
+      width: 36
+      center: {x: 267.54224, y: 163.88905}
+      size: {x: 24.119171, y: 97.68268}
+      rotationDegrees: 0
+    - partId: 4
+      shape: 0
+      start: {x: 208.34874, y: 88.46421}
+      end: {x: 178.09396, y: 245.03265}
+      width: 63.700615
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+    - partId: 6
+      shape: 0
+      start: {x: 302.8949, y: 279.82565}
+      end: {x: 251.46179, y: 440.93228}
+      width: 62.688026
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+  - action: walk
+    direction: right
+    frame: 5
+    regions:
+    - partId: 1
+      shape: 1
+      start: {x: 0, y: 0}
+      end: {x: 0, y: 0}
+      width: 36
+      center: {x: 274.62253, y: 52.865196}
+      size: {x: 30.148972, y: 51.85623}
+      rotationDegrees: 0
+    - partId: 2
+      shape: 1
+      start: {x: 0, y: 0}
+      end: {x: 0, y: 0}
+      width: 36
+      center: {x: 290.6392, y: 152.80411}
+      size: {x: 24.119171, y: 110.22882}
+      rotationDegrees: 0
+    - partId: 4
+      shape: 0
+      start: {x: 213.6556, y: 88.06597}
+      end: {x: 259.8495, y: 233.38425}
+      width: 63.700615
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+    - partId: 6
+      shape: 0
+      start: {x: 239.69742, y: 301.9966}
+      end: {x: 195.44751, y: 465.02255}
+      width: 62.688026
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+  - action: walk
+    direction: right
+    frame: 6
+    regions:
+    - partId: 1
+      shape: 1
+      start: {x: 0, y: 0}
+      end: {x: 0, y: 0}
+      width: 36
+      center: {x: 294.49487, y: 51.014618}
+      size: {x: 36.57016, y: 54.85524}
+      rotationDegrees: 0
+    - partId: 2
+      shape: 1
+      start: {x: 0, y: 0}
+      end: {x: 0, y: 0}
+      width: 36
+      center: {x: 305.07477, y: 157.61597}
+      size: {x: 24.119171, y: 110.22882}
+      rotationDegrees: 0
+    - partId: 4
+      shape: 0
+      start: {x: 245.4139, y: 81.32936}
+      end: {x: 225.20407, y: 239.15848}
+      width: 63.700615
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
+    - partId: 6
+      shape: 0
+      start: {x: 284.8712, y: 294.0137}
+      end: {x: 291.6078, y: 475.90216}
+      width: 62.688026
+      center: {x: 0, y: 0}
+      size: {x: 48, y: 72}
+      rotationDegrees: 0
