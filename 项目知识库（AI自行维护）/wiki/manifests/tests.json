@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-13",
+  "generated_at": "2026-07-15",
   "source": "tools/ai_index/build_ai_manifests.py",
   "unity_tests": [],
   "playtest_reports": [
@@ -74,6 +74,19 @@
     {
       "id": "additive-gameplay-loading-world-sorting",
       "path": "openspec/changes/additive-gameplay-loading-world-sorting",
+      "has_proposal": true,
+      "has_design": true,
+      "has_tasks": true,
+      "artifacts": [
+        ".openspec.yaml",
+        "design.md",
+        "proposal.md",
+        "tasks.md"
+      ]
+    },
+    {
+      "id": "dynamic-tattoo-visuals",
+      "path": "openspec/changes/dynamic-tattoo-visuals",
       "has_proposal": true,
       "has_design": true,
       "has_tasks": true,
@@ -163,6 +176,21 @@
         "design.md",
         "proposal.md",
         "tasks.md"
+      ]
+    },
+    {
+      "id": "simplify-pcg-terrain-pipeline",
+      "path": "openspec/changes/simplify-pcg-terrain-pipeline",
+      "has_proposal": true,
+      "has_design": true,
+      "has_tasks": true,
+      "artifacts": [
+        ".openspec.yaml",
+        "design.md",
+        "proposal.md",
+        "tasks.md",
+        "terrain-plan.md",
+        "verification.md"
       ]
     }
   ],

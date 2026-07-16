@@ -2,7 +2,7 @@
 
 > 由 `tools/ai_index/build_ai_manifests.py` 生成。用于提醒 AI 当前项目状态和任务前检查项。
 >
-> 生成日期：2026-07-13
+> 生成日期：2026-07-15
 
 ## 1. 活跃 OpenSpec Change
 
@@ -10,11 +10,13 @@
 - `27-ai-information-contract`：openspec/changes/27-ai-information-contract（proposal=True，design=True，tasks=True）
 - `28-pcg-map-runtime-integration`：openspec/changes/28-pcg-map-runtime-integration（proposal=True，design=True，tasks=True）
 - `additive-gameplay-loading-world-sorting`：openspec/changes/additive-gameplay-loading-world-sorting（proposal=True，design=True，tasks=True）
+- `dynamic-tattoo-visuals`：openspec/changes/dynamic-tattoo-visuals（proposal=True，design=True，tasks=True）
 - `gf-x-business-runtime-refactor`：openspec/changes/gf-x-business-runtime-refactor（proposal=True，design=True，tasks=True）
 - `gf-x-framework-migration-phase1`：openspec/changes/gf-x-framework-migration-phase1（proposal=True，design=True，tasks=True）
 - `native-enemy-domain-rebuild`：openspec/changes/native-enemy-domain-rebuild（proposal=True，design=True，tasks=True）
 - `produce-totem-art-assets`：openspec/changes/produce-totem-art-assets（proposal=True，design=True，tasks=True）
 - `remove-resources-load-paths`：openspec/changes/remove-resources-load-paths（proposal=True，design=True，tasks=True）
+- `simplify-pcg-terrain-pipeline`：openspec/changes/simplify-pcg-terrain-pipeline（proposal=True，design=True，tasks=True）
 
 ## 2. 任务前检查
 
