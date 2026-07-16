@@ -1,0 +1,25 @@
+{
+  "items": [
+    {
+      "source": "openspec\\changes\\simplify-pcg-terrain-pipeline\\art\\raw\\atlases\\swamp_grass_mud_deco_atlas_source_v2_green.png",
+      "output": "openspec\\changes\\simplify-pcg-terrain-pipeline\\art\\raw\\atlases\\alpha\\swamp_grass_mud_deco_atlas_source_v2_green.png",
+      "size": {
+        "width": 1536,
+        "height": 1024
+      },
+      "key_color": [
+        0,
+        255,
+        0
+      ],
+      "threshold": 80.0,
+      "soft_edge": 30.0,
+      "despill": 0.85,
+      "edge_unmix": true,
+      "alpha_zero_pixels": 1417433,
+      "alpha_full_pixels": 144250,
+      "alpha_zero_ratio": 0.9012,
+      "status": "ok"
+    }
+  ]
+}
