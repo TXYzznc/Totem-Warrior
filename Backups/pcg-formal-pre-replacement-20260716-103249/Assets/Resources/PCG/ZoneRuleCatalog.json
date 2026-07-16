@@ -1,0 +1,59 @@
+﻿{
+  "schemaVersion": 1,
+  "catalogId": "zone_rule_catalog",
+  "zones": [
+    {
+      "id": "team_spawn",
+      "displayName": "Team Spawn",
+      "terrainBias": {
+        "grass": 1.0,
+        "forest_ground": 0.25,
+        "mud": 0.0,
+        "water": 0.0
+      },
+      "objectDensityMultiplier": 0.35,
+      "lootDensityMultiplier": 0.6,
+      "danger": 0.05,
+      "minRadius": 5
+    },
+    {
+      "id": "loot_zone",
+      "displayName": "Loot Zone",
+      "terrainBias": {
+        "grass": 0.8,
+        "forest_ground": 0.7,
+        "mud": 0.35
+      },
+      "objectDensityMultiplier": 0.9,
+      "lootDensityMultiplier": 1.4,
+      "danger": 0.25,
+      "minRadius": 6
+    },
+    {
+      "id": "combat_zone",
+      "displayName": "Combat Zone",
+      "terrainBias": {
+        "grass": 0.9,
+        "forest_ground": 0.45,
+        "mud": 0.3
+      },
+      "objectDensityMultiplier": 0.8,
+      "lootDensityMultiplier": 0.9,
+      "danger": 0.45,
+      "minRadius": 7
+    },
+    {
+      "id": "danger_zone",
+      "displayName": "Danger Zone",
+      "terrainBias": {
+        "forest_ground": 0.55,
+        "mud": 0.55,
+        "grass": 0.35
+      },
+      "objectDensityMultiplier": 1.1,
+      "lootDensityMultiplier": 1.8,
+      "danger": 0.85,
+      "minRadius": 8
+    }
+  ]
+}
