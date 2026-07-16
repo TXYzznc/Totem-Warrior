@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEditor;
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -15,6 +16,7 @@ public sealed class TattooMapRegionMarkerWindow : EditorWindow
     private static readonly string[] Actions = { "idle", "walk", "sprint", "hit", "attack", "roll", "death" };
     private static readonly string[] Directions = { "down", "up", "left", "right" };
     private static readonly int[] FrameCounts = { 4, 6, 6, 4, 6, 8, 8 };
+    private static readonly string[] MarkingToolLabels = { "矩形区域", "钢笔" };
     private static readonly string[] PartLabels =
     {
         "1  头部（太阳穴 / 面颊）",
@@ -41,11 +43,15 @@ public sealed class TattooMapRegionMarkerWindow : EditorWindow
     private int selectedPartId = 1;
     private float limbWidth = 36f;
     private float rectangleRotation;
+    private MarkingTool markingTool;
     private float zoom = 1f;
     private Vector2 pan;
     private bool drawing;
+    private bool isDrawingPen;
     private Vector2 dragStart;
     private Vector2 dragCurrent;
+    private readonly List<Vector2> penPoints = new List<Vector2>();
+    private Vector2 penHoverPoint;
     private RegionDragMode regionDragMode;
     private int regionDragHandle;
     private Vector2 lastRegionDragPoint;
@@ -62,6 +68,13 @@ public sealed class TattooMapRegionMarkerWindow : EditorWindow
         LineWidth,
         RectangleCorner,
         RectangleEdge,
+        PolygonVertex,
+    }
+
+    private enum MarkingTool
+    {
+        Rectangle,
+        Pen,
     }
 
     [MenuItem("Game/Totem/Tattoo/Region Marker")]
@@ -96,6 +109,11 @@ public sealed class TattooMapRegionMarkerWindow : EditorWindow
         EditorGUILayout.BeginHorizontal(EditorStyles.toolbar);
         GUILayout.Label("语义左右以角色自身为准，绝不按屏幕左右自动判断。", EditorStyles.miniLabel);
         GUILayout.FlexibleSpace();
+        if (GUILayout.Button("生成所有已标记 TattooMap", EditorStyles.toolbarButton))
+        {
+            ActorCommonM02TattooMapTool.GenerateAllAuthoredTattooMaps();
+        }
+
         if (GUILayout.Button("生成当前方向 TattooMap", EditorStyles.toolbarButton))
         {
             ActorCommonM02TattooMapTool.GenerateCurrentDirectionTattooMaps(Directions[directionIndex]);
@@ -120,7 +138,7 @@ public sealed class TattooMapRegionMarkerWindow : EditorWindow
         if (EditorGUI.EndChangeCheck())
         {
             frameIndex = Mathf.Clamp(frameIndex, 0, FrameCounts[actionIndex] - 1);
-            drawing = false;
+            CancelActiveDrawing();
             RefreshPreview();
         }
 
@@ -147,17 +165,53 @@ public sealed class TattooMapRegionMarkerWindow : EditorWindow
         }
 
         GUILayout.Space(8f);
-        bool isLimb = selectedPartId >= 3;
-        GUILayout.Label(isLimb ? "肢体：中心线 + 宽度；拖边框手柄可改长度和宽度" : "头部 / 躯干：拖出规则矩形；拖边框手柄可改大小", EditorStyles.boldLabel);
-        if (isLimb)
+        GUILayout.Label("标记工具", EditorStyles.boldLabel);
+        EditorGUI.BeginChangeCheck();
+        MarkingTool newTool = (MarkingTool)GUILayout.Toolbar((int)markingTool, MarkingToolLabels);
+        if (EditorGUI.EndChangeCheck())
         {
-            limbWidth = EditorGUILayout.Slider("区域宽度", limbWidth, 8f, 180f);
-            GUILayout.Label("中心线决定方向，宽度由滑条保证规整。", EditorStyles.wordWrappedMiniLabel);
+            markingTool = newTool;
+            CancelActiveDrawing();
+        }
+
+        GUILayout.Space(8f);
+        bool isLimb = selectedPartId >= 3;
+        if (markingTool == MarkingTool.Rectangle)
+        {
+            GUILayout.Label(isLimb ? "肢体：中心线 + 宽度；拖边框手柄可改长度和宽度" : "头部 / 躯干：拖出规则矩形；拖边框手柄可改大小", EditorStyles.boldLabel);
+            if (isLimb)
+            {
+                limbWidth = EditorGUILayout.Slider("区域宽度", limbWidth, 8f, 180f);
+                GUILayout.Label("中心线决定方向，宽度由滑条保证规整。", EditorStyles.wordWrappedMiniLabel);
+            }
+            else
+            {
+                rectangleRotation = EditorGUILayout.Slider("矩形旋转", rectangleRotation, -180f, 180f);
+                GUILayout.Label("先拖出范围；需要贴合倾斜姿势时再调旋转。", EditorStyles.wordWrappedMiniLabel);
+            }
         }
         else
         {
-            rectangleRotation = EditorGUILayout.Slider("矩形旋转", rectangleRotation, -180f, 180f);
-            GUILayout.Label("先拖出范围；需要贴合倾斜姿势时再调旋转。", EditorStyles.wordWrappedMiniLabel);
+            GUILayout.Label("钢笔：单击依次放置顶点；单击起点或双击最后一点闭合。", EditorStyles.wordWrappedMiniLabel);
+            using (new EditorGUILayout.HorizontalScope())
+            {
+                using (new EditorGUI.DisabledScope(!isDrawingPen || penPoints.Count < 3))
+                {
+                    if (GUILayout.Button("完成钢笔区域"))
+                    {
+                        CommitPenDraft();
+                    }
+                }
+
+                using (new EditorGUI.DisabledScope(!isDrawingPen || penPoints.Count == 0))
+                {
+                    if (GUILayout.Button("撤销顶点"))
+                    {
+                        penPoints.RemoveAt(penPoints.Count - 1);
+                        Repaint();
+                    }
+                }
+            }
         }
 
         DrawSelectedRegionControls();
@@ -172,7 +226,7 @@ public sealed class TattooMapRegionMarkerWindow : EditorWindow
             DeleteSelectedRegion();
         }
 
-        EditorGUILayout.HelpBox("画布手柄：白色圆点拖动整个区域；彩色方块拖动端点 / 矩形角；彩色圆点拖动边框调整宽度或单边尺寸。\n\n预览使用和导出一致的皮肤识别裁剪。色块越界到衣物或透明背景时不会写入 TattooMap。\n\n“生成当前方向”会导出当前方向所有已手工标记的帧。右向保留已审核的保守默认区域；其它方向只导出手工标记，未标记的帧不会猜测或生成。", MessageType.Info);
+        EditorGUILayout.HelpBox("矩形工具可拖动现有手柄；钢笔工具可绘制任意多边形，切回矩形工具后可拖动其顶点或整体移动。\n\n预览使用和导出一致的皮肤识别裁剪。色块越界到衣物或透明背景时不会写入 TattooMap。\n\n“生成所有已标记 TattooMap”会遍历所有有手工标记的帧；右向保留已审核的保守默认区域，其它方向只导出手工标记。", MessageType.Info);
         EditorGUILayout.EndVertical();
     }
 
@@ -236,7 +290,7 @@ public sealed class TattooMapRegionMarkerWindow : EditorWindow
                 RefreshPreview(true);
             }
         }
-        else
+        else if (region.shape == TattooMapRegionShape.OrientedRectangle)
         {
             Vector2 center = EditorGUILayout.Vector2Field("中心", region.center);
             Vector2 size = EditorGUILayout.Vector2Field("尺寸", region.size);
@@ -251,6 +305,12 @@ public sealed class TattooMapRegionMarkerWindow : EditorWindow
                 SaveAuthoring();
                 RefreshPreview(true);
             }
+        }
+        else
+        {
+            int pointCount = region.points == null ? 0 : region.points.Count;
+            EditorGUILayout.LabelField("钢笔顶点", pointCount + " 个");
+            EditorGUILayout.LabelField("提示", "切回矩形区域工具后，可拖动顶点或区域内部来编辑。", EditorStyles.wordWrappedMiniLabel);
         }
     }
 
@@ -298,33 +358,51 @@ public sealed class TattooMapRegionMarkerWindow : EditorWindow
                     continue;
                 }
 
-                DrawQuad(imageRect, TattooMapRegionAuthoringGeometry.GetCorners(region), PartColors[region.partId - 1], region.partId == selectedPartId ? 3f : 1.5f);
+                DrawOutline(imageRect, TattooMapRegionAuthoringGeometry.GetCorners(region), PartColors[region.partId - 1], region.partId == selectedPartId ? 3f : 1.5f, true);
                 if (region.partId == selectedPartId)
                 {
                     DrawRegionHandles(imageRect, region);
                 }
             }
         }
-
         if (drawing)
         {
             TattooMapRegionAuthoring draft = BuildDraftRegion();
-            DrawQuad(imageRect, TattooMapRegionAuthoringGeometry.GetCorners(draft), Color.white, 2f);
+            DrawOutline(imageRect, TattooMapRegionAuthoringGeometry.GetCorners(draft), Color.white, 2f, true);
+        }
+
+        if (isDrawingPen && penPoints.Count > 0)
+        {
+            var points = new List<Vector2>(penPoints) { penHoverPoint };
+            DrawOutline(imageRect, points.ToArray(), Color.white, 2f, false);
+            for (int index = 0; index < penPoints.Count; index++)
+            {
+                DrawHandle(imageRect, penPoints[index], Color.white, true);
+            }
         }
         Handles.EndGUI();
     }
 
-    private void DrawQuad(Rect imageRect, Vector2[] corners, Color color, float width)
+    private void DrawOutline(Rect imageRect, Vector2[] points, Color color, float width, bool closed)
     {
-        var points = new Vector3[5];
-        for (int index = 0; index < 4; index++)
+        if (points == null || points.Length < 2)
         {
-            Vector2 point = ImageToGui(corners[index], imageRect);
-            points[index] = new Vector3(point.x, point.y, 0f);
+            return;
         }
-        points[4] = points[0];
+
+        int count = points.Length + (closed ? 1 : 0);
+        var guiPoints = new Vector3[count];
+        for (int index = 0; index < points.Length; index++)
+        {
+            Vector2 point = ImageToGui(points[index], imageRect);
+            guiPoints[index] = new Vector3(point.x, point.y, 0f);
+        }
+        if (closed)
+        {
+            guiPoints[guiPoints.Length - 1] = guiPoints[0];
+        }
         Handles.color = color;
-        Handles.DrawAAPolyLine(width, points);
+        Handles.DrawAAPolyLine(width, guiPoints);
     }
 
     private void DrawRegionHandles(Rect imageRect, TattooMapRegionAuthoring region)
@@ -338,12 +416,19 @@ public sealed class TattooMapRegionMarkerWindow : EditorWindow
             DrawHandle(imageRect, (corners[1] + corners[2]) * 0.5f, color, false);
             DrawHandle(imageRect, (corners[0] + corners[3]) * 0.5f, color, false);
         }
-        else
+        else if (region.shape == TattooMapRegionShape.OrientedRectangle)
         {
             for (int index = 0; index < 4; index++)
             {
                 DrawHandle(imageRect, corners[index], color, true);
                 DrawHandle(imageRect, (corners[index] + corners[(index + 1) % 4]) * 0.5f, color, false);
+            }
+        }
+        else
+        {
+            for (int index = 0; index < corners.Length; index++)
+            {
+                DrawHandle(imageRect, corners[index], color, true);
             }
         }
 
@@ -393,6 +478,37 @@ public sealed class TattooMapRegionMarkerWindow : EditorWindow
 
         if (current.button != 0)
         {
+            return;
+        }
+
+        if (markingTool == MarkingTool.Pen)
+        {
+            if (current.type == EventType.MouseMove && imageRect.Contains(current.mousePosition))
+            {
+                penHoverPoint = ClampImagePoint(GuiToImage(current.mousePosition, imageRect));
+                Repaint();
+            }
+
+            if (current.type == EventType.MouseDown && imageRect.Contains(current.mousePosition))
+            {
+                Vector2 point = ClampImagePoint(GuiToImage(current.mousePosition, imageRect));
+                float closeRadius = Mathf.Max(6f, 11f * FramePixels / imageRect.width);
+                if (isDrawingPen && penPoints.Count >= 3 &&
+                    (current.clickCount >= 2 || Near(point, penPoints[0], closeRadius)))
+                {
+                    CommitPenDraft();
+                }
+                else
+                {
+                    isDrawingPen = true;
+                    penPoints.Add(point);
+                    penHoverPoint = point;
+                }
+
+                current.Use();
+                Repaint();
+            }
+
             return;
         }
 
@@ -465,6 +581,34 @@ public sealed class TattooMapRegionMarkerWindow : EditorWindow
         RefreshPreview(true);
     }
 
+    private void CommitPenDraft()
+    {
+        if (penPoints.Count < 3)
+        {
+            ShowNotification(new GUIContent("钢笔区域至少需要三个顶点"));
+            return;
+        }
+
+        TattooMapRegionAuthoringAsset target = EnsureAuthoring();
+        Undo.RecordObject(target, "Draw Tattoo Pen Region");
+        CurrentFrame.ReplaceRegion(new TattooMapRegionAuthoring
+        {
+            partId = selectedPartId,
+            shape = TattooMapRegionShape.Polygon,
+            points = new List<Vector2>(penPoints),
+        });
+        SaveAuthoring(target);
+        CancelActiveDrawing();
+        RefreshPreview(true);
+    }
+
+    private void CancelActiveDrawing()
+    {
+        drawing = false;
+        isDrawingPen = false;
+        penPoints.Clear();
+    }
+
     private bool TryBeginRegionDrag(Vector2 mouseImage, Rect imageRect)
     {
         TattooMapRegionAuthoring region = CurrentFrame.FindRegion(selectedPartId);
@@ -487,7 +631,7 @@ public sealed class TattooMapRegionMarkerWindow : EditorWindow
             else if (Near(mouseImage, endHandle, radius)) mode = RegionDragMode.LineEnd;
             else if (Near(mouseImage, positiveWidthHandle, radius) || Near(mouseImage, negativeWidthHandle, radius)) mode = RegionDragMode.LineWidth;
         }
-        else
+        else if (region.shape == TattooMapRegionShape.OrientedRectangle)
         {
             for (int index = 0; index < 4 && mode == RegionDragMode.None; index++)
             {
@@ -503,6 +647,17 @@ public sealed class TattooMapRegionMarkerWindow : EditorWindow
                 if (Near(mouseImage, (corners[index] + corners[(index + 1) % 4]) * 0.5f, radius))
                 {
                     mode = RegionDragMode.RectangleEdge;
+                    handle = index;
+                }
+            }
+        }
+        else
+        {
+            for (int index = 0; index < corners.Length && mode == RegionDragMode.None; index++)
+            {
+                if (Near(mouseImage, corners[index], radius))
+                {
+                    mode = RegionDragMode.PolygonVertex;
                     handle = index;
                 }
             }
@@ -542,9 +697,16 @@ public sealed class TattooMapRegionMarkerWindow : EditorWindow
                 region.start += delta;
                 region.end += delta;
             }
-            else
+            else if (region.shape == TattooMapRegionShape.OrientedRectangle)
             {
                 region.center += delta;
+            }
+            else if (region.points != null)
+            {
+                for (int index = 0; index < region.points.Count; index++)
+                {
+                    region.points[index] += delta;
+                }
             }
         }
         else if (region.shape == TattooMapRegionShape.CenterLine)
@@ -579,6 +741,10 @@ public sealed class TattooMapRegionMarkerWindow : EditorWindow
         else if (regionDragMode == RegionDragMode.RectangleEdge)
         {
             ResizeRectangleFromOppositeEdge(region, regionDragHandle, mouseImage);
+        }
+        else if (regionDragMode == RegionDragMode.PolygonVertex && region.points != null && regionDragHandle >= 0 && regionDragHandle < region.points.Count)
+        {
+            region.points[regionDragHandle] = mouseImage;
         }
 
         lastRegionDragPoint = mouseImage;
@@ -620,7 +786,27 @@ public sealed class TattooMapRegionMarkerWindow : EditorWindow
 
     private static Vector2 GetRegionCenter(TattooMapRegionAuthoring region)
     {
-        return region.shape == TattooMapRegionShape.CenterLine ? (region.start + region.end) * 0.5f : region.center;
+        if (region.shape == TattooMapRegionShape.CenterLine)
+        {
+            return (region.start + region.end) * 0.5f;
+        }
+
+        if (region.shape == TattooMapRegionShape.OrientedRectangle)
+        {
+            return region.center;
+        }
+
+        if (region.points == null || region.points.Count == 0)
+        {
+            return Vector2.zero;
+        }
+
+        Vector2 sum = Vector2.zero;
+        for (int index = 0; index < region.points.Count; index++)
+        {
+            sum += region.points[index];
+        }
+        return sum / region.points.Count;
     }
 
     private static bool Near(Vector2 first, Vector2 second, float radius)
@@ -825,6 +1011,13 @@ public sealed class TattooMapRegionMarkerWindow : EditorWindow
                 hash = hash * 31 + region.center.GetHashCode();
                 hash = hash * 31 + region.size.GetHashCode();
                 hash = hash * 31 + region.rotationDegrees.GetHashCode();
+                if (region.points != null)
+                {
+                    for (int pointIndex = 0; pointIndex < region.points.Count; pointIndex++)
+                    {
+                        hash = hash * 31 + region.points[pointIndex].GetHashCode();
+                    }
+                }
             }
             return hash;
         }
@@ -891,6 +1084,7 @@ public sealed class TattooMapRegionMarkerWindow : EditorWindow
             center = value.center,
             size = value.size,
             rotationDegrees = value.rotationDegrees,
+            points = value.points == null ? new List<Vector2>() : new List<Vector2>(value.points),
         };
     }
 

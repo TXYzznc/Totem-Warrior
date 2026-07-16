@@ -89,6 +89,7 @@ public enum TattooMapRegionShape
 {
     CenterLine,
     OrientedRectangle,
+    Polygon,
 }
 
 [Serializable]
@@ -98,12 +99,14 @@ public sealed class TattooMapRegionAuthoring
     public TattooMapRegionShape shape;
 
     // CenterLine uses start/end and width. OrientedRectangle uses center/size/rotationDegrees.
+    // Polygon stores clockwise or counter-clockwise image-space vertices from the pen tool.
     public Vector2 start;
     public Vector2 end;
     [Min(1f)] public float width = 36f;
     public Vector2 center;
     public Vector2 size = new Vector2(48f, 72f);
     public float rotationDegrees;
+    public List<Vector2> points = new List<Vector2>();
 }
 
 /// <summary>Shared geometric conversion used by the marker UI and TattooMap generator.</summary>
@@ -111,6 +114,11 @@ public static class TattooMapRegionAuthoringGeometry
 {
     public static Vector2[] GetCorners(TattooMapRegionAuthoring region)
     {
+        if (region.shape == TattooMapRegionShape.Polygon)
+        {
+            return region.points == null ? Array.Empty<Vector2>() : region.points.ToArray();
+        }
+
         if (region.shape == TattooMapRegionShape.CenterLine)
         {
             Vector2 direction = region.end - region.start;
@@ -145,7 +153,62 @@ public static class TattooMapRegionAuthoringGeometry
     public static bool Contains(TattooMapRegionAuthoring region, float x, float y, out float u, out float v)
     {
         Vector2[] corners = GetCorners(region);
+        if (corners.Length < 3)
+        {
+            u = 0f;
+            v = 0f;
+            return false;
+        }
+
+        if (region.shape == TattooMapRegionShape.Polygon)
+        {
+            return TryMapPolygon(new Vector2(x, y), corners, out u, out v);
+        }
+
         return TryMapQuad(new Vector2(x, y), corners[0], corners[1], corners[2], corners[3], out u, out v);
+    }
+
+    /// <summary>
+    /// A pen region uses its bounding box for local tattoo UVs. The polygon itself remains the
+    /// authoritative clip mask, so texture patterning cannot escape the artist-drawn contour.
+    /// </summary>
+    public static bool TryMapPolygon(Vector2 point, Vector2[] points, out float u, out float v)
+    {
+        if (points == null || points.Length < 3 || !ContainsPoint(points, point))
+        {
+            u = 0f;
+            v = 0f;
+            return false;
+        }
+
+        Vector2 min = points[0];
+        Vector2 max = points[0];
+        for (int index = 1; index < points.Length; index++)
+        {
+            min = Vector2.Min(min, points[index]);
+            max = Vector2.Max(max, points[index]);
+        }
+
+        u = Mathf.InverseLerp(min.x, Mathf.Max(min.x + 0.0001f, max.x), point.x);
+        v = Mathf.InverseLerp(min.y, Mathf.Max(min.y + 0.0001f, max.y), point.y);
+        return true;
+    }
+
+    public static bool ContainsPoint(Vector2[] points, Vector2 point)
+    {
+        bool inside = false;
+        for (int index = 0, previous = points.Length - 1; index < points.Length; previous = index++)
+        {
+            Vector2 current = points[index];
+            Vector2 prior = points[previous];
+            bool crosses = (current.y > point.y) != (prior.y > point.y);
+            if (crosses && point.x < (prior.x - current.x) * (point.y - current.y) / (prior.y - current.y) + current.x)
+            {
+                inside = !inside;
+            }
+        }
+
+        return inside;
     }
 
     private static bool TryMapQuad(Vector2 point, Vector2 upperOuter, Vector2 upperInner, Vector2 lowerInner, Vector2 lowerOuter, out float u, out float v)
