@@ -10,6 +10,43 @@ public enum TotemPcgRuntimeProfile
     DiagnosticFast = 1,
 }
 
+[Serializable]
+public struct TotemPcgRuntimeSettingsOverride
+{
+    public int Width;
+    public int Height;
+    public int ObjectBudget;
+    public int StampBudget;
+    public int DecalBudget;
+    public int MaxVisualSprites;
+    public int TeamSpawnZoneWeight;
+    public int LootZoneWeight;
+    public int CombatZoneWeight;
+    public int DangerZoneWeight;
+
+    public TotemPcgRuntimeSettingsOverride Normalized()
+    {
+        var normalized = this;
+        normalized.Width = Mathf.Clamp(normalized.Width, 16, 128);
+        normalized.Height = Mathf.Clamp(normalized.Height, 16, 128);
+        normalized.ObjectBudget = Mathf.Clamp(normalized.ObjectBudget, 0, 2048);
+        normalized.StampBudget = Mathf.Clamp(normalized.StampBudget, 0, 2048);
+        normalized.DecalBudget = Mathf.Clamp(normalized.DecalBudget, 0, 2048);
+        normalized.MaxVisualSprites = Mathf.Clamp(normalized.MaxVisualSprites, 0, 8192);
+        normalized.TeamSpawnZoneWeight = Mathf.Clamp(normalized.TeamSpawnZoneWeight, 0, 1000);
+        normalized.LootZoneWeight = Mathf.Clamp(normalized.LootZoneWeight, 0, 1000);
+        normalized.CombatZoneWeight = Mathf.Clamp(normalized.CombatZoneWeight, 0, 1000);
+        normalized.DangerZoneWeight = Mathf.Clamp(normalized.DangerZoneWeight, 0, 1000);
+
+        if (normalized.TeamSpawnZoneWeight + normalized.LootZoneWeight + normalized.CombatZoneWeight + normalized.DangerZoneWeight <= 0)
+        {
+            normalized.TeamSpawnZoneWeight = 100;
+        }
+
+        return normalized;
+    }
+}
+
 public sealed class TotemMapService : TotemRuntimeServiceBase
 {
     public const float DefaultMapSize = 400f;
@@ -46,6 +83,7 @@ public sealed class TotemMapService : TotemRuntimeServiceBase
     private static readonly Dictionary<string, Sprite> pcgSpriteCache = new Dictionary<string, Sprite>(512);
     private static readonly Dictionary<string, Tile> pcgTileCache = new Dictionary<string, Tile>(512);
     private static TotemPcgRuntimeProfile pcgRuntimeProfile = TotemPcgRuntimeProfile.Full;
+    private static TotemPcgRuntimeSettingsOverride? pcgRuntimeSettingsOverride;
 
     public override string ServiceName => "Map";
 
@@ -62,11 +100,23 @@ public sealed class TotemMapService : TotemRuntimeServiceBase
         return new PcgRuntimeProfileScope(profile);
     }
 
+    /// <summary>
+    /// 为诊断或专用测试场景临时覆盖正式 PCG 的生成参数。
+    /// 覆盖仅在返回的 scope 生命周期内有效，不会修改正式运行时的默认设置。
+    /// </summary>
+    public static IDisposable UsePcgRuntimeSettingsOverride(TotemPcgRuntimeSettingsOverride settings)
+    {
+        return new PcgRuntimeSettingsOverrideScope(settings.Normalized());
+    }
+
     private static PcgRuntimeSettings GetPcgRuntimeSettings()
     {
-        return pcgRuntimeProfile == TotemPcgRuntimeProfile.DiagnosticFast
+        var settings = pcgRuntimeProfile == TotemPcgRuntimeProfile.DiagnosticFast
             ? PcgRuntimeSettings.DiagnosticFast
             : PcgRuntimeSettings.Full;
+        return pcgRuntimeSettingsOverride.HasValue
+            ? settings.WithOverride(pcgRuntimeSettingsOverride.Value)
+            : settings;
     }
 
     private readonly struct PcgRuntimeSettings
@@ -78,6 +128,10 @@ public sealed class TotemMapService : TotemRuntimeServiceBase
         public readonly int DecalBudget;
         public readonly int MaxVisualSprites;
         public readonly bool RenderUnderlay;
+        public readonly int TeamSpawnZoneWeight;
+        public readonly int LootZoneWeight;
+        public readonly int CombatZoneWeight;
+        public readonly int DangerZoneWeight;
 
         private PcgRuntimeSettings(
             int width,
@@ -86,7 +140,11 @@ public sealed class TotemMapService : TotemRuntimeServiceBase
             int stampBudget,
             int decalBudget,
             int maxVisualSprites,
-            bool renderUnderlay)
+            bool renderUnderlay,
+            int teamSpawnZoneWeight,
+            int lootZoneWeight,
+            int combatZoneWeight,
+            int dangerZoneWeight)
         {
             Width = width;
             Height = height;
@@ -95,11 +153,31 @@ public sealed class TotemMapService : TotemRuntimeServiceBase
             DecalBudget = decalBudget;
             MaxVisualSprites = maxVisualSprites;
             RenderUnderlay = renderUnderlay;
+            TeamSpawnZoneWeight = teamSpawnZoneWeight;
+            LootZoneWeight = lootZoneWeight;
+            CombatZoneWeight = combatZoneWeight;
+            DangerZoneWeight = dangerZoneWeight;
         }
 
-        public static PcgRuntimeSettings Full => new PcgRuntimeSettings(PcgMapWidth, PcgMapHeight, 0, 0, 0, int.MaxValue, false);
+        public static PcgRuntimeSettings Full => new PcgRuntimeSettings(PcgMapWidth, PcgMapHeight, 0, 0, 0, int.MaxValue, false, 100, 100, 100, 100);
 
-        public static PcgRuntimeSettings DiagnosticFast => new PcgRuntimeSettings(DiagnosticPcgMapWidth, DiagnosticPcgMapHeight, 0, 0, 0, 64, false);
+        public static PcgRuntimeSettings DiagnosticFast => new PcgRuntimeSettings(DiagnosticPcgMapWidth, DiagnosticPcgMapHeight, 0, 0, 0, 64, false, 100, 100, 100, 100);
+
+        public PcgRuntimeSettings WithOverride(TotemPcgRuntimeSettingsOverride settings)
+        {
+            return new PcgRuntimeSettings(
+                settings.Width,
+                settings.Height,
+                settings.ObjectBudget,
+                settings.StampBudget,
+                settings.DecalBudget,
+                settings.MaxVisualSprites <= 0 ? int.MaxValue : settings.MaxVisualSprites,
+                RenderUnderlay,
+                settings.TeamSpawnZoneWeight,
+                settings.LootZoneWeight,
+                settings.CombatZoneWeight,
+                settings.DangerZoneWeight);
+        }
     }
 
     private sealed class PcgRuntimeProfileScope : IDisposable
@@ -121,6 +199,29 @@ public sealed class TotemMapService : TotemRuntimeServiceBase
             }
 
             pcgRuntimeProfile = previousProfile;
+            disposed = true;
+        }
+    }
+
+    private sealed class PcgRuntimeSettingsOverrideScope : IDisposable
+    {
+        private readonly TotemPcgRuntimeSettingsOverride? previousOverride;
+        private bool disposed;
+
+        public PcgRuntimeSettingsOverrideScope(TotemPcgRuntimeSettingsOverride nextOverride)
+        {
+            previousOverride = pcgRuntimeSettingsOverride;
+            pcgRuntimeSettingsOverride = nextOverride;
+        }
+
+        public void Dispose()
+        {
+            if (disposed)
+            {
+                return;
+            }
+
+            pcgRuntimeSettingsOverride = previousOverride;
             disposed = true;
         }
     }
@@ -305,10 +406,10 @@ public sealed class TotemMapService : TotemRuntimeServiceBase
                 StampBudget = settings.StampBudget,
                 DecalBudget = settings.DecalBudget,
                 ThemeId = template.Id,
-                TeamSpawnZoneWeight = 100,
-                LootZoneWeight = 100,
-                CombatZoneWeight = 100,
-                DangerZoneWeight = 100,
+                TeamSpawnZoneWeight = settings.TeamSpawnZoneWeight,
+                LootZoneWeight = settings.LootZoneWeight,
+                CombatZoneWeight = settings.CombatZoneWeight,
+                DangerZoneWeight = settings.DangerZoneWeight,
             });
 
             if (pcgMap == null || pcgMap.Cells == null || pcgMap.Cells.Length <= 0)
@@ -366,7 +467,7 @@ public sealed class TotemMapService : TotemRuntimeServiceBase
 
     private static string BuildPcgCacheKey(int seed, TotemMapTemplateDefinition template, PcgRuntimeSettings settings)
     {
-        return $"{pcgRuntimeProfile}|{settings.Width}x{settings.Height}|{settings.ObjectBudget}|{settings.StampBudget}|{settings.DecalBudget}|{seed}|{template.Id}|{template.MapSize:0.###}|{template.MinRoomSize:0.###}|{template.BspMaxDepth}|{template.TerrainPoolId}|{template.ThemeName}";
+        return $"{pcgRuntimeProfile}|{settings.Width}x{settings.Height}|{settings.ObjectBudget}|{settings.StampBudget}|{settings.DecalBudget}|{settings.TeamSpawnZoneWeight}|{settings.LootZoneWeight}|{settings.CombatZoneWeight}|{settings.DangerZoneWeight}|{seed}|{template.Id}|{template.MapSize:0.###}|{template.MinRoomSize:0.###}|{template.BspMaxDepth}|{template.TerrainPoolId}|{template.ThemeName}";
     }
 
     private static TotemMapSnapshot CloneMapSnapshot(TotemMapSnapshot source)
