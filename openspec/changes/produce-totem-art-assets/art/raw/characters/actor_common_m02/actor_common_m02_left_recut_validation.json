@@ -1,0 +1,225 @@
+{
+  "method": "whole-sheet alpha connected components",
+  "actions": {
+    "walk": [
+      {
+        "frame": 1,
+        "source_pose_bbox": [
+          55,
+          38,
+          338,
+          657
+        ],
+        "source_pose_area": 66948,
+        "scale": 0.76103500761035,
+        "output": "actor_common_m02_walk_left_01.png",
+        "size": [
+          512,
+          512
+        ],
+        "baseline_y": 511,
+        "sha256": "A192B401A5569A52AA0A9F3865C1689164C0A9DFF42F19010D76CB709E7BFB85"
+      },
+      {
+        "frame": 2,
+        "source_pose_bbox": [
+          429,
+          41,
+          299,
+          652
+        ],
+        "source_pose_area": 68427,
+        "scale": 0.76103500761035,
+        "output": "actor_common_m02_walk_left_02.png",
+        "size": [
+          512,
+          512
+        ],
+        "baseline_y": 511,
+        "sha256": "07077685C901457282B9721B128DDB240D18CC224A4862828373CD47278C1C8B"
+      },
+      {
+        "frame": 3,
+        "source_pose_bbox": [
+          786,
+          40,
+          246,
+          655
+        ],
+        "source_pose_area": 65919,
+        "scale": 0.76103500761035,
+        "output": "actor_common_m02_walk_left_03.png",
+        "size": [
+          512,
+          512
+        ],
+        "baseline_y": 511,
+        "sha256": "F2DB6FDF6C03D9EC1E3E546AA53D7A071F57785601460C018B50EC54BF4367F0"
+      },
+      {
+        "frame": 4,
+        "source_pose_bbox": [
+          1096,
+          40,
+          247,
+          649
+        ],
+        "source_pose_area": 70544,
+        "scale": 0.76103500761035,
+        "output": "actor_common_m02_walk_left_04.png",
+        "size": [
+          512,
+          512
+        ],
+        "baseline_y": 511,
+        "sha256": "5688DE432EA3B2E87C490F55BF54575F0D6FFF45275D474A7DD070A3B5A2F81C"
+      },
+      {
+        "frame": 5,
+        "source_pose_bbox": [
+          1450,
+          40,
+          251,
+          655
+        ],
+        "source_pose_area": 66092,
+        "scale": 0.76103500761035,
+        "output": "actor_common_m02_walk_left_05.png",
+        "size": [
+          512,
+          512
+        ],
+        "baseline_y": 511,
+        "sha256": "6775C67B969D7BBA62E46C9E9F5E14C50F3AE6FFC7C64DC8FE305425658E85AC"
+      },
+      {
+        "frame": 6,
+        "source_pose_bbox": [
+          1733,
+          41,
+          347,
+          650
+        ],
+        "source_pose_area": 71488,
+        "scale": 0.76103500761035,
+        "output": "actor_common_m02_walk_left_06.png",
+        "size": [
+          512,
+          512
+        ],
+        "baseline_y": 511,
+        "sha256": "6E7B9D75999AB2BC28D77B1D241DCA60D1A709A7AC9312798E74C42B543156F1"
+      }
+    ],
+    "sprint": [
+      {
+        "frame": 1,
+        "source_pose_bbox": [
+          45,
+          161,
+          333,
+          426
+        ],
+        "source_pose_area": 44460,
+        "scale": 1.0,
+        "output": "actor_common_m02_sprint_left_01.png",
+        "size": [
+          512,
+          512
+        ],
+        "baseline_y": 511,
+        "sha256": "D8B6066138830524128B9343E23389E29BF84B637036F81A8BBDA9A76C696999"
+      },
+      {
+        "frame": 2,
+        "source_pose_bbox": [
+          395,
+          161,
+          366,
+          378
+        ],
+        "source_pose_area": 44419,
+        "scale": 1.0,
+        "output": "actor_common_m02_sprint_left_02.png",
+        "size": [
+          512,
+          512
+        ],
+        "baseline_y": 511,
+        "sha256": "81509A86745ABB371E7BEED5BD3C3FCB7939D0E0D83335281581A3A77A00B45D"
+      },
+      {
+        "frame": 3,
+        "source_pose_bbox": [
+          753,
+          156,
+          332,
+          411
+        ],
+        "source_pose_area": 42935,
+        "scale": 1.0,
+        "output": "actor_common_m02_sprint_left_03.png",
+        "size": [
+          512,
+          512
+        ],
+        "baseline_y": 511,
+        "sha256": "B0C1FEB11F17BCF9CDF2A1DB0A9691EB3362FA222DF87550539E60401DE7C976"
+      },
+      {
+        "frame": 4,
+        "source_pose_bbox": [
+          1106,
+          159,
+          321,
+          427
+        ],
+        "source_pose_area": 42115,
+        "scale": 1.0,
+        "output": "actor_common_m02_sprint_left_04.png",
+        "size": [
+          512,
+          512
+        ],
+        "baseline_y": 511,
+        "sha256": "FA1784332329F3B44D7A34B57FBF947872773ED7902C78539072CC277D9FF681"
+      },
+      {
+        "frame": 5,
+        "source_pose_bbox": [
+          1422,
+          160,
+          355,
+          423
+        ],
+        "source_pose_area": 42848,
+        "scale": 1.0,
+        "output": "actor_common_m02_sprint_left_05.png",
+        "size": [
+          512,
+          512
+        ],
+        "baseline_y": 511,
+        "sha256": "D72056EA1480E625CD5C7A869D876E47E6EB5DAC14200FA42074AD3FC8F7D106"
+      },
+      {
+        "frame": 6,
+        "source_pose_bbox": [
+          1807,
+          162,
+          333,
+          425
+        ],
+        "source_pose_area": 44468,
+        "scale": 1.0,
+        "output": "actor_common_m02_sprint_left_06.png",
+        "size": [
+          512,
+          512
+        ],
+        "baseline_y": 511,
+        "sha256": "E0BA8FB221E0A71FFB58984C8F683D95589318F3E76B0F8E5F9E14527F49A06F"
+      }
+    ]
+  }
+}
