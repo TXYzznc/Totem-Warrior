@@ -153,9 +153,14 @@ public sealed class TotemTattooVisualPresenter : MonoBehaviour
 
     private void ApplyVisual(Sprite currentSprite, IReadOnlyList<TotemTattooDefinition> equipped)
     {
-        spriteRenderer.GetPropertyBlock(propertyBlock);
+        // 当前角色帧未必有纹身遮罩；空纹理不能传给 MaterialPropertyBlock。
+        // 清空旧属性后保留材质默认值，避免上一帧的遮罩残留到未映射帧。
+        propertyBlock.Clear();
         propertyBlock.SetTexture(TattooPatternAtlasId, tattooPatternAtlas);
-        propertyBlock.SetTexture(TattooMapId, frameMapSet.TryGetTattooMap(currentSprite, out Texture2D tattooMap) ? tattooMap : null);
+        if (frameMapSet.TryGetTattooMap(currentSprite, out Texture2D tattooMap) && tattooMap != null)
+        {
+            propertyBlock.SetTexture(TattooMapId, tattooMap);
+        }
 
         FillDescriptors(equipped);
         propertyBlock.SetVector(TattooPart1Id, partDescriptors[0]);

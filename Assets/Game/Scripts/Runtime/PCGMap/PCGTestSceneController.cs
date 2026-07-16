@@ -1,106 +1,145 @@
-﻿using UnityEngine;
+using UnityEngine;
 
-/// <summary>
-/// 保留在 PCGTest 场景中的正式 PCG 流程入口。
-/// 该控制器不实现任何地图生成或渲染逻辑，只调用 TotemMapService 的正式生成接口。
-/// </summary>
+public enum PCGTestMapTheme
+{
+    AiRuins = 1,
+    AlienHive = 2,
+    VirusSwamp = 3,
+}
+
+/// <summary>PCGTest 场景的正式生成入口；只暴露仍参与 World Plan 的调试参数。</summary>
 [DisallowMultipleComponent]
 public sealed class PCGTestSceneController : MonoBehaviour
 {
-    [Header("正式地图模板")]
-    [SerializeField, Tooltip("正式 MapTemplate 的 ID；当前 1=AI 遗迹、2=异形蜂巢、3=病毒沼泽。")]
-    private int themeId = 1;
-
-    [SerializeField, Min(0)]
-    private int seed = 1;
-
-    [SerializeField]
-    private bool generateOnStart = true;
+    [SerializeField] private PCGTestMapTheme mapTheme = PCGTestMapTheme.AiRuins;
+    [SerializeField, Min(0)] private int seed = 1;
+    [SerializeField] private bool generateOnStart = true;
+    [SerializeField] private bool spawnBusinessPlayerAndFollowCamera = true;
+    [SerializeField, Range(16, 128)] private int mapWidth = TotemMapService.PcgMapWidth;
+    [SerializeField, Range(16, 128)] private int mapHeight = TotemMapService.PcgMapHeight;
+    [SerializeField, Min(0)] private int objectBudget;
+    [SerializeField, Min(0)] private int maxVisualSprites;
 
     private TotemGameRuntime runtime;
 
-    public int ThemeId => themeId;
-
+    public PCGTestMapTheme MapTheme => mapTheme;
     public int Seed => seed;
 
     private void Start()
     {
-        if (generateOnStart)
-        {
-            GenerateCurrentTheme();
-        }
+        if (generateOnStart) GenerateCurrentTheme();
     }
 
-    [ContextMenu("生成当前主题")]
+    [ContextMenu("Generate Current Theme")]
     public void GenerateCurrentTheme()
     {
         if (!Application.isPlaying)
         {
-            Debug.LogWarning("[PCGTest] 请先进入播放模式，再生成正式 PCG 地图。", this);
+            Debug.LogWarning("[PCGTest] Enter Play Mode before generating a PCG map.", this);
             return;
         }
 
         EnsureRuntime();
         var mapService = runtime.GetService<TotemMapService>();
+        var flowService = runtime.GetService<TotemGameFlowService>();
+        var actorService = runtime.GetService<TotemActorService>();
+        var readinessService = runtime.GetService<TotemParticipantReadinessService>();
         if (mapService == null)
         {
-            Debug.LogError("[PCGTest] TotemMapService 未初始化，无法生成正式 PCG 地图。", this);
+            Debug.LogError("[PCGTest] TotemMapService is not available.", this);
             return;
         }
 
-        var map = mapService.GenerateMap(seed, Mathf.Max(1, themeId), createObjects: true);
+        if (spawnBusinessPlayerAndFollowCamera && flowService?.CurrentState == TotemGameFlowState.CombatHud)
+        {
+            // 先走业务状态退出，确保旧地图上的玩家、相机跟随和战斗服务正确收尾。
+            flowService.EnterStartupSelect();
+        }
+
+        TotemMapSnapshot map;
+        if (spawnBusinessPlayerAndFollowCamera)
+        {
+            // 地图请求在进入 CombatHud 时由 MapService 消费；随后 Actor/Camera 服务
+            // 在同一条业务状态链上使用该地图创建玩家并建立跟随。
+            mapService.RequestNextCombatMap(seed, (int)mapTheme, BuildRuntimeSettingsOverride());
+            flowService?.EnterCombatHud();
+            readinessService?.NotifyLocalClientReady(actorService?.Player, "PCGTestLocalPreview");
+            map = mapService.CurrentMap;
+        }
+        else
+        {
+            using (TotemMapService.UsePcgRuntimeSettingsOverride(BuildRuntimeSettingsOverride()))
+            {
+                map = mapService.GenerateMap(seed, (int)mapTheme, true);
+            }
+        }
+
         if (map == null)
         {
-            Debug.LogError("[PCGTest] 正式 PCG 地图生成失败。", this);
+            Debug.LogError("[PCGTest] Map generation failed.", this);
             return;
         }
 
-        Debug.Log($"[PCGTest] 已使用正式 TotemMapService 生成 {map.ThemeName}，seed={seed}，hash={map.PcgContentHash}。", this);
+        Debug.Log($"[PCGTest] Generated {map.ThemeName}; seed={seed}; hash={map.PcgContentHash}; " +
+                  $"businessPlayer={spawnBusinessPlayerAndFollowCamera}.", this);
     }
 
-    [ContextMenu("生成 AI 遗迹")]
-    public void GenerateAiRuins()
+    [ContextMenu("Generate Random Seed")]
+    public void GenerateRandomSeed()
     {
-        GenerateTheme(1);
+        seed = Random.Range(1, int.MaxValue);
+        GenerateCurrentTheme();
     }
 
-    [ContextMenu("生成异形蜂巢")]
-    public void GenerateAlienHive()
-    {
-        GenerateTheme(2);
-    }
+    [ContextMenu("Generate AI Ruins")]
+    public void GenerateAiRuins() => GenerateTheme(PCGTestMapTheme.AiRuins);
 
-    [ContextMenu("生成病毒沼泽")]
-    public void GenerateVirusSwamp()
+    [ContextMenu("Generate Alien Hive")]
+    public void GenerateAlienHive() => GenerateTheme(PCGTestMapTheme.AlienHive);
+
+    [ContextMenu("Generate Virus Swamp")]
+    public void GenerateVirusSwamp() => GenerateTheme(PCGTestMapTheme.VirusSwamp);
+
+    public void SetTheme(PCGTestMapTheme theme) => mapTheme = theme;
+
+    public void GenerateTheme(PCGTestMapTheme theme)
     {
-        GenerateTheme(3);
+        mapTheme = theme;
+        GenerateCurrentTheme();
     }
 
     private void OnDestroy()
     {
-        if (!Application.isPlaying || runtime == null || runtime != TotemGameRuntime.Instance)
-        {
-            return;
-        }
-
+        if (!Application.isPlaying || runtime == null || runtime != TotemGameRuntime.Instance) return;
         runtime.ShutdownRuntime();
         Destroy(runtime.gameObject);
     }
 
-    private void GenerateTheme(int requestedThemeId)
+    private void OnValidate()
     {
-        themeId = requestedThemeId;
-        GenerateCurrentTheme();
+        var settings = BuildRuntimeSettingsOverride();
+        mapWidth = settings.Width;
+        mapHeight = settings.Height;
+        objectBudget = settings.ObjectBudget;
+        maxVisualSprites = settings.MaxVisualSprites;
+        seed = Mathf.Max(0, seed);
     }
 
     private void EnsureRuntime()
     {
-        if (runtime == null)
-        {
-            runtime = TotemGameRuntime.EnsureCreated();
-        }
-
+        if (runtime == null) runtime = TotemGameRuntime.EnsureCreated();
         runtime.MarkProcedureEntered(nameof(PCGTestSceneController));
         runtime.StartRuntime();
+    }
+
+    private TotemPcgRuntimeSettingsOverride BuildRuntimeSettingsOverride()
+    {
+        return new TotemPcgRuntimeSettingsOverride
+        {
+            Width = mapWidth,
+            Height = mapHeight,
+            ObjectBudget = objectBudget <= 0 ? TotemMapService.PcgObjectBudget : objectBudget,
+            MaxVisualSprites = maxVisualSprites,
+        }.Normalized();
     }
 }
