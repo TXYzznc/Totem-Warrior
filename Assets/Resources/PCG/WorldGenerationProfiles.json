@@ -1,0 +1,106 @@
+{
+  "schemaVersion": 1,
+  "catalogId": "pcg_world_generation_profiles",
+  "themes": [
+    {
+      "themeId": 1,
+      "themeKey": "ai_ruins",
+      "biomeId": "ai_ruins",
+      "version": "1.0.0",
+      "baseTerrain": "ruins_floor",
+      "visualPlacement": { "ambientRatio": 0.56, "clusterDensityBias": 0.72, "clusterRadius": 3, "eventClearanceCells": 2.0 },
+      "terrains": [
+        { "terrainId": "ruins_floor", "minAreaRatio": 0.28, "visualRole": "transit_plaza", "futureCapabilities": ["EventAffinity"] },
+        { "terrainId": "ruins_metal", "minAreaRatio": 0.14, "visualRole": "service_bay", "futureCapabilities": ["Collision", "Occlusion", "EventAffinity"] },
+        { "terrainId": "ruins_growth", "minAreaRatio": 0.13, "visualRole": "reclaimed_hangar", "futureCapabilities": ["Occlusion", "Hazard", "Interaction", "EventAffinity"] },
+        { "terrainId": "ruins_coolant", "minAreaRatio": 0.10, "visualRole": "coolant_pool", "futureCapabilities": ["MovementModifier", "Hazard", "Interaction"] }
+      ],
+      "features": [
+        { "id": "metal_service_bays", "operation": "chain", "terrainId": "ruins_metal", "minCount": 2, "maxCount": 4, "minRadius": 3, "maxRadius": 6, "noise": 0.28 },
+        { "id": "metal_islands", "operation": "blob", "terrainId": "ruins_metal", "minCount": 2, "maxCount": 4, "minRadius": 2, "maxRadius": 5, "noise": 0.36 },
+        { "id": "growth_clusters", "operation": "scatter", "terrainId": "ruins_growth", "minCount": 2, "maxCount": 4, "minRadius": 2, "maxRadius": 4, "noise": 0.42 },
+        { "id": "growth_hangars", "operation": "blob", "terrainId": "ruins_growth", "minCount": 1, "maxCount": 2, "minRadius": 4, "maxRadius": 7, "noise": 0.35 },
+        { "id": "coolant_channels", "operation": "ribbon", "terrainId": "ruins_coolant", "minCount": 1, "maxCount": 2, "minRadius": 1, "maxRadius": 3, "width": 1, "noise": 0.25 },
+        { "id": "coolant_basins", "operation": "blob", "terrainId": "ruins_coolant", "minCount": 2, "maxCount": 4, "minRadius": 2, "maxRadius": 5, "noise": 0.30 }
+      ],
+      "events": [
+        { "eventType": "player_spawn", "visualRole": "spawn", "minCount": 10, "maxCount": 10, "minSpacingCells": 6, "terrainAffinity": { "ruins_floor": 1.6, "ruins_metal": 0.8 } },
+        { "eventType": "boss_spawn", "visualRole": "boss", "minCount": 1, "maxCount": 1, "minSpacingCells": 0, "terrainAffinity": { "ruins_growth": 1.2, "ruins_coolant": 1.0, "ruins_metal": 0.7 } },
+        { "eventType": "merchant", "visualRole": "merchant", "minCount": 3, "maxCount": 3, "minSpacingCells": 8, "terrainAffinity": { "ruins_floor": 1.4, "ruins_metal": 1.0 } },
+        { "eventType": "tattooist", "visualRole": "tattooist", "minCount": 5, "maxCount": 5, "minSpacingCells": 6, "terrainAffinity": { "ruins_growth": 1.3, "ruins_floor": 0.9 } },
+        { "eventType": "chest", "visualRole": "chest", "minCount": 30, "maxCount": 30, "minSpacingCells": 3 },
+        { "eventType": "enemy_spawn", "visualRole": "enemy", "minCount": 3, "maxCount": 5, "minSpacingCells": 8 },
+        { "eventType": "resource", "visualRole": "resource", "minCount": 3, "maxCount": 5, "minSpacingCells": 8 },
+        { "eventType": "event", "visualRole": "event", "minCount": 2, "maxCount": 3, "minSpacingCells": 10 },
+        { "eventType": "encounter", "visualRole": "encounter", "minCount": 8, "maxCount": 10, "minSpacingCells": 9 }
+      ]
+    },
+    {
+      "themeId": 2,
+      "themeKey": "alien_hive",
+      "biomeId": "alien_hive",
+      "version": "1.0.0",
+      "baseTerrain": "hive_chitin",
+      "visualPlacement": { "ambientRatio": 0.48, "clusterDensityBias": 0.84, "clusterRadius": 4, "eventClearanceCells": 2.0 },
+      "terrains": [
+        { "terrainId": "hive_chitin", "minAreaRatio": 0.28, "visualRole": "carapace_floor", "futureCapabilities": ["Collision", "Occlusion", "EventAffinity"] },
+        { "terrainId": "hive_membrane", "minAreaRatio": 0.14, "visualRole": "brood_membrane", "futureCapabilities": ["MovementModifier", "Occlusion", "EventAffinity"] },
+        { "terrainId": "hive_resin", "minAreaRatio": 0.13, "visualRole": "resin_chamber", "futureCapabilities": ["Collision", "Occlusion", "EventAffinity"] },
+        { "terrainId": "hive_acid", "minAreaRatio": 0.10, "visualRole": "acid_pool", "futureCapabilities": ["MovementModifier", "Hazard", "Interaction"] }
+      ],
+      "features": [
+        { "id": "membrane_broods", "operation": "chain", "terrainId": "hive_membrane", "minCount": 2, "maxCount": 4, "minRadius": 3, "maxRadius": 6, "noise": 0.44 },
+        { "id": "membrane_sheets", "operation": "scatter", "terrainId": "hive_membrane", "minCount": 2, "maxCount": 3, "minRadius": 2, "maxRadius": 4, "noise": 0.45 },
+        { "id": "resin_chambers", "operation": "blob", "terrainId": "hive_resin", "minCount": 3, "maxCount": 5, "minRadius": 3, "maxRadius": 6, "noise": 0.35 },
+        { "id": "resin_bridges", "operation": "chain", "terrainId": "hive_resin", "minCount": 1, "maxCount": 2, "minRadius": 2, "maxRadius": 4, "noise": 0.30 },
+        { "id": "acid_veins", "operation": "ribbon", "terrainId": "hive_acid", "minCount": 1, "maxCount": 2, "minRadius": 1, "maxRadius": 3, "width": 1, "noise": 0.36 },
+        { "id": "acid_pools", "operation": "blob", "terrainId": "hive_acid", "minCount": 2, "maxCount": 4, "minRadius": 2, "maxRadius": 5, "noise": 0.38 }
+      ],
+      "events": [
+        { "eventType": "player_spawn", "visualRole": "spawn", "minCount": 10, "maxCount": 10, "minSpacingCells": 6, "terrainAffinity": { "hive_chitin": 1.4, "hive_resin": 0.9 } },
+        { "eventType": "boss_spawn", "visualRole": "boss", "minCount": 1, "maxCount": 1, "minSpacingCells": 0, "terrainAffinity": { "hive_resin": 1.3, "hive_acid": 1.0, "hive_membrane": 0.7 } },
+        { "eventType": "merchant", "visualRole": "merchant", "minCount": 3, "maxCount": 3, "minSpacingCells": 8, "terrainAffinity": { "hive_chitin": 1.2, "hive_resin": 1.0 } },
+        { "eventType": "tattooist", "visualRole": "tattooist", "minCount": 5, "maxCount": 5, "minSpacingCells": 6, "terrainAffinity": { "hive_membrane": 1.3, "hive_chitin": 0.8 } },
+        { "eventType": "chest", "visualRole": "chest", "minCount": 30, "maxCount": 30, "minSpacingCells": 3 },
+        { "eventType": "enemy_spawn", "visualRole": "enemy", "minCount": 3, "maxCount": 5, "minSpacingCells": 8 },
+        { "eventType": "resource", "visualRole": "resource", "minCount": 3, "maxCount": 5, "minSpacingCells": 8 },
+        { "eventType": "event", "visualRole": "event", "minCount": 2, "maxCount": 3, "minSpacingCells": 10 },
+        { "eventType": "encounter", "visualRole": "encounter", "minCount": 8, "maxCount": 10, "minSpacingCells": 9 }
+      ]
+    },
+    {
+      "themeId": 3,
+      "themeKey": "virus_swamp",
+      "biomeId": "virus_swamp",
+      "version": "1.0.0",
+      "baseTerrain": "swamp_grass",
+      "visualPlacement": { "ambientRatio": 0.64, "clusterDensityBias": 0.68, "clusterRadius": 3, "eventClearanceCells": 2.0 },
+      "terrains": [
+        { "terrainId": "swamp_grass", "minAreaRatio": 0.28, "visualRole": "dry_islet", "futureCapabilities": ["EventAffinity"] },
+        { "terrainId": "swamp_mud", "minAreaRatio": 0.15, "visualRole": "flood_plain", "futureCapabilities": ["MovementModifier", "EventAffinity"] },
+        { "terrainId": "swamp_corruption", "minAreaRatio": 0.12, "visualRole": "infection_bloom", "futureCapabilities": ["Hazard", "Interaction", "EventAffinity"] },
+        { "terrainId": "swamp_water", "minAreaRatio": 0.12, "visualRole": "water_network", "futureCapabilities": ["MovementModifier", "Hazard", "Interaction"] }
+      ],
+      "features": [
+        { "id": "water_lakes", "operation": "blob", "terrainId": "swamp_water", "minCount": 2, "maxCount": 4, "minRadius": 3, "maxRadius": 7, "noise": 0.48 },
+        { "id": "water_branches", "operation": "ribbon", "terrainId": "swamp_water", "minCount": 1, "maxCount": 3, "minRadius": 1, "maxRadius": 3, "width": 1, "noise": 0.50 },
+        { "id": "water_pools", "operation": "scatter", "terrainId": "swamp_water", "minCount": 2, "maxCount": 4, "minRadius": 2, "maxRadius": 4, "noise": 0.46 },
+        { "id": "mud_waterline", "operation": "fringe", "terrainId": "swamp_mud", "sourceTerrain": "swamp_water", "minCount": 1, "maxCount": 18, "minRadius": 1, "maxRadius": 3, "noise": 0.25 },
+        { "id": "mud_banks", "operation": "chain", "terrainId": "swamp_mud", "minCount": 2, "maxCount": 4, "minRadius": 2, "maxRadius": 5, "noise": 0.40 },
+        { "id": "corruption_blooms", "operation": "blob", "terrainId": "swamp_corruption", "minCount": 3, "maxCount": 5, "minRadius": 2, "maxRadius": 5, "noise": 0.48 },
+        { "id": "corruption_spores", "operation": "scatter", "terrainId": "swamp_corruption", "minCount": 2, "maxCount": 4, "minRadius": 2, "maxRadius": 4, "noise": 0.52 }
+      ],
+      "events": [
+        { "eventType": "player_spawn", "visualRole": "spawn", "minCount": 10, "maxCount": 10, "minSpacingCells": 6, "terrainAffinity": { "swamp_grass": 1.6, "swamp_mud": 0.8 } },
+        { "eventType": "boss_spawn", "visualRole": "boss", "minCount": 1, "maxCount": 1, "minSpacingCells": 0, "terrainAffinity": { "swamp_corruption": 1.2, "swamp_water": 1.0, "swamp_mud": 0.7 } },
+        { "eventType": "merchant", "visualRole": "merchant", "minCount": 3, "maxCount": 3, "minSpacingCells": 8, "terrainAffinity": { "swamp_grass": 1.4, "swamp_mud": 0.9 } },
+        { "eventType": "tattooist", "visualRole": "tattooist", "minCount": 5, "maxCount": 5, "minSpacingCells": 6, "terrainAffinity": { "swamp_corruption": 1.2, "swamp_grass": 0.8 } },
+        { "eventType": "chest", "visualRole": "chest", "minCount": 30, "maxCount": 30, "minSpacingCells": 3 },
+        { "eventType": "enemy_spawn", "visualRole": "enemy", "minCount": 3, "maxCount": 5, "minSpacingCells": 8 },
+        { "eventType": "resource", "visualRole": "resource", "minCount": 3, "maxCount": 5, "minSpacingCells": 8 },
+        { "eventType": "event", "visualRole": "event", "minCount": 2, "maxCount": 3, "minSpacingCells": 10 },
+        { "eventType": "encounter", "visualRole": "encounter", "minCount": 8, "maxCount": 10, "minSpacingCells": 9 }
+      ]
+    }
+  ]
+}
