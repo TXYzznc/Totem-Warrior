@@ -13,22 +13,6 @@ MonoBehaviour:
   m_Name: ActorCommonM02RollRightTattooMapSet
   m_EditorClassIdentifier: 
   bindings:
-  - sprite: {fileID: 21300000, guid: 07b1567fc3ce15440b5c630a2055ad5c, type: 3}
-    tattooMap: {fileID: 2800000, guid: 480364f787fd94549a5b805b3674607d, type: 3}
-  - sprite: {fileID: 21300000, guid: 0e97f764434011742a8a8281b040b3a4, type: 3}
-    tattooMap: {fileID: 2800000, guid: fc4474e6f18568d41bf49e961775a4f1, type: 3}
-  - sprite: {fileID: 21300000, guid: 1f764c9b8324906428fb51c74590159f, type: 3}
-    tattooMap: {fileID: 2800000, guid: 7d788a08598d89f4b8c5276b3f342e1d, type: 3}
-  - sprite: {fileID: 21300000, guid: ff087ba32399aa844987d4f33fdb8db9, type: 3}
-    tattooMap: {fileID: 2800000, guid: c7657765e2d4127499cf8a4236f23170, type: 3}
-  - sprite: {fileID: 21300000, guid: cf80ce2b530ca5743af3f4ace3b94b3f, type: 3}
-    tattooMap: {fileID: 2800000, guid: 29e836ba1bcc5a143b3bc705fc3bfe93, type: 3}
-  - sprite: {fileID: 21300000, guid: f901f93da61ee43458ffd856d343dc67, type: 3}
-    tattooMap: {fileID: 2800000, guid: 2fc7ce24814445146976813e738874bf, type: 3}
-  - sprite: {fileID: 21300000, guid: ed57eb44646074149aecd5903ffaffb6, type: 3}
-    tattooMap: {fileID: 2800000, guid: d8139917adb7ec44ab5bc8c47eaecba9, type: 3}
-  - sprite: {fileID: 21300000, guid: 1ee9c4c6e93765145a1fc986c0580307, type: 3}
-    tattooMap: {fileID: 2800000, guid: a410bc956a61c484d98d63fa95a4ec4c, type: 3}
   - sprite: {fileID: 21300000, guid: db36510da24da5c4e9e5cfaca402b329, type: 3}
     tattooMap: {fileID: 2800000, guid: 9fc15abffcd77224eb6da78f5c10acb6, type: 3}
   - sprite: {fileID: 21300000, guid: cbb8ad48a7e676d4e8bcd75925ce02c1, type: 3}
@@ -37,6 +21,54 @@ MonoBehaviour:
     tattooMap: {fileID: 2800000, guid: 82c0d91f91963c6429d9047ee0f9f6e2, type: 3}
   - sprite: {fileID: 21300000, guid: 6470cdb816c05244ca5cafcb2de1ee22, type: 3}
     tattooMap: {fileID: 2800000, guid: 3986d5ac84b602243b9ccb9c63bd0b67, type: 3}
+  - sprite: {fileID: 21300000, guid: 02ad8aba533ad3e46a1e97463cec2711, type: 3}
+    tattooMap: {fileID: 2800000, guid: 0363a7323cc3e9d429b437ed0a888abc, type: 3}
+  - sprite: {fileID: 21300000, guid: 14babbc64d6102f4b90e4419a1f5962c, type: 3}
+    tattooMap: {fileID: 2800000, guid: b720957546a0a1b498975c5484faa2dc, type: 3}
+  - sprite: {fileID: 21300000, guid: 555371462e417184d86d3005f89fe22f, type: 3}
+    tattooMap: {fileID: 2800000, guid: 3b6b28401a0329f4fac20c7175f1526a, type: 3}
+  - sprite: {fileID: 21300000, guid: 17bab39d4f1da924d97c29cae6e40f9b, type: 3}
+    tattooMap: {fileID: 2800000, guid: abba0a9bc024a924b9016956c82901b2, type: 3}
+  - sprite: {fileID: 21300000, guid: f7bb4169070ec0644bae1911e7d557eb, type: 3}
+    tattooMap: {fileID: 2800000, guid: 14141cca016ace94cbb8cbce6cb671ca, type: 3}
+  - sprite: {fileID: 21300000, guid: 96eb720b6f4b66941989472d63deb076, type: 3}
+    tattooMap: {fileID: 2800000, guid: 3592169d1210e954b950fc849e00678d, type: 3}
+  - sprite: {fileID: 21300000, guid: dd664913291795b46be1687a31f56df0, type: 3}
+    tattooMap: {fileID: 2800000, guid: dde97a9812614a7408c9d94d690c02bb, type: 3}
+  - sprite: {fileID: 21300000, guid: ee2ea6822dbcff24b8e9f1237269c1e7, type: 3}
+    tattooMap: {fileID: 2800000, guid: c2cc6d96b332dc34591f5a33b414865c, type: 3}
+  - sprite: {fileID: 21300000, guid: bcb84100b4bb2ed4caefccb1eb6ea325, type: 3}
+    tattooMap: {fileID: 2800000, guid: d6baaa58e07f1184996f08a8d6019112, type: 3}
+  - sprite: {fileID: 21300000, guid: f8b7d94cb7c1f1e4297d10f7705290ce, type: 3}
+    tattooMap: {fileID: 2800000, guid: 46cff67e8f7707c4790f931d405b9ec8, type: 3}
+  - sprite: {fileID: 21300000, guid: cbd89dbee242a4c4f8171a03d3504c90, type: 3}
+    tattooMap: {fileID: 2800000, guid: 37f36f87762f103498a77bfefb3db28c, type: 3}
+  - sprite: {fileID: 21300000, guid: 33ee827cb8024bb4b9eacff7d18ac0a2, type: 3}
+    tattooMap: {fileID: 2800000, guid: 21c382bf866cea241b21b026b95efdde, type: 3}
+  - sprite: {fileID: 21300000, guid: a57eab1a11155cb4db15ec2f4d228383, type: 3}
+    tattooMap: {fileID: 2800000, guid: 0f04c5762de307c4fb6d266223e654d3, type: 3}
+  - sprite: {fileID: 21300000, guid: b1ab47a8b9eb9e94495792dd3ac72c94, type: 3}
+    tattooMap: {fileID: 2800000, guid: 8af461dd475c1ed4ca3d371be182843c, type: 3}
+  - sprite: {fileID: 21300000, guid: b87084696ab19d743a30da722425b98d, type: 3}
+    tattooMap: {fileID: 2800000, guid: f95a74f81a41aee43b233db076929f6a, type: 3}
+  - sprite: {fileID: 21300000, guid: 60f5437dce7b84b48b2ff6a17acc6929, type: 3}
+    tattooMap: {fileID: 2800000, guid: 9fca9350cc2626f4bb28537822559e80, type: 3}
+  - sprite: {fileID: 21300000, guid: f8e3066805b423643be29da12162122d, type: 3}
+    tattooMap: {fileID: 2800000, guid: 2a2c7280b3682e044adb027e494147f5, type: 3}
+  - sprite: {fileID: 21300000, guid: bf06e225caf5c7845912ff9d58579331, type: 3}
+    tattooMap: {fileID: 2800000, guid: ef88f8a13fde727459ba14eb0bf3ca05, type: 3}
+  - sprite: {fileID: 21300000, guid: ba7e5e8a12f48b046999d20330e74a77, type: 3}
+    tattooMap: {fileID: 2800000, guid: 270fe1810b1e08d40b2e63ee8f578531, type: 3}
+  - sprite: {fileID: 21300000, guid: ec430d1597b50e247a8815e17f385ef8, type: 3}
+    tattooMap: {fileID: 2800000, guid: 07e70fbe0e504114084a54c317ab1326, type: 3}
+  - sprite: {fileID: 21300000, guid: 04b88bde5a0140546a05028bc6f8434a, type: 3}
+    tattooMap: {fileID: 2800000, guid: 512bc359c4440354a97362aba63824df, type: 3}
+  - sprite: {fileID: 21300000, guid: 084a0388fe1901741a9bf17d923a646b, type: 3}
+    tattooMap: {fileID: 2800000, guid: da39bd87bbbb87d46ada28889b4a6fd3, type: 3}
+  - sprite: {fileID: 21300000, guid: 13c13f2b847e42644811078bc668c3e6, type: 3}
+    tattooMap: {fileID: 2800000, guid: 19aeebf6e18e35644a3222da4cb168e4, type: 3}
+  - sprite: {fileID: 21300000, guid: 8ef4cde7c4cd82e43a1e5bc4bfad1ffe, type: 3}
+    tattooMap: {fileID: 2800000, guid: 2ee22099c3d0aef4a93f08d59ade1408, type: 3}
   - sprite: {fileID: 21300000, guid: 102bf43bbbe2c3c4f8f83285055beade, type: 3}
     tattooMap: {fileID: 2800000, guid: b671dfe6b88877d4c982ee2a7eb5a820, type: 3}
   - sprite: {fileID: 21300000, guid: 2c393ffe22e347647b99a5f89e744ec3, type: 3}
@@ -51,6 +83,34 @@ MonoBehaviour:
     tattooMap: {fileID: 2800000, guid: 2654d01b920a9d84eb700948730371b7, type: 3}
   - sprite: {fileID: 21300000, guid: 7df25bbd953fdb849aac5ed003daea27, type: 3}
     tattooMap: {fileID: 2800000, guid: 72d48466e710db843b78d2830ef16240, type: 3}
+  - sprite: {fileID: 21300000, guid: b85713c9e3292ed4b99d3a66337ac541, type: 3}
+    tattooMap: {fileID: 2800000, guid: 1956ec9a12dd6dc4797147598f4246bc, type: 3}
+  - sprite: {fileID: 21300000, guid: 5dce3869ce06a7045b38b60a114cfcfa, type: 3}
+    tattooMap: {fileID: 2800000, guid: 0d135363ab20a4f4bb08edf296ab93c0, type: 3}
+  - sprite: {fileID: 21300000, guid: 8bb2b58c91e84034a9e466a3569bb168, type: 3}
+    tattooMap: {fileID: 2800000, guid: d1df4bfb1d050d04c86be76e12d53ed0, type: 3}
+  - sprite: {fileID: 21300000, guid: 1c5433e93c333f7409076938c006cf5b, type: 3}
+    tattooMap: {fileID: 2800000, guid: 87ad8acc83d9a42489479addf6e1bf49, type: 3}
+  - sprite: {fileID: 21300000, guid: a753eebf3dac27049872e6c9d175c204, type: 3}
+    tattooMap: {fileID: 2800000, guid: 45874df78d314384bb1bf74dac1e5889, type: 3}
+  - sprite: {fileID: 21300000, guid: ed97d9cc9edb2fa4a85d7a8de9f25669, type: 3}
+    tattooMap: {fileID: 2800000, guid: 2331760eedf0a614d8f16a9f1ae1b484, type: 3}
+  - sprite: {fileID: 21300000, guid: dafef8b6fb894e642abe713595585469, type: 3}
+    tattooMap: {fileID: 2800000, guid: cb1d3a98a19955b46afbf2ee84a7df96, type: 3}
+  - sprite: {fileID: 21300000, guid: e244d9c1471b2ff4ab84e462365d604c, type: 3}
+    tattooMap: {fileID: 2800000, guid: d731c8f2cc56edd478ff01fc8cec4fe6, type: 3}
+  - sprite: {fileID: 21300000, guid: 7148068a4a25cba47871bfae6ee01c18, type: 3}
+    tattooMap: {fileID: 2800000, guid: a2a8f6a61c2caef48a8bf0b214ebff26, type: 3}
+  - sprite: {fileID: 21300000, guid: e67446f22478f48409fbf799161d6e43, type: 3}
+    tattooMap: {fileID: 2800000, guid: f12b5fd70b3dd544a89bfd3fdbf667e8, type: 3}
+  - sprite: {fileID: 21300000, guid: de468c4337656d144b3f9f5dd1e4d0b4, type: 3}
+    tattooMap: {fileID: 2800000, guid: fdd9b286ccbf7ff4fb9b23b3f07ca987, type: 3}
+  - sprite: {fileID: 21300000, guid: 74e6b5ac288e29b4db504844cd04ac3c, type: 3}
+    tattooMap: {fileID: 2800000, guid: 71cdec44c0a1ddb4f9d0a4234579a94f, type: 3}
+  - sprite: {fileID: 21300000, guid: 3027dc6274a734d4eae002ea22e718f6, type: 3}
+    tattooMap: {fileID: 2800000, guid: 136e9ec11f4d77d4e819e920874cbff1, type: 3}
+  - sprite: {fileID: 21300000, guid: f4e3bce66e5aef74aae99756b71e4796, type: 3}
+    tattooMap: {fileID: 2800000, guid: 723498c41d8d6d048bdbeb93ea438e8b, type: 3}
   - sprite: {fileID: 21300000, guid: a7c20841d4c4278459ba58aae39e6759, type: 3}
     tattooMap: {fileID: 2800000, guid: ecccb46183fe9ec4dba12dca76db2a2a, type: 3}
   - sprite: {fileID: 21300000, guid: 6fc2ee83875b17e48bd7da2ac40b7160, type: 3}
@@ -61,39 +121,35 @@ MonoBehaviour:
     tattooMap: {fileID: 2800000, guid: 25b198056aa3d6d4e987b95b2b35cce8, type: 3}
   - sprite: {fileID: 21300000, guid: 62793839afc1f7541877eaa67e0c78a0, type: 3}
     tattooMap: {fileID: 2800000, guid: 622c373832d08c24a91cf3802f1eb103, type: 3}
-  - sprite: {fileID: 21300000, guid: 3f877c9d28bb71b4f91950f52d1ea5d8, type: 3}
-    tattooMap: {fileID: 2800000, guid: 60199e0f06b2c0742936918b72d08b5e, type: 3}
-  - sprite: {fileID: 21300000, guid: fc37a1370f1b66a449a7acec7d5c306b, type: 3}
-    tattooMap: {fileID: 2800000, guid: 36ac3ce0f5c199c46b39227b2b3017a9, type: 3}
-  - sprite: {fileID: 21300000, guid: 24f0f7a45c8faec40a7017b7f1b0a68b, type: 3}
-    tattooMap: {fileID: 2800000, guid: a0da5efbbdfa6fc43b8b7b9cc2ad6150, type: 3}
   - sprite: {fileID: 21300000, guid: 3c26adb7e6f1514489d65c7688535551, type: 3}
     tattooMap: {fileID: 2800000, guid: cd91beaa80264b44fae698798247d82c, type: 3}
-  - sprite: {fileID: 21300000, guid: 6fb3499fbaed4764ea0da347c7f43de9, type: 3}
-    tattooMap: {fileID: 2800000, guid: c2d436c4422d6984aaf9e4099f3ff8fc, type: 3}
-  - sprite: {fileID: 21300000, guid: 4d421fb8b9fa8df40bf911d08d2bfba9, type: 3}
-    tattooMap: {fileID: 2800000, guid: f38b8dbb87ac3ab44a93ff3d767c1488, type: 3}
-  - sprite: {fileID: 21300000, guid: 8920d465c504c1f4b889625cf2e48f4e, type: 3}
-    tattooMap: {fileID: 2800000, guid: 6b5735d4179c4164aac0f874d98ad111, type: 3}
-  - sprite: {fileID: 21300000, guid: a3b3f82f95fe73d479a155a86dd351ea, type: 3}
-    tattooMap: {fileID: 2800000, guid: 62491986ed5a92948ae6f7163a1ec6de, type: 3}
-  - sprite: {fileID: 21300000, guid: 8945a504b850d1d4aacfab9a4e448f8c, type: 3}
-    tattooMap: {fileID: 2800000, guid: 4db4164d7ef4e2a4d8cf28ebab503a20, type: 3}
-  - sprite: {fileID: 21300000, guid: e6686f39dc3ab594d8dc1cb7fdb0f083, type: 3}
-    tattooMap: {fileID: 2800000, guid: 19f3a019c2a19064c85c0f18d4416b2b, type: 3}
-  - sprite: {fileID: 21300000, guid: e996bb0f91f3ba449a2d0d25d38db294, type: 3}
-    tattooMap: {fileID: 2800000, guid: 9a58a4b8f5e71d847b0eecd3c9bea827, type: 3}
-  - sprite: {fileID: 21300000, guid: f03932ff1074e3d49aa1035b4919a6ff, type: 3}
-    tattooMap: {fileID: 2800000, guid: 9827bdeeafe99c24bbc120694b7855f3, type: 3}
-  - sprite: {fileID: 21300000, guid: 5d410a258b2262749a3980359c653f70, type: 3}
-    tattooMap: {fileID: 2800000, guid: 7724759ba2337844290ae0114160ac93, type: 3}
-  - sprite: {fileID: 21300000, guid: 7e523de439a13b2469ab194001aa79d4, type: 3}
-    tattooMap: {fileID: 2800000, guid: d8b96fef2e1d1164f98ae6ba253e8968, type: 3}
-  - sprite: {fileID: 21300000, guid: cb86f8ad202e6a246889ce8860d46a23, type: 3}
-    tattooMap: {fileID: 2800000, guid: 1a779b9bfbfe81d4d8db74bef90b9ba3, type: 3}
-  - sprite: {fileID: 21300000, guid: 35fde17ca6aa4ec4ea7725b496ef33b2, type: 3}
-    tattooMap: {fileID: 2800000, guid: a1884ed8eda4fb941914e590c034a52a, type: 3}
-  - sprite: {fileID: 21300000, guid: 5d45c38bdd2ee5043b923da6074b441b, type: 3}
-    tattooMap: {fileID: 2800000, guid: f11edd515da070646a7e732b45f9184b, type: 3}
-  - sprite: {fileID: 21300000, guid: 9c6ca4a3e62c26a43a5b5dfbc4806fcc, type: 3}
-    tattooMap: {fileID: 2800000, guid: 7c15a30299c93d64ba8a635d9bc0f378, type: 3}
+  - sprite: {fileID: 21300000, guid: a17116d47f7dbdc4cbf113577a568700, type: 3}
+    tattooMap: {fileID: 2800000, guid: 4da2a956329c9ea44a04889886445cf5, type: 3}
+  - sprite: {fileID: 21300000, guid: 11c131edd67fd7f4cb7db54eb0c5341e, type: 3}
+    tattooMap: {fileID: 2800000, guid: c8556638a94504b4aa3b5f7c53613e6f, type: 3}
+  - sprite: {fileID: 21300000, guid: fd301a3b8e8da9442ac8ba5e71821203, type: 3}
+    tattooMap: {fileID: 2800000, guid: 0c5fa2ba602cca0419e3144eb34bf6a6, type: 3}
+  - sprite: {fileID: 21300000, guid: 356dda15b8b2d2146b1719bae47ab61d, type: 3}
+    tattooMap: {fileID: 2800000, guid: 90d7e8730b392064a9def7b4d3b4c5f7, type: 3}
+  - sprite: {fileID: 21300000, guid: cb79224b57d0ea142b15f0a62d9f5fe2, type: 3}
+    tattooMap: {fileID: 2800000, guid: 7a1d6a64901cb1d4499e03b6290d7ab2, type: 3}
+  - sprite: {fileID: 21300000, guid: 681b3d698e968b14887624967864731f, type: 3}
+    tattooMap: {fileID: 2800000, guid: dcd88f63a6a5efc499f4597c5371b78f, type: 3}
+  - sprite: {fileID: 21300000, guid: 79f3485cbbd463048a79b4977c606e11, type: 3}
+    tattooMap: {fileID: 2800000, guid: 8dc8d394c9c5acd4f8e19c358db0262b, type: 3}
+  - sprite: {fileID: 21300000, guid: 3e51b10f23eda5a478cf300d68e352e8, type: 3}
+    tattooMap: {fileID: 2800000, guid: 90f3e7e441c766e4f94273d30378124f, type: 3}
+  - sprite: {fileID: 21300000, guid: 86b7f18889df0d74cbb05a7a982af997, type: 3}
+    tattooMap: {fileID: 2800000, guid: cb647f974631dbf4ca625380fa4b306d, type: 3}
+  - sprite: {fileID: 21300000, guid: 54ea7bbe978001943a585ce7bce15689, type: 3}
+    tattooMap: {fileID: 2800000, guid: 5115d86044e51df439ee2959e7bef013, type: 3}
+  - sprite: {fileID: 21300000, guid: aee9365ce2fee0e48834cc571711df8f, type: 3}
+    tattooMap: {fileID: 2800000, guid: d2946c3d60ff0304187d37fec05cf044, type: 3}
+  - sprite: {fileID: 21300000, guid: b57651b977fbee942a2b503acbd6d355, type: 3}
+    tattooMap: {fileID: 2800000, guid: 9b9a7c68ff9773b4ea178380b443bc9b, type: 3}
+  - sprite: {fileID: 21300000, guid: 24f0f7a45c8faec40a7017b7f1b0a68b, type: 3}
+    tattooMap: {fileID: 2800000, guid: a0da5efbbdfa6fc43b8b7b9cc2ad6150, type: 3}
+  - sprite: {fileID: 21300000, guid: fc37a1370f1b66a449a7acec7d5c306b, type: 3}
+    tattooMap: {fileID: 2800000, guid: 36ac3ce0f5c199c46b39227b2b3017a9, type: 3}
+  - sprite: {fileID: 21300000, guid: 3f877c9d28bb71b4f91950f52d1ea5d8, type: 3}
+    tattooMap: {fileID: 2800000, guid: 60199e0f06b2c0742936918b72d08b5e, type: 3}
