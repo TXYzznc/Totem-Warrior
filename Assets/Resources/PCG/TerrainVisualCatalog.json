@@ -1,580 +1,284 @@
-{
-  "schemaVersion": 3,
-  "catalogId": "terrain_visual_catalog",
-  "assetPathMode": "game_asset_path",
-  "pixelsPerUnit": 256,
-  "tiles": [
-    {
-      "id": "ai_ruins_floor",
-      "biome": "ai_ruins",
-      "terrain": "ruins_floor",
-      "useCase": "inner",
-      "variants": [
-        "Assets/Game/Sprite/PCG/Terrain/AiRuins/Tiles/RuinFloor/ruins_floor_01.png",
-        "Assets/Game/Sprite/PCG/Terrain/AiRuins/Tiles/RuinFloor/ruins_floor_02.png",
-        "Assets/Game/Sprite/PCG/Terrain/AiRuins/Tiles/RuinFloor/ruins_floor_03.png",
-        "Assets/Game/Sprite/PCG/Terrain/AiRuins/Tiles/RuinFloor/ruins_floor_04.png",
-        "Assets/Game/Sprite/PCG/Terrain/AiRuins/Tiles/RuinFloor/ruins_floor_05.png",
-        "Assets/Game/Sprite/PCG/Terrain/AiRuins/Tiles/RuinFloor/ruins_floor_06.png",
-        "Assets/Game/Sprite/PCG/Terrain/AiRuins/Tiles/RuinFloor/ruins_floor_07.png",
-        "Assets/Game/Sprite/PCG/Terrain/AiRuins/Tiles/RuinFloor/ruins_floor_08.png"
-      ],
-      "weight": 100,
-      "rarity": "common",
-      "tags": [
-        "terrain",
-        "variant-set",
-        "ai_ruins"
-      ]
-    },
-    {
-      "id": "ai_ruins_metal",
-      "biome": "ai_ruins",
-      "terrain": "ruins_metal",
-      "useCase": "inner",
-      "variants": [
-        "Assets/Game/Sprite/PCG/Terrain/AiRuins/Tiles/ServiceMetal/ruins_service_metal_01.png",
-        "Assets/Game/Sprite/PCG/Terrain/AiRuins/Tiles/ServiceMetal/ruins_service_metal_02.png",
-        "Assets/Game/Sprite/PCG/Terrain/AiRuins/Tiles/ServiceMetal/ruins_service_metal_03.png",
-        "Assets/Game/Sprite/PCG/Terrain/AiRuins/Tiles/ServiceMetal/ruins_service_metal_04.png",
-        "Assets/Game/Sprite/PCG/Terrain/AiRuins/Tiles/ServiceMetal/ruins_service_metal_05.png",
-        "Assets/Game/Sprite/PCG/Terrain/AiRuins/Tiles/ServiceMetal/ruins_service_metal_06.png",
-        "Assets/Game/Sprite/PCG/Terrain/AiRuins/Tiles/ServiceMetal/ruins_service_metal_07.png",
-        "Assets/Game/Sprite/PCG/Terrain/AiRuins/Tiles/ServiceMetal/ruins_service_metal_08.png"
-      ],
-      "weight": 100,
-      "rarity": "common",
-      "tags": [
-        "terrain",
-        "variant-set",
-        "ai_ruins"
-      ]
-    },
-    {
-      "id": "ai_ruins_growth",
-      "biome": "ai_ruins",
-      "terrain": "ruins_growth",
-      "useCase": "inner",
-      "variants": [
-        "Assets/Game/Sprite/PCG/Terrain/AiRuins/Tiles/ReclaimedGrowth/ruins_reclaimed_growth_01.png",
-        "Assets/Game/Sprite/PCG/Terrain/AiRuins/Tiles/ReclaimedGrowth/ruins_reclaimed_growth_02.png",
-        "Assets/Game/Sprite/PCG/Terrain/AiRuins/Tiles/ReclaimedGrowth/ruins_reclaimed_growth_03.png",
-        "Assets/Game/Sprite/PCG/Terrain/AiRuins/Tiles/ReclaimedGrowth/ruins_reclaimed_growth_04.png",
-        "Assets/Game/Sprite/PCG/Terrain/AiRuins/Tiles/ReclaimedGrowth/ruins_reclaimed_growth_05.png",
-        "Assets/Game/Sprite/PCG/Terrain/AiRuins/Tiles/ReclaimedGrowth/ruins_reclaimed_growth_06.png",
-        "Assets/Game/Sprite/PCG/Terrain/AiRuins/Tiles/ReclaimedGrowth/ruins_reclaimed_growth_07.png",
-        "Assets/Game/Sprite/PCG/Terrain/AiRuins/Tiles/ReclaimedGrowth/ruins_reclaimed_growth_08.png"
-      ],
-      "weight": 100,
-      "rarity": "common",
-      "tags": [
-        "terrain",
-        "variant-set",
-        "ai_ruins"
-      ]
-    },
-    {
-      "id": "ai_ruins_coolant",
-      "biome": "ai_ruins",
-      "terrain": "ruins_coolant",
-      "useCase": "inner",
-      "variants": [
-        "Assets/Game/Sprite/PCG/Terrain/AiRuins/Tiles/CoolantWater/ruins_coolant_water_01.png",
-        "Assets/Game/Sprite/PCG/Terrain/AiRuins/Tiles/CoolantWater/ruins_coolant_water_02.png",
-        "Assets/Game/Sprite/PCG/Terrain/AiRuins/Tiles/CoolantWater/ruins_coolant_water_03.png",
-        "Assets/Game/Sprite/PCG/Terrain/AiRuins/Tiles/CoolantWater/ruins_coolant_water_04.png",
-        "Assets/Game/Sprite/PCG/Terrain/AiRuins/Tiles/CoolantWater/ruins_coolant_water_05.png",
-        "Assets/Game/Sprite/PCG/Terrain/AiRuins/Tiles/CoolantWater/ruins_coolant_water_06.png",
-        "Assets/Game/Sprite/PCG/Terrain/AiRuins/Tiles/CoolantWater/ruins_coolant_water_07.png",
-        "Assets/Game/Sprite/PCG/Terrain/AiRuins/Tiles/CoolantWater/ruins_coolant_water_08.png"
-      ],
-      "weight": 100,
-      "rarity": "common",
-      "tags": [
-        "terrain",
-        "variant-set",
-        "ai_ruins"
-      ]
-    },
-    {
-      "id": "alien_hive_chitin",
-      "biome": "alien_hive",
-      "terrain": "hive_chitin",
-      "useCase": "inner",
-      "variants": [
-        "Assets/Game/Sprite/PCG/Terrain/AlienHive/Tiles/Chitin/hive_chitin_01.png",
-        "Assets/Game/Sprite/PCG/Terrain/AlienHive/Tiles/Chitin/hive_chitin_02.png",
-        "Assets/Game/Sprite/PCG/Terrain/AlienHive/Tiles/Chitin/hive_chitin_03.png",
-        "Assets/Game/Sprite/PCG/Terrain/AlienHive/Tiles/Chitin/hive_chitin_04.png",
-        "Assets/Game/Sprite/PCG/Terrain/AlienHive/Tiles/Chitin/hive_chitin_05.png",
-        "Assets/Game/Sprite/PCG/Terrain/AlienHive/Tiles/Chitin/hive_chitin_06.png",
-        "Assets/Game/Sprite/PCG/Terrain/AlienHive/Tiles/Chitin/hive_chitin_07.png",
-        "Assets/Game/Sprite/PCG/Terrain/AlienHive/Tiles/Chitin/hive_chitin_08.png"
-      ],
-      "weight": 100,
-      "rarity": "common",
-      "tags": [
-        "terrain",
-        "variant-set",
-        "alien_hive"
-      ]
-    },
-    {
-      "id": "alien_hive_membrane",
-      "biome": "alien_hive",
-      "terrain": "hive_membrane",
-      "useCase": "inner",
-      "variants": [
-        "Assets/Game/Sprite/PCG/Terrain/AlienHive/Tiles/Membrane/hive_membrane_01.png",
-        "Assets/Game/Sprite/PCG/Terrain/AlienHive/Tiles/Membrane/hive_membrane_02.png",
-        "Assets/Game/Sprite/PCG/Terrain/AlienHive/Tiles/Membrane/hive_membrane_03.png",
-        "Assets/Game/Sprite/PCG/Terrain/AlienHive/Tiles/Membrane/hive_membrane_04.png",
-        "Assets/Game/Sprite/PCG/Terrain/AlienHive/Tiles/Membrane/hive_membrane_05.png",
-        "Assets/Game/Sprite/PCG/Terrain/AlienHive/Tiles/Membrane/hive_membrane_06.png",
-        "Assets/Game/Sprite/PCG/Terrain/AlienHive/Tiles/Membrane/hive_membrane_07.png",
-        "Assets/Game/Sprite/PCG/Terrain/AlienHive/Tiles/Membrane/hive_membrane_08.png"
-      ],
-      "weight": 100,
-      "rarity": "common",
-      "tags": [
-        "terrain",
-        "variant-set",
-        "alien_hive"
-      ]
-    },
-    {
-      "id": "alien_hive_resin",
-      "biome": "alien_hive",
-      "terrain": "hive_resin",
-      "useCase": "inner",
-      "variants": [
-        "Assets/Game/Sprite/PCG/Terrain/AlienHive/Tiles/ResinCrust/hive_resin_crust_01.png",
-        "Assets/Game/Sprite/PCG/Terrain/AlienHive/Tiles/ResinCrust/hive_resin_crust_02.png",
-        "Assets/Game/Sprite/PCG/Terrain/AlienHive/Tiles/ResinCrust/hive_resin_crust_03.png",
-        "Assets/Game/Sprite/PCG/Terrain/AlienHive/Tiles/ResinCrust/hive_resin_crust_04.png",
-        "Assets/Game/Sprite/PCG/Terrain/AlienHive/Tiles/ResinCrust/hive_resin_crust_05.png",
-        "Assets/Game/Sprite/PCG/Terrain/AlienHive/Tiles/ResinCrust/hive_resin_crust_06.png",
-        "Assets/Game/Sprite/PCG/Terrain/AlienHive/Tiles/ResinCrust/hive_resin_crust_07.png",
-        "Assets/Game/Sprite/PCG/Terrain/AlienHive/Tiles/ResinCrust/hive_resin_crust_08.png"
-      ],
-      "weight": 100,
-      "rarity": "common",
-      "tags": [
-        "terrain",
-        "variant-set",
-        "alien_hive"
-      ]
-    },
-    {
-      "id": "alien_hive_acid",
-      "biome": "alien_hive",
-      "terrain": "hive_acid",
-      "useCase": "inner",
-      "variants": [
-        "Assets/Game/Sprite/PCG/Terrain/AlienHive/Tiles/AcidPool/hive_acid_pool_01.png",
-        "Assets/Game/Sprite/PCG/Terrain/AlienHive/Tiles/AcidPool/hive_acid_pool_02.png",
-        "Assets/Game/Sprite/PCG/Terrain/AlienHive/Tiles/AcidPool/hive_acid_pool_03.png",
-        "Assets/Game/Sprite/PCG/Terrain/AlienHive/Tiles/AcidPool/hive_acid_pool_04.png",
-        "Assets/Game/Sprite/PCG/Terrain/AlienHive/Tiles/AcidPool/hive_acid_pool_05.png",
-        "Assets/Game/Sprite/PCG/Terrain/AlienHive/Tiles/AcidPool/hive_acid_pool_06.png",
-        "Assets/Game/Sprite/PCG/Terrain/AlienHive/Tiles/AcidPool/hive_acid_pool_07.png",
-        "Assets/Game/Sprite/PCG/Terrain/AlienHive/Tiles/AcidPool/hive_acid_pool_08.png"
-      ],
-      "weight": 100,
-      "rarity": "common",
-      "tags": [
-        "terrain",
-        "variant-set",
-        "alien_hive"
-      ]
-    },
-    {
-      "id": "virus_swamp_grass",
-      "biome": "virus_swamp",
-      "terrain": "swamp_grass",
-      "useCase": "inner",
-      "variants": [
-        "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Tiles/Grass/grass_01.png",
-        "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Tiles/Grass/grass_02.png",
-        "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Tiles/Grass/grass_03.png",
-        "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Tiles/Grass/grass_04.png",
-        "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Tiles/Grass/grass_05.png",
-        "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Tiles/Grass/grass_06.png",
-        "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Tiles/Grass/grass_07.png",
-        "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Tiles/Grass/grass_08.png"
-      ],
-      "weight": 100,
-      "rarity": "common",
-      "tags": [
-        "terrain",
-        "variant-set",
-        "virus_swamp"
-      ]
-    },
-    {
-      "id": "virus_swamp_mud",
-      "biome": "virus_swamp",
-      "terrain": "swamp_mud",
-      "useCase": "inner",
-      "variants": [
-        "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Tiles/SwampMud/swamp_mud_01.png",
-        "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Tiles/SwampMud/swamp_mud_02.png",
-        "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Tiles/SwampMud/swamp_mud_03.png",
-        "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Tiles/SwampMud/swamp_mud_04.png",
-        "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Tiles/SwampMud/swamp_mud_05.png",
-        "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Tiles/SwampMud/swamp_mud_06.png",
-        "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Tiles/SwampMud/swamp_mud_07.png",
-        "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Tiles/SwampMud/swamp_mud_08.png"
-      ],
-      "weight": 100,
-      "rarity": "common",
-      "tags": [
-        "terrain",
-        "variant-set",
-        "virus_swamp"
-      ]
-    },
-    {
-      "id": "virus_swamp_corruption",
-      "biome": "virus_swamp",
-      "terrain": "swamp_corruption",
-      "useCase": "inner",
-      "variants": [
-        "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Tiles/Corruption/swamp_corruption_01.png",
-        "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Tiles/Corruption/swamp_corruption_02.png",
-        "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Tiles/Corruption/swamp_corruption_03.png",
-        "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Tiles/Corruption/swamp_corruption_04.png",
-        "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Tiles/Corruption/swamp_corruption_05.png",
-        "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Tiles/Corruption/swamp_corruption_06.png",
-        "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Tiles/Corruption/swamp_corruption_07.png",
-        "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Tiles/Corruption/swamp_corruption_08.png"
-      ],
-      "weight": 100,
-      "rarity": "common",
-      "tags": [
-        "terrain",
-        "variant-set",
-        "virus_swamp"
-      ]
-    },
-    {
-      "id": "virus_swamp_water",
-      "biome": "virus_swamp",
-      "terrain": "swamp_water",
-      "useCase": "inner",
-      "variants": [
-        "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Tiles/Water/river_01.png",
-        "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Tiles/Water/river_02.png",
-        "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Tiles/Water/river_03.png",
-        "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Tiles/Water/river_04.png",
-        "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Tiles/Water/river_05.png",
-        "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Tiles/Water/river_06.png",
-        "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Tiles/Water/river_07.png",
-        "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Tiles/Water/river_08.png"
-      ],
-      "weight": 100,
-      "rarity": "common",
-      "tags": [
-        "terrain",
-        "variant-set",
-        "virus_swamp"
-      ]
-    }
-  ],
-  "terrainPriorities": [],
-  "transitionMasks": [],
-  "transitionDetails": [],
-  "transitionRules": [],
-  "boundaryDecorationSets": [
-    {
-      "id": "ai_floor_metal",
-      "variants": [
-        "Assets/Game/Sprite/PCG/Terrain/AiRuins/Decorations/floor_metal/ruins_floor_metal_deco_01.png",
-        "Assets/Game/Sprite/PCG/Terrain/AiRuins/Decorations/floor_metal/ruins_floor_metal_deco_02.png",
-        "Assets/Game/Sprite/PCG/Terrain/AiRuins/Decorations/floor_metal/ruins_floor_metal_deco_03.png",
-        "Assets/Game/Sprite/PCG/Terrain/AiRuins/Decorations/floor_metal/ruins_floor_metal_deco_04.png",
-        "Assets/Game/Sprite/PCG/Terrain/AiRuins/Decorations/floor_metal/ruins_floor_metal_deco_05.png",
-        "Assets/Game/Sprite/PCG/Terrain/AiRuins/Decorations/floor_metal/ruins_floor_metal_deco_06.png"
-      ],
-      "sortingOffset": 50
-    },
-    {
-      "id": "ai_floor_growth",
-      "variants": [
-        "Assets/Game/Sprite/PCG/Terrain/AiRuins/Decorations/floor_growth/ruins_floor_growth_deco_01.png",
-        "Assets/Game/Sprite/PCG/Terrain/AiRuins/Decorations/floor_growth/ruins_floor_growth_deco_02.png",
-        "Assets/Game/Sprite/PCG/Terrain/AiRuins/Decorations/floor_growth/ruins_floor_growth_deco_03.png",
-        "Assets/Game/Sprite/PCG/Terrain/AiRuins/Decorations/floor_growth/ruins_floor_growth_deco_04.png",
-        "Assets/Game/Sprite/PCG/Terrain/AiRuins/Decorations/floor_growth/ruins_floor_growth_deco_05.png",
-        "Assets/Game/Sprite/PCG/Terrain/AiRuins/Decorations/floor_growth/ruins_floor_growth_deco_06.png"
-      ],
-      "sortingOffset": 50
-    },
-    {
-      "id": "ai_floor_coolant",
-      "variants": [
-        "Assets/Game/Sprite/PCG/Terrain/AiRuins/Decorations/floor_water/ruins_floor_water_deco_01.png",
-        "Assets/Game/Sprite/PCG/Terrain/AiRuins/Decorations/floor_water/ruins_floor_water_deco_02.png",
-        "Assets/Game/Sprite/PCG/Terrain/AiRuins/Decorations/floor_water/ruins_floor_water_deco_03.png",
-        "Assets/Game/Sprite/PCG/Terrain/AiRuins/Decorations/floor_water/ruins_floor_water_deco_04.png",
-        "Assets/Game/Sprite/PCG/Terrain/AiRuins/Decorations/floor_water/ruins_floor_water_deco_05.png",
-        "Assets/Game/Sprite/PCG/Terrain/AiRuins/Decorations/floor_water/ruins_floor_water_deco_06.png"
-      ],
-      "sortingOffset": 50
-    },
-    {
-      "id": "ai_metal_coolant",
-      "variants": [
-        "Assets/Game/Sprite/PCG/Terrain/AiRuins/Decorations/metal_water/ruins_metal_water_deco_01.png",
-        "Assets/Game/Sprite/PCG/Terrain/AiRuins/Decorations/metal_water/ruins_metal_water_deco_02.png",
-        "Assets/Game/Sprite/PCG/Terrain/AiRuins/Decorations/metal_water/ruins_metal_water_deco_03.png",
-        "Assets/Game/Sprite/PCG/Terrain/AiRuins/Decorations/metal_water/ruins_metal_water_deco_04.png",
-        "Assets/Game/Sprite/PCG/Terrain/AiRuins/Decorations/metal_water/ruins_metal_water_deco_05.png",
-        "Assets/Game/Sprite/PCG/Terrain/AiRuins/Decorations/metal_water/ruins_metal_water_deco_06.png"
-      ],
-      "sortingOffset": 50
-    },
-    {
-      "id": "ai_growth_coolant",
-      "variants": [
-        "Assets/Game/Sprite/PCG/Terrain/AiRuins/Decorations/growth_water/ruins_growth_water_deco_01.png",
-        "Assets/Game/Sprite/PCG/Terrain/AiRuins/Decorations/growth_water/ruins_growth_water_deco_02.png",
-        "Assets/Game/Sprite/PCG/Terrain/AiRuins/Decorations/growth_water/ruins_growth_water_deco_03.png",
-        "Assets/Game/Sprite/PCG/Terrain/AiRuins/Decorations/growth_water/ruins_growth_water_deco_04.png",
-        "Assets/Game/Sprite/PCG/Terrain/AiRuins/Decorations/growth_water/ruins_growth_water_deco_05.png",
-        "Assets/Game/Sprite/PCG/Terrain/AiRuins/Decorations/growth_water/ruins_growth_water_deco_06.png"
-      ],
-      "sortingOffset": 50
-    },
-    {
-      "id": "hive_chitin_membrane",
-      "variants": [
-        "Assets/Game/Sprite/PCG/Terrain/AlienHive/Decorations/chitin_membrane/hive_chitin_membrane_deco_01.png",
-        "Assets/Game/Sprite/PCG/Terrain/AlienHive/Decorations/chitin_membrane/hive_chitin_membrane_deco_02.png",
-        "Assets/Game/Sprite/PCG/Terrain/AlienHive/Decorations/chitin_membrane/hive_chitin_membrane_deco_03.png",
-        "Assets/Game/Sprite/PCG/Terrain/AlienHive/Decorations/chitin_membrane/hive_chitin_membrane_deco_04.png",
-        "Assets/Game/Sprite/PCG/Terrain/AlienHive/Decorations/chitin_membrane/hive_chitin_membrane_deco_05.png",
-        "Assets/Game/Sprite/PCG/Terrain/AlienHive/Decorations/chitin_membrane/hive_chitin_membrane_deco_06.png"
-      ],
-      "sortingOffset": 50
-    },
-    {
-      "id": "hive_chitin_resin",
-      "variants": [
-        "Assets/Game/Sprite/PCG/Terrain/AlienHive/Decorations/chitin_resin/hive_chitin_resin_deco_01.png",
-        "Assets/Game/Sprite/PCG/Terrain/AlienHive/Decorations/chitin_resin/hive_chitin_resin_deco_02.png",
-        "Assets/Game/Sprite/PCG/Terrain/AlienHive/Decorations/chitin_resin/hive_chitin_resin_deco_03.png",
-        "Assets/Game/Sprite/PCG/Terrain/AlienHive/Decorations/chitin_resin/hive_chitin_resin_deco_04.png",
-        "Assets/Game/Sprite/PCG/Terrain/AlienHive/Decorations/chitin_resin/hive_chitin_resin_deco_05.png",
-        "Assets/Game/Sprite/PCG/Terrain/AlienHive/Decorations/chitin_resin/hive_chitin_resin_deco_06.png"
-      ],
-      "sortingOffset": 50
-    },
-    {
-      "id": "hive_chitin_acid",
-      "variants": [
-        "Assets/Game/Sprite/PCG/Terrain/AlienHive/Decorations/chitin_acid/hive_chitin_acid_deco_01.png",
-        "Assets/Game/Sprite/PCG/Terrain/AlienHive/Decorations/chitin_acid/hive_chitin_acid_deco_02.png",
-        "Assets/Game/Sprite/PCG/Terrain/AlienHive/Decorations/chitin_acid/hive_chitin_acid_deco_03.png",
-        "Assets/Game/Sprite/PCG/Terrain/AlienHive/Decorations/chitin_acid/hive_chitin_acid_deco_04.png",
-        "Assets/Game/Sprite/PCG/Terrain/AlienHive/Decorations/chitin_acid/hive_chitin_acid_deco_05.png",
-        "Assets/Game/Sprite/PCG/Terrain/AlienHive/Decorations/chitin_acid/hive_chitin_acid_deco_06.png"
-      ],
-      "sortingOffset": 50
-    },
-    {
-      "id": "hive_membrane_acid",
-      "variants": [
-        "Assets/Game/Sprite/PCG/Terrain/AlienHive/Decorations/membrane_acid/hive_membrane_acid_deco_01.png",
-        "Assets/Game/Sprite/PCG/Terrain/AlienHive/Decorations/membrane_acid/hive_membrane_acid_deco_02.png",
-        "Assets/Game/Sprite/PCG/Terrain/AlienHive/Decorations/membrane_acid/hive_membrane_acid_deco_03.png",
-        "Assets/Game/Sprite/PCG/Terrain/AlienHive/Decorations/membrane_acid/hive_membrane_acid_deco_04.png",
-        "Assets/Game/Sprite/PCG/Terrain/AlienHive/Decorations/membrane_acid/hive_membrane_acid_deco_05.png",
-        "Assets/Game/Sprite/PCG/Terrain/AlienHive/Decorations/membrane_acid/hive_membrane_acid_deco_06.png"
-      ],
-      "sortingOffset": 50
-    },
-    {
-      "id": "hive_resin_acid",
-      "variants": [
-        "Assets/Game/Sprite/PCG/Terrain/AlienHive/Decorations/resin_acid/hive_resin_acid_deco_01.png",
-        "Assets/Game/Sprite/PCG/Terrain/AlienHive/Decorations/resin_acid/hive_resin_acid_deco_02.png",
-        "Assets/Game/Sprite/PCG/Terrain/AlienHive/Decorations/resin_acid/hive_resin_acid_deco_03.png",
-        "Assets/Game/Sprite/PCG/Terrain/AlienHive/Decorations/resin_acid/hive_resin_acid_deco_04.png",
-        "Assets/Game/Sprite/PCG/Terrain/AlienHive/Decorations/resin_acid/hive_resin_acid_deco_05.png",
-        "Assets/Game/Sprite/PCG/Terrain/AlienHive/Decorations/resin_acid/hive_resin_acid_deco_06.png"
-      ],
-      "sortingOffset": 50
-    },
-    {
-      "id": "swamp_grass_mud",
-      "variants": [
-        "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Decorations/grass_mud/swamp_grass_mud_green_deco_01.png",
-        "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Decorations/grass_mud/swamp_grass_mud_green_deco_02.png",
-        "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Decorations/grass_mud/swamp_grass_mud_green_deco_03.png",
-        "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Decorations/grass_mud/swamp_grass_mud_green_deco_04.png",
-        "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Decorations/grass_mud/swamp_grass_mud_green_deco_05.png",
-        "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Decorations/grass_mud/swamp_grass_mud_green_deco_06.png"
-      ],
-      "sortingOffset": 50
-    },
-    {
-      "id": "swamp_grass_corruption",
-      "variants": [
-        "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Decorations/grass_corruption/swamp_grass_corruption_green_deco_01.png",
-        "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Decorations/grass_corruption/swamp_grass_corruption_green_deco_02.png",
-        "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Decorations/grass_corruption/swamp_grass_corruption_green_deco_03.png",
-        "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Decorations/grass_corruption/swamp_grass_corruption_green_deco_04.png",
-        "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Decorations/grass_corruption/swamp_grass_corruption_green_deco_05.png",
-        "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Decorations/grass_corruption/swamp_grass_corruption_green_deco_06.png"
-      ],
-      "sortingOffset": 50
-    },
-    {
-      "id": "swamp_grass_water",
-      "variants": [
-        "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Decorations/grass_water/grass_river_deco_01.png",
-        "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Decorations/grass_water/grass_river_deco_02.png",
-        "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Decorations/grass_water/grass_river_deco_03.png",
-        "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Decorations/grass_water/grass_river_deco_04.png",
-        "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Decorations/grass_water/grass_river_deco_05.png",
-        "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Decorations/grass_water/grass_river_deco_06.png"
-      ],
-      "sortingOffset": 50
-    },
-    {
-      "id": "swamp_mud_corruption",
-      "variants": [
-        "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Decorations/mud_corruption/swamp_mud_corruption_green_deco_01.png",
-        "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Decorations/mud_corruption/swamp_mud_corruption_green_deco_02.png",
-        "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Decorations/mud_corruption/swamp_mud_corruption_green_deco_03.png",
-        "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Decorations/mud_corruption/swamp_mud_corruption_green_deco_04.png",
-        "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Decorations/mud_corruption/swamp_mud_corruption_green_deco_05.png",
-        "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Decorations/mud_corruption/swamp_mud_corruption_green_deco_06.png"
-      ],
-      "sortingOffset": 50
-    },
-    {
-      "id": "swamp_mud_water",
-      "variants": [
-        "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Decorations/mud_water/swamp_mud_water_green_deco_01.png",
-        "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Decorations/mud_water/swamp_mud_water_green_deco_02.png",
-        "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Decorations/mud_water/swamp_mud_water_green_deco_03.png",
-        "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Decorations/mud_water/swamp_mud_water_green_deco_04.png",
-        "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Decorations/mud_water/swamp_mud_water_green_deco_05.png",
-        "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Decorations/mud_water/swamp_mud_water_green_deco_06.png"
-      ],
-      "sortingOffset": 50
-    },
-    {
-      "id": "swamp_corruption_water",
-      "variants": [
-        "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Decorations/corruption_water/swamp_corruption_water_green_deco_01.png",
-        "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Decorations/corruption_water/swamp_corruption_water_green_deco_02.png",
-        "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Decorations/corruption_water/swamp_corruption_water_green_deco_03.png",
-        "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Decorations/corruption_water/swamp_corruption_water_green_deco_04.png",
-        "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Decorations/corruption_water/swamp_corruption_water_green_deco_05.png",
-        "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Decorations/corruption_water/swamp_corruption_water_green_deco_06.png"
-      ],
-      "sortingOffset": 50
-    }
-  ],
-  "boundaryDecorationRules": [
-    {
-      "terrainA": "ruins_floor",
-      "terrainB": "ruins_metal",
-      "decorationSet": "ai_floor_metal",
-      "chance": 0.42
-    },
-    {
-      "terrainA": "ruins_floor",
-      "terrainB": "ruins_growth",
-      "decorationSet": "ai_floor_growth",
-      "chance": 0.42
-    },
-    {
-      "terrainA": "ruins_floor",
-      "terrainB": "ruins_coolant",
-      "decorationSet": "ai_floor_coolant",
-      "chance": 0.42
-    },
-    {
-      "terrainA": "ruins_metal",
-      "terrainB": "ruins_coolant",
-      "decorationSet": "ai_metal_coolant",
-      "chance": 0.42
-    },
-    {
-      "terrainA": "ruins_growth",
-      "terrainB": "ruins_coolant",
-      "decorationSet": "ai_growth_coolant",
-      "chance": 0.42
-    },
-    {
-      "terrainA": "hive_chitin",
-      "terrainB": "hive_membrane",
-      "decorationSet": "hive_chitin_membrane",
-      "chance": 0.42
-    },
-    {
-      "terrainA": "hive_chitin",
-      "terrainB": "hive_resin",
-      "decorationSet": "hive_chitin_resin",
-      "chance": 0.42
-    },
-    {
-      "terrainA": "hive_chitin",
-      "terrainB": "hive_acid",
-      "decorationSet": "hive_chitin_acid",
-      "chance": 0.42
-    },
-    {
-      "terrainA": "hive_membrane",
-      "terrainB": "hive_acid",
-      "decorationSet": "hive_membrane_acid",
-      "chance": 0.42
-    },
-    {
-      "terrainA": "hive_resin",
-      "terrainB": "hive_acid",
-      "decorationSet": "hive_resin_acid",
-      "chance": 0.42
-    },
-    {
-      "terrainA": "swamp_grass",
-      "terrainB": "swamp_mud",
-      "decorationSet": "swamp_grass_mud",
-      "chance": 0.42
-    },
-    {
-      "terrainA": "swamp_grass",
-      "terrainB": "swamp_corruption",
-      "decorationSet": "swamp_grass_corruption",
-      "chance": 0.42
-    },
-    {
-      "terrainA": "swamp_grass",
-      "terrainB": "swamp_water",
-      "decorationSet": "swamp_grass_water",
-      "chance": 0.42
-    },
-    {
-      "terrainA": "swamp_mud",
-      "terrainB": "swamp_corruption",
-      "decorationSet": "swamp_mud_corruption",
-      "chance": 0.42
-    },
-    {
-      "terrainA": "swamp_mud",
-      "terrainB": "swamp_water",
-      "decorationSet": "swamp_mud_water",
-      "chance": 0.42
-    },
-    {
-      "terrainA": "swamp_corruption",
-      "terrainB": "swamp_water",
-      "decorationSet": "swamp_corruption_water",
-      "chance": 0.42
-    }
-  ]
+﻿{
+    "schemaVersion":  3,
+    "catalogId":  "terrain_visual_catalog",
+    "assetPathMode":  "game_asset_path",
+    "pixelsPerUnit":  256,
+    "tiles":  [
+                  {
+                      "id":  "ai_ruins_floor",
+                      "biome":  "ai_ruins",
+                      "terrain":  "ruins_floor",
+                      "useCase":  "inner",
+                      "variants":  [
+                                       "Assets/Game/Sprite/PCG/Terrain/AiRuins/Tiles/RuinFloor/ruins_floor_01.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/AiRuins/Tiles/RuinFloor/ruins_floor_02.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/AiRuins/Tiles/RuinFloor/ruins_floor_03.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/AiRuins/Tiles/RuinFloor/ruins_floor_04.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/AiRuins/Tiles/RuinFloor/ruins_floor_05.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/AiRuins/Tiles/RuinFloor/ruins_floor_06.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/AiRuins/Tiles/RuinFloor/ruins_floor_07.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/AiRuins/Tiles/RuinFloor/ruins_floor_08.png"
+                                   ],
+                      "weight":  100,
+                      "rarity":  "common",
+                      "tags":  [
+                                   "terrain",
+                                   "variant-set",
+                                   "ai_ruins"
+                               ]
+                  },
+                  {
+                      "id":  "ai_ruins_metal",
+                      "biome":  "ai_ruins",
+                      "terrain":  "ruins_metal",
+                      "useCase":  "inner",
+                      "variants":  [
+                                       "Assets/Game/Sprite/PCG/Terrain/AiRuins/Tiles/ServiceMetal/ruins_service_metal_01.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/AiRuins/Tiles/ServiceMetal/ruins_service_metal_02.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/AiRuins/Tiles/ServiceMetal/ruins_service_metal_03.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/AiRuins/Tiles/ServiceMetal/ruins_service_metal_04.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/AiRuins/Tiles/ServiceMetal/ruins_service_metal_05.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/AiRuins/Tiles/ServiceMetal/ruins_service_metal_06.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/AiRuins/Tiles/ServiceMetal/ruins_service_metal_07.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/AiRuins/Tiles/ServiceMetal/ruins_service_metal_08.png"
+                                   ],
+                      "weight":  100,
+                      "rarity":  "common",
+                      "tags":  [
+                                   "terrain",
+                                   "variant-set",
+                                   "ai_ruins"
+                               ]
+                  },
+                  {
+                      "id":  "ai_ruins_growth",
+                      "biome":  "ai_ruins",
+                      "terrain":  "ruins_growth",
+                      "useCase":  "inner",
+                      "variants":  [
+                                       "Assets/Game/Sprite/PCG/Terrain/AiRuins/Tiles/ReclaimedGrowth/ruins_reclaimed_growth_01.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/AiRuins/Tiles/ReclaimedGrowth/ruins_reclaimed_growth_02.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/AiRuins/Tiles/ReclaimedGrowth/ruins_reclaimed_growth_03.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/AiRuins/Tiles/ReclaimedGrowth/ruins_reclaimed_growth_04.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/AiRuins/Tiles/ReclaimedGrowth/ruins_reclaimed_growth_05.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/AiRuins/Tiles/ReclaimedGrowth/ruins_reclaimed_growth_06.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/AiRuins/Tiles/ReclaimedGrowth/ruins_reclaimed_growth_07.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/AiRuins/Tiles/ReclaimedGrowth/ruins_reclaimed_growth_08.png"
+                                   ],
+                      "weight":  100,
+                      "rarity":  "common",
+                      "tags":  [
+                                   "terrain",
+                                   "variant-set",
+                                   "ai_ruins"
+                               ]
+                  },
+                  {
+                      "id":  "ai_ruins_coolant",
+                      "biome":  "ai_ruins",
+                      "terrain":  "ruins_coolant",
+                      "useCase":  "inner",
+                      "variants":  [
+                                       "Assets/Game/Sprite/PCG/Terrain/AiRuins/Tiles/CoolantWater/ruins_coolant_water_01.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/AiRuins/Tiles/CoolantWater/ruins_coolant_water_02.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/AiRuins/Tiles/CoolantWater/ruins_coolant_water_03.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/AiRuins/Tiles/CoolantWater/ruins_coolant_water_04.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/AiRuins/Tiles/CoolantWater/ruins_coolant_water_05.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/AiRuins/Tiles/CoolantWater/ruins_coolant_water_06.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/AiRuins/Tiles/CoolantWater/ruins_coolant_water_07.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/AiRuins/Tiles/CoolantWater/ruins_coolant_water_08.png"
+                                   ],
+                      "weight":  100,
+                      "rarity":  "common",
+                      "tags":  [
+                                   "terrain",
+                                   "variant-set",
+                                   "ai_ruins"
+                               ]
+                  },
+                  {
+                      "id":  "alien_hive_chitin",
+                      "biome":  "alien_hive",
+                      "terrain":  "hive_chitin",
+                      "useCase":  "inner",
+                      "variants":  [
+                                       "Assets/Game/Sprite/PCG/Terrain/AlienHive/Tiles/Chitin/hive_chitin_01.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/AlienHive/Tiles/Chitin/hive_chitin_02.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/AlienHive/Tiles/Chitin/hive_chitin_03.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/AlienHive/Tiles/Chitin/hive_chitin_04.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/AlienHive/Tiles/Chitin/hive_chitin_05.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/AlienHive/Tiles/Chitin/hive_chitin_06.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/AlienHive/Tiles/Chitin/hive_chitin_07.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/AlienHive/Tiles/Chitin/hive_chitin_08.png"
+                                   ],
+                      "weight":  100,
+                      "rarity":  "common",
+                      "tags":  [
+                                   "terrain",
+                                   "variant-set",
+                                   "alien_hive"
+                               ]
+                  },
+                  {
+                      "id":  "alien_hive_membrane",
+                      "biome":  "alien_hive",
+                      "terrain":  "hive_membrane",
+                      "useCase":  "inner",
+                      "variants":  [
+                                       "Assets/Game/Sprite/PCG/Terrain/AlienHive/Tiles/Membrane/hive_membrane_01.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/AlienHive/Tiles/Membrane/hive_membrane_02.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/AlienHive/Tiles/Membrane/hive_membrane_03.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/AlienHive/Tiles/Membrane/hive_membrane_04.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/AlienHive/Tiles/Membrane/hive_membrane_05.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/AlienHive/Tiles/Membrane/hive_membrane_06.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/AlienHive/Tiles/Membrane/hive_membrane_07.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/AlienHive/Tiles/Membrane/hive_membrane_08.png"
+                                   ],
+                      "weight":  100,
+                      "rarity":  "common",
+                      "tags":  [
+                                   "terrain",
+                                   "variant-set",
+                                   "alien_hive"
+                               ]
+                  },
+                  {
+                      "id":  "alien_hive_resin",
+                      "biome":  "alien_hive",
+                      "terrain":  "hive_resin",
+                      "useCase":  "inner",
+                      "variants":  [
+                                       "Assets/Game/Sprite/PCG/Terrain/AlienHive/Tiles/ResinCrust/hive_resin_crust_01.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/AlienHive/Tiles/ResinCrust/hive_resin_crust_02.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/AlienHive/Tiles/ResinCrust/hive_resin_crust_03.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/AlienHive/Tiles/ResinCrust/hive_resin_crust_04.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/AlienHive/Tiles/ResinCrust/hive_resin_crust_05.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/AlienHive/Tiles/ResinCrust/hive_resin_crust_06.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/AlienHive/Tiles/ResinCrust/hive_resin_crust_07.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/AlienHive/Tiles/ResinCrust/hive_resin_crust_08.png"
+                                   ],
+                      "weight":  100,
+                      "rarity":  "common",
+                      "tags":  [
+                                   "terrain",
+                                   "variant-set",
+                                   "alien_hive"
+                               ]
+                  },
+                  {
+                      "id":  "alien_hive_acid",
+                      "biome":  "alien_hive",
+                      "terrain":  "hive_acid",
+                      "useCase":  "inner",
+                      "variants":  [
+                                       "Assets/Game/Sprite/PCG/Terrain/AlienHive/Tiles/AcidPool/hive_acid_pool_01.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/AlienHive/Tiles/AcidPool/hive_acid_pool_02.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/AlienHive/Tiles/AcidPool/hive_acid_pool_03.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/AlienHive/Tiles/AcidPool/hive_acid_pool_04.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/AlienHive/Tiles/AcidPool/hive_acid_pool_05.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/AlienHive/Tiles/AcidPool/hive_acid_pool_06.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/AlienHive/Tiles/AcidPool/hive_acid_pool_07.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/AlienHive/Tiles/AcidPool/hive_acid_pool_08.png"
+                                   ],
+                      "weight":  100,
+                      "rarity":  "common",
+                      "tags":  [
+                                   "terrain",
+                                   "variant-set",
+                                   "alien_hive"
+                               ]
+                  },
+                  {
+                      "id":  "virus_swamp_grass",
+                      "biome":  "virus_swamp",
+                      "terrain":  "swamp_grass",
+                      "useCase":  "inner",
+                      "variants":  [
+                                       "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Tiles/Grass/grass_01.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Tiles/Grass/grass_02.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Tiles/Grass/grass_03.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Tiles/Grass/grass_04.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Tiles/Grass/grass_05.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Tiles/Grass/grass_06.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Tiles/Grass/grass_07.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Tiles/Grass/grass_08.png"
+                                   ],
+                      "weight":  100,
+                      "rarity":  "common",
+                      "tags":  [
+                                   "terrain",
+                                   "variant-set",
+                                   "virus_swamp"
+                               ]
+                  },
+                  {
+                      "id":  "virus_swamp_mud",
+                      "biome":  "virus_swamp",
+                      "terrain":  "swamp_mud",
+                      "useCase":  "inner",
+                      "variants":  [
+                                       "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Tiles/SwampMud/swamp_mud_01.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Tiles/SwampMud/swamp_mud_02.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Tiles/SwampMud/swamp_mud_03.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Tiles/SwampMud/swamp_mud_04.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Tiles/SwampMud/swamp_mud_05.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Tiles/SwampMud/swamp_mud_06.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Tiles/SwampMud/swamp_mud_07.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Tiles/SwampMud/swamp_mud_08.png"
+                                   ],
+                      "weight":  100,
+                      "rarity":  "common",
+                      "tags":  [
+                                   "terrain",
+                                   "variant-set",
+                                   "virus_swamp"
+                               ]
+                  },
+                  {
+                      "id":  "virus_swamp_corruption",
+                      "biome":  "virus_swamp",
+                      "terrain":  "swamp_corruption",
+                      "useCase":  "inner",
+                      "variants":  [
+                                       "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Tiles/Corruption/swamp_corruption_01.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Tiles/Corruption/swamp_corruption_02.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Tiles/Corruption/swamp_corruption_03.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Tiles/Corruption/swamp_corruption_04.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Tiles/Corruption/swamp_corruption_05.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Tiles/Corruption/swamp_corruption_06.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Tiles/Corruption/swamp_corruption_07.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Tiles/Corruption/swamp_corruption_08.png"
+                                   ],
+                      "weight":  100,
+                      "rarity":  "common",
+                      "tags":  [
+                                   "terrain",
+                                   "variant-set",
+                                   "virus_swamp"
+                               ]
+                  },
+                  {
+                      "id":  "virus_swamp_water",
+                      "biome":  "virus_swamp",
+                      "terrain":  "swamp_water",
+                      "useCase":  "inner",
+                      "variants":  [
+                                       "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Tiles/Water/river_01.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Tiles/Water/river_02.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Tiles/Water/river_03.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Tiles/Water/river_04.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Tiles/Water/river_05.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Tiles/Water/river_06.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Tiles/Water/river_07.png",
+                                       "Assets/Game/Sprite/PCG/Terrain/VirusSwamp/Tiles/Water/river_08.png"
+                                   ],
+                      "weight":  100,
+                      "rarity":  "common",
+                      "tags":  [
+                                   "terrain",
+                                   "variant-set",
+                                   "virus_swamp"
+                               ]
+                  }
+              ]
 }

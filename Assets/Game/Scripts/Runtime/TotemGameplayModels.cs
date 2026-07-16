@@ -199,6 +199,7 @@ public sealed class TotemMapAnchor
     public Vector3 Position;
     public int Order;
     public string PayloadId;
+    public string VisualRole;
     public string ZoneRole;
     public string EnemyPoolIds;
     public float SearchRadius;
@@ -212,7 +213,6 @@ public sealed class TotemMapSnapshot
     public string ThemeName;
     public float MapSize;
     public float MinRoomSize;
-    public int BspMaxDepth;
     public int TerrainPoolId;
     public string PrefabPath;
     public string HudAccentColor;
@@ -270,7 +270,6 @@ public sealed class TotemMapTemplateDefinition
     public string ThemeName;
     public float MapSize;
     public float MinRoomSize;
-    public int BspMaxDepth;
     public int TerrainPoolId;
     public string PrefabPath;
     public string HudAccentColor;

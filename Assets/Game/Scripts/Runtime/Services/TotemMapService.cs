@@ -16,13 +16,7 @@ public struct TotemPcgRuntimeSettingsOverride
     public int Width;
     public int Height;
     public int ObjectBudget;
-    public int StampBudget;
-    public int DecalBudget;
     public int MaxVisualSprites;
-    public int TeamSpawnZoneWeight;
-    public int LootZoneWeight;
-    public int CombatZoneWeight;
-    public int DangerZoneWeight;
 
     public TotemPcgRuntimeSettingsOverride Normalized()
     {
@@ -30,25 +24,14 @@ public struct TotemPcgRuntimeSettingsOverride
         normalized.Width = Mathf.Clamp(normalized.Width, 16, 128);
         normalized.Height = Mathf.Clamp(normalized.Height, 16, 128);
         normalized.ObjectBudget = Mathf.Clamp(normalized.ObjectBudget, 0, 2048);
-        normalized.StampBudget = Mathf.Clamp(normalized.StampBudget, 0, 2048);
-        normalized.DecalBudget = Mathf.Clamp(normalized.DecalBudget, 0, 2048);
         normalized.MaxVisualSprites = Mathf.Clamp(normalized.MaxVisualSprites, 0, 8192);
-        normalized.TeamSpawnZoneWeight = Mathf.Clamp(normalized.TeamSpawnZoneWeight, 0, 1000);
-        normalized.LootZoneWeight = Mathf.Clamp(normalized.LootZoneWeight, 0, 1000);
-        normalized.CombatZoneWeight = Mathf.Clamp(normalized.CombatZoneWeight, 0, 1000);
-        normalized.DangerZoneWeight = Mathf.Clamp(normalized.DangerZoneWeight, 0, 1000);
-
-        if (normalized.TeamSpawnZoneWeight + normalized.LootZoneWeight + normalized.CombatZoneWeight + normalized.DangerZoneWeight <= 0)
-        {
-            normalized.TeamSpawnZoneWeight = 100;
-        }
-
         return normalized;
     }
 }
 
 public sealed class TotemMapService : TotemRuntimeServiceBase
 {
+    private const float PcgStandingSpriteTiltX = 45f;
     public const float DefaultMapSize = 400f;
     public const int TerrainCellSize = 4;
     public const int TerrainGridResolution = 100;
@@ -56,7 +39,8 @@ public sealed class TotemMapService : TotemRuntimeServiceBase
     public const int PcgMapHeight = 64;
     public const int DiagnosticPcgMapWidth = 32;
     public const int DiagnosticPcgMapHeight = 32;
-    public const float PcgEdgeMatchTolerance = 0.18f;
+    public const int PcgObjectBudget = 240;
+    public const int DiagnosticPcgObjectBudget = 24;
 
     private readonly List<GameObject> spawnedObjects = new List<GameObject>(16);
     private GameObject mapRoot;
@@ -76,6 +60,10 @@ public sealed class TotemMapService : TotemRuntimeServiceBase
     private int pcgMissingSpriteCount;
     private int pcgSpriteLoadCount;
     private int pcgSpriteCreateCount;
+    private bool hasPendingCombatMapRequest;
+    private int pendingCombatMapSeed;
+    private int pendingCombatMapThemeId;
+    private TotemPcgRuntimeSettingsOverride pendingCombatMapSettings;
 
     private static PCGAssetIndex cachedPcgAssetIndex;
     private static string cachedPcgAssetIndexError = string.Empty;
@@ -94,6 +82,21 @@ public sealed class TotemMapService : TotemRuntimeServiceBase
     public static int ActivePcgMapWidth => GetPcgRuntimeSettings().Width;
 
     public static int ActivePcgMapHeight => GetPcgRuntimeSettings().Height;
+
+    /// <summary>
+    /// 为下一次进入 CombatHud 的业务流程指定地图。请求只消费一次，
+    /// 以便由地图、角色和相机服务在同一次状态切换中使用同一张地图。
+    /// </summary>
+    public void RequestNextCombatMap(
+        int seed,
+        int themeId,
+        TotemPcgRuntimeSettingsOverride settings)
+    {
+        hasPendingCombatMapRequest = true;
+        pendingCombatMapSeed = seed;
+        pendingCombatMapThemeId = themeId;
+        pendingCombatMapSettings = settings.Normalized();
+    }
 
     public static IDisposable UsePcgRuntimeProfile(TotemPcgRuntimeProfile profile)
     {
@@ -124,44 +127,23 @@ public sealed class TotemMapService : TotemRuntimeServiceBase
         public readonly int Width;
         public readonly int Height;
         public readonly int ObjectBudget;
-        public readonly int StampBudget;
-        public readonly int DecalBudget;
         public readonly int MaxVisualSprites;
-        public readonly bool RenderUnderlay;
-        public readonly int TeamSpawnZoneWeight;
-        public readonly int LootZoneWeight;
-        public readonly int CombatZoneWeight;
-        public readonly int DangerZoneWeight;
 
         private PcgRuntimeSettings(
             int width,
             int height,
             int objectBudget,
-            int stampBudget,
-            int decalBudget,
-            int maxVisualSprites,
-            bool renderUnderlay,
-            int teamSpawnZoneWeight,
-            int lootZoneWeight,
-            int combatZoneWeight,
-            int dangerZoneWeight)
+            int maxVisualSprites)
         {
             Width = width;
             Height = height;
             ObjectBudget = objectBudget;
-            StampBudget = stampBudget;
-            DecalBudget = decalBudget;
             MaxVisualSprites = maxVisualSprites;
-            RenderUnderlay = renderUnderlay;
-            TeamSpawnZoneWeight = teamSpawnZoneWeight;
-            LootZoneWeight = lootZoneWeight;
-            CombatZoneWeight = combatZoneWeight;
-            DangerZoneWeight = dangerZoneWeight;
         }
 
-        public static PcgRuntimeSettings Full => new PcgRuntimeSettings(PcgMapWidth, PcgMapHeight, 0, 0, 0, int.MaxValue, false, 100, 100, 100, 100);
+        public static PcgRuntimeSettings Full => new PcgRuntimeSettings(PcgMapWidth, PcgMapHeight, PcgObjectBudget, int.MaxValue);
 
-        public static PcgRuntimeSettings DiagnosticFast => new PcgRuntimeSettings(DiagnosticPcgMapWidth, DiagnosticPcgMapHeight, 0, 0, 0, 64, false, 100, 100, 100, 100);
+        public static PcgRuntimeSettings DiagnosticFast => new PcgRuntimeSettings(DiagnosticPcgMapWidth, DiagnosticPcgMapHeight, DiagnosticPcgObjectBudget, 64);
 
         public PcgRuntimeSettings WithOverride(TotemPcgRuntimeSettingsOverride settings)
         {
@@ -169,14 +151,7 @@ public sealed class TotemMapService : TotemRuntimeServiceBase
                 settings.Width,
                 settings.Height,
                 settings.ObjectBudget,
-                settings.StampBudget,
-                settings.DecalBudget,
-                settings.MaxVisualSprites <= 0 ? int.MaxValue : settings.MaxVisualSprites,
-                RenderUnderlay,
-                settings.TeamSpawnZoneWeight,
-                settings.LootZoneWeight,
-                settings.CombatZoneWeight,
-                settings.DangerZoneWeight);
+                settings.MaxVisualSprites <= 0 ? int.MaxValue : settings.MaxVisualSprites);
         }
     }
 
@@ -251,6 +226,7 @@ public sealed class TotemMapService : TotemRuntimeServiceBase
         dataService = null;
         assetService = null;
         runtimeTemplates = Array.Empty<TotemMapTemplateDefinition>();
+        hasPendingCombatMapRequest = false;
     }
 
     public TotemMapSnapshot GenerateMap(int seed, int themeId, bool createObjects)
@@ -341,7 +317,6 @@ public sealed class TotemMapService : TotemRuntimeServiceBase
             ThemeName = template.ThemeName,
             MapSize = mapSize,
             MinRoomSize = template.MinRoomSize,
-            BspMaxDepth = template.BspMaxDepth,
             TerrainPoolId = template.TerrainPoolId,
             PrefabPath = template.PrefabPath,
             HudAccentColor = template.HudAccentColor,
@@ -380,19 +355,19 @@ public sealed class TotemMapService : TotemRuntimeServiceBase
             return false;
         }
 
-        var settings = GetPcgRuntimeSettings();
-        string cacheKey = BuildPcgCacheKey(seed, template, settings);
-        if (pcgSnapshotCache.TryGetValue(cacheKey, out var cached))
-        {
-            map = CloneMapSnapshot(cached);
-            return true;
-        }
-
         try
         {
             if (!TryGetPcgAssetIndex(out var assetIndex, out error))
             {
                 return false;
+            }
+
+            var settings = GetPcgRuntimeSettings();
+            string cacheKey = BuildPcgCacheKey(seed, template, settings, ComputePcgObjectCatalogFingerprint(assetIndex));
+            if (pcgSnapshotCache.TryGetValue(cacheKey, out var cached))
+            {
+                map = CloneMapSnapshot(cached);
+                return true;
             }
 
             int pcgSeed = unchecked(seed * 1009 + template.Id * 9176);
@@ -403,13 +378,7 @@ public sealed class TotemMapService : TotemRuntimeServiceBase
                 Width = settings.Width,
                 Height = settings.Height,
                 ObjectBudget = settings.ObjectBudget,
-                StampBudget = settings.StampBudget,
-                DecalBudget = settings.DecalBudget,
                 ThemeId = template.Id,
-                TeamSpawnZoneWeight = settings.TeamSpawnZoneWeight,
-                LootZoneWeight = settings.LootZoneWeight,
-                CombatZoneWeight = settings.CombatZoneWeight,
-                DangerZoneWeight = settings.DangerZoneWeight,
             });
 
             if (pcgMap == null || pcgMap.Cells == null || pcgMap.Cells.Length <= 0)
@@ -427,7 +396,6 @@ public sealed class TotemMapService : TotemRuntimeServiceBase
                 ThemeName = template.ThemeName,
                 MapSize = template.MapSize,
                 MinRoomSize = template.MinRoomSize,
-                BspMaxDepth = template.BspMaxDepth,
                 TerrainPoolId = template.TerrainPoolId,
                 PrefabPath = template.PrefabPath,
                 HudAccentColor = template.HudAccentColor,
@@ -465,9 +433,81 @@ public sealed class TotemMapService : TotemRuntimeServiceBase
         }
     }
 
-    private static string BuildPcgCacheKey(int seed, TotemMapTemplateDefinition template, PcgRuntimeSettings settings)
+    private static string BuildPcgCacheKey(int seed, TotemMapTemplateDefinition template, PcgRuntimeSettings settings, int objectCatalogFingerprint)
     {
-        return $"{pcgRuntimeProfile}|{settings.Width}x{settings.Height}|{settings.ObjectBudget}|{settings.StampBudget}|{settings.DecalBudget}|{settings.TeamSpawnZoneWeight}|{settings.LootZoneWeight}|{settings.CombatZoneWeight}|{settings.DangerZoneWeight}|{seed}|{template.Id}|{template.MapSize:0.###}|{template.MinRoomSize:0.###}|{template.BspMaxDepth}|{template.TerrainPoolId}|{template.ThemeName}";
+        return $"{pcgRuntimeProfile}|{settings.Width}x{settings.Height}|{settings.ObjectBudget}|{settings.MaxVisualSprites}|{seed}|{template.Id}|{template.MapSize:0.###}|{template.MinRoomSize:0.###}|{template.TerrainPoolId}|{template.ThemeName}|objects:{objectCatalogFingerprint}";
+    }
+
+    private static int ComputePcgObjectCatalogFingerprint(PCGAssetIndex assetIndex)
+    {
+        unchecked
+        {
+            int hash = 17;
+            var objects = assetIndex?.ObjectCatalog?.objects;
+            if (objects == null)
+            {
+                return hash;
+            }
+
+            hash = hash * 31 + objects.Count;
+            for (int i = 0; i < objects.Count; i++)
+            {
+                var entry = objects[i];
+                if (entry == null)
+                {
+                    hash *= 31;
+                    continue;
+                }
+
+                hash = hash * 31 + GetStableStringHash(entry.id);
+                hash = hash * 31 + GetStableStringHash(entry.asset);
+                hash = hash * 31 + entry.weight;
+                hash = hash * 31 + entry.scaleMultiplier.GetHashCode();
+                hash = hash * 31 + (entry.allowOnNonWalkable ? 1 : 0);
+                hash = hash * 31 + GetStableStringArrayHash(entry.allowedBiomes);
+                hash = hash * 31 + GetStableStringArrayHash(entry.allowedTerrains);
+            }
+
+            return hash;
+        }
+    }
+
+    private static int GetStableStringArrayHash(string[] values)
+    {
+        unchecked
+        {
+            int hash = values?.Length ?? 0;
+            if (values == null)
+            {
+                return hash;
+            }
+
+            for (int i = 0; i < values.Length; i++)
+            {
+                hash = hash * 31 + GetStableStringHash(values[i]);
+            }
+
+            return hash;
+        }
+    }
+
+    private static int GetStableStringHash(string value)
+    {
+        unchecked
+        {
+            int hash = 23;
+            if (string.IsNullOrEmpty(value))
+            {
+                return hash;
+            }
+
+            for (int i = 0; i < value.Length; i++)
+            {
+                hash = hash * 31 + value[i];
+            }
+
+            return hash;
+        }
     }
 
     private static TotemMapSnapshot CloneMapSnapshot(TotemMapSnapshot source)
@@ -484,7 +524,6 @@ public sealed class TotemMapService : TotemRuntimeServiceBase
             ThemeName = source.ThemeName,
             MapSize = source.MapSize,
             MinRoomSize = source.MinRoomSize,
-            BspMaxDepth = source.BspMaxDepth,
             TerrainPoolId = source.TerrainPoolId,
             PrefabPath = source.PrefabPath,
             HudAccentColor = source.HudAccentColor,
@@ -567,6 +606,7 @@ public sealed class TotemMapService : TotemRuntimeServiceBase
                 Position = anchor.Position,
                 Order = anchor.Order,
                 PayloadId = anchor.PayloadId,
+                VisualRole = anchor.VisualRole,
                 ZoneRole = anchor.ZoneRole,
                 EnemyPoolIds = anchor.EnemyPoolIds,
                 SearchRadius = anchor.SearchRadius,
@@ -606,52 +646,29 @@ public sealed class TotemMapService : TotemRuntimeServiceBase
     {
         return new[]
         {
-            CreateRoom(0, "PCG_TeamSpawn", TotemRoomType.SpawnRoom, FindPcgZoneWorldPosition(pcgMap, mapSize, "team_spawn", new Vector2(0.33f, 0.33f)), roomFootprint),
-            CreateRoom(1, "PCG_TattooStudio", TotemRoomType.TattooStudio, FindPcgZoneWorldPosition(pcgMap, mapSize, "loot_zone", new Vector2(0.28f, 0.72f)), roomFootprint),
-            CreateRoom(2, "PCG_Merchant", TotemRoomType.Merchant, FindPcgZoneWorldPosition(pcgMap, mapSize, "combat_zone", new Vector2(0.68f, 0.52f)), roomFootprint),
-            CreateRoom(3, "PCG_BossRoom", TotemRoomType.BossRoom, FindPcgZoneWorldPosition(pcgMap, mapSize, "danger_zone", new Vector2(0.80f, 0.80f)), roomFootprint),
+            CreateRoom(0, "PCG_SpawnArea", TotemRoomType.SpawnRoom, FindWorldPlanEventPosition(pcgMap, mapSize, "player_spawn", new Vector2(0.33f, 0.33f)), roomFootprint),
+            CreateRoom(1, "PCG_TattooArea", TotemRoomType.TattooStudio, FindWorldPlanEventPosition(pcgMap, mapSize, "tattooist", new Vector2(0.28f, 0.72f)), roomFootprint),
+            CreateRoom(2, "PCG_MerchantArea", TotemRoomType.Merchant, FindWorldPlanEventPosition(pcgMap, mapSize, "merchant", new Vector2(0.68f, 0.52f)), roomFootprint),
+            CreateRoom(3, "PCG_BossArea", TotemRoomType.BossRoom, FindWorldPlanEventPosition(pcgMap, mapSize, "boss_spawn", new Vector2(0.80f, 0.80f)), roomFootprint),
         };
     }
 
-    private static Vector2 FindPcgZoneWorldPosition(PCGMapData pcgMap, float mapSize, string zoneId, Vector2 normalizedTarget)
+    private static Vector2 FindWorldPlanEventPosition(PCGMapData pcgMap, float mapSize, string eventType, Vector2 fallback)
     {
-        int bestX = -1;
-        int bestY = -1;
-        float bestScore = float.MaxValue;
-        float targetX = normalizedTarget.x * pcgMap.Width;
-        float targetY = normalizedTarget.y * pcgMap.Height;
-
-        for (int y = 0; y < pcgMap.Height; y++)
+        var anchors = pcgMap?.WorldPlan?.EventAnchors;
+        if (anchors != null)
         {
-            for (int x = 0; x < pcgMap.Width; x++)
+            for (int i = 0; i < anchors.Length; i++)
             {
-                var cell = pcgMap.GetCell(x, y);
-                if (!cell.Walkable || cell.Occupied || !string.Equals(cell.ZoneId, zoneId, StringComparison.Ordinal))
+                var anchor = anchors[i];
+                if (anchor != null && string.Equals(anchor.EventType, eventType, StringComparison.Ordinal))
                 {
-                    continue;
-                }
-
-                float dx = x - targetX;
-                float dy = y - targetY;
-                float score = dx * dx + dy * dy;
-                if (score < bestScore)
-                {
-                    bestScore = score;
-                    bestX = x;
-                    bestY = y;
+                    return new Vector2(Mathf.Clamp01(anchor.NormalizedX) * mapSize, Mathf.Clamp01(anchor.NormalizedY) * mapSize);
                 }
             }
         }
 
-        if (bestX < 0)
-        {
-            bestX = Mathf.Clamp(Mathf.RoundToInt(targetX), 1, Math.Max(1, pcgMap.Width - 2));
-            bestY = Mathf.Clamp(Mathf.RoundToInt(targetY), 1, Math.Max(1, pcgMap.Height - 2));
-        }
-
-        return new Vector2(
-            (bestX + 0.5f) / Mathf.Max(1, pcgMap.Width) * mapSize,
-            (bestY + 0.5f) / Mathf.Max(1, pcgMap.Height) * mapSize);
+        return new Vector2(Mathf.Clamp01(fallback.x) * mapSize, Mathf.Clamp01(fallback.y) * mapSize);
     }
 
     private static byte[] BuildTerrainGridFromPcg(
@@ -684,50 +701,9 @@ public sealed class TotemMapService : TotemRuntimeServiceBase
 
     private static TotemTerrainType ResolvePcgTerrainType(PCGMapCell cell, int seed)
     {
-        if (!cell.Walkable)
-        {
-            return TotemTerrainType.Blocked;
-        }
-
-        if (cell.Occupied)
-        {
-            return TotemTerrainType.Blocked;
-        }
-
-        if (string.Equals(cell.ZoneId, "danger_zone", StringComparison.Ordinal) && IsPcgHazardCell(cell.X, cell.Y, seed))
-        {
-            return TotemTerrainType.Hazard;
-        }
-
-        switch (cell.Terrain)
-        {
-            case "mud":
-            case "swamp_mud":
-            case "swamp_water":
-            case "hive_membrane":
-            case "ruins_coolant":
-                return TotemTerrainType.Slow;
-            case "forest_ground":
-            case "hive_resin":
-            case "ruins_growth":
-            case "swamp_corruption":
-                return TotemTerrainType.Cover;
-            case "corruption":
-                return TotemTerrainType.Hazard;
-            default:
-                return TotemTerrainType.Ground;
-        }
-    }
-
-    private static bool IsPcgHazardCell(int x, int y, int seed)
-    {
-        unchecked
-        {
-            int hash = seed;
-            hash = hash * 397 ^ x * 73856093;
-            hash = hash * 397 ^ y * 19349663;
-            return (hash & 0x0F) == 0;
-        }
+        // 当前阶段只有视觉层启用。地貌的未来减速、危险、遮挡和碰撞能力记录在 World Plan 中，
+        // 不得在此处提前变成实际移动效果。
+        return TotemTerrainType.Ground;
     }
 
     private static string BuildPcgValidationSummary(PCGMapData pcgMap)
@@ -869,6 +845,26 @@ public sealed class TotemMapService : TotemRuntimeServiceBase
         return anchor == null ? fallback : anchor.Position;
     }
 
+    /// <summary>
+    /// 从同一事件类型的全部有效锚点中选择一个位置。世界计划本身仍由地图种子确定；
+    /// 此选择属于进入对局时的运行时分配，调用方应传入本局随机源或服务端分配结果。
+    /// </summary>
+    public static Vector3 ResolveRandomAnchorPosition(TotemMapSnapshot map, TotemMapAnchorKind kind, Vector3 fallback, System.Random random)
+    {
+        var anchors = FindAnchors(map, kind);
+        if (anchors.Length == 0)
+        {
+            return fallback;
+        }
+
+        if (random == null || anchors.Length == 1)
+        {
+            return anchors[0].Position;
+        }
+
+        return anchors[random.Next(anchors.Length)].Position;
+    }
+
     public static bool IsTerrainWalkable(TotemTerrainType terrainType)
     {
         return terrainType == TotemTerrainType.Ground
@@ -907,6 +903,11 @@ public sealed class TotemMapService : TotemRuntimeServiceBase
         if (map == null)
         {
             return Array.Empty<TotemMapAnchor>();
+        }
+
+        if (map.PcgMapData?.WorldPlan != null)
+        {
+            return BuildWorldPlanAnchorPlacements(map, map.PcgMapData.WorldPlan);
         }
 
         var anchors = new List<TotemMapAnchor>(32);
@@ -953,6 +954,92 @@ public sealed class TotemMapService : TotemRuntimeServiceBase
         AddEncounterAnchor(anchors, map, reachable, "encounter.danger", TotemRoomType.BossRoom, new Vector2(0.78f, 0.78f), "danger", encounterPools, 60f);
 
         return anchors.ToArray();
+    }
+
+    private static TotemMapAnchor[] BuildWorldPlanAnchorPlacements(TotemMapSnapshot map, PCGWorldPlan plan)
+    {
+        if (plan.EventAnchors == null || plan.EventAnchors.Length == 0)
+        {
+            return Array.Empty<TotemMapAnchor>();
+        }
+
+        var anchors = new TotemMapAnchor[plan.EventAnchors.Length];
+        string themePoolId = $"pool_{NormalizeThemeId(map.ThemeName)}";
+        string encounterPools = $"pool_common,{themePoolId}";
+        for (int i = 0; i < plan.EventAnchors.Length; i++)
+        {
+            var worldAnchor = plan.EventAnchors[i];
+            var kind = ResolveWorldPlanAnchorKind(worldAnchor.EventType);
+            anchors[i] = new TotemMapAnchor
+            {
+                AnchorId = worldAnchor.Id ?? string.Empty,
+                Kind = kind,
+                RoomType = ResolveWorldPlanRoomType(kind),
+                Position = new Vector3(
+                    Mathf.Clamp01(worldAnchor.NormalizedX) * map.MapSize,
+                    0.5f,
+                    Mathf.Clamp01(worldAnchor.NormalizedY) * map.MapSize),
+                Order = worldAnchor.Order,
+                PayloadId = ResolveWorldPlanPayload(worldAnchor.EventType, i),
+                VisualRole = worldAnchor.VisualRole ?? string.Empty,
+                ZoneRole = worldAnchor.RegionId ?? string.Empty,
+                EnemyPoolIds = kind == TotemMapAnchorKind.Encounter || kind == TotemMapAnchorKind.BossSpawn ? encounterPools : string.Empty,
+                SearchRadius = kind == TotemMapAnchorKind.Encounter || kind == TotemMapAnchorKind.BossSpawn ? 52f : 0f,
+                IsReachable = true,
+            };
+        }
+
+        return anchors;
+    }
+
+    private static TotemMapAnchorKind ResolveWorldPlanAnchorKind(string eventType)
+    {
+        switch (eventType)
+        {
+            case "player_spawn": return TotemMapAnchorKind.PlayerSpawn;
+            case "boss_spawn": return TotemMapAnchorKind.BossSpawn;
+            case "enemy_spawn": return TotemMapAnchorKind.EnemySpawn;
+            case "merchant": return TotemMapAnchorKind.Merchant;
+            case "tattooist": return TotemMapAnchorKind.Tattooist;
+            case "chest": return TotemMapAnchorKind.Chest;
+            case "resource": return TotemMapAnchorKind.Resource;
+            case "event": return TotemMapAnchorKind.Event;
+            case "encounter": return TotemMapAnchorKind.Encounter;
+            default: return TotemMapAnchorKind.Unknown;
+        }
+    }
+
+    private static TotemRoomType ResolveWorldPlanRoomType(TotemMapAnchorKind kind)
+    {
+        switch (kind)
+        {
+            case TotemMapAnchorKind.PlayerSpawn:
+            case TotemMapAnchorKind.EnemySpawn:
+                return TotemRoomType.SpawnRoom;
+            case TotemMapAnchorKind.BossSpawn:
+                return TotemRoomType.BossRoom;
+            case TotemMapAnchorKind.Merchant:
+                return TotemRoomType.Merchant;
+            case TotemMapAnchorKind.Tattooist:
+                return TotemRoomType.TattooStudio;
+            default:
+                return TotemRoomType.SpawnRoom;
+        }
+    }
+
+    private static string ResolveWorldPlanPayload(string eventType, int order)
+    {
+        switch (eventType)
+        {
+            case "merchant": return "merchant";
+            case "tattooist": return "tattooist";
+            case "chest": return order % 5 == 0 ? "chest_rare" : "chest_common";
+            case "resource":
+                return order % 3 == 0 ? "pistol_basic" : order % 3 == 1 ? "hammer_heavy" : "bow_charge";
+            case "event": return order % 2 == 0 ? "event_choice_001" : "event_choice_002";
+            case "enemy_spawn": return order % 3 == 0 ? "inner" : order % 3 == 1 ? "mid" : "outer";
+            default: return string.Empty;
+        }
     }
 
     private static void AddEncounterAnchor(
@@ -1567,7 +1654,6 @@ public sealed class TotemMapService : TotemRuntimeServiceBase
             ThemeName = "AI_RUINS",
             MapSize = DefaultMapSize,
             MinRoomSize = 40f,
-            BspMaxDepth = 4,
             TerrainPoolId = 101,
             PrefabPath = string.Empty,
             HudAccentColor = "#66CCFF",
@@ -1610,7 +1696,21 @@ public sealed class TotemMapService : TotemRuntimeServiceBase
     {
         if (nextState == TotemGameFlowState.CombatHud)
         {
-            GenerateMap(seed: 1, themeId: 1, createObjects: true);
+            if (hasPendingCombatMapRequest)
+            {
+                int requestedSeed = pendingCombatMapSeed;
+                int requestedThemeId = pendingCombatMapThemeId;
+                TotemPcgRuntimeSettingsOverride requestedSettings = pendingCombatMapSettings;
+                hasPendingCombatMapRequest = false;
+                using (UsePcgRuntimeSettingsOverride(requestedSettings))
+                {
+                    GenerateMap(requestedSeed, requestedThemeId, createObjects: true);
+                }
+            }
+            else
+            {
+                GenerateMap(seed: 1, themeId: 1, createObjects: true);
+            }
             return;
         }
 
@@ -1675,7 +1775,6 @@ public sealed class TotemMapService : TotemRuntimeServiceBase
         var settings = GetPcgRuntimeSettings();
         float cellSize = map.MapSize / Mathf.Max(1, pcgMap.Width);
         var tileRoot = CreatePcgTileRoot(cellSize);
-        var underlayTilemap = CreatePcgTilemap(tileRoot, "PCG_UnderlayTilemap", "GroundDecal", -10);
         var groundTilemap = CreatePcgTilemap(tileRoot, "PCG_GroundTilemap", "Ground", 0);
 
         for (int y = 0; y < pcgMap.Height; y++)
@@ -1683,19 +1782,13 @@ public sealed class TotemMapService : TotemRuntimeServiceBase
             for (int x = 0; x < pcgMap.Width; x++)
             {
                 var cell = pcgMap.GetCell(x, y);
-                if (settings.RenderUnderlay && !string.IsNullOrEmpty(cell.UnderlayAsset))
-                {
-                    SetPcgTile(underlayTilemap, cell.UnderlayAsset, x, y, 0f, false, false);
-                }
-
-                bool useEdgeBase = !string.IsNullOrEmpty(cell.EdgeBaseAsset);
                 if (SetPcgTile(
                     groundTilemap,
-                    useEdgeBase ? cell.EdgeBaseAsset : cell.BaseAsset,
+                    cell.BaseAsset,
                     x,
                     y,
-                    useEdgeBase ? 0f : cell.BaseRotationDegrees,
-                    !useEdgeBase && cell.BaseFlipX,
+                    0f,
+                    false,
                     true))
                 {
                     pcgCellObjectCount++;
@@ -1708,6 +1801,8 @@ public sealed class TotemMapService : TotemRuntimeServiceBase
         {
             CreatePcgVisualSprite(pcgMap.Visuals[i], cellSize);
         }
+
+        CreatePcgAnchorVisuals(map, cellSize);
     }
 
     private Transform CreatePcgTileRoot(float cellSize)
@@ -1784,12 +1879,6 @@ public sealed class TotemMapService : TotemRuntimeServiceBase
 
         int sorting = visual.Kind switch
         {
-            PCGPlacedVisualKind.TransitionMask => 40,
-            PCGPlacedVisualKind.TransitionDetail => 50,
-            PCGPlacedVisualKind.BoundaryDecoration => 50,
-            PCGPlacedVisualKind.Stamp => 20,
-            PCGPlacedVisualKind.Decal => 30,
-            PCGPlacedVisualKind.Poi => 9000 - visual.Y * 10,
             PCGPlacedVisualKind.Object => 10000 - visual.Y * 10,
             _ => 100,
         };
@@ -1800,8 +1889,11 @@ public sealed class TotemMapService : TotemRuntimeServiceBase
         }
 
         string safeId = string.IsNullOrEmpty(visual.Id) ? "unnamed" : visual.Id;
-        if (visual.Kind == PCGPlacedVisualKind.Object || visual.Kind == PCGPlacedVisualKind.Poi)
+        if (visual.Kind == PCGPlacedVisualKind.Object)
         {
+            float scaleMultiplier = visual.ScaleMultiplier > 0.01f
+                ? visual.ScaleMultiplier
+                : 1.35f;
             CreatePcgStandingSprite(
                 $"PCG_{visual.Kind}_{safeId}_{visual.X}_{visual.Y}",
                 visual.Asset,
@@ -1810,7 +1902,7 @@ public sealed class TotemMapService : TotemRuntimeServiceBase
                 Mathf.Max(1, visual.Width),
                 cellSize,
                 sorting,
-                visual.Kind == PCGPlacedVisualKind.Poi ? 1f : 1.35f);
+                scaleMultiplier);
             return;
         }
 
@@ -1886,6 +1978,44 @@ public sealed class TotemMapService : TotemRuntimeServiceBase
         }
     }
 
+    private void CreatePcgAnchorVisuals(TotemMapSnapshot map, float cellSize)
+    {
+        if (map?.AnchorPlacements == null || map.AnchorPlacements.Length <= 0 ||
+            !TryGetPcgAssetIndex(out var assetIndex, out _))
+        {
+            return;
+        }
+
+        for (int i = 0; i < map.AnchorPlacements.Length; i++)
+        {
+            var anchor = map.AnchorPlacements[i];
+            if (anchor == null || !assetIndex.TryGetAnchorVisual(map.ThemeId, anchor.AnchorId, anchor.VisualRole, out var visual) || visual == null)
+            {
+                continue;
+            }
+
+            float footprintWidth = Mathf.Max(1, visual.footprint?.width ?? 1);
+            float positionX = anchor.Position.x + visual.offsetX;
+            float positionZ = anchor.Position.z + visual.offsetZ;
+            float cellX = positionX / cellSize - footprintWidth * 0.5f + 0.5f;
+            float cellY = positionZ / cellSize;
+            int sortingOrder = visual.sortingOffset != 0
+                ? visual.sortingOffset
+                : 12000 - Mathf.RoundToInt(cellY * 10f);
+            string safeId = string.IsNullOrEmpty(visual.id) ? "unnamed" : visual.id;
+
+            CreatePcgStandingSprite(
+                $"PCG_Anchor_{safeId}_{i}",
+                visual.asset,
+                cellX,
+                cellY,
+                footprintWidth,
+                cellSize,
+                sortingOrder,
+                Mathf.Max(0.1f, visual.scaleMultiplier));
+        }
+    }
+
     private void CreatePcgStandingSprite(
         string objectName,
         string assetPath,
@@ -1899,7 +2029,9 @@ public sealed class TotemMapService : TotemRuntimeServiceBase
         var go = new GameObject(objectName);
         go.transform.SetParent(mapRoot.transform, false);
         go.transform.position = new Vector3((cellX + footprintWidth * 0.5f - 0.5f) * cellSize, 0.08f, cellY * cellSize);
-        go.transform.rotation = Quaternion.identity;
+        // PCG 立物保持面向相机可读，同时与 XZ 地面形成 45° 夹角；
+        // 角色动画仍由 ActorService 自己管理，不受此展示规则影响。
+        go.transform.rotation = Quaternion.Euler(PcgStandingSpriteTiltX, 0f, 0f);
 
         var renderer = go.AddComponent<SpriteRenderer>();
         renderer.sortingLayerName = TotemActorDepthSorter.WorldSortingLayer;

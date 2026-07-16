@@ -592,10 +592,13 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
             map = TotemMapService.BuildLayout(seed: 1, themeId: 1);
         }
 
-        Vector3 playerPosition = TotemMapService.ResolveAnchorPosition(
+        int spawnSelectionSeed = unchecked((int)DateTime.UtcNow.Ticks ^ map.Seed ^
+                                            ((selection?.CharacterId ?? 1) * 486187739));
+        Vector3 playerPosition = TotemMapService.ResolveRandomAnchorPosition(
             map,
             TotemMapAnchorKind.PlayerSpawn,
-            FindRoom(map, TotemRoomType.SpawnRoom)?.CenterWorld ?? new Vector3(82f, 0f, 82f));
+            FindRoom(map, TotemRoomType.SpawnRoom)?.CenterWorld ?? new Vector3(82f, 0f, 82f),
+            new System.Random(spawnSelectionSeed));
         playerPosition.y = 0.5f;
         var participantPositions = new List<Vector3>(ParticipantCount);
         playerPosition = ResolveParticipantSpawnPosition(map, playerPosition, playerPosition, participantPositions, 0);

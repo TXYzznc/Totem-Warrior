@@ -5,13 +5,7 @@ namespace PCGMap
 {
     public enum PCGPlacedVisualKind
     {
-        TransitionMask,
-        TransitionDetail,
-        BoundaryDecoration,
-        Stamp,
-        Decal,
         Object,
-        Poi,
     }
 
     public struct PCGMapCell
@@ -23,12 +17,7 @@ namespace PCGMap
         public bool Walkable;
         public bool Occupied;
         public string ZoneId;
-        public string UnderlayAsset;
         public string BaseAsset;
-        public float BaseRotationDegrees;
-        public bool BaseFlipX;
-        public string EdgeBaseAsset;
-        public string TransitionAsset;
     }
 
     public sealed class PCGPlacedVisual
@@ -47,6 +36,8 @@ namespace PCGMap
         public bool HasSortingOrder;
         public bool BlocksMovement;
         public bool BlocksSight;
+        /// <summary>0 表示沿用该可视类型的默认缩放比例。</summary>
+        public float ScaleMultiplier;
         public string Role;
     }
 
@@ -90,9 +81,10 @@ namespace PCGMap
         public int Width;
         public int Height;
         public int Seed;
-        public float EdgeMatchTolerance;
         public PCGMapCell[] Cells;
         public readonly List<PCGPlacedVisual> Visuals = new();
+        /// <summary>逻辑世界计划；地图渲染只是它的一个消费者。</summary>
+        public PCGWorldPlan WorldPlan;
         public PCGValidationReport Validation;
         public readonly PCGMapDiagnostics Diagnostics = new();
         public ulong ContentHash;
@@ -107,13 +99,6 @@ namespace PCGMap
         public int Width = 64;
         public int Height = 64;
         public int ObjectBudget = 160;
-        public int StampBudget = 24;
-        public int DecalBudget = 180;
-        public int TeamSpawnZoneWeight = 100;
-        public int LootZoneWeight = 100;
-        public int CombatZoneWeight = 100;
-        public int DangerZoneWeight = 100;
-        public float EdgeMatchTolerance = 0.18f;
         public int ThemeId = 1;
     }
 

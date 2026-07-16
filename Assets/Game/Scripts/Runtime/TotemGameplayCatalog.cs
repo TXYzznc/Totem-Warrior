@@ -761,9 +761,9 @@ public sealed class TotemGameplayCatalog
     {
         return new[]
         {
-            new TotemMapTemplateCatalogEntry { id = 1, themeName = "AI_RUINS", mapSize = 400f, minRoomSize = 40f, bspMaxDepth = 4, terrainPoolId = 101, prefabPath = string.Empty, hudAccentColor = "#66CCFF", dominantColor = "#3A4858" },
-            new TotemMapTemplateCatalogEntry { id = 2, themeName = "ALIEN_HIVE", mapSize = 400f, minRoomSize = 40f, bspMaxDepth = 4, terrainPoolId = 102, prefabPath = string.Empty, hudAccentColor = "#7DFF88", dominantColor = "#273A22" },
-            new TotemMapTemplateCatalogEntry { id = 3, themeName = "VIRUS_SWAMP", mapSize = 400f, minRoomSize = 40f, bspMaxDepth = 4, terrainPoolId = 103, prefabPath = string.Empty, hudAccentColor = "#B6FF3C", dominantColor = "#233A35" },
+            new TotemMapTemplateCatalogEntry { id = 1, themeName = "AI_RUINS", mapSize = 400f, minRoomSize = 40f, terrainPoolId = 101, prefabPath = string.Empty, hudAccentColor = "#66CCFF", dominantColor = "#3A4858" },
+            new TotemMapTemplateCatalogEntry { id = 2, themeName = "ALIEN_HIVE", mapSize = 400f, minRoomSize = 40f, terrainPoolId = 102, prefabPath = string.Empty, hudAccentColor = "#7DFF88", dominantColor = "#273A22" },
+            new TotemMapTemplateCatalogEntry { id = 3, themeName = "VIRUS_SWAMP", mapSize = 400f, minRoomSize = 40f, terrainPoolId = 103, prefabPath = string.Empty, hudAccentColor = "#B6FF3C", dominantColor = "#233A35" },
         };
     }
 
@@ -1610,7 +1610,6 @@ public sealed class TotemMapTemplateCatalogEntry
     public string themeName;
     public float mapSize;
     public float minRoomSize;
-    public int bspMaxDepth;
     public int terrainPoolId;
     public string prefabPath;
     public string hudAccentColor;
@@ -1624,7 +1623,6 @@ public sealed class TotemMapTemplateCatalogEntry
             ThemeName = themeName ?? string.Empty,
             MapSize = mapSize > 0f ? mapSize : TotemMapService.DefaultMapSize,
             MinRoomSize = minRoomSize > 0f ? minRoomSize : 15f,
-            BspMaxDepth = Mathf.Max(1, bspMaxDepth),
             TerrainPoolId = terrainPoolId,
             PrefabPath = prefabPath ?? string.Empty,
             HudAccentColor = hudAccentColor ?? string.Empty,
@@ -4133,7 +4131,7 @@ public static class TotemGameplayCatalogValidator
             var row = catalog.mapTemplates[i];
             if (row == null || row.id <= 0 || !ids.Add(row.id) ||
                 string.IsNullOrWhiteSpace(row.themeName) || Mathf.Abs(row.mapSize - TotemMapService.DefaultMapSize) > 0.001f ||
-                row.minRoomSize <= 0f || row.bspMaxDepth <= 0 ||
+                row.minRoomSize <= 0f ||
                 string.IsNullOrWhiteSpace(row.hudAccentColor) || string.IsNullOrWhiteSpace(row.dominantColor))
             {
                 return false;
