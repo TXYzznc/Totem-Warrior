@@ -1,18 +1,26 @@
-﻿{
-  "schemaVersion": 1,
+{
+  "schemaVersion": 2,
   "catalogId": "zone_rule_catalog",
   "zones": [
     {
       "id": "team_spawn",
       "displayName": "Team Spawn",
       "terrainBias": {
-        "grass": 1.0,
-        "forest_ground": 0.25,
-        "mud": 0.0,
-        "water": 0.0
+        "ruins_floor": 1,
+        "ruins_metal": 0.55,
+        "ruins_growth": 0.35,
+        "ruins_coolant": 0.05,
+        "hive_chitin": 1,
+        "hive_membrane": 0.55,
+        "hive_resin": 0.35,
+        "hive_acid": 0.05,
+        "swamp_grass": 1,
+        "swamp_mud": 0.55,
+        "swamp_corruption": 0.35,
+        "swamp_water": 0.05
       },
-      "objectDensityMultiplier": 0.35,
-      "lootDensityMultiplier": 0.6,
+      "objectDensityMultiplier": 0,
+      "lootDensityMultiplier": 0,
       "danger": 0.05,
       "minRadius": 5
     },
@@ -20,12 +28,21 @@
       "id": "loot_zone",
       "displayName": "Loot Zone",
       "terrainBias": {
-        "grass": 0.8,
-        "forest_ground": 0.7,
-        "mud": 0.35
+        "ruins_floor": 1,
+        "ruins_metal": 0.55,
+        "ruins_growth": 0.35,
+        "ruins_coolant": 0.05,
+        "hive_chitin": 1,
+        "hive_membrane": 0.55,
+        "hive_resin": 0.35,
+        "hive_acid": 0.05,
+        "swamp_grass": 1,
+        "swamp_mud": 0.55,
+        "swamp_corruption": 0.35,
+        "swamp_water": 0.05
       },
-      "objectDensityMultiplier": 0.9,
-      "lootDensityMultiplier": 1.4,
+      "objectDensityMultiplier": 0,
+      "lootDensityMultiplier": 1,
       "danger": 0.25,
       "minRadius": 6
     },
@@ -33,12 +50,21 @@
       "id": "combat_zone",
       "displayName": "Combat Zone",
       "terrainBias": {
-        "grass": 0.9,
-        "forest_ground": 0.45,
-        "mud": 0.3
+        "ruins_floor": 1,
+        "ruins_metal": 0.55,
+        "ruins_growth": 0.35,
+        "ruins_coolant": 0.05,
+        "hive_chitin": 1,
+        "hive_membrane": 0.55,
+        "hive_resin": 0.35,
+        "hive_acid": 0.05,
+        "swamp_grass": 1,
+        "swamp_mud": 0.55,
+        "swamp_corruption": 0.35,
+        "swamp_water": 0.05
       },
-      "objectDensityMultiplier": 0.8,
-      "lootDensityMultiplier": 0.9,
+      "objectDensityMultiplier": 0,
+      "lootDensityMultiplier": 0,
       "danger": 0.45,
       "minRadius": 7
     },
@@ -46,12 +72,21 @@
       "id": "danger_zone",
       "displayName": "Danger Zone",
       "terrainBias": {
-        "forest_ground": 0.55,
-        "mud": 0.55,
-        "grass": 0.35
+        "ruins_floor": 1,
+        "ruins_metal": 0.55,
+        "ruins_growth": 0.35,
+        "ruins_coolant": 0.05,
+        "hive_chitin": 1,
+        "hive_membrane": 0.55,
+        "hive_resin": 0.35,
+        "hive_acid": 0.05,
+        "swamp_grass": 1,
+        "swamp_mud": 0.55,
+        "swamp_corruption": 0.35,
+        "swamp_water": 0.05
       },
-      "objectDensityMultiplier": 1.1,
-      "lootDensityMultiplier": 1.8,
+      "objectDensityMultiplier": 0,
+      "lootDensityMultiplier": 0,
       "danger": 0.85,
       "minRadius": 8
     }

@@ -38,10 +38,9 @@ namespace PCGMap
             map.Diagnostics.AddStep(
                 "Initialize",
                 totalWatch.ElapsedMilliseconds - stageStartMs,
-                $"seed={request.Seed} size={request.Width}x{request.Height} cells={request.Width * request.Height} " +
+                $"seed={request.Seed} theme={request.ThemeId} size={request.Width}x{request.Height} cells={request.Width * request.Height} " +
                 $"budgets={{objects:{request.ObjectBudget},stamps:{request.StampBudget},decals:{request.DecalBudget}}} " +
-                $"zoneWeights={{spawn:{request.TeamSpawnZoneWeight},loot:{request.LootZoneWeight},combat:{request.CombatZoneWeight},danger:{request.DangerZoneWeight}}} " +
-                $"edgeTolerance={request.EdgeMatchTolerance:0.###}");
+                $"zoneWeights={{spawn:{request.TeamSpawnZoneWeight},loot:{request.LootZoneWeight},combat:{request.CombatZoneWeight},danger:{request.DangerZoneWeight}}}");
 
             stageStartMs = totalWatch.ElapsedMilliseconds;
             GenerateCells(map, rng, request);
@@ -83,48 +82,15 @@ namespace PCGMap
         void GenerateCells(PCGMapData map, System.Random rng, PCGMapGenerateRequest request)
         {
             var watch = Stopwatch.StartNew();
-            var roadMask = BuildRoadMask(map, request);
-            map.Diagnostics.AddStep("Cells.BuildRoadMask", watch.ElapsedMilliseconds, $"roadCells={CountRoadCells(roadMask)}");
+            var terrainRoles = PCGThemeMapLayout.Generate(request.ThemeId, map.Width, map.Height, map.Seed);
+            string biome = PCGThemeMapLayout.ResolveBiomeId(request.ThemeId);
 
             long stageStartMs = watch.ElapsedMilliseconds;
             for (int y = 0; y < map.Height; y++)
             {
                 for (int x = 0; x < map.Width; x++)
                 {
-                    float nx = (float)x / map.Width;
-                    float ny = (float)y / map.Height;
-                    float height = PCGHash.SmoothValue01(nx * 5.2f, ny * 5.2f, map.Seed, 11);
-                    float moisture = PCGHash.SmoothValue01(nx * 4.1f + 12.3f, ny * 4.1f - 8.7f, map.Seed, 29);
-                    float forest = PCGHash.SmoothValue01(nx * 6.0f - 4.5f, ny * 6.0f + 3.2f, map.Seed, 41);
-
-                    var terrain = "grass";
-                    var biome = "grassland";
-                    var walkable = true;
-
-                    if (height < 0.22f)
-                    {
-                        terrain = "water";
-                        biome = "swamp";
-                        walkable = false;
-                    }
-                    else if (height < 0.31f || moisture > 0.74f)
-                    {
-                        terrain = "mud";
-                        biome = "swamp";
-                    }
-                    else if (forest > 0.62f && moisture > 0.34f)
-                    {
-                        terrain = "forest_ground";
-                        biome = "forest";
-                    }
-
-                    if (IsRoadCell(roadMask, map, x, y))
-                    {
-                        terrain = "road";
-                        biome = "neutral";
-                        walkable = true;
-                    }
-
+                    string terrain = PCGThemeMapLayout.ResolveTerrainId(request.ThemeId, terrainRoles[x, y]);
                     var zone = ResolveZone(map, x, y, request);
                     var visual = _assetIndex.PickTerrain(terrain, "inner", biome, rng);
                     var cell = new PCGMapCell
@@ -133,10 +99,10 @@ namespace PCGMap
                         Y = y,
                         Biome = biome,
                         Terrain = terrain,
-                        Walkable = walkable,
-                        Occupied = !walkable,
+                        Walkable = PCGThemeMapLayout.IsWalkable(request.ThemeId, terrainRoles[x, y]),
+                        Occupied = !PCGThemeMapLayout.IsWalkable(request.ThemeId, terrainRoles[x, y]),
                         ZoneId = zone,
-                        BaseAsset = visual?.asset,
+                        BaseAsset = _assetIndex.PickTerrainAsset(visual, rng),
                     };
 
                     map.SetCell(x, y, cell);
@@ -145,16 +111,54 @@ namespace PCGMap
             map.Diagnostics.AddStep("Cells.FillBase", watch.ElapsedMilliseconds - stageStartMs, GetCellSummary(map));
 
             stageStartMs = watch.ElapsedMilliseconds;
-            var slicedStats = AssignSlicedTerrainAssets(map, request);
-            map.Diagnostics.AddStep(
-                "Cells.AssignTerrainTiles",
-                watch.ElapsedMilliseconds - stageStartMs,
-                $"picked={slicedStats.picked} missing={slicedStats.missing} rotated={slicedStats.rotated} flipped={slicedStats.flipped}");
-
-            stageStartMs = watch.ElapsedMilliseconds;
             int visualsBefore = map.Visuals.Count;
-            PlaceTransitionOverlays(map, rng);
-            map.Diagnostics.AddStep("Cells.PlaceTransitionOverlays", watch.ElapsedMilliseconds - stageStartMs, GetVisualDeltaSummary(map, visualsBefore));
+            PlaceBoundaryDecorations(map, rng);
+            map.Diagnostics.AddStep("Cells.PlaceBoundaryDecorations", watch.ElapsedMilliseconds - stageStartMs, GetVisualDeltaSummary(map, visualsBefore));
+        }
+
+        void PlaceBoundaryDecorations(PCGMapData map, System.Random rng)
+        {
+            for (int y = 0; y < map.Height; y++)
+            {
+                for (int x = 0; x < map.Width; x++)
+                {
+                    var cell = map.GetCell(x, y);
+                    if (x + 1 < map.Width)
+                    {
+                        TryPlaceBoundaryDecoration(map, rng, cell, map.GetCell(x + 1, y), true);
+                    }
+
+                    if (y + 1 < map.Height)
+                    {
+                        TryPlaceBoundaryDecoration(map, rng, cell, map.GetCell(x, y + 1), false);
+                    }
+                }
+            }
+        }
+
+        void TryPlaceBoundaryDecoration(PCGMapData map, System.Random rng, PCGMapCell cell, PCGMapCell neighbor, bool verticalBoundary)
+        {
+            var rule = _assetIndex.GetBoundaryDecorationRule(cell.Terrain, neighbor.Terrain);
+            if (rule == null || rng.NextDouble() > Mathf.Clamp01(rule.chance))
+                return;
+
+            if (!_assetIndex.TryPickBoundaryDecoration(rule.decorationSet, rng, out string asset, out int sortingOffset))
+                return;
+
+            float tangentOffset = ((float)rng.NextDouble() - 0.5f) * 0.3f;
+            map.Visuals.Add(new PCGPlacedVisual
+            {
+                Id = rule.decorationSet,
+                Asset = asset,
+                Kind = PCGPlacedVisualKind.BoundaryDecoration,
+                X = cell.X,
+                Y = cell.Y,
+                OffsetX = verticalBoundary ? 0.5f : tangentOffset,
+                OffsetY = verticalBoundary ? tangentOffset : 0.5f,
+                SortingOrder = sortingOffset,
+                HasSortingOrder = true,
+                Role = $"{cell.Terrain}|{neighbor.Terrain}",
+            });
         }
 
         (int picked, int missing, int rotated, int flipped) AssignSlicedTerrainAssets(PCGMapData map, PCGMapGenerateRequest request)
@@ -1029,6 +1033,8 @@ namespace PCGMap
                 hash = PCGHash.Combine(hash, (ulong)visual.Kind);
                 hash = PCGHash.Combine(hash, (ulong)(visual.X * 73856093 ^ visual.Y * 19349663));
                 hash = PCGHash.Combine(hash, (ulong)(visual.Width * 83492791 ^ visual.Height * 265443576));
+                hash = PCGHash.Combine(hash, (ulong)Math.Max(0, (int)((visual.OffsetX + 2f) * 1000f)));
+                hash = PCGHash.Combine(hash, (ulong)Math.Max(0, (int)((visual.OffsetY + 2f) * 1000f)));
             }
 
             return hash;

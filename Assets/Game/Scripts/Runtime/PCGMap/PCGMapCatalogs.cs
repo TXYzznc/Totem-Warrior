@@ -41,6 +41,7 @@ namespace PCGMap
     {
         public string id;
         public string asset;
+        public List<string> variants = new();
         public string biome;
         public string terrain;
         public string useCase;
@@ -97,6 +98,23 @@ namespace PCGMap
     }
 
     [Serializable]
+    public sealed class TerrainBoundaryDecorationSetEntry
+    {
+        public string id;
+        public List<string> variants = new();
+        public int sortingOffset = 50;
+    }
+
+    [Serializable]
+    public sealed class TerrainBoundaryDecorationRuleEntry
+    {
+        public string terrainA;
+        public string terrainB;
+        public string decorationSet;
+        public float chance = 0.42f;
+    }
+
+    [Serializable]
     public sealed class TerrainVisualCatalog
     {
         public int schemaVersion;
@@ -108,6 +126,8 @@ namespace PCGMap
         public List<TerrainTransitionMaskEntry> transitionMasks = new();
         public List<TerrainTransitionDetailEntry> transitionDetails = new();
         public List<TerrainTransitionRuleEntry> transitionRules = new();
+        public List<TerrainBoundaryDecorationSetEntry> boundaryDecorationSets = new();
+        public List<TerrainBoundaryDecorationRuleEntry> boundaryDecorationRules = new();
     }
 
     [Serializable]
@@ -282,6 +302,8 @@ namespace PCGMap
         readonly Dictionary<string, PoiEntry> _poiById = new();
         readonly Dictionary<string, int> _terrainPriorityById = new();
         readonly Dictionary<string, TerrainTransitionRuleEntry> _transitionRuleByPair = new();
+        readonly Dictionary<string, TerrainBoundaryDecorationSetEntry> _boundaryDecorationSetById = new();
+        readonly Dictionary<string, TerrainBoundaryDecorationRuleEntry> _boundaryDecorationRuleByPair = new();
         readonly Dictionary<string, List<TerrainTileCandidate>> _terrainTileCandidatesByCenterTerrain = new();
 
         public TerrainVisualCatalog TerrainCatalog { get; private set; }
@@ -292,15 +314,13 @@ namespace PCGMap
         public static PCGAssetIndex LoadFromConfig(
             string terrainCatalogPath = ConfigResourcesRoot + "/TerrainVisualCatalog",
             string objectCatalogPath = ConfigResourcesRoot + "/WorldObjectCatalog",
-            string zoneCatalogPath = ConfigResourcesRoot + "/ZoneRuleCatalog",
-            string terrainTileSetCatalogPath = ConfigResourcesRoot + "/TerrainTileSetCatalog")
+            string zoneCatalogPath = ConfigResourcesRoot + "/ZoneRuleCatalog")
         {
             string terrainJson = LoadGameConfigText(terrainCatalogPath, required: true);
             string objectJson = LoadGameConfigText(objectCatalogPath, required: true);
             string zoneJson = LoadGameConfigText(zoneCatalogPath, required: true);
-            string terrainTileSetJson = LoadGameConfigText(terrainTileSetCatalogPath, required: false);
 
-            return FromJson(terrainJson, objectJson, zoneJson, terrainTileSetJson);
+            return FromJson(terrainJson, objectJson, zoneJson);
         }
 
         public static string NormalizeGameAssetPath(string assetPath)
@@ -404,14 +424,11 @@ namespace PCGMap
             return normalized;
         }
 
-        public static PCGAssetIndex FromJson(string terrainJson, string objectJson, string zoneJson, string terrainTileSetJson = null)
+        public static PCGAssetIndex FromJson(string terrainJson, string objectJson, string zoneJson)
         {
             var index = new PCGAssetIndex
             {
                 TerrainCatalog = JsonConvert.DeserializeObject<TerrainVisualCatalog>(terrainJson),
-                TerrainTileSetCatalog = string.IsNullOrEmpty(terrainTileSetJson)
-                    ? null
-                    : JsonConvert.DeserializeObject<TerrainTileSetCatalog>(terrainTileSetJson),
                 ObjectCatalog = JsonConvert.DeserializeObject<WorldObjectCatalog>(objectJson),
                 ZoneCatalog = JsonConvert.DeserializeObject<ZoneRuleCatalog>(zoneJson),
             };
@@ -426,6 +443,8 @@ namespace PCGMap
             _poiById.Clear();
             _terrainPriorityById.Clear();
             _transitionRuleByPair.Clear();
+            _boundaryDecorationSetById.Clear();
+            _boundaryDecorationRuleByPair.Clear();
             _terrainTileCandidatesByCenterTerrain.Clear();
 
             foreach (var entry in TerrainCatalog.tiles)
@@ -458,7 +477,17 @@ namespace PCGMap
                     _transitionRuleByPair[GetTransitionRuleKey(entry.from, entry.to)] = entry;
             }
 
-            BuildTerrainTileCandidateLookup();
+            foreach (var entry in TerrainCatalog.boundaryDecorationSets)
+            {
+                if (!string.IsNullOrEmpty(entry.id))
+                    _boundaryDecorationSetById[entry.id] = entry;
+            }
+
+            foreach (var entry in TerrainCatalog.boundaryDecorationRules)
+            {
+                if (!string.IsNullOrEmpty(entry.terrainA) && !string.IsNullOrEmpty(entry.terrainB) && !string.IsNullOrEmpty(entry.decorationSet))
+                    _boundaryDecorationRuleByPair[GetBoundaryDecorationRuleKey(entry.terrainA, entry.terrainB)] = entry;
+            }
         }
 
         void BuildTerrainTileCandidateLookup()
@@ -574,6 +603,43 @@ namespace PCGMap
             }
 
             return fallback;
+        }
+
+        public string PickTerrainAsset(TerrainVisualEntry entry, System.Random rng)
+        {
+            if (entry == null)
+                return null;
+
+            if (entry.variants != null && entry.variants.Count > 0)
+            {
+                return entry.variants[rng.Next(entry.variants.Count)];
+            }
+
+            return entry.asset;
+        }
+
+        public TerrainBoundaryDecorationRuleEntry GetBoundaryDecorationRule(string firstTerrain, string secondTerrain)
+        {
+            if (string.IsNullOrEmpty(firstTerrain) || string.IsNullOrEmpty(secondTerrain) || firstTerrain == secondTerrain)
+                return null;
+
+            _boundaryDecorationRuleByPair.TryGetValue(GetBoundaryDecorationRuleKey(firstTerrain, secondTerrain), out var rule);
+            return rule;
+        }
+
+        public bool TryPickBoundaryDecoration(string decorationSetId, System.Random rng, out string asset, out int sortingOffset)
+        {
+            asset = null;
+            sortingOffset = 50;
+            if (string.IsNullOrEmpty(decorationSetId) || !_boundaryDecorationSetById.TryGetValue(decorationSetId, out var decorationSet))
+                return false;
+
+            if (decorationSet.variants == null || decorationSet.variants.Count == 0)
+                return false;
+
+            asset = decorationSet.variants[rng.Next(decorationSet.variants.Count)];
+            sortingOffset = decorationSet.sortingOffset;
+            return !string.IsNullOrEmpty(asset);
         }
 
         public TerrainVisualEntry PickByUseCase(string useCase, System.Random rng)
@@ -1092,6 +1158,13 @@ namespace PCGMap
         }
 
         static string GetTransitionRuleKey(string from, string to) => $"{from}->{to}";
+
+        static string GetBoundaryDecorationRuleKey(string firstTerrain, string secondTerrain)
+        {
+            return string.CompareOrdinal(firstTerrain, secondTerrain) <= 0
+                ? $"{firstTerrain}|{secondTerrain}"
+                : $"{secondTerrain}|{firstTerrain}";
+        }
 
         static string GetTerrainPairKey(string a, string b)
         {

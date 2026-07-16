@@ -7,6 +7,7 @@ namespace PCGMap
     {
         TransitionMask,
         TransitionDetail,
+        BoundaryDecoration,
         Stamp,
         Decal,
         Object,
@@ -39,6 +40,8 @@ namespace PCGMap
         public int Y;
         public int Width = 1;
         public int Height = 1;
+        public float OffsetX;
+        public float OffsetY;
         public float RotationDegrees;
         public int SortingOrder;
         public bool HasSortingOrder;
@@ -111,6 +114,7 @@ namespace PCGMap
         public int CombatZoneWeight = 100;
         public int DangerZoneWeight = 100;
         public float EdgeMatchTolerance = 0.18f;
+        public int ThemeId = 1;
     }
 
     internal static class PCGHash

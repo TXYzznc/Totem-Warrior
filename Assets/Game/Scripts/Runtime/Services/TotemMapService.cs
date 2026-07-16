@@ -97,9 +97,9 @@ public sealed class TotemMapService : TotemRuntimeServiceBase
             RenderUnderlay = renderUnderlay;
         }
 
-        public static PcgRuntimeSettings Full => new PcgRuntimeSettings(PcgMapWidth, PcgMapHeight, 160, 24, 180, int.MaxValue, true);
+        public static PcgRuntimeSettings Full => new PcgRuntimeSettings(PcgMapWidth, PcgMapHeight, 0, 0, 0, int.MaxValue, false);
 
-        public static PcgRuntimeSettings DiagnosticFast => new PcgRuntimeSettings(DiagnosticPcgMapWidth, DiagnosticPcgMapHeight, 36, 8, 48, 64, false);
+        public static PcgRuntimeSettings DiagnosticFast => new PcgRuntimeSettings(DiagnosticPcgMapWidth, DiagnosticPcgMapHeight, 0, 0, 0, 64, false);
     }
 
     private sealed class PcgRuntimeProfileScope : IDisposable
@@ -304,7 +304,7 @@ public sealed class TotemMapService : TotemRuntimeServiceBase
                 ObjectBudget = settings.ObjectBudget,
                 StampBudget = settings.StampBudget,
                 DecalBudget = settings.DecalBudget,
-                EdgeMatchTolerance = PcgEdgeMatchTolerance,
+                ThemeId = template.Id,
                 TeamSpawnZoneWeight = 100,
                 LootZoneWeight = 100,
                 CombatZoneWeight = 100,
@@ -505,7 +505,7 @@ public sealed class TotemMapService : TotemRuntimeServiceBase
     {
         return new[]
         {
-            CreateRoom(0, "PCG_TeamSpawn", TotemRoomType.SpawnRoom, FindPcgZoneWorldPosition(pcgMap, mapSize, "team_spawn", new Vector2(0.18f, 0.18f)), roomFootprint),
+            CreateRoom(0, "PCG_TeamSpawn", TotemRoomType.SpawnRoom, FindPcgZoneWorldPosition(pcgMap, mapSize, "team_spawn", new Vector2(0.33f, 0.33f)), roomFootprint),
             CreateRoom(1, "PCG_TattooStudio", TotemRoomType.TattooStudio, FindPcgZoneWorldPosition(pcgMap, mapSize, "loot_zone", new Vector2(0.28f, 0.72f)), roomFootprint),
             CreateRoom(2, "PCG_Merchant", TotemRoomType.Merchant, FindPcgZoneWorldPosition(pcgMap, mapSize, "combat_zone", new Vector2(0.68f, 0.52f)), roomFootprint),
             CreateRoom(3, "PCG_BossRoom", TotemRoomType.BossRoom, FindPcgZoneWorldPosition(pcgMap, mapSize, "danger_zone", new Vector2(0.80f, 0.80f)), roomFootprint),
@@ -583,7 +583,7 @@ public sealed class TotemMapService : TotemRuntimeServiceBase
 
     private static TotemTerrainType ResolvePcgTerrainType(PCGMapCell cell, int seed)
     {
-        if (!cell.Walkable || string.Equals(cell.Terrain, "water", StringComparison.Ordinal))
+        if (!cell.Walkable)
         {
             return TotemTerrainType.Blocked;
         }
@@ -601,8 +601,15 @@ public sealed class TotemMapService : TotemRuntimeServiceBase
         switch (cell.Terrain)
         {
             case "mud":
+            case "swamp_mud":
+            case "swamp_water":
+            case "hive_membrane":
+            case "ruins_coolant":
                 return TotemTerrainType.Slow;
             case "forest_ground":
+            case "hive_resin":
+            case "ruins_growth":
+            case "swamp_corruption":
                 return TotemTerrainType.Cover;
             case "corruption":
                 return TotemTerrainType.Hazard;
@@ -1678,6 +1685,7 @@ public sealed class TotemMapService : TotemRuntimeServiceBase
         {
             PCGPlacedVisualKind.TransitionMask => 40,
             PCGPlacedVisualKind.TransitionDetail => 50,
+            PCGPlacedVisualKind.BoundaryDecoration => 50,
             PCGPlacedVisualKind.Stamp => 20,
             PCGPlacedVisualKind.Decal => 30,
             PCGPlacedVisualKind.Poi => 9000 - visual.Y * 10,
@@ -1710,8 +1718,8 @@ public sealed class TotemMapService : TotemRuntimeServiceBase
         CreatePcgGroundSprite(
             $"PCG_{visual.Kind}_{safeId}_{visual.X}_{visual.Y}",
             visual.Asset,
-            visual.X + width * 0.5f - 0.5f,
-            visual.Y + height * 0.5f - 0.5f,
+            visual.X + width * 0.5f - 0.5f + visual.OffsetX,
+            visual.Y + height * 0.5f - 0.5f + visual.OffsetY,
             width,
             height,
             cellSize,

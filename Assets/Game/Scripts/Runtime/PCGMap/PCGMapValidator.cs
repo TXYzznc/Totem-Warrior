@@ -17,9 +17,10 @@ namespace PCGMap
             FloodFillReachability(map, report);
             CountVisuals(map, report);
 
-            if (report.PoiCount < 3)
+            // 地貌资源包可以独立于可交互物生产；只有实际启用了相应视觉时才校验数量下限。
+            if (report.PoiCount > 0 && report.PoiCount < 3)
                 report.Warnings.Add($"POI count is low: {report.PoiCount}.");
-            if (report.ResourceObjects < 8)
+            if (report.ResourceObjects > 0 && report.ResourceObjects < 8)
                 report.Warnings.Add($"Resource object count is low: {report.ResourceObjects}.");
             if (report.UnreachableCells > report.WalkableCells / 8)
                 report.Warnings.Add($"Too many unreachable walkable cells: {report.UnreachableCells}.");
