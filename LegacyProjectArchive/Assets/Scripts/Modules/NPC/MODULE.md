@@ -1,7 +1,7 @@
 ---
 module: NPC
 owner: client-unity
-generated_at: 2026-07-13
+generated_at: 2026-07-15
 source: tools/ai_index/build_ai_manifests.py
 ---
 
