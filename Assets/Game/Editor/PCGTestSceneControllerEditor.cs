@@ -8,6 +8,7 @@ public sealed class PCGTestSceneControllerEditor : Editor
     private SerializedProperty seed;
     private SerializedProperty generateOnStart;
     private SerializedProperty spawnBusinessPlayerAndFollowCamera;
+    private SerializedProperty showPlayerPreviewTestPanel;
     private SerializedProperty mapWidth;
     private SerializedProperty mapHeight;
     private SerializedProperty maxVisualSprites;
@@ -19,6 +20,7 @@ public sealed class PCGTestSceneControllerEditor : Editor
         seed = serializedObject.FindProperty("seed");
         generateOnStart = serializedObject.FindProperty("generateOnStart");
         spawnBusinessPlayerAndFollowCamera = serializedObject.FindProperty("spawnBusinessPlayerAndFollowCamera");
+        showPlayerPreviewTestPanel = serializedObject.FindProperty("showPlayerPreviewTestPanel");
         mapWidth = serializedObject.FindProperty("mapWidth");
         mapHeight = serializedObject.FindProperty("mapHeight");
         maxVisualSprites = serializedObject.FindProperty("maxVisualSprites");
@@ -50,7 +52,9 @@ public sealed class PCGTestSceneControllerEditor : Editor
         EditorGUILayout.PropertyField(seed, new GUIContent("固定种子", "相同种子和参数会产生相同地图。"));
         EditorGUILayout.PropertyField(generateOnStart, new GUIContent("进入播放时自动生成"));
         EditorGUILayout.PropertyField(spawnBusinessPlayerAndFollowCamera,
-            new GUIContent("生成业务玩家并跟随", "生成后进入正式 CombatHud 流程：WASD/方向键控制玩家，业务相机自动跟随。"));
+            new GUIContent("生成业务玩家并跟随", "生成后进入正式 CombatHud 流程：仅生成本地玩家，不创建测试人机；WASD/方向键控制玩家，业务相机自动跟随。"));
+        EditorGUILayout.PropertyField(showPlayerPreviewTestPanel,
+            new GUIContent("显示玩家测试面板", "仅编辑器 PCG 预览：可调生命、移速、大小及各部位纹身。"));
 
         using (new EditorGUILayout.HorizontalScope())
         {

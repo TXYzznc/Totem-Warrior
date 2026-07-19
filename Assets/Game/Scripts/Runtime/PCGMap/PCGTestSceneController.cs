@@ -15,6 +15,7 @@ public sealed class PCGTestSceneController : MonoBehaviour
     [SerializeField, Min(0)] private int seed = 1;
     [SerializeField] private bool generateOnStart = true;
     [SerializeField] private bool spawnBusinessPlayerAndFollowCamera = true;
+    [SerializeField] private bool showPlayerPreviewTestPanel = true;
     [SerializeField, Range(16, 128)] private int mapWidth = TotemMapService.PcgMapWidth;
     [SerializeField, Range(16, 128)] private int mapHeight = TotemMapService.PcgMapHeight;
     [SerializeField, Min(0)] private int objectBudget;
@@ -27,6 +28,7 @@ public sealed class PCGTestSceneController : MonoBehaviour
 
     private void Start()
     {
+        EnsurePlayerPreviewTestPanel();
         if (generateOnStart) GenerateCurrentTheme();
     }
 
@@ -43,6 +45,7 @@ public sealed class PCGTestSceneController : MonoBehaviour
         var mapService = runtime.GetService<TotemMapService>();
         var flowService = runtime.GetService<TotemGameFlowService>();
         var actorService = runtime.GetService<TotemActorService>();
+        var combatService = runtime.GetService<TotemCombatService>();
         var readinessService = runtime.GetService<TotemParticipantReadinessService>();
         if (mapService == null)
         {
@@ -62,6 +65,8 @@ public sealed class PCGTestSceneController : MonoBehaviour
             // 地图请求在进入 CombatHud 时由 MapService 消费；随后 Actor/Camera 服务
             // 在同一条业务状态链上使用该地图创建玩家并建立跟随。
             mapService.RequestNextCombatMap(seed, (int)mapTheme, BuildRuntimeSettingsOverride());
+            actorService?.RequestNextCombatRoster(TotemCombatRosterMode.PlayerOnlyPreview);
+            combatService?.RequestNextCombatRunMode(TotemCombatRunMode.ExplorationPreview);
             flowService?.EnterCombatHud();
             readinessService?.NotifyLocalClientReady(actorService?.Player, "PCGTestLocalPreview");
             map = mapService.CurrentMap;
@@ -81,7 +86,7 @@ public sealed class PCGTestSceneController : MonoBehaviour
         }
 
         Debug.Log($"[PCGTest] Generated {map.ThemeName}; seed={seed}; hash={map.PcgContentHash}; " +
-                  $"businessPlayer={spawnBusinessPlayerAndFollowCamera}.", this);
+                  $"businessPlayer={spawnBusinessPlayerAndFollowCamera}; previewRoster=PlayerOnly.", this);
     }
 
     [ContextMenu("Generate Random Seed")]
@@ -130,6 +135,19 @@ public sealed class PCGTestSceneController : MonoBehaviour
         if (runtime == null) runtime = TotemGameRuntime.EnsureCreated();
         runtime.MarkProcedureEntered(nameof(PCGTestSceneController));
         runtime.StartRuntime();
+    }
+
+    private void EnsurePlayerPreviewTestPanel()
+    {
+        if (!showPlayerPreviewTestPanel || !Application.isEditor)
+        {
+            return;
+        }
+
+        if (GetComponent<PCGPlayerPreviewTestPanel>() == null)
+        {
+            gameObject.AddComponent<PCGPlayerPreviewTestPanel>();
+        }
     }
 
     private TotemPcgRuntimeSettingsOverride BuildRuntimeSettingsOverride()

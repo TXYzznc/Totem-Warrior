@@ -29,6 +29,9 @@ public struct TotemTattooPartVisualPlacement
 [DisallowMultipleComponent]
 public sealed class TotemTattooVisualPresenter : MonoBehaviour
 {
+    private static readonly int MainTexId = Shader.PropertyToID("_MainTex");
+    private static readonly int BodyTexId = Shader.PropertyToID("_BodyTex");
+    private static readonly int ColorId = Shader.PropertyToID("_Color");
     private static readonly int TattooMapId = Shader.PropertyToID("_TattooMap");
     private static readonly int TattooPatternAtlasId = Shader.PropertyToID("_TattooPatternAtlas");
     private static readonly int TattooPart1Id = Shader.PropertyToID("_TattooPart1");
@@ -154,8 +157,15 @@ public sealed class TotemTattooVisualPresenter : MonoBehaviour
     private void ApplyVisual(Sprite currentSprite, IReadOnlyList<TotemTattooDefinition> equipped)
     {
         // 当前角色帧未必有纹身遮罩；空纹理不能传给 MaterialPropertyBlock。
-        // 清空旧属性后保留材质默认值，避免上一帧的遮罩残留到未映射帧。
+        // 清空旧属性后必须重新写入当前 Sprite 的贴图；否则会采样纹身材质的默认白图。
         propertyBlock.Clear();
+        if (currentSprite != null && currentSprite.texture != null)
+        {
+            propertyBlock.SetTexture(MainTexId, currentSprite.texture);
+            propertyBlock.SetTexture(BodyTexId, currentSprite.texture);
+        }
+
+        propertyBlock.SetColor(ColorId, spriteRenderer.color);
         propertyBlock.SetTexture(TattooPatternAtlasId, tattooPatternAtlas);
         if (frameMapSet.TryGetTattooMap(currentSprite, out Texture2D tattooMap) && tattooMap != null)
         {

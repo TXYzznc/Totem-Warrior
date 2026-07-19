@@ -2,6 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum TotemCombatRosterMode
+{
+    FullMatch = 0,
+    PlayerOnlyPreview = 1,
+}
+
 public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTickService
 {
     public const int SmartAiCount = 20;
@@ -43,6 +49,7 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
     private bool playerStartupInvulnerable;
     private int playerStartupDamageBlockedCount;
     private string playerStartupProtectionReason = string.Empty;
+    private TotemCombatRosterMode nextCombatRosterMode = TotemCombatRosterMode.FullMatch;
 
     public override string ServiceName => "Actor";
 
@@ -55,6 +62,15 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
     public bool PlayerStartupInvulnerable => playerStartupInvulnerable;
 
     public int PlayerStartupDamageBlockedCount => playerStartupDamageBlockedCount;
+
+    /// <summary>
+    /// 指定下一次进入 CombatHud 时生成的参与者名单。
+    /// 请求只消费一次，正式战斗仍默认生成完整人机名单。
+    /// </summary>
+    public void RequestNextCombatRoster(TotemCombatRosterMode rosterMode)
+    {
+        nextCombatRosterMode = rosterMode;
+    }
 
     public void BeginPlayerStartupProtection(string reason)
     {
@@ -130,6 +146,7 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
         playerStartupInvulnerable = false;
         playerStartupDamageBlockedCount = 0;
         playerStartupProtectionReason = string.Empty;
+        nextCombatRosterMode = TotemCombatRosterMode.FullMatch;
         DamageApplied = null;
         DamageResolved = null;
         LastDamage = default;
@@ -551,7 +568,11 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
         return snapshot;
     }
 
-    public void SpawnActors(TotemMapSnapshot map, TotemStartupSelection selection, bool createObjects)
+    public void SpawnActors(
+        TotemMapSnapshot map,
+        TotemStartupSelection selection,
+        bool createObjects,
+        TotemCombatRosterMode rosterMode = TotemCombatRosterMode.FullMatch)
     {
         DespawnActors();
         actorRoot = createObjects ? new GameObject("[TotemActors]") : null;
@@ -560,7 +581,7 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
             spawnedObjects.Add(actorRoot);
         }
 
-        var spawnInfos = BuildActorRoster(map, selection);
+        var spawnInfos = BuildActorRoster(map, selection, rosterMode);
         for (int i = 0; i < spawnInfos.Length; i++)
         {
             var actor = new TotemActorModel(spawnInfos[i]);
@@ -585,7 +606,10 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
             "participantCount", snapshot.actorCount.ToString()));
     }
 
-    public static TotemActorSpawnInfo[] BuildActorRoster(TotemMapSnapshot map, TotemStartupSelection selection)
+    public static TotemActorSpawnInfo[] BuildActorRoster(
+        TotemMapSnapshot map,
+        TotemStartupSelection selection,
+        TotemCombatRosterMode rosterMode = TotemCombatRosterMode.FullMatch)
     {
         if (map == null)
         {
@@ -603,9 +627,7 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
         var participantPositions = new List<Vector3>(ParticipantCount);
         playerPosition = ResolveParticipantSpawnPosition(map, playerPosition, playerPosition, participantPositions, 0);
         participantPositions.Add(playerPosition);
-        var result = new TotemActorSpawnInfo[ParticipantCount];
-        int cursor = 0;
-        result[cursor++] = new TotemActorSpawnInfo
+        var playerSpawnInfo = new TotemActorSpawnInfo
         {
             ActorId = selection != null && selection.CharacterId > 0 ? selection.CharacterId : 1,
             Name = "Player",
@@ -614,6 +636,14 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
             Position = playerPosition,
             MaxHealth = 100f,
         };
+        if (rosterMode == TotemCombatRosterMode.PlayerOnlyPreview)
+        {
+            return new[] { playerSpawnInfo };
+        }
+
+        var result = new TotemActorSpawnInfo[ParticipantCount];
+        int cursor = 0;
+        result[cursor++] = playerSpawnInfo;
 
         int participantIndex = 0;
         int[] ringCounts = { 14, 17, 18 };
@@ -882,7 +912,9 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
         {
             combatElapsedSec = 0f;
             var map = mapService?.CurrentMap ?? TotemMapService.BuildLayout(seed: 1, themeId: 1);
-            SpawnActors(map, flowService?.StartupSelection, createObjects: true);
+            TotemCombatRosterMode rosterMode = nextCombatRosterMode;
+            nextCombatRosterMode = TotemCombatRosterMode.FullMatch;
+            SpawnActors(map, flowService?.StartupSelection, createObjects: true, rosterMode: rosterMode);
             return;
         }
 
