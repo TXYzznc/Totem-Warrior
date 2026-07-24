@@ -88,6 +88,14 @@ tools/**/dist/
 
 # codex 临时素材/工作目录（本地素材参考，不进版本控制）
 .codex/tmp/
+/tmp/
+
+# 美术需求构建依赖与生成过程文件（均可由脚本重建）
+/artifacts/美术资源需求/.build/node_modules/
+/artifacts/美术资源需求/**/*.result.json
+/artifacts/美术资源需求/*.inspect.ndjson
+/artifacts/美术资源需求/**/_*_alpha.png
+/artifacts/美术资源需求/**/_*_key.png
 
 # Codex/Agent skills workspace cache. Project skills live in .claude/skills/.
 .agents/
