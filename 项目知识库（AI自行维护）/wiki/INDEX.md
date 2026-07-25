@@ -24,6 +24,12 @@
 | [unity-skills-CJK编码修复.md](unity-skills-CJK编码修复.md) | active | Windows 中文编码问题修复记录 |
 | [Tattoo系统重构.md](Tattoo系统重构.md) | historical-reference | 旧框架时期 Tattoo 重构记录，只作为历史证据 |
 
+## 2.1 3D PvPvE 当前入口
+
+| 文档 | 状态 | 说明 |
+|---|---|---|
+| [3D_PvPvE当前上下文与进度_2026-07-25.md](3D_PvPvE当前上下文与进度_2026-07-25.md) | active | 3D PvPvE 重构的背景、确认共识、Git 进度、风险与下一步入口 |
+
 ## 3. 已降权历史资料
 
 这些资料仍有需求演进价值，但不能直接当作当前开发事实。
