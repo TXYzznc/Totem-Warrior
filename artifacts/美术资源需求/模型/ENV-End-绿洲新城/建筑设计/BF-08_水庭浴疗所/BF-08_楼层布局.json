@@ -1,0 +1,345 @@
+{
+  "schema": "oasiscity.building-layout.v1",
+  "assetId": "BF-08",
+  "assetName": "WaterCourtBathhouse",
+  "displayName": "水庭浴疗所",
+  "units": "meter",
+  "coordinateSystem": {
+    "up": "+Z",
+    "front": "-Y",
+    "origin": "floor01_finished_floor_center",
+    "grid": 0.1,
+    "unityMapping": {
+      "position": "Unity(X,Y,Z)=Layout(X,Z,Y)",
+      "size": "Unity(X,Y,Z)=Layout(X,Z,Y)",
+      "note": "Layout uses Z-up; Unity uses Y-up."
+    }
+  },
+  "referenceCharacter": {
+    "height": 1.8,
+    "diameter": 0.7
+  },
+  "bounds": {
+    "widthX": 20,
+    "depthY": 20,
+    "bodyHeight": 4.8,
+    "maxHeight": 5.9,
+    "origin": [
+      0,
+      0,
+      0
+    ]
+  },
+  "levels": [
+    {
+      "id": "F1",
+      "elevation": 0,
+      "storyHeight": 4.8,
+      "clearHeight": 4.2,
+      "zones": [
+        {
+          "id": "F1_Dry",
+          "name": "干区接待与准备区",
+          "center": [
+            0,
+            -6.3,
+            0
+          ],
+          "size": [
+            15.4,
+            5.4,
+            4.2
+          ],
+          "type": "dry_service",
+          "walkable": true
+        },
+        {
+          "id": "F1_Walkway",
+          "name": "环庭步道",
+          "center": [
+            0,
+            0,
+            0
+          ],
+          "size": [
+            15.4,
+            15.4,
+            4.2
+          ],
+          "type": "circulation",
+          "walkable": true
+        },
+        {
+          "id": "F1_Courtyard",
+          "name": "小水庭",
+          "center": [
+            0,
+            0,
+            0
+          ],
+          "size": [
+            6.4,
+            6.4,
+            0.1
+          ],
+          "type": "water",
+          "walkable": false
+        },
+        {
+          "id": "F1_Wet",
+          "name": "湿区浴疗边",
+          "center": [
+            6.1,
+            0,
+            0
+          ],
+          "size": [
+            3.2,
+            10,
+            4.2
+          ],
+          "type": "wet_service",
+          "walkable": true
+        },
+        {
+          "id": "F1_Rest",
+          "name": "安静休憩角",
+          "center": [
+            -6.1,
+            2.4,
+            0
+          ],
+          "size": [
+            3.2,
+            5.2,
+            4.2
+          ],
+          "type": "rest",
+          "walkable": true
+        },
+        {
+          "id": "F1_Maintenance",
+          "name": "导水维护边",
+          "center": [
+            0,
+            6.3,
+            0
+          ],
+          "size": [
+            6.4,
+            3.2,
+            4.2
+          ],
+          "type": "service",
+          "walkable": true
+        }
+      ]
+    }
+  ],
+  "openings": [
+    {
+      "id": "D01",
+      "kind": "door",
+      "level": "F1",
+      "wall": "south",
+      "center": [
+        -1.8,
+        -10,
+        1.4
+      ],
+      "width": 2.2,
+      "height": 2.8,
+      "sill": 0,
+      "note": "正门"
+    },
+    {
+      "id": "D02",
+      "kind": "door",
+      "level": "F1",
+      "wall": "north",
+      "center": [
+        0,
+        10,
+        1.25
+      ],
+      "width": 1.4,
+      "height": 2.5,
+      "sill": 0,
+      "note": "第二出口"
+    },
+    {
+      "id": "D03",
+      "kind": "door",
+      "level": "F1",
+      "wall": "internal",
+      "center": [
+        0,
+        3.3,
+        1.25
+      ],
+      "width": 1.4,
+      "height": 2.5,
+      "sill": 0,
+      "note": "室内连通门"
+    },
+    {
+      "id": "W01",
+      "kind": "window",
+      "level": "F1",
+      "wall": "south",
+      "center": [
+        3,
+        -10,
+        1.6
+      ],
+      "width": 2.4,
+      "height": 1.6,
+      "sill": 0.8
+    },
+    {
+      "id": "W02",
+      "kind": "window",
+      "level": "F1",
+      "wall": "west",
+      "center": [
+        -10,
+        -3,
+        1.6
+      ],
+      "width": 1.5,
+      "height": 1.6,
+      "sill": 0.8
+    },
+    {
+      "id": "W03",
+      "kind": "window",
+      "level": "F1",
+      "wall": "north",
+      "center": [
+        -3,
+        10,
+        2.8
+      ],
+      "width": 1.8,
+      "height": 0.8,
+      "sill": 2.4
+    }
+  ],
+  "stairs": [],
+  "anchors": [
+    {
+      "id": "ANCHOR_RECEPTION",
+      "position": [
+        0,
+        -6.3,
+        0
+      ],
+      "radius": 1.5,
+      "kind": "service_clearance",
+      "solidCollision": false
+    },
+    {
+      "id": "ANCHOR_BATH",
+      "position": [
+        6.1,
+        0,
+        0
+      ],
+      "radius": 1.2,
+      "kind": "service_interaction",
+      "solidCollision": false
+    },
+    {
+      "id": "ANCHOR_REST",
+      "position": [
+        -6.1,
+        2.4,
+        0
+      ],
+      "radius": 1,
+      "kind": "exploration",
+      "solidCollision": false
+    }
+  ],
+  "fixedObjects": [
+    {
+      "id": "P01",
+      "asset": "PROP_BathReception",
+      "position": [
+        0,
+        -6.3,
+        0
+      ],
+      "size": [
+        3.2,
+        0.8,
+        1.1
+      ],
+      "solidCollision": true
+    },
+    {
+      "id": "P02",
+      "asset": "PROP_BathBasin",
+      "position": [
+        6.1,
+        0,
+        0
+      ],
+      "size": [
+        1.8,
+        2.4,
+        0.7
+      ],
+      "solidCollision": true
+    },
+    {
+      "id": "P03",
+      "asset": "DE-02",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "size": [
+        6.4,
+        6.4,
+        0.1
+      ],
+      "solidCollision": true
+    },
+    {
+      "id": "E01",
+      "asset": "DE-15",
+      "position": [
+        9.6,
+        0,
+        3.3
+      ],
+      "size": [
+        0.2,
+        4,
+        0.2
+      ],
+      "solidCollision": true
+    }
+  ],
+  "clearanceRules": {
+    "mainPathMinWidth": 1.8,
+    "secondaryPathMinWidth": 1.2,
+    "mainEntranceExteriorClearDepth": 2,
+    "secondaryExitExteriorClearDepth": 1.2,
+    "doorSwingMustNotOverlapPath": true,
+    "interactionAnchorNoSolidCollision": true,
+    "referenceCharacterMustPass": true
+  },
+  "validation": {
+    "requiredEntrances": ["D01", "D02"],
+    "mainPathMinWidth": 1.8,
+    "secondaryPathMinWidth": 1.2,
+    "explorationAndReturn": "D01 reaches dry, wet and rest areas by the courtyard loop; D01 or D02 returns outdoors; water is non-walkable.",
+    "noFalseFloor": true,
+    "noDecorativeStairAllowed": true,
+    "unityRootScale": [1, 1, 1],
+    "unityRootRotation": [0, 0, 0]
+  }
+}

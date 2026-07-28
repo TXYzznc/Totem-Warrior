@@ -1,0 +1,33 @@
+{
+  "method": "PIL deterministic pure geometry, 4x supersampling and Lanczos downsample",
+  "not_generated": [
+    "character appearance",
+    "outfit or tattoo layers",
+    "preset content or thumbnails",
+    "eight pattern emblems",
+    "player identity or avatar",
+    "record values",
+    "share preview",
+    "all text",
+    "input glyphs",
+    "generic panels/cards/focus/progress/state shells"
+  ],
+  "assets": [
+    {
+      "file": "profile_showcase_icon_appearance.png",
+      "size": [
+        192,
+        192
+      ],
+      "role": "appearance-preset section semantic marker"
+    },
+    {
+      "file": "profile_showcase_empty_mark.png",
+      "size": [
+        192,
+        192
+      ],
+      "role": "empty preset / empty emblem neutral archive marker"
+    }
+  ]
+}

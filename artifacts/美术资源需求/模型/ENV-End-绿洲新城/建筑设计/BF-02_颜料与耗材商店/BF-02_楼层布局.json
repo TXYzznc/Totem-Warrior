@@ -1,0 +1,61 @@
+{
+  "schema": "oasiscity.building-layout.v1",
+  "assetId": "BF-02",
+  "assetName": "PigmentAndSupplyShop",
+  "displayName": "颜料与耗材商店",
+  "units": "meter",
+  "coordinateSystem": {
+    "up": "+Z",
+    "front": "-Y",
+    "origin": "floor01_finished_floor_center",
+    "grid": 0.1,
+    "unityMapping": { "position": "Unity(X,Y,Z)=Layout(X,Z,Y)", "size": "Unity(X,Y,Z)=Layout(X,Z,Y)", "note": "Layout uses Z-up; Unity uses Y-up." }
+  },
+  "referenceCharacter": { "height": 1.8, "diameter": 0.7 },
+  "bounds": { "widthX": 12.0, "depthY": 16.0, "bodyHeight": 4.8, "maxHeight": 5.9, "origin": [0.0, 0.0, 0.0] },
+  "projectionRules": {
+    "orthographicViews": { "sharedScaleRequired": true, "sharedBaselineRequired": true },
+    "frontElevation": { "widthX": 12.0, "bodyHeightZ": 4.8, "parapetTopZ": 5.9, "mainDoor": "D01", "displayWindow": "W01" },
+    "sideElevation": { "depthY": 16.0, "leftVisibleOpening": "W02", "rightVisibleOpening": "D02" },
+    "rule": "Compact deep rectangular pigment-mixing shop. One storey only; no mezzanine, stair, upper floor, tower, dome, ring, balcony, or roof route."
+  },
+  "levels": [{
+    "id": "F1", "elevation": 0.0, "storyHeight": 4.8, "clearHeight": 4.2, "grossEnclosedArea": 192.0, "netInteriorArea": 171.9,
+    "structuralRects": [{ "id": "F1_Body", "center": [0.0, 0.0, 0.0], "size": [12.0, 16.0, 4.8] }],
+    "zones": [
+      { "id": "F1_FrontRetail", "name": "前店展示厅", "center": [0.0, -3.8, 0.0], "size": [11.4, 7.4, 4.2], "type": "retail", "walkable": true },
+      { "id": "F1_BackCorridor", "name": "后部内走道", "center": [0.0, 0.1, 0.0], "size": [11.4, 1.0, 4.2], "type": "circulation", "walkable": true },
+      { "id": "F1_WestMixing", "name": "西侧颜料调制间", "center": [-2.9, 4.15, 0.0], "size": [5.6, 7.1, 4.2], "type": "workshop", "walkable": true },
+      { "id": "F1_EastStorage", "name": "东侧耗材储存间", "center": [2.9, 4.15, 0.0], "size": [5.6, 7.1, 4.2], "type": "storage", "walkable": true }
+    ]
+  }],
+  "openings": [
+    { "id": "D01", "kind": "door", "level": "F1", "wall": "south", "center": [-1.5, -8.0, 1.4], "width": 2.2, "height": 2.8, "sill": 0.0, "note": "唯一街道主入口" },
+    { "id": "D02", "kind": "door", "level": "F1", "wall": "east", "center": [6.0, 4.8, 1.25], "width": 1.4, "height": 2.5, "sill": 0.0, "note": "后勤服务出口" },
+    { "id": "D03", "kind": "door", "level": "F1", "wall": "internal_north_of_back_corridor", "center": [-2.9, 0.6, 1.25], "width": 1.4, "height": 2.5, "sill": 0.0, "note": "走道至调制间" },
+    { "id": "D04", "kind": "door", "level": "F1", "wall": "internal_north_of_back_corridor", "center": [3.1, 0.6, 1.25], "width": 1.2, "height": 2.5, "sill": 0.0, "note": "走道至储存间" },
+    { "id": "W01", "kind": "window", "level": "F1", "wall": "south", "center": [3.1, -8.0, 1.6], "width": 2.4, "height": 1.6, "sill": 0.8 },
+    { "id": "W02", "kind": "window", "level": "F1", "wall": "west", "center": [-6.0, -4.1, 1.6], "width": 1.5, "height": 1.6, "sill": 0.8 },
+    { "id": "W03", "kind": "window", "level": "F1", "wall": "north", "center": [-3.0, 8.0, 2.8], "width": 1.8, "height": 0.8, "sill": 2.4 },
+    { "id": "W04", "kind": "window", "level": "F1", "wall": "north", "center": [3.0, 8.0, 2.8], "width": 1.8, "height": 0.8, "sill": 2.4 }
+  ],
+  "stairs": [],
+  "anchors": [
+    { "id": "ANCHOR_MERCHANT", "position": [1.6, -0.35, 0.0], "radius": 0.5, "kind": "npc_random_merchant", "solidCollision": false },
+    { "id": "ANCHOR_MERCHANT_APPROACH", "position": [1.6, -2.6, 0.0], "radius": 1.5, "kind": "interaction_clearance", "solidCollision": false },
+    { "id": "ANCHOR_MIXING_STORY", "position": [-3.0, 4.5, 0.0], "radius": 1.0, "kind": "exploration_candidate", "solidCollision": false },
+    { "id": "ANCHOR_STORAGE_STORY", "position": [3.2, 5.4, 0.0], "radius": 1.0, "kind": "exploration_candidate", "solidCollision": false }
+  ],
+  "fixedObjects": [
+    { "id": "P01", "asset": "PROP_LShopCounter", "position": [1.6, -1.1, 0.0], "rotationZ": 0.0, "size": [4.6, 0.8, 1.1], "solidCollision": true },
+    { "id": "P04", "asset": "DE-21", "position": [-5.15, -3.4, 0.0], "rotationZ": 0.0, "size": [0.5, 4.2, 2.0], "solidCollision": true },
+    { "id": "P05", "asset": "PROP_DisplayPlinth", "position": [4.1, -5.8, 0.0], "rotationZ": 0.0, "size": [1.6, 0.8, 1.0], "solidCollision": true },
+    { "id": "P06", "asset": "PROP_MixingBench", "position": [-3.0, 4.5, 0.0], "rotationZ": 0.0, "size": [2.4, 0.9, 1.0], "solidCollision": true },
+    { "id": "P07", "asset": "DE-22", "position": [3.2, 5.4, 0.0], "rotationZ": 0.0, "size": [1.0, 3.2, 2.2], "solidCollision": true },
+    { "id": "E01", "asset": "DE-10", "position": [-1.0, -8.95, 3.5], "rotationZ": 0.0, "size": [4.5, 1.8, 0.15], "solidCollision": false },
+    { "id": "E02", "asset": "DE-19", "position": [-3.9, -8.02, 2.8], "rotationZ": 0.0, "size": [0.7, 0.08, 0.5], "solidCollision": false },
+    { "id": "E03", "asset": "DE-13", "position": [-4.6, -7.4, 0.0], "rotationZ": 0.0, "size": [0.3, 0.3, 0.5], "variant": "warm_low", "solidCollision": true }
+  ],
+  "clearanceRules": { "mainPathMinWidth": 1.8, "sideCounterBypassMinWidth": 2.0, "backCorridorMinWidth": 1.0, "merchantInteractionDiameter": 3.0, "D01ExteriorClearDepth": 1.8, "D02ExteriorClearDepth": 1.2, "doorClearanceRadius": 1.2 },
+  "validation": { "requiredEntrances": ["D01", "D02"], "explorationAndReturn": "D01 enters front retail; the open rear passage reaches D03/D04, west mixing, east storage, and D02. Return via D01 or D02.", "noFalseFloor": true, "noDecorativeStairAllowed": true, "unityRootScale": [1, 1, 1], "unityRootRotation": [0, 0, 0] }
+}

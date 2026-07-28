@@ -1,0 +1,57 @@
+{
+  "schema": "oasiscity.building-layout.v1",
+  "assetId": "BF-03",
+  "assetName": "TravelSupplyShop",
+  "displayName": "旅行补给商店",
+  "units": "meter",
+  "coordinateSystem": {
+    "up": "+Z", "front": "-Y", "origin": "floor01_finished_floor_center", "grid": 0.1,
+    "unityMapping": { "position": "Unity(X,Y,Z)=Layout(X,Z,Y)", "size": "Unity(X,Y,Z)=Layout(X,Z,Y)", "note": "Layout uses Z-up; Unity uses Y-up." }
+  },
+  "referenceCharacter": { "height": 1.8, "diameter": 0.7 },
+  "bounds": { "widthX": 14.0, "depthY": 12.0, "bodyHeight": 4.8, "maxHeight": 5.9, "origin": [0.0, 0.0, 0.0] },
+  "projectionRules": {
+    "orthographicViews": { "sharedScaleRequired": true, "sharedBaselineRequired": true },
+    "frontElevation": { "widthX": 14.0, "bodyHeightZ": 4.8, "parapetTopZ": 5.9, "mainDoor": "D01", "displayWindow": "W01", "twoBayPorch": "One shallow two-bay canopy: west bay contains D01; east bay frames W01 only and is not an entrance." },
+    "sideElevation": { "depthY": 12.0, "leftVisibleOpening": "W02", "rightVisibleOpening": "D02" },
+    "rule": "Wide shallow travel-supply station. One storey only; a two-bay low porch is a single street entrance composition, never two street doors. No mezzanine, stair, upper floor, tower, dome, ring, balcony, or roof route."
+  },
+  "levels": [{
+    "id": "F1", "elevation": 0.0, "storyHeight": 4.8, "clearHeight": 4.2, "grossEnclosedArea": 168.0, "netInteriorArea": 150.7,
+    "structuralRects": [{ "id": "F1_Body", "center": [0.0, 0.0, 0.0], "size": [14.0, 12.0, 4.8] }],
+    "zones": [
+      { "id": "F1_FrontSupply", "name": "前店补给区", "center": [0.0, -3.1, 0.0], "size": [13.4, 5.2, 4.2], "type": "retail", "walkable": true },
+      { "id": "F1_TransferAisle", "name": "补货转换走道", "center": [0.0, 0.0, 0.0], "size": [13.4, 1.0, 4.2], "type": "circulation", "walkable": true },
+      { "id": "F1_WestStock", "name": "西侧补给储架区", "center": [-3.45, 3.1, 0.0], "size": [6.5, 5.2, 4.2], "type": "storage", "walkable": true },
+      { "id": "F1_EastPacking", "name": "东侧打包与货运区", "center": [3.45, 3.1, 0.0], "size": [6.5, 5.2, 4.2], "type": "workshop", "walkable": true }
+    ]
+  }],
+  "openings": [
+    { "id": "D01", "kind": "door", "level": "F1", "wall": "south", "center": [-2.4, -6.0, 1.4], "width": 2.2, "height": 2.8, "sill": 0.0, "note": "唯一街道主入口，位于双跨门廊西跨" },
+    { "id": "D02", "kind": "door", "level": "F1", "wall": "east", "center": [7.0, 3.1, 1.25], "width": 1.4, "height": 2.5, "sill": 0.0, "note": "货运服务出口，位于打包区" },
+    { "id": "D03", "kind": "door", "level": "F1", "wall": "internal_north_of_transfer_aisle", "center": [3.45, 0.5, 1.25], "width": 1.4, "height": 2.5, "sill": 0.0, "note": "走道至东侧打包区" },
+    { "id": "D04", "kind": "door", "level": "F1", "wall": "internal_north_of_transfer_aisle", "center": [-3.45, 0.5, 1.25], "width": 1.4, "height": 2.5, "sill": 0.0, "note": "走道至西侧储架区" },
+    { "id": "W01", "kind": "window", "level": "F1", "wall": "south", "center": [3.4, -6.0, 1.6], "width": 2.4, "height": 1.6, "sill": 0.8, "note": "双跨门廊东跨展示窗，不可作为入口" },
+    { "id": "W02", "kind": "window", "level": "F1", "wall": "west", "center": [-7.0, -2.6, 1.6], "width": 1.5, "height": 1.6, "sill": 0.8, "note": "前店侧窗" },
+    { "id": "W03", "kind": "window", "level": "F1", "wall": "north", "center": [-3.45, 6.0, 2.8], "width": 1.8, "height": 0.8, "sill": 2.4, "note": "西侧储架区高侧窗" }
+  ],
+  "stairs": [],
+  "anchors": [
+    { "id": "ANCHOR_MERCHANT", "position": [-1.8, -0.45, 0.0], "radius": 0.5, "kind": "npc_random_merchant", "solidCollision": false },
+    { "id": "ANCHOR_TRADE", "position": [-1.8, -2.7, 0.0], "radius": 1.5, "kind": "interaction_clearance", "solidCollision": false },
+    { "id": "ANCHOR_STOCK", "position": [-3.45, 3.1, 0.0], "radius": 1.0, "kind": "exploration", "solidCollision": false },
+    { "id": "ANCHOR_PACKING", "position": [3.45, 2.0, 0.0], "radius": 1.0, "kind": "exploration", "solidCollision": false }
+  ],
+  "fixedObjects": [
+    { "id": "P01", "asset": "PROP_SupplyCounter", "position": [-1.8, -1.2, 0.0], "rotationZ": 0.0, "size": [4.2, 0.8, 1.1], "solidCollision": true },
+    { "id": "P02", "asset": "DE-21", "position": [-5.85, 3.3, 0.0], "rotationZ": 0.0, "size": [0.6, 3.0, 2.0], "solidCollision": true },
+    { "id": "P03", "asset": "PROP_PackingTable", "position": [3.45, 2.0, 0.0], "rotationZ": 0.0, "size": [2.6, 1.0, 1.0], "solidCollision": true },
+    { "id": "P04", "asset": "DE-22", "position": [3.45, 4.8, 0.0], "rotationZ": 0.0, "size": [1.0, 2.4, 2.2], "solidCollision": true },
+    { "id": "P05", "asset": "PROP_SupplyDisplay", "position": [4.8, -3.9, 0.0], "rotationZ": 0.0, "size": [1.6, 0.8, 1.0], "solidCollision": true },
+    { "id": "E01", "asset": "DE-10", "position": [0.0, -6.65, 3.4], "rotationZ": 0.0, "size": [10.8, 1.5, 0.15], "variant": "two_bay_low_porch", "solidCollision": false },
+    { "id": "E02", "asset": "DE-19", "position": [4.7, -6.02, 2.8], "rotationZ": 0.0, "size": [0.7, 0.08, 0.5], "solidCollision": false },
+    { "id": "E03", "asset": "DE-13", "position": [-5.4, -5.3, 0.0], "rotationZ": 0.0, "size": [0.3, 0.3, 0.5], "variant": "warm_low", "solidCollision": true }
+  ],
+  "clearanceRules": { "mainPathMinWidth": 1.8, "secondaryPathMinWidth": 1.2, "packingLoopMinWidth": 1.8, "merchantInteractionDiameter": 3.0, "D01ExteriorClearDepth": 1.8, "D02ExteriorClearDepth": 1.2, "doorClearanceRadius": 1.2, "doorSwingMustNotOverlapPath": true },
+  "validation": { "requiredEntrances": ["D01", "D02"], "singleStreetMainEntrance": "D01 is the sole street entrance. The porch east bay contains W01 only.", "explorationAndReturn": "D01 enters front supply; the transfer aisle reaches west stock through D04 and east packing through D03, then D02. Return via D01 or D02.", "noFalseFloor": true, "noDecorativeStairAllowed": true, "unityRootScale": [1, 1, 1], "unityRootRotation": [0, 0, 0] }
+}

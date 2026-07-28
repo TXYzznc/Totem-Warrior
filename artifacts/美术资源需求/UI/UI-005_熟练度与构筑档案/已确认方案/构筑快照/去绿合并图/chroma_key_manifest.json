@@ -1,0 +1,25 @@
+{
+  "items": [
+    {
+      "source": "artifacts\\美术资源需求\\UI\\UI-005_熟练度与构筑档案\\已确认方案\\构筑快照\\绿幕源.png",
+      "output": "artifacts\\美术资源需求\\UI\\UI-005_熟练度与构筑档案\\已确认方案\\构筑快照\\去绿合并图\\绿幕源.png",
+      "size": {
+        "width": 1254,
+        "height": 1254
+      },
+      "key_color": [
+        0,
+        255,
+        0
+      ],
+      "threshold": 80.0,
+      "soft_edge": 30.0,
+      "despill": 0.5,
+      "edge_unmix": true,
+      "alpha_zero_pixels": 1001442,
+      "alpha_full_pixels": 570276,
+      "alpha_zero_ratio": 0.6368,
+      "status": "ok"
+    }
+  ]
+}

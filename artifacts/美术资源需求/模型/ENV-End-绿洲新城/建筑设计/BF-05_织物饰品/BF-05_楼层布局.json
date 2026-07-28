@@ -1,0 +1,88 @@
+{
+  "schema": "oasiscity.building-layout.v1",
+  "assetId": "BF-05",
+  "assetName": "TextileAccessoryShop",
+  "displayName": "织物饰品商店",
+  "units": "meter",
+  "coordinateSystem": {
+    "up": "+Z",
+    "front": "-Y",
+    "origin": "floor01_finished_floor_center",
+    "grid": 0.1,
+    "unityMapping": {
+      "position": "Unity(X,Y,Z)=Layout(X,Z,Y)",
+      "size": "Unity(X,Y,Z)=Layout(X,Z,Y)",
+      "note": "Layout uses Z-up; Unity uses Y-up."
+    }
+  },
+  "referenceCharacter": { "height": 1.8, "diameter": 0.7 },
+  "bounds": { "widthX": 10, "depthY": 15, "bodyHeight": 4.8, "maxHeight": 5.9, "origin": [0, 0, 0] },
+  "mass": {
+    "type": "narrow_longitudinal_gallery_shop",
+    "screenPorch": { "center": [0, -6.4, 0], "size": [8.8, 1.8, 4.2], "recessed": true },
+    "mainBar": { "center": [0, 0.6, 0], "size": [8.8, 12.2, 4.8] }
+  },
+  "levels": [
+    {
+      "id": "F1",
+      "elevation": 0,
+      "storyHeight": 4.8,
+      "clearHeight": 4.2,
+      "zones": [
+        { "id": "F1_ScreenPorch", "name": "退入式织物屏风门廊", "center": [0, -6.4, 0], "size": [8.8, 1.8, 4.2], "type": "porch", "walkable": true },
+        { "id": "F1_DisplayGallery", "name": "纵向织物与饰品展示廊", "center": [0, -3.3, 0], "size": [8.8, 4.4, 4.2], "type": "retail", "walkable": true },
+        { "id": "F1_CounterBay", "name": "饰品柜台与交易前区", "center": [0, -0.6, 0], "size": [8.8, 1.0, 4.2], "type": "counter", "walkable": true },
+        { "id": "F1_SamplePrep", "name": "样布整理与包装区", "center": [0, 1.25, 0], "size": [8.8, 2.7, 4.2], "type": "work", "walkable": true },
+        { "id": "F1_Stock", "name": "后部包裹与库存区", "center": [0, 4.65, 0], "size": [8.8, 4.1, 4.2], "type": "storage", "walkable": true }
+      ]
+    }
+  ],
+  "openings": [
+    { "id": "D01", "kind": "door", "level": "F1", "wall": "south_recessed", "center": [0, -5.5, 1.4], "width": 2.2, "height": 2.8, "sill": 0, "note": "唯一主门，位于门廊北端" },
+    { "id": "D02", "kind": "door", "level": "F1", "wall": "east", "center": [5, 4.65, 1.25], "width": 1.4, "height": 2.5, "sill": 0, "note": "侧/后勤门，接次级巷" },
+    { "id": "D03", "kind": "doorway", "level": "F1", "wall": "internal_gallery_counter", "center": [0, -1.1, 1.25], "width": 1.8, "height": 2.5, "sill": 0, "note": "展示廊至柜台段" },
+    { "id": "D04", "kind": "doorway", "level": "F1", "wall": "internal_prep_stock", "center": [0, 2.6, 1.25], "width": 1.4, "height": 2.5, "sill": 0, "note": "整理区至库存段" },
+    { "id": "W01", "kind": "window", "level": "F1", "wall": "west", "center": [-5, -3.3, 1.6], "width": 1.5, "height": 1.6, "sill": 0.8 },
+    { "id": "W02", "kind": "window", "level": "F1", "wall": "east", "center": [5, -3.3, 1.6], "width": 1.5, "height": 1.6, "sill": 0.8 },
+    { "id": "W03", "kind": "window", "level": "F1", "wall": "north", "center": [0, 7.5, 2.8], "width": 1.8, "height": 0.8, "sill": 2.4 }
+  ],
+  "stairs": [],
+  "anchors": [
+    { "id": "ANCHOR_MERCHANT", "position": [2.2, -0.6, 0], "radius": 0.5, "kind": "npc_random_merchant", "solidCollision": false },
+    { "id": "ANCHOR_TRADE", "position": [2.2, -1.9, 0], "radius": 1.5, "kind": "interaction_clearance", "solidCollision": false },
+    { "id": "ANCHOR_TEXTILE_TABLE", "position": [-1.2, 1.25, 0], "radius": 1.0, "kind": "exploration", "solidCollision": false },
+    { "id": "ANCHOR_STOCK", "position": [-1.0, 4.65, 0], "radius": 0.8, "kind": "exploration", "solidCollision": false }
+  ],
+  "fixedObjects": [
+    { "id": "P01", "asset": "PROP_AccessoryCounter", "position": [2.2, -0.6, 0], "size": [3.2, 0.8, 1.1], "solidCollision": true },
+    { "id": "P02", "asset": "PROP_TextileTable", "position": [-3.2, 1.25, 0], "size": [1.0, 2.4, 1.0], "solidCollision": true },
+    { "id": "P03", "asset": "DE-22", "position": [3.9, 4.65, 0], "size": [0.9, 3.0, 2.2], "solidCollision": true },
+    { "id": "E01", "asset": "DE-19", "position": [-3.3, -6.4, 2.3], "size": [0.6, 0.08, 2.6], "solidCollision": false },
+    { "id": "E02", "asset": "DE-19", "position": [3.3, -6.4, 2.3], "size": [0.6, 0.08, 2.6], "solidCollision": false },
+    { "id": "E03", "asset": "DE-10", "position": [0, -7.9, 3.5], "size": [4.0, 1.6, 0.15], "solidCollision": true }
+  ],
+  "restrictedAreas": [
+    { "id": "R01", "asset": "ROOF_DRAIN_NORTH", "position": [0, 7.25, 0], "size": [8.8, 0.3, 0.05], "walkable": false, "solidCollision": true }
+  ],
+  "clearanceRules": {
+    "mainPathMinWidth": 1.8,
+    "secondaryPathMinWidth": 1.2,
+    "mainEntranceExteriorClearDepth": 1.8,
+    "secondaryExitExteriorClearDepth": 1.2,
+    "doorSwingMustNotOverlapPath": true,
+    "interactionAnchorNoSolidCollision": true,
+    "referenceCharacterMustPass": true
+  },
+  "validation": {
+    "requiredEntrances": ["D01", "D02"],
+    "primaryStreetEntrance": "D01",
+    "serviceExit": "D02",
+    "mainPathMinWidth": 1.8,
+    "secondaryPathMinWidth": 1.2,
+    "explorationAndReturn": "The screen porch, display gallery, counter bay, sample prep and stock form a continuous longitudinal route from D01 to D02; every point returns by D01.",
+    "noFalseFloor": true,
+    "noDecorativeStairAllowed": true,
+    "unityRootScale": [1, 1, 1],
+    "unityRootRotation": [0, 0, 0]
+  }
+}

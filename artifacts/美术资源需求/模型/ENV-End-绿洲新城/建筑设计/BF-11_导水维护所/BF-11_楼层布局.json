@@ -1,0 +1,16 @@
+{
+  "schema": "oasiscity.building-layout.v1", "assetId": "BF-11", "assetName": "WaterConduitMaintenanceStation", "displayName": "导水维护所", "units": "meter",
+  "coordinateSystem": { "up": "+Z", "front": "-Y", "origin": "F1_finished_floor_center", "grid": 0.1, "unityMapping": { "position": "Unity(X,Y,Z)=Layout(X,Z,Y)", "size": "Unity(X,Y,Z)=Layout(X,Z,Y)" } },
+  "referenceCharacter": { "height": 1.8, "diameter": 0.7 }, "bounds": { "widthX": 14.4, "depthY": 12.0, "bodyHeight": 6.15, "maxHeight": 8.55 },
+  "levels": [
+    { "id": "F1", "elevation": 0.0, "storyHeight": 4.8, "clearHeight": 4.2, "zones": [
+      { "id": "F1_FrontRoom", "center": [0,-3.3,0], "size": [13.8,4.8,4.2], "type": "entry_service" }, { "id": "F1_ValveRoom", "center": [-2.4,1.2,0], "size": [7.8,4.0,4.2], "type": "maintenance" }, { "id": "F1_WaterGallery", "center": [4.1,1.2,0], "size": [4.8,4.0,4.2], "type": "water_observation" }, { "id": "F1_StairHall", "center": [-4.9,4.4,0], "size": [3.0,2.4,4.2], "type": "vertical_circulation" } ] },
+    { "id": "F2", "elevation": 3.45, "storyHeight": 2.7, "clearHeight": 2.4, "zones": [ { "id": "F2_MaintenancePlatform", "center": [-2.2,2.7,3.45], "size": [7.2,2.4,0.15], "type": "walkable_platform" } ] }
+  ],
+  "openings": [ { "id":"D01","kind":"door","level":"F1","wall":"south","center":[-2.4,-6,1.4],"width":2.2,"height":2.8,"sill":0 }, { "id":"D02","kind":"door","level":"F1","wall":"east","center":[7.2,1.2,1.25],"width":1.4,"height":2.5,"sill":0 }, { "id":"D03","kind":"door","level":"F1","wall":"internal","center":[1.7,-0.9,1.25],"width":1.4,"height":2.5,"sill":0 }, { "id":"W01","kind":"window","level":"F1","wall":"south","center":[3.0,-6,1.6],"width":2.4,"height":1.6,"sill":0.8 }, { "id":"W02","kind":"window","level":"F1","wall":"north","center":[4.1,6,2.8],"width":1.8,"height":0.8,"sill":2.4 } ],
+  "stairs": [ { "id":"ST01","fromLevel":"F1","toLevel":"F2","start":[-5.5,3.4,0],"landing":[-5.5,4.4,1.725],"end":[-3.7,4.4,3.45],"clearWidth":1.8,"riser":0.1725,"tread":0.3,"flights":[10,10],"platformSize":[1.8,1.8],"headClearance":2.4,"guardrailHeight":1.1,"route":"formal_walkable" } ],
+  "anchors": [ {"id":"ANCHOR_VALVE","position":[-2.4,1.0,0],"radius":1.5,"kind":"water_valve_interaction"}, {"id":"ANCHOR_FLOW_VIEW","position":[4.1,1.2,0],"radius":1.0,"kind":"water_observation"} ],
+  "fixedObjects": [ {"id":"P01","asset":"DE-15","position":[-5.6,1.1,3.25],"size":[0.2,6.2,0.2]}, {"id":"P02","asset":"PROP_ValveBank","position":[-2.4,2.3,0],"size":[3.0,0.8,1.4]}, {"id":"P03","asset":"DE-27","position":[2.0,1.2,0.55],"size":[0.15,4.0,1.1]}, {"id":"E01","asset":"DE-14","position":[-5.8,-4.8,0],"size":[0.35,0.35,1.5]} ],
+  "clearanceRules": { "mainPathMinWidth":1.8,"secondaryPathMinWidth":1.2,"D01ExteriorClearDepth":1.8,"D02ServiceClearDepth":1.2,"interactionDiameter":3.0,"waterEdgeGuardrail":true,"noPipeBelowZ":2.4 },
+  "validation": { "requiredStreetReturn":"D01 or D02","explorationRoute":["D01","F1_FrontRoom","F1_ValveRoom","F1_WaterGallery","ST01","F2_MaintenancePlatform","ST01","D01"],"forbiddenRoutes":["water_channel","maintenance_ladder","pipe_interior"],"instanceQuota":1 }
+}

@@ -1,0 +1,313 @@
+{
+  "schema": "oasiscity.building-layout.v1",
+  "assetId": "BF-09",
+  "assetName": "CityArchive",
+  "displayName": "档案馆",
+  "units": "meter",
+  "coordinateSystem": {
+    "up": "+Z",
+    "front": "-Y",
+    "origin": "floor01_finished_floor_center",
+    "grid": 0.1,
+    "unityMapping": {
+      "position": "Unity(X,Y,Z)=Layout(X,Z,Y)",
+      "size": "Unity(X,Y,Z)=Layout(X,Z,Y)",
+      "note": "Layout uses Z-up; Unity uses Y-up."
+    }
+  },
+  "referenceCharacter": {
+    "height": 1.8,
+    "diameter": 0.7
+  },
+  "bounds": {
+    "widthX": 18,
+    "depthY": 20,
+    "bodyHeight": 4.8,
+    "maxHeight": 5.9,
+    "origin": [
+      0,
+      0,
+      0
+    ]
+  },
+  "levels": [
+    {
+      "id": "F1",
+      "elevation": 0,
+      "storyHeight": 4.8,
+      "clearHeight": 4.2,
+      "zones": [
+        {
+          "id": "F1_Main",
+          "name": "主档案厅",
+          "center": [
+            0,
+            -3.2,
+            0
+          ],
+          "size": [
+            15.4,
+            10.4,
+            4.2
+          ],
+          "type": "archive",
+          "walkable": true
+        },
+        {
+          "id": "F1_Side",
+          "name": "侧阅览室",
+          "center": [
+            -5.2,
+            3.6,
+            0
+          ],
+          "size": [
+            4.8,
+            6.4,
+            4.2
+          ],
+          "type": "reading",
+          "walkable": true
+        },
+        {
+          "id": "F1_Back",
+          "name": "档案后室",
+          "center": [
+            3.2,
+            4.2,
+            0
+          ],
+          "size": [
+            5.6,
+            5.2,
+            4.2
+          ],
+          "type": "storage",
+          "walkable": true
+        },
+        {
+          "id": "F1_Service",
+          "name": "服务整理廊",
+          "center": [
+            7.1,
+            4.2,
+            0
+          ],
+          "size": [
+            1.6,
+            5.2,
+            4.2
+          ],
+          "type": "service",
+          "walkable": true
+        }
+      ]
+    }
+  ],
+  "openings": [
+    {
+      "id": "D01",
+      "kind": "door",
+      "level": "F1",
+      "wall": "south",
+      "center": [
+        -1.8,
+        -10,
+        1.4
+      ],
+      "width": 2.2,
+      "height": 2.8,
+      "sill": 0,
+      "note": "正门"
+    },
+    {
+      "id": "D02",
+      "kind": "door",
+      "level": "F1",
+      "wall": "east",
+      "center": [
+        9,
+        4.2,
+        1.25
+      ],
+      "width": 1.4,
+      "height": 2.5,
+      "sill": 0,
+      "note": "第二出口"
+    },
+    {
+      "id": "D03",
+      "kind": "door",
+      "level": "F1",
+      "wall": "internal",
+      "center": [
+        -2.5,
+        0.4,
+        1.25
+      ],
+      "width": 1.4,
+      "height": 2.5,
+      "sill": 0,
+      "note": "室内连通门"
+    },
+    {
+      "id": "W01",
+      "kind": "window",
+      "level": "F1",
+      "wall": "south",
+      "center": [
+        3,
+        -10,
+        1.6
+      ],
+      "width": 2.4,
+      "height": 1.6,
+      "sill": 0.8
+    },
+    {
+      "id": "W02",
+      "kind": "window",
+      "level": "F1",
+      "wall": "west",
+      "center": [
+        -9,
+        -3,
+        1.6
+      ],
+      "width": 1.5,
+      "height": 1.6,
+      "sill": 0.8
+    },
+    {
+      "id": "W03",
+      "kind": "window",
+      "level": "F1",
+      "wall": "north",
+      "center": [
+        -3,
+        10,
+        2.8
+      ],
+      "width": 1.8,
+      "height": 0.8,
+      "sill": 2.4
+    }
+  ],
+  "stairs": [],
+  "anchors": [
+    {
+      "id": "ANCHOR_MAIN",
+      "position": [
+        0,
+        -3.2,
+        0
+      ],
+      "radius": 1.5,
+      "kind": "reading_interaction",
+      "solidCollision": false
+    },
+    {
+      "id": "ANCHOR_SIDE",
+      "position": [
+        -5.2,
+        3.6,
+        0
+      ],
+      "radius": 1,
+      "kind": "exploration",
+      "solidCollision": false
+    },
+    {
+      "id": "ANCHOR_BACK",
+      "position": [
+        3.2,
+        4.2,
+        0
+      ],
+      "radius": 1,
+      "kind": "exploration",
+      "solidCollision": false
+    }
+  ],
+  "fixedObjects": [
+    {
+      "id": "P01",
+      "asset": "PROP_ArchiveTable",
+      "position": [
+        0,
+        -3.2,
+        0
+      ],
+      "size": [
+        2.4,
+        1,
+        0.8
+      ],
+      "solidCollision": true
+    },
+    {
+      "id": "P02",
+      "asset": "PROP_ReadingDesk",
+      "position": [
+        -5.2,
+        3.6,
+        0
+      ],
+      "size": [
+        2,
+        0.8,
+        0.8
+      ],
+      "solidCollision": true
+    },
+    {
+      "id": "P03",
+      "asset": "DE-21",
+      "position": [
+        3.2,
+        4.8,
+        0
+      ],
+      "size": [
+        0.8,
+        3,
+        2.2
+      ],
+      "solidCollision": true
+    },
+    {
+      "id": "E01",
+      "asset": "DE-19",
+      "position": [
+        -4.5,
+        -10.02,
+        2.8
+      ],
+      "size": [
+        0.7,
+        0.08,
+        0.5
+      ],
+      "solidCollision": false
+    }
+  ],
+  "clearanceRules": {
+    "mainPathMinWidth": 1.8,
+    "secondaryPathMinWidth": 1.2,
+    "mainEntranceExteriorClearDepth": 1.8,
+    "secondaryExitExteriorClearDepth": 1.2,
+    "doorSwingMustNotOverlapPath": true,
+    "interactionAnchorNoSolidCollision": true,
+    "referenceCharacterMustPass": true
+  },
+  "validation": {
+    "requiredEntrances": ["D01", "D02"],
+    "mainPathMinWidth": 1.8,
+    "secondaryPathMinWidth": 1.2,
+    "explorationAndReturn": "D01 reaches main hall, side reading and archive back room; both branches return to D01 or D02.",
+    "noFalseFloor": true,
+    "noDecorativeStairAllowed": true,
+    "unityRootScale": [1, 1, 1],
+    "unityRootRotation": [0, 0, 0]
+  }
+}

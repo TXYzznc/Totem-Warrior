@@ -1,0 +1,90 @@
+{
+  "schema": "oasiscity.building-layout.v1",
+  "assetId": "BF-04",
+  "assetName": "OldPartsShop",
+  "displayName": "旧物零件商店",
+  "units": "meter",
+  "coordinateSystem": {
+    "up": "+Z",
+    "front": "-Y",
+    "origin": "floor01_finished_floor_center",
+    "grid": 0.1,
+    "unityMapping": {
+      "position": "Unity(X,Y,Z)=Layout(X,Z,Y)",
+      "size": "Unity(X,Y,Z)=Layout(X,Z,Y)",
+      "note": "Layout uses Z-up; Unity uses Y-up."
+    }
+  },
+  "referenceCharacter": { "height": 1.8, "diameter": 0.7 },
+  "bounds": { "widthX": 14, "depthY": 14, "bodyHeight": 4.8, "maxHeight": 5.9, "origin": [0, 0, 0] },
+  "mass": {
+    "type": "L_shape_courtyard_shop",
+    "southWing": { "center": [0, -4.0, 0], "size": [13.4, 5.4, 4.8] },
+    "eastWing": { "center": [4.6, 2.7, 0], "size": [4.2, 8.0, 4.8] },
+    "courtyard": { "center": [-1.55, 2.05, 0], "size": [8.1, 6.7, 0.1], "openToSky": true }
+  },
+  "levels": [
+    {
+      "id": "F1",
+      "elevation": 0,
+      "storyHeight": 4.8,
+      "clearHeight": 4.2,
+      "zones": [
+        { "id": "F1_FrontRetail", "name": "南翼前店检索与交易", "center": [0, -4.0, 0], "size": [13.4, 5.4, 4.2], "type": "retail", "walkable": true },
+        { "id": "F1_Turnover", "name": "东翼周转、分类与服务出口前区", "center": [4.6, 2.7, 0], "size": [4.2, 8.0, 4.2], "type": "turnover", "walkable": true },
+        { "id": "F1_DryInspectionCourt", "name": "露天拆检、近看与环路节点", "center": [-1.55, 2.05, 0], "size": [8.1, 6.7, 0.1], "type": "open_courtyard", "walkable": true, "openToSky": true }
+      ]
+    }
+  ],
+  "openings": [
+    { "id": "D01", "kind": "door", "level": "F1", "wall": "south", "center": [-1.8, -7, 1.4], "width": 2.2, "height": 2.8, "sill": 0, "note": "唯一街道主门" },
+    { "id": "D02", "kind": "door", "level": "F1", "wall": "east", "center": [7, 3.2, 1.25], "width": 1.4, "height": 2.5, "sill": 0, "note": "服务出口，接货运巷" },
+    { "id": "D03", "kind": "doorway", "level": "F1", "wall": "internal_south_court", "center": [-2.4, -1.3, 1.4], "width": 1.8, "height": 2.8, "sill": 0, "note": "前店至小院，不设门槛" },
+    { "id": "D04", "kind": "doorway", "level": "F1", "wall": "internal_front_turnover", "center": [4.6, -1.3, 1.25], "width": 1.4, "height": 2.5, "sill": 0, "note": "前店至东翼短支路" },
+    { "id": "D05", "kind": "doorway", "level": "F1", "wall": "internal_east_court", "center": [2.5, 2.4, 1.4], "width": 1.8, "height": 2.8, "sill": 0, "note": "小院至东翼，不设门槛" },
+    { "id": "W01", "kind": "window", "level": "F1", "wall": "south", "center": [3, -7, 1.6], "width": 2.4, "height": 1.6, "sill": 0.8 },
+    { "id": "W02", "kind": "window", "level": "F1", "wall": "west", "center": [-7, -4.0, 1.6], "width": 1.5, "height": 1.6, "sill": 0.8 },
+    { "id": "W03", "kind": "window", "level": "F1", "wall": "east", "center": [7, 5.1, 2.8], "width": 1.8, "height": 0.8, "sill": 2.4 },
+    { "id": "W04", "kind": "window", "level": "F1", "wall": "north", "center": [4.6, 7, 2.8], "width": 1.8, "height": 0.8, "sill": 2.4 }
+  ],
+  "stairs": [],
+  "anchors": [
+    { "id": "ANCHOR_MERCHANT", "position": [2.4, -3.6, 0], "radius": 0.5, "kind": "npc_random_merchant", "solidCollision": false },
+    { "id": "ANCHOR_TRADE", "position": [2.4, -4.8, 0], "radius": 1.5, "kind": "interaction_clearance", "solidCollision": false },
+    { "id": "ANCHOR_INSPECTION", "position": [-1.4, 2.4, 0], "radius": 1.0, "kind": "exploration", "solidCollision": false },
+    { "id": "ANCHOR_TURNOVER", "position": [4.6, 3.8, 0], "radius": 0.8, "kind": "exploration", "solidCollision": false }
+  ],
+  "fixedObjects": [
+    { "id": "P01", "asset": "PROP_PartsCounter", "position": [2.4, -3.6, 0], "size": [4.2, 0.8, 1.1], "solidCollision": true },
+    { "id": "P02", "asset": "PROP_InspectionBench", "position": [-1.4, 2.4, 0], "size": [2.4, 1.0, 1.0], "solidCollision": true },
+    { "id": "P03", "asset": "DE-22", "position": [5.5, 3.8, 0], "size": [0.9, 3.0, 2.2], "solidCollision": true },
+    { "id": "E01", "asset": "DE-10", "position": [-1.8, -7.9, 3.5], "size": [4.0, 1.6, 0.15], "solidCollision": true },
+    { "id": "E02", "asset": "DE-19", "position": [-5.7, 2.4, 2.3], "size": [0.7, 0.08, 0.5], "solidCollision": false }
+  ],
+  "restrictedAreas": [
+    { "id": "R01", "asset": "COURT_DRAIN_NORTH", "position": [-1.55, 5.25, 0], "size": [8.1, 0.3, 0.05], "walkable": false, "solidCollision": true },
+    { "id": "R02", "asset": "COURT_DRAIN_WEST", "position": [-5.45, 2.05, 0], "size": [0.3, 6.7, 0.05], "walkable": false, "solidCollision": true }
+  ],
+  "clearanceRules": {
+    "mainPathMinWidth": 1.8,
+    "secondaryPathMinWidth": 1.2,
+    "mainEntranceExteriorClearDepth": 1.8,
+    "secondaryExitExteriorClearDepth": 1.2,
+    "doorSwingMustNotOverlapPath": true,
+    "interactionAnchorNoSolidCollision": true,
+    "referenceCharacterMustPass": true
+  },
+  "validation": {
+    "requiredEntrances": ["D01", "D02"],
+    "primaryStreetEntrance": "D01",
+    "serviceExit": "D02",
+    "mainPathMinWidth": 1.8,
+    "secondaryPathMinWidth": 1.2,
+    "explorationAndReturn": "D01 enters the south-wing retail area; D03, courtyard and D05 make a real loop with D04 through the east-wing turnover area; return via D01 or service exit D02.",
+    "courtyardMustBeOpenToSky": true,
+    "noFalseFloor": true,
+    "noDecorativeStairAllowed": true,
+    "unityRootScale": [1, 1, 1],
+    "unityRootRotation": [0, 0, 0]
+  }
+}

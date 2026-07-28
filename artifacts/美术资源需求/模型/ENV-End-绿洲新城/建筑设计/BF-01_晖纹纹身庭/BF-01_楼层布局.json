@@ -1,0 +1,273 @@
+{
+  "schema": "oasiscity.building-layout.v1",
+  "assetId": "BF-01",
+  "assetName": "SunInkTattooCourt",
+  "displayName": "晖纹纹身庭",
+  "units": "meter",
+  "coordinateSystem": {
+    "up": "+Z",
+    "front": "-Y",
+    "origin": "floor01_ground_center",
+    "grid": 0.5,
+    "unityMapping": {
+      "position": "Unity(X,Y,Z)=Layout(X,Z,Y)",
+      "size": "Unity(X,Y,Z)=Layout(X,Z,Y)",
+      "note": "Layout uses Z-up; Unity uses Y-up. Do not import coordinates without this axis conversion."
+    }
+  },
+  "referenceCharacter": {
+    "height": 1.8,
+    "diameter": 0.7
+  },
+  "bounds": {
+    "widthX": 28.0,
+    "depthY": 32.0,
+    "bodyHeight": 10.1,
+    "maxHeight": 14.0
+  },
+  "projectionRules": {
+    "sideElevation": {
+      "f1DepthRangeY": [-16.0, 16.0],
+      "f2DepthRangeY": [-10.0, 16.0],
+      "rearAlignmentY": 16.0,
+      "frontSetbackMeters": 6.0,
+      "rule": "F1 extends beyond F2 only at the south/front end. F1 and F2 are flush at the north/rear end."
+    },
+    "frontElevation": {
+      "southHallLevels": 1,
+      "southHallRoofElevationZ": 4.8,
+      "tripleArchSemantics": ["W_F1_S_01_window_or_shallow_niche", "D01_main_door", "W_F1_S_02_window_or_shallow_niche"],
+      "entrancePortal": {
+        "id": "EntrancePortal_D01",
+        "center": [0.0, -16.0, 0.0],
+        "outerWidth": 8.0,
+        "outerHeight": 8.2,
+        "outwardDepth": 1.2,
+        "clearPointedArchWidth": 4.8,
+        "clearPointedArchHeight": 6.8,
+        "upperVolumeType": "double_height_entrance_void_and_facade",
+        "createsF2Floor": false,
+        "maxHeightBelowF2Roof": true
+      },
+      "rule": "Only D01 is passable. The two outer arches are windows or shallow niches. The elevated D01 portal is a double-height facade and void: it rises above the F1 roof but remains below Z=9.0m, and must not create a south-central F2 room or roof route."
+    },
+    "orthographicViews": {
+      "sharedScaleRequired": true,
+      "sharedBaselineRequired": true,
+      "leftViewVisibleTower": "WindTowerWest",
+      "rightViewVisibleTower": "WindTowerEast"
+    }
+  },
+  "levels": [
+    {
+      "id": "F1",
+      "elevation": 0.0,
+      "storyHeight": 4.8,
+      "clearHeight": 4.2,
+      "grossEnclosedArea": 664.0,
+      "netInteriorArea": 578.0,
+      "outdoorAccessibleArea": 168.0,
+      "structuralRects": [
+        { "id": "F1_WestWing", "center": [-10.0, 2.0, 0.0], "size": [8.0, 28.0, 4.8] },
+        { "id": "F1_EastWing", "center": [10.0, 2.0, 0.0], "size": [8.0, 28.0, 4.8] },
+        { "id": "F1_NorthWing", "center": [0.0, 12.0, 0.0], "size": [12.0, 8.0, 4.8] },
+        { "id": "F1_SouthHall", "center": [0.0, -11.0, 0.0], "size": [12.0, 10.0, 4.8] }
+      ],
+      "zones": [
+        { "id": "F1_EntranceVestibule", "center": [0.0, -12.5, 0.0], "size": [10.0, 5.0, 4.2], "type": "interior" },
+        { "id": "F1_PatternGallery", "center": [0.0, -8.0, 0.0], "size": [10.0, 4.0, 4.2], "type": "interior" },
+        { "id": "F1_WaterCourt", "center": [0.0, 1.0, 0.0], "size": [12.0, 14.0, 0.0], "type": "outdoor_courtyard" },
+        { "id": "F1_WestArcade", "center": [-7.5, 1.0, 0.0], "size": [3.0, 22.0, 4.2], "type": "circulation" },
+        { "id": "F1_DisplayHall", "center": [-11.5, -4.0, 0.0], "size": [5.0, 12.0, 4.2], "type": "interior" },
+        { "id": "F1_StairWest", "center": [-11.5, 5.0, 0.0], "size": [5.0, 6.0, 4.2], "type": "stair" },
+        { "id": "F1_ArchivePrep", "center": [-11.5, 12.0, 0.0], "size": [5.0, 8.0, 4.2], "type": "interior" },
+        { "id": "F1_EastArcade", "center": [7.5, 1.0, 0.0], "size": [3.0, 22.0, 4.2], "type": "circulation" },
+        { "id": "F1_PigmentGallery", "center": [11.5, -4.0, 0.0], "size": [5.0, 12.0, 4.2], "type": "interior" },
+        { "id": "F1_StairEast", "center": [11.5, 5.0, 0.0], "size": [5.0, 6.0, 4.2], "type": "stair" },
+        { "id": "F1_ServiceRoom", "center": [11.5, 12.0, 0.0], "size": [5.0, 8.0, 4.2], "type": "interior" },
+        { "id": "F1_TattooHall", "center": [0.0, 12.0, 0.0], "size": [12.0, 8.0, 4.2], "type": "interaction_hall" }
+      ]
+    },
+    {
+      "id": "F2",
+      "elevation": 4.8,
+      "storyHeight": 4.2,
+      "clearHeight": 3.6,
+      "grossEnclosedArea": 512.0,
+      "netInteriorArea": 488.0,
+      "outdoorAccessibleArea": 0.0,
+      "structuralRects": [
+        { "id": "F2_WestWing", "center": [-10.0, 3.0, 4.8], "size": [8.0, 26.0, 4.2] },
+        { "id": "F2_EastWing", "center": [10.0, 3.0, 4.8], "size": [8.0, 26.0, 4.2] },
+        { "id": "F2_NorthWing", "center": [0.0, 12.0, 4.8], "size": [12.0, 8.0, 4.2] }
+      ],
+      "zones": [
+        { "id": "F2_WestUpperArcade", "center": [-7.5, 1.0, 4.8], "size": [3.0, 22.0, 3.6], "type": "circulation" },
+        { "id": "F2_WestArchive", "center": [-11.5, -4.0, 4.8], "size": [5.0, 12.0, 3.6], "type": "interior" },
+        { "id": "F2_StairWest", "center": [-11.5, 5.0, 4.8], "size": [5.0, 6.0, 3.6], "type": "stair" },
+        { "id": "F2_WestReading", "center": [-11.5, 12.0, 4.8], "size": [5.0, 8.0, 3.6], "type": "interior" },
+        { "id": "F2_EastUpperArcade", "center": [7.5, 1.0, 4.8], "size": [3.0, 22.0, 3.6], "type": "circulation" },
+        { "id": "F2_EastPatternArchive", "center": [11.5, -4.0, 4.8], "size": [5.0, 12.0, 3.6], "type": "interior" },
+        { "id": "F2_StairEast", "center": [11.5, 5.0, 4.8], "size": [5.0, 6.0, 3.6], "type": "stair" },
+        { "id": "F2_EastMaterialLab", "center": [11.5, 12.0, 4.8], "size": [5.0, 8.0, 3.6], "type": "interior" },
+        { "id": "F2_NorthArchiveHall", "center": [0.0, 12.0, 4.8], "size": [12.0, 8.0, 3.6], "type": "interior" }
+      ]
+    },
+    {
+      "id": "RF",
+      "elevation": 9.0,
+      "storyHeight": 0.0,
+      "clearHeight": 0.0,
+      "grossEnclosedArea": 0.0,
+      "netInteriorArea": 0.0,
+      "outdoorAccessibleArea": 420.0,
+      "zones": [
+        { "id": "RF_WestRoute", "center": [-10.0, 3.0, 9.0], "size": [8.0, 26.0, 0.0], "type": "roof_route" },
+        { "id": "RF_EastRoute", "center": [10.0, 3.0, 9.0], "size": [8.0, 26.0, 0.0], "type": "roof_route" },
+        { "id": "RF_NorthRoute", "center": [0.0, 12.0, 9.0], "size": [12.0, 8.0, 0.0], "type": "roof_route" }
+      ]
+    }
+  ],
+  "stairs": [
+    {
+      "id": "ST_F1_F2_W",
+      "center": [-11.5, 5.0, 0.0],
+      "fromElevation": 0.0,
+      "toElevation": 4.8,
+      "type": "U",
+      "flights": 2,
+      "totalRisers": 28,
+      "risersPerFlight": 14,
+      "riserHeight": 0.171428,
+      "treadDepth": 0.3,
+      "clearWidth": 1.8,
+      "landingSize": [1.8, 4.0],
+      "headroom": 2.4
+    },
+    {
+      "id": "ST_F1_F2_E",
+      "center": [11.5, 5.0, 0.0],
+      "fromElevation": 0.0,
+      "toElevation": 4.8,
+      "type": "U",
+      "flights": 2,
+      "totalRisers": 28,
+      "risersPerFlight": 14,
+      "riserHeight": 0.171428,
+      "treadDepth": 0.3,
+      "clearWidth": 1.8,
+      "landingSize": [1.8, 4.0],
+      "headroom": 2.4
+    },
+    {
+      "id": "ST_F2_RF_W",
+      "center": [-11.5, 5.0, 4.8],
+      "fromElevation": 4.8,
+      "toElevation": 9.0,
+      "type": "U",
+      "flights": 2,
+      "totalRisers": 24,
+      "risersPerFlight": 12,
+      "riserHeight": 0.175,
+      "treadDepth": 0.3,
+      "clearWidth": 1.8,
+      "landingSize": [1.8, 4.0],
+      "headroom": 2.4
+    },
+    {
+      "id": "ST_F2_RF_E",
+      "center": [11.5, 5.0, 4.8],
+      "fromElevation": 4.8,
+      "toElevation": 9.0,
+      "type": "U",
+      "flights": 2,
+      "totalRisers": 24,
+      "risersPerFlight": 12,
+      "riserHeight": 0.175,
+      "treadDepth": 0.3,
+      "clearWidth": 1.8,
+      "landingSize": [1.8, 4.0],
+      "headroom": 2.4
+    }
+  ],
+  "openings": [
+    { "id": "D01", "kind": "door", "level": "F1", "wall": "south", "center": [0.0, -16.0, 0.0], "width": 4.8, "height": 6.8, "sill": 0.0 },
+    { "id": "D02", "kind": "door", "level": "F1", "wall": "west", "center": [-14.0, -3.0, 0.0], "width": 2.2, "height": 2.8, "sill": 0.0 },
+    { "id": "D03", "kind": "door", "level": "F1", "wall": "east", "center": [14.0, 3.0, 0.0], "width": 2.2, "height": 2.8, "sill": 0.0 },
+    { "id": "D04", "kind": "door", "level": "F1", "wall": "north", "center": [0.0, 16.0, 0.0], "width": 2.2, "height": 2.8, "sill": 0.0 },
+    { "id": "D05", "kind": "door", "level": "F1", "wall": "courtyard_south", "center": [0.0, -6.0, 0.0], "width": 3.0, "height": 3.6, "sill": 0.0 },
+    { "id": "D06", "kind": "door", "level": "F1", "wall": "courtyard_west", "center": [-6.0, 1.0, 0.0], "width": 2.2, "height": 2.8, "sill": 0.0 },
+    { "id": "D07", "kind": "door", "level": "F1", "wall": "courtyard_east", "center": [6.0, 1.0, 0.0], "width": 2.2, "height": 2.8, "sill": 0.0 },
+    { "id": "D08", "kind": "door", "level": "F1", "wall": "courtyard_north", "center": [0.0, 8.0, 0.0], "width": 3.0, "height": 3.6, "sill": 0.0 },
+    { "id": "D09", "kind": "door", "level": "F1", "wall": "west_internal", "center": [-9.0, 8.0, 0.0], "width": 1.4, "height": 2.5, "sill": 0.0 },
+    { "id": "D10", "kind": "door", "level": "F1", "wall": "east_internal", "center": [9.0, 8.0, 0.0], "width": 1.4, "height": 2.5, "sill": 0.0 },
+    { "id": "D11", "kind": "door", "level": "F2", "wall": "west_internal", "center": [-9.0, 8.0, 4.8], "width": 2.2, "height": 2.8, "sill": 0.0 },
+    { "id": "D12", "kind": "door", "level": "F2", "wall": "east_internal", "center": [9.0, 8.0, 4.8], "width": 2.2, "height": 2.8, "sill": 0.0 },
+    { "id": "W_F1_W_01", "kind": "window", "level": "F1", "wall": "west", "center": [-14.0, -8.0, 1.6], "width": 2.4, "height": 1.6, "sill": 0.8 },
+    { "id": "W_F1_W_02", "kind": "window", "level": "F1", "wall": "west", "center": [-14.0, 0.0, 1.6], "width": 2.4, "height": 1.6, "sill": 0.8 },
+    { "id": "W_F1_W_03", "kind": "window", "level": "F1", "wall": "west", "center": [-14.0, 11.0, 1.6], "width": 2.4, "height": 1.6, "sill": 0.8 },
+    { "id": "W_F1_E_01", "kind": "window", "level": "F1", "wall": "east", "center": [14.0, -8.0, 1.6], "width": 2.4, "height": 1.6, "sill": 0.8 },
+    { "id": "W_F1_E_02", "kind": "window", "level": "F1", "wall": "east", "center": [14.0, 0.0, 1.6], "width": 2.4, "height": 1.6, "sill": 0.8 },
+    { "id": "W_F1_E_03", "kind": "window", "level": "F1", "wall": "east", "center": [14.0, 11.0, 1.6], "width": 2.4, "height": 1.6, "sill": 0.8 },
+    { "id": "W_F1_N_01", "kind": "window", "level": "F1", "wall": "north", "center": [-4.0, 16.0, 2.8], "width": 1.8, "height": 0.8, "sill": 2.4 },
+    { "id": "W_F1_N_02", "kind": "window", "level": "F1", "wall": "north", "center": [4.0, 16.0, 2.8], "width": 1.8, "height": 0.8, "sill": 2.4 },
+    { "id": "W_F1_S_01", "kind": "window", "level": "F1", "wall": "south", "center": [-4.0, -16.0, 1.6], "width": 1.5, "height": 1.6, "sill": 0.8 },
+    { "id": "W_F1_S_02", "kind": "window", "level": "F1", "wall": "south", "center": [4.0, -16.0, 1.6], "width": 1.5, "height": 1.6, "sill": 0.8 },
+    { "id": "W_F2_W_01", "kind": "window", "level": "F2", "wall": "west", "center": [-14.0, -7.0, 6.4], "width": 1.5, "height": 1.6, "sill": 0.8 },
+    { "id": "W_F2_W_02", "kind": "window", "level": "F2", "wall": "west", "center": [-14.0, 1.0, 6.4], "width": 1.5, "height": 1.6, "sill": 0.8 },
+    { "id": "W_F2_W_03", "kind": "window", "level": "F2", "wall": "west", "center": [-14.0, 11.0, 6.4], "width": 1.5, "height": 1.6, "sill": 0.8 },
+    { "id": "W_F2_E_01", "kind": "window", "level": "F2", "wall": "east", "center": [14.0, -7.0, 6.4], "width": 1.5, "height": 1.6, "sill": 0.8 },
+    { "id": "W_F2_E_02", "kind": "window", "level": "F2", "wall": "east", "center": [14.0, 1.0, 6.4], "width": 1.5, "height": 1.6, "sill": 0.8 },
+    { "id": "W_F2_E_03", "kind": "window", "level": "F2", "wall": "east", "center": [14.0, 11.0, 6.4], "width": 1.5, "height": 1.6, "sill": 0.8 },
+    { "id": "W_F2_N_01", "kind": "window", "level": "F2", "wall": "north", "center": [-4.0, 16.0, 7.4], "width": 1.8, "height": 0.8, "sill": 2.2 },
+    { "id": "W_F2_N_02", "kind": "window", "level": "F2", "wall": "north", "center": [0.0, 16.0, 7.4], "width": 1.8, "height": 0.8, "sill": 2.2 },
+    { "id": "W_F2_N_03", "kind": "window", "level": "F2", "wall": "north", "center": [4.0, 16.0, 7.4], "width": 1.8, "height": 0.8, "sill": 2.2 }
+  ],
+  "anchors": [
+    { "id": "ANCHOR_TATTOOIST", "position": [0.0, 12.2, 0.0], "radius": 0.5, "kind": "npc_tattooist" },
+    { "id": "ANCHOR_TATTOO_APPROACH", "position": [0.0, 9.8, 0.0], "radius": 2.5, "kind": "interaction_clearance" },
+    { "id": "SOCKET_RESOURCE_RARE_01", "position": [-11.5, 12.0, 0.0], "size": [1.5, 1.5], "kind": "resource_candidate" },
+    { "id": "SOCKET_ENEMY_01", "position": [-10.0, -4.0, 0.0], "radius": 1.5, "kind": "enemy_candidate" },
+    { "id": "SOCKET_ENEMY_02", "position": [10.0, -4.0, 0.0], "radius": 1.5, "kind": "enemy_candidate" }
+  ],
+  "fixedObjects": [
+    { "id": "P01", "asset": "PROP_TattooWorkbench", "position": [0.0, 13.5, 0.0], "rotationZ": 0.0, "size": [3.0, 1.2, 1.1] },
+    { "id": "P02", "asset": "PROP_ShallowWaterBasin", "position": [0.0, 1.0, 0.0], "rotationZ": 0.0, "size": [4.0, 8.0, 0.3] },
+    { "id": "P03", "asset": "PROP_DisplayPlinth", "position": [-11.5, -5.0, 0.0], "rotationZ": 0.0, "size": [2.0, 0.8, 1.0] },
+    { "id": "P04", "asset": "PROP_DisplayPlinth", "position": [11.5, -5.0, 0.0], "rotationZ": 0.0, "size": [2.0, 0.8, 1.0] },
+    { "id": "P05", "asset": "DE-21", "position": [-3.0, -14.2, 0.0], "rotationZ": 0.0, "variant": "standard" },
+    { "id": "P06", "asset": "DE-21", "position": [3.0, -14.2, 0.0], "rotationZ": 0.0, "variant": "standard" },
+    { "id": "P07", "asset": "DE-06", "position": [-4.5, -13.3, 0.0], "rotationZ": 15.0, "variant": "crescent" },
+    { "id": "P08", "asset": "DE-06", "position": [4.5, -13.3, 0.0], "rotationZ": -15.0, "variant": "crescent" },
+    { "id": "P09", "asset": "DE-18", "position": [-4.5, -16.01, 1.8], "rotationZ": 0.0, "variant": "standard" },
+    { "id": "P10", "asset": "DE-18", "position": [4.5, -16.01, 1.8], "rotationZ": 0.0, "variant": "standard" },
+    { "id": "P11", "asset": "DE-08", "position": [-7.4, 0.0, 3.6], "rotationZ": 90.0, "variant": "standard" },
+    { "id": "P12", "asset": "DE-08", "position": [7.4, 0.0, 3.6], "rotationZ": -90.0, "variant": "standard" },
+    { "id": "P13", "asset": "DE-30", "position": [-5.0, -16.05, 4.2], "rotationZ": 0.0, "variant": "single_flag" },
+    { "id": "P14", "asset": "DE-30", "position": [5.0, -16.05, 4.2], "rotationZ": 0.0, "variant": "single_flag" }
+  ],
+  "landmarkElements": [
+    { "id": "WindTowerWest", "center": [-9.0, 6.0, 9.0], "baseSize": [4.0, 4.0], "height": 5.0, "maxZ": 14.0, "shape": "square_straight", "cowl": "four_corner_shallow_flat", "slits": 1 },
+    { "id": "WindTowerEast", "center": [9.0, 6.0, 9.0], "baseSize": [4.0, 4.0], "height": 5.0, "maxZ": 14.0, "shape": "octagonal_straight", "cowl": "single_sloped_wing", "slits": 2 },
+    { "id": "SigilRing", "center": [0.0, 6.0, 11.5], "outerDiameter": 5.0, "innerDiameter": 4.4, "collision": false }
+  ],
+  "clearanceRules": {
+    "mainPathMinWidth": 3.0,
+    "secondaryPathMinWidth": 1.8,
+    "doorClearanceRadius": 1.2,
+    "stairLandingMinDepth": 1.8,
+    "roofRouteMinWidth": 2.5,
+    "tattooInteractionDiameter": 5.0
+  },
+  "validation": {
+    "requiredEntrances": ["D01", "D02", "D03", "D04"],
+    "requiredVerticalRoutes": ["ST_F1_F2_W", "ST_F1_F2_E", "ST_F2_RF_W", "ST_F2_RF_E"],
+    "maxPigmentSurfaceRatio": 0.05,
+    "maxTravelSecondsAnyEntranceToTattooist": 25.0,
+    "requiresNoNgons": true,
+    "requiresNoNonManifold": true,
+    "requiresAppliedObjectTransforms": true,
+    "requiresLods": ["LOD0", "LOD1", "LOD2"],
+    "unityScaleFactor": 1.0
+  }
+}

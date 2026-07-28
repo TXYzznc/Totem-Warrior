@@ -1,0 +1,19 @@
+{
+  "workflow": "PIL pure-color geometry; no imagegen required because no material, highlight, texture, or non-geometric rendering is present.",
+  "canvas": "512 square except tattoo_compare_arrow 512x256 and tattoo_section_divider_diamond 256x256",
+  "dedicated_assets": 9,
+  "generic_reference_not_generated": [
+    "state_loading",
+    "state_success",
+    "state_failure",
+    "state_lock",
+    "state_disabled",
+    "panel_",
+    "card_",
+    "row_",
+    "focus_",
+    "selection_",
+    "progress_",
+    "prompt_"
+  ]
+}

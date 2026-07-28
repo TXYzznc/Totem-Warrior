@@ -1,0 +1,484 @@
+{
+  "schema": "oasiscity.building-layout.v1",
+  "assetId": "BF-07",
+  "assetName": "CaravanInn",
+  "displayName": "商旅行馆",
+  "units": "meter",
+  "coordinateSystem": {
+    "up": "+Z",
+    "front": "-Y",
+    "origin": "floor01_finished_floor_center",
+    "grid": 0.1,
+    "unityMapping": {
+      "position": "Unity(X,Y,Z)=Layout(X,Z,Y)",
+      "size": "Unity(X,Y,Z)=Layout(X,Z,Y)",
+      "note": "Layout uses Z-up; Unity uses Y-up."
+    }
+  },
+  "referenceCharacter": {
+    "height": 1.8,
+    "diameter": 0.7
+  },
+  "bounds": {
+    "widthX": 18,
+    "depthY": 20,
+    "bodyHeight": 9,
+    "maxHeight": 10.1,
+    "origin": [
+      0,
+      0,
+      0
+    ]
+  },
+  "levels": [
+    {
+      "id": "F1",
+      "elevation": 0,
+      "storyHeight": 4.8,
+      "clearHeight": 4.2,
+      "zones": [
+        {
+          "id": "F1_Hall",
+          "name": "一层公共厅",
+          "center": [
+            0,
+            -3,
+            0
+          ],
+          "size": [
+            15.4,
+            11,
+            4.2
+          ],
+          "type": "public",
+          "walkable": true
+        },
+        {
+          "id": "F1_Reception",
+          "name": "接待信息边",
+          "center": [
+            5.5,
+            -3,
+            0
+          ],
+          "size": [
+            3.4,
+            4,
+            4.2
+          ],
+          "type": "service",
+          "walkable": true
+        },
+        {
+          "id": "F1_Service",
+          "name": "后勤服务通道",
+          "center": [
+            6.1,
+            5,
+            0
+          ],
+          "size": [
+            3.2,
+            6,
+            4.2
+          ],
+          "type": "service",
+          "walkable": true
+        },
+        {
+          "id": "F1_Stair",
+          "name": "公共楼梯间",
+          "center": [
+            -6.3,
+            3,
+            0
+          ],
+          "size": [
+            3.6,
+            10.2,
+            4.2
+          ],
+          "type": "vertical",
+          "walkable": true
+        }
+      ]
+    },
+    {
+      "id": "F2",
+      "elevation": 4.8,
+      "storyHeight": 4.2,
+      "clearHeight": 3.6,
+      "zones": [
+        {
+          "id": "F2_Corridor",
+          "name": "二层客房走廊",
+          "center": [
+            0,
+            0,
+            4.8
+          ],
+          "size": [
+            15.4,
+            2.4,
+            3.6
+          ],
+          "type": "circulation",
+          "walkable": true
+        },
+        {
+          "id": "F2_RoomA",
+          "name": "可探索客房A",
+          "center": [
+            -3.8,
+            -3.2,
+            4.8
+          ],
+          "size": [
+            6,
+            4.8,
+            3.6
+          ],
+          "type": "guest_room",
+          "walkable": true
+        },
+        {
+          "id": "F2_RoomB",
+          "name": "可探索客房B",
+          "center": [
+            3.8,
+            -3.2,
+            4.8
+          ],
+          "size": [
+            6,
+            4.8,
+            3.6
+          ],
+          "type": "guest_room",
+          "walkable": true
+        },
+        {
+          "id": "F2_Reading",
+          "name": "二层阅读角",
+          "center": [
+            0,
+            3.2,
+            4.8
+          ],
+          "size": [
+            6,
+            3.2,
+            3.6
+          ],
+          "type": "reading",
+          "walkable": true
+        },
+        {
+          "id": "F2_StairLanding",
+          "name": "二层平台",
+          "center": [
+            -6.3,
+            6.6,
+            4.8
+          ],
+          "size": [
+            3.6,
+            2.4,
+            3.6
+          ],
+          "type": "vertical",
+          "walkable": true
+        }
+      ]
+    }
+  ],
+  "openings": [
+    {
+      "id": "D01",
+      "kind": "door",
+      "level": "F1",
+      "wall": "south",
+      "center": [
+        -1.5,
+        -10,
+        1.4
+      ],
+      "width": 2.4,
+      "height": 2.8,
+      "sill": 0,
+      "note": "街侧主入口"
+    },
+    {
+      "id": "D02",
+      "kind": "door",
+      "level": "F1",
+      "wall": "east",
+      "center": [
+        9,
+        5,
+        1.25
+      ],
+      "width": 1.4,
+      "height": 2.5,
+      "sill": 0,
+      "note": "后勤侧门"
+    },
+    {
+      "id": "D03",
+      "kind": "door",
+      "level": "F1",
+      "wall": "internal",
+      "center": [
+        -6.3,
+        -1.8,
+        1.25
+      ],
+      "width": 1.8,
+      "height": 2.5,
+      "sill": 0,
+      "note": "公共厅至楼梯"
+    },
+    {
+      "id": "D04",
+      "kind": "door",
+      "level": "F2",
+      "wall": "internal",
+      "center": [
+        -3.8,
+        -0.9,
+        6.05
+      ],
+      "width": 1.4,
+      "height": 2.5,
+      "sill": 4.8,
+      "note": "客房A门"
+    },
+    {
+      "id": "D05",
+      "kind": "door",
+      "level": "F2",
+      "wall": "internal",
+      "center": [
+        3.8,
+        -0.9,
+        6.05
+      ],
+      "width": 1.4,
+      "height": 2.5,
+      "sill": 4.8,
+      "note": "客房B门"
+    },
+    {
+      "id": "W01",
+      "kind": "window",
+      "level": "F1",
+      "wall": "south",
+      "center": [4, -10, 1.6],
+      "width": 2.4,
+      "height": 1.6,
+      "sill": 0.8,
+      "note": "公共厅窗"
+    },
+    {
+      "id": "W02",
+      "kind": "window",
+      "level": "F2",
+      "wall": "north",
+      "center": [0, 10, 7.6],
+      "width": 1.8,
+      "height": 0.8,
+      "sill": 7.2,
+      "note": "二层高侧窗"
+    }
+  ],
+  "stairs": [
+    {
+      "id": "ST01",
+      "fromLevel": "F1",
+      "toLevel": "F2",
+      "position": [
+        -6.3,
+        3,
+        0
+      ],
+      "width": 1.8,
+      "runCount": 2,
+      "riserCount": 28,
+      "riserHeight": 0.1714285714,
+      "treadDepth": 0.3,
+      "risersPerRun": 14,
+      "runLength": 4.2,
+      "landing": {
+        "size": [
+          1.8,
+          2.4
+        ],
+        "center": [
+          -6.3,
+          3,
+          2.4
+        ]
+      },
+      "headroomMin": 2.4,
+      "railingHeight": 1.1,
+      "walkable": true
+    }
+  ],
+  "anchors": [
+    {
+      "id": "ANCHOR_RECEPTION",
+      "position": [
+        5.5,
+        -2.1,
+        0
+      ],
+      "radius": 0.5,
+      "kind": "service_optional",
+      "solidCollision": false
+    },
+    {
+      "id": "ANCHOR_PLAYER_RECEPTION",
+      "position": [
+        5.5,
+        -4,
+        0
+      ],
+      "radius": 1.5,
+      "kind": "interaction_clearance",
+      "solidCollision": false
+    },
+    {
+      "id": "ANCHOR_ROOM_A",
+      "position": [
+        -3.8,
+        -3.2,
+        4.8
+      ],
+      "radius": 1,
+      "kind": "exploration",
+      "solidCollision": false
+    },
+    {
+      "id": "ANCHOR_ROOM_B",
+      "position": [
+        3.8,
+        -3.2,
+        4.8
+      ],
+      "radius": 1,
+      "kind": "exploration",
+      "solidCollision": false
+    },
+    {
+      "id": "ANCHOR_READING",
+      "position": [
+        0,
+        3.2,
+        4.8
+      ],
+      "radius": 1,
+      "kind": "exploration",
+      "solidCollision": false
+    }
+  ],
+  "fixedObjects": [
+    {
+      "id": "P01",
+      "asset": "PROP_InnReception",
+      "position": [
+        5.5,
+        -3,
+        0
+      ],
+      "size": [
+        3.4,
+        0.8,
+        1.1
+      ],
+      "solidCollision": true
+    },
+    {
+      "id": "P02",
+      "asset": "PROP_BedA",
+      "position": [
+        -3.8,
+        -3.2,
+        4.8
+      ],
+      "size": [
+        2,
+        1.2,
+        0.7
+      ],
+      "solidCollision": true
+    },
+    {
+      "id": "P03",
+      "asset": "PROP_BedB",
+      "position": [
+        3.8,
+        -3.2,
+        4.8
+      ],
+      "size": [
+        2,
+        1.2,
+        0.7
+      ],
+      "solidCollision": true
+    },
+    {
+      "id": "E01",
+      "asset": "DE-10",
+      "position": [
+        -1.5,
+        -10.8,
+        3.5
+      ],
+      "size": [
+        5,
+        1.8,
+        0.15
+      ],
+      "solidCollision": true
+    },
+    {
+      "id": "E02",
+      "asset": "DE-19",
+      "position": [
+        -5.5,
+        -10.02,
+        2.8
+      ],
+      "size": [
+        0.8,
+        0.08,
+        0.5
+      ],
+      "solidCollision": false
+    }
+  ],
+  "clearanceRules": {
+    "mainPathMinWidth": 1.8,
+    "secondaryPathMinWidth": 1.2,
+    "mainEntranceExteriorClearDepth": 2.4,
+    "secondaryExitExteriorClearDepth": 1.2,
+    "doorSwingMustNotOverlapPath": true,
+    "interactionAnchorNoSolidCollision": true,
+    "referenceCharacterMustPass": true
+  },
+  "validation": {
+    "verticalConnectivity": [
+      {
+        "stairId": "ST01",
+        "formula": "28 x 0.1714285714 = 4.8m",
+        "fromElevation": 0,
+        "toElevation": 4.8,
+        "continuousReturn": "All F2 zones return through ST01 to F1, then D01 or D02."
+      }
+    ],
+    "minHeadroom": 2.4,
+    "railingHeight": 1.1,
+    "noDecorativeStairAllowed": true
+  }
+}

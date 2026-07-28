@@ -1,0 +1,329 @@
+{
+  "schema": "oasiscity.building-layout.v1",
+  "assetId": "BF-10",
+  "assetName": "BulletinCollaborationHall",
+  "displayName": "公告协作厅",
+  "units": "meter",
+  "coordinateSystem": {
+    "up": "+Z",
+    "front": "-Y",
+    "origin": "floor01_finished_floor_center",
+    "grid": 0.1,
+    "unityMapping": {
+      "position": "Unity(X,Y,Z)=Layout(X,Z,Y)",
+      "size": "Unity(X,Y,Z)=Layout(X,Z,Y)",
+      "note": "Layout uses Z-up; Unity uses Y-up."
+    }
+  },
+  "referenceCharacter": {
+    "height": 1.8,
+    "diameter": 0.7
+  },
+  "bounds": {
+    "widthX": 20,
+    "depthY": 18,
+    "bodyHeight": 4.8,
+    "maxHeight": 5.9,
+    "origin": [
+      0,
+      0,
+      0
+    ]
+  },
+  "levels": [
+    {
+      "id": "F1",
+      "elevation": 0,
+      "storyHeight": 4.8,
+      "clearHeight": 4.2,
+      "zones": [
+        {
+          "id": "F1_Lobby",
+          "name": "公共门厅",
+          "center": [
+            0,
+            -3.5,
+            0
+          ],
+          "size": [
+            17.4,
+            9,
+            4.2
+          ],
+          "type": "public",
+          "walkable": true
+        },
+        {
+          "id": "F1_Bulletin",
+          "name": "公告任务信息区",
+          "center": [
+            -5.7,
+            -1.8,
+            0
+          ],
+          "size": [
+            3.4,
+            5,
+            4.2
+          ],
+          "type": "information",
+          "walkable": true
+        },
+        {
+          "id": "F1_Collab",
+          "name": "协作侧室",
+          "center": [
+            5.4,
+            -1.3,
+            0
+          ],
+          "size": [
+            4,
+            6,
+            4.2
+          ],
+          "type": "collaboration",
+          "walkable": true
+        },
+        {
+          "id": "F1_Service",
+          "name": "后部信息整理服务边",
+          "center": [
+            0,
+            4.8,
+            0
+          ],
+          "size": [
+            10,
+            3,
+            4.2
+          ],
+          "type": "service",
+          "walkable": true
+        },
+        {
+          "id": "F1_Wait",
+          "name": "等待绕行边",
+          "center": [
+            0,
+            -6,
+            0
+          ],
+          "size": [
+            8,
+            1.8,
+            4.2
+          ],
+          "type": "circulation",
+          "walkable": true
+        }
+      ]
+    }
+  ],
+  "openings": [
+    {
+      "id": "D01",
+      "kind": "door",
+      "level": "F1",
+      "wall": "south",
+      "center": [
+        0,
+        -9,
+        1.4
+      ],
+      "width": 2.6,
+      "height": 2.8,
+      "sill": 0,
+      "note": "正门"
+    },
+    {
+      "id": "D02",
+      "kind": "door",
+      "level": "F1",
+      "wall": "north",
+      "center": [
+        0,
+        9,
+        1.25
+      ],
+      "width": 1.4,
+      "height": 2.5,
+      "sill": 0,
+      "note": "第二出口"
+    },
+    {
+      "id": "D03",
+      "kind": "door",
+      "level": "F1",
+      "wall": "internal",
+      "center": [
+        0,
+        3.3,
+        1.25
+      ],
+      "width": 1.4,
+      "height": 2.5,
+      "sill": 0,
+      "note": "室内连通门"
+    },
+    {
+      "id": "W01",
+      "kind": "window",
+      "level": "F1",
+      "wall": "south",
+      "center": [
+        3,
+        -9,
+        1.6
+      ],
+      "width": 2.4,
+      "height": 1.6,
+      "sill": 0.8
+    },
+    {
+      "id": "W02",
+      "kind": "window",
+      "level": "F1",
+      "wall": "west",
+      "center": [
+        -10,
+        -3,
+        1.6
+      ],
+      "width": 1.5,
+      "height": 1.6,
+      "sill": 0.8
+    },
+    {
+      "id": "W03",
+      "kind": "window",
+      "level": "F1",
+      "wall": "north",
+      "center": [
+        -3,
+        9,
+        2.8
+      ],
+      "width": 1.8,
+      "height": 0.8,
+      "sill": 2.4
+    }
+  ],
+  "stairs": [],
+  "anchors": [
+    {
+      "id": "ANCHOR_BULLETIN",
+      "position": [
+        -5.7,
+        -1.8,
+        0
+      ],
+      "radius": 1.5,
+      "kind": "bulletin_interaction",
+      "solidCollision": false
+    },
+    {
+      "id": "ANCHOR_COLLAB",
+      "position": [
+        5.4,
+        -1.3,
+        0
+      ],
+      "radius": 1.5,
+      "kind": "collaboration_interaction",
+      "solidCollision": false
+    },
+    {
+      "id": "ANCHOR_WAIT",
+      "position": [
+        0,
+        -6,
+        0
+      ],
+      "radius": 1,
+      "kind": "waiting_clearance",
+      "solidCollision": false
+    }
+  ],
+  "fixedObjects": [
+    {
+      "id": "P01",
+      "asset": "PROP_BulletinWall",
+      "position": [
+        -5.7,
+        -1.8,
+        0
+      ],
+      "size": [
+        0.5,
+        3,
+        2.2
+      ],
+      "solidCollision": true
+    },
+    {
+      "id": "P02",
+      "asset": "PROP_CollabTable",
+      "position": [
+        5.4,
+        -1.3,
+        0
+      ],
+      "size": [
+        2.4,
+        1,
+        0.8
+      ],
+      "solidCollision": true
+    },
+    {
+      "id": "P03",
+      "asset": "PROP_ServiceDesk",
+      "position": [
+        0,
+        4.8,
+        0
+      ],
+      "size": [
+        2.4,
+        0.8,
+        1.1
+      ],
+      "solidCollision": true
+    },
+    {
+      "id": "E01",
+      "asset": "DE-10",
+      "position": [
+        0,
+        -9.8,
+        3.5
+      ],
+      "size": [
+        5,
+        1.8,
+        0.15
+      ],
+      "solidCollision": true
+    }
+  ],
+  "clearanceRules": {
+    "mainPathMinWidth": 1.8,
+    "secondaryPathMinWidth": 1.2,
+    "mainEntranceExteriorClearDepth": 1.8,
+    "secondaryExitExteriorClearDepth": 1.2,
+    "doorSwingMustNotOverlapPath": true,
+    "interactionAnchorNoSolidCollision": true,
+    "referenceCharacterMustPass": true
+  },
+  "validation": {
+    "requiredEntrances": ["D01", "D02"],
+    "mainPathMinWidth": 1.8,
+    "secondaryPathMinWidth": 1.2,
+    "explorationAndReturn": "D01 reaches public lobby, bulletin and collaboration zones; return via D01 or service exit D02.",
+    "noFalseFloor": true,
+    "noDecorativeStairAllowed": true,
+    "unityRootScale": [1, 1, 1],
+    "unityRootRotation": [0, 0, 0]
+  }
+}
