@@ -12,4 +12,4 @@
 - 修正后外观：`Assets/Screenshots/BF05_P2_V02_Axon_SupportedPorch.png`
 - `validate_scene`：0 errors、0 warnings。
 
-请以 V02 作为 BF-05 P2 的当前结构确认版本；确认后才可启动 P3 五视角参考。
+BF-05 以 V02 作为当前结构确认版本；白模、配置、功能、归档资料和 P3 五视角效果图均已确认通过。

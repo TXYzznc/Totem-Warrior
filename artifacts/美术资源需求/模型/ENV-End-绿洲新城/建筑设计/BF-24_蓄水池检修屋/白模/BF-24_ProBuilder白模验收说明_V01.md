@@ -9,4 +9,4 @@
 - 外观：`Assets/Screenshots/BF24_P2_V01_Axon.png`；地下剖切：`Assets/Screenshots/BF24_P2_V01_BasementCutaway.png`。
 - `validate_scene`：0 errors、0 warnings。
 
-请确认 BF-24 P2；确认后才启动 P3 五视角参考，且不得改动地下层、楼梯、护栏、门窗或流线。
+BF-24 P2、地下层、楼梯、护栏、门窗、流线、归档资料和 P3 五视角效果图均已确认通过；后续不得改动已锁定结构。
