@@ -119,6 +119,9 @@ ehthumbs.db
 .claude/skills/_usage.log
 .claude/skills/_audit.json
 
+# 绿洲新城完整美术资产体积过大，采用项目外压缩包分发
+/artifacts/美术资源需求/模型/ENV-End-绿洲新城/
+
 # 字体资源体积过大，不进版本控制（本地各自维护）
 /Assets/Resources/Font/
 tools/LocalizationStringScanner/LocalizationCodeScanner
