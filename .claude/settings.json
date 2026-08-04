@@ -8,7 +8,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python tools/log_tool_usage.py"
+            "command": "python tools/log_tool_usage.py hook --source claude-code"
           }
         ]
       }

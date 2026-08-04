@@ -403,11 +403,13 @@ GameData/AIData/GameplayCatalogs/totem_runtime_assets.json
 
 ```bash
 python tools/audit_skills.py        # description 长度审计（看是否回涨）
-python tools/audit_skill_usage.py   # 使用频次 + 0 召回清单（看是否该淘汰）
+python tools/audit_skill_usage.py   # 多编辑器使用频次 + 来源覆盖 + 0 召回候选
 ```
 
-- `tools/log_tool_usage.py`：PreToolUse hook 自动调用，记录每次 Skill / Agent / mcp__\* 调用到 `.claude/skills/_usage.log`（已加 .gitignore）
-- 0 次召回的 SKILL → 候选淘汰；高频但有误召回的 → 改 description 加 ❌ 不适用
+- `tools/log_tool_usage.py`：统一记录 CLI。Claude Code / Codex Hook 自动写入 `.ai/usage/events.jsonl`；其他编辑器按 [AI_TOOL_USAGE.md](../tools/AI_TOOL_USAGE.md) 用 CLI/stdin 接入。
+- 旧 `.claude/skills/_usage.log` 保持只读兼容；需要时运行 `python tools/log_tool_usage.py migrate` 幂等迁移。
+- 0 次召回的 SKILL 只有在报告显示 Claude Code / Codex 等目标来源覆盖充分时才是候选淘汰；来源缺失时不得据此删除。
+- 高频但有误召回的 → 改 description 加 ❌ 不适用。
 - 报告里出现极短 / 极长 / 重叠未划界 → 按 SKILL_MATRIX §六.3 checklist 处理 + 覆写 `_audit.json` 作为新基线
 
 ---

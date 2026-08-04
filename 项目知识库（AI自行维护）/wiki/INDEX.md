@@ -20,6 +20,7 @@
 | [UI结构先行规范.md](UI结构先行规范.md) | active | UI 制作 v3 结构先行流程 |
 | [SKILL路由统一.md](SKILL路由统一.md) | active | agent/skill 路由规则历史与当前约束 |
 | [工作流迁移.md](工作流迁移.md) | active | openspec 工作流迁移说明 |
+| [../../tools/AI_TOOL_USAGE.md](../../tools/AI_TOOL_USAGE.md) | active | Claude Code、Codex 与其他 AI 编辑器的统一 SKILL/Agent/MCP 使用统计协议和接入说明 |
 | [Codex批量出图协议.md](Codex批量出图协议.md) | active | 批量出图和资源生成约束 |
 | [unity-skills-CJK编码修复.md](unity-skills-CJK编码修复.md) | active | Windows 中文编码问题修复记录 |
 | [Tattoo系统重构.md](Tattoo系统重构.md) | historical-reference | 旧框架时期 Tattoo 重构记录，只作为历史证据 |

@@ -101,6 +101,7 @@ Codex 若没有可调用的 `grill-me` 工具，也必须按该 skill 的反问�
 - **唯一来源**：`.claude/skills/<skill>/SKILL.md`
 - **Codex 使用**：触发 skill 时先读取该 skill 的 `SKILL.md`；若 skill 在当前 Codex skills 列表中已暴露，按 Codex skill 规则执行；否则从 `.claude/skills/` 读取源说明后执行。
 - **`/graphify`**：Codex 中映射到 `graphify-windows` skill。用户输入 `/graphify` 时，先读取并执行该 skill，再做其他事。
+- **使用频率统计**：Claude Code / Codex Hook 统一写入 `.ai/usage/events.jsonl`；其他 AI 编辑器通过 `python tools/log_tool_usage.py record|hook` 接入，详见 [tools/AI_TOOL_USAGE.md](./tools/AI_TOOL_USAGE.md)。旧 `.claude/skills/_usage.log` 仅作兼容输入。
 
 ---
 

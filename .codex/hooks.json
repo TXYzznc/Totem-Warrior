@@ -6,6 +6,10 @@
           {
             "type": "command",
             "command": "node tools/codex_prompt_hook.js session"
+          },
+          {
+            "type": "command",
+            "command": "python tools/log_tool_usage.py hook --source codex --event session"
           }
         ]
       }
@@ -16,6 +20,17 @@
           {
             "type": "command",
             "command": "node tools/codex_prompt_hook.js prompt"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": ".*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python tools/log_tool_usage.py hook --source codex"
           }
         ]
       }
