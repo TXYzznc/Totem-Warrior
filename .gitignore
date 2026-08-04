@@ -126,6 +126,22 @@ ehthumbs.db
 # 绿洲新城完整美术资产体积过大，采用项目外压缩包分发
 /artifacts/美术资源需求/模型/ENV-End-绿洲新城/
 
+# 绿洲新城 Unity 导入资产同样随项目外压缩包分发
+/Assets/Game/Model/Environment/OasisCity/
+/Assets/Game/Model/Environment.meta
+/Assets/Game/Model/Environment/OasisCity.meta
+/Assets/Game/Texture/Environment/OasisCity/
+/Assets/Game/Texture/Environment.meta
+/Assets/Game/Texture/Environment/OasisCity.meta
+/Assets/Game/Material/Environment/OasisCity/
+/Assets/Game/Material/Environment.meta
+/Assets/Game/Material/Environment/OasisCity.meta
+/Assets/Game/Prefabs/Environment/OasisCity/
+/Assets/Game/Prefabs/Environment.meta
+/Assets/Game/Prefabs/Environment/OasisCity.meta
+/Assets/Game/Editor/OasisCityImport/
+/Assets/Game/Editor/OasisCityImport.meta
+
 # 字体资源体积过大，不进版本控制（本地各自维护）
 /Assets/Resources/Font/
 tools/LocalizationStringScanner/LocalizationCodeScanner
