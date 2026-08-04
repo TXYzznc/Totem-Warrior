@@ -10,10 +10,12 @@
       "args": ["@playwright/mcp@latest"]
     },
     "blender": {
-      "command": "cmd",
-      "args": ["/c", "uvx", "--python", "3.11", "blender-mcp"],
+      "command": ".venv/Scripts/python.exe",
+      "args": [
+        "tools/blender-mcp-main/main.py"
+      ],
       "env": {
-        "UV_PYTHON_PREFERENCE": "only-managed"
+        "PYTHONPATH": "D:\\unity\\UnityProject\\GameDesinger\\tools\\blender-mcp-main\\src"
       }
     },
     "godot": {

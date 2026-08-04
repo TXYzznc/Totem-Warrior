@@ -11,7 +11,7 @@ ADDON = pathlib.Path(__file__).with_name("addon.py")
 
 
 def _source():
-    return ADDON.read_text()
+    return ADDON.read_text(encoding="utf-8")
 
 
 def test_addon_parses():

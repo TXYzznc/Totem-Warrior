@@ -1034,91 +1034,144 @@ def get_hunyuan3d_status(ctx: Context, user_prompt: str = "") -> str:
 @rich_telemetry_tool("generate_hunyuan3d_model")
 def generate_hunyuan3d_model(
     ctx: Context,
+    api_tier: str = "rapid",
     text_prompt: str = None,
-    input_image_url: str = None, user_prompt: str = "") -> str:
+    input_image_path: str = None,
+    multiview_images: List[Dict[str, str]] = None,
+    model: str = "3.0",
+    face_count: int = None,
+    generate_type: str = "Normal",
+    polygon_type: str = "triangle",
+    enable_pbr: bool = True,
+    result_format: str = None,
+    asset_id: str = "",
+    input_image_url: str = None,
+    user_prompt: str = "",
+) -> str:
     """
-    Generate 3D asset using Hunyuan3D by providing either text description, image reference, 
-    or both for the desired asset, and import the asset into Blender.
-    The 3D asset has built-in materials.
+    Submit a Tencent Hunyuan3D Rapid or Pro generation task.
     
     Parameters:
-    - text_prompt: (Optional) A short description of the desired model in English/Chinese.
-    - input_image_url: (Optional) The local or remote url of the input image. Accepts None if only using text prompt.
+    - api_tier: "rapid" or "pro".
+    - text_prompt: Optional Chinese positive prompt.
+    - input_image_path: Optional local path or HTTP(S) URL for the primary image.
+    - multiview_images: Pro-only supplemental views. Each entry uses
+      {"view_type": "left|right|back|...", "image_path": "..."}.
+    - model: Pro model version, "3.0" or "3.1".
+    - face_count: Pro target face count, 3000-1500000.
+    - generate_type: Normal, LowPoly, Geometry, or Sketch.
+    - polygon_type: triangle or quadrilateral; only used by Pro LowPoly.
+    - enable_pbr: Request PBR materials when supported.
+    - result_format: Rapid accepts OBJ/GLB/STL/USDZ/FBX/MP4. Pro accepts
+      STL/USDZ/FBX; omit it to receive the default OBJ and GLB file group.
+    - asset_id: Optional caller-owned asset identifier returned as metadata.
+    - input_image_url: Deprecated alias for input_image_path.
 
     Returns: 
-    - When successful, returns a JSON with job_id (format: "job_xxx") indicating the task is in progress
-    - When the job completes, the status will change to "DONE" indicating the model has been imported
-    - Returns error message if the operation fails
+    - JSON containing job_id, request_id, api_tier, and asset_id when accepted.
+    - JSON containing an error when local validation or submission fails.
     """
     try:
         blender = get_blender_connection()
+        primary_image = input_image_path or input_image_url
         result = blender.send_command("create_hunyuan_job", {
+            "api_tier": api_tier,
             "text_prompt": text_prompt,
-            "image": input_image_url,
+            "image": primary_image,
+            "multiview_images": multiview_images,
+            "model": model,
+            "face_count": face_count,
+            "generate_type": generate_type,
+            "polygon_type": polygon_type,
+            "enable_pbr": enable_pbr,
+            "result_format": result_format,
+            "asset_id": asset_id,
         })
-        if "JobId" in result.get("Response", {}):
-            job_id = result["Response"]["JobId"]
-            formatted_job_id = f"job_{job_id}"
+        response = result.get("Response", {}) if isinstance(result, dict) else {}
+        if "JobId" in response:
             return json.dumps({
-                "job_id": formatted_job_id,
-            })
-        return json.dumps(result)
+                "job_id": f"job_{response['JobId']}",
+                "request_id": response.get("RequestId"),
+                "api_tier": api_tier,
+                "asset_id": asset_id,
+            }, ensure_ascii=False)
+        return json.dumps(result, ensure_ascii=False)
     except Exception as e:
         logger.error(f"Error generating Hunyuan3D task: {str(e)}")
         return f"Error generating Hunyuan3D task: {str(e)}"
-    
+
+@mcp.tool()
+def query_hunyuan3d_job(
+    ctx: Context,
+    api_tier: str,
+    job_id: str,
+):
+    """
+    Query a Rapid or Pro Hunyuan3D job.
+
+    Returns WAIT/RUN/FAIL/DONE. DONE responses include ResultFile3Ds entries
+    with Type, Url, and PreviewImageUrl. Pro responses may also include credit
+    consumption fields.
+    """
+    try:
+        blender = get_blender_connection()
+        result = blender.send_command("query_hunyuan_job", {
+            "api_tier": api_tier,
+            "job_id": job_id,
+        })
+        return result
+    except Exception as e:
+        logger.error(f"Error querying Hunyuan3D task: {str(e)}")
+        return f"Error querying Hunyuan3D task: {str(e)}"
+
 @mcp.tool()
 def poll_hunyuan_job_status(
     ctx: Context,
-    job_id: str=None,
+    job_id: str = None,
+    api_tier: str = "rapid",
 ):
-    """
-    Check if the Hunyuan3D generation task is completed.
-
-    For Hunyuan3D:
-        Parameters:
-        - job_id: The job_id given in the generate model step.
-
-        Returns the generation task status. The task is done if status is "DONE".
-        The task is in progress if status is "RUN".
-        If status is "DONE", returns ResultFile3Ds, which is the generated ZIP model path
-        When the status is "DONE", the response includes a field named ResultFile3Ds that contains the generated ZIP file path of the 3D model in OBJ format.
-        This is a polling API, so only proceed if the status are finally determined ("DONE" or some failed state).
-    """
+    """Backward-compatible alias for query_hunyuan3d_job."""
     try:
         blender = get_blender_connection()
-        kwargs = {
+        return blender.send_command("query_hunyuan_job", {
+            "api_tier": api_tier,
             "job_id": job_id,
-        }
-        result = blender.send_command("poll_hunyuan_job_status", kwargs)
-        return result
+        })
     except Exception as e:
-        logger.error(f"Error generating Hunyuan3D task: {str(e)}")
-        return f"Error generating Hunyuan3D task: {str(e)}"
+        logger.error(f"Error querying Hunyuan3D task: {str(e)}")
+        return f"Error querying Hunyuan3D task: {str(e)}"
 
 @mcp.tool()
 @rich_telemetry_tool("import_generated_asset_hunyuan")
 def import_generated_asset_hunyuan(
     ctx: Context,
     name: str,
-    zip_file_url: str,
+    file_type: str = None,
+    file_url: str = None,
+    download_path: str = None,
+    zip_file_url: str = None,
 ):
     """
-    Import the asset generated by Hunyuan3D after the generation task is completed.
+    Download and import one ResultFile3Ds entry as OBJ, GLB, or FBX.
 
     Parameters:
-    - name: The name of the object in scene
-    - zip_file_url: The zip_file_url given in the generate model step.
+    - name: Name assigned to the primary imported mesh.
+    - file_type: ResultFile3Ds.Type (OBJ, GLB, or FBX).
+    - file_url: ResultFile3Ds.Url.
+    - download_path: Optional persistent local cache directory.
+    - zip_file_url: Deprecated OBJ ZIP URL alias.
 
-    Return if the asset has been imported successfully.
+    Returns import details including local model_path and imported object names.
     """
     try:
         blender = get_blender_connection()
         kwargs = {
-            "name": name
+            "name": name,
+            "file_type": file_type,
+            "file_url": file_url,
+            "download_path": download_path,
+            "zip_file_url": zip_file_url,
         }
-        if zip_file_url:
-            kwargs["zip_file_url"] = zip_file_url
         result = blender.send_command("import_generated_asset_hunyuan", kwargs)
         return result
     except Exception as e:
@@ -1189,12 +1242,15 @@ def asset_creation_strategy() -> str:
                 if Hunyuan3D mode is "OFFICIAL_API":
                     - For objects/models, do the following steps:
                         1. Create the model generation task
-                            - Use generate_hunyuan3d_model by providing either a **text description** OR an **image(local or urls) reference**.
+                            - Use generate_hunyuan3d_model with api_tier="rapid" or api_tier="pro".
+                            - Prefer image-to-3D. Pro multi-view requires a primary image plus supplemental views.
+                            - Pro ResultFormat must be omitted when OBJ/GLB output is wanted.
                             - Go to cloud.tencent.com out how to get their own SecretId and SecretKey
-                        2. Poll the status
-                            - Use poll_hunyuan_job_status() to check if the generation task has completed or failed
+                        2. Query the status
+                            - Use query_hunyuan3d_job() with the same api_tier until DONE or FAIL.
                         3. Import the asset
-                            - Use import_generated_asset_hunyuan() to import the generated OBJ model the asset
+                            - Select an OBJ, GLB, or FBX entry from ResultFile3Ds.
+                            - Use import_generated_asset_hunyuan() with Type, Url, and a persistent download_path.
                     if Hunyuan3D mode is "LOCAL_API":
                         - For objects/models, do the following steps:
                         1. Create the model generation task

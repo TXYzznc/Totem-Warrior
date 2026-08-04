@@ -11,17 +11,16 @@ CONFLUENCE_USERNAME = "YOUR_EMAIL"
 CONFLUENCE_API_TOKEN = "YOUR_CONFLUENCE_API_TOKEN"
 
 [mcp_servers.blender]
-command = "cmd"
+command = ".venv/Scripts/python.exe"
 args = [
-    "/c",
-    "uvx",
-    "--python",
-    "3.11",
-    "blender-mcp",
+    "tools/blender-mcp-main/main.py",
 ]
 
 [mcp_servers.blender.env]
-UV_PYTHON_PREFERENCE = "only-managed"
+PYTHONPATH = "D:\\unity\\UnityProject\\GameDesinger\\tools\\blender-mcp-main\\src"
+
+[mcp_servers.blender.tools.execute_blender_code]
+approval_mode = "approve"
 
 [mcp_servers.codebase-memory]
 command = "tools/codebase-memory-mcp/codebase-memory-mcp.exe"

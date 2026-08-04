@@ -19,11 +19,138 @@ from datetime import datetime
 import hashlib, hmac, base64
 import os.path as osp
 from contextlib import redirect_stdout, suppress
+from urllib.parse import unquote, urlparse
+
+HUNYUAN_API_VERSION = "2025-05-13"
+HUNYUAN_IMAGE_MAX_BYTES = 6 * 1024 * 1024
+HUNYUAN_IMAGE_MIN_SIDE = 128
+HUNYUAN_IMAGE_MAX_SIDE = 5000
+HUNYUAN_IMAGE_EXTENSIONS = {".jpg", ".jpeg", ".png", ".webp"}
+HUNYUAN_MULTIVIEW_EXTENSIONS = {".jpg", ".jpeg", ".png"}
+HUNYUAN_PRO_VIEW_TYPES_30 = {"left", "right", "back"}
+HUNYUAN_PRO_VIEW_TYPES_31 = HUNYUAN_PRO_VIEW_TYPES_30 | {
+    "top", "bottom", "left_front", "right_front"
+}
+HUNYUAN_RAPID_RESULT_FORMATS = {"OBJ", "GLB", "STL", "USDZ", "FBX", "MP4"}
+HUNYUAN_PRO_RESULT_FORMATS = {"STL", "USDZ", "FBX"}
+
+
+def _normalize_hunyuan_api_tier(api_tier):
+    tier = (api_tier or "").strip().lower()
+    if tier not in {"rapid", "pro"}:
+        raise ValueError("api_tier must be 'rapid' or 'pro'")
+    return tier
+
+
+def _build_hunyuan_submit_request(
+    api_tier,
+    text_prompt=None,
+    image_fields=None,
+    multiview_payload=None,
+    model="3.0",
+    face_count=None,
+    generate_type="Normal",
+    polygon_type="triangle",
+    enable_pbr=True,
+    result_format=None,
+):
+    """Build and validate a Tencent Hunyuan3D request without sending it."""
+    tier = _normalize_hunyuan_api_tier(api_tier)
+    prompt = text_prompt.strip() if isinstance(text_prompt, str) else text_prompt
+    image_fields = dict(image_fields or {})
+    multiview_payload = list(multiview_payload or [])
+    generate_type = generate_type or "Normal"
+    polygon_type = (polygon_type or "triangle").lower()
+    model = model or "3.0"
+
+    if multiview_payload and not image_fields:
+        raise ValueError("Multi-view input requires a primary input image")
+    if not prompt and not image_fields:
+        raise ValueError("Prompt or input image is required")
+
+    data = {}
+    if prompt:
+        data["Prompt"] = prompt
+    data.update(image_fields)
+
+    if tier == "rapid":
+        if len(prompt or "") > 200:
+            raise ValueError("Rapid prompt exceeds 200 characters")
+        if prompt and image_fields:
+            raise ValueError("Rapid API does not allow prompt and image together")
+        if multiview_payload:
+            raise ValueError("Rapid API does not support multi-view images")
+        if model != "3.0":
+            raise ValueError("Rapid API does not support the Model parameter")
+        if face_count is not None:
+            raise ValueError("Rapid API does not support FaceCount")
+        if generate_type not in {"Normal", "Geometry"}:
+            raise ValueError("Rapid generate_type must be Normal or Geometry")
+        if polygon_type != "triangle":
+            raise ValueError("Rapid API does not support PolygonType")
+
+        data["EnablePBR"] = bool(enable_pbr)
+        if generate_type == "Geometry":
+            data["EnableGeometry"] = True
+            data.pop("EnablePBR", None)
+        normalized_format = (result_format or "GLB").upper()
+        if normalized_format not in HUNYUAN_RAPID_RESULT_FORMATS:
+            raise ValueError(
+                "Rapid result_format must be OBJ, GLB, STL, USDZ, FBX, or MP4"
+            )
+        if generate_type == "Geometry" and normalized_format == "OBJ":
+            raise ValueError("Rapid Geometry generation does not support OBJ")
+        data["ResultFormat"] = normalized_format
+
+        return "SubmitHunyuanTo3DRapidJob", data
+
+    if len(prompt or "") > 1024:
+        raise ValueError("Pro prompt exceeds 1024 characters")
+    if model not in {"3.0", "3.1"}:
+        raise ValueError("Pro model must be '3.0' or '3.1'")
+    if generate_type not in {"Normal", "LowPoly", "Geometry", "Sketch"}:
+        raise ValueError(
+            "Pro generate_type must be Normal, LowPoly, Geometry, or Sketch"
+        )
+    if model == "3.1" and generate_type == "LowPoly":
+        raise ValueError("Model 3.1 does not support LowPoly")
+    if prompt and image_fields and generate_type != "Sketch":
+        raise ValueError(
+            "Pro prompt and image are mutually exclusive except in Sketch mode"
+        )
+    if face_count is not None:
+        if isinstance(face_count, bool) or not isinstance(face_count, int):
+            raise ValueError("FaceCount must be an integer")
+        if not 3000 <= face_count <= 1500000:
+            raise ValueError("FaceCount must be between 3000 and 1500000")
+    if polygon_type not in {"triangle", "quadrilateral"}:
+        raise ValueError("polygon_type must be triangle or quadrilateral")
+
+    data["Model"] = model
+    data["GenerateType"] = generate_type
+    if multiview_payload:
+        data["MultiViewImages"] = multiview_payload
+    if generate_type != "Geometry":
+        data["EnablePBR"] = bool(enable_pbr)
+    if face_count is not None and generate_type != "LowPoly":
+        data["FaceCount"] = face_count
+    if generate_type == "LowPoly":
+        data["PolygonType"] = polygon_type
+    if result_format:
+        normalized_format = result_format.upper()
+        if normalized_format not in HUNYUAN_PRO_RESULT_FORMATS:
+            raise ValueError(
+                "Pro ResultFormat only accepts STL, USDZ, or FBX; "
+                "omit it to receive the default OBJ and GLB files"
+            )
+        data["ResultFormat"] = normalized_format
+
+    return "SubmitHunyuanTo3DProJob", data
 
 bl_info = {
     "name": "Blender MCP",
     "author": "BlenderMCP",
-    "version": (1, 2),
+    "version": (1, 3),
     "blender": (3, 0, 0),
     "location": "View3D > Sidebar > BlenderMCP",
     "description": "Connect Blender to Claude via MCP",
@@ -317,6 +444,7 @@ class BlenderMCPServer:
         if bpy.context.scene.blendermcp_use_hunyuan3d:
             hunyuan_handlers = {
                 "create_hunyuan_job": self.create_hunyuan_job,
+                "query_hunyuan_job": self.query_hunyuan_job,
                 "poll_hunyuan_job_status": self.poll_hunyuan_job_status,
                 "import_generated_asset_hunyuan": self.import_generated_asset_hunyuan
             }
@@ -2188,82 +2316,205 @@ class BlenderMCPServer:
 
         return headers, endpoint
 
+    @staticmethod
+    def _load_hunyuan_image_bytes(image_path, multiview=False):
+        absolute_path = osp.abspath(osp.expanduser(image_path))
+        if not osp.isfile(absolute_path):
+            raise ValueError(f"Input image does not exist: {absolute_path}")
+
+        extension = osp.splitext(absolute_path)[1].lower()
+        allowed = (
+            HUNYUAN_MULTIVIEW_EXTENSIONS
+            if multiview
+            else HUNYUAN_IMAGE_EXTENSIONS
+        )
+        if extension not in allowed:
+            supported = ", ".join(sorted(allowed))
+            raise ValueError(f"Unsupported image format; expected one of: {supported}")
+
+        file_size = osp.getsize(absolute_path)
+        if file_size > HUNYUAN_IMAGE_MAX_BYTES:
+            raise ValueError("Local image exceeds the 6 MiB pre-Base64 limit")
+
+        image = None
+        try:
+            image = bpy.data.images.load(absolute_path, check_existing=False)
+            width, height = int(image.size[0]), int(image.size[1])
+        except Exception as exc:
+            raise ValueError(f"Unable to read input image dimensions: {exc}") from exc
+        finally:
+            if image is not None:
+                bpy.data.images.remove(image)
+
+        if not (
+            HUNYUAN_IMAGE_MIN_SIDE <= width <= HUNYUAN_IMAGE_MAX_SIDE
+            and HUNYUAN_IMAGE_MIN_SIDE <= height <= HUNYUAN_IMAGE_MAX_SIDE
+        ):
+            raise ValueError(
+                "Image dimensions must be between 128 and 5000 pixels per side"
+            )
+
+        with open(absolute_path, "rb") as image_file:
+            return image_file.read()
+
+    @classmethod
+    def _prepare_hunyuan_image_fields(cls, image, multiview=False):
+        if not image:
+            return {}, 0
+
+        url_key = "ViewImageUrl" if multiview else "ImageUrl"
+        base64_key = "ViewImageBase64" if multiview else "ImageBase64"
+        if re.match(r"^https?://", image, re.IGNORECASE):
+            return {url_key: image}, 0
+
+        raw_image = cls._load_hunyuan_image_bytes(image, multiview=multiview)
+        return {
+            base64_key: base64.b64encode(raw_image).decode("ascii")
+        }, len(raw_image)
+
+    @classmethod
+    def _prepare_hunyuan_multiview_payload(cls, multiview_images, model):
+        if not multiview_images:
+            return [], 0
+
+        allowed_view_types = (
+            HUNYUAN_PRO_VIEW_TYPES_31
+            if model == "3.1"
+            else HUNYUAN_PRO_VIEW_TYPES_30
+        )
+        payload = []
+        seen_view_types = set()
+        total_local_bytes = 0
+
+        for item in multiview_images:
+            if not isinstance(item, dict):
+                raise ValueError("Each multi-view entry must be an object")
+            view_type = str(
+                item.get("view_type") or item.get("ViewType") or ""
+            ).strip().lower()
+            image = (
+                item.get("image_path")
+                or item.get("image")
+                or item.get("url")
+                or item.get("ViewImageUrl")
+            )
+            if view_type not in allowed_view_types:
+                allowed = ", ".join(sorted(allowed_view_types))
+                raise ValueError(
+                    f"Unsupported view_type '{view_type}' for Model {model}; "
+                    f"expected one of: {allowed}"
+                )
+            if view_type in seen_view_types:
+                raise ValueError(f"Duplicate multi-view type: {view_type}")
+            if not image:
+                raise ValueError(f"Image is required for multi-view type: {view_type}")
+
+            image_fields, local_bytes = cls._prepare_hunyuan_image_fields(
+                image, multiview=True
+            )
+            payload.append({"ViewType": view_type, **image_fields})
+            total_local_bytes += local_bytes
+            seen_view_types.add(view_type)
+
+        return payload, total_local_bytes
+
+    def _post_hunyuan_api(self, action, data):
+        secret_id = self._get_hunyuan3d_secret_id()
+        secret_key = self._get_hunyuan3d_secret_key()
+        if not secret_id or not secret_key:
+            return {"error": "SecretId or SecretKey is not given"}
+
+        service = "ai3d"
+        region = "ap-guangzhou"
+        head_params = {
+            "Action": action,
+            "Version": HUNYUAN_API_VERSION,
+            "Region": region,
+        }
+        headers, endpoint = self.get_tencent_cloud_sign_headers(
+            "POST",
+            "/",
+            head_params,
+            data,
+            service,
+            region,
+            secret_id,
+            secret_key,
+        )
+        response = requests.post(
+            endpoint,
+            headers=headers,
+            data=json.dumps(data),
+            timeout=60,
+        )
+        if response.status_code == 200:
+            return response.json()
+        return {
+            "error": (
+                f"API request failed with status {response.status_code}: "
+                f"{response.text[:1000]}"
+            )
+        }
+
     def create_hunyuan_job(self, *args, **kwargs):
         match bpy.context.scene.blendermcp_hunyuan3d_mode:
             case "OFFICIAL_API":
                 return self.create_hunyuan_job_main_site(*args, **kwargs)
             case "LOCAL_API":
-                return self.create_hunyuan_job_local_site(*args, **kwargs)
+                return self.create_hunyuan_job_local_site(
+                    text_prompt=kwargs.get("text_prompt"),
+                    image=kwargs.get("image"),
+                )
             case _:
                 return f"Error: Unknown Hunyuan3D mode!"
 
     def create_hunyuan_job_main_site(
         self,
+        api_tier: str = "rapid",
         text_prompt: str = None,
-        image: str = None
+        image: str = None,
+        multiview_images: list = None,
+        model: str = "3.0",
+        face_count: int = None,
+        generate_type: str = "Normal",
+        polygon_type: str = "triangle",
+        enable_pbr: bool = True,
+        result_format: str = None,
+        asset_id: str = "",
     ):
         try:
-            secret_id = self._get_hunyuan3d_secret_id()
-            secret_key = self._get_hunyuan3d_secret_key()
-
-            if not secret_id or not secret_key:
-                return {"error": "SecretId or SecretKey is not given"}
-
-            # Parameter verification
-            if not text_prompt and not image:
-                return {"error": "Prompt or Image is required"}
-            if text_prompt and image:
-                return {"error": "Prompt and Image cannot be provided simultaneously"}
-            # Fixed parameter configuration
-            service = "hunyuan"
-            action = "SubmitHunyuanTo3DJob"
-            version = "2023-09-01"
-            region = "ap-guangzhou"
-
-            headParams={
-                "Action": action,
-                "Version": version,
-                "Region": region,
-            }
-
-            # Constructing request parameters
-            data = {
-                "Num": 1  # The current API limit is only 1
-            }
-
-            # Handling text prompts
-            if text_prompt:
-                if len(text_prompt) > 200:
-                    return {"error": "Prompt exceeds 200 characters limit"}
-                data["Prompt"] = text_prompt
-
-            # Handling image
-            if image:
-                if re.match(r'^https?://', image, re.IGNORECASE) is not None:
-                    data["ImageUrl"] = image
-                else:
-                    try:
-                        # Convert to Base64 format
-                        with open(image, "rb") as f:
-                            image_base64 = base64.b64encode(f.read()).decode("ascii")
-                        data["ImageBase64"] = image_base64
-                    except Exception as e:
-                        return {"error": f"Image encoding failed: {str(e)}"}
-            
-            # Get signed headers
-            headers, endpoint = self.get_tencent_cloud_sign_headers("POST", "/", headParams, data, service, region, secret_id, secret_key)
-
-            response = requests.post(
-                endpoint,
-                headers = headers,
-                data = json.dumps(data)
+            tier = _normalize_hunyuan_api_tier(api_tier)
+            image_fields, primary_local_bytes = self._prepare_hunyuan_image_fields(
+                image
             )
+            multiview_payload, multiview_local_bytes = (
+                self._prepare_hunyuan_multiview_payload(multiview_images, model)
+            )
+            if primary_local_bytes + multiview_local_bytes > HUNYUAN_IMAGE_MAX_BYTES:
+                return {
+                    "error": (
+                        "Combined local primary and multi-view images exceed "
+                        "the 6 MiB pre-Base64 limit"
+                    )
+                }
 
-            if response.status_code == 200:
-                return response.json()
-            return {
-                "error": f"API request failed with status {response.status_code}: {response}"
-            }
+            action, data = _build_hunyuan_submit_request(
+                api_tier=tier,
+                text_prompt=text_prompt,
+                image_fields=image_fields,
+                multiview_payload=multiview_payload,
+                model=model,
+                face_count=face_count,
+                generate_type=generate_type,
+                polygon_type=polygon_type,
+                enable_pbr=enable_pbr,
+                result_format=result_format,
+            )
+            result = self._post_hunyuan_api(action, data)
+            if asset_id and isinstance(result, dict):
+                result.setdefault("_meta", {})["asset_id"] = asset_id
+                result["_meta"]["api_tier"] = tier
+            return result
         except Exception as e:
             return {"error": str(e)}
 
@@ -2347,128 +2598,167 @@ class BlenderMCPServer:
             return {"error": str(e)}
         
     
-    def poll_hunyuan_job_status(self, *args, **kwargs):
-        return self.poll_hunyuan_job_status_ai(*args, **kwargs)
-    
-    def poll_hunyuan_job_status_ai(self, job_id: str):
-        """Call the job status API to get the job status"""
-        print(job_id)
+    def query_hunyuan_job(self, api_tier: str, job_id: str):
+        """Query a Rapid or Pro Hunyuan3D task without logging credentials."""
         try:
-            secret_id = self._get_hunyuan3d_secret_id()
-            secret_key = self._get_hunyuan3d_secret_key()
-
-            if not secret_id or not secret_key:
-                return {"error": "SecretId or SecretKey is not given"}
             if not job_id:
                 return {"error": "JobId is required"}
-            
-            service = "hunyuan"
-            action = "QueryHunyuanTo3DJob"
-            version = "2023-09-01"
-            region = "ap-guangzhou"
-
-            headParams={
-                "Action": action,
-                "Version": version,
-                "Region": region,
-            }
-
-            clean_job_id = job_id.removeprefix("job_")
-            data = {
-                "JobId": clean_job_id
-            }
-
-            headers, endpoint = self.get_tencent_cloud_sign_headers("POST", "/", headParams, data, service, region, secret_id, secret_key)
-
-            response = requests.post(
-                endpoint,
-                headers=headers,
-                data=json.dumps(data)
+            tier = _normalize_hunyuan_api_tier(api_tier)
+            action = (
+                "QueryHunyuanTo3DRapidJob"
+                if tier == "rapid"
+                else "QueryHunyuanTo3DProJob"
             )
-
-            if response.status_code == 200:
-                return response.json()
-            return {
-                "error": f"API request failed with status {response.status_code}: {response}"
-            }
+            clean_job_id = job_id.removeprefix("job_")
+            return self._post_hunyuan_api(action, {"JobId": clean_job_id})
         except Exception as e:
             return {"error": str(e)}
 
+    def poll_hunyuan_job_status(self, job_id: str, api_tier: str = "rapid"):
+        """Backward-compatible alias for the unified query command."""
+        return self.query_hunyuan_job(api_tier=api_tier, job_id=job_id)
+
     def import_generated_asset_hunyuan(self, *args, **kwargs):
         return self.import_generated_asset_hunyuan_ai(*args, **kwargs)
-            
-    def import_generated_asset_hunyuan_ai(self, name: str , zip_file_url: str):
-        if not zip_file_url:
-            return {"error": "Zip file not found"}
-        
-        # Validate URL
-        if not re.match(r'^https?://', zip_file_url, re.IGNORECASE):
-            return {"error": "Invalid URL format. Must start with http:// or https://"}
-        
-        # Create a temporary directory
-        temp_dir = tempfile.mkdtemp(prefix="tencent_obj_")
-        zip_file_path = osp.join(temp_dir, "model.zip")
-        obj_file_path = osp.join(temp_dir, "model.obj")
-        mtl_file_path = osp.join(temp_dir, "model.mtl")
 
-        try:
-            # Download ZIP file
-            zip_response = requests.get(zip_file_url, stream=True)
-            zip_response.raise_for_status()
-            with open(zip_file_path, "wb") as f:
-                for chunk in zip_response.iter_content(chunk_size=8192):
-                    f.write(chunk)
+    @staticmethod
+    def _safe_extract_hunyuan_zip(zip_path, destination):
+        destination = osp.abspath(destination)
+        with zipfile.ZipFile(zip_path, "r") as archive:
+            for member in archive.infolist():
+                member_path = osp.abspath(osp.join(destination, member.filename))
+                if osp.commonpath([destination, member_path]) != destination:
+                    raise ValueError(
+                        f"Unsafe path in downloaded ZIP: {member.filename}"
+                    )
+            archive.extractall(destination)
 
-            # Unzip the ZIP
-            with zipfile.ZipFile(zip_file_path, "r") as zip_ref:
-                zip_ref.extractall(temp_dir)
+    @staticmethod
+    def _find_hunyuan_model_file(root, file_type):
+        extension = f".{file_type.lower()}"
+        matches = []
+        for current_root, _, files in os.walk(root):
+            for filename in files:
+                if filename.lower().endswith(extension):
+                    matches.append(osp.join(current_root, filename))
+        if not matches:
+            return None
+        matches.sort(key=lambda path: (osp.basename(path).lower() != f"model{extension}", path))
+        return matches[0]
 
-            # Find the .obj file (there may be multiple, assuming the main file is model.obj)
-            for file in os.listdir(temp_dir):
-                if file.endswith(".obj"):
-                    obj_file_path = osp.join(temp_dir, file)
-
-            if not osp.exists(obj_file_path):
-                return {"succeed": False, "error": "OBJ file not found after extraction"}
-
-            # Import obj file
-            if bpy.app.version>=(4, 0, 0):
-                bpy.ops.wm.obj_import(filepath=obj_file_path)
-            else:
-                bpy.ops.import_scene.obj(filepath=obj_file_path)
-
-            imported_objs = [obj for obj in bpy.context.selected_objects if obj.type == 'MESH']
-            if not imported_objs:
-                return {"succeed": False, "error": "No mesh objects imported"}
-
-            obj = imported_objs[0]
-            if name:
-                obj.name = name
-
-            result = {
-                "name": obj.name,
-                "type": obj.type,
-                "location": [obj.location.x, obj.location.y, obj.location.z],
-                "rotation": [obj.rotation_euler.x, obj.rotation_euler.y, obj.rotation_euler.z],
-                "scale": [obj.scale.x, obj.scale.y, obj.scale.z],
+    def import_generated_asset_hunyuan_ai(
+        self,
+        name: str,
+        file_type: str = None,
+        file_url: str = None,
+        download_path: str = None,
+        zip_file_url: str = None,
+    ):
+        """Download and import an OBJ, GLB, or FBX ResultFile3Ds entry."""
+        source_url = file_url or zip_file_url
+        normalized_type = (file_type or ("OBJ" if zip_file_url else "")).upper()
+        if not source_url:
+            return {"succeed": False, "error": "file_url is required"}
+        if not re.match(r"^https?://", source_url, re.IGNORECASE):
+            return {
+                "succeed": False,
+                "error": "Invalid URL format. Must start with http:// or https://",
+            }
+        if normalized_type not in {"OBJ", "GLB", "FBX"}:
+            return {
+                "succeed": False,
+                "error": "file_type must be OBJ, GLB, or FBX",
             }
 
-            if obj.type == "MESH":
-                bounding_box = self._get_aabb(obj)
-                result["world_bounding_box"] = bounding_box
+        if download_path:
+            cache_dir = osp.abspath(osp.expanduser(download_path))
+            os.makedirs(cache_dir, exist_ok=True)
+            is_temporary_cache = False
+        else:
+            cache_dir = tempfile.mkdtemp(prefix="hunyuan3d_")
+            is_temporary_cache = True
 
-            return {"succeed": True, **result}
+        parsed_name = unquote(osp.basename(urlparse(source_url).path))
+        source_extension = osp.splitext(parsed_name)[1].lower()
+        if source_extension not in {".zip", ".obj", ".glb", ".fbx"}:
+            source_extension = f".{normalized_type.lower()}"
+        source_filename = parsed_name or f"model{source_extension}"
+        if not osp.splitext(source_filename)[1]:
+            source_filename += source_extension
+        downloaded_path = osp.join(cache_dir, source_filename)
+
+        try:
+            response = requests.get(source_url, stream=True, timeout=120)
+            response.raise_for_status()
+            with open(downloaded_path, "wb") as downloaded_file:
+                for chunk in response.iter_content(chunk_size=1024 * 1024):
+                    if chunk:
+                        downloaded_file.write(chunk)
+
+            if zipfile.is_zipfile(downloaded_path):
+                unpack_dir = osp.join(cache_dir, "unpacked")
+                os.makedirs(unpack_dir, exist_ok=True)
+                self._safe_extract_hunyuan_zip(downloaded_path, unpack_dir)
+                model_path = self._find_hunyuan_model_file(
+                    unpack_dir, normalized_type
+                )
+            else:
+                model_path = downloaded_path
+
+            if not model_path or not osp.isfile(model_path):
+                return {
+                    "succeed": False,
+                    "error": f"{normalized_type} file not found in downloaded result",
+                    "download_path": downloaded_path,
+                }
+
+            objects_before = set(bpy.data.objects)
+            if normalized_type == "OBJ":
+                if bpy.app.version >= (4, 0, 0):
+                    bpy.ops.wm.obj_import(filepath=model_path)
+                else:
+                    bpy.ops.import_scene.obj(filepath=model_path)
+            elif normalized_type == "GLB":
+                bpy.ops.import_scene.gltf(filepath=model_path)
+            else:
+                bpy.ops.import_scene.fbx(filepath=model_path)
+
+            imported_objects = [
+                obj for obj in bpy.data.objects if obj not in objects_before
+            ]
+            imported_meshes = [
+                obj for obj in imported_objects if obj.type == "MESH"
+            ]
+            if not imported_meshes:
+                return {
+                    "succeed": False,
+                    "error": "No mesh objects imported",
+                    "model_path": model_path,
+                }
+
+            primary_object = imported_meshes[0]
+            if name:
+                primary_object.name = name
+
+            result = {
+                "succeed": True,
+                "name": primary_object.name,
+                "type": primary_object.type,
+                "imported_objects": [obj.name for obj in imported_objects],
+                "model_path": model_path,
+                "cache_is_temporary": is_temporary_cache,
+                "location": list(primary_object.location),
+                "rotation": list(primary_object.rotation_euler),
+                "scale": list(primary_object.scale),
+                "world_bounding_box": self._get_aabb(primary_object),
+            }
+            return result
         except Exception as e:
-            return {"succeed": False, "error": str(e)}
-        finally:
-            #  Clean up temporary zip and obj, save texture and mtl
-            try:
-                if os.path.exists(zip_file_path):
-                    os.remove(zip_file_path) 
-                if os.path.exists(obj_file_path):
-                    os.remove(obj_file_path)
-            except Exception as e:
-                print(f"Failed to clean up temporary directory {temp_dir}: {e}")
+            return {
+                "succeed": False,
+                "error": str(e),
+                "download_path": downloaded_path,
+            }
     #endregion
 
 # Blender Addon Preferences
