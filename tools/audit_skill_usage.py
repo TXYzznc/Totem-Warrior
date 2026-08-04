@@ -67,6 +67,7 @@ def render_report(events: list[dict[str, Any]], days: int | None) -> str:
         "Skill": Counter(),
         "Agent": Counter(),
         "MCP": Counter(),
+        "Tool": Counter(),
         "Session": Counter(),
     }
     for event in events:
@@ -93,7 +94,7 @@ def render_report(events: list[dict[str, Any]], days: int | None) -> str:
             ]
         )
 
-    for kind in ("Skill", "Agent", "MCP", "Session"):
+    for kind in ("Skill", "Agent", "MCP", "Tool", "Session"):
         counts = by_kind[kind]
         lines.append(f"## {kind} 调用频次")
         if counts:
@@ -134,6 +135,7 @@ def render_report(events: list[dict[str, Any]], days: int | None) -> str:
             f"  Skill 调用：{sum(by_kind['Skill'].values())}（{len(by_kind['Skill'])} 个不同 SKILL）",
             f"  Agent 调用：{sum(by_kind['Agent'].values())}（{len(by_kind['Agent'])} 个不同 Agent）",
             f"  MCP 调用：{sum(by_kind['MCP'].values())}（{len(by_kind['MCP'])} 个不同 MCP tool）",
+            f"  Tool 调用：{sum(by_kind['Tool'].values())}（{len(by_kind['Tool'])} 个不同 Tool）",
             "",
         ]
     )

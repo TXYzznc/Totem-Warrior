@@ -79,13 +79,69 @@ class EventProtocolTests(unittest.TestCase):
 
         events = usage.adapt_hook_payload(payload, source="codex")
 
-        self.assertEqual(1, len(events))
-        self.assertEqual("openai-docs", events[0]["name"])
-        self.assertTrue(events[0]["inferred"])
+        self.assertEqual(
+            {
+                ("Tool", "functions.shell_command"),
+                ("Skill", "openai-docs"),
+            },
+            {(event["kind"], event["name"]) for event in events},
+        )
+        skill_event = next(event for event in events if event["kind"] == "Skill")
+        self.assertTrue(skill_event["inferred"])
         serialized = json.dumps(events[0])
         self.assertNotIn("private prompt", serialized)
         self.assertNotIn("Get-Content", serialized)
         self.assertNotIn("Users", serialized)
+
+    def test_codex_freeform_exec_recovers_nested_usage_without_payload(self) -> None:
+        private_command = "private-command-that-must-not-persist"
+        payload = {
+            "session_id": "codex-session",
+            "tool_name": "exec",
+            "tool_input": (
+                "const a = await tools.mcp__server__query({secret: 'value'}); "
+                "const b = await tools.shell_command({command: '"
+                + private_command
+                + " .claude/skills/grill-me/SKILL.md "
+                ".codex/agents/gd-lead.toml'});"
+            ),
+            "tool_use_id": "call-1",
+        }
+
+        events = usage.adapt_hook_payload(payload, source="codex")
+        observed = {(event["kind"], event["name"]) for event in events}
+
+        self.assertEqual(
+            {
+                ("MCP", "mcp__server__query"),
+                ("Tool", "shell_command"),
+                ("Skill", "grill-me"),
+                ("Agent", "gd-lead"),
+            },
+            observed,
+        )
+        serialized = json.dumps(events)
+        self.assertNotIn(private_command, serialized)
+        self.assertNotIn("secret", serialized)
+        self.assertNotIn(".claude", serialized)
+
+    def test_codex_exec_ignores_tool_examples_inside_patch_text(self) -> None:
+        payload = {
+            "tool_name": "exec",
+            "tool_input": (
+                "const patch = \"example tools.mcp__fake__call({}) "
+                ".claude/skills/not-used/SKILL.md\"; "
+                "await tools.apply_patch(patch);"
+            ),
+            "tool_use_id": "call-patch",
+        }
+
+        events = usage.adapt_hook_payload(payload, source="codex")
+
+        self.assertEqual(
+            {("Tool", "apply_patch")},
+            {(event["kind"], event["name"]) for event in events},
+        )
 
     def test_codex_adapts_agent_and_mcp_names(self) -> None:
         agent = usage.adapt_hook_payload(
@@ -166,6 +222,63 @@ class StorageAndMigrationTests(unittest.TestCase):
             combined = usage.load_events(jsonl_path=output, legacy_path=legacy)
             self.assertEqual(2, len(combined))
 
+    def test_codex_session_backfill_is_project_scoped_and_idempotent(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            project = root / "project"
+            project.mkdir()
+            sessions = root / "sessions"
+            sessions.mkdir()
+            rollout = sessions / "rollout.jsonl"
+            records = [
+                {
+                    "timestamp": "2026-08-03T10:00:00Z",
+                    "type": "session_meta",
+                    "payload": {
+                        "session_id": "session-1",
+                        "cwd": str(project),
+                    },
+                },
+                {
+                    "timestamp": "2026-08-03T10:01:00Z",
+                    "type": "response_item",
+                    "payload": {
+                        "type": "custom_tool_call",
+                        "id": "item-1",
+                        "call_id": "call-1",
+                        "name": "exec",
+                        "input": (
+                            "await tools.shell_command({command: "
+                            "'.claude/skills/grill-me/SKILL.md'});"
+                        ),
+                    },
+                },
+            ]
+            rollout.write_text(
+                "".join(json.dumps(record) + "\n" for record in records),
+                encoding="utf-8",
+            )
+
+            events = list(
+                usage.iter_codex_session_events(
+                    sessions,
+                    project_root=project,
+                )
+            )
+            observed = {(event["kind"], event["name"]) for event in events}
+            self.assertEqual(
+                {
+                    ("Session", "start"),
+                    ("Tool", "shell_command"),
+                    ("Skill", "grill-me"),
+                },
+                observed,
+            )
+
+            output = root / "events.jsonl"
+            self.assertEqual(3, usage.append_events(events, path=output))
+            self.assertEqual(0, usage.append_events(events, path=output))
+
     def test_report_shows_sources_and_coverage_warning(self) -> None:
         events = [
             usage.create_event(
@@ -187,6 +300,13 @@ class StorageAndMigrationTests(unittest.TestCase):
         report = audit.render_report(events, days=30)
         self.assertNotIn("## 覆盖提示", report)
         self.assertIn("（最近 30 天）", report)
+
+    def test_report_includes_tool_usage(self) -> None:
+        events = [usage.create_event(source="codex", kind="Tool", name="shell_command")]
+        report = audit.render_report(events, days=None)
+        self.assertIn("## Tool 调用频次", report)
+        self.assertIn("shell_command", report)
+        self.assertIn("Tool 调用：1", report)
 
 
 if __name__ == "__main__":

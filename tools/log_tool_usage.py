@@ -37,6 +37,11 @@ SKILL_PATH_RE = re.compile(
     r"(?:^|/)skills/(?:[^/\"'\s]+/)*(?P<name>[A-Za-z0-9][A-Za-z0-9._:-]{0,127})/SKILL\.md",
     re.IGNORECASE,
 )
+AGENT_PATH_RE = re.compile(
+    r"(?:^|[/\s\"'])\.codex/agents/(?P<name>[A-Za-z0-9][A-Za-z0-9._-]{0,127})\.toml",
+    re.IGNORECASE,
+)
+NESTED_TOOL_RE = re.compile(r"\btools\.(?P<name>[A-Za-z][A-Za-z0-9_]*)\s*\(")
 
 
 class UsageEventError(ValueError):
@@ -277,7 +282,7 @@ def _first(mapping: dict[str, Any], *keys: str) -> Any:
     return ""
 
 
-def _selected_strings(value: Any, key: str = "") -> Iterator[str]:
+def _selected_strings(value: Any, key: str = "input") -> Iterator[str]:
     """Visit only fields that can carry a tool command/path, never prompts."""
 
     allowed = {
@@ -303,13 +308,94 @@ def _selected_strings(value: Any, key: str = "") -> Iterator[str]:
             yield from _selected_strings(child, key)
 
 
-def _skill_names_from_input(tool_input: dict[str, Any]) -> list[str]:
+def _names_from_input(value: Any, pattern: re.Pattern[str]) -> list[str]:
     found: set[str] = set()
-    for raw in _selected_strings(tool_input):
+    for raw in _selected_strings(value):
         normalized = raw.replace("\\", "/")
-        for match in SKILL_PATH_RE.finditer(normalized):
+        for match in pattern.finditer(normalized):
             found.add(match.group("name"))
     return sorted(found)
+
+
+def _skill_names_from_input(tool_input: Any) -> list[str]:
+    return _names_from_input(tool_input, SKILL_PATH_RE)
+
+
+def _agent_names_from_input(tool_input: Any) -> list[str]:
+    return _names_from_input(tool_input, AGENT_PATH_RE)
+
+
+def _without_javascript_literals(value: str) -> str:
+    """Blank JS strings/comments while preserving positions and call syntax."""
+
+    result = list(value)
+    index = 0
+    quote = ""
+    line_comment = False
+    block_comment = False
+    while index < len(value):
+        current = value[index]
+        following = value[index + 1] if index + 1 < len(value) else ""
+        if line_comment:
+            if current in "\r\n":
+                line_comment = False
+            else:
+                result[index] = " "
+            index += 1
+            continue
+        if block_comment:
+            result[index] = " "
+            if current == "*" and following == "/":
+                result[index + 1] = " "
+                index += 2
+                block_comment = False
+            else:
+                index += 1
+            continue
+        if quote:
+            result[index] = " "
+            if current == "\\":
+                if index + 1 < len(value):
+                    result[index + 1] = " "
+                    index += 2
+                else:
+                    index += 1
+            elif current == quote:
+                quote = ""
+                index += 1
+            else:
+                index += 1
+            continue
+        if current in {"'", '"', "`"}:
+            result[index] = " "
+            quote = current
+            index += 1
+        elif current == "/" and following == "/":
+            result[index] = result[index + 1] = " "
+            index += 2
+            line_comment = True
+        elif current == "/" and following == "*":
+            result[index] = result[index + 1] = " "
+            index += 2
+            block_comment = True
+        else:
+            index += 1
+    return "".join(result)
+
+
+def _nested_tool_names_from_input(tool_input: Any) -> list[str]:
+    found: set[str] = set()
+    for raw in _selected_strings(tool_input):
+        syntax_only = _without_javascript_literals(raw)
+        found.update(match.group("name") for match in NESTED_TOOL_RE.finditer(syntax_only))
+    return sorted(found)
+
+
+def _tool_kind(name: str) -> str:
+    lowered = name.lower()
+    if lowered.startswith("mcp__") or lowered.startswith("mcp_") or "__mcp__" in lowered:
+        return "MCP"
+    return "Tool"
 
 
 def adapt_hook_payload(
@@ -361,8 +447,10 @@ def adapt_hook_payload(
         ]
 
     tool_name = _clean_text(_first(payload, "tool_name", "toolName"), limit=256)
-    tool_input = _mapping(_first(payload, "tool_input", "toolInput", "input"))
+    raw_tool_input = _first(payload, "tool_input", "toolInput", "input")
+    tool_input = _mapping(raw_tool_input)
     tool_use_id = _first(payload, "tool_use_id", "toolUseId", "call_id")
+    timestamp = _first(payload, "timestamp")
     lowered = tool_name.lower()
     events: list[dict[str, Any]] = []
 
@@ -383,6 +471,7 @@ def adapt_hook_payload(
                 name=clean_name,
                 session_id=session_id,
                 project=project,
+                timestamp=timestamp,
                 event_id=stable,
                 inferred=inferred,
             )
@@ -398,12 +487,137 @@ def adapt_hook_payload(
         )
     elif lowered.startswith("mcp__") or lowered.startswith("mcp_") or "__mcp__" in lowered:
         add("MCP", tool_name)
+    elif tool_name and lowered not in {"exec", "functions.exec"}:
+        add("Tool", tool_name)
+
+    # Modern Codex wraps most calls in a free-form `exec` program. Parse names
+    # only; never persist the program, arguments, commands, or file paths.
+    nested_tools = _nested_tool_names_from_input(raw_tool_input)
+    for nested_tool in nested_tools:
+        add(_tool_kind(nested_tool), nested_tool, inferred=True)
 
     # Codex usually activates a filesystem skill by reading its SKILL.md.
-    for skill_name in _skill_names_from_input(tool_input):
-        add("Skill", skill_name, event="skill-read", inferred=True)
+    reads_files = "shell_command" in nested_tools or "shell_command" in lowered
+    if reads_files:
+        for skill_name in _skill_names_from_input(raw_tool_input):
+            add("Skill", skill_name, event="skill-read", inferred=True)
+
+        # Project policy also permits an equivalent agent route: read the mirrored
+        # TOML prompt and execute it in the main conversation without spawning.
+        for agent_name in _agent_names_from_input(raw_tool_input):
+            add("Agent", agent_name, event="agent-route", inferred=True)
 
     return events
+
+
+def _parse_timestamp(value: Any) -> dt.datetime | None:
+    text = _clean_text(value, limit=64)
+    if not text:
+        return None
+    try:
+        parsed = dt.datetime.fromisoformat(text.replace("Z", "+00:00"))
+    except ValueError:
+        return None
+    if parsed.tzinfo is None:
+        parsed = parsed.replace(tzinfo=dt.timezone.utc)
+    return parsed.astimezone(dt.timezone.utc)
+
+
+def _same_project(left: Any, right: Path) -> bool:
+    if not left:
+        return False
+    try:
+        left_path = os.path.normcase(os.path.abspath(os.fspath(left)))
+        right_path = os.path.normcase(os.path.abspath(os.fspath(right)))
+    except (OSError, TypeError, ValueError):
+        return False
+    return left_path == right_path
+
+
+def iter_codex_session_events(
+    sessions_root: Path,
+    *,
+    project_root: Path = ROOT,
+    days: int | None = None,
+) -> Iterator[dict[str, Any]]:
+    """Recover whitelisted usage facts from local Codex rollout JSONL files."""
+
+    cutoff = (
+        dt.datetime.now(dt.timezone.utc) - dt.timedelta(days=days)
+        if days is not None
+        else None
+    )
+    for path in sessions_root.rglob("*.jsonl") if sessions_root.exists() else ():
+        if cutoff is not None:
+            try:
+                modified = dt.datetime.fromtimestamp(
+                    path.stat().st_mtime, tz=dt.timezone.utc
+                )
+            except OSError:
+                continue
+            if modified < cutoff:
+                continue
+        session_id = ""
+        in_project = False
+        session_event: dict[str, Any] | None = None
+        pending: list[dict[str, Any]] = []
+        try:
+            stream = path.open("r", encoding="utf-8", errors="replace")
+        except OSError:
+            continue
+        with stream:
+            for line in stream:
+                try:
+                    item = json.loads(line)
+                except (TypeError, json.JSONDecodeError):
+                    continue
+                if not isinstance(item, dict):
+                    continue
+                timestamp = item.get("timestamp", "")
+                parsed_time = _parse_timestamp(timestamp)
+                if cutoff is not None and parsed_time is not None and parsed_time < cutoff:
+                    continue
+                item_type = item.get("type")
+                payload = _mapping(item.get("payload"))
+                if item_type == "session_meta":
+                    session_id = _clean_text(
+                        _first(payload, "session_id", "id"), limit=64
+                    )
+                    in_project = _same_project(payload.get("cwd"), project_root)
+                    if in_project:
+                        session_event = create_event(
+                            source="codex",
+                            event="session-start",
+                            kind="Session",
+                            name="start",
+                            session_id=session_id,
+                            project=project_root.name,
+                            timestamp=timestamp,
+                            event_id=_stable_id(
+                                "hook", "codex", session_id, "session-start"
+                            ),
+                            inferred=True,
+                        )
+                    continue
+                if not in_project or item_type != "response_item":
+                    continue
+                if payload.get("type") not in {"custom_tool_call", "function_call"}:
+                    continue
+                hook_payload = {
+                    "session_id": session_id,
+                    "project": project_root.name,
+                    "timestamp": timestamp,
+                    "tool_name": payload.get("name", ""),
+                    "tool_input": payload.get("input", {}),
+                    "tool_use_id": _first(payload, "call_id", "id"),
+                }
+                for event in adapt_hook_payload(hook_payload, source="codex"):
+                    event["event"] = "session-backfill"
+                    event["inferred"] = True
+                    pending.append(event)
+        if session_event is not None:
+            yield session_event
+        yield from pending
 
 
 def _read_stdin_json() -> dict[str, Any]:
@@ -452,6 +666,19 @@ def _migrate(args: argparse.Namespace) -> int:
     return 0
 
 
+def _sync_codex(args: argparse.Namespace) -> int:
+    events = list(
+        iter_codex_session_events(
+            args.sessions,
+            project_root=args.project_root,
+            days=args.days,
+        )
+    )
+    written = append_events(events, path=args.output)
+    print(f"discovered={len(events)} recorded={written} output={args.output}")
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Record editor-neutral AI tool usage events.")
     subparsers = parser.add_subparsers(dest="command")
@@ -479,6 +706,20 @@ def build_parser() -> argparse.ArgumentParser:
     migrate.add_argument("--legacy", type=Path, default=LEGACY_LOG)
     migrate.add_argument("--output", type=Path, default=EVENTS_LOG)
     migrate.set_defaults(handler=_migrate)
+
+    sync_codex = subparsers.add_parser(
+        "sync-codex",
+        help="Backfill whitelisted usage facts from local Codex session JSONL.",
+    )
+    sync_codex.add_argument(
+        "--sessions",
+        type=Path,
+        default=Path.home() / ".codex" / "sessions",
+    )
+    sync_codex.add_argument("--project-root", type=Path, default=ROOT)
+    sync_codex.add_argument("--days", type=int, default=None)
+    sync_codex.add_argument("--output", type=Path, default=EVENTS_LOG)
+    sync_codex.set_defaults(handler=_sync_codex)
     return parser
 
 

@@ -34,9 +34,17 @@ python tools/log_tool_usage.py hook --source claude-code
 
 ### Codex
 
-`.codex/hooks.json` 在 `SessionStart` 和 `PreToolUse` 调用同一个记录器。Codex 没有稳定的显式 Skill 工具事件时，适配器会从工具输入中识别以 `skills/<name>/SKILL.md` 结尾的读取路径；只保存 `<name>`，不保存原始命令或路径。
+`.codex/hooks.json` 在 `SessionStart` 和 `PreToolUse` 调用同一个记录器。当前 Codex 可能把真实工具调用包装在自由格式 `exec` 中；适配器会识别内嵌 `tools.<name>(...)`，并从工具输入中识别 `skills/<name>/SKILL.md` 与 `.codex/agents/<name>.toml`。只保存工具、SKILL、Agent 名称，不保存原始程序、命令、参数或路径。
 
-Hook 配置变更后，新会话可能要求确认 Hook 信任。确认后才会自动采集。
+Hook 是逐条信任的。项目当前至少需要确认 `SessionStart` 中的统计命令和 `PreToolUse` 统计命令；只确认同组中的提示注入命令并不会启用统计。配置变更后请新建 Codex 会话并确认 Hook 信任。
+
+如果 Hook 曾被拒绝、未信任或因 Codex 升级漏采，可以从本机 Codex 会话做幂等补漏：
+
+```bash
+python tools/log_tool_usage.py sync-codex --days 3
+```
+
+补漏仅处理 `session_meta` 和工具调用记录，且只接受 `cwd` 等于当前项目的会话。输出仍使用同一白名单协议，不会保存 Prompt、回复、代码、完整命令或工具参数。重复执行不会重复追加。
 
 ## 任意 AI 编辑器接入
 
@@ -92,7 +100,7 @@ python tools/audit_skill_usage.py --no-legacy
 报告展示：
 
 - 各编辑器来源覆盖；
-- SKILL、Agent、MCP、Session 频次；
+- SKILL、Agent、MCP、Tool、Session 频次；
 - 0 召回项目项；
 - 数据时间范围；
 - 一等适配器来源缺失警告。
