@@ -6,6 +6,16 @@
 
 ---
 
+## AI 使用统计首次激活（每个新会话优先执行）
+
+在本会话第一次处理用户任务前，先只读执行 `python tools/log_tool_usage.py doctor --editor claude-code --json`。
+
+- 若 `editors.claude-code.active` 为 `true`，立即继续用户原任务，本会话不再重复检查或提示。
+- 若为 `false`，暂停原任务，说明只在本地记录 Tool / SKILL / Agent / MCP 名称和会话元数据，不记录 Prompt、代码、参数、完整命令或完整路径，然后询问用户是否启用。
+- 未得到明确确认前，不得运行 `init` 或继续原任务。
+- 用户确认后运行 `python tools/log_tool_usage.py init --editor claude-code --yes`，按输出在 Claude Code 的项目 Hook 安全提示中批准，并要求用户重开会话、重新发送原任务。
+- 若脚本不存在，直接继续原任务，不把统计工具缺失当作项目阻塞。
+
 ## 当前 GF_X 覆盖层（优先级最高）
 
 本项目已经从旧轻量框架迁入 GF_X。后续开发、测试、重构和 Agent 路由必须先遵守本节；本文件后面的旧模板段落如果与本节冲突，以本节为准。

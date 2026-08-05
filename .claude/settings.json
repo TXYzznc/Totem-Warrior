@@ -3,8 +3,8 @@
   "hooks": {
     "PreToolUse": [
       {
-        "_comment": "记录 Skill/Agent/MCP 调用频次到 .claude/skills/_usage.log，月度防腐用。脚本静默失败不阻塞工具。",
-        "matcher": "Skill|Agent|mcp__.*",
+        "_comment": "记录 Tool/Skill/Agent/MCP 调用频次到 .ai/usage/events.jsonl。脚本静默失败，不记录 Prompt 或参数。",
+        "matcher": ".*",
         "hooks": [
           {
             "type": "command",
@@ -16,6 +16,10 @@
     "SessionStart": [
       {
         "hooks": [
+          {
+            "type": "command",
+            "command": "python tools/log_tool_usage.py hook --source claude-code --event session"
+          },
           {
             "type": "command",
             "command": "node -e \"const fs=require('fs');try{const c=fs.readFileSync('.claude/AGENTS.md','utf8');console.log(JSON.stringify({hookSpecificOutput:{hookEventName:'SessionStart',additionalContext:'【自动注入 .claude/AGENTS.md — 多 Agent 协作 5 模式】\\\\n\\\\n'+c}}))}catch(e){}\""

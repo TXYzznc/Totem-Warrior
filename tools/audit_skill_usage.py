@@ -14,7 +14,7 @@ from log_tool_usage import EVENTS_LOG, LEGACY_LOG, ROOT, load_events
 
 SKILLS_DIR = ROOT / ".claude" / "skills"
 AGENTS_DIR = ROOT / ".claude" / "agents"
-FIRST_CLASS_SOURCES = {"claude-code", "codex"}
+FIRST_CLASS_SOURCES = {"claude-code", "codex", "cursor", "kiro", "trae"}
 
 
 def _parse_time(value: Any) -> dt.datetime | None:

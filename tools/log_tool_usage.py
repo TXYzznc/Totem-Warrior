@@ -1,11 +1,14 @@
 #!/usr/bin/env python
 """Editor-neutral AI tool usage recorder.
 
-The stable entry point supports three modes:
+The stable entry point supports editor hooks plus initialization and reporting:
 
     python tools/log_tool_usage.py hook --source codex
     python tools/log_tool_usage.py record --source cursor --kind Skill --name unity-skills
     python tools/log_tool_usage.py migrate
+    python tools/log_tool_usage.py doctor --editor codex --json
+    python tools/log_tool_usage.py init --editor codex --trust-codex-hooks
+    python tools/log_tool_usage.py report
 
 With no arguments it remains compatible with the original Claude Code
 PreToolUse hook. Hook mode is deliberately fail-open and never blocks the
@@ -20,6 +23,8 @@ import hashlib
 import json
 import os
 import re
+import shutil
+import subprocess
 import sys
 import time
 import uuid
@@ -33,6 +38,25 @@ LEGACY_LOG = ROOT / ".claude" / "skills" / "_usage.log"
 SCHEMA_VERSION = 1
 ADAPTER_VERSION = "1"
 VALID_KINDS = {"Skill", "Agent", "MCP", "Session", "Tool"}
+FIRST_CLASS_EDITORS = ("codex", "claude-code", "cursor", "kiro", "trae")
+EDITOR_ALIASES = {
+    "claude": "claude-code",
+    "claudecode": "claude-code",
+    "claude-code": "claude-code",
+    "codex": "codex",
+    "cursor": "cursor",
+    "kiro": "kiro",
+    "trae": "trae",
+}
+EDITOR_CONFIGS = {
+    "codex": (Path(".codex/hooks.json"),),
+    "claude-code": (Path(".claude/settings.json"),),
+    "cursor": (Path(".cursor/hooks.json"),),
+    "kiro": (Path(".kiro/hooks/ai-tool-usage.json"),),
+    # TRAE officially supports importing Claude Code hooks. The project rule
+    # carries the first-run instructions; no undocumented private hook path is used.
+    "trae": (Path(".trae/hooks.json"), Path(".trae/rules/project_rules.md")),
+}
 SKILL_PATH_RE = re.compile(
     r"(?:^|/)skills/(?:[^/\"'\s]+/)*(?P<name>[A-Za-z0-9][A-Za-z0-9._:-]{0,127})/SKILL\.md",
     re.IGNORECASE,
@@ -679,6 +703,188 @@ def _sync_codex(args: argparse.Namespace) -> int:
     return 0
 
 
+def _normalize_editor(value: str) -> str:
+    raw = _clean_source(value)
+    if raw == "all":
+        return raw
+    editor = EDITOR_ALIASES.get(raw)
+    if not editor:
+        raise UsageEventError(f"unsupported editor: {value!r}")
+    return editor
+
+
+def _editor_configured(editor: str, root: Path) -> tuple[bool, list[str]]:
+    missing = [path.as_posix() for path in EDITOR_CONFIGS[editor] if not (root / path).is_file()]
+    return not missing, missing
+
+
+def _latest_realtime_event(editor: str, events_path: Path) -> dict[str, Any] | None:
+    cutoff = dt.datetime.now(dt.timezone.utc) - dt.timedelta(hours=24)
+    candidates = []
+    for item in iter_jsonl(events_path):
+        if item.get("source") != editor or item.get("inferred", False):
+            continue
+        if item.get("event") in {"legacy-import", "session-backfill"}:
+            continue
+        timestamp = _parse_timestamp(item.get("timestamp"))
+        if timestamp is not None and timestamp >= cutoff:
+            candidates.append(item)
+    if not candidates:
+        return None
+    return max(candidates, key=lambda item: str(item.get("timestamp", "")))
+
+
+def _codex_trust(root: Path, *, write: bool = False) -> dict[str, Any]:
+    node = shutil.which("node")
+    script = root / "tools" / "codex_hook_trust.js"
+    if not node:
+        return {"verifiable": False, "trusted": False, "error": "node not found"}
+    if not script.is_file():
+        return {"verifiable": False, "trusted": False, "error": "trust helper missing"}
+    command = [node, str(script), "trust" if write else "check", str(root)]
+    try:
+        completed = subprocess.run(
+            command,
+            cwd=root,
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+            timeout=20,
+            check=False,
+        )
+    except (OSError, subprocess.TimeoutExpired) as exc:
+        return {"verifiable": False, "trusted": False, "error": str(exc)}
+    output = completed.stdout.strip().splitlines()
+    try:
+        result = json.loads(output[-1]) if output else {}
+    except json.JSONDecodeError:
+        result = {}
+    if not isinstance(result, dict):
+        result = {}
+    result.setdefault("verifiable", completed.returncode in {0, 3})
+    result.setdefault("trusted", completed.returncode == 0)
+    if completed.returncode not in {0, 3}:
+        result.setdefault("error", completed.stderr.strip() or "Codex trust query failed")
+    return result
+
+
+def build_doctor_report(
+    *,
+    editor: str,
+    root: Path = ROOT,
+    events_path: Path = EVENTS_LOG,
+    query_codex: bool = True,
+) -> dict[str, Any]:
+    selected = list(FIRST_CLASS_EDITORS) if editor == "all" else [_normalize_editor(editor)]
+    reports: dict[str, Any] = {}
+    for name in selected:
+        configured, missing = _editor_configured(name, root)
+        live = _latest_realtime_event(name, events_path)
+        trust: dict[str, Any] = {"verifiable": False, "trusted": False}
+        if name == "codex" and query_codex and configured:
+            trust = _codex_trust(root)
+        if name == "codex":
+            active = configured and bool(trust.get("trusted"))
+            state = "active" if active else ("untrusted" if configured else "not-configured")
+        elif live:
+            active = configured
+            state = "active" if active else "event-without-config"
+        else:
+            active = False
+            state = "pending-host-activation" if configured else "not-configured"
+        reports[name] = {
+            "configured": configured,
+            "missing": missing,
+            "trust": trust,
+            "realtime_event": (
+                {
+                    "timestamp": live.get("timestamp"),
+                    "event": live.get("event"),
+                    "kind": live.get("kind"),
+                    "name": live.get("name"),
+                }
+                if live
+                else None
+            ),
+            "active": active,
+            "state": state,
+        }
+    return {
+        "schema_version": 1,
+        "project": root.name,
+        "events_log": str(events_path.relative_to(root)) if events_path.is_relative_to(root) else str(events_path),
+        "editors": reports,
+        "all_active": all(item["active"] for item in reports.values()),
+    }
+
+
+def _doctor(args: argparse.Namespace) -> int:
+    report = build_doctor_report(
+        editor=_normalize_editor(args.editor),
+        root=args.project_root.resolve(),
+        events_path=args.events,
+        query_codex=not args.no_codex_query,
+    )
+    if args.json:
+        print(json.dumps(report, ensure_ascii=False, indent=2))
+    else:
+        for editor, item in report["editors"].items():
+            live = item["realtime_event"]
+            evidence = f"，最近实时事件 {live['timestamp']}" if live else ""
+            print(f"{editor}: {item['state']}{evidence}")
+            if item["missing"]:
+                print(f"  缺少：{', '.join(item['missing'])}")
+            if item["trust"].get("error"):
+                print(f"  信任检查：{item['trust']['error']}")
+    return 0
+
+
+def _init(args: argparse.Namespace) -> int:
+    editor = _normalize_editor(args.editor)
+    if editor == "all":
+        raise UsageEventError("init requires one explicit editor")
+    root = args.project_root.resolve()
+    configured, missing = _editor_configured(editor, root)
+    if not configured:
+        raise UsageEventError(f"missing project adapter files: {', '.join(missing)}")
+    if not args.yes:
+        print(f"将初始化 {editor} 的项目级 AI 使用统计。")
+        print("仅记录来源、事件、Tool/SKILL/Agent/MCP 名称和会话标识；不记录 Prompt、代码、参数或完整路径。")
+        if editor == "codex" and args.trust_codex_hooks:
+            print("将只信任当前项目 .codex/hooks.json 中由 Codex 计算出的当前 Hook 哈希。")
+        answer = input("继续？[y/N] ").strip().lower()
+        if answer not in {"y", "yes"}:
+            print("已取消，未修改信任状态。")
+            return 1
+    if editor == "codex":
+        if not args.trust_codex_hooks:
+            raise UsageEventError("Codex activation requires explicit --trust-codex-hooks")
+        result = _codex_trust(root, write=True)
+        print(json.dumps({"editor": editor, **result}, ensure_ascii=False, indent=2))
+        return 0 if result.get("trusted") else 3
+    instructions = {
+        "claude-code": "在 Claude Code 的项目 Hook 安全提示中批准仓库内 .claude/settings.json，然后重开会话。",
+        "cursor": "将仓库标记为 Trusted Workspace；Cursor 会自动加载 .cursor/hooks.json，然后重开 Agent 会话。",
+        "kiro": "Kiro 会自动发现 .kiro/hooks；若出现 shell 命令权限提示，请批准该记录命令，然后重开会话。",
+        "trae": "在 TRAE Hook 安全提示或 Hook 面板中启用项目的 .trae/hooks.json，然后重开会话。",
+    }
+    print(json.dumps({"editor": editor, "configured": True, "state": "pending-host-activation", "next_step": instructions[editor]}, ensure_ascii=False, indent=2))
+    return 0
+
+
+def _report(args: argparse.Namespace) -> int:
+    from audit_skill_usage import filter_events, render_report
+
+    events = load_events(
+        jsonl_path=args.events,
+        legacy_path=args.legacy,
+        include_legacy=not args.no_legacy,
+    )
+    print(render_report(filter_events(events, args.days), args.days))
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Record editor-neutral AI tool usage events.")
     subparsers = parser.add_subparsers(dest="command")
@@ -720,6 +926,28 @@ def build_parser() -> argparse.ArgumentParser:
     sync_codex.add_argument("--days", type=int, default=None)
     sync_codex.add_argument("--output", type=Path, default=EVENTS_LOG)
     sync_codex.set_defaults(handler=_sync_codex)
+
+    doctor = subparsers.add_parser("doctor", help="Diagnose adapter, trust, and realtime event status.")
+    doctor.add_argument("--editor", default="all", choices=[*FIRST_CLASS_EDITORS, "all", "claude"])
+    doctor.add_argument("--project-root", type=Path, default=ROOT)
+    doctor.add_argument("--events", type=Path, default=EVENTS_LOG)
+    doctor.add_argument("--json", action="store_true")
+    doctor.add_argument("--no-codex-query", action="store_true", help="Do not start codex app-server for trust status.")
+    doctor.set_defaults(handler=_doctor)
+
+    init = subparsers.add_parser("init", help="Initialize one editor adapter after explicit user consent.")
+    init.add_argument("--editor", required=True, choices=[*FIRST_CLASS_EDITORS, "claude"])
+    init.add_argument("--project-root", type=Path, default=ROOT)
+    init.add_argument("--yes", action="store_true", help="Consent was already collected by the calling AI/editor.")
+    init.add_argument("--trust-codex-hooks", action="store_true", help="Trust only current-project Codex hook hashes.")
+    init.set_defaults(handler=_init)
+
+    report = subparsers.add_parser("report", help="Render the existing usage-frequency audit report.")
+    report.add_argument("--days", type=int, default=None)
+    report.add_argument("--events", type=Path, default=EVENTS_LOG)
+    report.add_argument("--legacy", type=Path, default=LEGACY_LOG)
+    report.add_argument("--no-legacy", action="store_true")
+    report.set_defaults(handler=_report)
     return parser
 
 

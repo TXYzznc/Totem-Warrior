@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "hooks": {
+    "sessionStart": [
+      {
+        "command": "python tools/log_tool_usage.py hook --source cursor --event session"
+      }
+    ],
+    "preToolUse": [
+      {
+        "command": "python tools/log_tool_usage.py hook --source cursor"
+      }
+    ]
+  }
+}

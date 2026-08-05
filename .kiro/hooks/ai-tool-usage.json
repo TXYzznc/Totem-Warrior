@@ -1,0 +1,23 @@
+{
+  "hooks": [
+    {
+      "name": "AI usage session start",
+      "trigger": "SessionStart",
+      "action": {
+        "type": "command",
+        "command": "python tools/log_tool_usage.py hook --source kiro --event session"
+      },
+      "enabled": true
+    },
+    {
+      "name": "AI tool usage",
+      "trigger": "PreToolUse",
+      "matcher": ".*",
+      "action": {
+        "type": "command",
+        "command": "python tools/log_tool_usage.py hook --source kiro"
+      },
+      "enabled": true
+    }
+  ]
+}

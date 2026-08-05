@@ -181,6 +181,23 @@ class EventProtocolTests(unittest.TestCase):
         self.assertEqual("generic-editor", event["source"])
         self.assertNotIn("must not persist", serialized)
 
+    def test_cursor_kiro_and_trae_camel_case_payloads_are_supported(self) -> None:
+        for source in ("cursor", "kiro", "trae"):
+            with self.subTest(source=source):
+                event = usage.adapt_hook_payload(
+                    {
+                        "sessionId": "session-1",
+                        "hookEventName": "PreToolUse",
+                        "toolName": "shell_command",
+                        "toolInput": {"command": "secret command"},
+                        "toolUseId": "tool-1",
+                    },
+                    source=source,
+                )[0]
+                self.assertEqual(source, event["source"])
+                self.assertEqual(("Tool", "shell_command"), (event["kind"], event["name"]))
+                self.assertNotIn("secret", json.dumps(event))
+
     def test_hook_mode_is_fail_open(self) -> None:
         args = argparse.Namespace(
             source="codex",
@@ -292,10 +309,10 @@ class StorageAndMigrationTests(unittest.TestCase):
         self.assertIn("缺少一等适配器来源：codex", report)
         self.assertIn("不能直接作为删除依据", report)
 
-    def test_report_has_no_coverage_warning_with_both_first_class_sources(self) -> None:
+    def test_report_has_no_coverage_warning_with_all_first_class_sources(self) -> None:
         events = [
-            usage.create_event(source="claude-code", kind="Skill", name="a"),
-            usage.create_event(source="codex", kind="Skill", name="b"),
+            usage.create_event(source=source, kind="Skill", name=source)
+            for source in usage.FIRST_CLASS_EDITORS
         ]
         report = audit.render_report(events, days=30)
         self.assertNotIn("## 覆盖提示", report)
@@ -307,6 +324,90 @@ class StorageAndMigrationTests(unittest.TestCase):
         self.assertIn("## Tool 调用频次", report)
         self.assertIn("shell_command", report)
         self.assertIn("Tool 调用：1", report)
+
+
+class ActivationCliTests(unittest.TestCase):
+    def _write_adapter_files(self, root: Path) -> None:
+        for paths in usage.EDITOR_CONFIGS.values():
+            for relative in paths:
+                path = root / relative
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_text("{}\n", encoding="utf-8")
+
+    def test_doctor_is_read_only_and_reports_live_evidence(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            self._write_adapter_files(root)
+            events = root / ".ai" / "usage" / "events.jsonl"
+            usage.append_events(
+                [usage.create_event(source="cursor", kind="Session", name="start")],
+                path=events,
+            )
+            before = events.read_bytes()
+
+            report = usage.build_doctor_report(
+                editor="cursor",
+                root=root,
+                events_path=events,
+                query_codex=False,
+            )
+
+            self.assertTrue(report["editors"]["cursor"]["active"])
+            self.assertEqual(before, events.read_bytes())
+
+    def test_doctor_does_not_claim_host_activation_without_realtime_event(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            self._write_adapter_files(root)
+            report = usage.build_doctor_report(
+                editor="kiro",
+                root=root,
+                events_path=root / "events.jsonl",
+                query_codex=False,
+            )
+            item = report["editors"]["kiro"]
+            self.assertFalse(item["active"])
+            self.assertEqual("pending-host-activation", item["state"])
+
+    def test_codex_doctor_uses_native_trust_result(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            self._write_adapter_files(root)
+            with mock.patch.object(
+                usage,
+                "_codex_trust",
+                return_value={"verifiable": True, "trusted": True, "count": 2},
+            ):
+                report = usage.build_doctor_report(
+                    editor="codex",
+                    root=root,
+                    events_path=root / "events.jsonl",
+                )
+            self.assertTrue(report["editors"]["codex"]["active"])
+
+    def test_init_requires_explicit_codex_trust_switch(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            self._write_adapter_files(root)
+            args = argparse.Namespace(
+                editor="codex",
+                project_root=root,
+                yes=True,
+                trust_codex_hooks=False,
+            )
+            with self.assertRaises(usage.UsageEventError):
+                usage._init(args)
+
+    def test_project_adapter_json_files_parse(self) -> None:
+        for relative in (
+            ".codex/hooks.json",
+            ".claude/settings.json",
+            ".cursor/hooks.json",
+            ".kiro/hooks/ai-tool-usage.json",
+            ".trae/hooks.json",
+        ):
+            with self.subTest(path=relative):
+                json.loads((usage.ROOT / relative).read_text(encoding="utf-8"))
 
 
 if __name__ == "__main__":

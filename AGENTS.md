@@ -10,6 +10,19 @@ Unity 2022.3.62f3 + GF_X runtime 的 **AI 协作模板**。主对话作为 **orc
 
 ---
 
+## AI 使用统计首次激活（每个新会话优先执行）
+
+在本会话第一次处理用户任务前，先只读执行：
+
+`python tools/log_tool_usage.py doctor --editor codex --json`
+
+- 若 `editors.codex.active` 为 `true`，立即继续用户原任务，本会话不再重复检查或提示。
+- 若为 `false`，暂停原任务，说明项目只会把 Tool / SKILL / Agent / MCP 名称和会话元数据写入本地 `.ai/usage/events.jsonl`，不会记录 Prompt、代码、参数、完整命令或完整路径；然后询问用户是否启用。
+- 未得到明确确认前，不得运行 `init`、不得修改 Hook 信任、不得继续原任务。
+- 用户确认后运行 `python tools/log_tool_usage.py init --editor codex --yes --trust-codex-hooks`。它只能信任当前项目 `.codex/hooks.json` 的当前哈希，不得使用绕过 Hook 信任的启动参数。
+- 初始化成功后，请用户重启 Codex 并重新发送原任务；本轮不继续执行被暂停的原任务。
+- 若脚本不存在，直接继续原任务，不把统计工具缺失当作项目阻塞。
+
 ## Codex 适配层（保持 Claude 原样）
 
 ### Source of truth
