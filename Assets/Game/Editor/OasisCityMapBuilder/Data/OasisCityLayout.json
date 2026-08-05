@@ -1,0 +1,3881 @@
+{
+  "schemaVersion": 1,
+  "sourceImage": "artifacts/美术资源需求/模型/ENV-End-绿洲新城/地图设计/建筑类型规划板.png",
+  "mapWidth": 512.0,
+  "mapLength": 768.0,
+  "pixelScaleMeters": 0.17582417582417584,
+  "pixelOriginX": 1460.0,
+  "pixelOriginY": 2194.5,
+  "buildingCount": 152,
+  "spawnCount": 20,
+  "buildings": [
+    {
+      "id": "BF-01-01",
+      "type": 1,
+      "pixelX": 1888,
+      "pixelY": 1624,
+      "x": 75.253,
+      "z": 100.308,
+      "yaw": 180.0,
+      "sizeX": 28.0,
+      "sizeY": 17.4,
+      "sizeZ": 32.0,
+      "markerWidth": 34.813,
+      "markerDepth": 29.714,
+      "category": "red"
+    },
+    {
+      "id": "BF-02-01",
+      "type": 2,
+      "pixelX": 1945,
+      "pixelY": 703,
+      "x": 85.275,
+      "z": 262.242,
+      "yaw": 185.013,
+      "sizeX": 12.0,
+      "sizeY": 5.9,
+      "sizeZ": 17.85,
+      "markerWidth": 18.947,
+      "markerDepth": 13.831,
+      "category": "orange"
+    },
+    {
+      "id": "BF-03-01",
+      "type": 3,
+      "pixelX": 2133,
+      "pixelY": 1402,
+      "x": 118.33,
+      "z": 139.341,
+      "yaw": 170.074,
+      "sizeX": 14.0,
+      "sizeY": 5.9,
+      "sizeZ": 13.4,
+      "markerWidth": 15.964,
+      "markerDepth": 13.076,
+      "category": "orange"
+    },
+    {
+      "id": "BF-04-01",
+      "type": 4,
+      "pixelX": 597,
+      "pixelY": 2905,
+      "x": -151.736,
+      "z": -124.923,
+      "yaw": 96.009,
+      "sizeX": 14.0,
+      "sizeY": 5.9,
+      "sizeZ": 15.7,
+      "markerWidth": 14.983,
+      "markerDepth": 15.038,
+      "category": "orange"
+    },
+    {
+      "id": "BF-05-01",
+      "type": 5,
+      "pixelX": 910,
+      "pixelY": 1699,
+      "x": -96.703,
+      "z": 87.121,
+      "yaw": 188.13,
+      "sizeX": 10.0,
+      "sizeY": 5.9,
+      "sizeZ": 16.2,
+      "markerWidth": 15.988,
+      "markerDepth": 11.488,
+      "category": "orange"
+    },
+    {
+      "id": "BF-06-01",
+      "type": 6,
+      "pixelX": 2355,
+      "pixelY": 721,
+      "x": 157.363,
+      "z": 259.077,
+      "yaw": 180.0,
+      "sizeX": 24.0,
+      "sizeY": 10.209,
+      "sizeZ": 30.0,
+      "markerWidth": 30.945,
+      "markerDepth": 24.967,
+      "category": "red"
+    },
+    {
+      "id": "BF-07-01",
+      "type": 7,
+      "pixelX": 1718,
+      "pixelY": 1209,
+      "x": 45.363,
+      "z": 173.275,
+      "yaw": 186.009,
+      "sizeX": 18.0,
+      "sizeY": 10.209,
+      "sizeZ": 21.7,
+      "markerWidth": 20.974,
+      "markerDepth": 18.977,
+      "category": "teal"
+    },
+    {
+      "id": "BF-08-01",
+      "type": 8,
+      "pixelX": 2577,
+      "pixelY": 2807,
+      "x": 196.396,
+      "z": -107.692,
+      "yaw": 6.009,
+      "sizeX": 20.0,
+      "sizeY": 5.9,
+      "sizeZ": 20.0,
+      "markerWidth": 20.983,
+      "markerDepth": 20.992,
+      "category": "teal"
+    },
+    {
+      "id": "BF-09-01",
+      "type": 9,
+      "pixelX": 1865,
+      "pixelY": 407,
+      "x": 71.209,
+      "z": 314.286,
+      "yaw": 218.853,
+      "sizeX": 18.0,
+      "sizeY": 5.9,
+      "sizeZ": 20.06,
+      "markerWidth": 37.993,
+      "markerDepth": 26.693,
+      "category": "teal"
+    },
+    {
+      "id": "BF-10-01",
+      "type": 10,
+      "pixelX": 1535,
+      "pixelY": 1249,
+      "x": 13.187,
+      "z": 166.242,
+      "yaw": 171.995,
+      "sizeX": 20.0,
+      "sizeY": 5.9,
+      "sizeZ": 19.7,
+      "markerWidth": 20.983,
+      "markerDepth": 18.973,
+      "category": "teal"
+    },
+    {
+      "id": "BF-11-01",
+      "type": 11,
+      "pixelX": 1672,
+      "pixelY": 902,
+      "x": 37.275,
+      "z": 227.253,
+      "yaw": 190.008,
+      "sizeX": 14.4,
+      "sizeY": 8.664,
+      "sizeZ": 12.0,
+      "markerWidth": 12.986,
+      "markerDepth": 15.39,
+      "category": "teal"
+    },
+    {
+      "id": "BF-12-01",
+      "type": 12,
+      "pixelX": 1467,
+      "pixelY": 590,
+      "x": 7.0,
+      "z": 282.11,
+      "yaw": 92.437,
+      "sizeX": 12.0,
+      "sizeY": 10.613,
+      "sizeZ": 12.0,
+      "markerWidth": 15.287,
+      "markerDepth": 14.038,
+      "category": "teal"
+    },
+    {
+      "id": "BF-13-01",
+      "type": 13,
+      "pixelX": 535,
+      "pixelY": 601,
+      "x": -162.637,
+      "z": 280.176,
+      "yaw": 174.987,
+      "sizeX": 16.8,
+      "sizeY": 5.9,
+      "sizeZ": 16.8,
+      "markerWidth": 17.792,
+      "markerDepth": 17.792,
+      "category": "purple"
+    },
+    {
+      "id": "BF-13-02",
+      "type": 13,
+      "pixelX": 859,
+      "pixelY": 1875,
+      "x": -105.67,
+      "z": 56.176,
+      "yaw": 173.991,
+      "sizeX": 16.8,
+      "sizeY": 5.9,
+      "sizeZ": 16.8,
+      "markerWidth": 17.79,
+      "markerDepth": 17.79,
+      "category": "purple"
+    },
+    {
+      "id": "BF-13-03",
+      "type": 13,
+      "pixelX": 568,
+      "pixelY": 2182,
+      "x": -156.835,
+      "z": 2.198,
+      "yaw": 97.001,
+      "sizeX": 16.8,
+      "sizeY": 5.9,
+      "sizeZ": 16.8,
+      "markerWidth": 17.901,
+      "markerDepth": 17.791,
+      "category": "purple"
+    },
+    {
+      "id": "BF-13-04",
+      "type": 13,
+      "pixelX": 2451,
+      "pixelY": 2944,
+      "x": 174.242,
+      "z": -131.78,
+      "yaw": 351.87,
+      "sizeX": 16.8,
+      "sizeY": 5.9,
+      "sizeZ": 16.8,
+      "markerWidth": 17.804,
+      "markerDepth": 17.779,
+      "category": "purple"
+    },
+    {
+      "id": "BF-13-05",
+      "type": 13,
+      "pixelX": 1490,
+      "pixelY": 3901,
+      "x": 5.275,
+      "z": -300.044,
+      "yaw": 307.451,
+      "sizeX": 16.8,
+      "sizeY": 5.9,
+      "sizeZ": 16.8,
+      "markerWidth": 42.493,
+      "markerDepth": 28.941,
+      "category": "purple"
+    },
+    {
+      "id": "BF-13-06",
+      "type": 13,
+      "pixelX": 1832,
+      "pixelY": 4082,
+      "x": 65.407,
+      "z": -331.868,
+      "yaw": 354.958,
+      "sizeX": 16.8,
+      "sizeY": 5.9,
+      "sizeZ": 16.8,
+      "markerWidth": 17.798,
+      "markerDepth": 17.787,
+      "category": "purple"
+    },
+    {
+      "id": "BF-14-01",
+      "type": 14,
+      "pixelX": 2332,
+      "pixelY": 327,
+      "x": 153.319,
+      "z": 328.352,
+      "yaw": 117.659,
+      "sizeX": 15.6,
+      "sizeY": 5.9,
+      "sizeZ": 16.65,
+      "markerWidth": 21.711,
+      "markerDepth": 53.305,
+      "category": "purple"
+    },
+    {
+      "id": "BF-14-02",
+      "type": 14,
+      "pixelX": 329,
+      "pixelY": 611,
+      "x": -198.857,
+      "z": 278.418,
+      "yaw": 209.178,
+      "sizeX": 15.6,
+      "sizeY": 5.9,
+      "sizeZ": 16.65,
+      "markerWidth": 51.318,
+      "markerDepth": 25.051,
+      "category": "purple"
+    },
+    {
+      "id": "BF-14-03",
+      "type": 14,
+      "pixelX": 716,
+      "pixelY": 1090,
+      "x": -130.813,
+      "z": 194.198,
+      "yaw": 173.991,
+      "sizeX": 15.6,
+      "sizeY": 5.9,
+      "sizeZ": 16.65,
+      "markerWidth": 16.584,
+      "markerDepth": 16.584,
+      "category": "purple"
+    },
+    {
+      "id": "BF-14-04",
+      "type": 14,
+      "pixelX": 2378,
+      "pixelY": 1528,
+      "x": 161.407,
+      "z": 117.187,
+      "yaw": 278.005,
+      "sizeX": 15.6,
+      "sizeY": 5.9,
+      "sizeZ": 16.65,
+      "markerWidth": 16.592,
+      "markerDepth": 16.592,
+      "category": "purple"
+    },
+    {
+      "id": "BF-14-05",
+      "type": 14,
+      "pixelX": 1990,
+      "pixelY": 2523,
+      "x": 93.187,
+      "z": -57.758,
+      "yaw": 349.695,
+      "sizeX": 15.6,
+      "sizeY": 5.9,
+      "sizeZ": 16.65,
+      "markerWidth": 17.582,
+      "markerDepth": 18.525,
+      "category": "purple"
+    },
+    {
+      "id": "BF-14-06",
+      "type": 14,
+      "pixelX": 495,
+      "pixelY": 2529,
+      "x": -169.67,
+      "z": -58.813,
+      "yaw": 353.991,
+      "sizeX": 15.6,
+      "sizeY": 5.9,
+      "sizeZ": 16.65,
+      "markerWidth": 16.648,
+      "markerDepth": 16.667,
+      "category": "purple"
+    },
+    {
+      "id": "BF-15-01",
+      "type": 15,
+      "pixelX": 2565,
+      "pixelY": 646,
+      "x": 194.286,
+      "z": 272.264,
+      "yaw": 190.008,
+      "sizeX": 18.0,
+      "sizeY": 5.9,
+      "sizeZ": 16.8,
+      "markerWidth": 17.773,
+      "markerDepth": 18.985,
+      "category": "purple"
+    },
+    {
+      "id": "BF-15-02",
+      "type": 15,
+      "pixelX": 869,
+      "pixelY": 1528,
+      "x": -103.912,
+      "z": 117.187,
+      "yaw": 167.989,
+      "sizeX": 18.0,
+      "sizeY": 5.9,
+      "sizeZ": 16.8,
+      "markerWidth": 18.998,
+      "markerDepth": 17.79,
+      "category": "purple"
+    },
+    {
+      "id": "BF-15-03",
+      "type": 15,
+      "pixelX": 535,
+      "pixelY": 1954,
+      "x": -162.637,
+      "z": 42.286,
+      "yaw": 171.87,
+      "sizeX": 18.0,
+      "sizeY": 5.9,
+      "sizeZ": 16.8,
+      "markerWidth": 18.997,
+      "markerDepth": 17.779,
+      "category": "purple"
+    },
+    {
+      "id": "BF-15-04",
+      "type": 15,
+      "pixelX": 2139,
+      "pixelY": 2398,
+      "x": 119.385,
+      "z": -35.78,
+      "yaw": 8.005,
+      "sizeX": 18.0,
+      "sizeY": 5.9,
+      "sizeZ": 16.8,
+      "markerWidth": 17.898,
+      "markerDepth": 20.442,
+      "category": "purple"
+    },
+    {
+      "id": "BF-15-05",
+      "type": 15,
+      "pixelX": 670,
+      "pixelY": 2575,
+      "x": -138.901,
+      "z": -66.901,
+      "yaw": 7.907,
+      "sizeX": 18.0,
+      "sizeY": 5.9,
+      "sizeZ": 16.8,
+      "markerWidth": 17.836,
+      "markerDepth": 19.036,
+      "category": "purple"
+    },
+    {
+      "id": "BF-15-06",
+      "type": 15,
+      "pixelX": 898,
+      "pixelY": 3399,
+      "x": -98.813,
+      "z": -211.78,
+      "yaw": 7.97,
+      "sizeX": 18.0,
+      "sizeY": 5.9,
+      "sizeZ": 16.8,
+      "markerWidth": 17.796,
+      "markerDepth": 18.994,
+      "category": "purple"
+    },
+    {
+      "id": "BF-16-01",
+      "type": 16,
+      "pixelX": 1757,
+      "pixelY": 515,
+      "x": 52.22,
+      "z": 295.297,
+      "yaw": 215.159,
+      "sizeX": 19.2,
+      "sizeY": 8.959,
+      "sizeZ": 21.6,
+      "markerWidth": 39.739,
+      "markerDepth": 28.219,
+      "category": "purple"
+    },
+    {
+      "id": "BF-16-02",
+      "type": 16,
+      "pixelX": 1525,
+      "pixelY": 800,
+      "x": 11.429,
+      "z": 245.187,
+      "yaw": 169.992,
+      "sizeX": 19.2,
+      "sizeY": 8.959,
+      "sizeZ": 21.6,
+      "markerWidth": 20.778,
+      "markerDepth": 22.682,
+      "category": "purple"
+    },
+    {
+      "id": "BF-16-03",
+      "type": 16,
+      "pixelX": 517,
+      "pixelY": 868,
+      "x": -165.802,
+      "z": 233.231,
+      "yaw": 185.001,
+      "sizeX": 19.2,
+      "sizeY": 8.959,
+      "sizeZ": 21.6,
+      "markerWidth": 22.593,
+      "markerDepth": 21.57,
+      "category": "purple"
+    },
+    {
+      "id": "BF-16-04",
+      "type": 16,
+      "pixelX": 2150,
+      "pixelY": 1090,
+      "x": 121.319,
+      "z": 194.198,
+      "yaw": 187.97,
+      "sizeX": 19.2,
+      "sizeY": 8.959,
+      "sizeZ": 21.6,
+      "markerWidth": 24.447,
+      "markerDepth": 20.829,
+      "category": "purple"
+    },
+    {
+      "id": "BF-16-05",
+      "type": 16,
+      "pixelX": 728,
+      "pixelY": 3343,
+      "x": -128.703,
+      "z": -201.934,
+      "yaw": 6.009,
+      "sizeX": 19.2,
+      "sizeY": 8.959,
+      "sizeZ": 21.6,
+      "markerWidth": 22.594,
+      "markerDepth": 20.192,
+      "category": "purple"
+    },
+    {
+      "id": "BF-16-06",
+      "type": 16,
+      "pixelX": 2446,
+      "pixelY": 3536,
+      "x": 173.363,
+      "z": -235.868,
+      "yaw": 352.999,
+      "sizeX": 19.2,
+      "sizeY": 8.959,
+      "sizeZ": 21.6,
+      "markerWidth": 20.195,
+      "markerDepth": 22.595,
+      "category": "purple"
+    },
+    {
+      "id": "BF-16-07",
+      "type": 16,
+      "pixelX": 1695,
+      "pixelY": 3934,
+      "x": 41.319,
+      "z": -305.846,
+      "yaw": 7.001,
+      "sizeX": 19.2,
+      "sizeY": 8.959,
+      "sizeZ": 21.6,
+      "markerWidth": 22.592,
+      "markerDepth": 20.195,
+      "category": "purple"
+    },
+    {
+      "id": "BF-17-01",
+      "type": 17,
+      "pixelX": 2173,
+      "pixelY": 418,
+      "x": 125.363,
+      "z": 312.352,
+      "yaw": 171.87,
+      "sizeX": 12.0,
+      "sizeY": 4.8,
+      "sizeZ": 14.0,
+      "markerWidth": 13.054,
+      "markerDepth": 15.118,
+      "category": "green"
+    },
+    {
+      "id": "BF-17-02",
+      "type": 17,
+      "pixelX": 716,
+      "pixelY": 453,
+      "x": -130.813,
+      "z": 306.198,
+      "yaw": 171.995,
+      "sizeX": 12.0,
+      "sizeY": 4.8,
+      "sizeZ": 14.0,
+      "markerWidth": 12.993,
+      "markerDepth": 14.993,
+      "category": "green"
+    },
+    {
+      "id": "BF-17-03",
+      "type": 17,
+      "pixelX": 2548,
+      "pixelY": 458,
+      "x": 191.297,
+      "z": 305.319,
+      "yaw": 276.34,
+      "sizeX": 12.0,
+      "sizeY": 4.8,
+      "sizeZ": 14.0,
+      "markerWidth": 17.145,
+      "markerDepth": 32.037,
+      "category": "green"
+    },
+    {
+      "id": "BF-17-04",
+      "type": 17,
+      "pixelX": 1985,
+      "pixelY": 538,
+      "x": 92.308,
+      "z": 291.253,
+      "yaw": 171.027,
+      "sizeX": 12.0,
+      "sizeY": 4.8,
+      "sizeZ": 14.0,
+      "markerWidth": 12.989,
+      "markerDepth": 16.938,
+      "category": "green"
+    },
+    {
+      "id": "BF-17-05",
+      "type": 17,
+      "pixelX": 869,
+      "pixelY": 544,
+      "x": -103.912,
+      "z": 290.198,
+      "yaw": 190.008,
+      "sizeX": 12.0,
+      "sizeY": 4.8,
+      "sizeZ": 14.0,
+      "markerWidth": 14.993,
+      "markerDepth": 12.986,
+      "category": "green"
+    },
+    {
+      "id": "BF-17-06",
+      "type": 17,
+      "pixelX": 1843,
+      "pixelY": 663,
+      "x": 67.341,
+      "z": 269.275,
+      "yaw": 172.03,
+      "sizeX": 12.0,
+      "sizeY": 4.8,
+      "sizeZ": 14.0,
+      "markerWidth": 12.99,
+      "markerDepth": 14.992,
+      "category": "green"
+    },
+    {
+      "id": "BF-17-07",
+      "type": 17,
+      "pixelX": 779,
+      "pixelY": 709,
+      "x": -119.736,
+      "z": 261.187,
+      "yaw": 173.019,
+      "sizeX": 12.0,
+      "sizeY": 4.8,
+      "sizeZ": 14.0,
+      "markerWidth": 12.989,
+      "markerDepth": 14.991,
+      "category": "green"
+    },
+    {
+      "id": "BF-17-08",
+      "type": 17,
+      "pixelX": 381,
+      "pixelY": 760,
+      "x": -189.714,
+      "z": 252.22,
+      "yaw": 167.471,
+      "sizeX": 12.0,
+      "sizeY": 4.8,
+      "sizeZ": 14.0,
+      "markerWidth": 14.017,
+      "markerDepth": 15.104,
+      "category": "green"
+    },
+    {
+      "id": "BF-17-09",
+      "type": 17,
+      "pixelX": 1837,
+      "pixelY": 845,
+      "x": 66.286,
+      "z": 237.275,
+      "yaw": 173.019,
+      "sizeX": 12.0,
+      "sizeY": 4.8,
+      "sizeZ": 14.0,
+      "markerWidth": 14.478,
+      "markerDepth": 14.991,
+      "category": "green"
+    },
+    {
+      "id": "BF-17-10",
+      "type": 17,
+      "pixelX": 688,
+      "pixelY": 919,
+      "x": -135.736,
+      "z": 224.264,
+      "yaw": 171.027,
+      "sizeX": 12.0,
+      "sizeY": 4.8,
+      "sizeZ": 14.0,
+      "markerWidth": 12.989,
+      "markerDepth": 14.991,
+      "category": "green"
+    },
+    {
+      "id": "BF-17-11",
+      "type": 17,
+      "pixelX": 2542,
+      "pixelY": 941,
+      "x": 190.242,
+      "z": 220.396,
+      "yaw": 174.987,
+      "sizeX": 12.0,
+      "sizeY": 4.8,
+      "sizeZ": 14.0,
+      "markerWidth": 12.995,
+      "markerDepth": 14.983,
+      "category": "green"
+    },
+    {
+      "id": "BF-17-12",
+      "type": 17,
+      "pixelX": 875,
+      "pixelY": 1175,
+      "x": -102.857,
+      "z": 179.253,
+      "yaw": 189.019,
+      "sizeX": 12.0,
+      "sizeY": 4.8,
+      "sizeZ": 14.0,
+      "markerWidth": 14.986,
+      "markerDepth": 12.996,
+      "category": "green"
+    },
+    {
+      "id": "BF-17-13",
+      "type": 17,
+      "pixelX": 1484,
+      "pixelY": 1511,
+      "x": 4.22,
+      "z": 120.176,
+      "yaw": 188.13,
+      "sizeX": 12.0,
+      "sizeY": 4.8,
+      "sizeZ": 14.0,
+      "markerWidth": 14.994,
+      "markerDepth": 12.98,
+      "category": "green"
+    },
+    {
+      "id": "BF-17-14",
+      "type": 17,
+      "pixelX": 688,
+      "pixelY": 1545,
+      "x": -135.736,
+      "z": 114.198,
+      "yaw": 188.13,
+      "sizeX": 12.0,
+      "sizeY": 4.8,
+      "sizeZ": 14.0,
+      "markerWidth": 14.994,
+      "markerDepth": 12.98,
+      "category": "green"
+    },
+    {
+      "id": "BF-17-15",
+      "type": 17,
+      "pixelX": 2036,
+      "pixelY": 1568,
+      "x": 101.275,
+      "z": 110.154,
+      "yaw": 190.125,
+      "sizeX": 12.0,
+      "sizeY": 4.8,
+      "sizeZ": 14.0,
+      "markerWidth": 16.944,
+      "markerDepth": 13.587,
+      "category": "green"
+    },
+    {
+      "id": "BF-17-16",
+      "type": 17,
+      "pixelX": 313,
+      "pixelY": 1647,
+      "x": -201.67,
+      "z": 96.264,
+      "yaw": 168.996,
+      "sizeX": 12.0,
+      "sizeY": 4.8,
+      "sizeZ": 14.0,
+      "markerWidth": 12.992,
+      "markerDepth": 14.982,
+      "category": "green"
+    },
+    {
+      "id": "BF-17-17",
+      "type": 17,
+      "pixelX": 2212,
+      "pixelY": 1773,
+      "x": 132.22,
+      "z": 74.11,
+      "yaw": 172.011,
+      "sizeX": 12.0,
+      "sizeY": 4.8,
+      "sizeZ": 14.0,
+      "markerWidth": 12.992,
+      "markerDepth": 14.992,
+      "category": "green"
+    },
+    {
+      "id": "BF-17-18",
+      "type": 17,
+      "pixelX": 1859,
+      "pixelY": 1886,
+      "x": 70.154,
+      "z": 54.242,
+      "yaw": 173.991,
+      "sizeX": 12.0,
+      "sizeY": 4.8,
+      "sizeZ": 14.0,
+      "markerWidth": 12.976,
+      "markerDepth": 14.983,
+      "category": "green"
+    },
+    {
+      "id": "BF-17-19",
+      "type": 17,
+      "pixelX": 2497,
+      "pixelY": 1937,
+      "x": 182.33,
+      "z": 45.275,
+      "yaw": 184.97,
+      "sizeX": 12.0,
+      "sizeY": 4.8,
+      "sizeZ": 14.0,
+      "markerWidth": 14.988,
+      "markerDepth": 12.993,
+      "category": "green"
+    },
+    {
+      "id": "BF-17-20",
+      "type": 17,
+      "pixelX": 716,
+      "pixelY": 1983,
+      "x": -130.813,
+      "z": 37.187,
+      "yaw": 190.008,
+      "sizeX": 12.0,
+      "sizeY": 4.8,
+      "sizeZ": 14.0,
+      "markerWidth": 14.982,
+      "markerDepth": 12.986,
+      "category": "green"
+    },
+    {
+      "id": "BF-17-21",
+      "type": 17,
+      "pixelX": 1735,
+      "pixelY": 2257,
+      "x": 48.352,
+      "z": -10.989,
+      "yaw": 7.001,
+      "sizeX": 12.0,
+      "sizeY": 4.8,
+      "sizeZ": 14.0,
+      "markerWidth": 14.99,
+      "markerDepth": 12.994,
+      "category": "green"
+    },
+    {
+      "id": "BF-17-22",
+      "type": 17,
+      "pixelX": 363,
+      "pixelY": 2398,
+      "x": -192.879,
+      "z": -35.78,
+      "yaw": 6.981,
+      "sizeX": 12.0,
+      "sizeY": 4.8,
+      "sizeZ": 14.0,
+      "markerWidth": 14.995,
+      "markerDepth": 12.993,
+      "category": "green"
+    },
+    {
+      "id": "BF-17-23",
+      "type": 17,
+      "pixelX": 842,
+      "pixelY": 2512,
+      "x": -108.659,
+      "z": -55.824,
+      "yaw": 353.019,
+      "sizeX": 12.0,
+      "sizeY": 4.8,
+      "sizeZ": 14.0,
+      "markerWidth": 13.057,
+      "markerDepth": 15.066,
+      "category": "green"
+    },
+    {
+      "id": "BF-17-24",
+      "type": 17,
+      "pixelX": 927,
+      "pixelY": 3052,
+      "x": -93.714,
+      "z": -150.769,
+      "yaw": 9.951,
+      "sizeX": 12.0,
+      "sizeY": 4.8,
+      "sizeZ": 14.0,
+      "markerWidth": 14.994,
+      "markerDepth": 12.995,
+      "category": "green"
+    },
+    {
+      "id": "BF-17-25",
+      "type": 17,
+      "pixelX": 574,
+      "pixelY": 3075,
+      "x": -155.78,
+      "z": -154.813,
+      "yaw": 353.991,
+      "sizeX": 12.0,
+      "sizeY": 4.8,
+      "sizeZ": 14.0,
+      "markerWidth": 12.986,
+      "markerDepth": 14.992,
+      "category": "green"
+    },
+    {
+      "id": "BF-17-26",
+      "type": 17,
+      "pixelX": 358,
+      "pixelY": 3127,
+      "x": -193.758,
+      "z": -163.956,
+      "yaw": 12.011,
+      "sizeX": 12.0,
+      "sizeY": 4.8,
+      "sizeZ": 14.0,
+      "markerWidth": 14.984,
+      "markerDepth": 12.997,
+      "category": "green"
+    },
+    {
+      "id": "BF-17-27",
+      "type": 17,
+      "pixelX": 2332,
+      "pixelY": 3183,
+      "x": 153.319,
+      "z": -173.802,
+      "yaw": 7.001,
+      "sizeX": 12.0,
+      "sizeY": 4.8,
+      "sizeZ": 14.0,
+      "markerWidth": 14.99,
+      "markerDepth": 14.552,
+      "category": "green"
+    },
+    {
+      "id": "BF-17-28",
+      "type": 17,
+      "pixelX": 973,
+      "pixelY": 3229,
+      "x": -85.626,
+      "z": -181.89,
+      "yaw": 353.991,
+      "sizeX": 12.0,
+      "sizeY": 4.8,
+      "sizeZ": 14.0,
+      "markerWidth": 12.995,
+      "markerDepth": 14.983,
+      "category": "green"
+    },
+    {
+      "id": "BF-17-29",
+      "type": 17,
+      "pixelX": 2258,
+      "pixelY": 3508,
+      "x": 140.308,
+      "z": -230.945,
+      "yaw": 7.989,
+      "sizeX": 12.0,
+      "sizeY": 4.8,
+      "sizeZ": 14.0,
+      "markerWidth": 14.999,
+      "markerDepth": 12.995,
+      "category": "green"
+    },
+    {
+      "id": "BF-17-30",
+      "type": 17,
+      "pixelX": 1525,
+      "pixelY": 3683,
+      "x": 11.429,
+      "z": -261.714,
+      "yaw": 352.011,
+      "sizeX": 12.0,
+      "sizeY": 4.8,
+      "sizeZ": 14.0,
+      "markerWidth": 12.992,
+      "markerDepth": 14.992,
+      "category": "green"
+    },
+    {
+      "id": "BF-18-01",
+      "type": 18,
+      "pixelX": 398,
+      "pixelY": 493,
+      "x": -186.725,
+      "z": 299.165,
+      "yaw": 209.211,
+      "sizeX": 12.0,
+      "sizeY": 9.0,
+      "sizeZ": 16.0,
+      "markerWidth": 50.627,
+      "markerDepth": 24.968,
+      "category": "green"
+    },
+    {
+      "id": "BF-18-02",
+      "type": 18,
+      "pixelX": 1604,
+      "pixelY": 509,
+      "x": 25.319,
+      "z": 296.352,
+      "yaw": 173.991,
+      "sizeX": 12.0,
+      "sizeY": 9.0,
+      "sizeZ": 16.0,
+      "markerWidth": 12.986,
+      "markerDepth": 16.989,
+      "category": "green"
+    },
+    {
+      "id": "BF-18-03",
+      "type": 18,
+      "pixelX": 682,
+      "pixelY": 595,
+      "x": -136.791,
+      "z": 281.231,
+      "yaw": 188.005,
+      "sizeX": 12.0,
+      "sizeY": 9.0,
+      "sizeZ": 16.0,
+      "markerWidth": 16.995,
+      "markerDepth": 12.99,
+      "category": "green"
+    },
+    {
+      "id": "BF-18-04",
+      "type": 18,
+      "pixelX": 2206,
+      "pixelY": 595,
+      "x": 131.165,
+      "z": 281.231,
+      "yaw": 187.001,
+      "sizeX": 12.0,
+      "sizeY": 9.0,
+      "sizeZ": 16.0,
+      "markerWidth": 17.017,
+      "markerDepth": 13.015,
+      "category": "green"
+    },
+    {
+      "id": "BF-18-05",
+      "type": 18,
+      "pixelX": 910,
+      "pixelY": 698,
+      "x": -96.703,
+      "z": 263.121,
+      "yaw": 173.991,
+      "sizeX": 12.0,
+      "sizeY": 9.0,
+      "sizeZ": 16.0,
+      "markerWidth": 12.995,
+      "markerDepth": 16.98,
+      "category": "green"
+    },
+    {
+      "id": "BF-18-06",
+      "type": 18,
+      "pixelX": 670,
+      "pixelY": 777,
+      "x": -138.901,
+      "z": 249.231,
+      "yaw": 186.009,
+      "sizeX": 12.0,
+      "sizeY": 9.0,
+      "sizeZ": 16.0,
+      "markerWidth": 16.989,
+      "markerDepth": 14.541,
+      "category": "green"
+    },
+    {
+      "id": "BF-18-07",
+      "type": 18,
+      "pixelX": 847,
+      "pixelY": 856,
+      "x": -107.78,
+      "z": 235.341,
+      "yaw": 192.758,
+      "sizeX": 12.0,
+      "sizeY": 9.0,
+      "sizeZ": 16.0,
+      "markerWidth": 17.113,
+      "markerDepth": 14.469,
+      "category": "green"
+    },
+    {
+      "id": "BF-18-08",
+      "type": 18,
+      "pixelX": 2127,
+      "pixelY": 891,
+      "x": 117.275,
+      "z": 229.187,
+      "yaw": 171.027,
+      "sizeX": 12.0,
+      "sizeY": 9.0,
+      "sizeZ": 16.0,
+      "markerWidth": 12.989,
+      "markerDepth": 16.992,
+      "category": "green"
+    },
+    {
+      "id": "BF-18-09",
+      "type": 18,
+      "pixelX": 398,
+      "pixelY": 1090,
+      "x": -186.725,
+      "z": 194.198,
+      "yaw": 171.995,
+      "sizeX": 12.0,
+      "sizeY": 9.0,
+      "sizeZ": 16.0,
+      "markerWidth": 12.99,
+      "markerDepth": 16.989,
+      "category": "green"
+    },
+    {
+      "id": "BF-18-10",
+      "type": 18,
+      "pixelX": 2492,
+      "pixelY": 1175,
+      "x": 181.451,
+      "z": 179.253,
+      "yaw": 189.019,
+      "sizeX": 12.0,
+      "sizeY": 9.0,
+      "sizeZ": 16.0,
+      "markerWidth": 18.853,
+      "markerDepth": 13.933,
+      "category": "green"
+    },
+    {
+      "id": "BF-18-11",
+      "type": 18,
+      "pixelX": 2349,
+      "pixelY": 1186,
+      "x": 156.308,
+      "z": 177.319,
+      "yaw": 173.157,
+      "sizeX": 12.0,
+      "sizeY": 9.0,
+      "sizeZ": 16.0,
+      "markerWidth": 13.868,
+      "markerDepth": 18.875,
+      "category": "green"
+    },
+    {
+      "id": "BF-18-12",
+      "type": 18,
+      "pixelX": 2326,
+      "pixelY": 1358,
+      "x": 152.264,
+      "z": 147.077,
+      "yaw": 185.906,
+      "sizeX": 12.0,
+      "sizeY": 9.0,
+      "sizeZ": 16.0,
+      "markerWidth": 17.085,
+      "markerDepth": 13.105,
+      "category": "green"
+    },
+    {
+      "id": "BF-18-13",
+      "type": 18,
+      "pixelX": 734,
+      "pixelY": 1414,
+      "x": -127.648,
+      "z": 137.231,
+      "yaw": 186.009,
+      "sizeX": 12.0,
+      "sizeY": 9.0,
+      "sizeZ": 16.0,
+      "markerWidth": 16.989,
+      "markerDepth": 12.986,
+      "category": "green"
+    },
+    {
+      "id": "BF-18-14",
+      "type": 18,
+      "pixelX": 2639,
+      "pixelY": 1585,
+      "x": 207.297,
+      "z": 107.165,
+      "yaw": 188.13,
+      "sizeX": 12.0,
+      "sizeY": 9.0,
+      "sizeZ": 16.0,
+      "markerWidth": 16.983,
+      "markerDepth": 13.005,
+      "category": "green"
+    },
+    {
+      "id": "BF-18-15",
+      "type": 18,
+      "pixelX": 779,
+      "pixelY": 1687,
+      "x": -119.736,
+      "z": 89.231,
+      "yaw": 173.991,
+      "sizeX": 12.0,
+      "sizeY": 9.0,
+      "sizeZ": 16.0,
+      "markerWidth": 12.986,
+      "markerDepth": 16.989,
+      "category": "green"
+    },
+    {
+      "id": "BF-18-16",
+      "type": 18,
+      "pixelX": 1592,
+      "pixelY": 1931,
+      "x": 23.209,
+      "z": 46.33,
+      "yaw": 173.991,
+      "sizeX": 12.0,
+      "sizeY": 9.0,
+      "sizeZ": 16.0,
+      "markerWidth": 12.976,
+      "markerDepth": 16.97,
+      "category": "green"
+    },
+    {
+      "id": "BF-18-17",
+      "type": 18,
+      "pixelX": 739,
+      "pixelY": 2228,
+      "x": -126.769,
+      "z": -5.89,
+      "yaw": 173.991,
+      "sizeX": 12.0,
+      "sizeY": 9.0,
+      "sizeZ": 16.0,
+      "markerWidth": 14.219,
+      "markerDepth": 18.259,
+      "category": "green"
+    },
+    {
+      "id": "BF-18-18",
+      "type": 18,
+      "pixelX": 1564,
+      "pixelY": 2284,
+      "x": 18.286,
+      "z": -15.736,
+      "yaw": 351.995,
+      "sizeX": 12.0,
+      "sizeY": 9.0,
+      "sizeZ": 16.0,
+      "markerWidth": 12.993,
+      "markerDepth": 16.998,
+      "category": "green"
+    },
+    {
+      "id": "BF-18-19",
+      "type": 18,
+      "pixelX": 2212,
+      "pixelY": 2546,
+      "x": 132.22,
+      "z": -61.802,
+      "yaw": 353.991,
+      "sizeX": 12.0,
+      "sizeY": 9.0,
+      "sizeZ": 16.0,
+      "markerWidth": 12.986,
+      "markerDepth": 16.989,
+      "category": "green"
+    },
+    {
+      "id": "BF-18-20",
+      "type": 18,
+      "pixelX": 1695,
+      "pixelY": 2614,
+      "x": 41.319,
+      "z": -73.758,
+      "yaw": 352.999,
+      "sizeX": 12.0,
+      "sizeY": 9.0,
+      "sizeZ": 16.0,
+      "markerWidth": 14.564,
+      "markerDepth": 16.986,
+      "category": "green"
+    },
+    {
+      "id": "BF-18-21",
+      "type": 18,
+      "pixelX": 557,
+      "pixelY": 3411,
+      "x": -158.769,
+      "z": -213.89,
+      "yaw": 5.042,
+      "sizeX": 12.0,
+      "sizeY": 9.0,
+      "sizeZ": 16.0,
+      "markerWidth": 16.989,
+      "markerDepth": 12.997,
+      "category": "green"
+    },
+    {
+      "id": "BF-18-22",
+      "type": 18,
+      "pixelX": 1695,
+      "pixelY": 3639,
+      "x": 41.319,
+      "z": -253.978,
+      "yaw": 7.001,
+      "sizeX": 12.0,
+      "sizeY": 9.0,
+      "sizeZ": 16.0,
+      "markerWidth": 16.995,
+      "markerDepth": 12.994,
+      "category": "green"
+    },
+    {
+      "id": "BF-18-23",
+      "type": 18,
+      "pixelX": 1832,
+      "pixelY": 3832,
+      "x": 65.407,
+      "z": -287.912,
+      "yaw": 8.005,
+      "sizeX": 12.0,
+      "sizeY": 9.0,
+      "sizeZ": 16.0,
+      "markerWidth": 16.998,
+      "markerDepth": 12.993,
+      "category": "green"
+    },
+    {
+      "id": "BF-18-24",
+      "type": 18,
+      "pixelX": 1633,
+      "pixelY": 4054,
+      "x": 30.418,
+      "z": -326.945,
+      "yaw": 6.009,
+      "sizeX": 12.0,
+      "sizeY": 9.0,
+      "sizeZ": 16.0,
+      "markerWidth": 16.98,
+      "markerDepth": 12.986,
+      "category": "green"
+    },
+    {
+      "id": "BF-19-01",
+      "type": 19,
+      "pixelX": 1535,
+      "pixelY": 368,
+      "x": 13.187,
+      "z": 321.143,
+      "yaw": 186.582,
+      "sizeX": 11.0,
+      "sizeY": 7.7,
+      "sizeZ": 13.0,
+      "markerWidth": 15.767,
+      "markerDepth": 13.604,
+      "category": "green"
+    },
+    {
+      "id": "BF-19-02",
+      "type": 19,
+      "pixelX": 551,
+      "pixelY": 418,
+      "x": -159.824,
+      "z": 312.352,
+      "yaw": 184.086,
+      "sizeX": 11.0,
+      "sizeY": 7.7,
+      "sizeZ": 13.0,
+      "markerWidth": 15.872,
+      "markerDepth": 13.466,
+      "category": "green"
+    },
+    {
+      "id": "BF-19-03",
+      "type": 19,
+      "pixelX": 1587,
+      "pixelY": 669,
+      "x": 22.33,
+      "z": 268.22,
+      "yaw": 172.999,
+      "sizeX": 11.0,
+      "sizeY": 7.7,
+      "sizeZ": 13.0,
+      "markerWidth": 12.905,
+      "markerDepth": 15.868,
+      "category": "green"
+    },
+    {
+      "id": "BF-19-04",
+      "type": 19,
+      "pixelX": 1627,
+      "pixelY": 1369,
+      "x": 29.363,
+      "z": 145.143,
+      "yaw": 173.089,
+      "sizeX": 11.0,
+      "sizeY": 7.7,
+      "sizeZ": 13.0,
+      "markerWidth": 12.097,
+      "markerDepth": 13.985,
+      "category": "green"
+    },
+    {
+      "id": "BF-19-05",
+      "type": 19,
+      "pixelX": 369,
+      "pixelY": 1448,
+      "x": -191.824,
+      "z": 131.253,
+      "yaw": 187.97,
+      "sizeX": 11.0,
+      "sizeY": 7.7,
+      "sizeZ": 13.0,
+      "markerWidth": 13.982,
+      "markerDepth": 11.994,
+      "category": "green"
+    },
+    {
+      "id": "BF-19-06",
+      "type": 19,
+      "pixelX": 2212,
+      "pixelY": 1551,
+      "x": 132.22,
+      "z": 113.143,
+      "yaw": 173.047,
+      "sizeX": 11.0,
+      "sizeY": 7.7,
+      "sizeZ": 13.0,
+      "markerWidth": 11.992,
+      "markerDepth": 13.992,
+      "category": "green"
+    },
+    {
+      "id": "BF-19-07",
+      "type": 19,
+      "pixelX": 1581,
+      "pixelY": 1665,
+      "x": 21.275,
+      "z": 93.099,
+      "yaw": 187.125,
+      "sizeX": 11.0,
+      "sizeY": 7.7,
+      "sizeZ": 13.0,
+      "markerWidth": 14.023,
+      "markerDepth": 12.082,
+      "category": "green"
+    },
+    {
+      "id": "BF-19-08",
+      "type": 19,
+      "pixelX": 682,
+      "pixelY": 1829,
+      "x": -136.791,
+      "z": 64.264,
+      "yaw": 186.981,
+      "sizeX": 11.0,
+      "sizeY": 7.7,
+      "sizeZ": 13.0,
+      "markerWidth": 13.994,
+      "markerDepth": 11.992,
+      "category": "green"
+    },
+    {
+      "id": "BF-19-09",
+      "type": 19,
+      "pixelX": 2127,
+      "pixelY": 1931,
+      "x": 117.275,
+      "z": 46.33,
+      "yaw": 187.125,
+      "sizeX": 11.0,
+      "sizeY": 7.7,
+      "sizeZ": 13.0,
+      "markerWidth": 13.979,
+      "markerDepth": 11.995,
+      "category": "green"
+    },
+    {
+      "id": "BF-19-10",
+      "type": 19,
+      "pixelX": 2303,
+      "pixelY": 2012,
+      "x": 148.22,
+      "z": 32.088,
+      "yaw": 169.992,
+      "sizeX": 11.0,
+      "sizeY": 7.7,
+      "sizeZ": 13.0,
+      "markerWidth": 11.988,
+      "markerDepth": 13.984,
+      "category": "green"
+    },
+    {
+      "id": "BF-19-11",
+      "type": 19,
+      "pixelX": 398,
+      "pixelY": 2228,
+      "x": -186.725,
+      "z": -5.89,
+      "yaw": 172.057,
+      "sizeX": 11.0,
+      "sizeY": 7.7,
+      "sizeZ": 13.0,
+      "markerWidth": 13.473,
+      "markerDepth": 13.992,
+      "category": "green"
+    },
+    {
+      "id": "BF-19-12",
+      "type": 19,
+      "pixelX": 2513,
+      "pixelY": 2444,
+      "x": 185.143,
+      "z": -43.868,
+      "yaw": 10.008,
+      "sizeX": 11.0,
+      "sizeY": 7.7,
+      "sizeZ": 13.0,
+      "markerWidth": 14.096,
+      "markerDepth": 12.935,
+      "category": "green"
+    },
+    {
+      "id": "BF-19-13",
+      "type": 19,
+      "pixelX": 2503,
+      "pixelY": 3251,
+      "x": 183.385,
+      "z": -185.758,
+      "yaw": 353.991,
+      "sizeX": 11.0,
+      "sizeY": 7.7,
+      "sizeZ": 13.0,
+      "markerWidth": 11.992,
+      "markerDepth": 13.989,
+      "category": "green"
+    },
+    {
+      "id": "BF-19-14",
+      "type": 19,
+      "pixelX": 734,
+      "pixelY": 3463,
+      "x": -127.648,
+      "z": -223.033,
+      "yaw": 349.992,
+      "sizeX": 11.0,
+      "sizeY": 7.7,
+      "sizeZ": 13.0,
+      "markerWidth": 11.988,
+      "markerDepth": 13.994,
+      "category": "green"
+    },
+    {
+      "id": "BF-19-15",
+      "type": 19,
+      "pixelX": 1660,
+      "pixelY": 3793,
+      "x": 35.165,
+      "z": -281.055,
+      "yaw": 352.875,
+      "sizeX": 11.0,
+      "sizeY": 7.7,
+      "sizeZ": 13.0,
+      "markerWidth": 11.995,
+      "markerDepth": 13.979,
+      "category": "green"
+    },
+    {
+      "id": "BF-20-01",
+      "type": 20,
+      "pixelX": 517,
+      "pixelY": 731,
+      "x": -165.802,
+      "z": 257.319,
+      "yaw": 180.0,
+      "sizeX": 6.0,
+      "sizeY": 4.8,
+      "sizeZ": 16.0,
+      "markerWidth": 18.637,
+      "markerDepth": 11.253,
+      "category": "green"
+    },
+    {
+      "id": "BF-20-02",
+      "type": 20,
+      "pixelX": 2303,
+      "pixelY": 1016,
+      "x": 148.22,
+      "z": 207.209,
+      "yaw": 186.009,
+      "sizeX": 6.0,
+      "sizeY": 4.8,
+      "sizeZ": 16.0,
+      "markerWidth": 16.98,
+      "markerDepth": 11.513,
+      "category": "green"
+    },
+    {
+      "id": "BF-20-03",
+      "type": 20,
+      "pixelX": 1876,
+      "pixelY": 1289,
+      "x": 73.143,
+      "z": 159.209,
+      "yaw": 190.008,
+      "sizeX": 6.0,
+      "sizeY": 4.8,
+      "sizeZ": 16.0,
+      "markerWidth": 16.979,
+      "markerDepth": 11.479,
+      "category": "green"
+    },
+    {
+      "id": "BF-20-04",
+      "type": 20,
+      "pixelX": 1780,
+      "pixelY": 1369,
+      "x": 56.264,
+      "z": 145.143,
+      "yaw": 187.765,
+      "sizeX": 6.0,
+      "sizeY": 4.8,
+      "sizeZ": 16.0,
+      "markerWidth": 17.057,
+      "markerDepth": 11.458,
+      "category": "green"
+    },
+    {
+      "id": "BF-20-05",
+      "type": 20,
+      "pixelX": 1951,
+      "pixelY": 1448,
+      "x": 86.33,
+      "z": 131.253,
+      "yaw": 172.875,
+      "sizeX": 6.0,
+      "sizeY": 4.8,
+      "sizeZ": 16.0,
+      "markerWidth": 11.471,
+      "markerDepth": 18.821,
+      "category": "green"
+    },
+    {
+      "id": "BF-20-06",
+      "type": 20,
+      "pixelX": 1637,
+      "pixelY": 1551,
+      "x": 31.121,
+      "z": 113.143,
+      "yaw": 187.125,
+      "sizeX": 6.0,
+      "sizeY": 4.8,
+      "sizeZ": 16.0,
+      "markerWidth": 16.989,
+      "markerDepth": 11.449,
+      "category": "green"
+    },
+    {
+      "id": "BF-20-07",
+      "type": 20,
+      "pixelX": 2600,
+      "pixelY": 1778,
+      "x": 200.44,
+      "z": 73.231,
+      "yaw": 171.87,
+      "sizeX": 6.0,
+      "sizeY": 4.8,
+      "sizeZ": 16.0,
+      "markerWidth": 11.488,
+      "markerDepth": 16.983,
+      "category": "green"
+    },
+    {
+      "id": "BF-20-08",
+      "type": 20,
+      "pixelX": 2378,
+      "pixelY": 1841,
+      "x": 161.407,
+      "z": 62.154,
+      "yaw": 188.973,
+      "sizeX": 6.0,
+      "sizeY": 4.8,
+      "sizeZ": 16.0,
+      "markerWidth": 16.983,
+      "markerDepth": 11.508,
+      "category": "green"
+    },
+    {
+      "id": "BF-20-09",
+      "type": 20,
+      "pixelX": 1729,
+      "pixelY": 1931,
+      "x": 47.297,
+      "z": 46.33,
+      "yaw": 171.87,
+      "sizeX": 6.0,
+      "sizeY": 4.8,
+      "sizeZ": 16.0,
+      "markerWidth": 11.463,
+      "markerDepth": 16.958,
+      "category": "green"
+    },
+    {
+      "id": "BF-20-10",
+      "type": 20,
+      "pixelX": 2383,
+      "pixelY": 2529,
+      "x": 162.286,
+      "z": -58.813,
+      "yaw": 7.853,
+      "sizeX": 6.0,
+      "sizeY": 4.8,
+      "sizeZ": 16.0,
+      "markerWidth": 16.985,
+      "markerDepth": 11.484,
+      "category": "green"
+    },
+    {
+      "id": "BF-20-11",
+      "type": 20,
+      "pixelX": 1855,
+      "pixelY": 2541,
+      "x": 69.451,
+      "z": -60.923,
+      "yaw": 5.711,
+      "sizeX": 6.0,
+      "sizeY": 4.8,
+      "sizeZ": 16.0,
+      "markerWidth": 17.303,
+      "markerDepth": 12.387,
+      "category": "green"
+    },
+    {
+      "id": "BF-20-12",
+      "type": 20,
+      "pixelX": 2492,
+      "pixelY": 2666,
+      "x": 181.451,
+      "z": -82.901,
+      "yaw": 352.875,
+      "sizeX": 6.0,
+      "sizeY": 4.8,
+      "sizeZ": 16.0,
+      "markerWidth": 11.471,
+      "markerDepth": 16.989,
+      "category": "green"
+    },
+    {
+      "id": "BF-20-13",
+      "type": 20,
+      "pixelX": 431,
+      "pixelY": 2967,
+      "x": -180.923,
+      "z": -135.824,
+      "yaw": 348.024,
+      "sizeX": 6.0,
+      "sizeY": 4.8,
+      "sizeZ": 16.0,
+      "markerWidth": 11.519,
+      "markerDepth": 16.981,
+      "category": "green"
+    },
+    {
+      "id": "BF-20-14",
+      "type": 20,
+      "pixelX": 2162,
+      "pixelY": 3223,
+      "x": 123.429,
+      "z": -180.835,
+      "yaw": 352.147,
+      "sizeX": 6.0,
+      "sizeY": 4.8,
+      "sizeZ": 16.0,
+      "markerWidth": 11.49,
+      "markerDepth": 16.979,
+      "category": "green"
+    },
+    {
+      "id": "BF-20-15",
+      "type": 20,
+      "pixelX": 2588,
+      "pixelY": 3399,
+      "x": 198.33,
+      "z": -211.78,
+      "yaw": 9.09,
+      "sizeX": 6.0,
+      "sizeY": 4.8,
+      "sizeZ": 16.0,
+      "markerWidth": 16.98,
+      "markerDepth": 11.473,
+      "category": "green"
+    },
+    {
+      "id": "BF-20-16",
+      "type": 20,
+      "pixelX": 1882,
+      "pixelY": 3689,
+      "x": 74.198,
+      "z": -262.769,
+      "yaw": 354.094,
+      "sizeX": 6.0,
+      "sizeY": 4.8,
+      "sizeZ": 16.0,
+      "markerWidth": 11.495,
+      "markerDepth": 16.989,
+      "category": "green"
+    },
+    {
+      "id": "BF-20-17",
+      "type": 20,
+      "pixelX": 2042,
+      "pixelY": 3797,
+      "x": 102.33,
+      "z": -281.758,
+      "yaw": 0.0,
+      "sizeX": 6.0,
+      "sizeY": 4.8,
+      "sizeZ": 16.0,
+      "markerWidth": 19.341,
+      "markerDepth": 11.956,
+      "category": "green"
+    },
+    {
+      "id": "BF-21-01",
+      "type": 21,
+      "pixelX": 1701,
+      "pixelY": 345,
+      "x": 42.374,
+      "z": 325.187,
+      "yaw": 173.66,
+      "sizeX": 10.0,
+      "sizeY": 9.0,
+      "sizeZ": 14.0,
+      "markerWidth": 11.98,
+      "markerDepth": 15.009,
+      "category": "green"
+    },
+    {
+      "id": "BF-21-02",
+      "type": 21,
+      "pixelX": 1735,
+      "pixelY": 748,
+      "x": 48.352,
+      "z": 254.33,
+      "yaw": 185.194,
+      "sizeX": 10.0,
+      "sizeY": 9.0,
+      "sizeZ": 14.0,
+      "markerWidth": 14.995,
+      "markerDepth": 11.907,
+      "category": "green"
+    },
+    {
+      "id": "BF-21-03",
+      "type": 21,
+      "pixelX": 512,
+      "pixelY": 1545,
+      "x": -166.681,
+      "z": 114.198,
+      "yaw": 172.875,
+      "sizeX": 10.0,
+      "sizeY": 9.0,
+      "sizeZ": 14.0,
+      "markerWidth": 11.515,
+      "markerDepth": 14.982,
+      "category": "green"
+    },
+    {
+      "id": "BF-21-04",
+      "type": 21,
+      "pixelX": 2474,
+      "pixelY": 1693,
+      "x": 178.286,
+      "z": 88.176,
+      "yaw": 173.991,
+      "sizeX": 10.0,
+      "sizeY": 9.0,
+      "sizeZ": 14.0,
+      "markerWidth": 11.43,
+      "markerDepth": 14.983,
+      "category": "green"
+    },
+    {
+      "id": "BF-21-05",
+      "type": 21,
+      "pixelX": 2031,
+      "pixelY": 1755,
+      "x": 100.396,
+      "z": 77.275,
+      "yaw": 173.66,
+      "sizeX": 10.0,
+      "sizeY": 9.0,
+      "sizeZ": 14.0,
+      "markerWidth": 11.514,
+      "markerDepth": 14.99,
+      "category": "green"
+    },
+    {
+      "id": "BF-21-06",
+      "type": 21,
+      "pixelX": 386,
+      "pixelY": 1846,
+      "x": -188.835,
+      "z": 61.275,
+      "yaw": 185.947,
+      "sizeX": 10.0,
+      "sizeY": 9.0,
+      "sizeZ": 14.0,
+      "markerWidth": 14.978,
+      "markerDepth": 11.495,
+      "category": "green"
+    },
+    {
+      "id": "BF-21-07",
+      "type": 21,
+      "pixelX": 2320,
+      "pixelY": 2365,
+      "x": 151.209,
+      "z": -29.978,
+      "yaw": 352.875,
+      "sizeX": 10.0,
+      "sizeY": 9.0,
+      "sizeZ": 14.0,
+      "markerWidth": 12.474,
+      "markerDepth": 14.96,
+      "category": "green"
+    },
+    {
+      "id": "BF-21-08",
+      "type": 21,
+      "pixelX": 1877,
+      "pixelY": 2369,
+      "x": 73.319,
+      "z": -30.681,
+      "yaw": 353.991,
+      "sizeX": 10.0,
+      "sizeY": 9.0,
+      "sizeZ": 14.0,
+      "markerWidth": 11.854,
+      "markerDepth": 15.01,
+      "category": "green"
+    },
+    {
+      "id": "BF-21-09",
+      "type": 21,
+      "pixelX": 2218,
+      "pixelY": 2791,
+      "x": 133.275,
+      "z": -104.879,
+      "yaw": 351.027,
+      "sizeX": 10.0,
+      "sizeY": 9.0,
+      "sizeZ": 14.0,
+      "markerWidth": 11.499,
+      "markerDepth": 14.982,
+      "category": "green"
+    },
+    {
+      "id": "BF-21-10",
+      "type": 21,
+      "pixelX": 2098,
+      "pixelY": 2899,
+      "x": 112.176,
+      "z": -123.868,
+      "yaw": 354.987,
+      "sizeX": 10.0,
+      "sizeY": 9.0,
+      "sizeZ": 14.0,
+      "markerWidth": 11.477,
+      "markerDepth": 14.974,
+      "category": "green"
+    },
+    {
+      "id": "BF-21-11",
+      "type": 21,
+      "pixelX": 2264,
+      "pixelY": 3002,
+      "x": 141.363,
+      "z": -141.978,
+      "yaw": 10.305,
+      "sizeX": 10.0,
+      "sizeY": 9.0,
+      "sizeZ": 14.0,
+      "markerWidth": 15.034,
+      "markerDepth": 11.48,
+      "category": "green"
+    },
+    {
+      "id": "BF-21-12",
+      "type": 21,
+      "pixelX": 557,
+      "pixelY": 3274,
+      "x": -158.769,
+      "z": -189.802,
+      "yaw": 351.027,
+      "sizeX": 10.0,
+      "sizeY": 9.0,
+      "sizeZ": 14.0,
+      "markerWidth": 11.472,
+      "markerDepth": 14.982,
+      "category": "green"
+    },
+    {
+      "id": "BF-22-01",
+      "type": 22,
+      "pixelX": 557,
+      "pixelY": 1055,
+      "x": -158.769,
+      "z": 200.352,
+      "yaw": 186.981,
+      "sizeX": 11.0,
+      "sizeY": 4.8,
+      "sizeZ": 13.0,
+      "markerWidth": 13.99,
+      "markerDepth": 11.992,
+      "category": "green"
+    },
+    {
+      "id": "BF-22-02",
+      "type": 22,
+      "pixelX": 517,
+      "pixelY": 1773,
+      "x": -165.802,
+      "z": 74.11,
+      "yaw": 171.87,
+      "sizeX": 11.0,
+      "sizeY": 4.8,
+      "sizeZ": 13.0,
+      "markerWidth": 11.985,
+      "markerDepth": 13.999,
+      "category": "green"
+    },
+    {
+      "id": "BF-22-03",
+      "type": 22,
+      "pixelX": 892,
+      "pixelY": 2342,
+      "x": -99.868,
+      "z": -25.934,
+      "yaw": 9.462,
+      "sizeX": 11.0,
+      "sizeY": 4.8,
+      "sizeZ": 13.0,
+      "markerWidth": 14.568,
+      "markerDepth": 13.499,
+      "category": "green"
+    },
+    {
+      "id": "BF-22-04",
+      "type": 22,
+      "pixelX": 1535,
+      "pixelY": 2500,
+      "x": 13.187,
+      "z": -53.714,
+      "yaw": 7.943,
+      "sizeX": 11.0,
+      "sizeY": 4.8,
+      "sizeZ": 13.0,
+      "markerWidth": 13.992,
+      "markerDepth": 11.991,
+      "category": "green"
+    },
+    {
+      "id": "BF-22-05",
+      "type": 22,
+      "pixelX": 2627,
+      "pixelY": 2614,
+      "x": 205.187,
+      "z": -73.758,
+      "yaw": 349.992,
+      "sizeX": 11.0,
+      "sizeY": 4.8,
+      "sizeZ": 13.0,
+      "markerWidth": 11.988,
+      "markerDepth": 13.984,
+      "category": "green"
+    },
+    {
+      "id": "BF-22-06",
+      "type": 22,
+      "pixelX": 2019,
+      "pixelY": 2711,
+      "x": 98.286,
+      "z": -90.813,
+      "yaw": 7.989,
+      "sizeX": 11.0,
+      "sizeY": 4.8,
+      "sizeZ": 13.0,
+      "markerWidth": 13.994,
+      "markerDepth": 11.993,
+      "category": "green"
+    },
+    {
+      "id": "BF-22-07",
+      "type": 22,
+      "pixelX": 773,
+      "pixelY": 2938,
+      "x": -120.791,
+      "z": -130.725,
+      "yaw": 352.147,
+      "sizeX": 11.0,
+      "sizeY": 4.8,
+      "sizeZ": 13.0,
+      "markerWidth": 12.09,
+      "markerDepth": 13.982,
+      "category": "green"
+    },
+    {
+      "id": "BF-22-08",
+      "type": 22,
+      "pixelX": 745,
+      "pixelY": 3087,
+      "x": -125.714,
+      "z": -156.923,
+      "yaw": 8.13,
+      "sizeX": 11.0,
+      "sizeY": 4.8,
+      "sizeZ": 13.0,
+      "markerWidth": 13.999,
+      "markerDepth": 11.985,
+      "category": "green"
+    },
+    {
+      "id": "BF-22-09",
+      "type": 22,
+      "pixelX": 830,
+      "pixelY": 3223,
+      "x": -110.769,
+      "z": -180.835,
+      "yaw": 353.019,
+      "sizeX": 11.0,
+      "sizeY": 4.8,
+      "sizeZ": 13.0,
+      "markerWidth": 11.992,
+      "markerDepth": 13.99,
+      "category": "green"
+    },
+    {
+      "id": "BF-22-10",
+      "type": 22,
+      "pixelX": 1894,
+      "pixelY": 3969,
+      "x": 76.308,
+      "z": -312.0,
+      "yaw": 353.991,
+      "sizeX": 11.0,
+      "sizeY": 4.8,
+      "sizeZ": 13.0,
+      "markerWidth": 11.982,
+      "markerDepth": 13.989,
+      "category": "green"
+    },
+    {
+      "id": "BF-23-01",
+      "type": 23,
+      "pixelX": 545,
+      "pixelY": 1379,
+      "x": -160.879,
+      "z": 143.385,
+      "yaw": 171.027,
+      "sizeX": 15.6,
+      "sizeY": 8.627,
+      "sizeZ": 12.06,
+      "markerWidth": 16.59,
+      "markerDepth": 12.98,
+      "category": "green"
+    },
+    {
+      "id": "BF-23-02",
+      "type": 23,
+      "pixelX": 2531,
+      "pixelY": 1425,
+      "x": 188.308,
+      "z": 135.297,
+      "yaw": 173.991,
+      "sizeX": 15.6,
+      "sizeY": 8.627,
+      "sizeZ": 12.06,
+      "markerWidth": 17.265,
+      "markerDepth": 13.105,
+      "category": "green"
+    },
+    {
+      "id": "BF-23-03",
+      "type": 23,
+      "pixelX": 1745,
+      "pixelY": 1715,
+      "x": 50.11,
+      "z": 84.308,
+      "yaw": 168.996,
+      "sizeX": 15.6,
+      "sizeY": 8.627,
+      "sizeZ": 12.06,
+      "markerWidth": 16.578,
+      "markerDepth": 12.983,
+      "category": "green"
+    },
+    {
+      "id": "BF-23-04",
+      "type": 23,
+      "pixelX": 415,
+      "pixelY": 3291,
+      "x": -183.736,
+      "z": -192.791,
+      "yaw": 352.999,
+      "sizeX": 15.6,
+      "sizeY": 8.627,
+      "sizeZ": 12.06,
+      "markerWidth": 16.594,
+      "markerDepth": 12.991,
+      "category": "green"
+    },
+    {
+      "id": "BF-23-05",
+      "type": 23,
+      "pixelX": 2002,
+      "pixelY": 3974,
+      "x": 95.297,
+      "z": -312.879,
+      "yaw": 7.97,
+      "sizeX": 15.6,
+      "sizeY": 8.627,
+      "sizeZ": 12.06,
+      "markerWidth": 12.986,
+      "markerDepth": 16.594,
+      "category": "green"
+    },
+    {
+      "id": "BF-24-01",
+      "type": 24,
+      "pixelX": 1786,
+      "pixelY": 2114,
+      "x": 57.319,
+      "z": 14.154,
+      "yaw": 184.014,
+      "sizeX": 12.0,
+      "sizeY": 10.55,
+      "sizeZ": 14.4,
+      "markerWidth": 15.388,
+      "markerDepth": 13.062,
+      "category": "teal"
+    },
+    {
+      "id": "BF-24-02",
+      "type": 24,
+      "pixelX": 2395,
+      "pixelY": 2813,
+      "x": 164.396,
+      "z": -108.747,
+      "yaw": 6.009,
+      "sizeX": 12.0,
+      "sizeY": 10.55,
+      "sizeZ": 14.4,
+      "markerWidth": 15.388,
+      "markerDepth": 12.995,
+      "category": "teal"
+    }
+  ],
+  "spawns": [
+    {
+      "id": "SP01",
+      "pixelX": 596.775,
+      "pixelY": 338.919,
+      "x": -151.776,
+      "z": 326.256,
+      "yaw": 155.052
+    },
+    {
+      "id": "SP02",
+      "pixelX": 1194.184,
+      "pixelY": 213.731,
+      "x": -46.737,
+      "z": 348.267,
+      "yaw": 172.357
+    },
+    {
+      "id": "SP03",
+      "pixelX": 1876.776,
+      "pixelY": 282.009,
+      "x": 73.279,
+      "z": 336.262,
+      "yaw": 192.294
+    },
+    {
+      "id": "SP04",
+      "pixelX": 2445.743,
+      "pixelY": 509.565,
+      "x": 173.318,
+      "z": 296.252,
+      "yaw": 210.329
+    },
+    {
+      "id": "SP05",
+      "pixelX": 2718.788,
+      "pixelY": 890.725,
+      "x": 221.325,
+      "z": 229.235,
+      "yaw": 223.994
+    },
+    {
+      "id": "SP06",
+      "pixelX": 2787.046,
+      "pixelY": 1402.679,
+      "x": 233.327,
+      "z": 139.221,
+      "yaw": 239.176
+    },
+    {
+      "id": "SP07",
+      "pixelX": 2730.192,
+      "pixelY": 1943.214,
+      "x": 223.33,
+      "z": 44.182,
+      "yaw": 258.809
+    },
+    {
+      "id": "SP08",
+      "pixelX": 2798.45,
+      "pixelY": 2500.721,
+      "x": 235.332,
+      "z": -53.841,
+      "yaw": 282.887
+    },
+    {
+      "id": "SP09",
+      "pixelX": 2701.72,
+      "pixelY": 3052.51,
+      "x": 218.324,
+      "z": -150.859,
+      "yaw": 304.644
+    },
+    {
+      "id": "SP10",
+      "pixelX": 2570.83,
+      "pixelY": 3592.969,
+      "x": 195.311,
+      "z": -245.885,
+      "yaw": 321.539
+    },
+    {
+      "id": "SP11",
+      "pixelX": 2246.597,
+      "pixelY": 3991.168,
+      "x": 138.303,
+      "z": -315.898,
+      "yaw": 336.356
+    },
+    {
+      "id": "SP12",
+      "pixelX": 1734.6,
+      "pixelY": 4207.371,
+      "x": 48.281,
+      "z": -353.911,
+      "yaw": 352.232
+    },
+    {
+      "id": "SP13",
+      "pixelX": 1222.567,
+      "pixelY": 4190.268,
+      "x": -41.746,
+      "z": -350.904,
+      "yaw": 6.784
+    },
+    {
+      "id": "SP14",
+      "pixelX": 727.637,
+      "pixelY": 4031.0,
+      "x": -128.767,
+      "z": -322.901,
+      "yaw": 21.741
+    },
+    {
+      "id": "SP15",
+      "pixelX": 409.11,
+      "pixelY": 3735.212,
+      "x": -184.772,
+      "z": -270.894,
+      "yaw": 34.297
+    },
+    {
+      "id": "SP16",
+      "pixelX": 261.222,
+      "pixelY": 3280.057,
+      "x": -210.774,
+      "z": -190.867,
+      "yaw": 47.837
+    },
+    {
+      "id": "SP17",
+      "pixelX": 249.767,
+      "pixelY": 2750.996,
+      "x": -212.788,
+      "z": -97.845,
+      "yaw": 65.306
+    },
+    {
+      "id": "SP18",
+      "pixelX": 181.53,
+      "pixelY": 2199.207,
+      "x": -224.786,
+      "z": -0.828,
+      "yaw": 89.789
+    },
+    {
+      "id": "SP19",
+      "pixelX": 227.054,
+      "pixelY": 1630.356,
+      "x": -216.782,
+      "z": 99.19,
+      "yaw": 114.587
+    },
+    {
+      "id": "SP20",
+      "pixelX": 318.031,
+      "pixelY": 1061.387,
+      "x": -200.786,
+      "z": 199.229,
+      "yaw": 134.777
+    }
+  ],
+  "river": [
+    {
+      "z": 385.846,
+      "leftX": -48.352,
+      "rightX": -2.989
+    },
+    {
+      "z": 382.33,
+      "leftX": -48.352,
+      "rightX": -2.989
+    },
+    {
+      "z": 378.813,
+      "leftX": -48.352,
+      "rightX": -2.989
+    },
+    {
+      "z": 375.297,
+      "leftX": -48.635,
+      "rightX": -2.779
+    },
+    {
+      "z": 371.78,
+      "leftX": -49.724,
+      "rightX": -2.019
+    },
+    {
+      "z": 368.264,
+      "leftX": -50.961,
+      "rightX": -1.503
+    },
+    {
+      "z": 364.747,
+      "leftX": -52.061,
+      "rightX": -1.463
+    },
+    {
+      "z": 361.231,
+      "leftX": -53.093,
+      "rightX": -1.923
+    },
+    {
+      "z": 357.714,
+      "leftX": -54.035,
+      "rightX": -2.921
+    },
+    {
+      "z": 354.198,
+      "leftX": -54.886,
+      "rightX": -4.18
+    },
+    {
+      "z": 350.681,
+      "leftX": -55.629,
+      "rightX": -5.348
+    },
+    {
+      "z": 347.165,
+      "leftX": -56.309,
+      "rightX": -6.364
+    },
+    {
+      "z": 343.648,
+      "leftX": -56.899,
+      "rightX": -7.254
+    },
+    {
+      "z": 340.132,
+      "leftX": -57.392,
+      "rightX": -8.003
+    },
+    {
+      "z": 336.615,
+      "leftX": -57.806,
+      "rightX": -8.621
+    },
+    {
+      "z": 333.099,
+      "leftX": -58.158,
+      "rightX": -9.12
+    },
+    {
+      "z": 329.582,
+      "leftX": -58.425,
+      "rightX": -9.506
+    },
+    {
+      "z": 326.066,
+      "leftX": -58.629,
+      "rightX": -9.67
+    },
+    {
+      "z": 322.549,
+      "leftX": -58.725,
+      "rightX": -9.67
+    },
+    {
+      "z": 319.033,
+      "leftX": -58.827,
+      "rightX": -9.67
+    },
+    {
+      "z": 315.516,
+      "leftX": -58.856,
+      "rightX": -9.67
+    },
+    {
+      "z": 312.0,
+      "leftX": -58.742,
+      "rightX": -9.67
+    },
+    {
+      "z": 308.484,
+      "leftX": -58.669,
+      "rightX": -9.67
+    },
+    {
+      "z": 304.967,
+      "leftX": -58.515,
+      "rightX": -9.648
+    },
+    {
+      "z": 301.451,
+      "leftX": -58.345,
+      "rightX": -9.483
+    },
+    {
+      "z": 297.934,
+      "leftX": -58.135,
+      "rightX": -9.251
+    },
+    {
+      "z": 294.418,
+      "leftX": -57.909,
+      "rightX": -9.007
+    },
+    {
+      "z": 290.901,
+      "leftX": -57.665,
+      "rightX": -8.774
+    },
+    {
+      "z": 287.385,
+      "leftX": -57.415,
+      "rightX": -4.14
+    },
+    {
+      "z": 283.868,
+      "leftX": -57.166,
+      "rightX": -1.758
+    },
+    {
+      "z": 280.352,
+      "leftX": -56.933,
+      "rightX": -1.758
+    },
+    {
+      "z": 276.835,
+      "leftX": -56.791,
+      "rightX": -4.94
+    },
+    {
+      "z": 273.319,
+      "leftX": -56.791,
+      "rightX": -7.56
+    },
+    {
+      "z": 269.802,
+      "leftX": -56.791,
+      "rightX": -7.56
+    },
+    {
+      "z": 266.286,
+      "leftX": -56.791,
+      "rightX": -7.56
+    },
+    {
+      "z": 262.769,
+      "leftX": -56.791,
+      "rightX": -7.56
+    },
+    {
+      "z": 259.253,
+      "leftX": -56.791,
+      "rightX": -7.668
+    },
+    {
+      "z": 255.736,
+      "leftX": -56.803,
+      "rightX": -7.816
+    },
+    {
+      "z": 252.22,
+      "leftX": -57.018,
+      "rightX": -8.043
+    },
+    {
+      "z": 248.703,
+      "leftX": -57.477,
+      "rightX": -8.337
+    },
+    {
+      "z": 245.187,
+      "leftX": -58.096,
+      "rightX": -8.729
+    },
+    {
+      "z": 241.67,
+      "leftX": -58.856,
+      "rightX": -9.211
+    },
+    {
+      "z": 238.154,
+      "leftX": -59.797,
+      "rightX": -9.778
+    },
+    {
+      "z": 234.637,
+      "leftX": -60.926,
+      "rightX": -10.453
+    },
+    {
+      "z": 231.121,
+      "leftX": -62.145,
+      "rightX": -11.23
+    },
+    {
+      "z": 227.604,
+      "leftX": -63.274,
+      "rightX": -12.109
+    },
+    {
+      "z": 224.088,
+      "leftX": -64.267,
+      "rightX": -13.096
+    },
+    {
+      "z": 220.571,
+      "leftX": -65.123,
+      "rightX": -14.191
+    },
+    {
+      "z": 217.055,
+      "leftX": -65.855,
+      "rightX": -15.387
+    },
+    {
+      "z": 213.538,
+      "leftX": -66.456,
+      "rightX": -16.544
+    },
+    {
+      "z": 210.022,
+      "leftX": -66.932,
+      "rightX": -17.497
+    },
+    {
+      "z": 206.505,
+      "leftX": -67.307,
+      "rightX": -18.127
+    },
+    {
+      "z": 202.989,
+      "leftX": -67.573,
+      "rightX": -18.286
+    },
+    {
+      "z": 199.473,
+      "leftX": -67.692,
+      "rightX": -18.286
+    },
+    {
+      "z": 195.956,
+      "leftX": -67.698,
+      "rightX": -18.286
+    },
+    {
+      "z": 192.44,
+      "leftX": -67.692,
+      "rightX": -18.286
+    },
+    {
+      "z": 188.923,
+      "leftX": -67.607,
+      "rightX": -18.286
+    },
+    {
+      "z": 185.407,
+      "leftX": -67.38,
+      "rightX": -18.274
+    },
+    {
+      "z": 181.89,
+      "leftX": -67.097,
+      "rightX": -18.048
+    },
+    {
+      "z": 178.374,
+      "leftX": -66.734,
+      "rightX": -17.594
+    },
+    {
+      "z": 174.857,
+      "leftX": -66.32,
+      "rightX": -17.083
+    },
+    {
+      "z": 171.341,
+      "leftX": -65.855,
+      "rightX": -16.533
+    },
+    {
+      "z": 167.824,
+      "leftX": -64.391,
+      "rightX": -16.096
+    },
+    {
+      "z": 164.308,
+      "leftX": -63.297,
+      "rightX": -16.0
+    },
+    {
+      "z": 160.791,
+      "leftX": -63.297,
+      "rightX": -16.0
+    },
+    {
+      "z": 157.275,
+      "leftX": -63.297,
+      "rightX": -15.603
+    },
+    {
+      "z": 153.758,
+      "leftX": -63.07,
+      "rightX": -14.066
+    },
+    {
+      "z": 150.242,
+      "leftX": -62.542,
+      "rightX": -13.278
+    },
+    {
+      "z": 146.725,
+      "leftX": -62.021,
+      "rightX": -12.829
+    },
+    {
+      "z": 143.209,
+      "leftX": -61.533,
+      "rightX": -12.438
+    },
+    {
+      "z": 139.692,
+      "leftX": -61.136,
+      "rightX": -12.109
+    },
+    {
+      "z": 136.176,
+      "leftX": -61.011,
+      "rightX": -11.854
+    },
+    {
+      "z": 132.659,
+      "leftX": -61.011,
+      "rightX": -11.667
+    },
+    {
+      "z": 129.143,
+      "leftX": -61.011,
+      "rightX": -11.604
+    },
+    {
+      "z": 125.626,
+      "leftX": -61.011,
+      "rightX": -11.604
+    },
+    {
+      "z": 122.11,
+      "leftX": -61.011,
+      "rightX": -11.65
+    },
+    {
+      "z": 118.593,
+      "leftX": -61.017,
+      "rightX": -11.826
+    },
+    {
+      "z": 115.077,
+      "leftX": -61.295,
+      "rightX": -12.115
+    },
+    {
+      "z": 111.56,
+      "leftX": -61.987,
+      "rightX": -12.506
+    },
+    {
+      "z": 108.044,
+      "leftX": -62.928,
+      "rightX": -12.994
+    },
+    {
+      "z": 104.527,
+      "leftX": -64.108,
+      "rightX": -13.618
+    },
+    {
+      "z": 101.011,
+      "leftX": -65.497,
+      "rightX": -14.355
+    },
+    {
+      "z": 97.495,
+      "leftX": -66.91,
+      "rightX": -15.223
+    },
+    {
+      "z": 93.978,
+      "leftX": -68.197,
+      "rightX": -16.21
+    },
+    {
+      "z": 90.462,
+      "leftX": -69.314,
+      "rightX": -17.333
+    },
+    {
+      "z": 86.945,
+      "leftX": -70.296,
+      "rightX": -18.598
+    },
+    {
+      "z": 83.429,
+      "leftX": -71.163,
+      "rightX": -19.987
+    },
+    {
+      "z": 79.912,
+      "leftX": -71.895,
+      "rightX": -21.388
+    },
+    {
+      "z": 76.396,
+      "leftX": -72.496,
+      "rightX": -22.596
+    },
+    {
+      "z": 72.879,
+      "leftX": -72.99,
+      "rightX": -23.538
+    },
+    {
+      "z": 69.363,
+      "leftX": -73.353,
+      "rightX": -24.23
+    },
+    {
+      "z": 65.846,
+      "leftX": -73.602,
+      "rightX": -24.672
+    },
+    {
+      "z": 62.33,
+      "leftX": -73.772,
+      "rightX": -24.791
+    },
+    {
+      "z": 58.813,
+      "leftX": -73.846,
+      "rightX": -24.791
+    },
+    {
+      "z": 55.297,
+      "leftX": -73.767,
+      "rightX": -24.791
+    },
+    {
+      "z": 51.78,
+      "leftX": -73.035,
+      "rightX": -24.791
+    },
+    {
+      "z": 48.264,
+      "leftX": -72.264,
+      "rightX": -24.791
+    },
+    {
+      "z": 44.747,
+      "leftX": -72.264,
+      "rightX": -24.791
+    },
+    {
+      "z": 41.231,
+      "leftX": -72.264,
+      "rightX": -24.791
+    },
+    {
+      "z": 37.714,
+      "leftX": -72.167,
+      "rightX": -23.487
+    },
+    {
+      "z": 34.198,
+      "leftX": -71.748,
+      "rightX": -22.318
+    },
+    {
+      "z": 30.681,
+      "leftX": -71.192,
+      "rightX": -21.694
+    },
+    {
+      "z": 27.165,
+      "leftX": -70.602,
+      "rightX": -21.048
+    },
+    {
+      "z": 23.648,
+      "leftX": -69.989,
+      "rightX": -20.418
+    },
+    {
+      "z": 20.132,
+      "leftX": -69.354,
+      "rightX": -19.789
+    },
+    {
+      "z": 16.615,
+      "leftX": -68.713,
+      "rightX": -19.182
+    },
+    {
+      "z": 13.099,
+      "leftX": -68.084,
+      "rightX": -18.603
+    },
+    {
+      "z": 9.582,
+      "leftX": -67.454,
+      "rightX": -18.076
+    },
+    {
+      "z": 6.066,
+      "leftX": -66.887,
+      "rightX": -17.599
+    },
+    {
+      "z": 2.549,
+      "leftX": -66.348,
+      "rightX": -17.163
+    },
+    {
+      "z": -0.967,
+      "leftX": -65.9,
+      "rightX": -16.822
+    },
+    {
+      "z": -4.484,
+      "leftX": -65.758,
+      "rightX": -16.539
+    },
+    {
+      "z": -8.0,
+      "leftX": -65.758,
+      "rightX": -16.346
+    },
+    {
+      "z": -11.516,
+      "leftX": -65.758,
+      "rightX": -16.21
+    },
+    {
+      "z": -15.033,
+      "leftX": -65.758,
+      "rightX": -16.181
+    },
+    {
+      "z": -18.549,
+      "leftX": -65.758,
+      "rightX": -16.295
+    },
+    {
+      "z": -22.066,
+      "leftX": -65.764,
+      "rightX": -16.499
+    },
+    {
+      "z": -25.582,
+      "leftX": -66.053,
+      "rightX": -16.794
+    },
+    {
+      "z": -29.099,
+      "leftX": -66.813,
+      "rightX": -17.214
+    },
+    {
+      "z": -32.615,
+      "leftX": -67.857,
+      "rightX": -17.747
+    },
+    {
+      "z": -36.132,
+      "leftX": -69.156,
+      "rightX": -18.399
+    },
+    {
+      "z": -39.648,
+      "leftX": -70.471,
+      "rightX": -19.176
+    },
+    {
+      "z": -43.165,
+      "leftX": -71.646,
+      "rightX": -20.084
+    },
+    {
+      "z": -46.681,
+      "leftX": -72.661,
+      "rightX": -21.127
+    },
+    {
+      "z": -50.198,
+      "leftX": -73.506,
+      "rightX": -22.307
+    },
+    {
+      "z": -53.714,
+      "leftX": -74.186,
+      "rightX": -23.629
+    },
+    {
+      "z": -57.231,
+      "leftX": -74.703,
+      "rightX": -24.888
+    },
+    {
+      "z": -60.747,
+      "leftX": -75.077,
+      "rightX": -25.466
+    },
+    {
+      "z": -64.264,
+      "leftX": -75.241,
+      "rightX": -25.495
+    },
+    {
+      "z": -67.78,
+      "leftX": -74.606,
+      "rightX": -25.495
+    },
+    {
+      "z": -71.297,
+      "leftX": -74.198,
+      "rightX": -25.495
+    },
+    {
+      "z": -74.813,
+      "leftX": -74.198,
+      "rightX": -25.495
+    },
+    {
+      "z": -78.33,
+      "leftX": -74.192,
+      "rightX": -25.341
+    },
+    {
+      "z": -81.846,
+      "leftX": -73.897,
+      "rightX": -23.884
+    },
+    {
+      "z": -85.363,
+      "leftX": -73.205,
+      "rightX": -22.33
+    },
+    {
+      "z": -88.879,
+      "leftX": -72.36,
+      "rightX": -21.002
+    },
+    {
+      "z": -92.396,
+      "leftX": -71.39,
+      "rightX": -19.624
+    },
+    {
+      "z": -95.912,
+      "leftX": -70.313,
+      "rightX": -18.218
+    },
+    {
+      "z": -99.429,
+      "leftX": -69.133,
+      "rightX": -16.839
+    },
+    {
+      "z": -102.945,
+      "leftX": -67.851,
+      "rightX": -15.512
+    },
+    {
+      "z": -106.462,
+      "leftX": -66.751,
+      "rightX": -14.247
+    },
+    {
+      "z": -109.978,
+      "leftX": -66.462,
+      "rightX": -13.045
+    },
+    {
+      "z": -113.495,
+      "leftX": -66.462,
+      "rightX": -11.814
+    },
+    {
+      "z": -117.011,
+      "leftX": -66.462,
+      "rightX": -9.608
+    },
+    {
+      "z": -120.527,
+      "leftX": -66.462,
+      "rightX": -6.993
+    },
+    {
+      "z": -124.044,
+      "leftX": -66.462,
+      "rightX": -4.804
+    },
+    {
+      "z": -127.56,
+      "leftX": -66.808,
+      "rightX": -2.978
+    },
+    {
+      "z": -131.077,
+      "leftX": -68.033,
+      "rightX": -1.458
+    },
+    {
+      "z": -134.593,
+      "leftX": -69.309,
+      "rightX": -0.187
+    },
+    {
+      "z": -138.11,
+      "leftX": -70.341,
+      "rightX": 0.856
+    },
+    {
+      "z": -141.626,
+      "leftX": -71.163,
+      "rightX": 1.673
+    },
+    {
+      "z": -145.143,
+      "leftX": -71.793,
+      "rightX": 2.314
+    },
+    {
+      "z": -148.659,
+      "leftX": -72.247,
+      "rightX": 2.768
+    },
+    {
+      "z": -152.176,
+      "leftX": -72.536,
+      "rightX": 3.04
+    },
+    {
+      "z": -155.692,
+      "leftX": -72.615,
+      "rightX": 3.165
+    },
+    {
+      "z": -159.209,
+      "leftX": -72.542,
+      "rightX": 3.063
+    },
+    {
+      "z": -162.725,
+      "leftX": -72.286,
+      "rightX": 2.802
+    },
+    {
+      "z": -166.242,
+      "leftX": -71.872,
+      "rightX": 2.365
+    },
+    {
+      "z": -169.758,
+      "leftX": -71.254,
+      "rightX": 1.747
+    },
+    {
+      "z": -173.275,
+      "leftX": -70.42,
+      "rightX": 0.942
+    },
+    {
+      "z": -176.791,
+      "leftX": -69.411,
+      "rightX": -0.079
+    },
+    {
+      "z": -180.308,
+      "leftX": -68.163,
+      "rightX": -1.327
+    },
+    {
+      "z": -183.824,
+      "leftX": -66.649,
+      "rightX": -2.819
+    },
+    {
+      "z": -187.341,
+      "leftX": -65.163,
+      "rightX": -4.617
+    },
+    {
+      "z": -190.857,
+      "leftX": -64.579,
+      "rightX": -6.766
+    },
+    {
+      "z": -194.374,
+      "leftX": -64.261,
+      "rightX": -9.341
+    },
+    {
+      "z": -197.89,
+      "leftX": -63.819,
+      "rightX": -11.536
+    },
+    {
+      "z": -201.407,
+      "leftX": -63.263,
+      "rightX": -11.956
+    },
+    {
+      "z": -204.923,
+      "leftX": -61.141,
+      "rightX": -11.956
+    },
+    {
+      "z": -208.44,
+      "leftX": -59.077,
+      "rightX": -11.956
+    },
+    {
+      "z": -211.956,
+      "leftX": -59.077,
+      "rightX": -11.956
+    },
+    {
+      "z": -215.473,
+      "leftX": -59.077,
+      "rightX": -11.956
+    },
+    {
+      "z": -218.989,
+      "leftX": -58.861,
+      "rightX": -9.449
+    },
+    {
+      "z": -222.505,
+      "leftX": -57.988,
+      "rightX": -6.914
+    },
+    {
+      "z": -226.022,
+      "leftX": -56.905,
+      "rightX": -5.859
+    },
+    {
+      "z": -229.538,
+      "leftX": -55.81,
+      "rightX": -4.855
+    },
+    {
+      "z": -233.055,
+      "leftX": -54.704,
+      "rightX": -3.891
+    },
+    {
+      "z": -236.571,
+      "leftX": -53.621,
+      "rightX": -3.006
+    },
+    {
+      "z": -240.088,
+      "leftX": -52.566,
+      "rightX": -2.201
+    },
+    {
+      "z": -243.604,
+      "leftX": -51.568,
+      "rightX": -1.48
+    },
+    {
+      "z": -247.121,
+      "leftX": -50.66,
+      "rightX": -0.851
+    },
+    {
+      "z": -250.637,
+      "leftX": -49.826,
+      "rightX": -0.318
+    },
+    {
+      "z": -254.154,
+      "leftX": -49.214,
+      "rightX": 0.113
+    },
+    {
+      "z": -257.67,
+      "leftX": -49.055,
+      "rightX": 0.431
+    },
+    {
+      "z": -261.187,
+      "leftX": -49.055,
+      "rightX": 0.647
+    },
+    {
+      "z": -264.703,
+      "leftX": -49.055,
+      "rightX": 0.703
+    },
+    {
+      "z": -268.22,
+      "leftX": -49.055,
+      "rightX": 0.703
+    },
+    {
+      "z": -271.736,
+      "leftX": -49.055,
+      "rightX": 0.613
+    },
+    {
+      "z": -275.253,
+      "leftX": -49.095,
+      "rightX": 0.346
+    },
+    {
+      "z": -278.769,
+      "leftX": -49.588,
+      "rightX": -0.04
+    },
+    {
+      "z": -282.286,
+      "leftX": -50.581,
+      "rightX": -0.55
+    },
+    {
+      "z": -285.802,
+      "leftX": -51.63,
+      "rightX": -1.185
+    },
+    {
+      "z": -289.319,
+      "leftX": -52.532,
+      "rightX": -1.957
+    },
+    {
+      "z": -292.835,
+      "leftX": -53.297,
+      "rightX": -3.823
+    },
+    {
+      "z": -296.352,
+      "leftX": -53.745,
+      "rightX": -5.694
+    },
+    {
+      "z": -299.868,
+      "leftX": -53.802,
+      "rightX": -6.154
+    },
+    {
+      "z": -303.385,
+      "leftX": -53.802,
+      "rightX": -6.154
+    },
+    {
+      "z": -306.901,
+      "leftX": -54.307,
+      "rightX": -6.154
+    },
+    {
+      "z": -310.418,
+      "leftX": -55.175,
+      "rightX": -6.154
+    },
+    {
+      "z": -313.934,
+      "leftX": -55.135,
+      "rightX": -6.154
+    },
+    {
+      "z": -317.451,
+      "leftX": -54.965,
+      "rightX": -5.995
+    },
+    {
+      "z": -320.967,
+      "leftX": -54.698,
+      "rightX": -5.49
+    },
+    {
+      "z": -324.484,
+      "leftX": -54.307,
+      "rightX": -4.781
+    },
+    {
+      "z": -328.0,
+      "leftX": -53.791,
+      "rightX": -3.885
+    },
+    {
+      "z": -331.516,
+      "leftX": -53.161,
+      "rightX": -2.842
+    },
+    {
+      "z": -335.033,
+      "leftX": -52.424,
+      "rightX": -1.667
+    },
+    {
+      "z": -338.549,
+      "leftX": -51.568,
+      "rightX": -0.38
+    },
+    {
+      "z": -342.066,
+      "leftX": -50.603,
+      "rightX": 0.981
+    },
+    {
+      "z": -345.582,
+      "leftX": -48.942,
+      "rightX": 2.393
+    },
+    {
+      "z": -349.099,
+      "leftX": -45.811,
+      "rightX": 3.811
+    },
+    {
+      "z": -352.615,
+      "leftX": -45.011,
+      "rightX": 5.241
+    },
+    {
+      "z": -356.132,
+      "leftX": -45.005,
+      "rightX": 6.647
+    },
+    {
+      "z": -359.648,
+      "leftX": -44.455,
+      "rightX": 8.014
+    },
+    {
+      "z": -363.165,
+      "leftX": -43.128,
+      "rightX": 9.319
+    },
+    {
+      "z": -366.681,
+      "leftX": -41.699,
+      "rightX": 10.527
+    },
+    {
+      "z": -370.198,
+      "leftX": -40.292,
+      "rightX": 11.61
+    },
+    {
+      "z": -373.714,
+      "leftX": -38.954,
+      "rightX": 12.591
+    },
+    {
+      "z": -377.231,
+      "leftX": -38.341,
+      "rightX": 13.346
+    },
+    {
+      "z": -380.747,
+      "leftX": -38.33,
+      "rightX": 13.675
+    },
+    {
+      "z": -384.264,
+      "leftX": -38.33,
+      "rightX": 13.714
+    }
+  ],
+  "walls": [
+    {
+      "name": "WestWall",
+      "points": [
+        {
+          "x": -52.747,
+          "z": 376.176
+        },
+        {
+          "x": -107.253,
+          "z": 371.78
+        },
+        {
+          "x": -137.143,
+          "z": 363.868
+        },
+        {
+          "x": -172.308,
+          "z": 341.011
+        },
+        {
+          "x": -216.726,
+          "z": 333.099
+        },
+        {
+          "x": -196.48,
+          "z": 312.0
+        },
+        {
+          "x": -209.057,
+          "z": 290.901
+        },
+        {
+          "x": -220.768,
+          "z": 269.802
+        },
+        {
+          "x": -231.309,
+          "z": 248.703
+        },
+        {
+          "x": -236.216,
+          "z": 227.604
+        },
+        {
+          "x": -235.147,
+          "z": 206.505
+        },
+        {
+          "x": -231.982,
+          "z": 185.407
+        },
+        {
+          "x": -228.818,
+          "z": 164.308
+        },
+        {
+          "x": -226.534,
+          "z": 143.209
+        },
+        {
+          "x": -226.92,
+          "z": 122.11
+        },
+        {
+          "x": -229.873,
+          "z": 101.011
+        },
+        {
+          "x": -233.389,
+          "z": 79.912
+        },
+        {
+          "x": -236.905,
+          "z": 58.813
+        },
+        {
+          "x": -240.389,
+          "z": 37.714
+        },
+        {
+          "x": -242.038,
+          "z": 16.615
+        },
+        {
+          "x": -240.737,
+          "z": -4.484
+        },
+        {
+          "x": -237.146,
+          "z": -25.582
+        },
+        {
+          "x": -233.347,
+          "z": -46.681
+        },
+        {
+          "x": -229.512,
+          "z": -67.78
+        },
+        {
+          "x": -226.539,
+          "z": -88.879
+        },
+        {
+          "x": -225.848,
+          "z": -109.978
+        },
+        {
+          "x": -227.327,
+          "z": -131.077
+        },
+        {
+          "x": -229.227,
+          "z": -152.176
+        },
+        {
+          "x": -231.16,
+          "z": -173.275
+        },
+        {
+          "x": -232.22,
+          "z": -194.374
+        },
+        {
+          "x": -229.043,
+          "z": -215.473
+        },
+        {
+          "x": -221.336,
+          "z": -236.571
+        },
+        {
+          "x": -211.842,
+          "z": -257.67
+        },
+        {
+          "x": -202.347,
+          "z": -278.769
+        },
+        {
+          "x": -190.384,
+          "z": -299.868
+        },
+        {
+          "x": -169.56,
+          "z": -320.967
+        },
+        {
+          "x": -169.67,
+          "z": -342.066
+        },
+        {
+          "x": -175.824,
+          "z": -342.066
+        },
+        {
+          "x": -98.462,
+          "z": -371.956
+        },
+        {
+          "x": -45.714,
+          "z": -377.231
+        }
+      ]
+    },
+    {
+      "name": "EastWall",
+      "points": [
+        {
+          "x": 12.308,
+          "z": 376.176
+        },
+        {
+          "x": 121.319,
+          "z": 364.747
+        },
+        {
+          "x": 174.066,
+          "z": 333.099
+        },
+        {
+          "x": 6.316,
+          "z": 333.099
+        },
+        {
+          "x": 196.431,
+          "z": 312.0
+        },
+        {
+          "x": 217.909,
+          "z": 290.901
+        },
+        {
+          "x": 228.594,
+          "z": 269.802
+        },
+        {
+          "x": 234.936,
+          "z": 248.703
+        },
+        {
+          "x": 241.224,
+          "z": 227.604
+        },
+        {
+          "x": 245.604,
+          "z": 206.505
+        },
+        {
+          "x": 247.32,
+          "z": 185.407
+        },
+        {
+          "x": 246.177,
+          "z": 164.308
+        },
+        {
+          "x": 243.847,
+          "z": 143.209
+        },
+        {
+          "x": 240.965,
+          "z": 122.11
+        },
+        {
+          "x": 238.591,
+          "z": 101.011
+        },
+        {
+          "x": 238.304,
+          "z": 79.912
+        },
+        {
+          "x": 240.505,
+          "z": 58.813
+        },
+        {
+          "x": 244.149,
+          "z": 37.714
+        },
+        {
+          "x": 246.596,
+          "z": 16.615
+        },
+        {
+          "x": 247.506,
+          "z": -4.484
+        },
+        {
+          "x": 247.475,
+          "z": -25.582
+        },
+        {
+          "x": 245.884,
+          "z": -46.681
+        },
+        {
+          "x": 242.574,
+          "z": -67.78
+        },
+        {
+          "x": 238.157,
+          "z": -88.879
+        },
+        {
+          "x": 233.589,
+          "z": -109.978
+        },
+        {
+          "x": 230.527,
+          "z": -131.077
+        },
+        {
+          "x": 230.442,
+          "z": -152.176
+        },
+        {
+          "x": 232.981,
+          "z": -173.275
+        },
+        {
+          "x": 235.926,
+          "z": -194.374
+        },
+        {
+          "x": 238.845,
+          "z": -215.473
+        },
+        {
+          "x": 241.764,
+          "z": -236.571
+        },
+        {
+          "x": 242.592,
+          "z": -257.67
+        },
+        {
+          "x": 235.819,
+          "z": -278.769
+        },
+        {
+          "x": 221.486,
+          "z": -299.868
+        },
+        {
+          "x": 205.099,
+          "z": -320.967
+        },
+        {
+          "x": 102.803,
+          "z": -342.066
+        },
+        {
+          "x": 175.824,
+          "z": -357.89
+        },
+        {
+          "x": 12.308,
+          "z": -377.231
+        }
+      ]
+    }
+  ]
+}
