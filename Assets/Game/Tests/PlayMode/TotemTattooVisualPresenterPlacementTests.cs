@@ -36,7 +36,7 @@ public sealed class TotemTattooVisualPresenterPlacementTests
         {
             var presenter = host.AddComponent<TotemTattooVisualPresenter>();
             Assert.IsFalse(presenter.SetPartPlacement(0, Vector2.one, 1f));
-            Assert.IsFalse(presenter.SetPartPlacement(TotemTattooService.PartCount + 1, Vector2.one, 1f));
+            Assert.IsFalse(presenter.SetPartPlacement(TotemFirstPlayableTattooBuildState.SlotCount + 1, Vector2.one, 1f));
         }
         finally
         {

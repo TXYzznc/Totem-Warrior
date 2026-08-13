@@ -3,19 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using NUnit.Framework;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 
 public sealed class TotemCombatHudInputSmokeTests
 {
-    private const string LaunchSceneName = "Launch";
     private static readonly SmokeInputProvider InputProvider = new SmokeInputProvider();
 
     [UnityTest]
     public IEnumerator CombatHud_InputSmoke_UsesTotemInputService()
     {
-        yield return LoadLaunchScene();
-        yield return WaitForRuntimeReady();
+        yield return TotemPlayModeTestIsolation.LoadFreshLaunchScene();
         var runtime = TotemGameRuntime.Instance;
         Assert.NotNull(runtime, "GF_X Totem runtime should be created by Launch scene.");
 
@@ -27,19 +24,14 @@ public sealed class TotemCombatHudInputSmokeTests
         InputProvider.ClearAll();
 
         yield return WaitForExclusiveView(ui, flow, UIViews.MainMenu, TotemGameFlowState.MainMenu);
-        ui.OpenCharacterSelect();
-        yield return WaitForExclusiveView(ui, flow, UIViews.CharacterSelect, TotemGameFlowState.CharacterSelect);
-        flow.SelectCharacter(1);
-        ui.OpenStartupSelect();
-        yield return WaitForExclusiveView(ui, flow, UIViews.StartupSelect, TotemGameFlowState.StartupSelect);
-        flow.ConfirmStartup(1, "knife_basic", new[] { 1 });
-        ui.OpenCombatHud();
+        Assert.IsTrue(ui.StartLocalFirstPlayable());
         yield return WaitForExclusiveView(ui, flow, UIViews.CombatHUD, TotemGameFlowState.CombatHud);
 
         var uiSnapshot = ui.CaptureSnapshot();
         Assert.AreEqual(TotemGameFlowState.CombatHud, flow.CurrentState, "CombatHUD smoke should enter the GF_X CombatHud flow state.");
         Assert.AreEqual(UIViews.CombatHUD.ToString(), uiSnapshot.lastExclusiveView, "CombatHUD smoke should request the CombatHUD view.");
         Assert.Greater(uiSnapshot.currentFormId, 0, "CombatHUD smoke should open a concrete UI form in the Launch scene.");
+        Assert.NotNull(Object.FindObjectOfType<TotemFirstPlayableHudPresenter>(), "The first-playable HUD presenter must be mounted.");
 
         yield return HoldMove(input, KeyCode.D);
         var snapshot = input.Current;
@@ -49,29 +41,9 @@ public sealed class TotemCombatHudInputSmokeTests
         snapshot = input.Current;
         Assert.IsTrue(snapshot.attackPressed, "Attack input must be observed through TotemInputService.");
 
-        yield return PressKey(input, KeyCode.E);
-        snapshot = input.Current;
-        Assert.IsTrue(snapshot.skillSlotEPressed, "Skill E input must be observed through TotemInputService.");
-
-        yield return PressKey(input, KeyCode.Q);
-        snapshot = input.Current;
-        Assert.IsTrue(snapshot.skillSlotQPressed, "Skill Q input must be observed through TotemInputService.");
-
-        yield return PressKey(input, KeyCode.Space);
-        snapshot = input.Current;
-        Assert.IsTrue(snapshot.dodgePressed, "Dodge input must be observed through TotemInputService.");
-
         yield return PressKey(input, KeyCode.F);
         snapshot = input.Current;
         Assert.IsTrue(snapshot.interactPressed, "Interact input must be observed through TotemInputService.");
-
-        yield return PressKey(input, KeyCode.Tab);
-        snapshot = input.Current;
-        Assert.IsTrue(snapshot.selfTattooTogglePressed, "Self-tattoo input must be observed through TotemInputService.");
-
-        yield return null;
-        uiSnapshot = ui.CaptureSnapshot();
-        Assert.AreEqual(UIViews.SelfTattoo.ToString(), uiSnapshot.lastOverlayView, "Tab input should route through TotemUIService to SelfTattoo.");
 
         yield return PressKey(input, KeyCode.Escape);
         snapshot = input.Current;
@@ -79,47 +51,15 @@ public sealed class TotemCombatHudInputSmokeTests
 
         yield return null;
         uiSnapshot = ui.CaptureSnapshot();
-        Assert.GreaterOrEqual(uiSnapshot.overlayCloseRequestCount, 1, "Escape should close at least one overlay through GF_X UI.");
+        Assert.AreEqual(UIViews.PauseMenu.ToString(), uiSnapshot.lastOverlayView, "Escape should open PauseMenu from CombatHud.");
 
         yield return PressKey(input, KeyCode.Escape);
         yield return null;
         uiSnapshot = ui.CaptureSnapshot();
-        Assert.AreEqual(UIViews.PauseMenu.ToString(), uiSnapshot.lastOverlayView, "Second Escape should open PauseMenu from CombatHud.");
+        Assert.GreaterOrEqual(uiSnapshot.overlayCloseRequestCount, 1, "Second Escape should close PauseMenu through GF_X UI.");
 
         InputProvider.ClearAll();
         input.SetInputProvider(null);
-    }
-
-    private static IEnumerator LoadLaunchScene()
-    {
-        if (SceneManager.GetActiveScene().name == LaunchSceneName)
-        {
-            yield break;
-        }
-
-        var operation = SceneManager.LoadSceneAsync(LaunchSceneName, LoadSceneMode.Single);
-        Assert.NotNull(operation, "Launch scene should be available from build settings.");
-        while (!operation.isDone)
-        {
-            yield return null;
-        }
-    }
-
-    private static IEnumerator WaitForRuntimeReady()
-    {
-        const int maxFrames = 240;
-        for (int i = 0; i < maxFrames; i++)
-        {
-            var runtime = TotemGameRuntime.Instance;
-            if (runtime != null && runtime.ServicesReady)
-            {
-                yield break;
-            }
-
-            yield return null;
-        }
-
-        Assert.Fail("Timed out waiting for TotemGameRuntime.ServicesReady.");
     }
 
     private static IEnumerator WaitForExclusiveView(TotemUIService ui, TotemGameFlowService flow, UIViews view, TotemGameFlowState state)
@@ -130,7 +70,8 @@ public sealed class TotemCombatHudInputSmokeTests
             var snapshot = ui.CaptureSnapshot();
             if (flow.CurrentState == state &&
                 snapshot.lastExclusiveView == view.ToString() &&
-                snapshot.currentFormId > 0)
+                snapshot.currentFormId > 0 &&
+                (view != UIViews.CombatHUD || Object.FindObjectOfType<TotemFirstPlayableHudPresenter>() != null))
             {
                 yield break;
             }

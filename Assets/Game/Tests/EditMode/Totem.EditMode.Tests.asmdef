@@ -1,12 +1,13 @@
 {
-  "name": "Totem.PlayMode.Tests",
+  "name": "Totem.EditMode.Tests",
   "rootNamespace": "",
   "references": [
     "Hotfix",
-    "Builtin.Runtime",
-    "UnityGameFramework.Runtime"
+    "Builtin.Runtime"
   ],
-  "includePlatforms": [],
+  "includePlatforms": [
+    "Editor"
+  ],
   "excludePlatforms": [],
   "allowUnsafeCode": false,
   "overrideReferences": false,
