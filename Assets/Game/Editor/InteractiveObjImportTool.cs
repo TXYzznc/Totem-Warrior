@@ -134,6 +134,69 @@ internal static class InteractiveObjImportTool
         Debug.Log($"[InteractiveObjImport] Validation passed: {prefabPaths.Length} prefabs, {rendererCount} renderers, {materialSlotCount} material slots, complete URP PBR references.");
     }
 
+    [MenuItem("GameTools/Art/Apply Gun Magazine Glass")]
+    private static void ApplyGunMagazineGlass()
+    {
+        const string sourceMaterialPath = "Assets/Game/Materials/InteractiveObj/GUN_001/MAT_GUN_001_P04.mat";
+        const string glassMaterialPath = "Assets/Game/Materials/InteractiveObj/GUN_001/MAT_GUN_001_P04_Glass.mat";
+        const string prefabPath = "Assets/Game/Prefabs/InteractiveObj/PF_GUN_001.prefab";
+        const string rendererName = "FINAL2_GUN_001_tripo_part_4";
+
+        if (AssetDatabase.LoadAssetAtPath<Material>(glassMaterialPath) == null &&
+            !AssetDatabase.CopyAsset(sourceMaterialPath, glassMaterialPath))
+        {
+            throw new InvalidOperationException($"Could not create {glassMaterialPath}.");
+        }
+
+        Material glass = AssetDatabase.LoadAssetAtPath<Material>(glassMaterialPath);
+        if (glass == null || glass.shader == null || glass.shader.name != "Universal Render Pipeline/Lit")
+        {
+            throw new InvalidOperationException("The gun magazine glass material must use URP Lit.");
+        }
+
+        // Transparent navy glass: reuse the baked maps but avoid expensive screen-space refraction.
+        glass.SetFloat("_Surface", 1f);
+        glass.SetFloat("_Blend", 0f);
+        glass.SetFloat("_SrcBlend", 5f); // SrcAlpha
+        glass.SetFloat("_DstBlend", 10f); // OneMinusSrcAlpha
+        glass.SetFloat("_ZWrite", 0f);
+        glass.SetFloat("_AlphaToMask", 0f);
+        glass.SetColor("_BaseColor", new Color(0.045f, 0.118f, 0.175f, 0.52f));
+        glass.SetFloat("_Metallic", 0.08f);
+        glass.SetFloat("_Smoothness", 0.88f);
+        glass.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Transparent;
+        glass.EnableKeyword("_SURFACE_TYPE_TRANSPARENT");
+        glass.DisableKeyword("_ALPHATEST_ON");
+        EditorUtility.SetDirty(glass);
+
+        GameObject root = PrefabUtility.LoadPrefabContents(prefabPath);
+        try
+        {
+            Transform target = root.GetComponentsInChildren<Transform>(true)
+                .FirstOrDefault(transform => transform.name == rendererName);
+            Renderer renderer = target != null ? target.GetComponent<Renderer>() : null;
+            if (renderer == null)
+            {
+                throw new InvalidOperationException($"Renderer {rendererName} was not found in {prefabPath}.");
+            }
+
+            Material[] slots = renderer.sharedMaterials;
+            for (int index = 0; index < slots.Length; index++)
+            {
+                slots[index] = glass;
+            }
+            renderer.sharedMaterials = slots;
+            PrefabUtility.SaveAsPrefabAsset(root, prefabPath);
+        }
+        finally
+        {
+            PrefabUtility.UnloadPrefabContents(root);
+        }
+
+        AssetDatabase.SaveAssets();
+        Debug.Log($"[InteractiveObjImport] Applied navy transparent glass to {rendererName}: {glassMaterialPath}");
+    }
+
     private static void ConfigureTextureImporters()
     {
         foreach (string guid in AssetDatabase.FindAssets("t:Texture2D", new[] { TextureRoot }))

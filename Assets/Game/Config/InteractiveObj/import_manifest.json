@@ -1,0 +1,82 @@
+{
+  "assets": [
+    {
+      "asset": "INT_PROP_001",
+      "model": "Assets/Game/Models/InteractiveObj/Models/SM_INT_PROP_001.fbx",
+      "parts": 7,
+      "complete_pbr": 7
+    },
+    {
+      "asset": "INT_PROP_002",
+      "model": "Assets/Game/Models/InteractiveObj/Models/SM_INT_PROP_002.fbx",
+      "parts": 6,
+      "complete_pbr": 6
+    },
+    {
+      "asset": "INT_PROP_003",
+      "model": "Assets/Game/Models/InteractiveObj/Models/SM_INT_PROP_003.fbx",
+      "parts": 5,
+      "complete_pbr": 5
+    },
+    {
+      "asset": "INT_PROP_004",
+      "model": "Assets/Game/Models/InteractiveObj/Models/SM_INT_PROP_004.fbx",
+      "parts": 4,
+      "complete_pbr": 4
+    },
+    {
+      "asset": "INT_PROP_005",
+      "model": "Assets/Game/Models/InteractiveObj/Models/SM_INT_PROP_005.fbx",
+      "parts": 8,
+      "complete_pbr": 8
+    },
+    {
+      "asset": "INT_PROP_006",
+      "model": "Assets/Game/Models/InteractiveObj/Models/SM_INT_PROP_006.fbx",
+      "parts": 7,
+      "complete_pbr": 7
+    },
+    {
+      "asset": "INT_PROP_007",
+      "model": "Assets/Game/Models/InteractiveObj/Models/SM_INT_PROP_007.fbx",
+      "parts": 5,
+      "complete_pbr": 5
+    },
+    {
+      "asset": "INT_PROP_008",
+      "model": "Assets/Game/Models/InteractiveObj/Models/SM_INT_PROP_008.fbx",
+      "parts": 2,
+      "complete_pbr": 2
+    },
+    {
+      "asset": "INT_PROP_009",
+      "model": "Assets/Game/Models/InteractiveObj/Models/SM_INT_PROP_009.fbx",
+      "parts": 1,
+      "complete_pbr": 1
+    },
+    {
+      "asset": "INT_PROP_010",
+      "model": "Assets/Game/Models/InteractiveObj/Models/SM_INT_PROP_010.fbx",
+      "parts": 9,
+      "complete_pbr": 9
+    },
+    {
+      "asset": "INT_PROP_011",
+      "model": "Assets/Game/Models/InteractiveObj/Models/SM_INT_PROP_011.fbx",
+      "parts": 4,
+      "complete_pbr": 4
+    },
+    {
+      "asset": "INT_PROP_012",
+      "model": "Assets/Game/Models/InteractiveObj/Models/SM_INT_PROP_012.fbx",
+      "parts": 1,
+      "complete_pbr": 1
+    },
+    {
+      "asset": "GUN_001",
+      "model": "Assets/Game/Models/InteractiveObj/Models/SM_GUN_001.fbx",
+      "parts": 15,
+      "complete_pbr": 15
+    }
+  ]
+}
