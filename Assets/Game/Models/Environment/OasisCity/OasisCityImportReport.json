@@ -1,0 +1,11 @@
+﻿{
+    "generatedAt": "2026-08-04 15:48:11",
+    "unityVersion": "2022.3.62f3c1",
+    "renderPipeline": "URP",
+    "buildingCount": 24,
+    "decorationCount": 31,
+    "materialCount": 37,
+    "prefabCount": 55,
+    "textureRule": "BC=sRGB; Normal=NormalMap; Mask R=Metallic G=AO B=0 A=Smoothness",
+    "warnings": []
+}
