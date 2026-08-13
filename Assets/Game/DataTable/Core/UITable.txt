@@ -3,14 +3,7 @@
 #	int		int	string	bool	int	bool
 #		Note	Display order relative to group	UI prefab name	Hide covered UI in the same group	UI group id	Allow close by back input
 	1	Totem first slice: main menu	0	MainMenu	true	1	false
-	2	Totem first slice: character select	10	CharacterSelect	true	1	true
-	3	Totem first slice: startup selection	20	StartupSelect	true	1	true
 	4	Totem first slice: combat HUD	30	CombatHUD	false	1	false
-	5	Totem overlay: shop	100	Shop	false	1	true
-	6	Totem overlay: three choices	110	ThreeChoice	false	1	true
-	7	Totem overlay: tattoo studio	100	TattooStudio	false	1	true
 	8	Totem overlay: pause menu	120	PauseMenu	false	1	true
 	9	Totem overlay: run result	130	RunResult	false	1	false
 	10	Totem overlay: settings	140	Settings	false	1	true
-	11	Totem overlay: self tattoo	120	SelfTattoo	false	1	true
-	12	Totem overlay: tattoo enchant	150	TattooEnchant	false	1	true

@@ -1,7 +1,8 @@
-#	Business table migrated from LegacyProjectArchive/Assets/Resources/DataTable/ZoneShrinkConfig.json. GF_X Id is numeric; original business keys are preserved as data columns.							
+#	Business configuration maintained in the GF_X AI DataTable workflow. Id is numeric and business keys are preserved as data columns.							
 #	Id		PhaseName	StartTime	Duration	TargetRadius	OutZoneDamage	CenterOffsetMode
 #	int		string	float	float	float	float	string
-#	GF_X numeric row id. Original business key is preserved as a data column when its name is not Id.	Note	阶段名（Phase0_Slow / Phase1_Offset / Phase2_Rush）	本阶段进入时刻（秒，Run 启动 0 起）	本阶段持续时长（秒）	本阶段结束时的目标半径（米）	圈外伤害（HP/s）	圈心偏移模式（None / Drift / Fixed），MVP 仅 None
-	0		Phase0_Slow	0.0	180.0	65.0	2.0	None
-	1		Phase1_Offset	180.0	360.0	35.0	5.0	Drift
-	2		Phase2_Rush	540.0	360.0	5.0	12.0	Fixed
+#	GF_X numeric row id. Original business key is preserved as a data column when its name is not Id.	Note	阶段名（Shrink1 / Shrink2 / Shrink3 / Shrink4）	缩圈活动内局部起始时间（秒）	正常模式缩圈时长（秒；快速模式由 MatchTiming 配置）	本次缩圈结束时的目标半径（米）	圈外伤害（HP/s）	圈心偏移模式（第一版仅 None）
+	0		Shrink1	0	30	110	2	None
+	1		Shrink2	0	30	75	3	None
+	2		Shrink3	0	30	50	5	None
+	3		Shrink4	0	30	35	8	None

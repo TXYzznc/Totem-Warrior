@@ -4,9 +4,9 @@
   "tableName": "ResourceConfig",
   "relativePath": "Business/ResourceConfig",
   "sourceExcel": "GameData/DataTables/Business/ResourceConfig.xlsx",
-  "sourceExcelLastWriteUtc": "2026-07-13T13:58:53.7080706Z",
-  "generatedAtUtc": "2026-07-13T13:58:53.8885707Z",
-  "tableComment": "Business table migrated from LegacyProjectArchive/Assets/Resources/DataTable/ResourceConfig.json. GF_X Id is numeric; original business keys are preserved as data columns.",
+  "sourceExcelLastWriteUtc": "2026-08-11T09:23:42.1119057Z",
+  "generatedAtUtc": "2026-08-11T09:35:29.3227171Z",
+  "tableComment": "Business configuration maintained in the GF_X AI DataTable workflow. Id is numeric and business keys are preserved as data columns.",
   "columns": [
     {
       "index": 1,

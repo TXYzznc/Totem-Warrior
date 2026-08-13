@@ -4,9 +4,9 @@
   "tableName": "MapTemplateConfig",
   "relativePath": "Business/MapTemplateConfig",
   "sourceExcel": "GameData/DataTables/Business/MapTemplateConfig.xlsx",
-  "sourceExcelLastWriteUtc": "2026-07-13T13:58:52.2080716Z",
-  "generatedAtUtc": "2026-07-13T13:58:52.3905710Z",
-  "tableComment": "Business table migrated from LegacyProjectArchive/Assets/Resources/DataTable/MapTemplateConfig.json. GF_X Id is numeric; original business keys are preserved as data columns.",
+  "sourceExcelLastWriteUtc": "2026-08-11T09:33:06.5569251Z",
+  "generatedAtUtc": "2026-08-11T09:35:29.1352160Z",
+  "tableComment": "六人纯 PVP 第一版只使用已完成的绿洲新城场景。",
   "columns": [
     {
       "index": 1,
@@ -21,7 +21,7 @@
       "key": "Id",
       "name": "Id",
       "type": "int",
-      "comment": "GF_X numeric row id. Original business key is preserved as a data column when its name is not Id.",
+      "comment": "GF_X numeric row id.",
       "role": "id"
     },
     {
@@ -37,7 +37,7 @@
       "key": "ThemeName",
       "name": "ThemeName",
       "type": "string",
-      "comment": "主题枚举名（AI_RUINS / ALIEN_HIVE / VIRUS_SWAMP）",
+      "comment": "场景主题名。",
       "role": "data"
     },
     {
@@ -45,7 +45,7 @@
       "key": "MapSize",
       "name": "MapSize",
       "type": "float",
-      "comment": "固定手工地图边界尺寸（单位 m，固定 400）",
+      "comment": "地图边界尺寸（米）。",
       "role": "data"
     },
     {
@@ -53,7 +53,7 @@
       "key": "MinRoomSize",
       "name": "MinRoomSize",
       "type": "float",
-      "comment": "BSP 最小房间尺寸（单位 m）",
+      "comment": "运行时布局最小房间尺寸。",
       "role": "data"
     },
     {
@@ -61,7 +61,7 @@
       "key": "BspMaxDepth",
       "name": "BspMaxDepth",
       "type": "int",
-      "comment": "BSP 最大递归深度（v2.1 = 4）",
+      "comment": "运行时布局最大递归深度。",
       "role": "data"
     },
     {
@@ -69,7 +69,7 @@
       "key": "TerrainPoolId",
       "name": "TerrainPoolId",
       "type": "int",
-      "comment": "地块池 ID，用于 tile 替换。MVP 暂未消费",
+      "comment": "地块池 ID。",
       "role": "data"
     },
     {
@@ -77,7 +77,7 @@
       "key": "PrefabPath",
       "name": "PrefabPath",
       "type": "string",
-      "comment": "房间 Prefab 路径前缀（相对 Resources/Prefab/Map/）。MVP 留空",
+      "comment": "场景或预制体路径。",
       "role": "data"
     },
     {
@@ -85,7 +85,7 @@
       "key": "HudAccentColor",
       "name": "HudAccentColor",
       "type": "string",
-      "comment": "HUD 强调色（hex，如 #66CCFF）。透传字段",
+      "comment": "HUD 强调色。",
       "role": "data"
     },
     {
@@ -93,7 +93,7 @@
       "key": "DominantColor",
       "name": "DominantColor",
       "type": "string",
-      "comment": "主色调（hex）。透传字段",
+      "comment": "环境主色。",
       "role": "data"
     }
   ],
@@ -104,88 +104,28 @@
       "comment": null,
       "values": {
         "Id": "1",
-        "ThemeName": "AI_RUINS",
+        "ThemeName": "OASIS_CITY",
         "MapSize": "400.0",
         "MinRoomSize": "40.0",
         "BspMaxDepth": "4",
         "TerrainPoolId": "101",
-        "PrefabPath": "",
-        "HudAccentColor": "#66CCFF",
-        "DominantColor": "#3A4858"
+        "PrefabPath": "Assets/Game/Scene/OasisCity.unity",
+        "HudAccentColor": "#379091",
+        "DominantColor": "#B7824F"
       },
       "notes": {},
       "_cells": [
         "",
         "1",
         "",
-        "AI_RUINS",
+        "OASIS_CITY",
         "400.0",
         "40.0",
         "4",
         "101",
-        "",
-        "#66CCFF",
-        "#3A4858"
-      ]
-    },
-    {
-      "row": 6,
-      "enabled": true,
-      "comment": null,
-      "values": {
-        "Id": "2",
-        "ThemeName": "ALIEN_HIVE",
-        "MapSize": "400.0",
-        "MinRoomSize": "40.0",
-        "BspMaxDepth": "4",
-        "TerrainPoolId": "102",
-        "PrefabPath": "",
-        "HudAccentColor": "#7DFF88",
-        "DominantColor": "#273A22"
-      },
-      "notes": {},
-      "_cells": [
-        "",
-        "2",
-        "",
-        "ALIEN_HIVE",
-        "400.0",
-        "40.0",
-        "4",
-        "102",
-        "",
-        "#7DFF88",
-        "#273A22"
-      ]
-    },
-    {
-      "row": 7,
-      "enabled": true,
-      "comment": null,
-      "values": {
-        "Id": "3",
-        "ThemeName": "VIRUS_SWAMP",
-        "MapSize": "400.0",
-        "MinRoomSize": "40.0",
-        "BspMaxDepth": "4",
-        "TerrainPoolId": "103",
-        "PrefabPath": "",
-        "HudAccentColor": "#B6FF3C",
-        "DominantColor": "#233A35"
-      },
-      "notes": {},
-      "_cells": [
-        "",
-        "3",
-        "",
-        "VIRUS_SWAMP",
-        "400.0",
-        "40.0",
-        "4",
-        "103",
-        "",
-        "#B6FF3C",
-        "#233A35"
+        "Assets/Game/Scene/OasisCity.unity",
+        "#379091",
+        "#B7824F"
       ]
     }
   ]

@@ -1,0 +1,450 @@
+{
+  "schemaVersion": 1,
+  "kind": "GF_X.DataTable.AI",
+  "tableName": "MapResourcePickupConfig",
+  "relativePath": "Business/MapResourcePickupConfig",
+  "sourceExcel": "GameData/DataTables/Business/MapResourcePickupConfig.xlsx",
+  "sourceExcelLastWriteUtc": "2026-08-11T09:33:06.1599255Z",
+  "generatedAtUtc": "2026-08-11T09:35:28.9517164Z",
+  "tableComment": "第一版地图拾取物配置。每个合法资源锚点按权重选择一种拾取物，并在该类型的 MinAmount/MaxAmount 区间内确定性随机数量。",
+  "columns": [
+    {
+      "index": 1,
+      "key": "Note1",
+      "name": "#",
+      "type": "#",
+      "comment": "#",
+      "role": "comment"
+    },
+    {
+      "index": 2,
+      "key": "Id",
+      "name": "Id",
+      "type": "int",
+      "comment": "GF_X numeric row id.",
+      "role": "id"
+    },
+    {
+      "index": 3,
+      "key": "Note3",
+      "name": "",
+      "type": "",
+      "comment": "Note",
+      "role": "comment"
+    },
+    {
+      "index": 4,
+      "key": "PickupId",
+      "name": "PickupId",
+      "type": "string",
+      "comment": "稳定且唯一的拾取定义 ID。",
+      "role": "data"
+    },
+    {
+      "index": 5,
+      "key": "Category",
+      "name": "Category",
+      "type": "string",
+      "comment": "资源类别；第一版仅启用 Pigment。",
+      "role": "data"
+    },
+    {
+      "index": 6,
+      "key": "ResourceId",
+      "name": "ResourceId",
+      "type": "string",
+      "comment": "入账资源 ID。",
+      "role": "data"
+    },
+    {
+      "index": 7,
+      "key": "Element",
+      "name": "Element",
+      "type": "string",
+      "comment": "颜料元素：Fire/Ice/Lightning。",
+      "role": "data"
+    },
+    {
+      "index": 8,
+      "key": "MinAmount",
+      "name": "MinAmount",
+      "type": "int",
+      "comment": "同类拾取物最小数量（包含）。",
+      "role": "data"
+    },
+    {
+      "index": 9,
+      "key": "MaxAmount",
+      "name": "MaxAmount",
+      "type": "int",
+      "comment": "同类拾取物最大数量（包含）。",
+      "role": "data"
+    },
+    {
+      "index": 10,
+      "key": "Weight",
+      "name": "Weight",
+      "type": "int",
+      "comment": "满足回合条件时的相对生成权重。",
+      "role": "data"
+    },
+    {
+      "index": 11,
+      "key": "MinRound",
+      "name": "MinRound",
+      "type": "int",
+      "comment": "最早生成回合。",
+      "role": "data"
+    },
+    {
+      "index": 12,
+      "key": "MaxRound",
+      "name": "MaxRound",
+      "type": "int",
+      "comment": "最晚生成回合。",
+      "role": "data"
+    },
+    {
+      "index": 13,
+      "key": "AssetKey",
+      "name": "AssetKey",
+      "type": "string",
+      "comment": "运行时资源索引键；美术资源未完成时允许仅作语义键。",
+      "role": "data"
+    },
+    {
+      "index": 14,
+      "key": "Enabled",
+      "name": "Enabled",
+      "type": "bool",
+      "comment": "是否参与生成。",
+      "role": "data"
+    }
+  ],
+  "rows": [
+    {
+      "row": 5,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "1",
+        "PickupId": "pigment.fire.small",
+        "Category": "Pigment",
+        "ResourceId": "pigment.fire",
+        "Element": "Fire",
+        "MinAmount": "4",
+        "MaxAmount": "6",
+        "Weight": "60",
+        "MinRound": "1",
+        "MaxRound": "3",
+        "AssetKey": "pickup.pigment.fire.small",
+        "Enabled": "true"
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "1",
+        "",
+        "pigment.fire.small",
+        "Pigment",
+        "pigment.fire",
+        "Fire",
+        "4",
+        "6",
+        "60",
+        "1",
+        "3",
+        "pickup.pigment.fire.small",
+        "true"
+      ]
+    },
+    {
+      "row": 6,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "2",
+        "PickupId": "pigment.fire.medium",
+        "Category": "Pigment",
+        "ResourceId": "pigment.fire",
+        "Element": "Fire",
+        "MinAmount": "8",
+        "MaxAmount": "12",
+        "Weight": "30",
+        "MinRound": "1",
+        "MaxRound": "3",
+        "AssetKey": "pickup.pigment.fire.medium",
+        "Enabled": "true"
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "2",
+        "",
+        "pigment.fire.medium",
+        "Pigment",
+        "pigment.fire",
+        "Fire",
+        "8",
+        "12",
+        "30",
+        "1",
+        "3",
+        "pickup.pigment.fire.medium",
+        "true"
+      ]
+    },
+    {
+      "row": 7,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "3",
+        "PickupId": "pigment.fire.large",
+        "Category": "Pigment",
+        "ResourceId": "pigment.fire",
+        "Element": "Fire",
+        "MinAmount": "16",
+        "MaxAmount": "20",
+        "Weight": "10",
+        "MinRound": "1",
+        "MaxRound": "3",
+        "AssetKey": "pickup.pigment.fire.large",
+        "Enabled": "true"
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "3",
+        "",
+        "pigment.fire.large",
+        "Pigment",
+        "pigment.fire",
+        "Fire",
+        "16",
+        "20",
+        "10",
+        "1",
+        "3",
+        "pickup.pigment.fire.large",
+        "true"
+      ]
+    },
+    {
+      "row": 8,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "4",
+        "PickupId": "pigment.ice.small",
+        "Category": "Pigment",
+        "ResourceId": "pigment.ice",
+        "Element": "Ice",
+        "MinAmount": "4",
+        "MaxAmount": "6",
+        "Weight": "60",
+        "MinRound": "1",
+        "MaxRound": "3",
+        "AssetKey": "pickup.pigment.ice.small",
+        "Enabled": "true"
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "4",
+        "",
+        "pigment.ice.small",
+        "Pigment",
+        "pigment.ice",
+        "Ice",
+        "4",
+        "6",
+        "60",
+        "1",
+        "3",
+        "pickup.pigment.ice.small",
+        "true"
+      ]
+    },
+    {
+      "row": 9,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "5",
+        "PickupId": "pigment.ice.medium",
+        "Category": "Pigment",
+        "ResourceId": "pigment.ice",
+        "Element": "Ice",
+        "MinAmount": "8",
+        "MaxAmount": "12",
+        "Weight": "30",
+        "MinRound": "1",
+        "MaxRound": "3",
+        "AssetKey": "pickup.pigment.ice.medium",
+        "Enabled": "true"
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "5",
+        "",
+        "pigment.ice.medium",
+        "Pigment",
+        "pigment.ice",
+        "Ice",
+        "8",
+        "12",
+        "30",
+        "1",
+        "3",
+        "pickup.pigment.ice.medium",
+        "true"
+      ]
+    },
+    {
+      "row": 10,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "6",
+        "PickupId": "pigment.ice.large",
+        "Category": "Pigment",
+        "ResourceId": "pigment.ice",
+        "Element": "Ice",
+        "MinAmount": "16",
+        "MaxAmount": "20",
+        "Weight": "10",
+        "MinRound": "1",
+        "MaxRound": "3",
+        "AssetKey": "pickup.pigment.ice.large",
+        "Enabled": "true"
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "6",
+        "",
+        "pigment.ice.large",
+        "Pigment",
+        "pigment.ice",
+        "Ice",
+        "16",
+        "20",
+        "10",
+        "1",
+        "3",
+        "pickup.pigment.ice.large",
+        "true"
+      ]
+    },
+    {
+      "row": 11,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "7",
+        "PickupId": "pigment.lightning.small",
+        "Category": "Pigment",
+        "ResourceId": "pigment.lightning",
+        "Element": "Lightning",
+        "MinAmount": "4",
+        "MaxAmount": "6",
+        "Weight": "60",
+        "MinRound": "1",
+        "MaxRound": "3",
+        "AssetKey": "pickup.pigment.lightning.small",
+        "Enabled": "true"
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "7",
+        "",
+        "pigment.lightning.small",
+        "Pigment",
+        "pigment.lightning",
+        "Lightning",
+        "4",
+        "6",
+        "60",
+        "1",
+        "3",
+        "pickup.pigment.lightning.small",
+        "true"
+      ]
+    },
+    {
+      "row": 12,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "8",
+        "PickupId": "pigment.lightning.medium",
+        "Category": "Pigment",
+        "ResourceId": "pigment.lightning",
+        "Element": "Lightning",
+        "MinAmount": "8",
+        "MaxAmount": "12",
+        "Weight": "30",
+        "MinRound": "1",
+        "MaxRound": "3",
+        "AssetKey": "pickup.pigment.lightning.medium",
+        "Enabled": "true"
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "8",
+        "",
+        "pigment.lightning.medium",
+        "Pigment",
+        "pigment.lightning",
+        "Lightning",
+        "8",
+        "12",
+        "30",
+        "1",
+        "3",
+        "pickup.pigment.lightning.medium",
+        "true"
+      ]
+    },
+    {
+      "row": 13,
+      "enabled": true,
+      "comment": null,
+      "values": {
+        "Id": "9",
+        "PickupId": "pigment.lightning.large",
+        "Category": "Pigment",
+        "ResourceId": "pigment.lightning",
+        "Element": "Lightning",
+        "MinAmount": "16",
+        "MaxAmount": "20",
+        "Weight": "10",
+        "MinRound": "1",
+        "MaxRound": "3",
+        "AssetKey": "pickup.pigment.lightning.large",
+        "Enabled": "true"
+      },
+      "notes": {},
+      "_cells": [
+        "",
+        "9",
+        "",
+        "pigment.lightning.large",
+        "Pigment",
+        "pigment.lightning",
+        "Lightning",
+        "16",
+        "20",
+        "10",
+        "1",
+        "3",
+        "pickup.pigment.lightning.large",
+        "true"
+      ]
+    }
+  ]
+}

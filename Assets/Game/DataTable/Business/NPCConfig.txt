@@ -1,9 +1,0 @@
-#	Business table migrated from LegacyProjectArchive/Assets/Resources/DataTable/NPCConfig.json. GF_X Id is numeric; original business keys are preserved as data columns.												
-#	Id		NPCId	Type	MapTheme	ThemePriceMul	ShopStockTable	InteractRadius	GuardRadius	ServiceCooldown	GuardSpawnId	GuardCount1	GuardCount2
-#	int		string	string	string	float	string	float	float	float	string	int	int
-#	GF_X numeric row id. Original business key is preserved as a data column when its name is not Id.	Note	实例唯一字符串 ID（如 tattooist_default）	Tattooist | Merchant	适用地图主题：All / Slum / Lab / Alien	主题价格倍率（普通 1.0 / 实验室 1.1 / 外星 1.2）	关联 ShopStockConfig 中的 TableId；纹身师留空字符串	触发交互提示距离（m）	警卫怪巡逻半径（m）	被攻击后关闭服务时长（s）	被攻击时生成的警卫怪 PrefabId	首次警告警卫数量	升级警告警卫数量
-	1		tattooist_default	Tattooist	All	1.0		2.5	8.0	30.0	guard_basic	1	2
-	2		tattooist_advanced	Tattooist	Lab	1.1		2.5	8.0	30.0	guard_lab	2	3
-	3		tattooist_alien	Tattooist	Alien	1.2		2.5	8.0	30.0	guard_alien	2	4
-	4		merchant_general	Merchant	All	1.0	general_shop	2.5	6.0	20.0	guard_basic	1	2
-	5		merchant_alien	Merchant	Alien	1.2	alien_shop	2.5	6.0	20.0	guard_alien	2	3

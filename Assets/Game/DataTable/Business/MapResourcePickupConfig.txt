@@ -1,0 +1,13 @@
+#	第一版地图拾取物配置。每个合法资源锚点按权重选择一种拾取物，并在该类型的 MinAmount/MaxAmount 区间内确定性随机数量。												
+#	Id		PickupId	Category	ResourceId	Element	MinAmount	MaxAmount	Weight	MinRound	MaxRound	AssetKey	Enabled
+#	int		string	string	string	string	int	int	int	int	int	string	bool
+#	GF_X numeric row id.	Note	稳定且唯一的拾取定义 ID。	资源类别；第一版仅启用 Pigment。	入账资源 ID。	颜料元素：Fire/Ice/Lightning。	同类拾取物最小数量（包含）。	同类拾取物最大数量（包含）。	满足回合条件时的相对生成权重。	最早生成回合。	最晚生成回合。	运行时资源索引键；美术资源未完成时允许仅作语义键。	是否参与生成。
+	1		pigment.fire.small	Pigment	pigment.fire	Fire	4	6	60	1	3	pickup.pigment.fire.small	true
+	2		pigment.fire.medium	Pigment	pigment.fire	Fire	8	12	30	1	3	pickup.pigment.fire.medium	true
+	3		pigment.fire.large	Pigment	pigment.fire	Fire	16	20	10	1	3	pickup.pigment.fire.large	true
+	4		pigment.ice.small	Pigment	pigment.ice	Ice	4	6	60	1	3	pickup.pigment.ice.small	true
+	5		pigment.ice.medium	Pigment	pigment.ice	Ice	8	12	30	1	3	pickup.pigment.ice.medium	true
+	6		pigment.ice.large	Pigment	pigment.ice	Ice	16	20	10	1	3	pickup.pigment.ice.large	true
+	7		pigment.lightning.small	Pigment	pigment.lightning	Lightning	4	6	60	1	3	pickup.pigment.lightning.small	true
+	8		pigment.lightning.medium	Pigment	pigment.lightning	Lightning	8	12	30	1	3	pickup.pigment.lightning.medium	true
+	9		pigment.lightning.large	Pigment	pigment.lightning	Lightning	16	20	10	1	3	pickup.pigment.lightning.large	true

@@ -4,8 +4,8 @@
   "tableName": "UITable",
   "relativePath": "Core/UITable",
   "sourceExcel": "GameData/DataTables/Core/UITable.xlsx",
-  "sourceExcelLastWriteUtc": "2026-07-10T08:56:05.8004166Z",
-  "generatedAtUtc": "2026-07-10T08:56:06.0189164Z",
+  "sourceExcelLastWriteUtc": "2026-08-11T10:06:01.9967443Z",
+  "generatedAtUtc": "2026-08-11T10:06:02.1782420Z",
   "tableComment": "UI table",
   "columns": [
     {
@@ -101,58 +101,6 @@
       ]
     },
     {
-      "row": 6,
-      "enabled": true,
-      "comment": null,
-      "values": {
-        "Id": "2",
-        "SortOrder": "10",
-        "UIPrefab": "CharacterSelect",
-        "PauseCoveredUI": "true",
-        "UIGroupId": "1",
-        "EscapeClose": "true"
-      },
-      "notes": {
-        "Note3": "Totem first slice: character select"
-      },
-      "_cells": [
-        "",
-        "2",
-        "Totem first slice: character select",
-        "10",
-        "CharacterSelect",
-        "true",
-        "1",
-        "true"
-      ]
-    },
-    {
-      "row": 7,
-      "enabled": true,
-      "comment": null,
-      "values": {
-        "Id": "3",
-        "SortOrder": "20",
-        "UIPrefab": "StartupSelect",
-        "PauseCoveredUI": "true",
-        "UIGroupId": "1",
-        "EscapeClose": "true"
-      },
-      "notes": {
-        "Note3": "Totem first slice: startup selection"
-      },
-      "_cells": [
-        "",
-        "3",
-        "Totem first slice: startup selection",
-        "20",
-        "StartupSelect",
-        "true",
-        "1",
-        "true"
-      ]
-    },
-    {
       "row": 8,
       "enabled": true,
       "comment": null,
@@ -176,84 +124,6 @@
         "false",
         "1",
         "false"
-      ]
-    },
-    {
-      "row": 9,
-      "enabled": true,
-      "comment": null,
-      "values": {
-        "Id": "5",
-        "SortOrder": "100",
-        "UIPrefab": "Shop",
-        "PauseCoveredUI": "false",
-        "UIGroupId": "1",
-        "EscapeClose": "true"
-      },
-      "notes": {
-        "Note3": "Totem overlay: shop"
-      },
-      "_cells": [
-        "",
-        "5",
-        "Totem overlay: shop",
-        "100",
-        "Shop",
-        "false",
-        "1",
-        "true"
-      ]
-    },
-    {
-      "row": 10,
-      "enabled": true,
-      "comment": null,
-      "values": {
-        "Id": "6",
-        "SortOrder": "110",
-        "UIPrefab": "ThreeChoice",
-        "PauseCoveredUI": "false",
-        "UIGroupId": "1",
-        "EscapeClose": "true"
-      },
-      "notes": {
-        "Note3": "Totem overlay: three choices"
-      },
-      "_cells": [
-        "",
-        "6",
-        "Totem overlay: three choices",
-        "110",
-        "ThreeChoice",
-        "false",
-        "1",
-        "true"
-      ]
-    },
-    {
-      "row": 11,
-      "enabled": true,
-      "comment": null,
-      "values": {
-        "Id": "7",
-        "SortOrder": "100",
-        "UIPrefab": "TattooStudio",
-        "PauseCoveredUI": "false",
-        "UIGroupId": "1",
-        "EscapeClose": "true"
-      },
-      "notes": {
-        "Note3": "Totem overlay: tattoo studio"
-      },
-      "_cells": [
-        "",
-        "7",
-        "Totem overlay: tattoo studio",
-        "100",
-        "TattooStudio",
-        "false",
-        "1",
-        "true"
       ]
     },
     {
@@ -329,58 +199,6 @@
         "Totem overlay: settings",
         "140",
         "Settings",
-        "false",
-        "1",
-        "true"
-      ]
-    },
-    {
-      "row": 15,
-      "enabled": true,
-      "comment": null,
-      "values": {
-        "Id": "11",
-        "SortOrder": "120",
-        "UIPrefab": "SelfTattoo",
-        "PauseCoveredUI": "false",
-        "UIGroupId": "1",
-        "EscapeClose": "true"
-      },
-      "notes": {
-        "Note3": "Totem overlay: self tattoo"
-      },
-      "_cells": [
-        "",
-        "11",
-        "Totem overlay: self tattoo",
-        "120",
-        "SelfTattoo",
-        "false",
-        "1",
-        "true"
-      ]
-    },
-    {
-      "row": 16,
-      "enabled": true,
-      "comment": null,
-      "values": {
-        "Id": "12",
-        "SortOrder": "150",
-        "UIPrefab": "TattooEnchant",
-        "PauseCoveredUI": "false",
-        "UIGroupId": "1",
-        "EscapeClose": "true"
-      },
-      "notes": {
-        "Note3": "Totem overlay: tattoo enchant"
-      },
-      "_cells": [
-        "",
-        "12",
-        "Totem overlay: tattoo enchant",
-        "150",
-        "TattooEnchant",
         "false",
         "1",
         "true"
