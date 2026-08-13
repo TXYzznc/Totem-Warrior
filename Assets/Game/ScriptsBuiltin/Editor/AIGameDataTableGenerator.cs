@@ -862,6 +862,14 @@ namespace UGF.EditorTools
                     ? excelPackage.Workbook.Worksheets[0]
                     : excelPackage.Workbook.Worksheets.Add("Sheet 1");
 
+                // DataTable 的第 1 行包含说明与空占位单元格，不是 Excel Table 标题行。
+                // 若保留工作表中的 Table，EPPlus 保存时会把空标题自动改成 Column3...，
+                // 导致 JSON -> XLSX 反向同步后立刻出现伪差异。
+                while (sheet.Tables.Count > 0)
+                {
+                    sheet.Tables.Delete(sheet.Tables[0].Name);
+                }
+
                 if (sheet.Dimension != null)
                 {
                     for (int row = sheet.Dimension.Start.Row; row <= sheet.Dimension.End.Row; row++)

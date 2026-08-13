@@ -23,6 +23,20 @@ public class GF : GFBuiltin
         OnExitGame();
     }
 
+    protected override void OnDestroy()
+    {
+        // Scene teardown can overlap with creation of the next Launch scene.
+        // Only the GF instance that owns the framework statics may clear them.
+        if (ReferenceEquals(Instance, this))
+        {
+            DataModel = null;
+            VariablePool = null;
+            StaticUI = null;
+        }
+
+        base.OnDestroy();
+    }
+
     private void OnApplicationPause(bool pause)
     {
         if (Application.isMobilePlatform && pause)

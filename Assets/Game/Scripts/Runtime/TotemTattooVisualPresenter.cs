@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
@@ -18,7 +17,7 @@ public struct TotemTattooVisualPlacement
 [Serializable]
 public struct TotemTattooPartVisualPlacement
 {
-    [Range(1, TotemTattooService.PartCount)] public int partId;
+    [Range(1, TotemFirstPlayableTattooBuildState.SlotCount)] public int partId;
     public TotemTattooVisualPlacement placement;
 }
 
@@ -58,8 +57,8 @@ public sealed class TotemTattooVisualPresenter : MonoBehaviour
     };
     [SerializeField] private TotemTattooPartVisualPlacement[] partPlacements = Array.Empty<TotemTattooPartVisualPlacement>();
 
-    private readonly Vector4[] partDescriptors = new Vector4[TotemTattooService.PartCount];
-    private readonly Vector4[] partTransforms = new Vector4[TotemTattooService.PartCount];
+    private readonly Vector4[] partDescriptors = new Vector4[TotemFirstPlayableTattooBuildState.SlotCount];
+    private readonly Vector4[] partTransforms = new Vector4[TotemFirstPlayableTattooBuildState.SlotCount];
     private MaterialPropertyBlock propertyBlock;
     private Sprite lastSprite;
     private int lastVisualHash = int.MinValue;
@@ -85,7 +84,7 @@ public sealed class TotemTattooVisualPresenter : MonoBehaviour
     /// </summary>
     public bool SetPartPlacement(int partId, Vector2 offset, float scale)
     {
-        if (partId < 1 || partId > TotemTattooService.PartCount)
+        if (partId < 1 || partId > TotemFirstPlayableTattooBuildState.SlotCount)
         {
             return false;
         }
@@ -121,16 +120,19 @@ public sealed class TotemTattooVisualPresenter : MonoBehaviour
             return;
         }
 
-        TotemTattooService tattooService = TotemGameRuntime.Instance?.GetService<TotemTattooService>();
-        IReadOnlyList<TotemTattooDefinition> equipped = tattooService?.Equipped;
+        TotemGameRuntime runtime = TotemGameRuntime.Instance;
+        TotemActorModel player = runtime?.GetService<TotemActorService>()?.Player;
+        TotemFirstPlayableTattooBuildState buildState = runtime
+            ?.GetService<TotemFirstPlayableTattooBuildService>()
+            ?.GetOrCreateState(player);
         Sprite currentSprite = spriteRenderer.sprite;
-        int visualHash = ComputeVisualHash(equipped);
+        int visualHash = ComputeVisualHash(buildState);
         if (currentSprite == lastSprite && visualHash == lastVisualHash)
         {
             return;
         }
 
-        ApplyVisual(currentSprite, equipped);
+        ApplyVisual(currentSprite, buildState);
         lastSprite = currentSprite;
         lastVisualHash = visualHash;
     }
@@ -154,7 +156,7 @@ public sealed class TotemTattooVisualPresenter : MonoBehaviour
         return true;
     }
 
-    private void ApplyVisual(Sprite currentSprite, IReadOnlyList<TotemTattooDefinition> equipped)
+    private void ApplyVisual(Sprite currentSprite, TotemFirstPlayableTattooBuildState buildState)
     {
         // 当前角色帧未必有纹身遮罩；空纹理不能传给 MaterialPropertyBlock。
         // 清空旧属性后必须重新写入当前 Sprite 的贴图；否则会采样纹身材质的默认白图。
@@ -172,7 +174,7 @@ public sealed class TotemTattooVisualPresenter : MonoBehaviour
             propertyBlock.SetTexture(TattooMapId, tattooMap);
         }
 
-        FillDescriptors(equipped);
+        FillDescriptors(buildState);
         propertyBlock.SetVector(TattooPart1Id, partDescriptors[0]);
         propertyBlock.SetVector(TattooPart2Id, partDescriptors[1]);
         propertyBlock.SetVector(TattooPart3Id, partDescriptors[2]);
@@ -188,26 +190,26 @@ public sealed class TotemTattooVisualPresenter : MonoBehaviour
         spriteRenderer.SetPropertyBlock(propertyBlock);
     }
 
-    private void FillDescriptors(IReadOnlyList<TotemTattooDefinition> equipped)
+    private void FillDescriptors(TotemFirstPlayableTattooBuildState buildState)
     {
-        for (int index = 0; index < TotemTattooService.PartCount; index++)
+        for (int index = 0; index < TotemFirstPlayableTattooBuildState.SlotCount; index++)
         {
             partDescriptors[index] = Vector4.zero;
             TotemTattooVisualPlacement placement = ResolvePlacement(index + 1);
             partTransforms[index] = new Vector4(placement.offset.x, placement.offset.y, placement.scale, 0f);
         }
 
-        for (int index = 0; equipped != null && index < equipped.Count; index++)
+        for (int index = 0; buildState != null && index < TotemFirstPlayableTattooBuildState.SlotCount; index++)
         {
-            TotemTattooDefinition definition = equipped[index];
-            int partIndex = definition == null ? -1 : definition.PartId - 1;
-            if (partIndex < 0 || partIndex >= TotemTattooService.PartCount)
+            TotemTattooLoadoutEntry definition = buildState.GetSlot((TotemTattooSlotId)index);
+            int partIndex = (int)definition.Slot;
+            if (!definition.IsEquipped || partIndex < 0 || partIndex >= TotemFirstPlayableTattooBuildState.SlotCount)
             {
                 continue;
             }
 
-            Color color = ResolveColor(definition.ColorId);
-            partDescriptors[partIndex] = new Vector4(color.r, color.g, color.b, Mathf.Clamp(definition.PatternId, 1, TotemTattooService.PatternCount));
+            Color color = ResolveColor(definition.Element);
+            partDescriptors[partIndex] = new Vector4(color.r, color.g, color.b, (int)definition.Pattern);
         }
     }
 
@@ -241,9 +243,9 @@ public sealed class TotemTattooVisualPresenter : MonoBehaviour
             return;
         }
 
-        var normalized = new TotemTattooPartVisualPlacement[TotemTattooService.PartCount];
-        var assigned = new bool[TotemTattooService.PartCount];
-        for (int partId = 1; partId <= TotemTattooService.PartCount; partId++)
+        var normalized = new TotemTattooPartVisualPlacement[TotemFirstPlayableTattooBuildState.SlotCount];
+        var assigned = new bool[TotemFirstPlayableTattooBuildState.SlotCount];
+        for (int partId = 1; partId <= TotemFirstPlayableTattooBuildState.SlotCount; partId++)
         {
             normalized[partId - 1] = new TotemTattooPartVisualPlacement
             {
@@ -256,7 +258,7 @@ public sealed class TotemTattooVisualPresenter : MonoBehaviour
         {
             TotemTattooPartVisualPlacement existing = partPlacements[index];
             int partIndex = existing.partId - 1;
-            if (partIndex < 0 || partIndex >= TotemTattooService.PartCount || assigned[partIndex])
+            if (partIndex < 0 || partIndex >= TotemFirstPlayableTattooBuildState.SlotCount || assigned[partIndex])
             {
                 continue;
             }
@@ -271,12 +273,12 @@ public sealed class TotemTattooVisualPresenter : MonoBehaviour
 
     private bool HasCompletePartPlacementSlots()
     {
-        if (partPlacements == null || partPlacements.Length != TotemTattooService.PartCount)
+        if (partPlacements == null || partPlacements.Length != TotemFirstPlayableTattooBuildState.SlotCount)
         {
             return false;
         }
 
-        for (int partId = 1; partId <= TotemTattooService.PartCount; partId++)
+        for (int partId = 1; partId <= TotemFirstPlayableTattooBuildState.SlotCount; partId++)
         {
             bool found = false;
             for (int index = 0; index < partPlacements.Length; index++)
@@ -304,39 +306,35 @@ public sealed class TotemTattooVisualPresenter : MonoBehaviour
         return value;
     }
 
-    private static int ComputeVisualHash(IReadOnlyList<TotemTattooDefinition> equipped)
+    private static int ComputeVisualHash(TotemFirstPlayableTattooBuildState buildState)
     {
         unchecked
         {
             int hash = 17;
-            for (int index = 0; equipped != null && index < equipped.Count; index++)
+            for (int index = 0; buildState != null && index < TotemFirstPlayableTattooBuildState.SlotCount; index++)
             {
-                TotemTattooDefinition definition = equipped[index];
-                if (definition == null)
+                TotemTattooLoadoutEntry definition = buildState.GetSlot((TotemTattooSlotId)index);
+                if (!definition.IsEquipped)
                 {
                     continue;
                 }
 
-                hash = hash * 31 + definition.PartId;
-                hash = hash * 31 + definition.ColorId;
-                hash = hash * 31 + definition.PatternId;
+                hash = hash * 31 + (int)definition.Slot;
+                hash = hash * 31 + (int)definition.Element;
+                hash = hash * 31 + (int)definition.Pattern;
             }
 
             return hash;
         }
     }
 
-    private static Color ResolveColor(int colorId)
+    private static Color ResolveColor(TotemFirstPlayableElement element)
     {
-        switch (colorId)
+        switch (element)
         {
-            case 1: return new Color32(0xC9, 0x3D, 0x38, 0xFF);
-            case 2: return new Color32(0xD4, 0xA6, 0x2B, 0xFF);
-            case 3: return new Color32(0x45, 0x9A, 0x62, 0xFF);
-            case 4: return new Color32(0x3D, 0x79, 0xB5, 0xFF);
-            case 5: return new Color32(0x7C, 0x4C, 0x98, 0xFF);
-            case 6: return new Color32(0xC9, 0x91, 0x35, 0xFF);
-            case 7: return new Color32(0xE7, 0xE0, 0xD0, 0xFF);
+            case TotemFirstPlayableElement.Fire: return new Color32(0xC9, 0x3D, 0x38, 0xFF);
+            case TotemFirstPlayableElement.Ice: return new Color32(0x63, 0xB8, 0xD9, 0xFF);
+            case TotemFirstPlayableElement.Lightning: return new Color32(0xD4, 0xA6, 0x2B, 0xFF);
             default: return Color.white;
         }
     }

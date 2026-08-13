@@ -15,7 +15,7 @@ using UnityGameFramework.Runtime;
 [Obfuz.ObfuzIgnore(Obfuz.ObfuzScope.TypeName | Obfuz.ObfuzScope.MethodName)]
 #endif
 /// <summary>
-/// Business table migrated from LegacyProjectArchive/Assets/Resources/DataTable/ZoneShrinkConfig.json. GF_X Id is numeric; original business keys are preserved as data columns.
+/// Business configuration maintained in the GF_X AI DataTable workflow. Id is numeric and business keys are preserved as data columns.
 /// </summary>
 public class ZoneShrinkConfig : DataRowBase
 {
@@ -29,7 +29,7 @@ public class ZoneShrinkConfig : DataRowBase
     }
 
         /// <summary>
-        /// 阶段名（Phase0_Slow / Phase1_Offset / Phase2_Rush）
+        /// 阶段名（Shrink1 / Shrink2 / Shrink3 / Shrink4）
         /// </summary>
         public string PhaseName
         {
@@ -38,7 +38,7 @@ public class ZoneShrinkConfig : DataRowBase
         }
 
         /// <summary>
-        /// 本阶段进入时刻（秒，Run 启动 0 起）
+        /// 缩圈活动内局部起始时间（秒）
         /// </summary>
         public float StartTime
         {
@@ -47,7 +47,7 @@ public class ZoneShrinkConfig : DataRowBase
         }
 
         /// <summary>
-        /// 本阶段持续时长（秒）
+        /// 正常模式缩圈时长（秒；快速模式由 MatchTiming 配置）
         /// </summary>
         public float Duration
         {
@@ -56,7 +56,7 @@ public class ZoneShrinkConfig : DataRowBase
         }
 
         /// <summary>
-        /// 本阶段结束时的目标半径（米）
+        /// 本次缩圈结束时的目标半径（米）
         /// </summary>
         public float TargetRadius
         {
@@ -74,7 +74,7 @@ public class ZoneShrinkConfig : DataRowBase
         }
 
         /// <summary>
-        /// 圈心偏移模式（None / Drift / Fixed），MVP 仅 None
+        /// 圈心偏移模式（第一版仅 None）
         /// </summary>
         public string CenterOffsetMode
         {

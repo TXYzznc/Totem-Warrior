@@ -10,6 +10,7 @@ public sealed class TotemCameraService : TotemRuntimeServiceBase, ITotemRuntimeL
 
     private TotemGameFlowService flowService;
     private TotemActorService actorService;
+    private TotemFirstPlayableLifecycleService lifecycleService;
     private TotemMapService mapService;
     private Camera mainCamera;
     private Vector3 basePosition;
@@ -35,6 +36,7 @@ public sealed class TotemCameraService : TotemRuntimeServiceBase, ITotemRuntimeL
     {
         flowService = runtime.GetService<TotemGameFlowService>();
         actorService = runtime.GetService<TotemActorService>();
+        lifecycleService = runtime.GetService<TotemFirstPlayableLifecycleService>();
         mapService = runtime.GetService<TotemMapService>();
         if (flowService != null)
         {
@@ -51,6 +53,7 @@ public sealed class TotemCameraService : TotemRuntimeServiceBase, ITotemRuntimeL
         }
 
         following = false;
+        lifecycleService = null;
         mainCamera = null;
         followVelocity = Vector3.zero;
         basePosition = Vector3.zero;
@@ -71,7 +74,8 @@ public sealed class TotemCameraService : TotemRuntimeServiceBase, ITotemRuntimeL
     public void LateTick(float deltaTime)
     {
         bool hasShake = shakeRemainingSec > 0f;
-        if ((!following || actorService?.Player == null) && !hasShake)
+        TotemActorModel followTarget = ResolveFollowTarget();
+        if ((!following || followTarget == null) && !hasShake)
         {
             return;
         }
@@ -87,9 +91,9 @@ public sealed class TotemCameraService : TotemRuntimeServiceBase, ITotemRuntimeL
             return;
         }
 
-        if (following && actorService?.Player != null)
+        if (following && followTarget != null)
         {
-            Vector3 focus = actorService.Player.Position;
+            Vector3 focus = followTarget.Position;
             focus.y = 0f;
             lastRawFocusPosition = focus;
             lastFocusClamped = ClampFocus(ref focus);
@@ -176,6 +180,7 @@ public sealed class TotemCameraService : TotemRuntimeServiceBase, ITotemRuntimeL
 
     public TotemCameraSnapshot CaptureSnapshot()
     {
+        TotemActorModel followTarget = ResolveFollowTarget();
         return new TotemCameraSnapshot
         {
             hasCamera = mainCamera != null || Camera.main != null,
@@ -196,7 +201,27 @@ public sealed class TotemCameraService : TotemRuntimeServiceBase, ITotemRuntimeL
             lastShakeAmplitude = lastShakeAmplitude,
             lastShakeDuration = lastShakeDuration,
             lastShakeOffset = lastShakeOffset,
+            followParticipantId = followTarget?.ParticipantId ?? 0,
+            spectatingTeammate = actorService?.Player != null
+                && followTarget != null
+                && followTarget != actorService.Player,
         };
+    }
+
+    private TotemActorModel ResolveFollowTarget()
+    {
+        TotemActorModel player = actorService?.Player;
+        if (player == null)
+        {
+            return null;
+        }
+
+        if (player.IsAlive && player.Lifecycle != TotemParticipantLifecycle.Eliminated)
+        {
+            return player;
+        }
+
+        return lifecycleService?.ResolveSpectatorTarget(player);
     }
 
     private void OnFlowStateChanged(TotemGameFlowState previousState, TotemGameFlowState nextState)
@@ -275,10 +300,12 @@ public sealed class TotemCameraService : TotemRuntimeServiceBase, ITotemRuntimeL
 
     private bool ClampFocus(ref Vector3 focus)
     {
-        float mapSize = mapService?.CurrentMap?.MapSize ?? TotemMapService.DefaultMapSize;
+        TotemMapSnapshot map = mapService?.CurrentMap;
+        Vector2 worldMin = TotemMapService.GetWorldMin(map);
+        Vector2 worldMax = TotemMapService.GetWorldMax(map);
         Vector3 before = focus;
-        focus.x = Mathf.Clamp(focus.x, BoundaryMargin, mapSize - BoundaryMargin);
-        focus.z = Mathf.Clamp(focus.z, BoundaryMargin, mapSize - BoundaryMargin);
+        focus.x = Mathf.Clamp(focus.x, worldMin.x + BoundaryMargin, worldMax.x - BoundaryMargin);
+        focus.z = Mathf.Clamp(focus.z, worldMin.y + BoundaryMargin, worldMax.y - BoundaryMargin);
         return (focus - before).sqrMagnitude > 0.0001f;
     }
 

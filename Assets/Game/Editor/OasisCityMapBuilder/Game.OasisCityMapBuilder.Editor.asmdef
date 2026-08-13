@@ -1,7 +1,11 @@
 {
   "name": "Game.OasisCityMapBuilder.Editor",
   "rootNamespace": "Game.EditorTools.OasisCity",
-  "references": [],
+  "references": [
+    "Hotfix",
+    "Unity.RenderPipelines.Core.Runtime",
+    "Unity.RenderPipelines.Universal.Runtime"
+  ],
   "includePlatforms": [
     "Editor"
   ],

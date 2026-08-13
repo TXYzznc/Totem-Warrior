@@ -11,39 +11,28 @@ namespace UGF.EditorTools
 
         public override void Run(GFDiagnosticScenarioContext context)
         {
-            var human = Participant(1, TotemParticipantControllerKind.Human);
-            var smart = Participant(2, TotemParticipantControllerKind.SmartBot);
-            var lightBot = Participant(3, TotemParticipantControllerKind.LightBot);
-            var enemy = new TotemEnemyModel(1001, "enemy_common_hunter", "Hunter", "common", TotemEnemyTier.Light, 50f, Vector3.forward);
-            var secondEnemy = new TotemEnemyModel(1002, "enemy_common_shooter", "Shooter", "common", TotemEnemyTier.Light, 40f, Vector3.right);
+            var human = Participant(1, TotemParticipantControllerKind.Human, 0);
+            var smart = Participant(2, TotemParticipantControllerKind.SmartBot, 0);
+            var lightBot = Participant(3, TotemParticipantControllerKind.LightBot, 1);
 
             context.AssertEqual(TotemCombatantDomain.Participant, human.Domain, "domain.human");
             context.AssertEqual(TotemCombatantDomain.Participant, smart.Domain, "domain.smartBot");
             context.AssertEqual(TotemCombatantDomain.Participant, lightBot.Domain, "domain.lightBot");
-            context.AssertEqual(TotemCombatantDomain.Enemy, enemy.Domain, "domain.enemy");
 
-            AssertDecision(context, human, smart, At(0f), false, TotemCombatRelationshipReason.BlockedParticipantCombatGracePeriod, "participant.participant.gracePeriod");
-            AssertDecision(context, human, smart, At(TotemCombatRelationshipService.ParticipantCombatGraceSeconds), true, TotemCombatRelationshipReason.AllowedParticipantToParticipant, "participant.participant.active");
-            AssertDecision(context, human, enemy, At(10f), true, TotemCombatRelationshipReason.AllowedParticipantToEnemy, "participant.enemy");
-            AssertDecision(context, enemy, smart, At(10f), true, TotemCombatRelationshipReason.AllowedEnemyToParticipant, "enemy.smartBot");
-            AssertDecision(context, enemy, lightBot, At(10f), true, TotemCombatRelationshipReason.AllowedEnemyToParticipant, "enemy.lightBot");
-            AssertDecision(context, enemy, secondEnemy, At(10f), false, TotemCombatRelationshipReason.BlockedEnemyFriendlyFire, "enemy.friendlyFire");
-
+            AssertDecision(context, human, smart, At(0f), false, TotemCombatRelationshipReason.BlockedParticipantFriendlyFire, "participant.teammate.friendlyFire");
+            AssertDecision(context, human, lightBot, At(0f), true, TotemCombatRelationshipReason.AllowedParticipantToParticipant, "participant.opponent.round1");
             smart.SetLifecycle(TotemParticipantLifecycle.Protected, "Diagnostics");
-            AssertDecision(context, enemy, smart, At(70f), false, TotemCombatRelationshipReason.BlockedTargetProtected, "target.protected");
-            AssertDecision(context, smart, enemy, At(70f), false, TotemCombatRelationshipReason.BlockedSourceProtected, "source.protected");
+            AssertDecision(context, human, smart, At(70f), false, TotemCombatRelationshipReason.BlockedTargetProtected, "target.protected");
+            AssertDecision(context, smart, lightBot, At(70f), false, TotemCombatRelationshipReason.BlockedSourceProtected, "source.protected");
 
             smart.SetLifecycle(TotemParticipantLifecycle.Loading, "Diagnostics");
-            AssertDecision(context, enemy, smart, At(70f), false, TotemCombatRelationshipReason.BlockedTargetLoading, "target.loading");
-
-            AssertDecision(context, null, enemy, At(70f), false, TotemCombatRelationshipReason.BlockedWorldEnemyDamage, "world.enemy.default");
-            AssertDecision(context, null, enemy, new TotemCombatRelationshipContext(70f, worldDamageAffectsEnemies: true), true, TotemCombatRelationshipReason.AllowedWorldToEnemy, "world.enemy.enabled");
-            context.Pass("Participant and Enemy domains use one deterministic relationship matrix.");
+            AssertDecision(context, human, smart, At(70f), false, TotemCombatRelationshipReason.BlockedTargetLoading, "target.loading");
+            context.Pass("Six-player pure-PVP participants use one deterministic relationship matrix.");
         }
 
-        private static TotemParticipantModel Participant(int id, TotemParticipantControllerKind kind)
+        private static TotemParticipantModel Participant(int id, TotemParticipantControllerKind kind, int teamId)
         {
-            return new TotemParticipantModel(id, kind.ToString(), kind, 100f, Vector3.zero, TotemParticipantLifecycle.Active);
+            return new TotemParticipantModel(id, kind.ToString(), kind, 100f, Vector3.zero, TotemParticipantLifecycle.Active, teamId);
         }
 
         private static TotemCombatRelationshipContext At(float worldTime)

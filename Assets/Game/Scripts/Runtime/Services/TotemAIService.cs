@@ -2,7 +2,7 @@
 using System;
 using UnityEngine;
 
-public sealed class TotemAIService : TotemRuntimeServiceBase, ITotemRuntimeTickService
+public sealed class TotemAIService : TotemRuntimeServiceBase, ITotemRuntimeTickService, ITotemGameplaySimulationService
 {
     public const float LodRadius = 20f;
     public const float LodScanInterval = 0.2f;
@@ -11,23 +11,20 @@ public sealed class TotemAIService : TotemRuntimeServiceBase, ITotemRuntimeTickS
     public const float LightColdInterval = 2f;
     public const float SmartAttackRange = 4f;
     public const float LightAttackRange = 3f;
-    public const float DeathChestLootRadius = 2.5f;
-    public const float MinChaseLootGreedFactor = 0.45f;
     public const float MinMapResourceChaseWeight = 1f;
-    public const float MinSmartShopPreference = 0.5f;
 
     private readonly List<TotemAIActorState> aiStates = new List<TotemAIActorState>(64);
     private TotemGameFlowService flowService;
+    private TotemMatchFlowService matchFlowService;
     private TotemActorService actorService;
-    private TotemEnemyService enemyService;
     private TotemMatchClockService matchClock;
     private TotemStatusService statusService;
-    private TotemTattooService tattooService;
+    private TotemFirstPlayableElementService elementService;
+    private TotemFirstPlayableLifecycleService lifecycleService;
+    private TotemFirstPlayableTattooBuildService tattooBuildService;
     private TotemWeaponService weaponService;
-    private TotemSkillService skillService;
+    private TotemMapResourceService mapResourceService;
     private TotemVfxService vfxService;
-    private TotemEconomyService economyService;
-    private TotemNpcService npcService;
     private TotemParticipantReadinessService readinessService;
     private TotemAITuningDefinition tuning = TotemAITuningDefinition.Default;
     private TotemBotProfileDefinition[] botProfiles = Array.Empty<TotemBotProfileDefinition>();
@@ -37,8 +34,8 @@ public sealed class TotemAIService : TotemRuntimeServiceBase, ITotemRuntimeTickS
     private float lodScanRemaining;
     private int totalDecisions;
     private int totalAttacks;
-    private int totalSkillUses;
     private int decisionSequence;
+    private int gameplayCommandSequence;
     private TotemAIDecisionRecord lastDecision;
 
     public override string ServiceName => "AI";
@@ -46,16 +43,16 @@ public sealed class TotemAIService : TotemRuntimeServiceBase, ITotemRuntimeTickS
     protected override void OnInitialize(TotemGameRuntime runtime)
     {
         flowService = runtime.GetService<TotemGameFlowService>();
+        matchFlowService = runtime.GetService<TotemMatchFlowService>();
         actorService = runtime.GetService<TotemActorService>();
-        enemyService = runtime.GetService<TotemEnemyService>();
         matchClock = runtime.GetService<TotemMatchClockService>();
         statusService = runtime.GetService<TotemStatusService>();
-        tattooService = runtime.GetService<TotemTattooService>();
+        elementService = runtime.GetService<TotemFirstPlayableElementService>();
+        lifecycleService = runtime.GetService<TotemFirstPlayableLifecycleService>();
+        tattooBuildService = runtime.GetService<TotemFirstPlayableTattooBuildService>();
         weaponService = runtime.GetService<TotemWeaponService>();
-        skillService = runtime.GetService<TotemSkillService>();
+        mapResourceService = runtime.GetService<TotemMapResourceService>();
         vfxService = runtime.GetService<TotemVfxService>();
-        economyService = runtime.GetService<TotemEconomyService>();
-        npcService = runtime.GetService<TotemNpcService>();
         readinessService = runtime.GetService<TotemParticipantReadinessService>();
         var catalog = runtime.GetService<TotemDataService>()?.GameplayCatalog ?? TotemDataService.LoadGameplayCatalogOrDefault();
         tuning = catalog.aiTuning ?? TotemAITuningDefinition.Default;
@@ -69,6 +66,11 @@ public sealed class TotemAIService : TotemRuntimeServiceBase, ITotemRuntimeTickS
         if (actorService != null)
         {
             actorService.DamageApplied += OnDamageApplied;
+        }
+
+        if (matchFlowService != null)
+        {
+            matchFlowService.PhaseChanged += OnMatchPhaseChanged;
         }
     }
 
@@ -86,15 +88,20 @@ public sealed class TotemAIService : TotemRuntimeServiceBase, ITotemRuntimeTickS
             actorService = null;
         }
 
-        enemyService = null;
+        if (matchFlowService != null)
+        {
+            matchFlowService.PhaseChanged -= OnMatchPhaseChanged;
+            matchFlowService = null;
+        }
+
         matchClock = null;
         statusService = null;
-        tattooService = null;
+        elementService = null;
+        lifecycleService = null;
+        tattooBuildService = null;
         weaponService = null;
-        skillService = null;
+        mapResourceService = null;
         vfxService = null;
-        economyService = null;
-        npcService = null;
         readinessService = null;
         tuning = TotemAITuningDefinition.Default;
         botProfiles = Array.Empty<TotemBotProfileDefinition>();
@@ -124,7 +131,6 @@ public sealed class TotemAIService : TotemRuntimeServiceBase, ITotemRuntimeTickS
             playerStartupTargetSuppressed = actorService?.PlayerStartupInvulnerable ?? false,
             totalDecisions = totalDecisions,
             totalAttacks = totalAttacks,
-            totalSkillUses = totalSkillUses,
         };
 
         for (int i = 0; i < aiStates.Count; i++)
@@ -157,13 +163,6 @@ public sealed class TotemAIService : TotemRuntimeServiceBase, ITotemRuntimeTickS
                 snapshot.profiledCount++;
             }
 
-            if (state.SelfTattooAwaitingCompletion || state.SelfTattooReadRemaining > 0f)
-            {
-                snapshot.smartReadingCount++;
-            }
-
-            snapshot.totalPlannedTattooCount += state.PlannedTattooCount;
-
             if (state.Bucket == TotemAILodBucket.Hot)
             {
                 snapshot.hotCount++;
@@ -189,9 +188,7 @@ public sealed class TotemAIService : TotemRuntimeServiceBase, ITotemRuntimeTickS
                     break;
             }
 
-            snapshot.totalDeathChestLoots += state.DeathChestLoots;
             snapshot.totalResourcePickupClaims += state.ResourcePickupClaims;
-            snapshot.totalShopPurchases += state.ShopPurchases;
         }
 
         CopyLastDecisionToSnapshot(snapshot);
@@ -302,7 +299,6 @@ public sealed class TotemAIService : TotemRuntimeServiceBase, ITotemRuntimeTickS
                 BuildPreset = preset,
                 WanderDirection = BuildWanderDirection(actor.ActorId, 0),
                 NextDecisionTime = 0f,
-                NextBuildRethinkTime = profile == null ? 20f : Mathf.Max(0.1f, profile.RethinkInterval),
             });
         }
 
@@ -369,52 +365,6 @@ public sealed class TotemAIService : TotemRuntimeServiceBase, ITotemRuntimeTickS
         return presets[0];
     }
 
-    public static bool ShouldStartSelfTattoo(float safetyScore, float boldness)
-    {
-        float threshold = 1f - Mathf.Clamp01(boldness) * 0.8f;
-        return Mathf.Clamp01(safetyScore) >= threshold;
-    }
-
-    public static bool TryPlanNextBuild(TotemBotBuildPresetDefinition preset, int plannedPartMask, out TotemBotBuildSlot next)
-    {
-        next = null;
-        if (preset == null)
-        {
-            return false;
-        }
-
-        var recommendedSeq = preset.RecommendedSeq;
-        if (recommendedSeq != null)
-        {
-            for (int i = 0; i < recommendedSeq.Length; i++)
-            {
-                var slot = recommendedSeq[i];
-                if (slot != null && !HasPlannedPart(plannedPartMask, slot.partId))
-                {
-                    next = slot;
-                    return true;
-                }
-            }
-        }
-
-        var preferredParts = preset.PreferredParts;
-        if (preferredParts != null && preferredParts.Length > 0)
-        {
-            int colorId = TendencyArgmaxColor(preset.Tendency);
-            for (int i = 0; i < preferredParts.Length; i++)
-            {
-                int partId = preferredParts[i];
-                if (!HasPlannedPart(plannedPartMask, partId))
-                {
-                    next = new TotemBotBuildSlot { partId = partId, colorId = colorId, patternId = 1 };
-                    return true;
-                }
-            }
-        }
-
-        return false;
-    }
-
     private void OnFlowStateChanged(TotemGameFlowState previousState, TotemGameFlowState nextState)
     {
         if (nextState == TotemGameFlowState.CombatHud)
@@ -447,6 +397,8 @@ public sealed class TotemAIService : TotemRuntimeServiceBase, ITotemRuntimeTickS
             aiStates.Add(state);
         }
 
+        TryApplyFirstPlayableBotBuilds(matchFlowService?.CurrentPhase ?? TotemMatchPhase.FrontEnd);
+
         active = true;
         lodScanRemaining = 0f;
         GFTrace.Success("TotemAI", "Activated", null, GFTrace.Data("aiCount", aiStates.Count.ToString()));
@@ -460,8 +412,7 @@ public sealed class TotemAIService : TotemRuntimeServiceBase, ITotemRuntimeTickS
             return;
         }
 
-        weaponService?.EquipWeapon(actor, "pistol_basic");
-        skillService?.EquipDefaultLoadout(actor);
+        weaponService?.EquipWeapon(actor, TotemWeaponService.DefaultWeaponId);
     }
 
     private void ClearRuntimeState()
@@ -472,9 +423,78 @@ public sealed class TotemAIService : TotemRuntimeServiceBase, ITotemRuntimeTickS
         lodScanRemaining = 0f;
         totalDecisions = 0;
         totalAttacks = 0;
-        totalSkillUses = 0;
         decisionSequence = 0;
+        gameplayCommandSequence = 0;
         lastDecision = null;
+    }
+
+    private void OnMatchPhaseChanged(TotemMatchPhase previousPhase, TotemMatchPhase nextPhase)
+    {
+        if (TotemMatchPhaseContract.IsBuild(nextPhase))
+        {
+            TryApplyFirstPlayableBotBuilds(nextPhase);
+        }
+    }
+
+    private void TryApplyFirstPlayableBotBuilds(TotemMatchPhase phase)
+    {
+        if (!TotemMatchPhaseContract.IsBuild(phase) || tattooBuildService == null)
+        {
+            return;
+        }
+
+        int buildOrdinal;
+        switch (phase)
+        {
+            case TotemMatchPhase.OpeningBuild: buildOrdinal = 0; break;
+            case TotemMatchPhase.Build2: buildOrdinal = 1; break;
+            case TotemMatchPhase.Build3: buildOrdinal = 2; break;
+            case TotemMatchPhase.Build4: buildOrdinal = 3; break;
+            case TotemMatchPhase.Build5: buildOrdinal = 4; break;
+            default: return;
+        }
+        for (int i = 0; i < aiStates.Count; i++)
+        {
+            TotemActorModel actor = aiStates[i]?.Actor;
+            if (actor == null || !actor.IsAlive)
+            {
+                continue;
+            }
+
+            TotemFirstPlayableTattooBuildState state = tattooBuildService.GetOrCreateState(actor);
+            if (!TotemFirstPlayableBotBuildPlanner.TryPlan(actor.ParticipantId, buildOrdinal, state, out TotemBotTattooPlan plan))
+            {
+                GFTrace.Info("TotemAI", "Build.Skipped", null, GFTrace.Data(
+                    "participant", actor.ParticipantId.ToString(),
+                    "phase", phase.ToString(),
+                    "reason", "NoAffordableChange"));
+                continue;
+            }
+
+            var command = new TotemGameplayCommand(
+                new TotemParticipantId(actor.ParticipantId),
+                TotemGameplayCommandSource.BotDecision,
+                TotemGameplayCommandType.EquipTattoo,
+                gameplayCommandSequence++,
+                Vector3.zero,
+                TotemFirstPlayableTattooCommandCodec.EncodeEquip(plan.Slot, plan.Pattern, plan.Element));
+            if (tattooBuildService.TryApplyCommand(command, out TotemTattooMutationResult result))
+            {
+                GFTrace.Success("TotemAI", "Build.Applied", null, GFTrace.Data(
+                    "participant", actor.ParticipantId.ToString(),
+                    "phase", phase.ToString(),
+                    "slot", plan.Slot.ToString(),
+                    "pattern", plan.Pattern.ToString(),
+                    "element", plan.Element.ToString()));
+            }
+            else
+            {
+                GFTrace.Warning("TotemAI", "Build.Rejected", null, GFTrace.Data(
+                    "participant", actor.ParticipantId.ToString(),
+                    "phase", phase.ToString(),
+                    "reason", result.Code.ToString()));
+            }
+        }
     }
 
     private void CopyLastDecisionToSnapshot(TotemAISnapshot snapshot)
@@ -497,22 +517,11 @@ public sealed class TotemAIService : TotemRuntimeServiceBase, ITotemRuntimeTickS
         snapshot.lastDecisionTargetName = record.TargetName;
         snapshot.lastDecisionTargetKind = record.TargetKind;
         snapshot.lastDecisionTargetDomain = record.TargetDomain;
-        snapshot.lastDecisionTargetEnemyTier = record.TargetEnemyTier;
         snapshot.lastDecisionDistance = record.Distance;
         snapshot.lastDecisionSafetyScore = record.SafetyScore;
         snapshot.lastDecisionProfileBotId = record.ProfileBotId;
         snapshot.lastDecisionBuildPresetId = record.BuildPresetId;
         snapshot.lastDecisionWeaponId = record.WeaponId;
-        snapshot.lastDecisionSkillId = record.SkillId;
-        snapshot.lastDecisionPickupInstanceId = record.PickupInstanceId;
-        snapshot.lastDecisionPickupWeaponId = record.PickupWeaponId;
-        snapshot.lastDecisionPickupSource = record.PickupSource;
-        snapshot.lastDecisionNpcId = record.NpcId;
-        snapshot.lastDecisionShopItemId = record.ShopItemId;
-        snapshot.lastDecisionShopPrice = record.ShopPrice;
-        snapshot.lastDecisionShopStockLeft = record.ShopStockLeft;
-        snapshot.lastDecisionShopRewardType = record.ShopRewardType;
-        snapshot.lastDecisionShopRewardSummary = record.ShopRewardSummary;
         snapshot.lastDecisionPersonality = record.Personality;
     }
 
@@ -522,12 +531,7 @@ public sealed class TotemAIService : TotemRuntimeServiceBase, ITotemRuntimeTickS
         string reason,
         TotemCombatantModel target = null,
         float distance = -1f,
-        string weaponId = null,
-        string skillId = null,
-        TotemWeaponPickupModel pickup = null,
-        TotemNpcModel npc = null,
-        TotemShopOffer shopOffer = null,
-        TotemShopPurchaseResult shopPurchase = null)
+        string weaponId = null)
     {
         if (state?.Actor == null)
         {
@@ -554,7 +558,6 @@ public sealed class TotemAIService : TotemRuntimeServiceBase, ITotemRuntimeTickS
         record.TargetName = target?.Name ?? string.Empty;
         record.TargetKind = target is TotemActorModel participantTarget ? participantTarget.Kind : TotemActorKind.Player;
         record.TargetDomain = target?.Domain ?? TotemCombatantDomain.Participant;
-        record.TargetEnemyTier = target is TotemEnemyModel enemyTarget ? enemyTarget.Tier : TotemEnemyTier.Unknown;
         record.Distance = distance;
         record.ActorHealth = state.Actor.Health;
         record.TargetHealth = target?.Health ?? 0f;
@@ -562,16 +565,6 @@ public sealed class TotemAIService : TotemRuntimeServiceBase, ITotemRuntimeTickS
         record.ProfileBotId = state.Profile?.BotId ?? 0;
         record.BuildPresetId = state.BuildPreset?.PresetId ?? 0;
         record.WeaponId = weaponId ?? string.Empty;
-        record.SkillId = skillId ?? string.Empty;
-        record.PickupInstanceId = pickup?.InstanceId ?? 0;
-        record.PickupWeaponId = pickup?.WeaponId ?? string.Empty;
-        record.PickupSource = pickup?.Source ?? string.Empty;
-        record.NpcId = npc?.NpcId ?? string.Empty;
-        record.ShopItemId = shopPurchase?.itemId ?? shopOffer?.ItemId ?? 0;
-        record.ShopPrice = shopPurchase?.actualPrice ?? (shopOffer == null || npc == null ? 0 : Mathf.RoundToInt(shopOffer.Price * npc.ThemePriceMultiplier));
-        record.ShopStockLeft = shopPurchase?.stockLeft ?? shopOffer?.Stock ?? 0;
-        record.ShopRewardType = shopPurchase?.rewardType ?? (shopOffer == null ? TotemShopRewardType.Unknown : TotemNpcService.InferRewardType(shopOffer));
-        record.ShopRewardSummary = shopPurchase?.rewardSummary ?? string.Empty;
         record.Personality = state.Profile?.Personality ?? TotemAIPersonality.Hybrid;
         lastDecision = record;
     }
@@ -616,8 +609,15 @@ public sealed class TotemAIService : TotemRuntimeServiceBase, ITotemRuntimeTickS
 
             state.LastDamagedElapsed += deltaTime;
             state.AttackCooldownRemaining = Mathf.Max(0f, state.AttackCooldownRemaining - deltaTime);
-            state.SkillCooldownRemaining = Mathf.Max(0f, state.SkillCooldownRemaining - deltaTime);
             state.DodgeCooldownRemaining = Mathf.Max(0f, state.DodgeCooldownRemaining - deltaTime);
+            if (state.Actor.Lifecycle != TotemParticipantLifecycle.Active)
+            {
+                state.State = lifecycleService != null && lifecycleService.IsDowned(state.Actor)
+                    ? TotemAIState.Idle
+                    : TotemAIState.Dead;
+                continue;
+            }
+
             if (IsStatusBlocked(state.Actor))
             {
                 state.State = TotemAIState.Idle;
@@ -625,26 +625,8 @@ public sealed class TotemAIService : TotemRuntimeServiceBase, ITotemRuntimeTickS
                 continue;
             }
 
-            bool tattooStillInService = tattooService != null && tattooService.IsSelfTattooInProgress(state.Actor);
-            if (state.SelfTattooAwaitingCompletion || state.SelfTattooReadRemaining > 0f || tattooStillInService)
+            if (TryHandleDownedTeammate(state, deltaTime))
             {
-                if (state.SelfTattooReadRemaining > 0f)
-                {
-                    state.SelfTattooReadRemaining = Mathf.Max(0f, state.SelfTattooReadRemaining - deltaTime);
-                }
-
-                state.State = TotemAIState.Idle;
-                tattooStillInService = tattooService != null && tattooService.IsSelfTattooInProgress(state.Actor);
-                if (state.SelfTattooAwaitingCompletion && state.SelfTattooReadRemaining <= 0f && !tattooStillInService)
-                {
-                    state.PlannedTattooCount++;
-                    state.SelfTattooAwaitingCompletion = false;
-                    GFTrace.Success("TotemAI", "Smart.SelfTattooPlanFinished", null, GFTrace.Data(
-                        "actor", state.Actor.Name,
-                        "profile", state.Profile?.DisplayName ?? string.Empty,
-                        "tattoo", state.LastPlannedTattoo ?? string.Empty));
-                }
-
                 continue;
             }
 
@@ -666,42 +648,81 @@ public sealed class TotemAIService : TotemRuntimeServiceBase, ITotemRuntimeTickS
         }
     }
 
+    private bool TryHandleDownedTeammate(TotemAIActorState state, float deltaTime)
+    {
+        if (state?.Actor == null || lifecycleService == null)
+        {
+            return false;
+        }
+
+        if (lifecycleService.IsReviving(state.Actor))
+        {
+            state.State = TotemAIState.Idle;
+            return true;
+        }
+
+        if (!lifecycleService.TryGetNearestDownedTeammate(
+                state.Actor,
+                out TotemActorModel teammate,
+                out float distance))
+        {
+            return false;
+        }
+
+        bool shouldRecordDecision = elapsedSec >= state.NextDecisionTime;
+        if (shouldRecordDecision)
+        {
+            state.NextDecisionTime = elapsedSec + GetRuntimeDecisionInterval(state);
+            state.Decisions++;
+            totalDecisions++;
+        }
+
+        if (distance > TotemFirstPlayableLifecycleService.ReviveInteractRadius)
+        {
+            state.State = TotemAIState.Chase;
+            float baseSpeed = state.Actor.ControllerKind == TotemParticipantControllerKind.SmartBot
+                ? tuning.smartMoveSpeed
+                : tuning.lightMoveSpeed;
+            MoveTowardPosition(
+                state.Actor,
+                teammate.Position,
+                deltaTime,
+                GetProfileMoveSpeed(state, GetActorMoveSpeed(state.Actor, baseSpeed)));
+            if (shouldRecordDecision)
+            {
+                RecordDecision(state, "Chase", "DownedTeammate", teammate, distance);
+            }
+
+            return true;
+        }
+
+        state.State = TotemAIState.Idle;
+        bool began = lifecycleService.TryIssueBeginReviveCommand(
+            state.Actor,
+            teammate,
+            TotemGameplayCommandSource.BotDecision,
+            out _);
+        if (began && shouldRecordDecision)
+        {
+            RecordDecision(state, "Revive", "DownedTeammateInRange", teammate, distance);
+        }
+
+        return began;
+    }
+
     private void TickSmart(TotemAIActorState state, float deltaTime)
     {
         state.Decisions++;
         totalDecisions++;
-        state.ResourcePickupTarget = null;
-        state.ShopTargetNpc = null;
-
-        if (TryStartSmartSelfTattooPlan(state))
-        {
-            state.State = TotemAIState.Idle;
-            RecordDecision(state, "SelfTattoo", "BuildPlan");
-            return;
-        }
+        state.ResourcePickupTarget = default;
 
         float smartVisionRadius = GetProfileVisionRadius(state, GetActorDetectRange(state.Actor, tuning.smartVisionRadius));
-        if (TryPursueEnemy(state, deltaTime, smartVisionRadius, smart: true))
-        {
-            return;
-        }
-
-        if (TryPursueDeathChest(state, deltaTime, smartVisionRadius))
-        {
-            return;
-        }
-
         if (TryPursueMapResourcePickup(state, deltaTime, smartVisionRadius))
         {
             return;
         }
 
-        if (TryPursueShopPurchase(state, deltaTime, smartVisionRadius))
-        {
-            return;
-        }
-
-        var target = FindBestSmartTarget(state, smartVisionRadius, false);
+        var target = FindBestSmartTarget(state, smartVisionRadius);
         if (target == null)
         {
             state.State = TotemAIState.Idle;
@@ -719,18 +740,12 @@ public sealed class TotemAIService : TotemRuntimeServiceBase, ITotemRuntimeTickS
         }
 
         float distance = FlatDistance(state.Actor.Position, target.Position);
-        bool targetReading = IsReadingTarget(target);
         float attackRange = GetProfileAttackRange(state, GetActorAttackRange(state.Actor, tuning.smartAttackRange));
-        if (targetReading)
-        {
-            attackRange = Mathf.Max(attackRange, GetProfileAggroRadius(state, attackRange));
-        }
 
         if (distance <= attackRange)
         {
             state.State = TotemAIState.Attack;
             TryAiAttack(state, target, GetProfileDamage(state, GetActorDamage(state.Actor, tuning.smartDamage)), GetProfileAttackCooldown(state, tuning.smartAttackCooldown));
-            TrySmartSkill(state, target);
             return;
         }
 
@@ -743,11 +758,7 @@ public sealed class TotemAIService : TotemRuntimeServiceBase, ITotemRuntimeTickS
 
         state.State = TotemAIState.Chase;
         MoveToward(state.Actor, target, deltaTime, GetProfileMoveSpeed(state, GetActorMoveSpeed(state.Actor, tuning.smartMoveSpeed)));
-        RecordDecision(state, "Chase", ResolveSmartChaseReason(state, target, targetReading), target, distance);
-        if (distance <= tuning.smartSkillRadius)
-        {
-            TrySmartSkill(state, target);
-        }
+        RecordDecision(state, "Chase", ResolveSmartChaseReason(state), target, distance);
     }
 
     private void TickLight(TotemAIActorState state, float deltaTime)
@@ -756,12 +767,7 @@ public sealed class TotemAIService : TotemRuntimeServiceBase, ITotemRuntimeTickS
         totalDecisions++;
 
         float lightVisionRadius = GetProfileVisionRadius(state, GetActorDetectRange(state.Actor, tuning.lightVisionRadius));
-        if (TryPursueEnemy(state, deltaTime, lightVisionRadius, smart: false))
-        {
-            return;
-        }
-
-        var target = FindClosestTarget(state.Actor, lightVisionRadius, includePeerAi: true, preferReadingTarget: false);
+        var target = FindClosestTarget(state.Actor, lightVisionRadius, includePeerAi: true);
         bool counterWindow = state.LastDamagedElapsed <= 2f;
         if (target != null && counterWindow)
         {
@@ -776,11 +782,6 @@ public sealed class TotemAIService : TotemRuntimeServiceBase, ITotemRuntimeTickS
             state.State = TotemAIState.Chase;
             MoveToward(state.Actor, target, deltaTime, GetProfileMoveSpeed(state, GetActorMoveSpeed(state.Actor, tuning.lightMoveSpeed)));
             RecordDecision(state, "Chase", "CounterWindow", target, distance);
-            return;
-        }
-
-        if (TryPursueDeathChest(state, deltaTime, lightVisionRadius))
-        {
             return;
         }
 
@@ -799,96 +800,14 @@ public sealed class TotemAIService : TotemRuntimeServiceBase, ITotemRuntimeTickS
         float wanderSpeed = ResolveMoveSpeed(state.Actor, GetProfileMoveSpeed(state, GetActorMoveSpeed(state.Actor, tuning.lightMoveSpeed)) * 0.5f);
         if (wanderSpeed > 0f)
         {
-            actorService.MoveActor(state.Actor, state.WanderDirection * (wanderSpeed * deltaTime));
+            ApplyMoveCommand(state.Actor, state.WanderDirection, deltaTime, wanderSpeed);
         }
-    }
-
-    private bool TryPursueDeathChest(TotemAIActorState state, float deltaTime, float visionRadius)
-    {
-        state.LootTargetActor = null;
-        if (economyService == null || actorService == null || state?.Actor == null)
-        {
-            return false;
-        }
-
-        float searchRadius = GetDeathChestSearchRadius(state, visionRadius);
-        if (searchRadius <= 0f)
-        {
-            return false;
-        }
-
-        var target = FindBestDeathChest(state.Actor, searchRadius);
-        if (target == null)
-        {
-            return false;
-        }
-
-        state.LootTargetActor = target;
-        state.State = TotemAIState.Loot;
-        float distance = FlatDistance(state.Actor.Position, target.Position);
-        if (distance <= DeathChestLootRadius)
-        {
-            if (!economyService.TryLootDeathChest(state.Actor, target, out var snapshot))
-            {
-                state.LootTargetActor = null;
-                return false;
-            }
-
-            state.DeathChestLoots++;
-            RecordDecision(state, "Loot", "ClaimDeathChest", target, distance);
-            GFTrace.Success("TotemAI", "DeathChest.Looted", null, GFTrace.Data(
-                "actor", state.Actor.Name,
-                "profile", state.Profile?.DisplayName ?? string.Empty,
-                "deadActor", target.Name,
-                "coins", snapshot.coins.ToString(),
-                "ink", snapshot.inkBottleCount.ToString(),
-                "recipes", snapshot.recipeCopyCount.ToString(),
-                "equipment", snapshot.equipmentCount.ToString()));
-            return true;
-        }
-
-        float speedFallback = state.Actor.ControllerKind == TotemParticipantControllerKind.LightBot ? tuning.lightMoveSpeed : tuning.smartMoveSpeed;
-        MoveToward(state.Actor, target, deltaTime, GetProfileMoveSpeed(state, speedFallback) * 1.1f);
-        RecordDecision(state, "Loot", "ChaseDeathChest", target, distance);
-        return true;
-    }
-
-    public static float GetDeathChestSearchRadius(TotemAIActorState state, float visionRadius)
-    {
-        float greed = GetProfileLootGreedFactor(state);
-        if (greed <= 0f)
-        {
-            return 0f;
-        }
-
-        if (greed < MinChaseLootGreedFactor)
-        {
-            return DeathChestLootRadius;
-        }
-
-        float clampedVision = Mathf.Max(DeathChestLootRadius, visionRadius);
-        return Mathf.Min(clampedVision, DeathChestLootRadius + Mathf.Clamp(greed, 0f, 2f) * 12f);
-    }
-
-    private static float GetProfileLootGreedFactor(TotemAIActorState state)
-    {
-        if (state?.Profile != null)
-        {
-            return Mathf.Max(0f, state.Profile.LootGreedFactor);
-        }
-
-        if (state?.Actor == null)
-        {
-            return 0f;
-        }
-
-        return state.Actor.ControllerKind == TotemParticipantControllerKind.SmartBot ? 0.8f : 0.25f;
     }
 
     private bool TryPursueMapResourcePickup(TotemAIActorState state, float deltaTime, float visionRadius)
     {
-        state.ResourcePickupTarget = null;
-        if (weaponService == null || state?.Actor == null || !ShouldPursueMapResourcePickup(state))
+        state.ResourcePickupTarget = default;
+        if (mapResourceService == null || state?.Actor == null || !ShouldPursueMapResourcePickup(state))
         {
             return false;
         }
@@ -899,8 +818,7 @@ public sealed class TotemAIService : TotemRuntimeServiceBase, ITotemRuntimeTickS
             return false;
         }
 
-        var pickup = FindBestMapResourcePickup(state, searchRadius);
-        if (pickup == null)
+        if (!mapResourceService.TryFindNearest(state.Actor.Position, searchRadius, out TotemMapResourcePickup pickup))
         {
             return false;
         }
@@ -908,28 +826,28 @@ public sealed class TotemAIService : TotemRuntimeServiceBase, ITotemRuntimeTickS
         state.ResourcePickupTarget = pickup;
         state.State = TotemAIState.Loot;
         float distance = FlatDistance(state.Actor.Position, pickup.Position);
-        if (distance <= TotemWeaponService.PickupInteractRadius)
+        if (distance <= TotemMapResourceService.PickupRadius)
         {
-            if (!weaponService.TryPickupWeapon(state.Actor, pickup, out var result))
+            if (!mapResourceService.TryPickup(state.Actor, pickup.InstanceId, out TotemMapResourcePickupResult result))
             {
-                RecordDecision(state, "Loot", $"MapResourcePickupRejected:{result?.reason ?? "Unknown"}", null, distance, null, null, pickup);
+                RecordDecision(state, "Loot", $"MapResourcePickupRejected:{result.Reason}", null, distance);
                 return true;
             }
 
             state.ResourcePickupClaims++;
-            RecordDecision(state, "Loot", "ClaimMapResourcePickup", null, distance, result.weaponId, null, pickup);
+            RecordDecision(state, "Loot", "ClaimMapResourcePickup", null, distance);
             GFTrace.Success("TotemAI", "MapResource.Picked", null, GFTrace.Data(
                 "actor", state.Actor.Name,
                 "profile", state.Profile?.DisplayName ?? string.Empty,
                 "pickup", pickup.InstanceId.ToString(),
-                "weaponId", result.weaponId,
-                "level", result.weaponLevel.ToString(),
-                "reason", result.reason ?? string.Empty));
+                "resourceId", result.Pickup.ResourceId,
+                "amount", result.Pickup.Amount.ToString(),
+                "reason", result.Reason));
             return true;
         }
 
         MoveTowardPosition(state.Actor, pickup.Position, deltaTime, GetProfileMoveSpeed(state, GetActorMoveSpeed(state.Actor, tuning.smartMoveSpeed)) * 1.05f);
-        RecordDecision(state, "Loot", "ChaseMapResourcePickup", null, distance, null, null, pickup);
+        RecordDecision(state, "Loot", "ChaseMapResourcePickup", null, distance);
         return true;
     }
 
@@ -948,8 +866,8 @@ public sealed class TotemAIService : TotemRuntimeServiceBase, ITotemRuntimeTickS
             return 0f;
         }
 
-        float clampedVision = Mathf.Max(TotemWeaponService.PickupInteractRadius, visionRadius);
-        float weightedRadius = TotemWeaponService.PickupInteractRadius + Mathf.Clamp(weight, 0f, 3f) * 12f;
+        float clampedVision = Mathf.Max(TotemMapResourceService.PickupRadius, visionRadius);
+        float weightedRadius = TotemMapResourceService.PickupRadius + Mathf.Clamp(weight, 0f, 3f) * 12f;
         return Mathf.Min(clampedVision, weightedRadius);
     }
 
@@ -961,312 +879,6 @@ public sealed class TotemAIService : TotemRuntimeServiceBase, ITotemRuntimeTickS
         }
 
         return state?.Actor != null && state.Actor.ControllerKind == TotemParticipantControllerKind.SmartBot ? 0.4f : 0f;
-    }
-
-    private bool TryPursueShopPurchase(TotemAIActorState state, float deltaTime, float visionRadius)
-    {
-        state.ShopTargetNpc = null;
-        if (npcService == null || economyService == null || state?.Actor == null || !ShouldPursueShopPurchase(state))
-        {
-            return false;
-        }
-
-        float searchRadius = GetShopSearchRadius(state, visionRadius);
-        if (searchRadius <= 0f)
-        {
-            return false;
-        }
-
-        if (!TryFindBestShopPurchase(state, searchRadius, out var merchant, out var offer))
-        {
-            return false;
-        }
-
-        state.ShopTargetNpc = merchant;
-        state.State = TotemAIState.Loot;
-        float distance = FlatDistance(state.Actor.Position, merchant.Position);
-        if (distance <= Mathf.Max(0.1f, merchant.InteractRadius))
-        {
-            if (!npcService.TryPurchase(state.Actor, merchant, offer.ItemId, out var result))
-            {
-                RecordDecision(state, "Shop", $"ShopPurchaseRejected:{result?.reason ?? "Unknown"}", null, distance, null, null, null, merchant, offer, result);
-                return true;
-            }
-
-            state.ShopPurchases++;
-            RecordDecision(state, "Shop", "PurchaseShopOffer", null, distance, null, null, null, merchant, offer, result);
-            GFTrace.Success("TotemAI", "Shop.Purchased", null, GFTrace.Data(
-                "actor", state.Actor.Name,
-                "profile", state.Profile?.DisplayName ?? string.Empty,
-                "npcId", merchant.NpcId,
-                "itemId", result.itemId.ToString(),
-                "price", result.actualPrice.ToString(),
-                "stockLeft", result.stockLeft.ToString(),
-                "reward", result.rewardSummary ?? string.Empty));
-            return true;
-        }
-
-        MoveTowardPosition(state.Actor, merchant.Position, deltaTime, GetProfileMoveSpeed(state, GetActorMoveSpeed(state.Actor, tuning.smartMoveSpeed)));
-        RecordDecision(state, "Shop", "ChaseMerchant", null, distance, null, null, null, merchant, offer);
-        return true;
-    }
-
-    private static bool ShouldPursueShopPurchase(TotemAIActorState state)
-    {
-        return state?.Actor != null &&
-               state.Actor.ControllerKind == TotemParticipantControllerKind.SmartBot &&
-               GetProfileShopPreference(state) >= MinSmartShopPreference;
-    }
-
-    private static float GetShopSearchRadius(TotemAIActorState state, float visionRadius)
-    {
-        float preference = GetProfileShopPreference(state);
-        if (preference <= 0f)
-        {
-            return 0f;
-        }
-
-        float clampedVision = Mathf.Max(1f, visionRadius);
-        float weightedRadius = 2.5f + Mathf.Clamp(preference, 0f, 2f) * 14f;
-        return Mathf.Min(clampedVision, weightedRadius);
-    }
-
-    private static float GetProfileShopPreference(TotemAIActorState state)
-    {
-        if (state?.Profile != null)
-        {
-            return Mathf.Max(0f, state.Profile.ShopPreference);
-        }
-
-        return 0f;
-    }
-
-    private bool TryFindBestShopPurchase(TotemAIActorState state, float searchRadius, out TotemNpcModel bestMerchant, out TotemShopOffer bestOffer)
-    {
-        bestMerchant = null;
-        bestOffer = null;
-        var self = state?.Actor;
-        if (self == null || npcService == null || economyService == null || searchRadius <= 0f)
-        {
-            return false;
-        }
-
-        int coins = economyService.CaptureInventory(self).coins;
-        if (coins <= 0)
-        {
-            return false;
-        }
-
-        float maxSqr = searchRadius * searchRadius;
-        float bestScore = float.MinValue;
-        var npcs = npcService.Npcs;
-        for (int npcIndex = 0; npcIndex < npcs.Count; npcIndex++)
-        {
-            var merchant = npcs[npcIndex];
-            if (merchant == null || merchant.Type != TotemNpcType.Merchant)
-            {
-                continue;
-            }
-
-            float sqr = FlatSqrDistance(self.Position, merchant.Position);
-            if (sqr > maxSqr)
-            {
-                continue;
-            }
-
-            var offers = merchant.Offers ?? Array.Empty<TotemShopOffer>();
-            for (int offerIndex = 0; offerIndex < offers.Length; offerIndex++)
-            {
-                var offer = offers[offerIndex];
-                if (offer == null || offer.Stock <= 0)
-                {
-                    continue;
-                }
-
-                int price = Mathf.RoundToInt(offer.Price * merchant.ThemePriceMultiplier);
-                if (price > coins || TotemNpcService.InferRewardType(offer) == TotemShopRewardType.Unknown)
-                {
-                    continue;
-                }
-
-                float distance = Mathf.Sqrt(sqr);
-                float score = CalculateShopOfferScore(state, offer, distance, searchRadius, price);
-                if (score > bestScore)
-                {
-                    bestScore = score;
-                    bestMerchant = merchant;
-                    bestOffer = offer;
-                }
-            }
-        }
-
-        return bestMerchant != null && bestOffer != null;
-    }
-
-    private static float CalculateShopOfferScore(TotemAIActorState state, TotemShopOffer offer, float distance, float searchRadius, int price)
-    {
-        float normalizedDistance = searchRadius <= 0f ? 1f : Mathf.Clamp01(distance / searchRadius);
-        float score = GetProfileShopPreference(state) * 100f - normalizedDistance * 35f;
-        score += Mathf.Max(0, offer.Weight);
-        score -= Mathf.Max(0, price) * 0.02f;
-
-        switch (TotemNpcService.InferRewardType(offer))
-        {
-            case TotemShopRewardType.WeaponUpgrade:
-                score += 35f;
-                break;
-            case TotemShopRewardType.SkillCore:
-                score += 30f;
-                break;
-            case TotemShopRewardType.StatusCleanse:
-                score += 20f;
-                break;
-            case TotemShopRewardType.Ink:
-                score += 15f;
-                break;
-        }
-
-        if (state?.Profile != null && state.Profile.Personality == TotemAIPersonality.ResourceAcquisition)
-        {
-            score += 25f;
-        }
-
-        return score;
-    }
-
-    private TotemWeaponPickupModel FindBestMapResourcePickup(TotemAIActorState state, float searchRadius)
-    {
-        var self = state?.Actor;
-        if (self == null || weaponService == null || searchRadius <= 0f)
-        {
-            return null;
-        }
-
-        float maxSqr = searchRadius * searchRadius;
-        float bestScore = float.MinValue;
-        TotemWeaponPickupModel best = null;
-        string equippedWeaponId = weaponService.GetEquippedWeaponId(self);
-        float resourceWeight = GetProfileResourceWeight(state);
-        var pickups = weaponService.ActivePickups;
-        for (int i = 0; i < pickups.Count; i++)
-        {
-            var pickup = pickups[i];
-            if (pickup == null || !string.Equals(pickup.Source, "MapResource", StringComparison.Ordinal))
-            {
-                continue;
-            }
-
-            float sqr = FlatSqrDistance(self.Position, pickup.Position);
-            if (sqr > maxSqr)
-            {
-                continue;
-            }
-
-            float distance = Mathf.Sqrt(sqr);
-            float normalizedDistance = searchRadius <= 0f ? 1f : Mathf.Clamp01(distance / searchRadius);
-            float score = resourceWeight * 100f - normalizedDistance * 45f;
-            score += string.Equals(equippedWeaponId, pickup.WeaponId, StringComparison.Ordinal) ? 10f : 25f;
-            if (state.Profile != null && state.Profile.Personality == TotemAIPersonality.ResourceAcquisition)
-            {
-                score += 30f;
-            }
-
-            if (score > bestScore)
-            {
-                bestScore = score;
-                best = pickup;
-            }
-        }
-
-        return best;
-    }
-
-    private TotemActorModel FindBestDeathChest(TotemActorModel seeker, float searchRadius)
-    {
-        if (seeker == null || searchRadius <= 0f)
-        {
-            return null;
-        }
-
-        float maxSqr = searchRadius * searchRadius;
-        float bestScore = float.MinValue;
-        TotemActorModel best = null;
-        var actors = actorService.Actors;
-        for (int i = 0; i < actors.Count; i++)
-        {
-            var candidate = actors[i];
-            if (candidate == null || candidate == seeker || candidate.IsAlive)
-            {
-                continue;
-            }
-
-            if (candidate.ControllerKind == TotemParticipantControllerKind.Human)
-            {
-                continue;
-            }
-
-            if (!economyService.HasPendingDeathChest(candidate))
-            {
-                continue;
-            }
-
-            float sqr = FlatSqrDistance(seeker.Position, candidate.Position);
-            if (sqr > maxSqr)
-            {
-                continue;
-            }
-
-            int value = economyService.GetPendingDeathChestValue(candidate);
-            if (value <= 0)
-            {
-                continue;
-            }
-
-            float score = value - sqr * 0.1f;
-            if (score > bestScore)
-            {
-                bestScore = score;
-                best = candidate;
-            }
-        }
-
-        return best;
-    }
-
-    private bool TryStartSmartSelfTattooPlan(TotemAIActorState state)
-    {
-        if (tattooService == null || state.Profile == null || state.BuildPreset == null || elapsedSec < state.NextBuildRethinkTime)
-        {
-            return false;
-        }
-
-        state.NextBuildRethinkTime = elapsedSec + Mathf.Max(0.1f, state.Profile.RethinkInterval);
-        if (!ShouldStartSelfTattoo(state.SafetyScore, state.Profile.SelfTattooBoldness))
-        {
-            return false;
-        }
-
-        if (!TryPlanNextBuild(state.BuildPreset, state.PlannedTattooPartMask, out var next))
-        {
-            return false;
-        }
-
-        if (!tattooService.StartSelfTattoo(state.Actor, next.partId, next.colorId, next.patternId))
-        {
-            return false;
-        }
-
-        state.PlannedTattooPartMask |= 1 << next.partId;
-        state.LastPlannedTattoo = next.Format();
-        state.SelfTattooReadRemaining = TotemTattooService.GetSelfTattooDuration(next.partId);
-        state.SelfTattooAwaitingCompletion = true;
-        GFTrace.Success("TotemAI", "Smart.SelfTattooPlanStarted", null, GFTrace.Data(
-            "actor", state.Actor.Name,
-            "profile", state.Profile.DisplayName ?? string.Empty,
-            "preset", state.BuildPreset.Name ?? string.Empty,
-            "tattoo", state.LastPlannedTattoo,
-            "duration", state.SelfTattooReadRemaining.ToString("F1")));
-        return true;
     }
 
     private static bool ShouldChaseTarget(TotemAIActorState state, float distance)
@@ -1377,174 +989,6 @@ public sealed class TotemAIService : TotemRuntimeServiceBase, ITotemRuntimeTickS
         return Mathf.Lerp(0.75f, 1.15f, Mathf.Clamp01(state.Profile.Confidence));
     }
 
-    private bool TryPursueEnemy(TotemAIActorState state, float deltaTime, float visionRadius, bool smart)
-    {
-        if (state?.Actor == null || enemyService == null)
-        {
-            return false;
-        }
-
-        TotemAIPersonality personality = state.Profile?.Personality ?? TotemAIPersonality.Hybrid;
-        float rangeMultiplier = 1f;
-        TotemEnemyTier preferredTier = TotemEnemyTier.Unknown;
-        if (smart)
-        {
-            switch (personality)
-            {
-                case TotemAIPersonality.BossPriority:
-                    preferredTier = TotemEnemyTier.Boss;
-                    rangeMultiplier = 3f;
-                    break;
-                case TotemAIPersonality.Aggressive:
-                    rangeMultiplier = 1.25f;
-                    break;
-                case TotemAIPersonality.ResourceAcquisition:
-                    rangeMultiplier = 0.9f;
-                    break;
-                case TotemAIPersonality.Conservative:
-                    rangeMultiplier = 0.35f;
-                    break;
-                case TotemAIPersonality.PlayerPriority:
-                    return false;
-            }
-        }
-        else
-        {
-            rangeMultiplier = 0.65f;
-        }
-
-        float searchRange = Mathf.Max(2f, visionRadius * rangeMultiplier);
-        TotemEnemyModel enemy = enemyService.FindClosestAliveEnemy(state.Actor.Position, searchRange, preferredTier);
-        if (enemy == null && preferredTier == TotemEnemyTier.Boss)
-        {
-            enemy = enemyService.FindClosestAliveEnemy(state.Actor.Position, visionRadius);
-        }
-
-        if (enemy == null)
-        {
-            return false;
-        }
-
-        float distance = FlatDistance(state.Actor.Position, enemy.Position);
-        float attackRange = GetProfileAttackRange(
-            state,
-            GetActorAttackRange(state.Actor, smart ? tuning.smartAttackRange : tuning.lightAttackRange));
-        if (distance <= attackRange)
-        {
-            state.State = TotemAIState.Attack;
-            float damage = GetProfileDamage(
-                state,
-                GetActorDamage(state.Actor, smart ? tuning.smartDamage : tuning.lightDamage));
-            float cooldown = GetProfileAttackCooldown(
-                state,
-                smart ? tuning.smartAttackCooldown : tuning.lightAttackCooldown);
-            TryAiAttackEnemy(state, enemy, damage, cooldown);
-            if (smart)
-            {
-                TrySmartSkillEnemy(state, enemy);
-            }
-            return true;
-        }
-
-        state.State = TotemAIState.Chase;
-        float speed = GetProfileMoveSpeed(
-            state,
-            GetActorMoveSpeed(state.Actor, smart ? tuning.smartMoveSpeed : tuning.lightMoveSpeed));
-        MoveTowardPosition(state.Actor, enemy.Position, deltaTime, speed);
-        RecordDecision(
-            state,
-            "Chase",
-            personality == TotemAIPersonality.BossPriority && enemy.Tier == TotemEnemyTier.Boss
-                ? "BossPriority"
-                : "EnemyVisible",
-            enemy,
-            distance);
-        return true;
-    }
-
-    private bool TryAiAttackEnemy(TotemAIActorState state, TotemEnemyModel target, float damage, float cooldown)
-    {
-        if (state == null || state.Actor == null || target == null || !target.IsAlive || state.AttackCooldownRemaining > 0f)
-        {
-            return false;
-        }
-
-        if (!CanActorAct(state.Actor))
-        {
-            RecordDecision(state, "Idle", "Status:Stun", target, FlatDistance(state.Actor.Position, target.Position));
-            return false;
-        }
-
-        TotemWeaponFireResult fireResult = weaponService?.FireWeapon(state.Actor, target, false, 0f);
-        if (fireResult != null && !fireResult.Fired)
-        {
-            return false;
-        }
-
-        float baseDamage = fireResult == null ? damage : fireResult.Damage * GetProfileDamageMultiplier(state);
-        float finalDamage = tattooService == null
-            ? baseDamage
-            : tattooService.ResolveAttackDamage(state.Actor, null, baseDamage, out _);
-        actorService.NotifyActorAttack(state.Actor, "AIAttackEnemy");
-        bool wasAlive = target.IsAlive;
-        enemyService.TryApplyDamage(
-            target.CombatantId,
-            state.Actor,
-            finalDamage,
-            "AIAttackEnemy",
-            matchClock?.WorldTime ?? elapsedSec,
-            out _);
-        bool killed = wasAlive && !target.IsAlive;
-        vfxService?.SpawnProjectileTrail(state.Actor.Position, target.Position, fireResult?.Projectile, false, false);
-        vfxService?.SpawnAttackHit(target.Position, fireResult?.Weapon?.WeaponId, false);
-        tattooService?.Trigger("AttackHitEvent", state.Actor, null, baseDamage);
-        state.AttackCooldownRemaining = cooldown;
-        state.Attacks++;
-        totalAttacks++;
-        RecordDecision(
-            state,
-            "Attack",
-            killed ? "EnemyKilled" : "EnemyHit",
-            target,
-            FlatDistance(state.Actor.Position, target.Position),
-            fireResult?.Weapon?.WeaponId);
-        return true;
-    }
-
-    private bool TrySmartSkillEnemy(TotemAIActorState state, TotemEnemyModel target)
-    {
-        if (state?.Actor == null || target == null || !target.IsAlive || state.SkillCooldownRemaining > 0f || !ShouldUseSmartSkill(state))
-        {
-            return false;
-        }
-
-        TotemSkillDefinition skill = null;
-        if (skillService != null && !skillService.TryCastSlot(state.Actor, 0, out skill))
-        {
-            return false;
-        }
-
-        TotemWeaponDefinition weapon = weaponService?.GetOrCreateState(state.Actor)?.Weapon;
-        float baseDamage = GetProfileDamage(state, GetActorDamage(state.Actor, tuning.smartDamage));
-        float damage = skill == null
-            ? baseDamage * 1.6f
-            : TotemSkillService.ResolveSkillDamage(skill, weapon, baseDamage) * GetProfileDamageMultiplier(state);
-        enemyService.TryApplyDamage(
-            target.CombatantId,
-            state.Actor,
-            damage,
-            skill == null ? "AISkillEnemy" : "AISkillEnemy:" + skill.SkillId,
-            matchClock?.WorldTime ?? elapsedSec,
-            out _);
-        vfxService?.SpawnSkillBurst(target.Position, skill?.SkillId, skill == null || skill.Radius <= 0f ? tuning.smartSkillRadius : skill.Radius);
-        tattooService?.Trigger("SkillCastEvent", state.Actor, null, damage);
-        state.SkillCooldownRemaining = tuning.smartSkillCooldown;
-        state.SkillUses++;
-        totalSkillUses++;
-        RecordDecision(state, "Skill", "EnemySkill", target, FlatDistance(state.Actor.Position, target.Position), null, skill?.SkillId);
-        return true;
-    }
-
     private bool TryAiAttack(TotemAIActorState state, TotemActorModel target, float damage, float cooldown)
     {
         if (state == null || state.Actor == null || state.AttackCooldownRemaining > 0f || target == null || !target.IsAlive)
@@ -1558,22 +1002,27 @@ public sealed class TotemAIService : TotemRuntimeServiceBase, ITotemRuntimeTickS
             return false;
         }
 
-        var fireResult = weaponService?.FireWeapon(state.Actor, target, false, 0f);
-        if (fireResult != null && !fireResult.Fired)
+        if (weaponService == null)
         {
             return false;
         }
 
-        float baseDamage = fireResult == null ? damage : fireResult.Damage * GetProfileDamageMultiplier(state);
-        float finalDamage = tattooService == null
-            ? baseDamage
-            : tattooService.ResolveAttackDamage(state.Actor, target, baseDamage, out _);
-        actorService.NotifyActorAttack(state.Actor, "AIAttack");
-        bool killed = actorService.ApplyDamage(target, finalDamage, state.Actor, "AIAttack");
-        weaponService?.ApplyTraitEffect(fireResult, state.Actor, target, killed);
-        vfxService?.SpawnProjectileTrail(state.Actor.Position, target.Position, fireResult?.Projectile, false, false);
-        vfxService?.SpawnAttackHit(target.Position, fireResult?.Weapon?.WeaponId, false);
-        var tattooResults = tattooService?.Trigger("AttackHitEvent", state.Actor, target, baseDamage);
+        Vector3 rayOrigin = state.Actor.Position + Vector3.up * 1.2f;
+        var command = new TotemGameplayCommand(
+            new TotemParticipantId(state.Actor.ParticipantId),
+            TotemGameplayCommandSource.BotDecision,
+            TotemGameplayCommandType.Fire,
+            gameplayCommandSequence++,
+            target.Position - rayOrigin,
+            target.CombatantId);
+        if (!weaponService.TryApplyFirstPlayableFireCommand(
+                command,
+                GetProfileDamageMultiplier(state),
+                out TotemGunAttackResult attackResult))
+        {
+            return false;
+        }
+
         state.AttackCooldownRemaining = cooldown;
         state.Attacks++;
         totalAttacks++;
@@ -1583,58 +1032,12 @@ public sealed class TotemAIService : TotemRuntimeServiceBase, ITotemRuntimeTickS
             "WeaponAttack",
             target,
             FlatDistance(state.Actor.Position, target.Position),
-            fireResult?.Weapon?.WeaponId);
+            attackResult.Weapon.WeaponId);
         GFTrace.Info("TotemAI", "Attack", null, GFTrace.Data(
             "actor", state.Actor.Name,
             "target", target.Name,
-            "weapon", fireResult?.Weapon?.WeaponId ?? string.Empty,
-            "damage", finalDamage.ToString("F1"),
-            "tattooTriggers", (tattooResults?.Length ?? 0).ToString()));
-        return true;
-    }
-
-    private bool TrySmartSkill(TotemAIActorState state, TotemActorModel target)
-    {
-        if (state.SkillCooldownRemaining > 0f || target == null || !target.IsAlive)
-        {
-            return false;
-        }
-
-        if (!CanActorAct(state.Actor))
-        {
-            RecordDecision(state, "Idle", "Status:Stun", target, FlatDistance(state.Actor.Position, target.Position));
-            return false;
-        }
-
-        if (!ShouldUseSmartSkill(state))
-        {
-            return false;
-        }
-
-        TotemSkillDefinition skill = null;
-        if (skillService != null && !skillService.TryCastSlot(state.Actor, 0, out skill))
-        {
-            return false;
-        }
-
-        var weapon = weaponService?.GetOrCreateState(state.Actor)?.Weapon;
-        float damage = skill == null
-            ? GetProfileDamage(state, GetActorDamage(state.Actor, tuning.smartDamage)) * 1.6f
-            : TotemSkillService.ResolveSkillDamage(skill, weapon, GetActorDamage(state.Actor, tuning.smartDamage)) * GetProfileDamageMultiplier(state);
-        actorService.NotifyActorAttack(state.Actor, skill == null ? "AISkill" : $"AISkill:{skill.SkillId}");
-        actorService.ApplyDamage(target, damage, state.Actor, skill == null ? "AISkill" : $"AISkill:{skill.SkillId}");
-        vfxService?.SpawnSkillBurst(target.Position, skill?.SkillId, skill == null || skill.Radius <= 0f ? tuning.smartSkillRadius : skill.Radius);
-        var tattooResults = tattooService?.Trigger("SkillCastEvent", state.Actor, target, damage);
-        state.SkillCooldownRemaining = tuning.smartSkillCooldown;
-        state.SkillUses++;
-        totalSkillUses++;
-        RecordDecision(state, "Skill", "SmartSkill", target, FlatDistance(state.Actor.Position, target.Position), null, skill?.SkillId);
-        GFTrace.Info("TotemAI", "Smart.Skill", null, GFTrace.Data(
-            "actor", state.Actor.Name,
-            "target", target.Name,
-            "skillId", skill?.SkillId ?? string.Empty,
-            "damage", damage.ToString("F1"),
-            "tattooTriggers", (tattooResults?.Length ?? 0).ToString()));
+            "weapon", attackResult.Weapon.WeaponId,
+            "damage", attackResult.DirectDamage.EffectiveDamage.ToString("F1")));
         return true;
     }
 
@@ -1654,16 +1057,7 @@ public sealed class TotemAIService : TotemRuntimeServiceBase, ITotemRuntimeTickS
         return roll < threshold;
     }
 
-    private static bool ShouldUseSmartSkill(TotemAIActorState state)
-    {
-        int roll = Mathf.Abs((state.Actor.ActorId * 53 + state.Decisions * 11) % 100);
-        float confidence = state.Profile == null ? 1f : state.Profile.Confidence;
-        float macroMul = state.BuildPreset != null && state.BuildPreset.BehaviorMacro == TotemAIBehaviorMacro.Pivot ? 1.35f : 1f;
-        float threshold = 20f * Mathf.Clamp01(state.SafetyScore) * Mathf.Clamp01(confidence) * macroMul;
-        return roll < threshold;
-    }
-
-    private TotemActorModel FindClosestTarget(TotemActorModel self, float visionRadius, bool includePeerAi, bool preferReadingTarget)
+    private TotemActorModel FindClosestTarget(TotemActorModel self, float visionRadius, bool includePeerAi)
     {
         if (self == null)
         {
@@ -1673,7 +1067,6 @@ public sealed class TotemAIService : TotemRuntimeServiceBase, ITotemRuntimeTickS
         float maxSqr = visionRadius * visionRadius;
         float bestSqr = float.MaxValue;
         TotemActorModel best = null;
-        bool bestReading = false;
         var actors = actorService.Actors;
         for (int i = 0; i < actors.Count; i++)
         {
@@ -1683,7 +1076,12 @@ public sealed class TotemAIService : TotemRuntimeServiceBase, ITotemRuntimeTickS
                 continue;
             }
 
-            if (!actorService.CanEnemyTarget(candidate))
+            if (!actorService.CanOpponentTarget(candidate))
+            {
+                continue;
+            }
+
+            if (!IsLegalParticipantOpponent(self, candidate))
             {
                 continue;
             }
@@ -1699,32 +1097,17 @@ public sealed class TotemAIService : TotemRuntimeServiceBase, ITotemRuntimeTickS
                 continue;
             }
 
-            bool candidateReading = preferReadingTarget && IsReadingTarget(candidate);
-            if (preferReadingTarget && candidateReading != bestReading)
-            {
-                if (!candidateReading)
-                {
-                    continue;
-                }
-
-                bestReading = true;
-                bestSqr = sqr;
-                best = candidate;
-                continue;
-            }
-
             if (sqr < bestSqr)
             {
                 bestSqr = sqr;
                 best = candidate;
-                bestReading = candidateReading;
             }
         }
 
         return best;
     }
 
-    private TotemActorModel FindBestSmartTarget(TotemAIActorState state, float visionRadius, bool bossOverridesResources)
+    private TotemActorModel FindBestSmartTarget(TotemAIActorState state, float visionRadius)
     {
         var self = state?.Actor;
         if (self == null || actorService == null)
@@ -1732,7 +1115,7 @@ public sealed class TotemAIService : TotemRuntimeServiceBase, ITotemRuntimeTickS
             return null;
         }
 
-        float searchRadius = ResolveSmartTargetSearchRadius(state, visionRadius, bossOverridesResources);
+        float searchRadius = Mathf.Max(0.1f, visionRadius);
         float maxSqr = searchRadius * searchRadius;
         float bestScore = float.MinValue;
         TotemActorModel best = null;
@@ -1745,7 +1128,12 @@ public sealed class TotemAIService : TotemRuntimeServiceBase, ITotemRuntimeTickS
                 continue;
             }
 
-            if (!actorService.CanEnemyTarget(candidate))
+            if (!actorService.CanOpponentTarget(candidate))
+            {
+                continue;
+            }
+
+            if (!IsLegalParticipantOpponent(self, candidate))
             {
                 continue;
             }
@@ -1756,7 +1144,7 @@ public sealed class TotemAIService : TotemRuntimeServiceBase, ITotemRuntimeTickS
                 continue;
             }
 
-            float score = CalculateSmartTargetScore(state, candidate, Mathf.Sqrt(sqr), searchRadius, bossOverridesResources);
+            float score = CalculateSmartTargetScore(state, candidate, Mathf.Sqrt(sqr), searchRadius);
             if (score > bestScore)
             {
                 bestScore = score;
@@ -1767,18 +1155,20 @@ public sealed class TotemAIService : TotemRuntimeServiceBase, ITotemRuntimeTickS
         return best;
     }
 
-    private float ResolveSmartTargetSearchRadius(TotemAIActorState state, float visionRadius, bool bossOverridesResources)
+    private bool IsLegalParticipantOpponent(TotemActorModel source, TotemActorModel target)
     {
-        float result = Mathf.Max(0.1f, visionRadius);
-        if (bossOverridesResources)
+        if (source == null || target == null)
         {
-            result = Mathf.Max(result, tuning.lodRadius * 3f);
+            return false;
         }
 
-        return result;
+        return TotemCombatRelationshipService.Evaluate(
+            source,
+            target,
+            new TotemCombatRelationshipContext(matchClock?.WorldTime ?? elapsedSec)).Allowed;
     }
 
-    private float CalculateSmartTargetScore(TotemAIActorState state, TotemActorModel candidate, float distance, float searchRadius, bool bossOverridesResources)
+    private float CalculateSmartTargetScore(TotemAIActorState state, TotemActorModel candidate, float distance, float searchRadius)
     {
         float targetWeight = GetTargetWeight(state, candidate);
         if (targetWeight <= 0f)
@@ -1788,11 +1178,6 @@ public sealed class TotemAIService : TotemRuntimeServiceBase, ITotemRuntimeTickS
 
         float normalizedDistance = searchRadius <= 0f ? 1f : Mathf.Clamp01(distance / searchRadius);
         float score = targetWeight * 100f - normalizedDistance * 35f;
-        if (IsReadingTarget(candidate))
-        {
-            score += Mathf.Max(0f, state.Profile?.ReadingTargetWeight ?? 0.8f) * 45f;
-        }
-
         float healthRatio = candidate.MaxHealth <= 0f ? 1f : Mathf.Clamp01(candidate.Health / candidate.MaxHealth);
         score += (1f - healthRatio) * 25f * Mathf.Max(0.25f, state.Profile?.RiskTolerance ?? 0.6f);
         return score;
@@ -1818,19 +1203,9 @@ public sealed class TotemAIService : TotemRuntimeServiceBase, ITotemRuntimeTickS
         }
     }
 
-    private static string ResolveSmartChaseReason(TotemAIActorState state, TotemActorModel target, bool targetReading)
+    private static string ResolveSmartChaseReason(TotemAIActorState state)
     {
-        if (targetReading)
-        {
-            return "ReadingTargetOutOfRange";
-        }
-
         return state?.Profile?.Personality == TotemAIPersonality.PlayerPriority ? "PlayerPriorityTarget" : "TargetVisible";
-    }
-
-    private bool IsReadingTarget(TotemActorModel actor)
-    {
-        return tattooService != null && actor != null && tattooService.IsSelfTattooInProgress(actor);
     }
 
     private float CalculateSafety(TotemActorModel actor)
@@ -1863,7 +1238,7 @@ public sealed class TotemAIService : TotemRuntimeServiceBase, ITotemRuntimeTickS
         }
 
         Vector3 direction = FlatDirection(actor.Position, target.Position);
-        actorService.MoveActor(actor, direction * (effectiveSpeed * deltaTime));
+        ApplyMoveCommand(actor, direction, deltaTime, effectiveSpeed);
     }
 
     private void MoveTowardPosition(TotemActorModel actor, Vector3 targetPosition, float deltaTime, float speed)
@@ -1875,7 +1250,7 @@ public sealed class TotemAIService : TotemRuntimeServiceBase, ITotemRuntimeTickS
         }
 
         Vector3 direction = FlatDirection(actor.Position, targetPosition);
-        actorService.MoveActor(actor, direction * (effectiveSpeed * deltaTime));
+        ApplyMoveCommand(actor, direction, deltaTime, effectiveSpeed);
     }
 
     private void MoveAwayFrom(TotemActorModel actor, TotemActorModel target, float deltaTime, float speed)
@@ -1887,7 +1262,23 @@ public sealed class TotemAIService : TotemRuntimeServiceBase, ITotemRuntimeTickS
         }
 
         Vector3 direction = -FlatDirection(actor.Position, target.Position);
-        actorService.MoveActor(actor, direction * (effectiveSpeed * deltaTime));
+        ApplyMoveCommand(actor, direction, deltaTime, effectiveSpeed);
+    }
+
+    private void ApplyMoveCommand(TotemActorModel actor, Vector3 direction, float deltaTime, float moveSpeed)
+    {
+        if (actor == null)
+        {
+            return;
+        }
+
+        var command = new TotemGameplayCommand(
+            new TotemParticipantId(actor.ParticipantId),
+            TotemGameplayCommandSource.BotDecision,
+            TotemGameplayCommandType.Move,
+            gameplayCommandSequence++,
+            direction);
+        actorService?.TryApplyFirstPlayableMoveCommand(command, deltaTime, moveSpeed, out _);
     }
 
     private bool IsStatusBlocked(TotemActorModel actor)
@@ -1905,12 +1296,22 @@ public sealed class TotemAIService : TotemRuntimeServiceBase, ITotemRuntimeTickS
 
     private float ResolveMoveSpeed(TotemActorModel actor, float speed)
     {
-        if (statusService == null)
+        if (actor == null)
         {
-            return speed;
+            return 0f;
         }
 
-        return speed * statusService.GetMoveSpeedMultiplier(actor);
+        float multiplier = statusService == null ? 1f : statusService.GetMoveSpeedMultiplier(actor);
+        if (elementService != null)
+        {
+            multiplier *= elementService.GetMoveSpeedMultiplier(actor.CombatantId);
+        }
+        if (lifecycleService != null)
+        {
+            multiplier *= lifecycleService.GetMoveSpeedMultiplier(actor);
+        }
+
+        return speed * multiplier;
     }
 
     private void OnDamageApplied(TotemActorModel target, float amount, bool killed)
@@ -1936,38 +1337,6 @@ public sealed class TotemAIService : TotemRuntimeServiceBase, ITotemRuntimeTickS
     {
         float angle = ((actorId * 47 + decision * 13) % 360) * Mathf.Deg2Rad;
         return new Vector3(Mathf.Cos(angle), 0f, Mathf.Sin(angle)).normalized;
-    }
-
-    private static bool HasPlannedPart(int plannedPartMask, int partId)
-    {
-        if (partId <= 0 || partId > 30)
-        {
-            return true;
-        }
-
-        int bit = 1 << partId;
-        return (plannedPartMask & bit) != 0;
-    }
-
-    private static int TendencyArgmaxColor(float[] tendency)
-    {
-        if (tendency == null || tendency.Length <= 0)
-        {
-            return 1;
-        }
-
-        int bestIndex = 0;
-        float bestValue = float.MinValue;
-        for (int i = 0; i < tendency.Length; i++)
-        {
-            if (tendency[i] > bestValue)
-            {
-                bestValue = tendency[i];
-                bestIndex = i;
-            }
-        }
-
-        return Mathf.Clamp(bestIndex + 1, 1, TotemTattooService.ColorCount);
     }
 
     private static Vector3 FlatDirection(Vector3 from, Vector3 to)

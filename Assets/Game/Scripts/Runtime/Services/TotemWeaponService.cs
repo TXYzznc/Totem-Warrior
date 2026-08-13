@@ -2,66 +2,40 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public sealed class TotemWeaponService : TotemRuntimeServiceBase, ITotemRuntimeTickService
+public sealed class TotemWeaponService : TotemRuntimeServiceBase, ITotemRuntimeTickService, ITotemGameplaySimulationService
 {
-    public const string DefaultWeaponId = "knife_basic";
+    public const string DefaultWeaponId = "rifle_patrol_v1";
     public const int MaxWeaponLevel = 3;
-    public const float PickupInteractRadius = 2.5f;
-    public const int PickupDuplicateConvertBaseGold = 50;
-
-    private const int TraitHitBufferCapacity = TotemEnemyService.DefaultEnemyCapacity;
 
     private readonly Dictionary<int, TotemWeaponState> states = new Dictionary<int, TotemWeaponState>(64);
-    private readonly List<TotemWeaponPickupModel> activePickups = new List<TotemWeaponPickupModel>(32);
     private TotemGameFlowService flowService;
     private TotemActorService actorService;
-    private TotemEconomyService economyService;
-    private TotemAssetService assetService;
-    private TotemMapService mapService;
-    private TotemStatusService statusService;
-    private TotemTattooService tattooService;
-    private TotemCombatRelationshipService relationshipService;
     private TotemMatchClockService matchClock;
-    private TotemEnemyService enemyService;
-    private readonly TotemEnemyModel[] enemyTraitBuffer = new TotemEnemyModel[TotemEnemyService.DefaultEnemyCapacity];
-    private readonly int[] traitHitActorIdBuffer = new int[TraitHitBufferCapacity];
+    private TotemMatchFlowService matchFlowService;
+    private TotemFirstPlayableTattooBuildService tattooBuildService;
+    private TotemFirstPlayableElementService elementService;
+    private TotemEffectResolutionService effectResolutionService;
+    private TotemFirstPlayableSocialService socialService;
+    private TotemVfxService vfxService;
+    private readonly TotemElementTargetCandidate[] elementTargetBuffer =
+        new TotemElementTargetCandidate[TotemFirstPlayableRules.ParticipantCount];
     private TotemWeaponDefinition[] runtimeCatalog = Array.Empty<TotemWeaponDefinition>();
-    private TotemProjectileDefinition[] runtimeProjectileCatalog = Array.Empty<TotemProjectileDefinition>();
-    private TotemWeaponTraitDefinition[] runtimeTraitCatalog = Array.Empty<TotemWeaponTraitDefinition>();
-    private TotemWeaponDropDefinition[] runtimeDropCatalog = Array.Empty<TotemWeaponDropDefinition>();
-    private int nextPickupInstanceId = 1;
-    private int spawnedPickupCount;
-    private int pickedPickupCount;
-    private string lastPickupWeaponId = string.Empty;
-    private int lastPickupActorId;
-    private int mapResourcePickupCount;
-    private string lastMapResourceAnchorId = string.Empty;
-    private int traitEffectAppliedCount;
-    private TotemWeaponTraitEffectResult lastTraitEffect = BuildTraitSkipped(null, null, null, "None");
+    private int elementApplicationSequence;
 
     public override string ServiceName => "Weapon";
-
-    public int TraitEffectAppliedCount => traitEffectAppliedCount;
-
-    public TotemWeaponTraitEffectResult LastTraitEffect => lastTraitEffect;
 
     protected override void OnInitialize(TotemGameRuntime runtime)
     {
         flowService = runtime.GetService<TotemGameFlowService>();
         actorService = runtime.GetService<TotemActorService>();
-        economyService = runtime.GetService<TotemEconomyService>();
-        assetService = runtime.GetService<TotemAssetService>();
-        mapService = runtime.GetService<TotemMapService>();
-        statusService = runtime.GetService<TotemStatusService>();
-        tattooService = runtime.GetService<TotemTattooService>();
-        relationshipService = runtime.GetService<TotemCombatRelationshipService>();
         matchClock = runtime.GetService<TotemMatchClockService>();
-        enemyService = runtime.GetService<TotemEnemyService>();
-        var catalog = runtime.GetService<TotemDataService>()?.GameplayCatalog ?? TotemDataService.LoadGameplayCatalogOrDefault();
-        runtimeCatalog = NonEmpty(catalog.CreateWeaponDefinitions(), LoadWeaponCatalog());
-        runtimeProjectileCatalog = NonEmpty(catalog.CreateProjectileDefinitions(), LoadProjectileCatalog());
-        runtimeTraitCatalog = NonEmpty(catalog.CreateWeaponTraitDefinitions(), LoadTraitCatalog());
-        runtimeDropCatalog = NonEmpty(catalog.CreateWeaponDropDefinitions(), Array.Empty<TotemWeaponDropDefinition>());
+        matchFlowService = runtime.GetService<TotemMatchFlowService>();
+        tattooBuildService = runtime.GetService<TotemFirstPlayableTattooBuildService>();
+        elementService = runtime.GetService<TotemFirstPlayableElementService>();
+        effectResolutionService = runtime.GetService<TotemEffectResolutionService>();
+        socialService = runtime.GetService<TotemFirstPlayableSocialService>();
+        vfxService = runtime.GetService<TotemVfxService>();
+        runtimeCatalog = CreateFirstPlayableWeaponCatalog();
         if (flowService != null)
         {
             flowService.StateChanged += OnFlowStateChanged;
@@ -77,30 +51,17 @@ public sealed class TotemWeaponService : TotemRuntimeServiceBase, ITotemRuntimeT
             flowService = null;
         }
 
-        DestroyAllPickups();
         actorService = null;
-        economyService = null;
-        assetService = null;
-        mapService = null;
-        statusService = null;
-        tattooService = null;
-        relationshipService = null;
         matchClock = null;
-        enemyService = null;
+        matchFlowService = null;
+        tattooBuildService = null;
+        elementService = null;
+        effectResolutionService = null;
+        socialService = null;
+        vfxService = null;
         runtimeCatalog = Array.Empty<TotemWeaponDefinition>();
-        runtimeProjectileCatalog = Array.Empty<TotemProjectileDefinition>();
-        runtimeTraitCatalog = Array.Empty<TotemWeaponTraitDefinition>();
-        runtimeDropCatalog = Array.Empty<TotemWeaponDropDefinition>();
         states.Clear();
-        spawnedPickupCount = 0;
-        pickedPickupCount = 0;
-        lastPickupWeaponId = string.Empty;
-        lastPickupActorId = 0;
-        mapResourcePickupCount = 0;
-        lastMapResourceAnchorId = string.Empty;
-        nextPickupInstanceId = 1;
-        traitEffectAppliedCount = 0;
-        lastTraitEffect = BuildTraitSkipped(null, null, null, "None");
+        elementApplicationSequence = 0;
     }
 
     public void Tick(float deltaTime)
@@ -141,95 +102,9 @@ public sealed class TotemWeaponService : TotemRuntimeServiceBase, ITotemRuntimeT
         return false;
     }
 
-    public static bool TryGetProjectileDefinition(string projectileId, out TotemProjectileDefinition definition)
-    {
-        var catalog = LoadProjectileCatalog();
-        for (int i = 0; i < catalog.Length; i++)
-        {
-            if (catalog[i] != null && string.Equals(catalog[i].ProjectileId, projectileId, StringComparison.Ordinal))
-            {
-                definition = catalog[i];
-                return true;
-            }
-        }
-
-        definition = null;
-        return false;
-    }
-
-    public static bool TryGetTraitDefinition(string traitId, out TotemWeaponTraitDefinition definition)
-    {
-        var catalog = LoadTraitCatalog();
-        for (int i = 0; i < catalog.Length; i++)
-        {
-            if (catalog[i] != null && string.Equals(catalog[i].TraitId, traitId, StringComparison.Ordinal))
-            {
-                definition = catalog[i];
-                return true;
-            }
-        }
-
-        definition = null;
-        return false;
-    }
-
     public IReadOnlyList<TotemWeaponDefinition> GetRuntimeCatalog()
     {
         return runtimeCatalog;
-    }
-
-    public IReadOnlyList<TotemProjectileDefinition> GetRuntimeProjectileCatalog()
-    {
-        return runtimeProjectileCatalog;
-    }
-
-    public IReadOnlyList<TotemWeaponTraitDefinition> GetRuntimeTraitCatalog()
-    {
-        return runtimeTraitCatalog;
-    }
-
-    public IReadOnlyList<TotemWeaponDropDefinition> GetRuntimeDropCatalog()
-    {
-        return runtimeDropCatalog;
-    }
-
-    public IReadOnlyList<TotemWeaponPickupModel> ActivePickups => activePickups;
-
-    public TotemWeaponPickupSnapshot CapturePickupSnapshot()
-    {
-        var snapshot = new TotemWeaponPickupSnapshot
-        {
-            activePickupCount = activePickups.Count,
-            spawnedPickupCount = spawnedPickupCount,
-            pickedPickupCount = pickedPickupCount,
-            lastPickupWeaponId = lastPickupWeaponId,
-            lastPickupActorId = lastPickupActorId,
-            mapResourcePickupCount = mapResourcePickupCount,
-            lastMapResourceAnchorId = lastMapResourceAnchorId,
-        };
-
-        for (int i = 0; i < activePickups.Count; i++)
-        {
-            var pickup = activePickups[i];
-            string visualAssetKey = pickup?.VisualAssetKey ?? string.Empty;
-            if (string.IsNullOrWhiteSpace(visualAssetKey))
-            {
-                continue;
-            }
-
-            if (visualAssetKey.StartsWith("primitive.", StringComparison.Ordinal))
-            {
-                snapshot.visualFallbackPickupCount++;
-                snapshot.lastVisualFallbackKey = visualAssetKey;
-            }
-            else
-            {
-                snapshot.visualAssetPickupCount++;
-                snapshot.lastVisualAssetKey = visualAssetKey;
-            }
-        }
-
-        return snapshot;
     }
 
     public bool TryGetRuntimeDefinition(string weaponId, out TotemWeaponDefinition definition)
@@ -248,38 +123,6 @@ public sealed class TotemWeaponService : TotemRuntimeServiceBase, ITotemRuntimeT
         return false;
     }
 
-    public bool TryGetRuntimeProjectileDefinition(string projectileId, out TotemProjectileDefinition definition)
-    {
-        var catalog = runtimeProjectileCatalog == null || runtimeProjectileCatalog.Length <= 0 ? LoadProjectileCatalog() : runtimeProjectileCatalog;
-        for (int i = 0; i < catalog.Length; i++)
-        {
-            if (catalog[i] != null && string.Equals(catalog[i].ProjectileId, projectileId, StringComparison.Ordinal))
-            {
-                definition = catalog[i];
-                return true;
-            }
-        }
-
-        definition = null;
-        return false;
-    }
-
-    public bool TryGetRuntimeTraitDefinition(string traitId, out TotemWeaponTraitDefinition definition)
-    {
-        var catalog = runtimeTraitCatalog == null || runtimeTraitCatalog.Length <= 0 ? LoadTraitCatalog() : runtimeTraitCatalog;
-        for (int i = 0; i < catalog.Length; i++)
-        {
-            if (catalog[i] != null && string.Equals(catalog[i].TraitId, traitId, StringComparison.Ordinal))
-            {
-                definition = catalog[i];
-                return true;
-            }
-        }
-
-        definition = null;
-        return false;
-    }
-
     public void EquipWeapon(TotemActorModel actor, string weaponId)
     {
         if (actor == null)
@@ -287,15 +130,15 @@ public sealed class TotemWeaponService : TotemRuntimeServiceBase, ITotemRuntimeT
             return;
         }
 
-        if (!TryGetRuntimeDefinition(weaponId, out var definition))
+        TryGetRuntimeDefinition(DefaultWeaponId, out var definition);
+        if (definition == null)
         {
-            TryGetRuntimeDefinition(DefaultWeaponId, out definition);
+            return;
         }
 
         states[actor.ActorId] = new TotemWeaponState
         {
             Weapon = definition,
-            CurrentAmmo = definition.MaxAmmo,
             Level = 1,
             CooldownRemaining = 0f,
         };
@@ -331,1070 +174,512 @@ public sealed class TotemWeaponService : TotemRuntimeServiceBase, ITotemRuntimeT
         return GetOrCreateState(actor)?.Level ?? 0;
     }
 
-    public TotemWeaponFireResult FireWeapon(TotemActorModel actor, TotemCombatantModel target, bool isCharged, float chargeRatio)
+    /// <summary>
+    /// Shared first-playable aiming, firing, hit-region and damage entry point.
+    /// Both the human combat controller and bot controller call this method.
+    /// </summary>
+    public bool TryResolveFirstPlayableAttack(
+        TotemActorModel source,
+        TotemCombatantModel target,
+        Vector3 rayOrigin,
+        Vector3 aimDirection,
+        float damageMultiplier,
+        out TotemGunAttackResult result)
     {
-        var state = GetOrCreateState(actor);
-        if (state == null || state.Weapon == null)
+        var state = GetOrCreateState(source);
+        if (state?.Weapon == null)
         {
-            return Skipped("NoWeapon");
+            result = BuildSkippedGunAttack("NoWeapon");
+            return false;
+        }
+
+        if (target == null)
+        {
+            result = BuildSkippedGunAttack("NoTarget");
+            return false;
         }
 
         if (state.CooldownRemaining > 0f)
         {
-            return Skipped("Cooldown");
+            result = BuildSkippedGunAttack("Cooldown");
+            return false;
         }
 
-        var weapon = state.Weapon;
-        if (weapon.RequiresCharge && !isCharged)
-        {
-            return Skipped("RequiresCharge");
-        }
+        TotemWeaponDefinition weapon = state.Weapon;
+        TotemWeaponMultipliers multipliers = GetMultipliers(state.Level);
+        float range = weapon.Range + multipliers.RangeAdd;
+        float baseDamage = weapon.BaseDamage * multipliers.DamageMul * Mathf.Max(0f, damageMultiplier);
+        float damage = baseDamage;
 
-        if (weapon.Class == TotemWeaponClass.Ranged && target == null)
-        {
-            return Skipped("NoTarget");
-        }
-
-        bool ammoExhausted = weapon.MaxAmmo > 0 && state.CurrentAmmo <= 0;
-        if (weapon.MaxAmmo > 0 && state.CurrentAmmo > 0)
-        {
-            state.CurrentAmmo--;
-        }
-
-        var multipliers = GetMultipliers(state.Level);
-        float damage = weapon.BaseDamage * multipliers.DamageMul;
-        if (isCharged)
-        {
-            damage *= weapon.ChargedMultiplier <= 0f ? 1.5f : weapon.ChargedMultiplier;
-        }
-
-        if (ammoExhausted)
-        {
-            damage *= 0.4f;
-        }
-
-        TotemProjectileDefinition projectile = null;
-        if (!string.IsNullOrWhiteSpace(weapon.ProjectileId))
-        {
-            TryGetRuntimeProjectileDefinition(weapon.ProjectileId, out projectile);
-        }
-
-        TotemWeaponTraitDefinition activeTrait = null;
-        string activeTraitId = isCharged ? weapon.ChargedTraitId : weapon.NormalTraitId;
-        if (!string.IsNullOrWhiteSpace(activeTraitId))
-        {
-            TryGetRuntimeTraitDefinition(activeTraitId, out activeTrait);
-        }
-
-        float enchantCooldownMul = tattooService == null ? 1f : tattooService.ResolveWeaponCooldownMultiplier(actor);
-        float enchantRangeMul = tattooService == null ? 1f : tattooService.ResolveRangeMultiplier(actor);
-        state.CooldownRemaining = weapon.Cooldown * multipliers.CooldownMul * enchantCooldownMul;
+        state.CooldownRemaining = weapon.Cooldown * multipliers.CooldownMul;
         unchecked
         {
             state.FireSequence++;
         }
 
-        return new TotemWeaponFireResult
-        {
-            Fired = true,
-            Reason = ammoExhausted ? "AmmoExhaustedDegraded" : "Fired",
-            Weapon = weapon,
-            Projectile = projectile,
-            ActiveTrait = activeTrait,
-            Damage = damage,
-            Range = (weapon.Range + multipliers.RangeAdd) * enchantRangeMul,
-            IsCharged = isCharged,
-            FireSequence = state.FireSequence,
-        };
+        TotemHitRegion hitRegion = TotemHitRegionResolver.ResolveForTarget(
+            rayOrigin,
+            aimDirection,
+            range,
+            target.CombatantId,
+            target.Position,
+            out Vector3 hitPoint,
+            out Vector3 hitNormal);
+        bool wasAlive = target.IsAlive;
+        actorService?.NotifyActorAttack(source, "FirstPlayableGun");
+        TotemDirectDamageResult directDamage = ResolveGunHit(
+            source,
+            target,
+            hitRegion,
+            hitPoint,
+            hitNormal,
+            damage);
+        bool killed = wasAlive && !target.IsAlive;
+
+        vfxService?.SpawnRifleTrail(source.Position, hitPoint, weapon.WeaponId, source.Kind == TotemActorKind.Player);
+        vfxService?.SpawnAttackHit(hitPoint, weapon.WeaponId, false);
+        result = new TotemGunAttackResult(
+            fired: true,
+            reason: directDamage.IsEffectiveDirectDamage ? "Applied" : "NoEffectiveDamage",
+            weapon,
+            hitRegion,
+            directDamage,
+            killed,
+            state.FireSequence);
+        return true;
     }
 
-    public TotemWeaponTraitEffectResult ApplyTraitEffect(TotemWeaponFireResult fireResult, TotemActorModel source, TotemActorModel target, bool targetKilled)
+    public bool TryApplyFirstPlayableFireCommand(
+        in TotemGameplayCommand command,
+        float damageMultiplier,
+        out TotemGunAttackResult result)
     {
-        var trait = fireResult?.ActiveTrait;
-        if (fireResult == null || !fireResult.Fired)
+        if (!command.IsValid
+            || command.Type != TotemGameplayCommandType.Fire
+            || !TotemMatchPhaseContract.IsCombat(matchFlowService?.CurrentPhase ?? TotemMatchPhase.FrontEnd))
         {
-            return RecordTraitEffect(BuildTraitSkipped(trait, source, target, "NoFiredWeapon"));
+            result = BuildSkippedGunAttack("InvalidFireCommand");
+            return false;
         }
 
-        if (trait == null || trait.EffectType == TotemWeaponTraitEffectType.Unknown)
+        TotemActorModel source = FindParticipant(command.ParticipantId);
+        TotemCombatantModel target = FindCombatant(command.IntValue);
+        if (source == null || !source.IsAlive)
         {
-            return RecordTraitEffect(BuildTraitSkipped(trait, source, target, "NoTrait"));
+            result = BuildSkippedGunAttack("InvalidFireSource");
+            return false;
         }
 
-        if (target == null || targetKilled || !target.IsAlive)
+        Vector3 rayOrigin = source.Position + Vector3.up * 1.2f;
+        Vector3 aimDirection = command.WorldValue;
+        if (aimDirection.sqrMagnitude <= 0.0001f && target != null)
         {
-            return RecordTraitEffect(BuildTraitSkipped(trait, source, target, "TargetUnavailable"));
+            aimDirection = target.Position - rayOrigin;
         }
 
-        switch (trait.EffectType)
-        {
-            case TotemWeaponTraitEffectType.Status:
-                return ApplyStatusTrait(trait, fireResult, source, target, DeriveStatusName(trait), trait.EffectParam1, trait.EffectParam2);
-            case TotemWeaponTraitEffectType.Stun:
-                return ApplyStatusTrait(trait, fireResult, source, target, "Stun", 0f, trait.EffectParam1);
-            case TotemWeaponTraitEffectType.Quick:
-                return ApplyQuickTrait(trait, fireResult, source, target);
-            case TotemWeaponTraitEffectType.Pierce:
-                return ApplyPierceTrait(trait, fireResult, source, target);
-            case TotemWeaponTraitEffectType.Chain:
-                return ApplyChainTrait(trait, fireResult, source, target);
-            case TotemWeaponTraitEffectType.Explosive:
-                return ApplyExplosiveTrait(trait, fireResult, source, target);
-            case TotemWeaponTraitEffectType.MultiShot:
-                return ApplyMultiShotTrait(trait, fireResult, source, target);
-            case TotemWeaponTraitEffectType.Pull:
-                return ApplyPullTrait(trait, fireResult, source, target);
-            default:
-                return RecordTraitEffect(BuildTraitSkipped(trait, source, target, $"Unsupported:{trait.EffectType}"));
-        }
+        return TryResolveFirstPlayableAttack(
+            source,
+            target,
+            rayOrigin,
+            aimDirection,
+            damageMultiplier,
+            out result);
     }
 
-    public TotemWeaponTraitEffectResult ApplyTraitEffect(
-        TotemWeaponFireResult fireResult,
+    /// <summary>
+    /// The only first-playable direct-damage entry point. Human and bot gunfire
+    /// both pass through this method before effect events can be submitted.
+    /// </summary>
+    public TotemDirectDamageResult ResolveGunHit(
         TotemActorModel source,
-        TotemEnemyModel target,
-        bool targetKilled)
+        TotemCombatantModel target,
+        TotemHitRegion hitRegion,
+        Vector3 hitPoint,
+        Vector3 hitNormal,
+        float requestedDamage)
     {
-        TotemWeaponTraitDefinition trait = fireResult?.ActiveTrait;
-        var result = new TotemWeaponTraitEffectResult
-        {
-            traitId = trait?.TraitId ?? string.Empty,
-            effectType = trait?.EffectType.ToString() ?? string.Empty,
-            sourceActorId = source?.ActorId ?? 0,
-            targetActorId = target?.CombatantId ?? 0,
-        };
-        if (fireResult == null || !fireResult.Fired || trait == null || target == null || targetKilled || !target.IsAlive || enemyService == null)
-        {
-            result.reason = "TargetUnavailable";
-            return RecordTraitEffect(result);
-        }
+        float resolvedRequestedDamage = elementService == null || target == null
+            ? requestedDamage
+            : elementService.ModifyDirectDamage(target.CombatantId, requestedDamage);
+        var hit = new TotemGunHitContext(
+            new TotemParticipantId(source?.ParticipantId ?? -1),
+            source?.TeamId ?? new TotemTeamId(-1),
+            target?.CombatantId ?? 0,
+            target is TotemParticipantModel participantTarget ? participantTarget.TeamId : new TotemTeamId(-1),
+            hitRegion,
+            hitPoint,
+            hitNormal,
+            resolvedRequestedDamage);
 
-        float worldTime = matchClock?.WorldTime ?? enemyService.WorldTime;
-        switch (trait.EffectType)
+        float appliedDamage = 0f;
+        if (source != null && target != null && resolvedRequestedDamage > 0f)
         {
-            case TotemWeaponTraitEffectType.Quick:
-                if (string.Equals(trait.TraitId, "trait_lifesteal", StringComparison.Ordinal))
+            if (target is TotemActorModel actorTarget)
+            {
+                if (actorService != null
+                    && actorService.TryApplyDamage(actorTarget, resolvedRequestedDamage, source, "FirstPlayableGun"))
                 {
-                    float heal = source?.Heal(Mathf.Min(
-                        trait.EffectParam2 <= 0f ? float.MaxValue : trait.EffectParam2,
-                        Mathf.Max(0f, fireResult.Damage) * Mathf.Clamp01(trait.EffectParam1))) ?? 0f;
-                    result.applied = heal > 0f;
-                    result.reason = result.applied ? "Applied" : "NoMissingHealth";
-                    result.sourceHeal = heal;
-                    return RecordTraitEffect(result);
+                    appliedDamage = actorService.LastDamage.Target == actorTarget
+                        ? Mathf.Max(0f, actorService.LastDamage.Amount)
+                        : 0f;
                 }
+            }
+        }
 
-                if (source != null && states.TryGetValue(source.ActorId, out TotemWeaponState state))
-                {
-                    float before = state.CooldownRemaining;
-                    state.CooldownRemaining *= 1f - Mathf.Clamp(trait.EffectParam1, 0f, 0.95f);
-                    result.applied = state.CooldownRemaining < before;
-                    result.reason = result.applied ? "Applied" : "NoCooldown";
-                    result.cooldownRemaining = state.CooldownRemaining;
-                }
-                return RecordTraitEffect(result);
+        var result = new TotemDirectDamageResult(
+            hit,
+            shieldDamage: 0f,
+            healthDamage: appliedDamage,
+            relationshipAllowed: appliedDamage > 0f);
+        if (result.IsEffectiveDirectDamage && effectResolutionService != null)
+        {
+            effectResolutionService.BeginResolution();
+            effectResolutionService.SubmitGunHit(result);
+            ResolveLightningDischarge(target, result.EffectiveDamage);
+            SubmitPrimaryTattooElement(source, target, result.EffectiveDamage);
+            effectResolutionService.Resolve();
+        }
 
-            case TotemWeaponTraitEffectType.Status:
-            case TotemWeaponTraitEffectType.Stun:
-                float chanceBonus = tattooService?.ResolveStatusChanceBonus(source) ?? 0f;
-                float chance = TotemTattooService.ComputeStatusApplyChance(TotemTattooService.DefaultStatusApplyChance, chanceBonus);
-                float roll = ResolveDeterministicStatusRoll(
-                    trait.TraitId,
-                    source?.ActorId ?? 0,
-                    target.CombatantId,
-                    fireResult.FireSequence,
-                    chance);
-                string statusName = trait.EffectType == TotemWeaponTraitEffectType.Stun ? TotemStatusService.StunStatus : DeriveStatusName(trait);
-                float statusPower = trait.EffectType == TotemWeaponTraitEffectType.Stun ? 0f : Mathf.Max(0f, trait.EffectParam1);
-                float statusDuration = trait.EffectType == TotemWeaponTraitEffectType.Stun
-                    ? (trait.EffectParam1 > 0f ? trait.EffectParam1 : 2f)
-                    : (trait.EffectParam2 > 0f ? trait.EffectParam2 : 2f);
-                bool chancePassed = TotemTattooService.ShouldApplyStatus(chance, roll);
-                TotemEnemyStatusApplyResult statusResult = TotemEnemyStatusApplyResult.InvalidDefinition;
-                bool applies = chancePassed && enemyService.TryApplyStatus(
-                    target.CombatantId,
-                    source,
-                    statusName,
-                    statusPower,
-                    statusDuration,
-                    "WeaponTrait:" + trait.TraitId,
-                    worldTime,
-                    out statusResult);
-                result.applied = applies;
-                result.reason = applies ? statusResult.ToString() : chancePassed ? statusResult.ToString() : "StatusChanceMiss";
-                result.statusName = statusName;
-                result.statusDps = statusPower;
-                result.statusDuration = statusDuration;
-                result.statusApplied = applies;
-                result.statusChance = chance;
-                result.statusChanceBonus = chanceBonus;
-                result.statusRoll = roll;
-                return RecordTraitEffect(result);
+        return result;
+    }
 
-            case TotemWeaponTraitEffectType.Pull:
-                if (source == null)
-                {
-                    result.reason = "InvalidPullContext";
-                    return RecordTraitEffect(result);
-                }
-                Vector3 pullDelta = source.Position - target.Position;
-                pullDelta.y = 0f;
-                float distance = pullDelta.magnitude;
-                float maxDistance = trait.EffectParam2 <= 0f ? float.MaxValue : trait.EffectParam2;
-                float pullDistance = distance <= maxDistance
-                    ? Mathf.Min(Mathf.Max(0f, trait.EffectParam1), Mathf.Max(0f, distance - 0.75f))
-                    : 0f;
-                result.applied = pullDistance > 0f
-                    && enemyService.TryDisplaceEnemy(target.CombatantId, pullDelta.normalized * pullDistance);
-                result.reason = result.applied ? "Applied" : "PullBlocked";
-                result.displacement = result.applied ? pullDistance : 0f;
-                return RecordTraitEffect(result);
+    private void SubmitPrimaryTattooElement(
+        TotemActorModel source,
+        TotemCombatantModel target,
+        float bodyHitDamage)
+    {
+        if (source == null
+            || target == null
+            || !target.IsAlive
+            || tattooBuildService == null
+            || elementService == null)
+        {
+            return;
+        }
 
-            case TotemWeaponTraitEffectType.Pierce:
-            case TotemWeaponTraitEffectType.Chain:
-            case TotemWeaponTraitEffectType.Explosive:
-            case TotemWeaponTraitEffectType.MultiShot:
-                int maxHits = trait.EffectType == TotemWeaponTraitEffectType.Explosive
-                    ? int.MaxValue
-                    : Mathf.Max(0, Mathf.RoundToInt(trait.EffectParam1));
-                float radius = trait.EffectType == TotemWeaponTraitEffectType.Explosive
-                    ? Mathf.Max(0.1f, trait.EffectParam1)
-                    : Mathf.Max(3f, fireResult.Range * (trait.EffectType == TotemWeaponTraitEffectType.Chain ? 0.5f : 1f));
-                float radiusSqr = radius * radius;
-                int count = enemyService.CopyAliveEnemies(enemyTraitBuffer);
-                int hitCount = 0;
-                float totalDamage = 0f;
-                for (int i = 0; i < count && hitCount < maxHits; i++)
-                {
-                    TotemEnemyModel candidate = enemyTraitBuffer[i];
-                    if (candidate == null
-                        || candidate == target
-                        || (candidate.Position - target.Position).sqrMagnitude > radiusSqr)
-                    {
-                        continue;
-                    }
+        TotemFirstPlayableTattooBuildState build = tattooBuildService.GetOrCreateState(source);
+        TotemTattooLoadoutEntry rifleArm = build?.GetSlot(TotemTattooSlotId.RightArm) ?? default;
+        if (!rifleArm.IsEquipped)
+        {
+            return;
+        }
 
-                    float multiplier = trait.EffectType == TotemWeaponTraitEffectType.Explosive
-                        ? (trait.EffectParam2 <= 0f ? 0.5f : trait.EffectParam2)
-                        : Mathf.Clamp01(1f - Mathf.Max(0f, trait.EffectParam2) * (hitCount + 1));
-                    float damage = Mathf.Max(1f, fireResult.Damage * multiplier);
-                    if (enemyService.TryApplyDamage(
-                            candidate.CombatantId,
-                            source,
-                            damage,
-                            "WeaponTrait:" + trait.TraitId,
-                            worldTime,
-                            out float appliedDamage))
-                    {
-                        hitCount++;
-                        totalDamage += appliedDamage;
-                    }
-                }
-
-                result.applied = hitCount > 0;
-                result.reason = result.applied ? "Applied" : "NoSecondaryEnemy";
-                result.secondaryHitCount = hitCount;
-                result.secondaryDamage = totalDamage;
-                result.extraProjectileCount = trait.EffectType == TotemWeaponTraitEffectType.MultiShot ? maxHits : 0;
-                result.effectRadius = radius;
-                return RecordTraitEffect(result);
-
-            default:
-                result.reason = "Unsupported:" + trait.EffectType;
-                return RecordTraitEffect(result);
+        ApplyTattooElement(source, target, rifleArm.Element, bodyHitDamage);
+        TotemCombatantModel secondaryTarget = FindPatternSecondaryTarget(rifleArm.Pattern, target);
+        if (secondaryTarget != null)
+        {
+            ApplyTattooElement(source, secondaryTarget, rifleArm.Element, bodyHitDamage);
         }
     }
 
-    private TotemWeaponTraitEffectResult ApplyPierceTrait(
-        TotemWeaponTraitDefinition trait,
-        TotemWeaponFireResult fireResult,
+    private void ApplyTattooElement(
         TotemActorModel source,
-        TotemActorModel target)
+        TotemCombatantModel target,
+        TotemFirstPlayableElement element,
+        float bodyHitDamage)
     {
-        int maxExtraHits = Mathf.Min(traitHitActorIdBuffer.Length, Mathf.Max(0, Mathf.RoundToInt(trait.EffectParam1)));
-        if (maxExtraHits <= 0)
+        if (source == null || target == null || !target.IsAlive || element == TotemFirstPlayableElement.None)
         {
-            return RecordTraitEffect(BuildTraitSkipped(trait, source, target, "NoPierceCount"));
+            return;
         }
 
-        if (actorService?.Actors == null)
+        unchecked
         {
-            return RecordTraitEffect(BuildTraitSkipped(trait, source, target, "ActorServiceMissing"));
+            elementApplicationSequence++;
         }
 
-        float maxRadius = ResolveTraitSearchRadius(fireResult, source, target);
-        float falloff = Mathf.Clamp01(trait.EffectParam2);
-        int hitCount = 0;
-        float totalDamage = 0f;
-        for (int i = 0; i < maxExtraHits; i++)
+        TotemElementApplyResult applied = elementService.ApplyElement(
+            target.CombatantId,
+            element,
+            new TotemParticipantId(source.ParticipantId),
+            elementApplicationSequence,
+            bodyHitDamage);
+        if (!applied.Applied)
         {
-            var candidate = FindNearestTraitTarget(target.Position, source, target, traitHitActorIdBuffer, hitCount, maxRadius);
-            if (candidate == null)
+            return;
+        }
+
+        if (applied.TriggeredReaction)
+        {
+            float actualIndirectDamage = ResolveReactionDamage(
+                source,
+                target,
+                applied.Reaction,
+                bodyHitDamage);
+            var actualAttribution = new TotemReactionAttribution(
+                applied.Attribution.Reaction,
+                applied.Attribution.TriggerParticipantId,
+                applied.Attribution.AssistingParticipantId,
+                actualIndirectDamage);
+            socialService?.RecordReactionAttribution(actualAttribution);
+            if (applied.Reaction == TotemReactionKind.Stasis)
             {
-                break;
+                socialService?.RecordEffectiveControl(
+                    applied.Attribution.TriggerParticipantId,
+                    TotemFirstPlayableElementRules.StasisDurationSeconds);
             }
 
-            traitHitActorIdBuffer[hitCount++] = candidate.ActorId;
-            float damage = Mathf.Max(1f, fireResult.Damage * (1f - falloff * hitCount));
-            totalDamage += damage;
-            actorService.ApplyDamage(candidate, damage, source, $"WeaponTrait:{trait.TraitId}");
-        }
-
-        var result = BuildTraitBase(trait, source, target, hitCount > 0 ? "Applied" : "NoSecondaryTarget", hitCount > 0);
-        result.secondaryHitCount = hitCount;
-        result.secondaryDamage = totalDamage;
-        result.effectRadius = maxRadius;
-        return RecordTraitEffect(result);
-    }
-
-    private TotemWeaponTraitEffectResult ApplyChainTrait(
-        TotemWeaponTraitDefinition trait,
-        TotemWeaponFireResult fireResult,
-        TotemActorModel source,
-        TotemActorModel target)
-    {
-        int maxJumps = Mathf.Min(traitHitActorIdBuffer.Length, Mathf.Max(0, Mathf.RoundToInt(trait.EffectParam1)));
-        if (maxJumps <= 0)
-        {
-            return RecordTraitEffect(BuildTraitSkipped(trait, source, target, "NoChainCount"));
-        }
-
-        if (actorService?.Actors == null)
-        {
-            return RecordTraitEffect(BuildTraitSkipped(trait, source, target, "ActorServiceMissing"));
-        }
-
-        float jumpRadius = Mathf.Max(3f, ResolveTraitSearchRadius(fireResult, source, target) * 0.5f);
-        float falloff = Mathf.Clamp01(trait.EffectParam2);
-        int hitCount = 0;
-        float totalDamage = 0f;
-        var jumpOrigin = target;
-        for (int i = 0; i < maxJumps; i++)
-        {
-            var candidate = FindNearestTraitTarget(jumpOrigin.Position, source, target, traitHitActorIdBuffer, hitCount, jumpRadius);
-            if (candidate == null)
-            {
-                break;
-            }
-
-            traitHitActorIdBuffer[hitCount++] = candidate.ActorId;
-            float damage = Mathf.Max(1f, fireResult.Damage * (1f - falloff * hitCount));
-            totalDamage += damage;
-            actorService.ApplyDamage(candidate, damage, source, $"WeaponTrait:{trait.TraitId}");
-            jumpOrigin = candidate;
-        }
-
-        var result = BuildTraitBase(trait, source, target, hitCount > 0 ? "Applied" : "NoChainTarget", hitCount > 0);
-        result.secondaryHitCount = hitCount;
-        result.secondaryDamage = totalDamage;
-        result.effectRadius = jumpRadius;
-        return RecordTraitEffect(result);
-    }
-
-    private TotemWeaponTraitEffectResult ApplyExplosiveTrait(
-        TotemWeaponTraitDefinition trait,
-        TotemWeaponFireResult fireResult,
-        TotemActorModel source,
-        TotemActorModel target)
-    {
-        if (actorService?.Actors == null)
-        {
-            return RecordTraitEffect(BuildTraitSkipped(trait, source, target, "ActorServiceMissing"));
-        }
-
-        float radius = Mathf.Max(0.1f, trait.EffectParam1);
-        float damageMul = trait.EffectParam2 <= 0f ? 0.5f : trait.EffectParam2;
-        float radiusSqr = radius * radius;
-        int hitCount = 0;
-        float totalDamage = 0f;
-        var actors = actorService.Actors;
-        for (int i = 0; i < actors.Count; i++)
-        {
-            var candidate = actors[i];
-            if (!IsValidTraitTarget(candidate, source, target))
-            {
-                continue;
-            }
-
-            if ((candidate.Position - target.Position).sqrMagnitude > radiusSqr)
-            {
-                continue;
-            }
-
-            float damage = Mathf.Max(1f, fireResult.Damage * damageMul);
-            totalDamage += damage;
-            hitCount++;
-            actorService.ApplyDamage(candidate, damage, source, $"WeaponTrait:{trait.TraitId}");
-        }
-
-        var result = BuildTraitBase(trait, source, target, hitCount > 0 ? "Applied" : "NoExplosionTarget", hitCount > 0);
-        result.secondaryHitCount = hitCount;
-        result.secondaryDamage = totalDamage;
-        result.effectRadius = radius;
-        return RecordTraitEffect(result);
-    }
-
-    private TotemWeaponTraitEffectResult ApplyMultiShotTrait(
-        TotemWeaponTraitDefinition trait,
-        TotemWeaponFireResult fireResult,
-        TotemActorModel source,
-        TotemActorModel target)
-    {
-        int projectileCount = Mathf.Max(1, Mathf.RoundToInt(trait.EffectParam1));
-        int extraProjectiles = Mathf.Max(0, projectileCount - 1);
-        if (extraProjectiles <= 0)
-        {
-            return RecordTraitEffect(BuildTraitSkipped(trait, source, target, "NoExtraProjectile"));
-        }
-
-        if (actorService?.Actors == null)
-        {
-            return RecordTraitEffect(BuildTraitSkipped(trait, source, target, "ActorServiceMissing"));
-        }
-
-        float maxRadius = ResolveTraitSearchRadius(fireResult, source, target);
-        int maxSecondaryHits = Mathf.Min(extraProjectiles, traitHitActorIdBuffer.Length);
-        int hitCount = 0;
-        float totalDamage = 0f;
-        for (int i = 0; i < maxSecondaryHits; i++)
-        {
-            var candidate = FindNearestTraitTarget(target.Position, source, target, traitHitActorIdBuffer, hitCount, maxRadius);
-            if (candidate == null)
-            {
-                break;
-            }
-
-            traitHitActorIdBuffer[hitCount++] = candidate.ActorId;
-            float damage = Mathf.Max(1f, fireResult.Damage);
-            totalDamage += damage;
-            actorService.ApplyDamage(candidate, damage, source, $"WeaponTrait:{trait.TraitId}");
-        }
-
-        var result = BuildTraitBase(trait, source, target, hitCount > 0 ? "Applied" : "NoFanTarget", hitCount > 0);
-        result.secondaryHitCount = hitCount;
-        result.secondaryDamage = totalDamage;
-        result.extraProjectileCount = extraProjectiles;
-        result.effectRadius = maxRadius;
-        return RecordTraitEffect(result);
-    }
-
-    private TotemWeaponTraitEffectResult ApplyPullTrait(
-        TotemWeaponTraitDefinition trait,
-        TotemWeaponFireResult fireResult,
-        TotemActorModel source,
-        TotemActorModel target)
-    {
-        if (source == null || target == null)
-        {
-            return RecordTraitEffect(BuildTraitSkipped(trait, source, target, "InvalidPullContext"));
-        }
-
-        Vector3 delta = source.Position - target.Position;
-        delta.y = 0f;
-        float distance = delta.magnitude;
-        if (distance <= 0.001f)
-        {
-            return RecordTraitEffect(BuildTraitSkipped(trait, source, target, "AlreadyAtSource"));
-        }
-
-        float maxDistance = trait.EffectParam2 <= 0f ? float.MaxValue : trait.EffectParam2;
-        if (distance > maxDistance)
-        {
-            return RecordTraitEffect(BuildTraitSkipped(trait, source, target, "OutOfPullRange"));
-        }
-
-        float pullDistance = Mathf.Min(Mathf.Max(0f, trait.EffectParam1), Mathf.Max(0f, distance - 0.75f));
-        if (pullDistance <= 0f)
-        {
-            return RecordTraitEffect(BuildTraitSkipped(trait, source, target, "NoPullDistance"));
-        }
-
-        Vector3 move = delta.normalized * pullDistance;
-        if (actorService != null)
-        {
-            actorService.MoveActor(target, move);
+            effectResolutionService.TrySubmit(
+                TotemEffectEventKind.Reaction,
+                new TotemParticipantId(source.ParticipantId),
+                target.CombatantId,
+                actualIndirectDamage);
         }
         else
         {
-            target.Position += move;
-            if (target.GameObject != null)
+            effectResolutionService.TrySubmit(
+                TotemEffectEventKind.ElementApply,
+                new TotemParticipantId(source.ParticipantId),
+                target.CombatantId,
+                (float)element);
+        }
+    }
+
+    private TotemCombatantModel FindPatternSecondaryTarget(
+        TotemFirstPlayablePatternId pattern,
+        TotemCombatantModel primaryTarget)
+    {
+        if (pattern != TotemFirstPlayablePatternId.P02 || primaryTarget == null)
+        {
+            return null;
+        }
+
+        if (!TryFillSameFactionCandidates(primaryTarget, out int factionId, out int candidateCount))
+        {
+            return null;
+        }
+
+        int combatantId = TotemTattooPatternTargetResolver.ResolveSecondaryTarget(
+            pattern,
+            primaryTarget.CombatantId,
+            factionId,
+            primaryTarget.Position,
+            elementTargetBuffer,
+            candidateCount);
+        if (combatantId <= 0)
+        {
+            return null;
+        }
+
+        return FindCombatant(combatantId);
+    }
+
+    private void ResolveLightningDischarge(TotemCombatantModel chargedTarget, float effectiveDirectDamage)
+    {
+        if (chargedTarget == null
+            || !chargedTarget.IsAlive
+            || effectiveDirectDamage <= 0f
+            || elementService == null
+            || !elementService.TryBeginLightningDischarge(chargedTarget.CombatantId, effectiveDirectDamage > 0f)
+            || !elementService.TryGetOldestLayerSource(chargedTarget.CombatantId, out TotemElementLayerSource layerSource)
+            || !TryFillSameFactionCandidates(chargedTarget, out int factionId, out int candidateCount))
+        {
+            return;
+        }
+
+        TotemLightningDischargeResult discharge = TotemLightningDischargeResolver.Resolve(
+            chargedTarget.CombatantId,
+            factionId,
+            chargedTarget.Position,
+            elementTargetBuffer,
+            candidateCount);
+        TotemCombatantModel dischargeTarget = FindCombatant(discharge.TargetCombatantId);
+        TotemActorModel elementSource = FindParticipant(layerSource.SourceParticipantId);
+        if (dischargeTarget == null || elementSource == null)
+        {
+            return;
+        }
+
+        float appliedDamage = ApplyIndirectDamage(
+            elementSource,
+            dischargeTarget,
+            effectiveDirectDamage * discharge.DamageMultiplier,
+            TotemReactionKind.None,
+            "Element:LightningDischarge");
+        if (appliedDamage <= 0f)
+        {
+            return;
+        }
+
+        socialService?.RecordIndirectElementDamage(layerSource.SourceParticipantId, appliedDamage);
+        effectResolutionService?.TrySubmit(
+            TotemEffectEventKind.ElementApply,
+            layerSource.SourceParticipantId,
+            dischargeTarget.CombatantId,
+            appliedDamage);
+    }
+
+    private bool TryFillSameFactionCandidates(
+        TotemCombatantModel primaryTarget,
+        out int factionId,
+        out int candidateCount)
+    {
+        candidateCount = 0;
+        if (primaryTarget is TotemActorModel participantTarget)
+        {
+            factionId = participantTarget.TeamId.Value;
+            IReadOnlyList<TotemActorModel> actors = actorService?.Actors;
+            for (int i = 0; actors != null && i < actors.Count && candidateCount < elementTargetBuffer.Length; i++)
             {
-                target.GameObject.transform.position = target.Position;
+                TotemActorModel actor = actors[i];
+                if (actor == null)
+                {
+                    continue;
+                }
+
+                elementTargetBuffer[candidateCount++] = new TotemElementTargetCandidate(
+                    actor.CombatantId,
+                    actor.TeamId.Value,
+                    actor.Position,
+                    actor.IsAlive);
+            }
+
+            return actors != null;
+        }
+
+        factionId = -1;
+        return false;
+    }
+
+    private TotemCombatantModel FindCombatant(int combatantId)
+    {
+        IReadOnlyList<TotemActorModel> actors = actorService?.Actors;
+        for (int i = 0; actors != null && i < actors.Count; i++)
+        {
+            if (actors[i]?.CombatantId == combatantId)
+            {
+                return actors[i];
             }
         }
 
-        var result = BuildTraitBase(trait, source, target, "Applied", true);
-        result.displacement = pullDistance;
-        result.effectRadius = maxDistance < float.MaxValue ? maxDistance : 0f;
-        return RecordTraitEffect(result);
+        return null;
     }
 
-    private TotemWeaponTraitEffectResult ApplyQuickTrait(
-        TotemWeaponTraitDefinition trait,
-        TotemWeaponFireResult fireResult,
-        TotemActorModel source,
-        TotemActorModel target)
+    private TotemActorModel FindParticipant(TotemParticipantId participantId)
     {
-        if (trait == null || source == null)
+        IReadOnlyList<TotemActorModel> actors = actorService?.Actors;
+        for (int i = 0; actors != null && i < actors.Count; i++)
         {
-            return RecordTraitEffect(BuildTraitSkipped(trait, source, target, "InvalidQuickContext"));
-        }
-
-        if (string.Equals(trait.TraitId, "trait_lifesteal", StringComparison.Ordinal))
-        {
-            float ratio = Mathf.Clamp01(trait.EffectParam1);
-            float cap = trait.EffectParam2 <= 0f ? float.MaxValue : trait.EffectParam2;
-            float healAmount = Mathf.Min(cap, Mathf.Max(0f, fireResult?.Damage ?? 0f) * ratio);
-            float healed = source.Heal(healAmount);
-            var result = BuildTraitBase(trait, source, target, healed > 0f ? "Applied" : "NoMissingHealth", healed > 0f);
-            result.sourceHeal = healed;
-            return RecordTraitEffect(result);
-        }
-
-        if (!states.TryGetValue(source.ActorId, out var state) || state == null)
-        {
-            return RecordTraitEffect(BuildTraitSkipped(trait, source, target, "WeaponStateMissing"));
-        }
-
-        float reduction = Mathf.Clamp(trait.EffectParam1, 0f, 0.95f);
-        float before = state.CooldownRemaining;
-        state.CooldownRemaining = Mathf.Max(0f, before * (1f - reduction));
-        var cooldownResult = BuildTraitBase(trait, source, target, before > state.CooldownRemaining ? "Applied" : "NoCooldown", before > state.CooldownRemaining);
-        cooldownResult.cooldownRemaining = state.CooldownRemaining;
-        return RecordTraitEffect(cooldownResult);
-    }
-
-    private TotemWeaponTraitEffectResult ApplyStatusTrait(
-        TotemWeaponTraitDefinition trait,
-        TotemWeaponFireResult fireResult,
-        TotemActorModel source,
-        TotemActorModel target,
-        string statusName,
-        float dps,
-        float duration)
-    {
-        if (statusService == null)
-        {
-            return RecordTraitEffect(BuildTraitSkipped(trait, source, target, "StatusServiceMissing"));
-        }
-
-        string resolvedStatus = string.IsNullOrWhiteSpace(statusName) ? "TraitStatus" : statusName;
-        float resolvedDuration = duration > 0f ? duration : 2f;
-        float resolvedDps = Mathf.Max(0f, dps);
-        float statusChanceBonus = tattooService?.ResolveStatusChanceBonus(source) ?? 0f;
-        float statusChance = TotemTattooService.ComputeStatusApplyChance(TotemTattooService.DefaultStatusApplyChance, statusChanceBonus);
-        float statusRoll = ResolveDeterministicStatusRoll(
-            trait?.TraitId,
-            source?.ActorId ?? 0,
-            target?.ActorId ?? 0,
-            fireResult?.FireSequence ?? 0u,
-            statusChance);
-        if (!TotemTattooService.ShouldApplyStatus(statusChance, statusRoll))
-        {
-            return RecordTraitEffect(new TotemWeaponTraitEffectResult
+            if (actors[i]?.ParticipantId == participantId.Value)
             {
-                applied = false,
-                reason = "StatusChanceMiss",
-                traitId = trait?.TraitId ?? string.Empty,
-                effectType = trait?.EffectType.ToString() ?? string.Empty,
-                statusName = resolvedStatus,
-                statusDps = resolvedDps,
-                statusDuration = resolvedDuration,
-                statusApplied = false,
-                statusChance = statusChance,
-                statusChanceBonus = statusChanceBonus,
-                statusRoll = statusRoll,
-                sourceActorId = source?.ActorId ?? 0,
-                targetActorId = target?.ActorId ?? 0,
-            });
+                return actors[i];
+            }
         }
 
-        statusService.ApplyStatus(target, resolvedStatus, resolvedDps, resolvedDuration, source, $"WeaponTrait:{trait.TraitId}");
-        return RecordTraitEffect(new TotemWeaponTraitEffectResult
-        {
-            applied = true,
-            reason = "Applied",
-            traitId = trait.TraitId,
-            effectType = trait.EffectType.ToString(),
-            statusName = resolvedStatus,
-            statusDps = resolvedDps,
-            statusDuration = resolvedDuration,
-            statusApplied = true,
-            statusChance = statusChance,
-            statusChanceBonus = statusChanceBonus,
-            statusRoll = statusRoll,
-            sourceActorId = source?.ActorId ?? 0,
-            targetActorId = target?.ActorId ?? 0,
-        });
+        return null;
     }
 
-    public static float ResolveDeterministicStatusRoll(
-        string traitId,
-        int sourceCombatantId,
-        int targetCombatantId,
-        uint fireSequence,
-        float statusChance)
+    private float ResolveReactionDamage(
+        TotemActorModel source,
+        TotemCombatantModel target,
+        TotemReactionKind reaction,
+        float bodyHitDamage)
     {
-        if (statusChance >= 1f)
+        if (reaction == TotemReactionKind.Stasis || source == null || target == null || !target.IsAlive)
         {
             return 0f;
         }
 
-        unchecked
+        float totalApplied = ApplyIndirectDamage(
+            source,
+            target,
+            TotemFirstPlayableElementRules.ResolveReactionCenterDamage(reaction, bodyHitDamage),
+            reaction);
+        if (reaction == TotemReactionKind.Overload && totalApplied > 0f)
         {
-            uint hash = 2166136261u;
-            hash = (hash ^ (uint)StableHash(traitId)) * 16777619u;
-            hash = (hash ^ (uint)sourceCombatantId) * 16777619u;
-            hash = (hash ^ (uint)targetCombatantId) * 16777619u;
-            hash = (hash ^ fireSequence) * 16777619u;
-            hash ^= hash >> 16;
-            hash *= 0x7feb352du;
-            hash ^= hash >> 15;
-            hash *= 0x846ca68bu;
-            hash ^= hash >> 16;
-            return (hash & 0x00ffffffu) * (1f / 16777216f);
+            ApplyOverloadKnockback(source, target);
         }
-    }
-
-    private static int StableHash(string value)
-    {
-        if (string.IsNullOrEmpty(value))
+        if (reaction != TotemReactionKind.Overload)
         {
-            return 0;
+            return totalApplied;
         }
 
-        unchecked
+        float neighborDamage = Mathf.Max(0f, bodyHitDamage)
+            * TotemFirstPlayableElementRules.OverloadNeighborDamageMultiplier;
+        float radiusSqr = TotemFirstPlayableElementRules.OverloadRadius
+            * TotemFirstPlayableElementRules.OverloadRadius;
+        if (target is TotemActorModel participantTarget)
         {
-            int hash = 23;
-            for (int i = 0; i < value.Length; i++)
+            IReadOnlyList<TotemActorModel> actors = actorService?.Actors;
+            if (actors == null)
             {
-                hash = hash * 31 + value[i];
+                return totalApplied;
             }
 
-            return hash & 0x7fffffff;
+            for (int i = 0; i < actors.Count; i++)
+            {
+                TotemActorModel candidate = actors[i];
+                if (candidate == null
+                    || candidate == participantTarget
+                    || !candidate.IsAlive
+                    || candidate.TeamId != participantTarget.TeamId
+                    || (candidate.Position - participantTarget.Position).sqrMagnitude > radiusSqr)
+                {
+                    continue;
+                }
+
+                float neighborApplied = ApplyIndirectDamage(source, candidate, neighborDamage, reaction);
+                totalApplied += neighborApplied;
+                if (neighborApplied > 0f)
+                {
+                    ApplyOverloadKnockback(source, candidate);
+                }
+            }
+
+            return totalApplied;
         }
+
+        return totalApplied;
     }
 
-    private static TotemWeaponTraitEffectResult BuildTraitBase(
-        TotemWeaponTraitDefinition trait,
+    private float ApplyIndirectDamage(
         TotemActorModel source,
-        TotemActorModel target,
-        string reason,
-        bool applied)
+        TotemCombatantModel target,
+        float amount,
+        TotemReactionKind reaction,
+        string reasonOverride = null)
     {
-        return new TotemWeaponTraitEffectResult
+        if (source == null || target == null || !target.IsAlive || amount <= 0f)
         {
-            applied = applied,
-            reason = reason ?? string.Empty,
-            traitId = trait?.TraitId ?? string.Empty,
-            effectType = trait?.EffectType.ToString() ?? string.Empty,
-            sourceActorId = source?.ActorId ?? 0,
-            targetActorId = target?.ActorId ?? 0,
-        };
+            return 0f;
+        }
+
+        string reason = string.IsNullOrWhiteSpace(reasonOverride) ? "Reaction:" + reaction : reasonOverride;
+        if (target is TotemActorModel actorTarget)
+        {
+            return actorService != null
+                && actorService.TryApplyDamage(actorTarget, amount, source, reason)
+                && actorService.LastDamage.Target == actorTarget
+                    ? Mathf.Max(0f, actorService.LastDamage.Amount)
+                    : 0f;
+        }
+
+        return 0f;
     }
 
-    private TotemWeaponTraitEffectResult RecordTraitEffect(TotemWeaponTraitEffectResult result)
+    private void ApplyOverloadKnockback(TotemActorModel source, TotemCombatantModel target)
     {
-        lastTraitEffect = result ?? BuildTraitSkipped(null, null, null, "NullResult");
-        if (lastTraitEffect.applied)
+        if (source == null || target == null || !target.IsAlive)
         {
-            traitEffectAppliedCount++;
-            GFTrace.Info("TotemWeapon", "TraitEffect.Applied", null, GFTrace.Data(
-                "traitId", lastTraitEffect.traitId ?? string.Empty,
-                "effectType", lastTraitEffect.effectType ?? string.Empty,
-                "status", lastTraitEffect.statusName ?? string.Empty,
-                "secondaryHits", lastTraitEffect.secondaryHitCount.ToString(),
-                "secondaryDamage", lastTraitEffect.secondaryDamage.ToString("F1"),
-                "displacement", lastTraitEffect.displacement.ToString("F2"),
-                "targetActorId", lastTraitEffect.targetActorId.ToString()));
+            return;
+        }
+
+        Vector3 direction = target.Position - source.Position;
+        direction.y = 0f;
+        if (direction.sqrMagnitude <= 0.0001f)
+        {
+            direction = (target.CombatantId & 1) == 0 ? Vector3.right : Vector3.left;
         }
         else
         {
-            GFTrace.Info("TotemWeapon", "TraitEffect.Skipped", null, GFTrace.Data(
-                "traitId", lastTraitEffect.traitId ?? string.Empty,
-                "reason", lastTraitEffect.reason ?? string.Empty));
+            direction.Normalize();
         }
 
-        return lastTraitEffect;
-    }
-
-    private static TotemWeaponTraitEffectResult BuildTraitSkipped(
-        TotemWeaponTraitDefinition trait,
-        TotemActorModel source,
-        TotemActorModel target,
-        string reason)
-    {
-        return new TotemWeaponTraitEffectResult
+        Vector3 delta = direction * TotemFirstPlayableElementRules.OverloadKnockbackDistance;
+        if (target is TotemActorModel actorTarget)
         {
-            applied = false,
-            reason = string.IsNullOrWhiteSpace(reason) ? "Skipped" : reason,
-            traitId = trait?.TraitId ?? string.Empty,
-            effectType = trait?.EffectType.ToString() ?? string.Empty,
-            statusName = string.Empty,
-            statusDps = 0f,
-            statusDuration = 0f,
-            sourceActorId = source?.ActorId ?? 0,
-            targetActorId = target?.ActorId ?? 0,
-        };
-    }
-
-    private TotemActorModel FindNearestTraitTarget(
-        Vector3 origin,
-        TotemActorModel source,
-        TotemActorModel primaryTarget,
-        int[] excludedActorIds,
-        int excludedCount,
-        float maxRadius)
-    {
-        var actors = actorService?.Actors;
-        if (actors == null)
-        {
-            return null;
+            actorService?.MoveActor(actorTarget, delta);
         }
-
-        float maxSqr = maxRadius <= 0f ? float.MaxValue : maxRadius * maxRadius;
-        float bestSqr = float.MaxValue;
-        TotemActorModel best = null;
-        for (int i = 0; i < actors.Count; i++)
-        {
-            var candidate = actors[i];
-            if (!IsValidTraitTarget(candidate, source, primaryTarget))
-            {
-                continue;
-            }
-
-            if (IsExcluded(candidate.ActorId, excludedActorIds, excludedCount))
-            {
-                continue;
-            }
-
-            float sqr = (candidate.Position - origin).sqrMagnitude;
-            if (sqr > maxSqr || sqr >= bestSqr)
-            {
-                continue;
-            }
-
-            bestSqr = sqr;
-            best = candidate;
-        }
-
-        return best;
-    }
-
-    private bool IsValidTraitTarget(TotemActorModel candidate, TotemActorModel source, TotemActorModel primaryTarget)
-    {
-        if (candidate == null || !candidate.IsAlive || ReferenceEquals(candidate, source) || ReferenceEquals(candidate, primaryTarget))
-        {
-            return false;
-        }
-
-        if (source == null || relationshipService == null)
-        {
-            return true;
-        }
-
-        return relationshipService.EvaluateDamage(
-            source,
-            candidate,
-            new TotemCombatRelationshipContext(matchClock?.WorldTime ?? 0f)).Allowed;
-    }
-
-    private static bool IsExcluded(int actorId, int[] excludedActorIds, int excludedCount)
-    {
-        if (excludedActorIds == null || excludedCount <= 0)
-        {
-            return false;
-        }
-
-        for (int i = 0; i < excludedCount && i < excludedActorIds.Length; i++)
-        {
-            if (excludedActorIds[i] == actorId)
-            {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    private static float ResolveTraitSearchRadius(TotemWeaponFireResult fireResult, TotemActorModel source, TotemActorModel target)
-    {
-        float radius = fireResult?.Range ?? 0f;
-        if (radius <= 0f && source != null && target != null)
-        {
-            radius = Vector3.Distance(source.Position, target.Position) + 6f;
-        }
-
-        return Mathf.Max(3f, radius);
-    }
-
-    private static string DeriveStatusName(TotemWeaponTraitDefinition trait)
-    {
-        string traitId = trait?.TraitId ?? string.Empty;
-        if (traitId.IndexOf("burn", StringComparison.OrdinalIgnoreCase) >= 0)
-        {
-            return "Burn";
-        }
-
-        if (traitId.IndexOf("poison", StringComparison.OrdinalIgnoreCase) >= 0)
-        {
-            return "Poison";
-        }
-
-        string displayName = trait?.DisplayName ?? string.Empty;
-        if (!string.IsNullOrWhiteSpace(displayName))
-        {
-            return displayName.Replace(" ", string.Empty);
-        }
-
-        return "TraitStatus";
-    }
-
-    public bool TryUpgrade(TotemActorModel actor, string weaponId, int baseGoldCost, out int convertedGold)
-    {
-        convertedGold = 0;
-        var state = GetOrCreateState(actor);
-        if (state == null)
-        {
-            return false;
-        }
-
-        if (!string.Equals(state.Weapon?.WeaponId, weaponId, StringComparison.Ordinal))
-        {
-            EquipWeapon(actor, weaponId);
-            state = GetOrCreateState(actor);
-        }
-
-        if (state.Level >= MaxWeaponLevel)
-        {
-            convertedGold = ComputeConvertGold(baseGoldCost);
-            return false;
-        }
-
-        state.Level++;
-        return true;
-    }
-
-    public bool TryUpgradeEquipped(TotemActorModel actor, int baseGoldCost, out int convertedGold)
-    {
-        convertedGold = 0;
-        var state = GetOrCreateState(actor);
-        if (state?.Weapon == null)
-        {
-            return false;
-        }
-
-        return TryUpgrade(actor, state.Weapon.WeaponId, baseGoldCost, out convertedGold);
-    }
-
-    public bool TrySelectWeaponDrop(string source, int roomIndex, int seed, out string weaponId)
-    {
-        weaponId = string.Empty;
-        int totalWeight = 0;
-        for (int i = 0; i < runtimeDropCatalog.Length; i++)
-        {
-            var drop = runtimeDropCatalog[i];
-            if (!IsDropCandidate(drop, source, roomIndex))
-            {
-                continue;
-            }
-
-            totalWeight += Mathf.Max(0, drop.Weight);
-        }
-
-        if (totalWeight <= 0)
-        {
-            return false;
-        }
-
-        int roll = (int)(Math.Abs((long)seed) % totalWeight);
-        int cursor = 0;
-        for (int i = 0; i < runtimeDropCatalog.Length; i++)
-        {
-            var drop = runtimeDropCatalog[i];
-            if (!IsDropCandidate(drop, source, roomIndex))
-            {
-                continue;
-            }
-
-            cursor += Mathf.Max(0, drop.Weight);
-            if (roll < cursor)
-            {
-                weaponId = drop.WeaponId;
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    public bool SpawnWeightedWeaponPickup(string source, int roomIndex, Vector3 position, int seed, out TotemWeaponPickupModel pickup)
-    {
-        pickup = null;
-        if (!TrySelectWeaponDrop(source, roomIndex, seed, out string weaponId))
-        {
-            return false;
-        }
-
-        pickup = SpawnWeaponPickup(weaponId, source, position);
-        return pickup != null;
-    }
-
-    public int SpawnMapResourcePickups(TotemMapSnapshot map, int seed)
-    {
-        var anchors = TotemMapService.FindAnchors(map, TotemMapAnchorKind.Resource);
-        int spawned = 0;
-        for (int i = 0; i < anchors.Length; i++)
-        {
-            var anchor = anchors[i];
-            if (anchor == null)
-            {
-                continue;
-            }
-
-            string weaponId = string.IsNullOrWhiteSpace(anchor.PayloadId)
-                ? ResolveFallbackResourceWeaponId(seed + i)
-                : anchor.PayloadId;
-            var pickup = SpawnWeaponPickup(weaponId, "MapResource", anchor.Position);
-            if (pickup == null)
-            {
-                continue;
-            }
-
-            spawned++;
-            mapResourcePickupCount++;
-            lastMapResourceAnchorId = anchor.AnchorId ?? string.Empty;
-        }
-
-        if (spawned > 0)
-        {
-            GFTrace.Success("TotemWeapon", "Pickup.MapResourcesSpawned", null, GFTrace.Data(
-                "count", spawned.ToString(),
-                "lastAnchor", lastMapResourceAnchorId));
-        }
-
-        return spawned;
-    }
-
-    public TotemWeaponPickupModel SpawnWeaponPickup(string weaponId, string source, Vector3 position)
-    {
-        if (!TryGetRuntimeDefinition(weaponId, out _))
-        {
-            return null;
-        }
-
-        var pickup = new TotemWeaponPickupModel
-        {
-            InstanceId = nextPickupInstanceId++,
-            WeaponId = weaponId,
-            Source = string.IsNullOrWhiteSpace(source) ? "Manual" : source,
-            Position = position,
-        };
-        pickup.GameObject = CreatePickupObject(pickup);
-        activePickups.Add(pickup);
-        spawnedPickupCount++;
-        GFTrace.Success("TotemWeapon", "Pickup.Spawned", null, GFTrace.Data(
-            "instanceId", pickup.InstanceId.ToString(),
-            "weaponId", pickup.WeaponId,
-            "source", pickup.Source,
-            "position", $"{position.x:F1},{position.y:F1},{position.z:F1}"));
-        return pickup;
-    }
-
-    private static string ResolveFallbackResourceWeaponId(int seed)
-    {
-        int index = (int)((uint)seed % 3u);
-        switch (index)
-        {
-            case 1:
-                return "hammer_heavy";
-            case 2:
-                return "bow_charge";
-            default:
-                return "pistol_basic";
-        }
-    }
-
-    public TotemWeaponPickupModel FindNearestPickup(Vector3 position, float radius)
-    {
-        float maxSqr = radius * radius;
-        float bestSqr = float.MaxValue;
-        TotemWeaponPickupModel best = null;
-        for (int i = 0; i < activePickups.Count; i++)
-        {
-            var pickup = activePickups[i];
-            if (pickup == null)
-            {
-                continue;
-            }
-
-            float sqr = (pickup.Position - position).sqrMagnitude;
-            if (sqr > maxSqr || sqr >= bestSqr)
-            {
-                continue;
-            }
-
-            bestSqr = sqr;
-            best = pickup;
-        }
-
-        return best;
-    }
-
-    public bool TryPickupNearestWeapon(TotemActorModel actor, float radius, out TotemWeaponPickupResult result)
-    {
-        result = null;
-        if (actor == null)
-        {
-            result = BuildPickupResult(false, "NoActor", null, false, 0);
-            return false;
-        }
-
-        var pickup = FindNearestPickup(actor.Position, radius);
-        if (pickup == null)
-        {
-            result = BuildPickupResult(false, "NoPickupInRange", null, false, 0);
-            return false;
-        }
-
-        return TryPickupWeapon(actor, pickup, out result);
-    }
-
-    public bool TryPickupWeapon(TotemActorModel actor, TotemWeaponPickupModel pickup, out TotemWeaponPickupResult result)
-    {
-        result = null;
-        if (actor == null || pickup == null || !activePickups.Contains(pickup))
-        {
-            result = BuildPickupResult(false, "InvalidPickup", pickup, false, 0);
-            return false;
-        }
-
-        bool upgraded = TryUpgrade(actor, pickup.WeaponId, PickupDuplicateConvertBaseGold, out int convertedGold);
-        if (!upgraded && convertedGold <= 0)
-        {
-            result = BuildPickupResult(false, "UpgradeRejected", pickup, false, 0);
-            return false;
-        }
-
-        if (convertedGold > 0)
-        {
-            economyService?.AddCoins(actor, convertedGold);
-        }
-
-        RemovePickup(pickup);
-        pickedPickupCount++;
-        lastPickupWeaponId = pickup.WeaponId;
-        lastPickupActorId = actor.ActorId;
-        int level = GetWeaponLevel(actor);
-        result = BuildPickupResult(true, convertedGold > 0 ? "ConvertedGold" : "Picked", pickup, upgraded, convertedGold);
-        result.weaponLevel = level;
-        GFTrace.Success("TotemWeapon", "Pickup.Picked", null, GFTrace.Data(
-            "actor", actor.Name,
-            "weaponId", pickup.WeaponId,
-            "level", level.ToString(),
-            "upgraded", upgraded.ToString(),
-            "convertedGold", convertedGold.ToString()));
-        return true;
     }
 
     public static TotemWeaponMultipliers GetMultipliers(int level)
@@ -1408,178 +693,37 @@ public sealed class TotemWeaponService : TotemRuntimeServiceBase, ITotemRuntimeT
         };
     }
 
-    public static int ComputeConvertGold(int baseGoldCost)
-    {
-        return Mathf.RoundToInt(Mathf.Max(0, baseGoldCost) * 0.5f);
-    }
-
     private static TotemWeaponDefinition[] LoadWeaponCatalog()
     {
-        return NonEmpty(
-            TotemDataService.LoadGameplayCatalogOrDefault().CreateWeaponDefinitions(),
-            Array.Empty<TotemWeaponDefinition>());
+        return CreateFirstPlayableWeaponCatalog();
     }
 
-    private static TotemProjectileDefinition[] LoadProjectileCatalog()
+    private static TotemWeaponDefinition[] CreateFirstPlayableWeaponCatalog()
     {
-        return NonEmpty(
-            TotemDataService.LoadGameplayCatalogOrDefault().CreateProjectileDefinitions(),
-            Array.Empty<TotemProjectileDefinition>());
-    }
-
-    private static TotemWeaponTraitDefinition[] LoadTraitCatalog()
-    {
-        return NonEmpty(
-            TotemDataService.LoadGameplayCatalogOrDefault().CreateWeaponTraitDefinitions(),
-            Array.Empty<TotemWeaponTraitDefinition>());
-    }
-
-    private static T[] NonEmpty<T>(T[] primary, T[] fallback)
-    {
-        return primary == null || primary.Length <= 0 ? fallback : primary;
-    }
-
-    private bool IsDropCandidate(TotemWeaponDropDefinition drop, string source, int roomIndex)
-    {
-        if (drop == null || drop.Weight <= 0 || string.IsNullOrWhiteSpace(drop.WeaponId))
+        return new[]
         {
-            return false;
-        }
-
-        if (!string.Equals(drop.DropSource, source, StringComparison.OrdinalIgnoreCase))
-        {
-            return false;
-        }
-
-        if (roomIndex < drop.MinRoomIndex || roomIndex > drop.MaxRoomIndex)
-        {
-            return false;
-        }
-
-        return TryGetRuntimeDefinition(drop.WeaponId, out _);
-    }
-
-    private int ResolveRoomIndex(Vector3 position)
-    {
-        var rooms = mapService?.CurrentMap?.Rooms;
-        if (rooms == null || rooms.Length <= 0)
-        {
-            return 1;
-        }
-
-        int nearestRoomId = rooms[0].RoomId;
-        float bestSqr = float.MaxValue;
-        var point = new Vector2(position.x, position.z);
-        for (int i = 0; i < rooms.Length; i++)
-        {
-            var room = rooms[i];
-            if (room == null)
+            new TotemWeaponDefinition
             {
-                continue;
-            }
-
-            if (room.Bounds.Contains(point))
-            {
-                return Mathf.Max(1, room.RoomId + 1);
-            }
-
-            Vector3 delta = room.CenterWorld - position;
-            delta.y = 0f;
-            float sqr = delta.sqrMagnitude;
-            if (sqr < bestSqr)
-            {
-                bestSqr = sqr;
-                nearestRoomId = room.RoomId;
-            }
-        }
-
-        return Mathf.Max(1, nearestRoomId + 1);
-    }
-
-    private GameObject CreatePickupObject(TotemWeaponPickupModel pickup)
-    {
-        var go = new GameObject($"TotemWeaponPickup_{pickup.InstanceId}_{pickup.WeaponId}");
-        go.transform.position = pickup.Position;
-        string assetKey = $"weapon.{pickup.WeaponId}";
-        Sprite sprite = null;
-        if (assetService != null)
-        {
-            assetService.TryLoadSprite(assetKey, out sprite);
-        }
-
-        if (sprite != null)
-        {
-            var renderer = go.AddComponent<SpriteRenderer>();
-            renderer.sprite = sprite;
-            var sorter = go.AddComponent<TotemActorDepthSorter>();
-            sorter.BaseOffset = TotemActorDepthSorter.DefaultWorldBaseOffset;
-            sorter.SortingLayerName = TotemActorDepthSorter.WorldSortingLayer;
-            sorter.RefreshRenderers();
-            sorter.ForceRecalculate();
-            go.transform.localScale = Vector3.one * 0.75f;
-            pickup.VisualAssetKey = assetKey;
-            return go;
-        }
-
-        var fallback = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-        fallback.name = go.name;
-        fallback.transform.position = pickup.Position;
-        fallback.transform.localScale = new Vector3(0.6f, 0.15f, 0.6f);
-        pickup.VisualAssetKey = "primitive.weaponPickup";
-        DestroyObject(go);
-        return fallback;
-    }
-
-    private void RemovePickup(TotemWeaponPickupModel pickup)
-    {
-        activePickups.Remove(pickup);
-        DestroyObject(pickup.GameObject);
-        pickup.GameObject = null;
-    }
-
-    private void DestroyAllPickups()
-    {
-        for (int i = activePickups.Count - 1; i >= 0; i--)
-        {
-            var pickup = activePickups[i];
-            if (pickup != null)
-            {
-                DestroyObject(pickup.GameObject);
-                pickup.GameObject = null;
-            }
-        }
-
-        activePickups.Clear();
-    }
-
-    private static TotemWeaponPickupResult BuildPickupResult(bool picked, string reason, TotemWeaponPickupModel pickup, bool upgraded, int convertedGold)
-    {
-        return new TotemWeaponPickupResult
-        {
-            picked = picked,
-            reason = reason,
-            pickupInstanceId = pickup?.InstanceId ?? 0,
-            weaponId = pickup?.WeaponId ?? string.Empty,
-            upgraded = upgraded,
-            convertedGold = convertedGold,
+                WeaponId = DefaultWeaponId,
+                DisplayName = "First Playable Rifle",
+                BaseDamage = 16f,
+                Cooldown = 0.5f,
+                Range = 30f,
+                AimSpreadHalfDegrees = 12f,
+            },
         };
     }
 
-    private static void DestroyObject(UnityEngine.Object obj)
+    private static TotemGunAttackResult BuildSkippedGunAttack(string reason)
     {
-        if (obj == null)
-        {
-            return;
-        }
-
-        if (Application.isPlaying)
-        {
-            UnityEngine.Object.Destroy(obj);
-        }
-        else
-        {
-            UnityEngine.Object.DestroyImmediate(obj);
-        }
+        return new TotemGunAttackResult(
+            fired: false,
+            reason,
+            weapon: null,
+            TotemHitRegion.Body,
+            default,
+            killed: false,
+            fireSequence: 0);
     }
 
     private void OnFlowStateChanged(TotemGameFlowState previousState, TotemGameFlowState nextState)
@@ -1589,10 +733,9 @@ public sealed class TotemWeaponService : TotemRuntimeServiceBase, ITotemRuntimeT
             ResetRunState();
             if (actorService?.Player != null)
             {
-                EquipWeapon(actorService.Player, flowService?.StartupSelection?.WeaponId);
+                EquipWeapon(actorService.Player, DefaultWeaponId);
             }
 
-            SpawnMapResourcePickups(mapService?.CurrentMap, mapService?.CurrentMap?.Seed ?? 1);
             return;
         }
 
@@ -1605,25 +748,8 @@ public sealed class TotemWeaponService : TotemRuntimeServiceBase, ITotemRuntimeT
 
     private void ResetRunState()
     {
-        DestroyAllPickups();
         states.Clear();
-        spawnedPickupCount = 0;
-        pickedPickupCount = 0;
-        lastPickupWeaponId = string.Empty;
-        lastPickupActorId = 0;
-        mapResourcePickupCount = 0;
-        lastMapResourceAnchorId = string.Empty;
-        nextPickupInstanceId = 1;
-        traitEffectAppliedCount = 0;
-        lastTraitEffect = BuildTraitSkipped(null, null, null, "None");
+        elementApplicationSequence = 0;
     }
 
-    private static TotemWeaponFireResult Skipped(string reason)
-    {
-        return new TotemWeaponFireResult
-        {
-            Fired = false,
-            Reason = reason,
-        };
-    }
 }

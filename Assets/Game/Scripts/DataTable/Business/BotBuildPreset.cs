@@ -15,13 +15,13 @@ using UnityGameFramework.Runtime;
 [Obfuz.ObfuzIgnore(Obfuz.ObfuzScope.TypeName | Obfuz.ObfuzScope.MethodName)]
 #endif
 /// <summary>
-/// Business table migrated from LegacyProjectArchive/Assets/Resources/DataTable/BotBuildPreset.json. GF_X Id is numeric; original business keys are preserved as data columns.
+/// 第一版 Bot 行为预设。纹身构筑由 FirstPlayableBotBuildPlanner 独立处理；此表不再包含旧元素、技能、武器或附魔字段。
 /// </summary>
 public class BotBuildPreset : DataRowBase
 {
 	private int m_Id = 0;
 	/// <summary>
-    /// GF_X numeric row id. Original business key is preserved as a data column when its name is not Id.
+    /// GF_X numeric row id.
     /// </summary>
     public override int Id
     {
@@ -29,7 +29,7 @@ public class BotBuildPreset : DataRowBase
     }
 
         /// <summary>
-        /// 主键 1-7
+        /// 稳定行为预设 ID。
         /// </summary>
         public int PresetId
         {
@@ -38,7 +38,7 @@ public class BotBuildPreset : DataRowBase
         }
 
         /// <summary>
-        /// 如 火爆右臂流
+        /// 调试显示名。
         /// </summary>
         public string Name
         {
@@ -47,72 +47,9 @@ public class BotBuildPreset : DataRowBase
         }
 
         /// <summary>
-        /// 7 元素倾向 vector JSON：[Fire,Lightning,Nature,Frost,Mutation,Holy,Pure] sum=1.0
-        /// </summary>
-        public string Tendency
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 推荐刻的部位 ID 序列 JSON，按优先级排
-        /// </summary>
-        public string PreferredParts
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 推荐 build 序列 JSON：[{partId,colorId,patternId},...] 长度1..6
-        /// </summary>
-        public string RecommendedSeq
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// WeaponId 默认起手武器
-        /// </summary>
-        public int EarlyGameWeapon
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// Rush / Camp / Pivot / Hybrid
+        /// Rush / Camp / Pivot / Hybrid。
         /// </summary>
         public string BehaviorMacro
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 起手 Q 槽推荐技能 SkillId
-        /// </summary>
-        public int PreferredSkillQ
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 起手 E 槽推荐技能 SkillId
-        /// </summary>
-        public int PreferredSkillE
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 希望最终叠到的词缀 ID 列表 JSON
-        /// </summary>
-        public string TargetEnchantAffixes
         {
             get;
             private set;
@@ -132,14 +69,7 @@ public class BotBuildPreset : DataRowBase
             index++;
             PresetId = int.Parse(columnStrings[index++]);
             Name = columnStrings[index++];
-            Tendency = columnStrings[index++];
-            PreferredParts = columnStrings[index++];
-            RecommendedSeq = columnStrings[index++];
-            EarlyGameWeapon = int.Parse(columnStrings[index++]);
             BehaviorMacro = columnStrings[index++];
-            PreferredSkillQ = int.Parse(columnStrings[index++]);
-            PreferredSkillE = int.Parse(columnStrings[index++]);
-            TargetEnchantAffixes = columnStrings[index++];
 
             return true;
         }
@@ -153,14 +83,7 @@ public class BotBuildPreset : DataRowBase
                     m_Id = binaryReader.Read7BitEncodedInt32();
                     PresetId = binaryReader.Read7BitEncodedInt32();
                     Name = binaryReader.ReadString();
-                    Tendency = binaryReader.ReadString();
-                    PreferredParts = binaryReader.ReadString();
-                    RecommendedSeq = binaryReader.ReadString();
-                    EarlyGameWeapon = binaryReader.Read7BitEncodedInt32();
                     BehaviorMacro = binaryReader.ReadString();
-                    PreferredSkillQ = binaryReader.Read7BitEncodedInt32();
-                    PreferredSkillE = binaryReader.Read7BitEncodedInt32();
-                    TargetEnchantAffixes = binaryReader.ReadString();
                 }
             }
 

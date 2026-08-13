@@ -16,8 +16,6 @@ namespace UGF.EditorTools
             new RuntimePrefabRule("actor.smartAi", $"{TargetRoot}/SmartAI.prefab"),
             new RuntimePrefabRule("actor.lightAi", $"{TargetRoot}/LightAI.prefab"),
             new RuntimePrefabRule("actor.boss", $"{TargetRoot}/Boss.prefab"),
-            new RuntimePrefabRule("npc.tattooist", $"{TargetRoot}/NpcTattooist.prefab"),
-            new RuntimePrefabRule("npc.merchant", $"{TargetRoot}/NpcMerchant.prefab"),
         };
 
         [MenuItem("Game Framework/GameTools/Totem/Prepare Runtime Entity Prefabs", false, 1032)]

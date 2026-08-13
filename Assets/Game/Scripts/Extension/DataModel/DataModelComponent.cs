@@ -32,11 +32,7 @@ namespace GameFramework
         }
         private void OnDestroy()
         {
-            if (m_IsSubscribedToQuitEvent)
-            {
-                GF.Event.Unsubscribe(GFEventArgs.EventId, OnGFEventCallback);
-                m_IsSubscribedToQuitEvent = false;
-            }
+            UnsubscribeFromQuitEvent();
 
             ReleaseAll();
             m_DataModels.Clear();
@@ -46,13 +42,26 @@ namespace GameFramework
             var args = e as GFEventArgs;
             if (args.EventType == GFEventType.ApplicationQuit)
             {
-                if (m_IsSubscribedToQuitEvent)
-                {
-                    GF.Event.Unsubscribe(GFEventArgs.EventId, OnGFEventCallback);
-                    m_IsSubscribedToQuitEvent = false;
-                }
+                UnsubscribeFromQuitEvent();
 
                 ReleaseAll();
+            }
+        }
+
+        private void UnsubscribeFromQuitEvent()
+        {
+            if (!m_IsSubscribedToQuitEvent)
+            {
+                return;
+            }
+
+            // Clear our ownership flag before touching the event system so a
+            // re-entrant shutdown cannot attempt the same unsubscribe twice.
+            m_IsSubscribedToQuitEvent = false;
+            EventComponent eventComponent = GF.Event;
+            if (eventComponent != null && eventComponent.Check(GFEventArgs.EventId, OnGFEventCallback))
+            {
+                eventComponent.Unsubscribe(GFEventArgs.EventId, OnGFEventCallback);
             }
         }
         /// <summary>

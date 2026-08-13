@@ -1,16 +1,30 @@
 ﻿public sealed class TotemCombatRelationshipService : TotemRuntimeServiceBase
 {
-    public const float ParticipantCombatGraceSeconds = 60f;
+    // Historical API retained for migration diagnostics. First playable has no PvP grace window.
+    public const float ParticipantCombatGraceSeconds = 0f;
 
     private readonly TotemCombatRelationshipSnapshot snapshot = new TotemCombatRelationshipSnapshot();
+    private TotemMatchFlowService matchFlowService;
 
     public override string ServiceName => "CombatRelationship";
+
+    protected override void OnInitialize(TotemGameRuntime runtime)
+    {
+        matchFlowService = runtime.GetService<TotemMatchFlowService>();
+    }
 
     public TotemCombatRelationshipDecision EvaluateDamage(
         TotemCombatantModel source,
         TotemCombatantModel target,
         TotemCombatRelationshipContext context)
     {
+        if (matchFlowService?.IsGameplaySuspended == true && !context.GameplaySuspended)
+        {
+            context = new TotemCombatRelationshipContext(
+                context.WorldTime,
+                gameplaySuspended: true);
+        }
+
         var decision = Evaluate(source, target, context);
         snapshot.evaluationCount++;
         if (decision.Allowed)
@@ -45,6 +59,7 @@
 
     protected override void OnShutdown()
     {
+        matchFlowService = null;
         snapshot.evaluationCount = 0;
         snapshot.allowedCount = 0;
         snapshot.blockedCount = 0;
@@ -74,6 +89,11 @@
             return Block(TotemCombatRelationshipReason.BlockedSelf);
         }
 
+        if (context.GameplaySuspended)
+        {
+            return Block(TotemCombatRelationshipReason.BlockedGameplaySuspended);
+        }
+
         if (target is TotemParticipantModel targetParticipant)
         {
             var targetDecision = EvaluateParticipantTarget(targetParticipant);
@@ -85,14 +105,7 @@
 
         if (source == null)
         {
-            if (target.Domain == TotemCombatantDomain.Participant)
-            {
-                return Allow(TotemCombatRelationshipReason.AllowedWorldToParticipant);
-            }
-
-            return context.WorldDamageAffectsEnemies
-                ? Allow(TotemCombatRelationshipReason.AllowedWorldToEnemy)
-                : Block(TotemCombatRelationshipReason.BlockedWorldEnemyDamage);
+            return Allow(TotemCombatRelationshipReason.AllowedWorldToParticipant);
         }
 
         if (!source.IsAlive)
@@ -109,33 +122,18 @@
             }
         }
 
-        if (source.Domain == TotemCombatantDomain.Participant
-            && target.Domain == TotemCombatantDomain.Participant
-            && context.WorldTime < ParticipantCombatGraceSeconds)
-        {
-            return Block(TotemCombatRelationshipReason.BlockedParticipantCombatGracePeriod);
-        }
-
-        if (source.Domain == TotemCombatantDomain.Participant && target.Domain == TotemCombatantDomain.Enemy)
-        {
-            return Allow(TotemCombatRelationshipReason.AllowedParticipantToEnemy);
-        }
-
-        if (source.Domain == TotemCombatantDomain.Enemy && target.Domain == TotemCombatantDomain.Participant)
-        {
-            return Allow(TotemCombatRelationshipReason.AllowedEnemyToParticipant);
-        }
-
         if (source.Domain == TotemCombatantDomain.Participant && target.Domain == TotemCombatantDomain.Participant)
         {
-            return Allow(TotemCombatRelationshipReason.AllowedParticipantToParticipant);
-        }
+            var participantSource = (TotemParticipantModel)source;
+            var participantTarget = (TotemParticipantModel)target;
+            if (participantSource.TeamId.IsValid
+                && participantTarget.TeamId.IsValid
+                && participantSource.TeamId == participantTarget.TeamId)
+            {
+                return Block(TotemCombatRelationshipReason.BlockedParticipantFriendlyFire);
+            }
 
-        if (source.Domain == TotemCombatantDomain.Enemy && target.Domain == TotemCombatantDomain.Enemy)
-        {
-            return context.AllowEnemyFriendlyFire
-                ? Allow(TotemCombatRelationshipReason.AllowedWorldToEnemy)
-                : Block(TotemCombatRelationshipReason.BlockedEnemyFriendlyFire);
+            return Allow(TotemCombatRelationshipReason.AllowedParticipantToParticipant);
         }
 
         return Block(TotemCombatRelationshipReason.Unknown);
@@ -162,6 +160,7 @@
         switch (participant.Lifecycle)
         {
             case TotemParticipantLifecycle.Active:
+            case TotemParticipantLifecycle.Downed:
                 return Allow(TotemCombatRelationshipReason.Unknown);
             case TotemParticipantLifecycle.Loading:
             case TotemParticipantLifecycle.Reserved:

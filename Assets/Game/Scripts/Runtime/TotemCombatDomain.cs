@@ -4,7 +4,6 @@ using UnityEngine;
 public enum TotemCombatantDomain
 {
     Participant = 0,
-    Enemy = 1,
 }
 
 public enum TotemParticipantControllerKind
@@ -22,16 +21,14 @@ public enum TotemParticipantLifecycle
     Active = 3,
     Eliminated = 4,
     Disconnected = 5,
+    Downed = 6,
 }
 
 public enum TotemCombatRelationshipReason
 {
     Unknown = 0,
-    AllowedParticipantToEnemy = 1,
-    AllowedEnemyToParticipant = 2,
     AllowedParticipantToParticipant = 3,
     AllowedWorldToParticipant = 4,
-    AllowedWorldToEnemy = 5,
     BlockedNullTarget = 100,
     BlockedSelf = 101,
     BlockedSourceDead = 102,
@@ -42,25 +39,22 @@ public enum TotemCombatRelationshipReason
     BlockedTargetLoading = 107,
     BlockedTargetProtected = 108,
     BlockedTargetInactive = 109,
-    BlockedEnemyFriendlyFire = 110,
-    BlockedWorldEnemyDamage = 111,
     BlockedParticipantCombatGracePeriod = 112,
+    BlockedParticipantFriendlyFire = 113,
+    BlockedGameplaySuspended = 114,
 }
 
 public readonly struct TotemCombatRelationshipContext
 {
     public readonly float WorldTime;
-    public readonly bool AllowEnemyFriendlyFire;
-    public readonly bool WorldDamageAffectsEnemies;
+    public readonly bool GameplaySuspended;
 
     public TotemCombatRelationshipContext(
         float worldTime,
-        bool allowEnemyFriendlyFire = false,
-        bool worldDamageAffectsEnemies = false)
+        bool gameplaySuspended = false)
     {
         WorldTime = Mathf.Max(0f, worldTime);
-        AllowEnemyFriendlyFire = allowEnemyFriendlyFire;
-        WorldDamageAffectsEnemies = worldDamageAffectsEnemies;
+        GameplaySuspended = gameplaySuspended;
     }
 }
 
@@ -140,6 +134,11 @@ public abstract class TotemCombatantModel
         MaxHealth = Mathf.Max(1f, maxHealth);
         Health = MaxHealth;
     }
+
+    internal void SetHealthForLifecycle(float health)
+    {
+        Health = Mathf.Clamp(health, 0f, MaxHealth);
+    }
 }
 
 public class TotemParticipantModel : TotemCombatantModel
@@ -150,16 +149,20 @@ public class TotemParticipantModel : TotemCombatantModel
         TotemParticipantControllerKind controllerKind,
         float maxHealth,
         Vector3 position,
-        TotemParticipantLifecycle lifecycle = TotemParticipantLifecycle.Reserved)
+        TotemParticipantLifecycle lifecycle = TotemParticipantLifecycle.Reserved,
+        int teamId = -1)
         : base(participantId, name, TotemCombatantDomain.Participant, maxHealth, position)
     {
         ControllerKind = controllerKind;
         Lifecycle = lifecycle;
+        TeamId = new TotemTeamId(teamId);
     }
 
     public int ParticipantId => CombatantId;
 
     public TotemParticipantControllerKind ControllerKind { get; }
+
+    public TotemTeamId TeamId { get; }
 
     public TotemParticipantLifecycle Lifecycle { get; private set; }
 
@@ -192,47 +195,6 @@ public class TotemParticipantModel : TotemCombatantModel
     }
 }
 
-public sealed class TotemEnemyModel : TotemCombatantModel
-{
-    public TotemEnemyModel(
-        int combatantId,
-        string enemyId,
-        string displayName,
-        string themeId,
-        TotemEnemyTier tier,
-        float maxHealth,
-        Vector3 position)
-        : base(combatantId, displayName, TotemCombatantDomain.Enemy, maxHealth, position)
-    {
-        EnemyId = enemyId ?? string.Empty;
-        DisplayName = string.IsNullOrWhiteSpace(displayName) ? EnemyId : displayName;
-        ThemeId = themeId ?? string.Empty;
-        Tier = tier;
-    }
-
-    public string EnemyId { get; }
-
-    public string DisplayName { get; }
-
-    public string ThemeId { get; }
-
-    public TotemEnemyTier Tier { get; }
-
-    public string BehaviorProfileId { get; set; } = string.Empty;
-
-    public string AbilityIds { get; set; } = string.Empty;
-
-    public string LootTableId { get; set; } = string.Empty;
-
-    public string GuaranteedLootIds { get; set; } = string.Empty;
-
-    public int EncounterInstanceId { get; set; }
-
-    public Vector3 SpawnPosition { get; set; }
-
-    public float LeashRange { get; set; }
-}
-
 public readonly struct TotemParticipantLifecycleChangedEvent
 {
     public readonly TotemParticipantModel Participant;
@@ -256,36 +218,6 @@ public readonly struct TotemParticipantLifecycleChangedEvent
     }
 }
 
-public readonly struct TotemEnemySpawnedEvent
-{
-    public readonly TotemEnemyModel Enemy;
-    public readonly string AnchorId;
-    public readonly float WorldTime;
-
-    public TotemEnemySpawnedEvent(TotemEnemyModel enemy, string anchorId, float worldTime)
-    {
-        Enemy = enemy;
-        AnchorId = anchorId ?? string.Empty;
-        WorldTime = Mathf.Max(0f, worldTime);
-    }
-}
-
-public readonly struct TotemEnemyDiedEvent
-{
-    public readonly TotemEnemyModel Enemy;
-    public readonly TotemParticipantModel Killer;
-    public readonly string Reason;
-    public readonly float WorldTime;
-
-    public TotemEnemyDiedEvent(TotemEnemyModel enemy, TotemParticipantModel killer, string reason, float worldTime)
-    {
-        Enemy = enemy;
-        Killer = killer;
-        Reason = reason ?? string.Empty;
-        WorldTime = Mathf.Max(0f, worldTime);
-    }
-}
-
 [Serializable]
 public sealed class TotemParticipantDomainSnapshot
 {
@@ -299,21 +231,6 @@ public sealed class TotemParticipantDomainSnapshot
     public int activeCount;
     public int disconnectedCount;
     public int winnerParticipantId;
-}
-
-[Serializable]
-public sealed class TotemEnemyDomainSnapshot
-{
-    public int enemyCount;
-    public int aliveEnemyCount;
-    public int lightCount;
-    public int eliteCount;
-    public int bossCount;
-    public int hotCount;
-    public int warmCount;
-    public int coldCount;
-    public string lastSpawnedEnemyId;
-    public string lastDiedEnemyId;
 }
 
 [Serializable]

@@ -32,10 +32,10 @@ namespace UGF.EditorTools
             ForbidFile(context, "Assets/Game/Scripts/Procedures/GameProcedure.cs", "Demo GameProcedure must not be compiled in active workspace.");
             ForbidFile(context, "Assets/Game/Scripts/Procedures/GameOverProcedure.cs", "Demo GameOverProcedure must not be compiled in active workspace.");
             ForbidFile(context, "Assets/Readme.asset", "Unity template readme must stay archived with TutorialInfo.");
-            ForbidDirectory(context, "Assets/Scenes", "Legacy scenes must stay under LegacyProjectArchive/Assets/Scenes. Active startup scene is Assets/Game/Scene/Launch.unity.");
-            ForbidDirectory(context, "Assets/Editor", "Legacy editor scripts must stay under LegacyProjectArchive/Assets/Editor or be migrated into Assets/Game/ScriptsBuiltin/Editor.");
-            ForbidDirectory(context, "Assets/Tools", "Legacy ToolHub scripts must stay under LegacyProjectArchive/Assets/Tools. GF_X project tools live outside active runtime assets or under ScriptsBuiltin/Editor.");
-            ForbidDirectory(context, "Assets/TutorialInfo", "Unity template tutorial assets must stay under LegacyProjectArchive/Assets/TutorialInfo.");
+            ForbidDirectory(context, "Assets/Scenes", "Deprecated scenes must not return to the active tree. Active startup scene is Assets/Game/Scene/Launch.unity.");
+            ForbidDirectory(context, "Assets/Editor", "Deprecated editor scripts must be migrated into Assets/Game/ScriptsBuiltin/Editor when still needed.");
+            ForbidDirectory(context, "Assets/Tools", "Deprecated ToolHub scripts must not return to the active tree. GF_X project tools live outside active runtime assets or under ScriptsBuiltin/Editor.");
+            ForbidDirectory(context, "Assets/TutorialInfo", "Unity template tutorial assets must not return to the active tree.");
             ForbidDirectory(context, "Assets/Screenshots", "Playtest screenshots must stay under tools/playtest/screenshots, not active Unity assets.");
             ForbidDirectory(context, "Assets/TestResults", "Playtest results must stay under tools/playtest/test-results, not active Unity assets.");
             ValidateResourcesWhitelist(context);
@@ -107,7 +107,7 @@ namespace UGF.EditorTools
 
         private static void ForbidUISpriteSidecarFiles(GFDiagnosticScenarioContext context)
         {
-            const string uiSpriteRoot = "Assets/Game/Sprite/UI";
+            const string uiSpriteRoot = "Assets/Game/Sprites/UI";
             string[] forbiddenExtensions =
             {
                 ".json",

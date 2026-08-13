@@ -43,6 +43,6 @@ public sealed class TotemPauseMenuForm : TotemOverlayFormBase
             return "Combat paused";
         }
 
-        return $"HP {snapshot.playerHealth:F0}  Alive {snapshot.aliveParticipantCount}  Monsters {snapshot.aliveEnemyCount}  Kills {snapshot.killCount}";
+        return $"HP {snapshot.playerHealth:F0}  Alive {snapshot.aliveParticipantCount}  Eliminations {snapshot.killCount}";
     }
 }

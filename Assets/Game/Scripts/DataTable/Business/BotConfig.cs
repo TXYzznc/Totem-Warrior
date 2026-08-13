@@ -15,13 +15,13 @@ using UnityGameFramework.Runtime;
 [Obfuz.ObfuzIgnore(Obfuz.ObfuzScope.TypeName | Obfuz.ObfuzScope.MethodName)]
 #endif
 /// <summary>
-/// Business table migrated from LegacyProjectArchive/Assets/Resources/DataTable/BotConfig.json. GF_X Id is numeric; original business keys are preserved as data columns.
+/// 六人纯 PVP 第一版 Bot 配置。纹身构筑由 FirstPlayableBotBuildPlanner 处理，本表只描述战斗与目标选择行为。
 /// </summary>
 public class BotConfig : DataRowBase
 {
 	private int m_Id = 0;
 	/// <summary>
-    /// GF_X numeric row id. Original business key is preserved as a data column when its name is not Id.
+    /// GF_X numeric row id.
     /// </summary>
     public override int Id
     {
@@ -29,7 +29,7 @@ public class BotConfig : DataRowBase
     }
 
         /// <summary>
-        /// Primary profile id
+        /// 稳定 Bot 配置 ID。
         /// </summary>
         public int BotId
         {
@@ -38,7 +38,7 @@ public class BotConfig : DataRowBase
         }
 
         /// <summary>
-        /// Smart or Light
+        /// Smart / Light。
         /// </summary>
         public string Type
         {
@@ -47,7 +47,7 @@ public class BotConfig : DataRowBase
         }
 
         /// <summary>
-        /// Runtime/debug display name
+        /// 调试显示名。
         /// </summary>
         public string DisplayName
         {
@@ -56,7 +56,7 @@ public class BotConfig : DataRowBase
         }
 
         /// <summary>
-        /// Build planner rethink interval in seconds
+        /// 决策重算间隔（秒）。
         /// </summary>
         public float RethinkInterval
         {
@@ -65,7 +65,7 @@ public class BotConfig : DataRowBase
         }
 
         /// <summary>
-        /// Minimum normal attack cooldown
+        /// 最小攻击冷却。
         /// </summary>
         public float AttackCooldown
         {
@@ -74,7 +74,7 @@ public class BotConfig : DataRowBase
         }
 
         /// <summary>
-        /// Target search radius
+        /// 目标搜索半径。
         /// </summary>
         public float VisionRadius
         {
@@ -83,7 +83,7 @@ public class BotConfig : DataRowBase
         }
 
         /// <summary>
-        /// Preferred combat/chase radius
+        /// 偏好交战半径。
         /// </summary>
         public float AggroRadius
         {
@@ -92,7 +92,7 @@ public class BotConfig : DataRowBase
         }
 
         /// <summary>
-        /// Threat reaction latency in milliseconds
+        /// 闪避反应延迟（毫秒）。
         /// </summary>
         public int DodgeReactionMs
         {
@@ -101,7 +101,7 @@ public class BotConfig : DataRowBase
         }
 
         /// <summary>
-        /// Decision confidence 0..1
+        /// 决策置信度 0..1。
         /// </summary>
         public float Confidence
         {
@@ -110,7 +110,7 @@ public class BotConfig : DataRowBase
         }
 
         /// <summary>
-        /// BotBuildPreset.PresetId
+        /// 行为宏预设 ID。
         /// </summary>
         public int PreferredPreset
         {
@@ -119,7 +119,7 @@ public class BotConfig : DataRowBase
         }
 
         /// <summary>
-        /// Death chest/resource greed 0..2
+        /// 资源拾取偏好。
         /// </summary>
         public float LootGreedFactor
         {
@@ -128,25 +128,7 @@ public class BotConfig : DataRowBase
         }
 
         /// <summary>
-        /// Smart self-tattoo boldness 0..1
-        /// </summary>
-        public float SelfTattooBoldness
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// Enchant/shop upgrade preference 0..1
-        /// </summary>
-        public float EnchantGreed
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// Smart AI personality
+        /// Aggressive / Conservative / ResourceAcquisition / PlayerPriority / Hybrid。
         /// </summary>
         public string Personality
         {
@@ -155,7 +137,7 @@ public class BotConfig : DataRowBase
         }
 
         /// <summary>
-        /// Score weight for the real player
+        /// 真人目标权重。
         /// </summary>
         public float TargetPlayerWeight
         {
@@ -164,7 +146,7 @@ public class BotConfig : DataRowBase
         }
 
         /// <summary>
-        /// Score weight for Smart/Light AI targets
+        /// 其他 Bot 目标权重。
         /// </summary>
         public float TargetHumanoidAiWeight
         {
@@ -173,16 +155,7 @@ public class BotConfig : DataRowBase
         }
 
         /// <summary>
-        /// Score weight for active Boss target
-        /// </summary>
-        public float TargetBossWeight
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// Score weight for resource seeking
+        /// 地图资源目标权重。
         /// </summary>
         public float TargetResourceWeight
         {
@@ -191,25 +164,7 @@ public class BotConfig : DataRowBase
         }
 
         /// <summary>
-        /// Bonus weight against self-tattoo reading targets
-        /// </summary>
-        public float ReadingTargetWeight
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// Shop and upgrade preference
-        /// </summary>
-        public float ShopPreference
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// Risk tolerance 0..1
+        /// 风险容忍度 0..1。
         /// </summary>
         public float RiskTolerance
         {
@@ -240,15 +195,10 @@ public class BotConfig : DataRowBase
             Confidence = float.Parse(columnStrings[index++]);
             PreferredPreset = int.Parse(columnStrings[index++]);
             LootGreedFactor = float.Parse(columnStrings[index++]);
-            SelfTattooBoldness = float.Parse(columnStrings[index++]);
-            EnchantGreed = float.Parse(columnStrings[index++]);
             Personality = columnStrings[index++];
             TargetPlayerWeight = float.Parse(columnStrings[index++]);
             TargetHumanoidAiWeight = float.Parse(columnStrings[index++]);
-            TargetBossWeight = float.Parse(columnStrings[index++]);
             TargetResourceWeight = float.Parse(columnStrings[index++]);
-            ReadingTargetWeight = float.Parse(columnStrings[index++]);
-            ShopPreference = float.Parse(columnStrings[index++]);
             RiskTolerance = float.Parse(columnStrings[index++]);
 
             return true;
@@ -272,15 +222,10 @@ public class BotConfig : DataRowBase
                     Confidence = binaryReader.ReadSingle();
                     PreferredPreset = binaryReader.Read7BitEncodedInt32();
                     LootGreedFactor = binaryReader.ReadSingle();
-                    SelfTattooBoldness = binaryReader.ReadSingle();
-                    EnchantGreed = binaryReader.ReadSingle();
                     Personality = binaryReader.ReadString();
                     TargetPlayerWeight = binaryReader.ReadSingle();
                     TargetHumanoidAiWeight = binaryReader.ReadSingle();
-                    TargetBossWeight = binaryReader.ReadSingle();
                     TargetResourceWeight = binaryReader.ReadSingle();
-                    ReadingTargetWeight = binaryReader.ReadSingle();
-                    ShopPreference = binaryReader.ReadSingle();
                     RiskTolerance = binaryReader.ReadSingle();
                 }
             }

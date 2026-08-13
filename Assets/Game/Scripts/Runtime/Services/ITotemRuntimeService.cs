@@ -29,6 +29,14 @@ public interface ITotemRuntimeLateTickService
     void LateTick(float deltaTime);
 }
 
+/// <summary>
+/// 标记只允许在 Match gameplay 未暂停时推进的模拟服务。
+/// Input、UI、Audio、VFX 表现和 Match 时钟不得实现此接口。
+/// </summary>
+public interface ITotemGameplaySimulationService
+{
+}
+
 [Serializable]
 public sealed class TotemRuntimeServiceStatus
 {

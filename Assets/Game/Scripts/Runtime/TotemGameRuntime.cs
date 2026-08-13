@@ -80,10 +80,16 @@ public sealed class TotemGameRuntime : MonoBehaviour
         }
 
         float deltaTime = Time.deltaTime;
+        var matchClock = GetService<TotemMatchClockService>();
         for (int i = 0; i < services.Count; i++)
         {
             if (services[i] is ITotemRuntimeTickService tickService)
             {
+                if (matchClock?.IsGameplaySuspended == true && services[i] is ITotemGameplaySimulationService)
+                {
+                    continue;
+                }
+
                 tickService.Tick(deltaTime);
             }
         }
@@ -231,6 +237,7 @@ public sealed class TotemGameRuntime : MonoBehaviour
         }
 
         RegisterService(new TotemGameFlowService());
+        RegisterService(new TotemMatchFlowService());
         RegisterService(new TotemMatchClockService());
         RegisterService(new TotemInputService());
         RegisterService(new TotemDataService());
@@ -243,22 +250,20 @@ public sealed class TotemGameRuntime : MonoBehaviour
         RegisterService(new TotemCombatRelationshipService());
         RegisterService(new TotemActorService());
         RegisterService(new TotemParticipantReadinessService());
-        RegisterService(new TotemEconomyService());
+        RegisterService(new TotemExtractionService());
+        RegisterService(new TotemFirstPlayableLifecycleService());
         RegisterService(new TotemStatusService());
-        RegisterService(new TotemTattooService());
+        RegisterService(new TotemFirstPlayableTattooBuildService());
+        RegisterService(new TotemFirstPlayableElementService());
+        RegisterService(new TotemEffectResolutionService());
         RegisterService(new TotemWeaponService());
-        RegisterService(new TotemChestService());
-        RegisterService(new TotemSkillService());
         RegisterService(new TotemZoneService());
         RegisterService(new TotemAIService());
-        RegisterService(new TotemNpcService());
-        RegisterService(new TotemChoiceService());
         RegisterService(new TotemInteractionService());
         RegisterService(new TotemCameraService());
         RegisterService(new TotemVfxService());
-        RegisterService(new TotemEnemyWorldService());
-        RegisterService(new TotemEnemyService());
-        RegisterService(new TotemEnemyLootService());
+        RegisterService(new TotemFirstPlayableSocialService());
+        RegisterService(new TotemMapResourceService());
         RegisterService(new TotemCombatService());
         RegisterService(new TotemUIService());
     }

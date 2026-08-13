@@ -72,10 +72,13 @@ public sealed class TotemInputService : TotemRuntimeServiceBase, ITotemRuntimeTi
         bool attackHeld = inputProvider.GetMouseButton(0);
         UpdateAttackHold(attackHeld);
 
+        bool spacePressed = inputProvider.GetKeyDown(KeyCode.Space);
+        bool extractionModifierHeld = inputProvider.GetKey(KeyCode.LeftShift)
+            || inputProvider.GetKey(KeyCode.RightShift);
+        bool extractionUnlockPressed = spacePressed && extractionModifierHeld;
+
         var move = ReadMove(inputProvider);
         bool hasAimWorldPoint = TryProjectMouseToGround(inputProvider.MousePosition, out var aimWorldPoint);
-        bool skillSlotEPressed = inputProvider.GetKeyDown(KeyCode.E);
-        bool skillSlotQPressed = inputProvider.GetKeyDown(KeyCode.Q);
         return new TotemInputSnapshot
         {
             move = move,
@@ -84,13 +87,11 @@ public sealed class TotemInputService : TotemRuntimeServiceBase, ITotemRuntimeTi
             attackPressed = inputProvider.GetMouseButtonDown(0),
             attackHeld = attackHeld,
             attackHoldDuration = GetAttackHoldDuration(),
-            skillPressed = skillSlotEPressed,
-            skillSlotEPressed = skillSlotEPressed,
-            skillSlotQPressed = skillSlotQPressed,
-            dodgePressed = inputProvider.GetKeyDown(KeyCode.Space),
+            dodgePressed = spacePressed && !extractionModifierHeld,
+            extractionUnlockPressed = extractionUnlockPressed,
             interactPressed = inputProvider.GetKeyDown(KeyCode.F),
+            interactHeld = inputProvider.GetKey(KeyCode.F),
             escapePressed = inputProvider.GetKeyDown(KeyCode.Escape),
-            selfTattooTogglePressed = inputProvider.GetKeyDown(KeyCode.Tab),
         };
     }
 

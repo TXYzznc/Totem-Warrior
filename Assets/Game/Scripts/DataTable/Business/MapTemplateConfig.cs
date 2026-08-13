@@ -15,13 +15,13 @@ using UnityGameFramework.Runtime;
 [Obfuz.ObfuzIgnore(Obfuz.ObfuzScope.TypeName | Obfuz.ObfuzScope.MethodName)]
 #endif
 /// <summary>
-/// Business table migrated from LegacyProjectArchive/Assets/Resources/DataTable/MapTemplateConfig.json. GF_X Id is numeric; original business keys are preserved as data columns.
+/// 六人纯 PVP 第一版只使用已完成的绿洲新城场景。
 /// </summary>
 public class MapTemplateConfig : DataRowBase
 {
 	private int m_Id = 0;
 	/// <summary>
-    /// GF_X numeric row id. Original business key is preserved as a data column when its name is not Id.
+    /// GF_X numeric row id.
     /// </summary>
     public override int Id
     {
@@ -29,7 +29,7 @@ public class MapTemplateConfig : DataRowBase
     }
 
         /// <summary>
-        /// 主题枚举名（AI_RUINS / ALIEN_HIVE / VIRUS_SWAMP）
+        /// 场景主题名。
         /// </summary>
         public string ThemeName
         {
@@ -38,7 +38,7 @@ public class MapTemplateConfig : DataRowBase
         }
 
         /// <summary>
-        /// 固定手工地图边界尺寸（单位 m，固定 400）
+        /// 地图边界尺寸（米）。
         /// </summary>
         public float MapSize
         {
@@ -47,7 +47,7 @@ public class MapTemplateConfig : DataRowBase
         }
 
         /// <summary>
-        /// BSP 最小房间尺寸（单位 m）
+        /// 运行时布局最小房间尺寸。
         /// </summary>
         public float MinRoomSize
         {
@@ -56,7 +56,7 @@ public class MapTemplateConfig : DataRowBase
         }
 
         /// <summary>
-        /// BSP 最大递归深度（v2.1 = 4）
+        /// 运行时布局最大递归深度。
         /// </summary>
         public int BspMaxDepth
         {
@@ -65,7 +65,7 @@ public class MapTemplateConfig : DataRowBase
         }
 
         /// <summary>
-        /// 地块池 ID，用于 tile 替换。MVP 暂未消费
+        /// 地块池 ID。
         /// </summary>
         public int TerrainPoolId
         {
@@ -74,7 +74,7 @@ public class MapTemplateConfig : DataRowBase
         }
 
         /// <summary>
-        /// 房间 Prefab 路径前缀（相对 Resources/Prefab/Map/）。MVP 留空
+        /// 场景或预制体路径。
         /// </summary>
         public string PrefabPath
         {
@@ -83,7 +83,7 @@ public class MapTemplateConfig : DataRowBase
         }
 
         /// <summary>
-        /// HUD 强调色（hex，如 #66CCFF）。透传字段
+        /// HUD 强调色。
         /// </summary>
         public string HudAccentColor
         {
@@ -92,7 +92,7 @@ public class MapTemplateConfig : DataRowBase
         }
 
         /// <summary>
-        /// 主色调（hex）。透传字段
+        /// 环境主色。
         /// </summary>
         public string DominantColor
         {

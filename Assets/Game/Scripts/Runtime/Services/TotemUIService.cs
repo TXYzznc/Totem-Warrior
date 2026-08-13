@@ -6,11 +6,9 @@ public sealed class TotemUIService : TotemRuntimeServiceBase, ITotemRuntimeTickS
 
     private readonly List<int> overlayFormIds = new List<int>(4);
     private int currentFormId = -1;
-    private int selfTattooFormId = -1;
     private int exclusiveOpenRequestCount;
     private int overlayOpenRequestCount;
     private int overlayCloseRequestCount;
-    private int selfTattooToggleRequestCount;
     private UIViews lastExclusiveView;
     private UIViews lastOverlayView;
     private bool lastExclusiveSucceeded;
@@ -19,23 +17,21 @@ public sealed class TotemUIService : TotemRuntimeServiceBase, ITotemRuntimeTickS
     private int lastOverlaySortOrder;
     private TotemInputService inputService;
     private TotemGameFlowService flowService;
-    private TotemChoiceService choiceService;
 
     public override string ServiceName => "UI";
 
-    public TotemNpcModel ActiveShopNpc { get; private set; }
-
-    public TotemNpcModel ActiveTattooNpc { get; private set; }
-
-    public TotemChoiceSnapshot ActiveChoice { get; private set; }
-
     public TotemRunResultSnapshot ActiveRunResult { get; private set; }
+
+    public int LastLocalMatchSeed { get; private set; } = 1;
+
+    public bool LastLocalMatchFastMode { get; private set; }
+
+    public string LastResultEvidenceFile { get; private set; } = string.Empty;
 
     protected override void OnInitialize(TotemGameRuntime runtime)
     {
         inputService = runtime.GetService<TotemInputService>();
         flowService = runtime.GetService<TotemGameFlowService>();
-        choiceService = runtime.GetService<TotemChoiceService>();
         OpenMainMenu();
     }
 
@@ -45,7 +41,6 @@ public sealed class TotemUIService : TotemRuntimeServiceBase, ITotemRuntimeTickS
         CloseCurrent();
         inputService = null;
         flowService = null;
-        choiceService = null;
     }
 
     public void Tick(float deltaTime)
@@ -66,10 +61,9 @@ public sealed class TotemUIService : TotemRuntimeServiceBase, ITotemRuntimeTickS
             }
         }
 
-        if (input.selfTattooTogglePressed && flowService?.CurrentState == TotemGameFlowState.CombatHud)
-        {
-            ToggleSelfTattoo();
-        }
+        // The legacy self-tattoo overlay allowed mutation during combat. The
+        // first playable owns tattoo mutation through the build-phase service;
+        // this input is intentionally ignored until the new construction UI is bound.
     }
 
     public int OpenMainMenu()
@@ -78,23 +72,46 @@ public sealed class TotemUIService : TotemRuntimeServiceBase, ITotemRuntimeTickS
         return OpenExclusive(UIViews.MainMenu);
     }
 
-    public int OpenCharacterSelect()
-    {
-        Runtime.GetService<TotemGameFlowService>()?.EnterCharacterSelect();
-        return OpenExclusive(UIViews.CharacterSelect);
-    }
-
-    public int OpenStartupSelect()
-    {
-        Runtime.GetService<TotemGameFlowService>()?.EnterStartupSelect();
-        return OpenExclusive(UIViews.StartupSelect);
-    }
-
     public int OpenCombatHud()
     {
         Runtime.GetService<TotemActorService>()?.BeginPlayerStartupProtection("UI.OpenCombatHud");
         Runtime.GetService<TotemGameFlowService>()?.EnterCombatHud();
         return OpenExclusive(UIViews.CombatHUD);
+    }
+
+    public bool StartLocalFirstPlayable()
+    {
+        return StartLocalFirstPlayable(1, false);
+    }
+
+    public bool RestartLocalFirstPlayable()
+    {
+        return StartLocalFirstPlayable(LastLocalMatchSeed, LastLocalMatchFastMode);
+    }
+
+    public bool StartLocalFirstPlayable(int seed, bool useFastMode)
+    {
+        TotemGameFlowService gameFlow = Runtime.GetService<TotemGameFlowService>();
+        if (gameFlow == null)
+        {
+            GFTrace.Failure("TotemUI", "LocalMatch.StartRejected", "Game flow service is unavailable.");
+            return false;
+        }
+
+        LastLocalMatchSeed = seed;
+        LastLocalMatchFastMode = useFastMode;
+        Runtime.GetService<TotemMatchFlowService>()?.Configure(new TotemMatchTimingConfig(), useFastMode);
+        Runtime.GetService<TotemMapService>()?.RequestNextCombatMap(seed, 1);
+        Runtime.GetService<TotemActorService>()?.BeginPlayerStartupProtection("UI.LocalMatchConfirmed");
+        gameFlow.ConfirmLocalFirstPlayable();
+        GFTrace.Success("TotemUI", "LocalMatch.Confirmed", null, GFTrace.Data(
+            "formId", "UI-FP-MATCH-001",
+            "participants", TotemFirstPlayableRules.ParticipantCount.ToString(),
+            "teams", TotemFirstPlayableRules.TeamCount.ToString(),
+            "bots", TotemFirstPlayableRules.BotCount.ToString(),
+            "seed", seed.ToString(),
+            "fastMode", useFastMode.ToString()));
+        return true;
     }
 
     public void CloseCurrent()
@@ -113,30 +130,6 @@ public sealed class TotemUIService : TotemRuntimeServiceBase, ITotemRuntimeTickS
         currentFormId = -1;
     }
 
-    public int OpenShop(TotemNpcModel npc)
-    {
-        CloseOverlays(clearData: true);
-        ActiveShopNpc = npc;
-        ActiveTattooNpc = null;
-        ActiveChoice = null;
-        return OpenOverlay(UIViews.Shop, closeExisting: false);
-    }
-
-    public int OpenTattooStudio(TotemNpcModel npc, TotemChoiceSnapshot choice)
-    {
-        CloseOverlays(clearData: true, closeChoice: false);
-        ActiveShopNpc = null;
-        ActiveTattooNpc = npc;
-        ActiveChoice = choice;
-        return OpenOverlay(UIViews.TattooStudio, closeExisting: false);
-    }
-
-    public int OpenThreeChoice(TotemChoiceSnapshot choice)
-    {
-        ActiveChoice = choice;
-        return OpenOverlay(UIViews.ThreeChoice, closeExisting: false);
-    }
-
     public int OpenPauseMenu()
     {
         CloseOverlays(clearData: true);
@@ -152,27 +145,22 @@ public sealed class TotemUIService : TotemRuntimeServiceBase, ITotemRuntimeTickS
     {
         CloseOverlays(clearData: true);
         ActiveRunResult = result;
-        return OpenOverlay(UIViews.RunResult, closeExisting: false, allowEscape: false);
-    }
-
-    public int OpenTattooEnchant()
-    {
-        return OpenOverlay(UIViews.TattooEnchant, closeExisting: false);
-    }
-
-    public int ToggleSelfTattoo()
-    {
-        selfTattooToggleRequestCount++;
-        if (selfTattooFormId > 0 && CanUseGFUI() && GF.UI.HasUIForm(selfTattooFormId))
+        TotemFirstPlayableResultEvidence evidence = TotemFirstPlayableResultEvidenceWriter.Build(Runtime, this, result);
+        if (!TotemFirstPlayableResultEvidenceWriter.TryWrite(null, evidence, out string evidenceFile, out string evidenceError))
         {
-            GF.UI.CloseUIForm(selfTattooFormId);
-            selfTattooFormId = -1;
-            return -1;
+            LastResultEvidenceFile = string.Empty;
+            GFTrace.Failure("TotemUI", "ResultEvidence.WriteFailed", evidenceError);
+        }
+        else
+        {
+            LastResultEvidenceFile = evidenceFile;
+            GFTrace.Success("TotemUI", "ResultEvidence.Written", null, GFTrace.Data(
+                "file", evidenceFile,
+                "seed", evidence.seed.ToString(),
+                "participants", evidence.participants.Length.ToString()));
         }
 
-        CloseOverlays(clearData: true);
-        selfTattooFormId = OpenOverlay(UIViews.SelfTattoo, closeExisting: false);
-        return selfTattooFormId;
+        return OpenOverlay(UIViews.RunResult, closeExisting: false, allowEscape: false);
     }
 
     public TotemUISnapshot CaptureSnapshot()
@@ -182,21 +170,15 @@ public sealed class TotemUIService : TotemRuntimeServiceBase, ITotemRuntimeTickS
             canUseGFUI = CanUseGFUI(),
             currentFormId = currentFormId,
             overlayFormCount = overlayFormIds.Count,
-            selfTattooFormId = selfTattooFormId,
-            selfTattooOverlayTracked = selfTattooFormId > 0 && overlayFormIds.Contains(selfTattooFormId),
             exclusiveOpenRequestCount = exclusiveOpenRequestCount,
             overlayOpenRequestCount = overlayOpenRequestCount,
             overlayCloseRequestCount = overlayCloseRequestCount,
-            selfTattooToggleRequestCount = selfTattooToggleRequestCount,
             lastExclusiveView = FormatView(lastExclusiveView),
             lastOverlayView = FormatView(lastOverlayView),
             lastExclusiveSucceeded = lastExclusiveSucceeded,
             lastOverlaySucceeded = lastOverlaySucceeded,
             lastOverlayAllowEscape = lastOverlayAllowEscape,
             lastOverlaySortOrder = lastOverlaySortOrder,
-            hasActiveShopNpc = ActiveShopNpc != null,
-            hasActiveTattooNpc = ActiveTattooNpc != null,
-            hasActiveChoice = ActiveChoice != null,
             hasActiveRunResult = ActiveRunResult != null,
         };
     }
@@ -204,11 +186,6 @@ public sealed class TotemUIService : TotemRuntimeServiceBase, ITotemRuntimeTickS
     public void ForgetOverlay(int serialId)
     {
         overlayFormIds.Remove(serialId);
-        if (serialId == selfTattooFormId)
-        {
-            selfTattooFormId = -1;
-        }
-
         if (overlayFormIds.Count == 0)
         {
             ClearOverlayData();
@@ -270,16 +247,11 @@ public sealed class TotemUIService : TotemRuntimeServiceBase, ITotemRuntimeTickS
         return serialId;
     }
 
-    private void CloseOverlays(bool clearData, bool closeChoice = true)
+    private void CloseOverlays(bool clearData)
     {
-        if (overlayFormIds.Count > 0 || selfTattooFormId > 0)
+        if (overlayFormIds.Count > 0)
         {
             overlayCloseRequestCount++;
-        }
-
-        if (closeChoice)
-        {
-            choiceService?.CloseCurrentChoice("UI.CloseOverlays");
         }
 
         for (int i = overlayFormIds.Count - 1; i >= 0; i--)
@@ -292,7 +264,6 @@ public sealed class TotemUIService : TotemRuntimeServiceBase, ITotemRuntimeTickS
         }
 
         overlayFormIds.Clear();
-        selfTattooFormId = -1;
         if (clearData)
         {
             ClearOverlayData();
@@ -301,9 +272,6 @@ public sealed class TotemUIService : TotemRuntimeServiceBase, ITotemRuntimeTickS
 
     private void ClearOverlayData()
     {
-        ActiveShopNpc = null;
-        ActiveTattooNpc = null;
-        ActiveChoice = null;
         ActiveRunResult = null;
     }
 

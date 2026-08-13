@@ -20,6 +20,12 @@ namespace UnityGameFramework.Runtime
     {
         private static readonly GameFrameworkLinkedList<GameFrameworkComponent> s_GameFrameworkComponents = new GameFrameworkLinkedList<GameFrameworkComponent>();
 
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        private static void ResetComponents()
+        {
+            s_GameFrameworkComponents.Clear();
+        }
+
         /// <summary>
         /// 游戏框架所在的场景编号。
         /// </summary>
@@ -42,6 +48,7 @@ namespace UnityGameFramework.Runtime
         /// <returns>要获取的游戏框架组件。</returns>
         public static GameFrameworkComponent GetComponent(Type type)
         {
+            RemoveInvalidComponents();
             LinkedListNode<GameFrameworkComponent> current = s_GameFrameworkComponents.First;
             while (current != null)
             {
@@ -63,6 +70,7 @@ namespace UnityGameFramework.Runtime
         /// <returns>要获取的游戏框架组件。</returns>
         public static GameFrameworkComponent GetComponent(string typeName)
         {
+            RemoveInvalidComponents();
             LinkedListNode<GameFrameworkComponent> current = s_GameFrameworkComponents.First;
             while (current != null)
             {
@@ -127,6 +135,7 @@ namespace UnityGameFramework.Runtime
                 return;
             }
 
+            RemoveInvalidComponents();
             Type type = gameFrameworkComponent.GetType();
 
             LinkedListNode<GameFrameworkComponent> current = s_GameFrameworkComponents.First;
@@ -142,6 +151,21 @@ namespace UnityGameFramework.Runtime
             }
 
             s_GameFrameworkComponents.AddLast(gameFrameworkComponent);
+        }
+
+        private static void RemoveInvalidComponents()
+        {
+            LinkedListNode<GameFrameworkComponent> current = s_GameFrameworkComponents.First;
+            while (current != null)
+            {
+                LinkedListNode<GameFrameworkComponent> next = current.Next;
+                if (current.Value == null)
+                {
+                    s_GameFrameworkComponents.Remove(current);
+                }
+
+                current = next;
+            }
         }
     }
 }

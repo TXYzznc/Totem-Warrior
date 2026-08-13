@@ -15,36 +15,24 @@ public sealed class TotemCombatHUDForm : TotemUIFormBase
     private static readonly Color32 MinimapRoom = new Color32(70, 76, 88, 255);
     private static readonly Color32 MinimapZone = new Color32(77, 180, 255, 255);
     private static readonly Color32 MinimapPlayer = new Color32(94, 224, 94, 255);
-    private static readonly Color32 MinimapEnemy = new Color32(230, 82, 72, 255);
-    private static readonly Color32 MinimapBoss = new Color32(216, 86, 255, 255);
+    private static readonly Color32 MinimapOpponent = new Color32(230, 82, 72, 255);
 
     [SerializeField] private Image hpBar;
-    [SerializeField] private Image bossHpBar;
     [SerializeField] private Image weaponIcon;
-    [SerializeField] private Image skillSlotEIcon;
-    [SerializeField] private Image skillSlotQIcon;
-    [SerializeField] private Image skillSlotECooldownMask;
-    [SerializeField] private Image skillSlotQCooldownMask;
-    [SerializeField] private GameObject bossHpRoot;
     [SerializeField] private Component ammoText;
     [SerializeField] private Component zoneTimerText;
     [SerializeField] private Transform logListRoot;
     [SerializeField] private TMP_Text logRowTemplate;
-    [SerializeField] private Transform buildListRoot;
     [SerializeField] private RawImage minimapImage;
 
     private readonly WaitForSeconds refreshWait = new WaitForSeconds(RefreshIntervalSeconds);
     private readonly List<TMP_Text> logRows = new List<TMP_Text>(MaxLogRows);
     private Coroutine refreshCoroutine;
     private Coroutine startupProtectionReleaseCoroutine;
-    private string lastSkillSlotEAssetKey = string.Empty;
-    private string lastSkillSlotQAssetKey = string.Empty;
     private string lastCombatLogSignature = string.Empty;
-    private string lastBuildSummary = string.Empty;
-    private TMP_Text buildSummaryText;
     private Texture2D minimapTexture;
     private Color32[] minimapPixels;
-    private readonly TotemEnemyModel[] minimapEnemyBuffer = new TotemEnemyModel[TotemEnemyService.DefaultEnemyCapacity];
+    private TotemFirstPlayableHudPresenter firstPlayablePresenter;
 
     protected override void OnInit(object userData)
     {
@@ -54,39 +42,9 @@ public sealed class TotemCombatHUDForm : TotemUIFormBase
             hpBar = FindChildComponent<Image>("HpBar");
         }
 
-        if (bossHpBar == null)
-        {
-            bossHpBar = FindChildComponent<Image>("BossHpBar");
-        }
-
         if (weaponIcon == null)
         {
             weaponIcon = FindChildComponent<Image>("WeaponIcon");
-        }
-
-        if (skillSlotEIcon == null)
-        {
-            skillSlotEIcon = FindChildComponent<Image>("SkillSlotE");
-        }
-
-        if (skillSlotQIcon == null)
-        {
-            skillSlotQIcon = FindChildComponent<Image>("SkillSlotQ");
-        }
-
-        if (skillSlotECooldownMask == null)
-        {
-            skillSlotECooldownMask = FindChildComponent<Image>("CdMaskE");
-        }
-
-        if (skillSlotQCooldownMask == null)
-        {
-            skillSlotQCooldownMask = FindChildComponent<Image>("CdMaskQ");
-        }
-
-        if (bossHpRoot == null)
-        {
-            bossHpRoot = FindChildTransform("BossHpRoot")?.gameObject;
         }
 
         if (ammoText == null)
@@ -124,11 +82,6 @@ public sealed class TotemCombatHUDForm : TotemUIFormBase
             logRowTemplate.gameObject.SetActive(false);
         }
 
-        if (buildListRoot == null)
-        {
-            buildListRoot = FindChildTransform("BuildListRoot");
-        }
-
         if (minimapImage == null)
         {
             minimapImage = FindChildComponent<RawImage>("MinimapImage");
@@ -140,6 +93,12 @@ public sealed class TotemCombatHUDForm : TotemUIFormBase
         base.OnOpen(userData);
         ResetDynamicHudRows();
         ApplyInitialHudState();
+        firstPlayablePresenter = GetComponent<TotemFirstPlayableHudPresenter>();
+        if (firstPlayablePresenter == null)
+        {
+            firstPlayablePresenter = gameObject.AddComponent<TotemFirstPlayableHudPresenter>();
+        }
+        firstPlayablePresenter.Initialize(Runtime);
         refreshCoroutine = StartCoroutine(RefreshHudLoop());
         GFTrace.Success("TotemUI", "CombatHUD.Open");
     }
@@ -156,6 +115,13 @@ public sealed class TotemCombatHUDForm : TotemUIFormBase
         {
             StopCoroutine(refreshCoroutine);
             refreshCoroutine = null;
+        }
+
+        if (firstPlayablePresenter != null)
+        {
+            firstPlayablePresenter.Shutdown();
+            Destroy(firstPlayablePresenter);
+            firstPlayablePresenter = null;
         }
 
         ResetDynamicHudRows();
@@ -197,19 +163,14 @@ public sealed class TotemCombatHUDForm : TotemUIFormBase
 
     private void ApplyInitialHudState()
     {
-        var selection = FlowService?.StartupSelection;
-        string weaponId = selection == null || string.IsNullOrWhiteSpace(selection.WeaponId)
-            ? "knife_basic"
-            : selection.WeaponId;
+        string weaponId = TotemWeaponService.DefaultWeaponId;
 
         ApplyIcon(weaponIcon, GetWeaponAssetKey(weaponId));
-        RefreshSkillIcons(force: true);
         RefreshRuntimeState();
 
         GFTrace.Info("TotemUI", "CombatHUD.StateApplied", null, GFTrace.Data(
-            "characterId", (selection?.CharacterId ?? 1).ToString(),
-            "weaponId", weaponId,
-            "colorId", (selection?.ColorId ?? 1).ToString()));
+            "characterId", "1",
+            "weaponId", weaponId));
     }
 
     private IEnumerator RefreshHudLoop()
@@ -224,14 +185,11 @@ public sealed class TotemCombatHUDForm : TotemUIFormBase
     private void RefreshRuntimeState()
     {
         RefreshPlayerHp();
-        RefreshBossHp();
         RefreshWeaponText();
-        RefreshSkillIcons(force: false);
-        RefreshSkillCooldownMasks();
-        RefreshBuildList();
         RefreshCombatLog();
         RefreshMinimap();
         RefreshZoneText();
+        firstPlayablePresenter?.Refresh();
     }
 
     private void RefreshPlayerHp()
@@ -246,92 +204,10 @@ public sealed class TotemCombatHUDForm : TotemUIFormBase
         }
     }
 
-    private void RefreshBossHp()
-    {
-        var boss = EnemyService?.FindClosestAliveEnemy(Vector3.zero, 0f, TotemEnemyTier.Boss);
-        bool showBoss = boss != null && boss.IsAlive;
-        if (bossHpRoot != null && bossHpRoot.activeSelf != showBoss)
-        {
-            bossHpRoot.SetActive(showBoss);
-        }
-
-        if (bossHpBar != null)
-        {
-            bossHpBar.fillAmount = showBoss ? Mathf.Clamp01(boss.Health / boss.MaxHealth) : 0f;
-        }
-    }
-
     private void RefreshWeaponText()
     {
-        var selection = FlowService?.StartupSelection;
-        string weaponId = selection == null || string.IsNullOrWhiteSpace(selection.WeaponId)
-            ? "knife_basic"
-            : selection.WeaponId;
-        var weaponState = WeaponService?.GetOrCreateState(ActorService?.Player);
-        float skillECooldown = SkillService?.GetCooldownRemaining(ActorService?.Player, 0) ?? 0f;
-        float skillQCooldown = SkillService?.GetCooldownRemaining(ActorService?.Player, 1) ?? 0f;
-
-        if (weaponState?.Weapon != null && weaponState.Weapon.MaxAmmo > 0)
-        {
-            SetText(ammoText, FormatWeaponStatus(weaponId, weaponState.CurrentAmmo, true, skillECooldown, skillQCooldown));
-            return;
-        }
-
-        SetText(ammoText, FormatWeaponStatus(weaponId, 0, false, skillECooldown, skillQCooldown));
-    }
-
-    private void RefreshSkillCooldownMasks()
-    {
-        var player = ActorService?.Player;
-        ApplyCooldownMask(skillSlotECooldownMask, player, 0);
-        ApplyCooldownMask(skillSlotQCooldownMask, player, 1);
-    }
-
-    private void ApplyCooldownMask(Image mask, TotemActorModel player, int slot)
-    {
-        if (mask == null)
-        {
-            return;
-        }
-
-        string skillId = SkillService?.GetEquippedSkillId(player, slot);
-        float remaining = SkillService?.GetCooldownRemaining(player, slot) ?? 0f;
-        float window = ResolveSkillCooldownWindow(skillId);
-        mask.fillAmount = CalculateCooldownMaskFill(remaining, window);
-    }
-
-    private float ResolveSkillCooldownWindow(string skillId)
-    {
-        if (SkillService == null || string.IsNullOrWhiteSpace(skillId) || !SkillService.TryGetRuntimeDefinition(skillId, out var skill))
-        {
-            return 0f;
-        }
-
-        return ResolveSkillCooldownWindow(skill);
-    }
-
-    private void RefreshBuildList()
-    {
-        if (buildListRoot == null || logRowTemplate == null)
-        {
-            return;
-        }
-
-        string summary = FormatBuildSummary(TattooService?.CaptureSnapshot());
-        if (string.Equals(summary, lastBuildSummary, StringComparison.Ordinal))
-        {
-            return;
-        }
-
-        lastBuildSummary = summary;
-        if (buildSummaryText == null)
-        {
-            buildSummaryText = Instantiate(logRowTemplate, buildListRoot);
-            buildSummaryText.name = "BuildSummaryRuntime";
-            buildSummaryText.gameObject.SetActive(true);
-        }
-
-        buildSummaryText.SetText(summary);
+        string weaponId = TotemWeaponService.DefaultWeaponId;
+        SetText(ammoText, FormatWeaponStatus(weaponId, 0, false, 0f, 0f));
     }
 
     private void RefreshCombatLog()
@@ -361,8 +237,7 @@ public sealed class TotemCombatHUDForm : TotemUIFormBase
         }
 
         EnsureMinimapTexture();
-        int enemyCount = EnemyService?.CopyAliveEnemies(minimapEnemyBuffer) ?? 0;
-        if (!BuildMinimapPixels(minimapPixels, MinimapSize, MapService.CurrentMap, ActorService?.Actors, ZoneService?.CaptureSnapshot(), minimapEnemyBuffer, enemyCount))
+        if (!BuildMinimapPixels(minimapPixels, MinimapSize, MapService.CurrentMap, ActorService?.Actors, ZoneService?.CaptureSnapshot()))
         {
             return;
         }
@@ -375,38 +250,80 @@ public sealed class TotemCombatHUDForm : TotemUIFormBase
 
     private void RefreshZoneText()
     {
-        int aliveEnemyCount = EnemyService?.CaptureSnapshot().aliveEnemyCount ?? 0;
         var interaction = InteractionService?.CaptureSnapshot();
         string prompt = interaction?.prompt ?? string.Empty;
         string statusSummary = TotemStatusService.FormatStatusSummary(StatusService?.CaptureSnapshot(ActorService?.Player));
+        string matchStatus = FormatMatchFlowStatus(MatchFlowService);
         var zone = ZoneService?.CaptureSnapshot();
         if (zone == null || !zone.active)
         {
-            SetText(zoneTimerText, AppendStatus(AppendPrompt(FormatEnemyStatus(aliveEnemyCount), prompt), statusSummary));
+            SetText(zoneTimerText, AppendStatus(AppendPrompt(matchStatus, prompt), statusSummary));
             return;
         }
 
-        SetText(zoneTimerText, AppendStatus(AppendPrompt(FormatZoneStatus(zone.currentPhaseId, zone.currentRadius, zone.outZoneDamage, aliveEnemyCount), prompt), statusSummary));
+        SetText(zoneTimerText, AppendStatus(AppendPrompt(AppendMatchStatus(matchStatus, FormatZoneStatus(zone.currentPhaseId, zone.currentRadius, zone.outZoneDamage)), prompt), statusSummary));
+    }
+
+    public static string FormatMatchFlowStatus(TotemMatchFlowService flow)
+    {
+        if (flow == null || !flow.IsRunning)
+        {
+            return string.Empty;
+        }
+
+        int seconds = Mathf.CeilToInt(flow.ActivityRemaining);
+        switch (flow.CurrentPhase)
+        {
+            case TotemMatchPhase.OpeningBuild: return $"开局构筑  {seconds}s";
+            case TotemMatchPhase.Round1Combat: return $"第1轮战斗  {seconds}s";
+            case TotemMatchPhase.Build2: return $"第2轮构筑  {seconds}s  · 预告第1次缩圈";
+            case TotemMatchPhase.Round2Combat:
+                return flow.CurrentActivity == TotemMatchActivity.ZoneShrink
+                    ? $"第1次缩圈  {seconds}s"
+                    : $"第2轮战斗  {seconds}s";
+            case TotemMatchPhase.Build3: return $"第3轮构筑  {seconds}s  · 预告第2次缩圈";
+            case TotemMatchPhase.Round3Combat:
+                return flow.CurrentActivity == TotemMatchActivity.ZoneShrink
+                    ? $"第2次缩圈  {seconds}s"
+                    : $"第3轮战斗  {seconds}s";
+            case TotemMatchPhase.Build4: return $"第4轮构筑  {seconds}s  · 预告第3次缩圈";
+            case TotemMatchPhase.Round4Combat:
+                return flow.CurrentActivity == TotemMatchActivity.ZoneShrink
+                    ? $"第3次缩圈  {seconds}s"
+                    : $"第4轮战斗  {seconds}s";
+            case TotemMatchPhase.Build5: return $"第5轮构筑  {seconds}s  · 预告第4次缩圈";
+            case TotemMatchPhase.Round5Combat:
+                return flow.CurrentActivity == TotemMatchActivity.ZoneShrink
+                    ? $"第4次缩圈  {seconds}s"
+                    : $"第5轮最终战斗与撤离  {seconds}s";
+            case TotemMatchPhase.Result: return "本局结果";
+            default: return string.Empty;
+        }
+    }
+
+    private static string AppendMatchStatus(string matchStatus, string detail)
+    {
+        if (string.IsNullOrWhiteSpace(matchStatus))
+        {
+            return detail ?? string.Empty;
+        }
+
+        return string.IsNullOrWhiteSpace(detail) ? matchStatus : $"{matchStatus}  |  {detail}";
     }
 
     public static string FormatWeaponStatus(string weaponId, int ammo, bool showAmmo, float skillECooldown, float skillQCooldown = 0f)
     {
         if (showAmmo)
         {
-            return $"Weapon: {weaponId}  Ammo: {ammo}  E:{skillECooldown:F1}s  Q:{skillQCooldown:F1}s";
+            return $"Weapon: {weaponId}  Ammo: {ammo}";
         }
 
-        return $"Weapon: {weaponId}  E:{skillECooldown:F1}s  Q:{skillQCooldown:F1}s";
+        return $"Weapon: {weaponId}";
     }
 
-    public static string FormatEnemyStatus(int aliveEnemyCount)
+    public static string FormatZoneStatus(int phaseId, float radius, float outZoneDamage)
     {
-        return $"Enemies: {aliveEnemyCount}";
-    }
-
-    public static string FormatZoneStatus(int phaseId, float radius, float outZoneDamage, int aliveEnemyCount)
-    {
-        return $"Zone P{phaseId} R{radius:F0} D{outZoneDamage:F0}  Enemies: {aliveEnemyCount}";
+        return $"Zone P{phaseId} R{radius:F0} D{outZoneDamage:F0}";
     }
 
     public static string AppendPrompt(string status, string prompt)
@@ -445,42 +362,10 @@ public sealed class TotemCombatHUDForm : TotemUIFormBase
         return Color.red;
     }
 
+    [Obsolete("Legacy GF_X diagnostic compatibility only. First playable has no player skill cooldown UI.")]
     public static float CalculateCooldownMaskFill(float remaining, float cooldownWindow)
     {
-        if (remaining <= 0f || cooldownWindow <= 0f)
-        {
-            return 0f;
-        }
-
-        return Mathf.Clamp01(remaining / cooldownWindow);
-    }
-
-    public static float ResolveSkillCooldownWindow(TotemSkillDefinition skill)
-    {
-        if (skill == null)
-        {
-            return 0f;
-        }
-
-        switch (skill.ChargeModel)
-        {
-            case TotemSkillChargeModel.Charges:
-                return Mathf.Max(0f, skill.ChargeRegenTime);
-            case TotemSkillChargeModel.HoldRelease:
-                return Mathf.Max(0f, skill.HoldDuration + skill.OverchargeWindow);
-            default:
-                return Mathf.Max(0f, skill.Cooldown);
-        }
-    }
-
-    public static string FormatBuildSummary(TotemTattooSnapshot snapshot)
-    {
-        if (snapshot == null || snapshot.equippedCount <= 0 || string.IsNullOrWhiteSpace(snapshot.equippedSummary))
-        {
-            return "Build: none";
-        }
-
-        return $"Build: {snapshot.equippedSummary}";
+        return remaining <= 0f || cooldownWindow <= 0f ? 0f : Mathf.Clamp01(remaining / cooldownWindow);
     }
 
     public static string FormatCombatLog(TotemCombatSnapshot snapshot)
@@ -500,9 +385,7 @@ public sealed class TotemCombatHUDForm : TotemUIFormBase
             : snapshot.lastTargetActorId > 0 ? $"Actor {snapshot.lastTargetActorId}" : string.Empty;
         string suffix = snapshot.lastKilled ? " KO" : string.Empty;
         string detail = snapshot.lastDamage > 0f ? $" -{snapshot.lastDamage:F0}{suffix}" : suffix;
-        string source = !string.IsNullOrWhiteSpace(snapshot.lastSkillId)
-            ? snapshot.lastSkillId
-            : !string.IsNullOrWhiteSpace(snapshot.lastWeaponId) ? snapshot.lastWeaponId : snapshot.lastTraitId;
+        string source = snapshot.lastWeaponId;
 
         if (!string.IsNullOrWhiteSpace(target))
         {
@@ -518,18 +401,6 @@ public sealed class TotemCombatHUDForm : TotemUIFormBase
 
     public static bool BuildMinimapPixels(Color32[] pixels, int size, TotemMapSnapshot map, IReadOnlyList<TotemActorModel> actors, TotemZoneSnapshot zone)
     {
-        return BuildMinimapPixels(pixels, size, map, actors, zone, null, 0);
-    }
-
-    public static bool BuildMinimapPixels(
-        Color32[] pixels,
-        int size,
-        TotemMapSnapshot map,
-        IReadOnlyList<TotemActorModel> actors,
-        TotemZoneSnapshot zone,
-        TotemEnemyModel[] enemies,
-        int enemyCount)
-    {
         if (pixels == null || size <= 0 || pixels.Length < size * size || map == null || map.MapSize <= 0f)
         {
             return false;
@@ -543,11 +414,11 @@ public sealed class TotemCombatHUDForm : TotemUIFormBase
         var rooms = map.Rooms;
         for (int i = 0; rooms != null && i < rooms.Length; i++)
         {
-            DrawRoom(pixels, size, map.MapSize, rooms[i]);
+            DrawRoom(pixels, size, map, rooms[i]);
         }
 
-        float radius = zone != null && zone.active ? zone.currentRadius : map.MapSize * 0.5f;
-        DrawCircleOutline(pixels, size, map.MapSize, new Vector2(map.InitialZoneCenter.x, map.InitialZoneCenter.y), radius, MinimapZone);
+        float radius = zone != null && zone.active ? zone.currentRadius : TotemMapService.GetInitialZoneRadius(map);
+        DrawCircleOutline(pixels, size, map, new Vector2(map.InitialZoneCenter.x, map.InitialZoneCenter.y), radius, MinimapZone);
 
         for (int i = 0; actors != null && i < actors.Count; i++)
         {
@@ -557,21 +428,9 @@ public sealed class TotemCombatHUDForm : TotemUIFormBase
                 continue;
             }
 
-            Color32 color = actor.ControllerKind == TotemParticipantControllerKind.Human ? MinimapPlayer : MinimapEnemy;
+            Color32 color = actor.ControllerKind == TotemParticipantControllerKind.Human ? MinimapPlayer : MinimapOpponent;
             int radiusPx = actor.ControllerKind == TotemParticipantControllerKind.Human ? 2 : 1;
-            DrawDot(pixels, size, map.MapSize, actor.Position, radiusPx, color);
-        }
-
-        for (int i = 0; enemies != null && i < enemyCount && i < enemies.Length; i++)
-        {
-            TotemEnemyModel enemy = enemies[i];
-            if (enemy == null || !enemy.IsAlive)
-            {
-                continue;
-            }
-
-            bool boss = enemy.Tier == TotemEnemyTier.Boss;
-            DrawDot(pixels, size, map.MapSize, enemy.Position, boss ? 2 : 1, boss ? MinimapBoss : new Color32(255, 55, 55, 255));
+            DrawDot(pixels, size, map, actor.Position, radiusPx, color);
         }
 
         return true;
@@ -614,36 +473,6 @@ public sealed class TotemCombatHUDForm : TotemUIFormBase
         image.color = Color.white;
     }
 
-    private void RefreshSkillIcons(bool force)
-    {
-        var player = ActorService?.Player;
-        string slotE = SkillService?.GetEquippedSkillId(player, 0);
-        string slotQ = SkillService?.GetEquippedSkillId(player, 1);
-        if (string.IsNullOrWhiteSpace(slotE))
-        {
-            slotE = "skill_fireball_01";
-        }
-
-        if (string.IsNullOrWhiteSpace(slotQ))
-        {
-            slotQ = "skill_stealth_01";
-        }
-
-        ApplySkillIconIfChanged(skillSlotEIcon, GetSkillAssetKey(slotE), ref lastSkillSlotEAssetKey, force);
-        ApplySkillIconIfChanged(skillSlotQIcon, GetSkillAssetKey(slotQ), ref lastSkillSlotQAssetKey, force);
-    }
-
-    private void ApplySkillIconIfChanged(Image image, string assetKey, ref string lastAssetKey, bool force)
-    {
-        if (!force && string.Equals(lastAssetKey, assetKey, System.StringComparison.Ordinal))
-        {
-            return;
-        }
-
-        lastAssetKey = assetKey;
-        ApplyIcon(image, assetKey);
-    }
-
     private void AppendCombatLog(string line)
     {
         if (logListRoot == null || logRowTemplate == null)
@@ -677,14 +506,7 @@ public sealed class TotemCombatHUDForm : TotemUIFormBase
         }
 
         logRows.Clear();
-        if (buildSummaryText != null)
-        {
-            Destroy(buildSummaryText.gameObject);
-            buildSummaryText = null;
-        }
-
         lastCombatLogSignature = string.Empty;
-        lastBuildSummary = string.Empty;
     }
 
     private void EnsureMinimapTexture()
@@ -703,17 +525,19 @@ public sealed class TotemCombatHUDForm : TotemUIFormBase
         };
     }
 
-    private static void DrawRoom(Color32[] pixels, int size, float mapSize, TotemRoomInfo room)
+    private static void DrawRoom(Color32[] pixels, int size, TotemMapSnapshot map, TotemRoomInfo room)
     {
         if (room == null)
         {
             return;
         }
 
-        int minX = WorldToMinimapPixel(room.Bounds.xMin, mapSize, size);
-        int maxX = WorldToMinimapPixel(room.Bounds.xMax, mapSize, size);
-        int minY = WorldToMinimapPixel(room.Bounds.yMin, mapSize, size);
-        int maxY = WorldToMinimapPixel(room.Bounds.yMax, mapSize, size);
+        Vector2 min = TotemMapService.GetWorldMin(map);
+        Vector2 max = TotemMapService.GetWorldMax(map);
+        int minX = WorldToMinimapPixel(room.Bounds.xMin, min.x, max.x, size);
+        int maxX = WorldToMinimapPixel(room.Bounds.xMax, min.x, max.x, size);
+        int minY = WorldToMinimapPixel(room.Bounds.yMin, min.y, max.y, size);
+        int maxY = WorldToMinimapPixel(room.Bounds.yMax, min.y, max.y, size);
         for (int y = Mathf.Min(minY, maxY); y <= Mathf.Max(minY, maxY); y++)
         {
             for (int x = Mathf.Min(minX, maxX); x <= Mathf.Max(minX, maxX); x++)
@@ -723,16 +547,18 @@ public sealed class TotemCombatHUDForm : TotemUIFormBase
         }
     }
 
-    private static void DrawCircleOutline(Color32[] pixels, int size, float mapSize, Vector2 center, float radius, Color32 color)
+    private static void DrawCircleOutline(Color32[] pixels, int size, TotemMapSnapshot map, Vector2 center, float radius, Color32 color)
     {
         if (radius <= 0f)
         {
             return;
         }
 
-        int centerX = WorldToMinimapPixel(center.x, mapSize, size);
-        int centerY = WorldToMinimapPixel(center.y, mapSize, size);
-        float radiusPx = Mathf.Max(1f, radius / mapSize * (size - 1));
+        Vector2 min = TotemMapService.GetWorldMin(map);
+        Vector2 max = TotemMapService.GetWorldMax(map);
+        int centerX = WorldToMinimapPixel(center.x, min.x, max.x, size);
+        int centerY = WorldToMinimapPixel(center.y, min.y, max.y, size);
+        float radiusPx = Mathf.Max(1f, radius / Mathf.Max(max.x - min.x, max.y - min.y) * (size - 1));
         float radiusSqr = radiusPx * radiusPx;
         float innerSqr = Mathf.Max(0f, radiusPx - 1.25f) * Mathf.Max(0f, radiusPx - 1.25f);
         int bound = Mathf.CeilToInt(radiusPx) + 1;
@@ -751,10 +577,12 @@ public sealed class TotemCombatHUDForm : TotemUIFormBase
         }
     }
 
-    private static void DrawDot(Color32[] pixels, int size, float mapSize, Vector3 worldPosition, int radiusPx, Color32 color)
+    private static void DrawDot(Color32[] pixels, int size, TotemMapSnapshot map, Vector3 worldPosition, int radiusPx, Color32 color)
     {
-        int centerX = WorldToMinimapPixel(worldPosition.x, mapSize, size);
-        int centerY = WorldToMinimapPixel(worldPosition.z, mapSize, size);
+        Vector2 min = TotemMapService.GetWorldMin(map);
+        Vector2 max = TotemMapService.GetWorldMax(map);
+        int centerX = WorldToMinimapPixel(worldPosition.x, min.x, max.x, size);
+        int centerY = WorldToMinimapPixel(worldPosition.z, min.y, max.y, size);
         radiusPx = Mathf.Max(1, radiusPx);
         for (int y = centerY - radiusPx; y <= centerY + radiusPx; y++)
         {
@@ -768,9 +596,9 @@ public sealed class TotemCombatHUDForm : TotemUIFormBase
         }
     }
 
-    private static int WorldToMinimapPixel(float value, float mapSize, int size)
+    private static int WorldToMinimapPixel(float value, float min, float max, int size)
     {
-        float normalized = mapSize <= 0f ? 0f : Mathf.Clamp01(value / mapSize);
+        float normalized = max <= min ? 0f : Mathf.InverseLerp(min, max, value);
         return Mathf.Clamp(Mathf.RoundToInt(normalized * (size - 1)), 0, size - 1);
     }
 
@@ -802,19 +630,14 @@ public sealed class TotemCombatHUDForm : TotemUIFormBase
             snapshot.lastTargetActorId.ToString(),
             snapshot.lastDamage.ToString("F2"),
             snapshot.lastKilled.ToString(),
-            snapshot.lastWeaponId ?? string.Empty,
-            snapshot.lastTraitId ?? string.Empty,
-            snapshot.lastSkillId ?? string.Empty,
-            snapshot.lastHitCount.ToString());
+            snapshot.lastWeaponId ?? string.Empty);
     }
 
     private static string GetWeaponAssetKey(string weaponId)
     {
-        return string.IsNullOrWhiteSpace(weaponId) ? string.Empty : $"weapon.{weaponId}";
+        return string.Equals(weaponId, TotemWeaponService.DefaultWeaponId, System.StringComparison.Ordinal)
+            ? TotemFirstPlayableArtHandoff.WeaponKey
+            : string.Empty;
     }
 
-    public static string GetSkillAssetKey(string skillId)
-    {
-        return string.IsNullOrWhiteSpace(skillId) ? string.Empty : $"skill.{skillId}";
-    }
 }

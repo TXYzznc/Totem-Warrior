@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public sealed class TotemParticipantReadinessService : TotemRuntimeServiceBase, ITotemRuntimeTickService
+public sealed class TotemParticipantReadinessService : TotemRuntimeServiceBase, ITotemRuntimeTickService, ITotemGameplaySimulationService
 {
     public const float DefaultProtectionSeconds = 5f;
     public const float DefaultLoadingTimeoutSeconds = 90f;
@@ -129,6 +129,14 @@ public sealed class TotemParticipantReadinessService : TotemRuntimeServiceBase, 
 
     public TotemParticipantLifecycle GetLifecycle(TotemActorModel participant)
     {
+        if (participant != null
+            && (participant.Lifecycle == TotemParticipantLifecycle.Downed
+                || participant.Lifecycle == TotemParticipantLifecycle.Eliminated
+                || participant.Lifecycle == TotemParticipantLifecycle.Disconnected))
+        {
+            return participant.Lifecycle;
+        }
+
         if (participant != null && entries.TryGetValue(participant, out var entry))
         {
             return entry.Lifecycle;
@@ -148,7 +156,14 @@ public sealed class TotemParticipantReadinessService : TotemRuntimeServiceBase, 
 
     public bool CanBeTargeted(TotemActorModel participant)
     {
-        return CanAct(participant);
+        if (participant == null || !participant.IsAlive)
+        {
+            return false;
+        }
+
+        TotemParticipantLifecycle lifecycle = GetLifecycle(participant);
+        return lifecycle == TotemParticipantLifecycle.Active
+            || lifecycle == TotemParticipantLifecycle.Downed;
     }
 
     public bool CountsAsAlive(TotemActorModel participant)
@@ -178,7 +193,7 @@ public sealed class TotemParticipantReadinessService : TotemRuntimeServiceBase, 
 
         foreach (var pair in entries)
         {
-            switch (pair.Value.Lifecycle)
+            switch (GetLifecycle(pair.Key))
             {
                 case TotemParticipantLifecycle.Loading:
                     snapshot.loadingCount++;
@@ -188,6 +203,9 @@ public sealed class TotemParticipantReadinessService : TotemRuntimeServiceBase, 
                     break;
                 case TotemParticipantLifecycle.Active:
                     snapshot.activeCount++;
+                    break;
+                case TotemParticipantLifecycle.Downed:
+                    snapshot.downedCount++;
                     break;
                 case TotemParticipantLifecycle.Disconnected:
                     snapshot.disconnectedCount++;
@@ -284,11 +302,9 @@ public sealed class TotemParticipantReadinessService : TotemRuntimeServiceBase, 
         return input.move.sqrMagnitude > 0.0001f
             || input.attackPressed
             || input.attackHeld
-            || input.skillSlotEPressed
-            || input.skillSlotQPressed
             || input.dodgePressed
             || input.interactPressed
-            || input.selfTattooTogglePressed;
+            || input.interactHeld;
     }
 
     private static void SetRuntimeObjectActive(TotemActorModel participant, bool active)
@@ -313,6 +329,7 @@ public sealed class TotemParticipantReadinessSnapshot
     public int loadingCount;
     public int protectedCount;
     public int activeCount;
+    public int downedCount;
     public int disconnectedCount;
     public int transitionCount;
     public int protectionReleaseCount;

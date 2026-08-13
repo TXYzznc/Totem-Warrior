@@ -13,7 +13,7 @@ internal static class ActorCommonM02TattooMapTool
 {
     private const int FramePixels = 512;
     private const int PartCount = 6;
-    private const string SpriteDirectory = "Assets/Game/Sprite/Actors/ActorCommonM02";
+    private const string SpriteDirectory = "Assets/Game/Sprites/Actors/ActorCommonM02";
     private const string MapSetDirectory = "Assets/Game/Config/TattooVisual";
     private const string MapSetPath = MapSetDirectory + "/ActorCommonM02RollRightTattooMapSet.asset";
     private const string AuthoringAssetPath = MapSetDirectory + "/ActorCommonM02TattooRegionAuthoring.asset";

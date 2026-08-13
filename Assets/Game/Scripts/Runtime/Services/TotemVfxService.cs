@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public sealed class TotemVfxService : TotemRuntimeServiceBase, ITotemRuntimeTickService
 {
     private const float AttackHitLifetime = 0.35f;
-    private const float SkillBurstLifetime = 0.60f;
     private const float NormalShakeAmplitude = 0.05f;
     private const float NormalShakeDuration = 0.12f;
     private const float StrongShakeAmplitude = 0.10f;
@@ -29,7 +28,7 @@ public sealed class TotemVfxService : TotemRuntimeServiceBase, ITotemRuntimeTick
     private GameObject vignetteRoot;
     private Image vignetteImage;
     private int spawnedCount;
-    private int projectileSpawnedCount;
+    private int rifleTrailSpawnedCount;
     private int spriteRequestCount;
     private int spriteMissingCount;
     private int cameraShakeRequestCount;
@@ -45,7 +44,7 @@ public sealed class TotemVfxService : TotemRuntimeServiceBase, ITotemRuntimeTick
     private bool lastFloatingTextStrong;
     private string lastAssetKey = string.Empty;
     private string lastMissingAssetKey = string.Empty;
-    private string lastProjectileId = string.Empty;
+    private string lastRifleTrailWeaponId = string.Empty;
     private string lastFloatingText = string.Empty;
 
     public override string ServiceName => "VFX";
@@ -54,11 +53,11 @@ public sealed class TotemVfxService : TotemRuntimeServiceBase, ITotemRuntimeTick
 
     public int SpawnedCount => spawnedCount;
 
-    public int ProjectileSpawnedCount => projectileSpawnedCount;
+    public int RifleTrailSpawnedCount => rifleTrailSpawnedCount;
 
     public string LastAssetKey => lastAssetKey;
 
-    public string LastProjectileId => lastProjectileId;
+    public string LastRifleTrailWeaponId => lastRifleTrailWeaponId;
 
     protected override void OnInitialize(TotemGameRuntime runtime)
     {
@@ -135,12 +134,12 @@ public sealed class TotemVfxService : TotemRuntimeServiceBase, ITotemRuntimeTick
         {
             activeCount = instances.Count,
             spawnedCount = spawnedCount,
-            projectileSpawnedCount = projectileSpawnedCount,
+            rifleTrailSpawnedCount = rifleTrailSpawnedCount,
             spriteRequestCount = spriteRequestCount,
             spriteMissingCount = spriteMissingCount,
             lastAssetKey = lastAssetKey,
             lastMissingAssetKey = lastMissingAssetKey,
-            lastProjectileId = lastProjectileId,
+            lastRifleTrailWeaponId = lastRifleTrailWeaponId,
             cameraShakeRequestCount = cameraShakeRequestCount,
             cameraShakeSkippedCount = cameraShakeSkippedCount,
             lastCameraShakeAmplitude = lastCameraShakeAmplitude,
@@ -164,39 +163,25 @@ public sealed class TotemVfxService : TotemRuntimeServiceBase, ITotemRuntimeTick
         return SpawnSprite(assetKey, position + Vector3.up * 0.16f, scale, AttackHitLifetime, Color.white);
     }
 
-    public bool SpawnSkillBurst(Vector3 position, string skillId, float radius)
+    public bool SpawnRifleTrail(Vector3 start, Vector3 target, string weaponId, bool isPlayer)
     {
-        string assetKey = ResolveSkillEffectKey(skillId);
-        float scale = Mathf.Clamp(radius * 0.28f, 1.2f, 3.2f);
-        return SpawnSprite(assetKey, position + Vector3.up * 0.18f, scale, SkillBurstLifetime, Color.white);
-    }
-
-    public bool SpawnProjectileTrail(Vector3 start, Vector3 target, TotemProjectileDefinition projectile, bool isPlayer, bool charged)
-    {
-        if (projectile == null || string.IsNullOrWhiteSpace(projectile.ProjectileId))
+        if (string.IsNullOrWhiteSpace(weaponId))
         {
             return false;
         }
 
         Vector3 midpoint = Vector3.Lerp(start, target, 0.5f) + Vector3.up * 0.22f;
-        float scale = Mathf.Clamp(projectile.AoeRadius > 0f ? projectile.AoeRadius : 0.35f, 0.25f, 1.5f);
-        float lifetime = Mathf.Clamp(projectile.MaxRange / Mathf.Max(1f, projectile.Speed), 0.15f, 0.9f);
-        Color tint = isPlayer
-            ? (charged ? new Color(1f, 0.75f, 0.2f, 1f) : new Color(0.35f, 0.85f, 1f, 1f))
-            : new Color(1f, 0.2f, 0.2f, 1f);
+        Color tint = isPlayer ? new Color(0.35f, 0.85f, 1f, 1f) : new Color(1f, 0.2f, 0.2f, 1f);
 
-        bool spawned = SpawnSprite(ResolveProjectileEffectKey(projectile.ProjectileId), midpoint, scale, lifetime, tint);
+        bool spawned = SpawnSprite(ResolveAttackHitKey(weaponId), midpoint, 0.35f, 0.15f, tint);
         if (!spawned)
         {
             return false;
         }
 
-        projectileSpawnedCount++;
-        lastProjectileId = projectile.ProjectileId;
-        GFTrace.Info("TotemVFX", "Projectile.Spawned", null, GFTrace.Data(
-            "projectileId", projectile.ProjectileId,
-            "speed", projectile.Speed.ToString("F1"),
-            "maxRange", projectile.MaxRange.ToString("F1")));
+        rifleTrailSpawnedCount++;
+        lastRifleTrailWeaponId = weaponId;
+        GFTrace.Info("TotemVFX", "RifleTrail.Spawned", null, GFTrace.Data("weaponId", weaponId));
         return true;
     }
 
@@ -228,28 +213,6 @@ public sealed class TotemVfxService : TotemRuntimeServiceBase, ITotemRuntimeTick
 
     public static string ResolveAttackHitKey(string weaponId)
     {
-        return "effect.attack.hit";
-    }
-
-    public static string ResolveSkillEffectKey(string skillId)
-    {
-        return string.Equals(skillId, "skill_beam", StringComparison.Ordinal)
-            ? "effect.boss.bolt"
-            : "effect.skill.burst";
-    }
-
-    public static string ResolveProjectileEffectKey(string projectileId)
-    {
-        if (string.Equals(projectileId, "bullet_pistol", StringComparison.Ordinal))
-        {
-            return "effect.projectile.bullet_pistol";
-        }
-
-        if (string.Equals(projectileId, "arrow_bow", StringComparison.Ordinal))
-        {
-            return "effect.projectile.arrow_bow";
-        }
-
         return "effect.attack.hit";
     }
 
@@ -589,7 +552,7 @@ public sealed class TotemVfxService : TotemRuntimeServiceBase, ITotemRuntimeTick
         if (resetCounters)
         {
             spawnedCount = 0;
-            projectileSpawnedCount = 0;
+            rifleTrailSpawnedCount = 0;
             spriteRequestCount = 0;
             spriteMissingCount = 0;
             cameraShakeRequestCount = 0;
@@ -600,7 +563,7 @@ public sealed class TotemVfxService : TotemRuntimeServiceBase, ITotemRuntimeTick
             lastCameraShakeDuration = 0f;
             lastAssetKey = string.Empty;
             lastMissingAssetKey = string.Empty;
-            lastProjectileId = string.Empty;
+            lastRifleTrailWeaponId = string.Empty;
             lastFloatingText = string.Empty;
         }
     }
@@ -661,8 +624,7 @@ public sealed class TotemVfxService : TotemRuntimeServiceBase, ITotemRuntimeTick
             || (record.Source is TotemActorModel sourceActor && sourceActor.ControllerKind == TotemParticipantControllerKind.Human)
             || reason.IndexOf("Attack", StringComparison.OrdinalIgnoreCase) >= 0
             || reason.IndexOf("Skill", StringComparison.OrdinalIgnoreCase) >= 0
-            || reason.IndexOf("Tattoo", StringComparison.OrdinalIgnoreCase) >= 0
-            || reason.IndexOf("Boss", StringComparison.OrdinalIgnoreCase) >= 0;
+            || reason.IndexOf("Tattoo", StringComparison.OrdinalIgnoreCase) >= 0;
     }
 
     private static bool ShouldSpawnDamageFloat(TotemDamageRecord record)
@@ -682,8 +644,7 @@ public sealed class TotemVfxService : TotemRuntimeServiceBase, ITotemRuntimeTick
         return record.Killed
             || record.Amount >= 45f
             || reason.IndexOf("Charged", StringComparison.OrdinalIgnoreCase) >= 0
-            || reason.IndexOf("Crit", StringComparison.OrdinalIgnoreCase) >= 0
-            || reason.IndexOf("Boss", StringComparison.OrdinalIgnoreCase) >= 0;
+            || reason.IndexOf("Crit", StringComparison.OrdinalIgnoreCase) >= 0;
     }
 
     private sealed class TotemVfxInstance

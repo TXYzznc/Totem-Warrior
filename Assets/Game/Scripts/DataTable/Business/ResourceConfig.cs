@@ -15,7 +15,7 @@ using UnityGameFramework.Runtime;
 [Obfuz.ObfuzIgnore(Obfuz.ObfuzScope.TypeName | Obfuz.ObfuzScope.MethodName)]
 #endif
 /// <summary>
-/// Business table migrated from LegacyProjectArchive/Assets/Resources/DataTable/ResourceConfig.json. GF_X Id is numeric; original business keys are preserved as data columns.
+/// Business configuration maintained in the GF_X AI DataTable workflow. Id is numeric and business keys are preserved as data columns.
 /// </summary>
 public class ResourceConfig : DataRowBase
 {

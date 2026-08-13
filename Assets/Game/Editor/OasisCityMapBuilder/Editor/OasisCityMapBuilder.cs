@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -7,6 +7,7 @@ using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
 
 namespace Game.EditorTools.OasisCity
@@ -15,13 +16,14 @@ namespace Game.EditorTools.OasisCity
     {
         private const string LayoutPath = "Assets/Game/Editor/OasisCityMapBuilder/Data/OasisCityLayout.json";
         private const string ScenePath = "Assets/Game/Scene/OasisCity.unity";
+        private const string MapAnchorAuthoringScriptPath = "Assets/Game/Scripts/Runtime/TotemMapAnchorAuthoring.cs";
         private const string DataRoot = "Assets/Game/Scene/OasisCityData";
         private const string MeshRoot = DataRoot + "/Meshes";
         private const string MaterialRoot = DataRoot + "/Materials";
         private const string TerrainRoot = DataRoot + "/Terrain";
         private const string BuildingRoot = "Assets/Game/Prefabs/Environment/OasisCity/Buildings";
         private const string DecorationRoot = "Assets/Game/Prefabs/Environment/OasisCity/Decorations";
-        private const string TerrainSandTexturePath = "Assets/Game/Texture/Environment/OasisCity/Terrain/T_Oasis_Terrain_Sand_BaseColor.png";
+        private const string TerrainSandTexturePath = "Assets/Game/Textures/Environment/OasisCity/Terrain/T_Oasis_Terrain_Sand_BaseColor.png";
 
         private const float GroundY = 2f;
         private const float RoadY = 2.035f;
@@ -33,7 +35,11 @@ namespace Game.EditorTools.OasisCity
             StaticEditorFlags.OccluderStatic |
             StaticEditorFlags.OccludeeStatic |
             StaticEditorFlags.ReflectionProbeStatic |
+            StaticEditorFlags.ContributeGI |
             StaticEditorFlags.NavigationStatic;
+
+        private static readonly StaticEditorFlags NonGiEnvironmentStaticFlags =
+            EnvironmentStaticFlags & ~StaticEditorFlags.ContributeGI;
 
         private static readonly Vector3[] WestWallFallback =
         {
@@ -94,6 +100,7 @@ namespace Game.EditorTools.OasisCity
             BuildGameplayMarkers(layout, gameplayRoot.transform);
             BuildLighting(lightingRoot.transform);
             BuildReviewObjects(reviewRoot.transform);
+            ConfigureBakedGi(root);
 
             EditorSceneManager.MarkSceneDirty(scene);
             if (!EditorSceneManager.SaveScene(scene, ScenePath))
@@ -162,6 +169,68 @@ namespace Game.EditorTools.OasisCity
             {
                 Debug.LogError("[OasisCityMapBuilder] Validation failed: " + message);
             }
+        }
+
+        [MenuItem("Game Framework/GameTools/Oasis City/Upgrade Gameplay Anchors")]
+        public static void UpgradeGameplayAnchors()
+        {
+            OasisCityLayoutData layout = LoadLayout();
+            ValidateLayout(layout);
+
+            Scene scene = SceneManager.GetSceneByPath(ScenePath);
+            bool openedForUpgrade = !scene.IsValid() || !scene.isLoaded;
+            if (openedForUpgrade)
+            {
+                scene = EditorSceneManager.OpenScene(ScenePath, OpenSceneMode.Additive);
+            }
+
+            GameObject root = scene.GetRootGameObjects().FirstOrDefault(item => item.name == "ENV_OasisCity");
+            Transform gameplayRoot = root != null ? root.transform.Find("80_GameplayMarkers") : null;
+            if (root == null || gameplayRoot == null)
+            {
+                throw new InvalidOperationException($"OasisCity scene contract is missing ENV_OasisCity/80_GameplayMarkers: {ScenePath}");
+            }
+
+            foreach (Transform item in gameplayRoot.GetComponentsInChildren<Transform>(true))
+            {
+                GameObjectUtility.RemoveMonoBehavioursWithMissingScript(item.gameObject);
+            }
+            foreach (OasisSpawnData spawn in layout.spawns)
+            {
+                Transform marker = gameplayRoot.Find(spawn.id);
+                if (marker != null)
+                {
+                    UnityEngine.Object.DestroyImmediate(marker.gameObject);
+                }
+            }
+            foreach (string markerRootName in new[] { "MapResourceAnchors", "ExtractionAnchors" })
+            {
+                Transform markerRoot = gameplayRoot.Find(markerRootName);
+                if (markerRoot != null)
+                {
+                    UnityEngine.Object.DestroyImmediate(markerRoot.gameObject);
+                }
+            }
+            foreach (OasisSpawnData spawn in layout.spawns)
+            {
+                FindOrCreateMarker(
+                    gameplayRoot,
+                    spawn.id,
+                    new Vector3(spawn.x, GroundY + 0.12f, spawn.z));
+            }
+            EnsureGameplayAuthoring(layout, root, gameplayRoot);
+            EditorSceneManager.MarkSceneDirty(scene);
+            if (!EditorSceneManager.SaveScene(scene))
+            {
+                throw new InvalidOperationException($"Failed to save upgraded gameplay anchors: {ScenePath}");
+            }
+
+            if (openedForUpgrade)
+            {
+                EditorSceneManager.CloseScene(scene, true);
+            }
+
+            Debug.Log("[OasisCityMapBuilder] Gameplay anchor authoring upgraded: 20 player, 20 resource, 7 extraction anchors.");
         }
 
         [MenuItem("Game Framework/GameTools/Oasis City/Audit Building Mesh Structure")]
@@ -251,6 +320,35 @@ namespace Game.EditorTools.OasisCity
             {
                 Debug.LogError($"[OasisCityMapBuilder] Entrance validation failed: {failures.Count}/152\n{string.Join("\n", failures)}");
             }
+        }
+
+        [MenuItem("Game Framework/GameTools/Oasis City/Rebuild Review Cameras")]
+        public static void RebuildReviewCameras()
+        {
+            Scene scene = SceneManager.GetActiveScene();
+            GameObject root = GameObject.Find("ENV_OasisCity");
+            Transform reviewRoot = root != null ? root.transform.Find("99_Review") : null;
+            if (scene.path != ScenePath || reviewRoot == null)
+            {
+                Debug.LogError($"[OasisCityMapBuilder] Open {ScenePath} before rebuilding review cameras.");
+                return;
+            }
+
+            Undo.SetCurrentGroupName("重建 OasisCity 审阅摄像机");
+            int undoGroup = Undo.GetCurrentGroup();
+            for (int index = reviewRoot.childCount - 1; index >= 0; index--)
+            {
+                Transform child = reviewRoot.GetChild(index);
+                if (child.name == "ReviewCamera" || child.name == "CameraGroups")
+                    Undo.DestroyObjectImmediate(child.gameObject);
+            }
+
+            Transform groupsRoot = BuildReviewObjects(reviewRoot);
+            Undo.RegisterCreatedObjectUndo(groupsRoot.gameObject, "创建 OasisCity 审阅摄像机");
+            Undo.CollapseUndoOperations(undoGroup);
+            EditorSceneManager.MarkSceneDirty(scene);
+            Selection.activeGameObject = groupsRoot.gameObject;
+            Debug.Log("[OasisCityMapBuilder] Rebuilt 14 review cameras in 4 groups.");
         }
 
         private static bool TryGetPrimaryDoorProbe(Transform instance, out Vector3 center, out Vector3 outward)
@@ -1072,7 +1170,7 @@ namespace Game.EditorTools.OasisCity
                     placeholder.transform.rotation = Quaternion.Euler(0f, building.yaw, 0f);
                     placeholder.transform.localScale = size;
                     placeholder.GetComponent<MeshRenderer>().sharedMaterial = material;
-                    GameObjectUtility.SetStaticEditorFlags(placeholder, EnvironmentStaticFlags);
+                    GameObjectUtility.SetStaticEditorFlags(placeholder, NonGiEnvironmentStaticFlags);
                 }
             }
         }
@@ -1091,6 +1189,8 @@ namespace Game.EditorTools.OasisCity
                 marker.GetComponent<Collider>().enabled = false;
             }
 
+            EnsureGameplayAuthoring(layout, parent.root.gameObject, parent);
+
             OasisSpawnData eastSpawn = layout.spawns.First(item => item.id == "SP08");
             GameObject accessLinkObject = NewNode("_Navigation_SP08", parent);
             Transform citySide = NewNode("_CitySide", accessLinkObject.transform).transform;
@@ -1106,6 +1206,84 @@ namespace Game.EditorTools.OasisCity
             accessLink.costOverride = -1f;
         }
 
+        private static void EnsureGameplayAuthoring(OasisCityLayoutData layout, GameObject root, Transform gameplayRoot)
+        {
+            TotemMapSceneAuthoring sceneAuthoring = root.GetComponent<TotemMapSceneAuthoring>() ?? root.AddComponent<TotemMapSceneAuthoring>();
+            sceneAuthoring.Configure(
+                new Vector2(-layout.mapWidth * 0.5f, -layout.mapLength * 0.5f),
+                new Vector2(layout.mapWidth * 0.5f, layout.mapLength * 0.5f));
+
+            Transform resourceRoot = FindOrCreateMarkerRoot(gameplayRoot, "MapResourceAnchors");
+            Transform extractionRoot = FindOrCreateMarkerRoot(gameplayRoot, "ExtractionAnchors");
+            foreach (OasisSpawnData spawn in layout.spawns.OrderBy(item => item.id))
+            {
+                Transform spawnMarker = gameplayRoot.Find(spawn.id);
+                if (spawnMarker == null)
+                {
+                    throw new InvalidOperationException($"Missing authored player spawn marker: {spawn.id}");
+                }
+
+                EnsureAnchor(spawnMarker.gameObject, spawn.id, 1, 8f);
+
+                int index = int.Parse(spawn.id.Substring(2));
+                string resourceId = $"RS{index:00}";
+                Vector3 source = new Vector3(spawn.x, GroundY + 0.12f, spawn.z);
+                Vector3 inward = Vector3.zero - source;
+                inward.y = 0f;
+                Vector3 resourcePosition = source + inward.normalized * 14f;
+                Transform resource = FindOrCreateMarker(resourceRoot, resourceId, resourcePosition);
+                EnsureAnchor(resource.gameObject, resourceId, 7, 5f);
+
+                if ((index - 1) % 3 == 0)
+                {
+                    int extractionIndex = (index - 1) / 3 + 1;
+                    string extractionId = $"EX{extractionIndex:00}";
+                    Vector3 extractionPosition = source + inward.normalized * 6f;
+                    Transform extraction = FindOrCreateMarker(extractionRoot, extractionId, extractionPosition);
+                    EnsureAnchor(extraction.gameObject, extractionId, 6, 7f);
+                }
+            }
+        }
+
+        private static Transform FindOrCreateMarkerRoot(Transform parent, string name)
+        {
+            Transform existing = parent.Find(name);
+            return existing != null ? existing : NewNode(name, parent).transform;
+        }
+
+        private static Transform FindOrCreateMarker(Transform parent, string name, Vector3 position)
+        {
+            Transform marker = parent.Find(name);
+            if (marker == null)
+            {
+                marker = NewNode(name, parent).transform;
+            }
+            marker.position = position;
+            return marker;
+        }
+
+        private static void EnsureAnchor(GameObject gameObject, string id, int kindValue, float radius)
+        {
+            MonoScript script = AssetDatabase.LoadAssetAtPath<MonoScript>(MapAnchorAuthoringScriptPath);
+            if (script == null)
+            {
+                throw new InvalidOperationException($"Missing map anchor authoring script: {MapAnchorAuthoringScriptPath}");
+            }
+
+            Type componentType = script.GetClass();
+            if (componentType == null)
+            {
+                throw new InvalidOperationException($"Unable to resolve runtime type from {MapAnchorAuthoringScriptPath}.");
+            }
+
+            Component component = gameObject.AddComponent(componentType);
+            if (component is not TotemMapAnchorAuthoring authoring)
+            {
+                throw new InvalidOperationException($"Unable to bind {MapAnchorAuthoringScriptPath} to {gameObject.name}.");
+            }
+            authoring.Configure(id, (TotemMapAnchorKind)kindValue, radius, true);
+        }
+
         private static void BuildLighting(Transform parent)
         {
             GameObject sun = NewNode("Sun_Main", parent);
@@ -1116,6 +1294,7 @@ namespace Game.EditorTools.OasisCity
             light.intensity = 1.25f;
             light.shadows = LightShadows.Soft;
             light.shadowStrength = 0.82f;
+            light.lightmapBakeType = LightmapBakeType.Baked;
 
             RenderSettings.sun = light;
             RenderSettings.ambientMode = AmbientMode.Trilight;
@@ -1127,18 +1306,162 @@ namespace Game.EditorTools.OasisCity
             RenderSettings.fogColor = new Color(0.54f, 0.43f, 0.31f);
             RenderSettings.fogStartDistance = 420f;
             RenderSettings.fogEndDistance = 1350f;
+
+            BuildLightProbes(parent);
+            BuildReflectionProbes(parent);
         }
 
-        private static void BuildReviewObjects(Transform parent)
+        private static void BuildLightProbes(Transform parent)
         {
-            GameObject cameraObject = NewNode("ReviewCamera", parent);
-            cameraObject.transform.position = new Vector3(410f, 510f, -500f);
-            cameraObject.transform.rotation = Quaternion.Euler(43f, -39f, 0f);
+            GameObject probeObject = NewNode("LightProbes_CityGrid", parent);
+            LightProbeGroup group = probeObject.AddComponent<LightProbeGroup>();
+            List<Vector3> probes = new(585);
+            float[] heights = { 2.2f, 7.5f, 18f };
+            for (int zIndex = 0; zIndex < 13; zIndex++)
+            {
+                float z = Mathf.Lerp(-330f, 330f, zIndex / 12f);
+                for (int xIndex = 0; xIndex < 15; xIndex++)
+                {
+                    float x = Mathf.Lerp(-210f, 210f, xIndex / 14f);
+                    for (int heightIndex = 0; heightIndex < heights.Length; heightIndex++)
+                        probes.Add(new Vector3(x, heights[heightIndex], z));
+                }
+            }
+            group.probePositions = probes.ToArray();
+        }
+
+        private static void BuildReflectionProbes(Transform parent)
+        {
+            (string name, Vector3 position, Vector3 size)[] definitions =
+            {
+                ("ReflectionProbe_North", new Vector3(0f, 28f, 250f), new Vector3(440f, 70f, 230f)),
+                ("ReflectionProbe_Central", new Vector3(0f, 25f, 0f), new Vector3(420f, 65f, 250f)),
+                ("ReflectionProbe_South", new Vector3(0f, 26f, -255f), new Vector3(440f, 70f, 230f)),
+                ("ReflectionProbe_River", new Vector3(0f, 16f, 25f), new Vector3(130f, 45f, 680f)),
+                ("ReflectionProbe_WestBoundary", new Vector3(-190f, 24f, 0f), new Vector3(150f, 65f, 700f)),
+                ("ReflectionProbe_EastBoundary", new Vector3(190f, 24f, 0f), new Vector3(150f, 65f, 700f)),
+            };
+            foreach ((string probeName, Vector3 position, Vector3 size) in definitions)
+            {
+                GameObject probeObject = NewNode(probeName, parent);
+                probeObject.transform.position = position;
+                ReflectionProbe probe = probeObject.AddComponent<ReflectionProbe>();
+                probe.mode = ReflectionProbeMode.Baked;
+                probe.refreshMode = ReflectionProbeRefreshMode.ViaScripting;
+                probe.resolution = 256;
+                probe.size = size;
+                probe.boxProjection = true;
+                probe.blendDistance = 18f;
+            }
+        }
+
+        internal static Transform BuildReviewObjects(Transform parent)
+        {
+            GameObject cameraGroups = NewNode("CameraGroups", parent);
+            Transform overviewGroup = NewNode("城市全景", cameraGroups.transform).transform;
+            Transform districtGroup = NewNode("街区构图", cameraGroups.transform).transform;
+            Transform waterBoundaryGroup = NewNode("水体与边界", cameraGroups.transform).transform;
+            Transform buildingCloseupGroup = NewNode("建筑特写", cameraGroups.transform).transform;
+
+            CreateReviewCamera(
+                "CAM_Overview_SouthEast", overviewGroup,
+                new Vector3(410f, 510f, -500f), new Vector3(0f, 8f, 0f), 42f, true);
+            CreateReviewCamera(
+                "CAM_Overview_NorthWest", overviewGroup,
+                new Vector3(-430f, 390f, 520f), new Vector3(0f, 8f, 20f), 45f, false);
+            CreateReviewCamera(
+                "CAM_Overview_Top", overviewGroup,
+                new Vector3(0f, 650f, -80f), new Vector3(0f, 0f, 0f), 38f, false);
+
+            CreateReviewCamera(
+                "CAM_District_North", districtGroup,
+                new Vector3(245f, 92f, 385f), new Vector3(118f, 8f, 275f), 48f, false);
+            CreateReviewCamera(
+                "CAM_District_Central", districtGroup,
+                new Vector3(-175f, 58f, 145f), new Vector3(-35f, 7f, 25f), 50f, false);
+            CreateReviewCamera(
+                "CAM_District_South", districtGroup,
+                new Vector3(-235f, 72f, -360f), new Vector3(-90f, 7f, -255f), 48f, false);
+
+            CreateReviewCamera(
+                "CAM_River_Bridge03", waterBoundaryGroup,
+                new Vector3(135f, 46f, 105f), new Vector3(-8f, 2f, 30f), 44f, false);
+            CreateReviewCamera(
+                "CAM_Boundary_WestWall", waterBoundaryGroup,
+                new Vector3(-335f, 82f, 5f), new Vector3(-225f, 15f, 5f), 46f, false);
+
+            OasisCityLayoutData layout = LoadLayout();
+            CreateBuildingCloseupCamera(
+                "CAM_Building_Tower_BF01", buildingCloseupGroup, layout, "BF-01-01", new Vector3(-1f, 0f, -1f), 36f);
+            CreateBuildingCloseupCamera(
+                "CAM_Building_Civic_BF06", buildingCloseupGroup, layout, "BF-06-01", new Vector3(1f, 0f, -1f), 38f);
+            CreateBuildingCloseupCamera(
+                "CAM_Building_RiverService_BF12", buildingCloseupGroup, layout, "BF-12-01", new Vector3(-1f, 0f, 1f), 34f);
+            CreateBuildingCloseupCamera(
+                "CAM_Building_Courtyard_BF07", buildingCloseupGroup, layout, "BF-07-01", new Vector3(1f, 0f, 1f), 38f);
+            CreateBuildingCloseupCamera(
+                "CAM_Building_Bazaar_BF24", buildingCloseupGroup, layout, "BF-24-01", new Vector3(-1f, 0f, 1f), 34f);
+            CreateBuildingCloseupCamera(
+                "CAM_Building_Residential_BF18", buildingCloseupGroup, layout, "BF-18-01", new Vector3(1f, 0f, -1f), 36f);
+            return cameraGroups.transform;
+        }
+
+        private static Camera CreateBuildingCloseupCamera(
+            string cameraName,
+            Transform parent,
+            OasisCityLayoutData layout,
+            string buildingId,
+            Vector3 viewingDirection,
+            float fieldOfView)
+        {
+            OasisBuildingData building = null;
+            for (int index = 0; index < layout.buildings.Length; index++)
+            {
+                if (layout.buildings[index].id == buildingId)
+                {
+                    building = layout.buildings[index];
+                    break;
+                }
+            }
+
+            if (building == null)
+                throw new InvalidOperationException($"Review-camera building is missing from layout: {buildingId}");
+
+            Vector3 target = new(
+                building.x,
+                BuildingY + building.sizeY * 0.55f,
+                building.z);
+            Vector3 horizontalDirection = new Vector3(viewingDirection.x, 0f, viewingDirection.z).normalized;
+            float footprint = Mathf.Max(building.sizeX, building.sizeZ);
+            float distance = Mathf.Max(22f, footprint * 1.45f);
+            float height = Mathf.Max(8f, building.sizeY * 0.45f);
+            Vector3 position = target + horizontalDirection * distance + Vector3.up * height;
+            return CreateReviewCamera(cameraName, parent, position, target, fieldOfView, false);
+        }
+
+        private static Camera CreateReviewCamera(
+            string name,
+            Transform parent,
+            Vector3 position,
+            Vector3 lookAt,
+            float fieldOfView,
+            bool enabled)
+        {
+            GameObject cameraObject = NewNode(name, parent);
+            cameraObject.transform.position = position;
+            cameraObject.transform.LookAt(lookAt, Vector3.up);
             Camera camera = cameraObject.AddComponent<Camera>();
-            camera.fieldOfView = 42f;
+            camera.fieldOfView = fieldOfView;
             camera.nearClipPlane = 0.3f;
             camera.farClipPlane = 1400f;
-            camera.tag = "MainCamera";
+            camera.allowHDR = true;
+            camera.allowMSAA = true;
+            camera.enabled = enabled;
+            UniversalAdditionalCameraData additionalData = camera.GetUniversalAdditionalCameraData();
+            additionalData.renderPostProcessing = true;
+            if (enabled)
+                camera.tag = "MainCamera";
+            return camera;
         }
 
         private static GameObject CreateStripObject(string name, List<Vector3> left, List<Vector3> right, Material material, Transform parent, bool collider)
@@ -1209,6 +1532,7 @@ namespace Game.EditorTools.OasisCity
             mesh.SetUVs(0, uvs);
             mesh.RecalculateNormals();
             mesh.RecalculateBounds();
+            Unwrapping.GenerateSecondaryUVSet(mesh);
             AssetDatabase.CreateAsset(mesh, MeshRoot + "/" + name + ".asset");
             return mesh;
         }
@@ -1269,6 +1593,55 @@ namespace Game.EditorTools.OasisCity
             {
                 GameObjectUtility.SetStaticEditorFlags(child.gameObject, flags);
             }
+        }
+
+        private static void ConfigureBakedGi(GameObject root)
+        {
+            foreach (Renderer renderer in root.GetComponentsInChildren<Renderer>(true))
+            {
+                if (!IsEligibleForBakedGi(renderer.transform, root.transform))
+                {
+                    GameObjectUtility.SetStaticEditorFlags(renderer.gameObject,
+                        GameObjectUtility.GetStaticEditorFlags(renderer.gameObject) & ~StaticEditorFlags.ContributeGI);
+                    continue;
+                }
+
+                GameObjectUtility.SetStaticEditorFlags(renderer.gameObject,
+                    GameObjectUtility.GetStaticEditorFlags(renderer.gameObject) | StaticEditorFlags.ContributeGI);
+                SerializedObject serializedRenderer = new(renderer);
+                SerializedProperty receiveGi = serializedRenderer.FindProperty("m_ReceiveGI");
+                SerializedProperty scaleInLightmap = serializedRenderer.FindProperty("m_ScaleInLightmap");
+                if (receiveGi != null) receiveGi.intValue = (int)ReceiveGI.Lightmaps;
+                if (scaleInLightmap != null) scaleInLightmap.floatValue = GetLightmapScale(renderer);
+                serializedRenderer.ApplyModifiedPropertiesWithoutUndo();
+            }
+        }
+
+        private static bool IsEligibleForBakedGi(Transform current, Transform root)
+        {
+            while (current != null && current != root)
+            {
+                if (current.name == "20_Water" || current.name == "75_DecorationPlaceholders" ||
+                    current.name == "80_GameplayMarkers" || current.name == "90_Lighting" || current.name == "99_Review" ||
+                    current.name.StartsWith("_Navigation", StringComparison.Ordinal))
+                    return false;
+                current = current.parent;
+            }
+            return true;
+        }
+
+        private static float GetLightmapScale(Renderer renderer)
+        {
+            string name = renderer.transform.root.name + "/" + renderer.name;
+            if (name.Contains("BF-01", StringComparison.Ordinal) || name.Contains("BF-06", StringComparison.Ordinal) ||
+                name.Contains("BF-12", StringComparison.Ordinal) || name.Contains("Bridge03", StringComparison.Ordinal))
+                return 1.25f;
+            if (name.Contains("Terrain", StringComparison.Ordinal) || name.Contains("Road", StringComparison.Ordinal) ||
+                name.Contains("Wall", StringComparison.Ordinal) || name.Contains("_LOD1_Proxy", StringComparison.Ordinal))
+                return 0.18f;
+            if (name.StartsWith("DE-", StringComparison.Ordinal))
+                return 0.32f;
+            return 0.55f;
         }
     }
 }

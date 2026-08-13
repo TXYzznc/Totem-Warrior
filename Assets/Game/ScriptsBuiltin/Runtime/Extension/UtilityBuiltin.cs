@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using GameFramework;
 using System.Security.Cryptography;
 using System.IO;
@@ -161,7 +161,7 @@ public static class UtilityBuiltin
         }
         public static string GetMaterialPath(string v)
         {
-            return Utility.Text.Format("Assets/Game/Material/{0}.mat", v);
+            return Utility.Text.Format("Assets/Game/Materials/{0}.mat", v);
         }
 
         public static string GetHotfixDll(string dllName)

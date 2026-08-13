@@ -5,7 +5,8 @@ using UnityEngine.SceneManagement;
 [DisallowMultipleComponent]
 public sealed class TotemGameplaySceneLoader : MonoBehaviour
 {
-    private const string GameplaySceneName = "TotemGame";
+    private const string GameplaySceneName = "OasisCity";
+    private const string PersistentSceneName = "Launch";
     private static TotemGameplaySceneLoader instance;
     private bool isLoading;
 
@@ -28,6 +29,31 @@ public sealed class TotemGameplaySceneLoader : MonoBehaviour
         {
             instance.StartCoroutine(instance.LoadAndEnter(runtime));
         }
+    }
+
+    public static void CancelPending(string reason)
+    {
+        if (instance == null || !instance.isLoading)
+        {
+            return;
+        }
+
+        instance.StopAllCoroutines();
+        instance.isLoading = false;
+        GF.BuiltinView.HideLoadingProgress();
+        GFTrace.Info("TotemLoading", "Cancelled", null, GFTrace.Data(
+            "reason", string.IsNullOrWhiteSpace(reason) ? "Unspecified" : reason));
+    }
+
+    public static void UnloadGameplayScene()
+    {
+        if (instance == null)
+        {
+            var go = new GameObject("[TotemGameplaySceneLoader]");
+            DontDestroyOnLoad(go);
+            instance = go.AddComponent<TotemGameplaySceneLoader>();
+        }
+        instance.StartCoroutine(instance.UnloadGameplay());
     }
 
     private IEnumerator LoadAndEnter(TotemGameRuntime runtime)
@@ -61,7 +87,7 @@ public sealed class TotemGameplaySceneLoader : MonoBehaviour
         SetStage("正在初始化游戏场景", 0.45f);
         yield return null;
 
-        SetStage("正在生成 PCG 地图", 0.60f);
+        SetStage("正在读取场景地图与合法锚点", 0.60f);
         runtime.GetService<TotemGameFlowService>()?.EnterCombatHud();
         yield return null;
 
@@ -77,6 +103,28 @@ public sealed class TotemGameplaySceneLoader : MonoBehaviour
         GF.BuiltinView.HideLoadingProgress();
         GFTrace.Success("TotemLoading", "Completed", null, GFTrace.Data("scene", GameplaySceneName));
         isLoading = false;
+    }
+
+    private IEnumerator UnloadGameplay()
+    {
+        Scene gameplayScene = SceneManager.GetSceneByName(GameplaySceneName);
+        if (!gameplayScene.IsValid() || !gameplayScene.isLoaded)
+        {
+            yield break;
+        }
+
+        Scene persistentScene = SceneManager.GetSceneByName(PersistentSceneName);
+        if (persistentScene.IsValid() && persistentScene.isLoaded)
+        {
+            SceneManager.SetActiveScene(persistentScene);
+        }
+
+        AsyncOperation operation = SceneManager.UnloadSceneAsync(gameplayScene);
+        while (operation != null && !operation.isDone)
+        {
+            yield return null;
+        }
+        GFTrace.Info("TotemLoading", "Scene.Unloaded", null, GFTrace.Data("scene", GameplaySceneName));
     }
 
     private static void SetStage(string stage, float progress)

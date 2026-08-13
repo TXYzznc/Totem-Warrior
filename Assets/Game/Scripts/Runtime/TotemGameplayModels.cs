@@ -3,10 +3,10 @@ using UnityEngine;
 
 public enum TotemRoomType
 {
-    SpawnRoom = 0,
-    TattooStudio = 1,
-    Merchant = 2,
-    BossRoom = 3,
+    SouthWestArea = 0,
+    NorthWestArea = 1,
+    NorthEastArea = 2,
+    SouthEastArea = 3,
 }
 
 public enum TotemActorKind
@@ -14,25 +14,6 @@ public enum TotemActorKind
     Player = 0,
     SmartAi = 1,
     LightAi = 2,
-}
-
-public enum TotemEnemyTier
-{
-    Unknown = 0,
-    Light = 1,
-    Elite = 2,
-    Boss = 3,
-}
-
-public enum TotemItemType
-{
-    Unknown = 0,
-    Coin = 1,
-    InkBottle = 2,
-    RecipeShard = 3,
-    RecipeFull = 4,
-    Equipment = 5,
-    Antidote = 6,
 }
 
 public enum TotemAudioCueKind
@@ -75,8 +56,6 @@ public sealed class TotemAudioSnapshot
     public string lastReason;
     public float bgmVolume;
     public float sfxVolume;
-    public int observedBossPhase;
-    public string observedBossBgmCueId;
 }
 
 public sealed class TotemCameraSnapshot
@@ -99,18 +78,20 @@ public sealed class TotemCameraSnapshot
     public float lastShakeAmplitude;
     public float lastShakeDuration;
     public Vector3 lastShakeOffset;
+    public int followParticipantId;
+    public bool spectatingTeammate;
 }
 
 public sealed class TotemVfxSnapshot
 {
     public int activeCount;
     public int spawnedCount;
-    public int projectileSpawnedCount;
+    public int rifleTrailSpawnedCount;
     public int spriteRequestCount;
     public int spriteMissingCount;
     public string lastAssetKey;
     public string lastMissingAssetKey;
-    public string lastProjectileId;
+    public string lastRifleTrailWeaponId;
     public int cameraShakeRequestCount;
     public int cameraShakeSkippedCount;
     public float lastCameraShakeAmplitude;
@@ -126,19 +107,6 @@ public sealed class TotemVfxSnapshot
     public bool lastFloatingTextStrong;
 }
 
-public sealed class TotemItemDefinition
-{
-    public int ItemId;
-    public TotemItemType ItemType;
-    public string SubType;
-    public int Tier;
-    public string DisplayName;
-    public string Rarity;
-    public int MaxStack;
-    public int BasePrice;
-    public float SellRatio;
-}
-
 public sealed class TotemResourceDefinition
 {
     public int Id;
@@ -147,14 +115,6 @@ public sealed class TotemResourceDefinition
     public string LoadPath;
     public string AssetKey;
     public string ActiveAssetPath;
-}
-
-public sealed class TotemMerchantSlotDefinition
-{
-    public int SlotIndex;
-    public string WeaponId;
-    public int GoldCost;
-    public int RefreshWeight;
 }
 
 public sealed class TotemRoomInfo
@@ -181,14 +141,8 @@ public enum TotemMapAnchorKind : byte
 {
     Unknown = 0,
     PlayerSpawn = 1,
-    BossSpawn = 2,
-    EnemySpawn = 3,
-    Merchant = 4,
-    Tattooist = 5,
-    Chest = 6,
+    Extraction = 6,
     Resource = 7,
-    Event = 8,
-    Encounter = 9,
 }
 
 public sealed class TotemMapAnchor
@@ -201,7 +155,6 @@ public sealed class TotemMapAnchor
     public string PayloadId;
     public string VisualRole;
     public string ZoneRole;
-    public string EnemyPoolIds;
     public float SearchRadius;
     public bool IsReachable;
 }
@@ -212,6 +165,10 @@ public sealed class TotemMapSnapshot
     public int ThemeId;
     public string ThemeName;
     public float MapSize;
+    public Vector2 WorldMin;
+    public Vector2 WorldMax;
+    public float WorldGroundY;
+    public string SourceSceneName;
     public float MinRoomSize;
     public int TerrainPoolId;
     public string PrefabPath;
@@ -229,15 +186,6 @@ public sealed class TotemMapSnapshot
     public int BlockedCellCount;
     public int CoverCellCount;
     public int HazardCellCount;
-    public bool IsPcgGenerated;
-    public int PcgWidth;
-    public int PcgHeight;
-    public int PcgVisualCount;
-    public int PcgReachableCells;
-    public int PcgUnreachableCells;
-    public ulong PcgContentHash;
-    public string PcgValidationSummary;
-    public PCGMap.PCGMapData PcgMapData;
 }
 
 public sealed class TotemMapRuntimeSnapshot
@@ -255,13 +203,8 @@ public sealed class TotemMapRuntimeSnapshot
     public string lastMaterialFallbackAssetKey;
     public float mapSize;
     public string themeName;
-    public bool isPcgGenerated;
-    public int pcgCellObjectCount;
-    public int pcgVisualObjectCount;
-    public int pcgMissingSpriteCount;
-    public int pcgSpriteLoadCount;
-    public int pcgSpriteCreateCount;
-    public ulong pcgContentHash;
+    public string sourceSceneName;
+    public int authoredAnchorCount;
 }
 
 public sealed class TotemMapTemplateDefinition
@@ -279,6 +222,7 @@ public sealed class TotemMapTemplateDefinition
 public sealed class TotemActorSpawnInfo
 {
     public int ActorId;
+    public int TeamId = -1;
     public string Name;
     public TotemActorKind Kind;
     public TotemParticipantControllerKind ControllerKind;
@@ -303,7 +247,8 @@ public sealed class TotemActorModel : TotemParticipantModel
             ResolveControllerKind(spawnInfo),
             spawnInfo.MaxHealth,
             spawnInfo.Position,
-            TotemParticipantLifecycle.Active)
+            TotemParticipantLifecycle.Active,
+            spawnInfo.TeamId)
     {
         Kind = spawnInfo.Kind;
     }
@@ -386,13 +331,11 @@ public struct TotemInputSnapshot
     public bool attackPressed;
     public bool attackHeld;
     public float attackHoldDuration;
-    public bool skillPressed;
-    public bool skillSlotEPressed;
-    public bool skillSlotQPressed;
     public bool dodgePressed;
+    public bool extractionUnlockPressed;
     public bool interactPressed;
+    public bool interactHeld;
     public bool escapePressed;
-    public bool selfTattooTogglePressed;
 
     public static TotemInputSnapshot Empty => default;
 }
@@ -402,21 +345,15 @@ public sealed class TotemUISnapshot
     public bool canUseGFUI;
     public int currentFormId;
     public int overlayFormCount;
-    public int selfTattooFormId;
-    public bool selfTattooOverlayTracked;
     public int exclusiveOpenRequestCount;
     public int overlayOpenRequestCount;
     public int overlayCloseRequestCount;
-    public int selfTattooToggleRequestCount;
     public string lastExclusiveView;
     public string lastOverlayView;
     public bool lastExclusiveSucceeded;
     public bool lastOverlaySucceeded;
     public bool lastOverlayAllowEscape;
     public int lastOverlaySortOrder;
-    public bool hasActiveShopNpc;
-    public bool hasActiveTattooNpc;
-    public bool hasActiveChoice;
     public bool hasActiveRunResult;
 }
 
@@ -425,7 +362,6 @@ public sealed class TotemCombatSnapshot
     public bool active;
     public float playerHealth;
     public int aliveParticipantCount;
-    public int aliveEnemyCount;
     public int winnerParticipantId;
     public int killCount;
     public string lastAction;
@@ -435,13 +371,8 @@ public sealed class TotemCombatSnapshot
     public float lastDamage;
     public bool lastKilled;
     public string lastWeaponId;
-    public string lastTraitId;
-    public string lastSkillId;
-    public int lastHitCount;
     public string lastTargetingMode;
     public float lastAimSpreadHalfDegrees;
     public Vector3 lastAimForward;
     public float elapsedSec;
-    public float attackCooldownRemaining;
-    public float skillCooldownRemaining;
 }

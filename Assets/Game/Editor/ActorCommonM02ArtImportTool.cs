@@ -1,4 +1,4 @@
-﻿#if UNITY_EDITOR
+#if UNITY_EDITOR
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -14,7 +14,7 @@ internal static class ActorCommonM02ArtImportTool
 {
     private const string CharacterId = "actor_common_m02";
     private const string RawFrameRelativeDirectory = "openspec/changes/produce-totem-art-assets/art/raw/characters/actor_common_m02";
-    private const string SpriteDirectory = "Assets/Game/Sprite/Actors/ActorCommonM02";
+    private const string SpriteDirectory = "Assets/Game/Sprites/Actors/ActorCommonM02";
     private const string AnimationDirectory = "Assets/Game/Animation/Actors/ActorCommonM02";
     private const string ControllerPath = AnimationDirectory + "/ActorCommonM02.controller";
     private const string PlayerPrefabPath = "Assets/Game/Prefabs/Entity/Actors/Player.prefab";
@@ -43,8 +43,8 @@ internal static class ActorCommonM02ArtImportTool
 
         string rawFrameDirectory = Path.Combine(projectRoot, RawFrameRelativeDirectory);
         ValidateRawFrames(rawFrameDirectory);
-        EnsureFolder("Assets/Game/Sprite");
-        EnsureFolder("Assets/Game/Sprite/Actors");
+        EnsureFolder("Assets/Game/Sprites");
+        EnsureFolder("Assets/Game/Sprites/Actors");
         EnsureFolder(SpriteDirectory);
         EnsureFolder("Assets/Game/Animation");
         EnsureFolder("Assets/Game/Animation/Actors");

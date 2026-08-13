@@ -9,6 +9,10 @@ public abstract class TotemUIFormBase : UIFormBase
 
     protected TotemGameFlowService FlowService => Runtime?.GetService<TotemGameFlowService>();
 
+    protected TotemMatchFlowService MatchFlowService => Runtime?.GetService<TotemMatchFlowService>();
+
+    protected TotemMatchClockService MatchClockService => Runtime?.GetService<TotemMatchClockService>();
+
     protected TotemUIService UIService => Runtime?.GetService<TotemUIService>();
 
     protected TotemActorService ActorService => Runtime?.GetService<TotemActorService>();
@@ -21,17 +25,13 @@ public abstract class TotemUIFormBase : UIFormBase
 
     protected TotemAssetService AssetService => Runtime?.GetService<TotemAssetService>();
 
-    protected TotemEnemyService EnemyService => Runtime?.GetService<TotemEnemyService>();
 
     protected TotemZoneService ZoneService => Runtime?.GetService<TotemZoneService>();
 
     protected TotemWeaponService WeaponService => Runtime?.GetService<TotemWeaponService>();
 
-    protected TotemSkillService SkillService => Runtime?.GetService<TotemSkillService>();
 
     protected TotemStatusService StatusService => Runtime?.GetService<TotemStatusService>();
-
-    protected TotemTattooService TattooService => Runtime?.GetService<TotemTattooService>();
 
     protected TotemInteractionService InteractionService => Runtime?.GetService<TotemInteractionService>();
 

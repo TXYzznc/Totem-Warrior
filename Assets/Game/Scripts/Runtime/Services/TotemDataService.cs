@@ -48,9 +48,7 @@ public sealed class TotemDataService : TotemRuntimeServiceBase
                 GFTrace.Success("TotemData", "GameplayCatalog.Loaded", null, GFTrace.Data(
                     "path", GameplayCatalogPath,
                     "source", GameplayCatalog.source,
-                    "hash", GameplayCatalogContentHash,
-                    "weaponCount", GameplayCatalog.weapons.Length.ToString(),
-                    "npcCount", GameplayCatalog.npcs.Length.ToString()));
+                    "hash", GameplayCatalogContentHash));
                 return;
             }
 

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public sealed class TotemStatusService : TotemRuntimeServiceBase, ITotemRuntimeTickService
+public sealed class TotemStatusService : TotemRuntimeServiceBase, ITotemRuntimeTickService, ITotemGameplaySimulationService
 {
     public const float TickInterval = 0.5f;
     public const string BurnStatus = "Burn";

@@ -8,14 +8,17 @@ public enum TotemCombatRosterMode
     PlayerOnlyPreview = 1,
 }
 
-public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTickService
+public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTickService, ITotemGameplaySimulationService
 {
-    public const int SmartAiCount = 20;
-    public const int LightAiCount = 29;
-    public const int ParticipantCount = 50;
+    public const int SmartAiCount = 3;
+    public const int LightAiCount = TotemFirstPlayableRules.BotCount - SmartAiCount;
+    public const int ParticipantCount = TotemFirstPlayableRules.ParticipantCount;
     public const float CoverIncomingDamageMultiplier = 0.6f;
-    public const float CoverMeleeBypassDistance = 4f;
+    public const float CoverCloseRangeBypassDistance = 4f;
     public const float ParticipantSpawnMinDistance = 18f;
+    public const float TeamSpawnMinDistance = 28f;
+    public const float TeammateSpawnRadius = 3.5f;
+    public const float TeammateSpawnMinDistance = 2f;
     private const float DeathHideDelay = 0.75f;
     private const float TerrainEffectTickInterval = 0.2f;
     private const int ParticipantSpawnRadialAttempts = 256;
@@ -37,6 +40,7 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
     private TotemGameFlowService flowService;
     private TotemMapService mapService;
     private TotemAssetService assetService;
+    private TotemMatchFlowService matchFlowService;
     private GameObject actorRoot;
     private int damageSequence;
     private float terrainEffectAccumulator;
@@ -107,7 +111,7 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
         return true;
     }
 
-    public bool CanEnemyTarget(TotemActorModel target)
+    public bool CanOpponentTarget(TotemActorModel target)
     {
         var readiness = Runtime?.GetService<TotemParticipantReadinessService>();
         return target != null
@@ -120,6 +124,8 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
 
     public event Action<TotemDamageRecord> DamageResolved;
 
+    public event Action ActorsSpawned;
+
     public TotemDamageRecord LastDamage { get; private set; }
 
     protected override void OnInitialize(TotemGameRuntime runtime)
@@ -127,9 +133,15 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
         flowService = runtime.GetService<TotemGameFlowService>();
         mapService = runtime.GetService<TotemMapService>();
         assetService = runtime.GetService<TotemAssetService>();
+        matchFlowService = runtime.GetService<TotemMatchFlowService>();
         if (flowService != null)
         {
             flowService.StateChanged += OnFlowStateChanged;
+        }
+
+        if (matchFlowService != null)
+        {
+            matchFlowService.PhaseChanged += OnMatchPhaseChanged;
         }
     }
 
@@ -141,6 +153,12 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
             flowService = null;
         }
 
+        if (matchFlowService != null)
+        {
+            matchFlowService.PhaseChanged -= OnMatchPhaseChanged;
+            matchFlowService = null;
+        }
+
         DespawnActors();
         assetService = null;
         playerStartupInvulnerable = false;
@@ -149,6 +167,7 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
         nextCombatRosterMode = TotemCombatRosterMode.FullMatch;
         DamageApplied = null;
         DamageResolved = null;
+        ActorsSpawned = null;
         LastDamage = default;
         damageSequence = 0;
     }
@@ -250,6 +269,67 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
         return uniqueParticipant;
     }
 
+    public TotemActorModel FindUniqueAliveTeamRepresentative(out int aliveTeamCount)
+    {
+        aliveTeamCount = 0;
+        TotemTeamId firstTeam = default;
+        TotemActorModel representative = null;
+        var readiness = Runtime?.GetService<TotemParticipantReadinessService>();
+        for (int i = 0; i < actors.Count; i++)
+        {
+            TotemActorModel actor = actors[i];
+            if (!IsParticipantActor(actor)
+                || !actor.TeamId.IsValid
+                || !(readiness == null ? actor.IsAlive : readiness.CountsAsAlive(actor)))
+            {
+                continue;
+            }
+
+            if (aliveTeamCount == 0)
+            {
+                firstTeam = actor.TeamId;
+                representative = actor;
+                aliveTeamCount = 1;
+                continue;
+            }
+
+            if (actor.TeamId != firstTeam)
+            {
+                aliveTeamCount = 2;
+                return null;
+            }
+
+            if (representative == null || actor.ActorId < representative.ActorId)
+            {
+                representative = actor;
+            }
+        }
+
+        return representative;
+    }
+
+    public bool HasAliveParticipantOnTeam(TotemTeamId teamId)
+    {
+        if (!teamId.IsValid)
+        {
+            return false;
+        }
+
+        var readiness = Runtime?.GetService<TotemParticipantReadinessService>();
+        for (int i = 0; i < actors.Count; i++)
+        {
+            TotemActorModel actor = actors[i];
+            if (IsParticipantActor(actor)
+                && actor.TeamId == teamId
+                && (readiness == null ? actor.IsAlive : readiness.CountsAsAlive(actor)))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public void MoveActor(TotemActorModel actor, Vector3 delta)
     {
         if (actor == null || !actor.IsAlive || delta.sqrMagnitude <= 0f)
@@ -257,7 +337,9 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
             return;
         }
 
-        float mapSize = mapService?.CurrentMap?.MapSize ?? TotemMapService.DefaultMapSize;
+        TotemMapSnapshot map = mapService?.CurrentMap;
+        Vector2 worldMin = TotemMapService.GetWorldMin(map);
+        Vector2 worldMax = TotemMapService.GetWorldMax(map);
         Vector3 previous = actor.Position;
         if (mapService != null)
         {
@@ -265,8 +347,8 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
         }
 
         var next = actor.Position + delta;
-        next.x = Mathf.Clamp(next.x, 0f, mapSize);
-        next.z = Mathf.Clamp(next.z, 0f, mapSize);
+        next.x = Mathf.Clamp(next.x, worldMin.x, worldMax.x);
+        next.z = Mathf.Clamp(next.z, worldMin.y, worldMax.y);
         if (mapService != null && !mapService.IsWalkable(next))
         {
             var xOnly = new Vector3(next.x, previous.y, previous.z);
@@ -288,6 +370,45 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
         }
 
         UpdateActorMovementAnimation(actor, next - previous);
+    }
+
+    public bool TryApplyFirstPlayableMoveCommand(
+        in TotemGameplayCommand command,
+        float deltaTime,
+        float moveSpeed,
+        out float movedDistance)
+    {
+        movedDistance = 0f;
+        if (!command.IsValid
+            || command.Type != TotemGameplayCommandType.Move
+            || deltaTime <= 0f
+            || moveSpeed <= 0f
+            || !TotemMatchPhaseContract.IsCombat(matchFlowService?.CurrentPhase ?? TotemMatchPhase.FrontEnd))
+        {
+            return false;
+        }
+
+        TotemActorModel actor = null;
+        for (int i = 0; i < actors.Count; i++)
+        {
+            if (actors[i]?.ParticipantId == command.ParticipantId.Value)
+            {
+                actor = actors[i];
+                break;
+            }
+        }
+
+        Vector3 input = command.WorldValue;
+        input.y = 0f;
+        float magnitude = Mathf.Clamp01(input.magnitude);
+        if (actor == null || !actor.IsAlive || magnitude <= 0.001f)
+        {
+            return false;
+        }
+
+        movedDistance = moveSpeed * deltaTime * magnitude;
+        MoveActor(actor, input.normalized * movedDistance);
+        return true;
     }
 
     public bool ApplyDamage(TotemActorModel target, float amount, TotemCombatantModel source = null, string reason = null)
@@ -358,6 +479,17 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
             return false;
         }
 
+        var lifecycle = Runtime?.GetService<TotemFirstPlayableLifecycleService>();
+        if (lifecycle != null && lifecycle.IsReviveProtected(target))
+        {
+            GFTrace.Info("TotemActor", "Damage.Blocked.ReviveProtection", null, GFTrace.Data(
+                "source", source?.Name ?? string.Empty,
+                "target", target.Name,
+                "amount", amount.ToString("F1"),
+                "reason", string.IsNullOrWhiteSpace(reason) ? "Damage" : reason));
+            return false;
+        }
+
         float originalAmount = amount;
         amount = ResolveTerrainAdjustedDamage(source, target, amount, reason);
         if (amount <= 0f)
@@ -372,8 +504,36 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
             lastTerrainCoverDamageAfter = amount;
         }
 
-        target.ApplyDamage(amount);
-        bool killed = !target.IsAlive;
+        float healthBeforeLifecycleResolution = target.Health;
+        float appliedDamage;
+        bool killed;
+        if (lifecycle != null && lifecycle.IsDowned(target))
+        {
+            if (!lifecycle.TryApplyDownedDamage(target, amount, source, out appliedDamage, out _))
+            {
+                return false;
+            }
+
+            killed = !target.IsAlive;
+        }
+        else if (lifecycle != null
+            && amount >= target.Health
+            && lifecycle.TryResolveLethalDamage(target, source, out TotemDownedStateContract lethalTransition))
+        {
+            appliedDamage = Mathf.Min(amount, healthBeforeLifecycleResolution);
+            killed = lethalTransition.Current == TotemFirstPlayableLifeState.Eliminated;
+        }
+        else
+        {
+            appliedDamage = target.ApplyDamage(amount);
+            killed = !target.IsAlive;
+        }
+
+        if (appliedDamage <= 0f)
+        {
+            return false;
+        }
+
         if (killed)
         {
             ApplyActorDeathAnimation(target, reason);
@@ -385,12 +545,12 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
             Sequence = ++damageSequence,
             Source = source,
             Target = target,
-            Amount = amount,
+            Amount = appliedDamage,
             Killed = killed,
             Reason = string.IsNullOrWhiteSpace(reason) ? "Damage" : reason,
             TargetHealthAfter = target.Health,
         };
-        DamageApplied?.Invoke(target, amount, killed);
+        DamageApplied?.Invoke(target, appliedDamage, killed);
         DamageResolved?.Invoke(LastDamage);
         return killed;
     }
@@ -427,7 +587,7 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
             return Mathf.Max(0f, amount);
         }
 
-        if (FlatDistance(source.Position, target.Position) <= CoverMeleeBypassDistance)
+        if (FlatDistance(source.Position, target.Position) <= CoverCloseRangeBypassDistance)
         {
             return Mathf.Max(0f, amount);
         }
@@ -521,6 +681,17 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
         }
     }
 
+    public void NotifyParticipantEliminated(TotemActorModel actor, string reason)
+    {
+        if (actor == null)
+        {
+            return;
+        }
+
+        ApplyActorDeathAnimation(actor, reason);
+        ScheduleActorHide(actor);
+    }
+
     public TotemActorAnimationSnapshot CaptureAnimationSnapshot(TotemActorModel actor)
     {
         var snapshot = new TotemActorAnimationSnapshot
@@ -570,7 +741,6 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
 
     public void SpawnActors(
         TotemMapSnapshot map,
-        TotemStartupSelection selection,
         bool createObjects,
         TotemCombatRosterMode rosterMode = TotemCombatRosterMode.FullMatch)
     {
@@ -581,7 +751,7 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
             spawnedObjects.Add(actorRoot);
         }
 
-        var spawnInfos = BuildActorRoster(map, selection, rosterMode);
+        var spawnInfos = BuildActorRoster(map, rosterMode);
         for (int i = 0; i < spawnInfos.Length; i++)
         {
             var actor = new TotemActorModel(spawnInfos[i]);
@@ -604,11 +774,11 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
             "smartAi", snapshot.smartAiCount.ToString(),
             "lightAi", snapshot.lightAiCount.ToString(),
             "participantCount", snapshot.actorCount.ToString()));
+        ActorsSpawned?.Invoke();
     }
 
     public static TotemActorSpawnInfo[] BuildActorRoster(
         TotemMapSnapshot map,
-        TotemStartupSelection selection,
         TotemCombatRosterMode rosterMode = TotemCombatRosterMode.FullMatch)
     {
         if (map == null)
@@ -616,94 +786,139 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
             map = TotemMapService.BuildLayout(seed: 1, themeId: 1);
         }
 
-        int spawnSelectionSeed = unchecked((int)DateTime.UtcNow.Ticks ^ map.Seed ^
-                                            ((selection?.CharacterId ?? 1) * 486187739));
-        Vector3 playerPosition = TotemMapService.ResolveRandomAnchorPosition(
-            map,
-            TotemMapAnchorKind.PlayerSpawn,
-            FindRoom(map, TotemRoomType.SpawnRoom)?.CenterWorld ?? new Vector3(82f, 0f, 82f),
-            new System.Random(spawnSelectionSeed));
-        playerPosition.y = 0.5f;
-        var participantPositions = new List<Vector3>(ParticipantCount);
-        playerPosition = ResolveParticipantSpawnPosition(map, playerPosition, playerPosition, participantPositions, 0);
-        participantPositions.Add(playerPosition);
-        var playerSpawnInfo = new TotemActorSpawnInfo
+        int spawnSelectionSeed = unchecked(map.Seed ^ 486187739);
+        var random = new System.Random(spawnSelectionSeed);
+        var playerAnchors = TotemMapService.FindAnchors(map, TotemMapAnchorKind.PlayerSpawn);
+        if (playerAnchors.Length == 0)
         {
-            ActorId = selection != null && selection.CharacterId > 0 ? selection.CharacterId : 1,
-            Name = "Player",
-            Kind = TotemActorKind.Player,
-            ControllerKind = TotemParticipantControllerKind.Human,
-            Position = playerPosition,
-            MaxHealth = 100f,
-        };
+            GFTrace.Warning("TotemActor", "SpawnAnchors.MissingFallback", null, GFTrace.Data(
+                "mapSeed", map.Seed.ToString(),
+                "fallback", "SpawnRoomOrDefaultCenter"));
+        }
+
+        int teamAnchorStartIndex = playerAnchors.Length > 0 ? random.Next(playerAnchors.Length) : 0;
+        Vector3 fallbackCenter = FindRoom(map, TotemRoomType.SouthWestArea)?.CenterWorld ?? new Vector3(82f, 0f, 82f);
+        var participantPositions = new List<Vector3>(ParticipantCount);
         if (rosterMode == TotemCombatRosterMode.PlayerOnlyPreview)
         {
-            return new[] { playerSpawnInfo };
+            Vector3 previewPosition = ResolveTeamCenter(map, playerAnchors, fallbackCenter, teamAnchorStartIndex, 0, participantPositions);
+            return new[]
+            {
+                CreateParticipantSpawnInfo(1, 0, true, previewPosition),
+            };
         }
 
         var result = new TotemActorSpawnInfo[ParticipantCount];
         int cursor = 0;
-        result[cursor++] = playerSpawnInfo;
-
-        int participantIndex = 0;
-        int[] ringCounts = { 14, 17, 18 };
-        float[] fallbackRingRadii = { 8f, 13f, 18f };
-        float[] anchoredGroupRadii = { 0.75f, 0.9f, 1.05f };
-        var participantAnchors = TotemMapService.FindAnchors(map, TotemMapAnchorKind.EnemySpawn);
-        for (int ring = 0; ring < ringCounts.Length && participantIndex < SmartAiCount + LightAiCount; ring++)
+        var teamCenters = new List<Vector3>(TotemFirstPlayableRules.TeamCount);
+        for (int teamIndex = 0; teamIndex < TotemFirstPlayableRules.TeamCount; teamIndex++)
         {
-            int count = ringCounts[ring];
-            var participantAnchor = FindParticipantSpawnAnchor(participantAnchors, ring);
-            Vector3 groupCenter = participantAnchor == null ? playerPosition : participantAnchor.Position;
-            groupCenter.y = 0.5f;
-            float radius = participantAnchor == null ? fallbackRingRadii[ring] : anchoredGroupRadii[ring];
-            for (int slot = 0; slot < count && participantIndex < SmartAiCount + LightAiCount; slot++)
+            Vector3 teamCenter = ResolveTeamCenter(map, playerAnchors, fallbackCenter, teamAnchorStartIndex, teamIndex, teamCenters);
+            teamCenters.Add(teamCenter);
+            float angle = (float)(random.NextDouble() * Mathf.PI * 2f);
+            for (int teamSlot = 0; teamSlot < TotemFirstPlayableRules.TeamSize; teamSlot++)
             {
-                bool smart = participantIndex < SmartAiCount;
-                float angle = (slot + ring * 0.3f) * Mathf.PI * 2f / count;
+                float memberAngle = angle + teamSlot * Mathf.PI;
                 var desiredPosition = new Vector3(
-                    groupCenter.x + Mathf.Cos(angle) * radius,
-                    0.5f,
-                    groupCenter.z + Mathf.Sin(angle) * radius);
-                var position = ResolveWalkableParticipantSpawnPosition(map, desiredPosition, groupCenter, playerPosition);
-                position = ResolveParticipantSpawnPosition(map, position, groupCenter, participantPositions, participantIndex + 1);
-
-                var spawnInfo = new TotemActorSpawnInfo
-                {
-                    ActorId = participantIndex + 2,
-                    Name = smart ? $"SmartAI{participantIndex + 1:00}" : $"LightAI{participantIndex - SmartAiCount + 1:00}",
-                    Kind = smart ? TotemActorKind.SmartAi : TotemActorKind.LightAi,
-                    ControllerKind = smart ? TotemParticipantControllerKind.SmartBot : TotemParticipantControllerKind.LightBot,
-                    Position = position,
-                    MaxHealth = 100f,
-                };
-                result[cursor++] = spawnInfo;
+                    teamCenter.x + Mathf.Cos(memberAngle) * TeammateSpawnRadius,
+                    GetParticipantSpawnY(map),
+                    teamCenter.z + Mathf.Sin(memberAngle) * TeammateSpawnRadius);
+                Vector3 position = ResolveAdjacentTeamMemberPosition(
+                    map,
+                    desiredPosition,
+                    teamCenter,
+                    participantPositions,
+                    teamIndex * TotemFirstPlayableRules.TeamSize + teamSlot);
+                bool human = teamIndex == 0 && teamSlot == 0;
+                int participantId = cursor + 1;
+                result[cursor++] = CreateParticipantSpawnInfo(participantId, teamIndex, human, position);
                 participantPositions.Add(position);
-                participantIndex++;
             }
         }
 
         return result;
     }
 
-    private static TotemMapAnchor FindParticipantSpawnAnchor(IReadOnlyList<TotemMapAnchor> anchors, int groupIndex)
+    private static TotemActorSpawnInfo CreateParticipantSpawnInfo(int participantId, int teamId, bool human, Vector3 position)
     {
-        if (anchors == null || anchors.Count <= 0)
+        int botIndex = participantId - 2;
+        bool smartBot = !human && botIndex < SmartAiCount;
+        return new TotemActorSpawnInfo
         {
-            return null;
+            ActorId = participantId,
+            TeamId = teamId,
+            Name = human ? "Player" : $"Bot{participantId - 1:00}",
+            Kind = human ? TotemActorKind.Player : smartBot ? TotemActorKind.SmartAi : TotemActorKind.LightAi,
+            ControllerKind = human ? TotemParticipantControllerKind.Human : smartBot ? TotemParticipantControllerKind.SmartBot : TotemParticipantControllerKind.LightBot,
+            Position = position,
+            MaxHealth = 100f,
+        };
+    }
+
+    private static Vector3 ResolveTeamCenter(
+        TotemMapSnapshot map,
+        IReadOnlyList<TotemMapAnchor> anchors,
+        Vector3 fallbackCenter,
+        int anchorStartIndex,
+        int teamIndex,
+        IReadOnlyList<Vector3> occupiedTeamCenters)
+    {
+        Vector3 desired = fallbackCenter;
+        if (anchors != null && anchors.Count > 0)
+        {
+            int index = (anchorStartIndex + teamIndex) % anchors.Count;
+            if (anchors[index] != null)
+            {
+                desired = anchors[index].Position;
+            }
+        }
+        else
+        {
+            float angle = teamIndex * Mathf.PI * 2f / TotemFirstPlayableRules.TeamCount;
+            desired += new Vector3(Mathf.Cos(angle) * TeamSpawnMinDistance, 0f, Mathf.Sin(angle) * TeamSpawnMinDistance);
         }
 
-        string payloadId = groupIndex == 0 ? "inner" : groupIndex == 1 ? "mid" : "outer";
-        for (int i = 0; i < anchors.Count; i++)
+        desired.y = GetParticipantSpawnY(map);
+        return ResolveParticipantSpawnPosition(
+            map,
+            desired,
+            desired,
+            occupiedTeamCenters,
+            100 + teamIndex,
+            TeamSpawnMinDistance);
+    }
+
+    private static Vector3 ResolveAdjacentTeamMemberPosition(
+        TotemMapSnapshot map,
+        Vector3 desired,
+        Vector3 teamCenter,
+        IReadOnlyList<Vector3> occupiedPositions,
+        int salt)
+    {
+        for (int attempt = 0; attempt < 24; attempt++)
         {
-            var anchor = anchors[i];
-            if (anchor != null && string.Equals(anchor.PayloadId, payloadId, StringComparison.Ordinal))
+            float angle = (salt * 47f + attempt * 137.50777f) * Mathf.Deg2Rad;
+            var candidate = attempt == 0
+                ? desired
+                : new Vector3(
+                    teamCenter.x + Mathf.Cos(angle) * TeammateSpawnRadius,
+                    GetParticipantSpawnY(map),
+                    teamCenter.z + Mathf.Sin(angle) * TeammateSpawnRadius);
+            candidate = ClampSpawnPosition(map, candidate);
+            if (IsParticipantSpawnArea(map, candidate)
+                && GetNearestParticipantDistance(candidate, occupiedPositions) >= TeammateSpawnMinDistance)
             {
-                return anchor;
+                return candidate;
             }
         }
 
-        return groupIndex >= 0 && groupIndex < anchors.Count ? anchors[groupIndex] : null;
+        return ResolveParticipantSpawnPosition(
+            map,
+            desired,
+            teamCenter,
+            occupiedPositions,
+            200 + salt,
+            TeammateSpawnMinDistance);
     }
 
     private static Vector3 ResolveWalkableParticipantSpawnPosition(TotemMapSnapshot map, Vector3 desiredPosition, Vector3 groupCenter, Vector3 fallback)
@@ -731,11 +946,12 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
         Vector3 desiredPosition,
         Vector3 groupCenter,
         IReadOnlyList<Vector3> occupiedPositions,
-        int salt)
+        int salt,
+        float minDistance = ParticipantSpawnMinDistance)
     {
         desiredPosition = ClampSpawnPosition(map, desiredPosition);
-        desiredPosition.y = 0.5f;
-        if (IsValidParticipantSpawnPosition(map, desiredPosition, occupiedPositions, ParticipantSpawnMinDistance))
+        desiredPosition.y = GetParticipantSpawnY(map);
+        if (IsValidParticipantSpawnPosition(map, desiredPosition, occupiedPositions, minDistance))
         {
             return desiredPosition;
         }
@@ -746,25 +962,26 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
         for (int attempt = 0; attempt < ParticipantSpawnRadialAttempts; attempt++)
         {
             int ring = attempt / 24 + 1;
-            float radius = ParticipantSpawnMinDistance + ring * ParticipantSpawnSearchStep;
+            float radius = minDistance + ring * ParticipantSpawnSearchStep;
             float angle = (attempt * 137.50777f + salt * 23.711f) * Mathf.Deg2Rad;
             var candidate = new Vector3(
                 groupCenter.x + Mathf.Cos(angle) * radius,
-                0.5f,
+                GetParticipantSpawnY(map),
                 groupCenter.z + Mathf.Sin(angle) * radius);
-            if (TryEvaluateParticipantSpawnCandidate(map, candidate, occupiedPositions, ref bestPosition, ref bestDistance, ref hasWalkableCandidate))
+            if (TryEvaluateParticipantSpawnCandidate(map, candidate, occupiedPositions, minDistance, ref bestPosition, ref bestDistance, ref hasWalkableCandidate))
             {
                 return bestPosition;
             }
         }
 
-        float mapSize = map?.MapSize ?? TotemMapService.DefaultMapSize;
+        Vector2 worldMin = TotemMapService.GetWorldMin(map);
+        Vector2 worldSize = TotemMapService.GetWorldSize(map);
         for (int attempt = 0; attempt < ParticipantSpawnGlobalAttempts; attempt++)
         {
-            float x = DeterministicUnit(salt, attempt, 0) * mapSize;
-            float z = DeterministicUnit(salt, attempt, 1) * mapSize;
-            var candidate = new Vector3(x, 0.5f, z);
-            if (TryEvaluateParticipantSpawnCandidate(map, candidate, occupiedPositions, ref bestPosition, ref bestDistance, ref hasWalkableCandidate))
+            float x = worldMin.x + DeterministicUnit(salt, attempt, 0) * worldSize.x;
+            float z = worldMin.y + DeterministicUnit(salt, attempt, 1) * worldSize.y;
+            var candidate = new Vector3(x, GetParticipantSpawnY(map), z);
+            if (TryEvaluateParticipantSpawnCandidate(map, candidate, occupiedPositions, minDistance, ref bestPosition, ref bestDistance, ref hasWalkableCandidate))
             {
                 return bestPosition;
             }
@@ -782,12 +999,13 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
         TotemMapSnapshot map,
         Vector3 candidate,
         IReadOnlyList<Vector3> occupiedPositions,
+        float minDistance,
         ref Vector3 bestPosition,
         ref float bestDistance,
         ref bool hasWalkableCandidate)
     {
         candidate = ClampSpawnPosition(map, candidate);
-        candidate.y = 0.5f;
+        candidate.y = GetParticipantSpawnY(map);
         if (!IsParticipantSpawnArea(map, candidate))
         {
             return false;
@@ -801,7 +1019,7 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
             hasWalkableCandidate = true;
         }
 
-        return nearestDistance >= ParticipantSpawnMinDistance;
+        return nearestDistance >= minDistance;
     }
 
     private static bool IsValidParticipantSpawnPosition(
@@ -826,7 +1044,7 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
             return true;
         }
 
-        float initialRadius = Mathf.Max(0f, map.MapSize * 0.5f);
+        float initialRadius = TotemMapService.GetInitialZoneRadius(map);
         var center = new Vector3(map.InitialZoneCenter.x, 0f, map.InitialZoneCenter.y);
         return FlatDistance(position, center) <= initialRadius;
     }
@@ -853,10 +1071,16 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
 
     private static Vector3 ClampSpawnPosition(TotemMapSnapshot map, Vector3 position)
     {
-        float mapSize = map?.MapSize ?? TotemMapService.DefaultMapSize;
-        position.x = Mathf.Clamp(position.x, 0f, mapSize);
-        position.z = Mathf.Clamp(position.z, 0f, mapSize);
+        Vector2 worldMin = TotemMapService.GetWorldMin(map);
+        Vector2 worldMax = TotemMapService.GetWorldMax(map);
+        position.x = Mathf.Clamp(position.x, worldMin.x, worldMax.x);
+        position.z = Mathf.Clamp(position.z, worldMin.y, worldMax.y);
         return position;
+    }
+
+    private static float GetParticipantSpawnY(TotemMapSnapshot map)
+    {
+        return (map?.WorldGroundY ?? 0f) + 0.5f;
     }
 
     private static float DeterministicUnit(int salt, int attempt, int axis)
@@ -914,7 +1138,8 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
             var map = mapService?.CurrentMap ?? TotemMapService.BuildLayout(seed: 1, themeId: 1);
             TotemCombatRosterMode rosterMode = nextCombatRosterMode;
             nextCombatRosterMode = TotemCombatRosterMode.FullMatch;
-            SpawnActors(map, flowService?.StartupSelection, createObjects: true, rosterMode: rosterMode);
+            SpawnActors(map, createObjects: true, rosterMode: rosterMode);
+            SetActorWorldVisible(matchFlowService?.CurrentPhase != TotemMatchPhase.OpeningBuild);
             return;
         }
 
@@ -927,6 +1152,22 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
             damageSequence = 0;
             combatElapsedSec = 0f;
             GFTrace.Info("TotemActor", "Actors.Despawned", null, GFTrace.Data("nextState", nextState.ToString()));
+        }
+    }
+
+    private void OnMatchPhaseChanged(TotemMatchPhase previousPhase, TotemMatchPhase nextPhase)
+    {
+        if (previousPhase == TotemMatchPhase.OpeningBuild && nextPhase == TotemMatchPhase.Round1Combat)
+        {
+            SetActorWorldVisible(true);
+        }
+    }
+
+    private void SetActorWorldVisible(bool visible)
+    {
+        if (actorRoot != null && actorRoot.activeSelf != visible)
+        {
+            actorRoot.SetActive(visible);
         }
     }
 
@@ -946,6 +1187,7 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
             instance.name = $"Totem_{actor.Name}";
             actor.VisualAssetKey = usedAssetKey;
             TotemActorVisualHelper.AttachActorVisuals(instance, actor.Kind);
+            TotemHitRegionMarker.AttachParticipantMarkers(instance, actor.CombatantId);
             spawnedObjects.Add(instance);
             return instance;
         }
@@ -962,6 +1204,7 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
         }
         actor.VisualAssetKey = $"primitive.{actor.Kind}";
         TotemActorVisualHelper.AttachActorVisuals(go, actor.Kind);
+        TotemHitRegionMarker.AttachParticipantMarkers(go, actor.CombatantId);
         spawnedObjects.Add(go);
         return go;
     }
@@ -1023,6 +1266,7 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
     {
         for (int i = spawnedObjects.Count - 1; i >= 0; i--)
         {
+            TotemHitRegionMarker.Detach(spawnedObjects[i]);
             DestroyObject(spawnedObjects[i]);
         }
 

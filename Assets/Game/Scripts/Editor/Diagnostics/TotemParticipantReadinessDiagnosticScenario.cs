@@ -14,7 +14,7 @@ namespace UGF.EditorTools
         {
             GameObject runtimeObject = null;
             TotemGameRuntime runtime = null;
-            using (TotemMapService.UsePcgRuntimeProfile(TotemPcgRuntimeProfile.DiagnosticFast))
+            if (true)
             {
                 try
                 {
@@ -37,7 +37,7 @@ namespace UGF.EditorTools
                     var readiness = runtime.GetService<TotemParticipantReadinessService>();
                     input.SetInputProvider(provider);
                     actor.BeginPlayerStartupProtection("Diagnostics");
-                    flow.ConfirmStartup(1, "knife_basic", new[] { 1 });
+                    flow.ConfirmLocalFirstPlayable();
 
                     var player = actor.Player;
                     context.Assert(player != null, "Readiness diagnostic requires the local participant.");
@@ -64,7 +64,7 @@ namespace UGF.EditorTools
                     flow.EnterMainMenu();
                     provider.Clear();
                     actor.BeginPlayerStartupProtection("Diagnostics.Timeout");
-                    flow.ConfirmStartup(1, "knife_basic", new[] { 1 });
+                    flow.ConfirmLocalFirstPlayable();
                     player = actor.Player;
                     readiness.Tick(90f);
                     var snapshot = readiness.CaptureSnapshot();

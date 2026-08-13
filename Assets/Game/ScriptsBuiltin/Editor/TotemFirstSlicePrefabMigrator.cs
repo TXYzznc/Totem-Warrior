@@ -14,17 +14,10 @@ namespace UGF.EditorTools
         private static readonly PrefabMigrationRule[] Rules =
         {
             new PrefabMigrationRule("MainMenu", typeof(TotemMainMenuForm)),
-            new PrefabMigrationRule("CharacterSelect", typeof(TotemCharacterSelectForm)),
-            new PrefabMigrationRule("StartupSelect", typeof(TotemStartupSelectForm)),
             new PrefabMigrationRule("CombatHUD", typeof(TotemCombatHUDForm)),
-            new PrefabMigrationRule("Shop", typeof(TotemShopForm)),
-            new PrefabMigrationRule("ThreeChoice", typeof(TotemThreeChoiceForm)),
-            new PrefabMigrationRule("TattooStudio", typeof(TotemTattooStudioForm)),
             new PrefabMigrationRule("PauseMenu", typeof(TotemPauseMenuForm)),
             new PrefabMigrationRule("RunResult", typeof(TotemRunResultForm)),
             new PrefabMigrationRule("Settings", typeof(TotemSettingsForm)),
-            new PrefabMigrationRule("SelfTattoo", typeof(TotemSelfTattooForm)),
-            new PrefabMigrationRule("TattooEnchant", typeof(TotemTattooEnchantForm)),
         };
 
         [MenuItem("Game Framework/GameTools/Totem/Prepare First Slice UI Prefabs", false, 1031)]

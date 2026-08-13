@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEditor;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,7 +11,7 @@ public sealed class TattooMapRegionMarkerWindow : EditorWindow
 {
     private const int FramePixels = 512;
     private const string AuthoringAssetPath = "Assets/Game/Config/TattooVisual/ActorCommonM02TattooRegionAuthoring.asset";
-    private const string SpriteDirectory = "Assets/Game/Sprite/Actors/ActorCommonM02";
+    private const string SpriteDirectory = "Assets/Game/Sprites/Actors/ActorCommonM02";
 
     private static readonly string[] Actions = { "idle", "walk", "sprint", "hit", "attack", "roll", "death" };
     private static readonly string[] Directions = { "down", "up", "left", "right" };

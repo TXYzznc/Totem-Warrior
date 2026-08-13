@@ -16,13 +16,9 @@ namespace UGF.EditorTools
         private static bool combatHudSmokeCombatHudObserved;
         private static bool combatHudSmokeMoveObserved;
         private static bool combatHudSmokeAttackObserved;
-        private static bool combatHudSmokeSkillEObserved;
-        private static bool combatHudSmokeSkillQObserved;
         private static bool combatHudSmokeDodgeObserved;
         private static bool combatHudSmokeInteractObserved;
-        private static bool combatHudSmokeSelfTattooInputObserved;
         private static bool combatHudSmokeEscapeObserved;
-        private static bool combatHudSmokeSelfTattooObserved;
         private static bool combatHudSmokePauseObserved;
         private static bool combatHudSmokeReturnInjected;
 
@@ -49,28 +45,10 @@ namespace UGF.EditorTools
             Debug.Log("[Playtest|INFO] Action=DisableSimulator Type=TotemEditorInputProvider");
         }
 
-        [MenuItem("Tools/Playtest/Press/E (Skill Slot E)", false, 100)]
-        public static void PressSkillE()
-        {
-            PressKey(KeyCode.E);
-        }
-
-        [MenuItem("Tools/Playtest/Press/Q (Skill Slot Q)", false, 101)]
-        public static void PressSkillQ()
-        {
-            PressKey(KeyCode.Q);
-        }
-
         [MenuItem("Tools/Playtest/Press/Space (Dodge)", false, 110)]
         public static void PressDodge()
         {
             PressKey(KeyCode.Space);
-        }
-
-        [MenuItem("Tools/Playtest/Press/Tab (SelfTattoo)", false, 111)]
-        public static void PressSelfTattoo()
-        {
-            PressKey(KeyCode.Tab);
         }
 
         [MenuItem("Tools/Playtest/Press/Escape (Pause)", false, 112)]
@@ -330,16 +308,6 @@ namespace UGF.EditorTools
 
                 case CombatHudSmokeState.Attack:
                     ClearSmokePress(clearMouseClick: true);
-                    StartSmokeKey(KeyCode.E, CombatHudSmokeState.SkillE);
-                    break;
-
-                case CombatHudSmokeState.SkillE:
-                    ClearSmokePress(clearMouseClick: false);
-                    StartSmokeKey(KeyCode.Q, CombatHudSmokeState.SkillQ);
-                    break;
-
-                case CombatHudSmokeState.SkillQ:
-                    ClearSmokePress(clearMouseClick: false);
                     StartSmokeKey(KeyCode.Space, CombatHudSmokeState.Dodge);
                     break;
 
@@ -350,26 +318,6 @@ namespace UGF.EditorTools
 
                 case CombatHudSmokeState.Interact:
                     ClearSmokePress(clearMouseClick: false);
-                    StartSmokeKey(KeyCode.Tab, CombatHudSmokeState.Tab);
-                    break;
-
-                case CombatHudSmokeState.Tab:
-                    ClearSmokePress(clearMouseClick: false);
-                    combatHudSmokeState = CombatHudSmokeState.WaitSelfTattoo;
-                    combatHudSmokeNextFrame = Time.frameCount + 12;
-                    break;
-
-                case CombatHudSmokeState.WaitSelfTattoo:
-                    StartSmokeKey(KeyCode.Escape, CombatHudSmokeState.EscapeCloseOverlay);
-                    break;
-
-                case CombatHudSmokeState.EscapeCloseOverlay:
-                    ClearSmokePress(clearMouseClick: false);
-                    combatHudSmokeState = CombatHudSmokeState.WaitOverlayClosed;
-                    combatHudSmokeNextFrame = Time.frameCount + 12;
-                    break;
-
-                case CombatHudSmokeState.WaitOverlayClosed:
                     StartSmokeKey(KeyCode.Escape, CombatHudSmokeState.EscapeOpenPause);
                     break;
 
@@ -437,15 +385,11 @@ namespace UGF.EditorTools
             bool passed = combatHudSmokeCombatHudObserved
                 && combatHudSmokeMoveObserved
                 && combatHudSmokeAttackObserved
-                && combatHudSmokeSkillEObserved
-                && combatHudSmokeSkillQObserved
                 && combatHudSmokeDodgeObserved
                 && combatHudSmokeInteractObserved
-                && combatHudSmokeSelfTattooInputObserved
                 && combatHudSmokeEscapeObserved
-                && combatHudSmokeSelfTattooObserved
                 && combatHudSmokePauseObserved;
-            return $"Passed={passed} CombatHUD={combatHudSmokeCombatHudObserved} Move={combatHudSmokeMoveObserved} Attack={combatHudSmokeAttackObserved} SkillE={combatHudSmokeSkillEObserved} SkillQ={combatHudSmokeSkillQObserved} Dodge={combatHudSmokeDodgeObserved} Interact={combatHudSmokeInteractObserved} TabInput={combatHudSmokeSelfTattooInputObserved} SelfTattoo={combatHudSmokeSelfTattooObserved} EscapeInput={combatHudSmokeEscapeObserved} Pause={combatHudSmokePauseObserved} ReturnInjected={combatHudSmokeReturnInjected} Frames={Time.frameCount - combatHudSmokeStartFrame}";
+            return $"Passed={passed} CombatHUD={combatHudSmokeCombatHudObserved} Move={combatHudSmokeMoveObserved} Attack={combatHudSmokeAttackObserved} Dodge={combatHudSmokeDodgeObserved} Interact={combatHudSmokeInteractObserved} EscapeInput={combatHudSmokeEscapeObserved} Pause={combatHudSmokePauseObserved} ReturnInjected={combatHudSmokeReturnInjected} Frames={Time.frameCount - combatHudSmokeStartFrame}";
         }
 
         private static void CaptureCombatHudSmokeObservations()
@@ -462,11 +406,8 @@ namespace UGF.EditorTools
                 var snapshot = input.Current;
                 combatHudSmokeMoveObserved |= snapshot.move.sqrMagnitude > 0.01f;
                 combatHudSmokeAttackObserved |= snapshot.attackPressed;
-                combatHudSmokeSkillEObserved |= snapshot.skillSlotEPressed;
-                combatHudSmokeSkillQObserved |= snapshot.skillSlotQPressed;
                 combatHudSmokeDodgeObserved |= snapshot.dodgePressed;
                 combatHudSmokeInteractObserved |= snapshot.interactPressed;
-                combatHudSmokeSelfTattooInputObserved |= snapshot.selfTattooTogglePressed;
                 combatHudSmokeEscapeObserved |= snapshot.escapePressed;
             }
 
@@ -477,8 +418,6 @@ namespace UGF.EditorTools
                 combatHudSmokeCombatHudObserved |= uiSnapshot.lastExclusiveView == UIViews.CombatHUD.ToString()
                     && uiSnapshot.lastExclusiveSucceeded
                     && uiSnapshot.currentFormId > 0;
-                combatHudSmokeSelfTattooObserved |= uiSnapshot.lastOverlayView == UIViews.SelfTattoo.ToString()
-                    || uiSnapshot.selfTattooFormId > 0;
                 combatHudSmokePauseObserved |= uiSnapshot.lastOverlayView == UIViews.PauseMenu.ToString();
             }
         }
@@ -488,13 +427,9 @@ namespace UGF.EditorTools
             combatHudSmokeCombatHudObserved = false;
             combatHudSmokeMoveObserved = false;
             combatHudSmokeAttackObserved = false;
-            combatHudSmokeSkillEObserved = false;
-            combatHudSmokeSkillQObserved = false;
             combatHudSmokeDodgeObserved = false;
             combatHudSmokeInteractObserved = false;
-            combatHudSmokeSelfTattooInputObserved = false;
             combatHudSmokeEscapeObserved = false;
-            combatHudSmokeSelfTattooObserved = false;
             combatHudSmokePauseObserved = false;
             combatHudSmokeReturnInjected = false;
         }
@@ -527,14 +462,8 @@ namespace UGF.EditorTools
             MoveRight,
             MoveUp,
             Attack,
-            SkillE,
-            SkillQ,
             Dodge,
             Interact,
-            Tab,
-            WaitSelfTattoo,
-            EscapeCloseOverlay,
-            WaitOverlayClosed,
             EscapeOpenPause,
             WaitPause,
             Return

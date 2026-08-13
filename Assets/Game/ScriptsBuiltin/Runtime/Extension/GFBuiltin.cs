@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using UnityGameFramework.Runtime;
 
 [Obfuz.ObfuzIgnore(Obfuz.ObfuzScope.All)]
+[DefaultExecutionOrder(-10000)]
 public class GFBuiltin : MonoBehaviour
 {
     public static GFBuiltin Instance { get; private set; }
@@ -53,6 +54,11 @@ public class GFBuiltin : MonoBehaviour
 
     private void Start()
     {
+        if (!ReferenceEquals(Instance, this))
+        {
+            return;
+        }
+
         GFTrace.Info("GFBuiltin", "Start.Begin");
         GFBuiltin.Base = GameEntry.GetComponent<BaseComponent>();
         GFBuiltin.Config = GameEntry.GetComponent<ConfigComponent>();
@@ -81,6 +87,42 @@ public class GFBuiltin : MonoBehaviour
 
         UpdateCanvasScaler();
         GFTrace.Success("GFBuiltin", "Start.End", null, GFTrace.Data("hasBase", (Base != null).ToString(), "hasResource", (Resource != null).ToString(), "hasUI", (UI != null).ToString()));
+    }
+
+    protected virtual void OnDestroy()
+    {
+        // An old scene can finish destroying after a replacement scene has
+        // already initialized. Only the instance that owns the static state
+        // is allowed to clear it.
+        if (!ReferenceEquals(Instance, this))
+        {
+            return;
+        }
+
+        Instance = null;
+        Base = null;
+        Config = null;
+        DataNode = null;
+        DataTable = null;
+        Debugger = null;
+        Download = null;
+        Entity = null;
+        Event = null;
+        Fsm = null;
+        FileSystem = null;
+        Localization = null;
+        Network = null;
+        Procedure = null;
+        Resource = null;
+        Scene = null;
+        Setting = null;
+        Sound = null;
+        UI = null;
+        ObjectPool = null;
+        WebRequest = null;
+        BuiltinView = null;
+        UICamera = null;
+        RootCanvas = null;
     }
 
     public void UpdateCanvasScaler()

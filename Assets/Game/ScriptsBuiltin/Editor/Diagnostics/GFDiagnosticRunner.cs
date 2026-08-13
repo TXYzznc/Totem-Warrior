@@ -15,7 +15,7 @@ namespace UGF.EditorTools
         private const string ReportAction = "gf-diagnostics-run-all";
         private const string SnapshotAction = "gf-diagnostics-snapshot";
         private const string ResourceRuleEditorAsset = "Assets/Plugins/UnityGameFramework/Configs/ResourceRuleEditor.asset";
-        private const int ExpectedBusinessDataTableCount = 31;
+        private const int ExpectedBusinessDataTableCount = 7;
 
         [MenuItem("Game Framework/GameTools/Diagnostics/Run All", false, 1021)]
         public static void RunAllFromMenu()
@@ -25,7 +25,6 @@ namespace UGF.EditorTools
 
         public static GFDiagnosticReport RunAll()
         {
-            using var pcgProfileScope = TotemMapService.UsePcgRuntimeProfile(TotemPcgRuntimeProfile.DiagnosticFast);
             GFTrace.EnableUnityLogCapture();
             if (!Application.isPlaying)
             {
@@ -33,10 +32,9 @@ namespace UGF.EditorTools
             }
             GFTrace.BeginTrace("diagnostics");
             GFTrace.Info("Diagnostics", "RunAll.Begin");
-            GFTrace.Info("Diagnostics", "PCG.Profile", null, GFTrace.Data(
-                "profile", TotemMapService.CurrentPcgRuntimeProfile.ToString(),
-                "width", TotemMapService.ActivePcgMapWidth.ToString(),
-                "height", TotemMapService.ActivePcgMapHeight.ToString()));
+            GFTrace.Info("Diagnostics", "Map.Profile", null, GFTrace.Data(
+                "source", "OasisCity",
+                "authoritative", "AuthoredScene"));
             CleanupRuntimeResiduals("BeforeRunAll");
 
             var report = new GFDiagnosticReport(ReportAction);

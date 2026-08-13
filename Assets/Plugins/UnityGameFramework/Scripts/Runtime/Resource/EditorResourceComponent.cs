@@ -947,7 +947,6 @@ namespace UnityGameFramework.Runtime
 
             HasAssetResult result = obj.GetType() == typeof(UnityEditor.DefaultAsset) ? HasAssetResult.BinaryOnDisk : HasAssetResult.AssetOnDisk;
             obj = null;
-            UnityEditor.EditorUtility.UnloadUnusedAssetsImmediate();
             return result;
 #else
             return HasAssetResult.NotExist;
