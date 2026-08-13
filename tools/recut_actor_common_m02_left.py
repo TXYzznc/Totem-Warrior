@@ -20,7 +20,7 @@ from PIL import Image
 
 CHARACTER = "actor_common_m02"
 ROOT = Path("openspec/changes/produce-totem-art-assets/art/raw/characters") / CHARACTER
-ASSET_ROOT = Path("Assets/Game/Sprite/Actors/ActorCommonM02")
+ASSET_ROOT = Path("Assets/Game/Sprites/Actors/ActorCommonM02")
 FRAME_SIZE = 512
 ALPHA_THRESHOLD = 15
 SPECS = {"walk": 6, "sprint": 6}

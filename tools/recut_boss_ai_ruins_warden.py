@@ -22,7 +22,7 @@ from PIL import Image
 
 CHARACTER = "boss_ai_ruins_warden"
 ROOT = Path("openspec/changes/produce-totem-art-assets/art/raw/characters") / CHARACTER
-ASSET_ROOT = Path("Assets/Game/Sprite/Actors/BossAIruinsWarden")
+ASSET_ROOT = Path("Assets/Game/Sprites/Actors/BossAIruinsWarden")
 FRAME_SIZE = 512
 FOOT_BASELINE_Y = 480
 ALPHA_THRESHOLD = 15

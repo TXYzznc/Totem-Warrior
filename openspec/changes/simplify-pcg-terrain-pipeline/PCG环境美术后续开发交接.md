@@ -1,5 +1,7 @@
 # PCG 环境美术后续开发交接
 
+> 已废弃：PCG 已退出当前项目资源范围，相关 catalog/config 待后续删除。本文仅保留历史交接记录，文内所有 `Assets/Game/Sprites/PCG/...` 与 `Resources.Load` 路径均不得作为新资源、代码或配置的落点。
+
 > 更新：2026-07-16。本文用于把后续 AI 遗迹、异形巢穴的环境美术和正式 PCG 接入工作交给新的开发窗口。已完成的病毒沼泽可作为唯一的实现范例，不要重做其资源或另起测试流程。
 
 ## 1. 已验收、已接入的内容
@@ -16,7 +18,7 @@
 
 这批资源位于：
 
-`Assets/Game/Sprite/PCG/Props/VirusSwamp/`
+`Assets/Game/Sprites/PCG/Props/VirusSwamp/`
 
 运行时配置位于：
 
@@ -94,7 +96,7 @@
 }
 ```
 
-注意：资源路径以 `Assets/Game/Resources/` 为根的 `Resources.Load` 规则书写，不带 `Assets/`、不带文件系统绝对路径；保留 `.png` 扩展名。水面静态物需要额外设置 `"allowOnNonWalkable": true`。
+注意：以下 PCG 资源路径与 `Resources.Load` 规则均为废弃历史记录；不得据此新建 `Assets/Game/Resources/` 或恢复 PCG 资源。水面静态物的 `"allowOnNonWalkable": true` 仅供历史查阅。
 
 ## 4. 后续生产清单（70 项）
 
@@ -102,7 +104,7 @@
 
 ### 4.1 AI 遗迹（31 项）
 
-资源根目录：`Assets/Game/Sprite/PCG/Props/AiRuins/`
+资源根目录：`Assets/Game/Sprites/PCG/Props/AiRuins/`
 
 固定地标（5）：
 
@@ -134,7 +136,7 @@
 
 ### 4.2 异形巢穴（31 项）
 
-资源根目录：`Assets/Game/Sprite/PCG/Props/AlienHive/`
+资源根目录：`Assets/Game/Sprites/PCG/Props/AlienHive/`
 
 固定地标（5）：
 
@@ -191,7 +193,7 @@
 
 ## 6. 必做验证与导入约定
 
-1. 原始绘图模型图先保存到 `openspec/changes/simplify-pcg-terrain-pipeline/art/raw/environment/<theme>/`；去绿幕后再导入 `Assets/Game/Sprite/PCG/Props/<Theme>/`。
+1. 原始绘图模型图先保存到 `openspec/changes/simplify-pcg-terrain-pipeline/art/raw/environment/<theme>/`；去绿幕后再导入 `Assets/Game/Sprites/PCG/Props/<Theme>/`。
 2. 每张立物 PNG 检查 RGBA 透明背景、四角透明、无绿边；Texture 导入为 `Default`、`Point`、关闭 Mipmap、`Clamp`、`NPOT None`、`Uncompressed`，不要强制切成 Sprite。
 3. 每张资源均需稳定 ID、正确的 Resources 路径、对应 `allowedBiomes`/`allowedTerrains` 或固定 `anchorId`。
 4. 固定同一 seed 连续生成两次时，资源选择必须一致；换种子时只改变随机静态物与地貌布局，不应丢失既有交互锚点。

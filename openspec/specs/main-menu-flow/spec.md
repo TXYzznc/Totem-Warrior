@@ -2,10 +2,8 @@
 
 ## Purpose
 
-记录迁移后的 GF_X 原生前端流程。旧 `Assets/Scenes/MainMenu.unity` + `GameApp` + `ModuleRunner` 启动链只作为历史证据保存在 archive 和 `LegacyProjectArchive`，不再作为当前运行规格。
-
+记录迁移后的 GF_X 原生前端流程。旧 `Assets/Scenes/MainMenu.unity` + `GameApp` + `ModuleRunner` 启动链已移除，不再作为当前运行规格。
 ## Requirements
-
 ### Requirement: GF_X Launch MUST own the front-end flow
 
 项目 MUST 使用 `Assets/Game/Scene/Launch.unity` 作为默认启动场景，并通过 GF_X Procedure/runtime service 打开前端 UI，而不是切换到旧 `Assets/Scenes/MainMenu.unity`。
@@ -20,33 +18,22 @@
 
 ### Requirement: Main menu flow MUST progress through GF_X UI services
 
-主菜单到战斗 HUD 的第一轮流程 MUST 由 GF_X UI form 和 runtime service 驱动：`MainMenu -> CharacterSelect -> StartupSelect -> CombatHUD`。
+主流程 MUST 为 `MainMenu → LocalMatchConfirm → OpeningBuild → CombatHUD → FirstPlayableResult → MainMenu`，不得进入 CharacterSelect、StartupSelect 或武器选择。
 
-#### Scenario: 开始游戏进入角色选择
+#### Scenario: 开始本地对局
+- **WHEN** 玩家点击开始游戏
+- **THEN** 显示 6 人、3 支双人队、Bot 补位、五轮和四次缩圈范围
+- **AND** 确认后创建 roster/team/seed 并进入 60 秒开局构筑
 
-- **GIVEN** `MainMenu` 已打开
-- **WHEN** 玩家点击开始按钮
-- **THEN** `TotemUIService.OpenCharacterSelect()` MUST 打开 `CharacterSelect`
-- **AND** `TotemGameFlowService` MUST 进入 `CharacterSelect` 状态
-
-#### Scenario: 角色选择进入启动选择
-
-- **GIVEN** `CharacterSelect` 已打开
-- **WHEN** 玩家选择一个角色并继续
-- **THEN** `TotemUIService.OpenStartupSelect()` MUST 打开 `StartupSelect`
-- **AND** 选中的角色 MUST 写入 `TotemGameFlowService` 的启动选择状态
-
-#### Scenario: 启动选择进入战斗 HUD
-
-- **GIVEN** `StartupSelect` 已打开
-- **WHEN** 玩家确认初始颜色、武器和图案
-- **THEN** `TotemGameFlowService.ConfirmStartup(...)` MUST 保存启动选择
-- **AND** `TotemUIService.OpenCombatHud()` MUST 打开 `CombatHUD`
-- **AND** 战斗 HUD MUST 能读取玩家 HP、武器、技能、敌人数量、缩圈、NPC/交互提示等 GF_X runtime 数据
+#### Scenario: 五轮结果返回主菜单
+- **GIVEN** 第五轮已经结算
+- **WHEN** 玩家选择返回
+- **THEN** 对局 runtime 必须完整清理
+- **AND** 主菜单重新可交互
 
 ### Requirement: Legacy scene roots MUST stay archived
 
-旧 `Assets/Scenes/Launch.unity`、`Assets/Scenes/MainMenu.unity` 和旧沙盒场景 MUST 移出活动 `Assets` 根目录，保存在 `LegacyProjectArchive/Assets/Scenes` 作为历史参考。
+旧 `Assets/Scenes/Launch.unity`、`Assets/Scenes/MainMenu.unity` 和旧沙盒场景 MUST 移出活动 `Assets` 根目录，且不得恢复到工作区。
 
 #### Scenario: 活动场景根保持干净
 
@@ -55,3 +42,12 @@
 - **THEN** `Assets/Scenes` MUST NOT 存在
 - **AND** BuildSettings MUST NOT 启用任何旧 `Assets/Scenes/*` 场景
 - **AND** `Assets/Game/Scene/Launch.unity` MUST 保持存在并启用
+
+### Requirement: 主菜单必须提供第一版必要功能
+
+主菜单 MUST 提供开始游戏、纹身与元素档案、玩法帮助、设置、制作人员、退出确认和版本/构建信息；开发构建额外提供 seed 与快速模式入口。发布构建不得显示账号、好友、商店、排行榜、继续游戏或角色选择。
+
+#### Scenario: 发布构建打开主菜单
+- **WHEN** 玩家在非开发构建进入主菜单
+- **THEN** 能访问第一版必要功能和版本信息
+- **AND** 看不到账号、好友、商店、排行榜、继续游戏或角色选择入口

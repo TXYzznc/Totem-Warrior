@@ -12,7 +12,7 @@
 
 ## PCG：无本轮美术缺口
 
-此前“缺少 50 张 PCG 补图”的结论来自 catalog 路径编码错误。项目既有 PCG 资源已位于 `Assets/Game/Sprite/PCG/...`，四份 PCG catalog 的 1,354 条资源引用均已解析；不需要另行绘制、导入或维护 `Assets/Resources/PCG/Terrain/` 下的 50 张图片。
+PCG 当前不在项目资源范围内，相关配置待后续清理。不得据此文件补绘、导入或维护 PCG 图片，也不得恢复旧 `Assets/Resources/PCG/Terrain/` 资源。
 
 本轮误创建的 50 张 PCG 图片及其 raw、预览、检查文件必须删除，不应再作为美术需求或运行时资源索引项。
 
@@ -26,6 +26,6 @@
 
 ## 资源约束
 
-- 不恢复 `Assets/Game/Sprite/Character`、`Characters`、`Environments`、`Recipes`、`Tattoo`。
+- 不恢复 `Assets/Game/Sprites/Character`、`Characters`、`Environments`、`Recipes`、`Tattoo`。
 - 新增角色与 NPC 资源使用半写实厚涂风格；PCG 保持既有资源，不纳入本轮重绘。
 - 修改或新增资源后，重建 `wiki/manifests/art_assets.json` 并复跑 Unity 验证。

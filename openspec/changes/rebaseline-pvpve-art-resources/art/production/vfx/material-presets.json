@@ -1,0 +1,70 @@
+{
+  "说明": "材质预设只记录参数。Unity 编辑器释放后再创建 .mat，避免当前编辑器自动导入。",
+  "shader": "Totem/FirstPlayable/VFX/ProceduralShape",
+  "presets": {
+    "MAT_FP_VFX_Fire_Apply": {
+      "_Color": [3.2, 0.62, 0.24, 1.0],
+      "_SecondaryColor": [1.4, 0.92, 0.55, 1.0],
+      "_Shape": 2,
+      "_EdgeWidth": 0.065,
+      "_Progress": 1.0,
+      "_PulseSpeed": 2.5,
+      "_NoiseScale": 16.0,
+      "_NoiseSpeed": 1.8,
+      "_NoiseAmount": 0.2,
+      "_Intensity": 1.4
+    },
+    "MAT_FP_VFX_Ice_Apply": {
+      "_Color": [0.38, 1.5, 2.4, 1.0],
+      "_SecondaryColor": [1.2, 1.7, 2.0, 1.0],
+      "_Shape": 1,
+      "_EdgeWidth": 0.055,
+      "_Progress": 1.0,
+      "_PulseSpeed": 1.1,
+      "_NoiseScale": 9.0,
+      "_NoiseSpeed": 0.25,
+      "_NoiseAmount": 0.08,
+      "_Intensity": 1.2
+    },
+    "MAT_FP_VFX_Lightning_Apply": {
+      "_Color": [1.5, 0.75, 3.8, 1.0],
+      "_SecondaryColor": [1.5, 1.4, 2.0, 1.0],
+      "_Shape": 3,
+      "_EdgeWidth": 0.045,
+      "_Progress": 1.0,
+      "_PulseSpeed": 7.0,
+      "_PulseAmount": 0.24,
+      "_NoiseScale": 24.0,
+      "_NoiseSpeed": 4.0,
+      "_NoiseAmount": 0.18,
+      "_Intensity": 1.6
+    },
+    "MAT_FP_VFX_HeatShock": {
+      "_Color": [3.0, 0.55, 0.2, 1.0],
+      "_SecondaryColor": [0.25, 1.5, 2.6, 1.0],
+      "_Shape": 0,
+      "_EdgeWidth": 0.085,
+      "_PulseSpeed": 4.0,
+      "_PulseAmount": 0.18,
+      "_Intensity": 1.8
+    },
+    "MAT_FP_VFX_Overload": {
+      "_Color": [1.6, 0.7, 4.0, 1.0],
+      "_SecondaryColor": [3.0, 1.1, 0.25, 1.0],
+      "_Shape": 0,
+      "_EdgeWidth": 0.06,
+      "_PulseSpeed": 5.0,
+      "_PulseAmount": 0.28,
+      "_Intensity": 2.0
+    },
+    "MAT_FP_VFX_Stasis": {
+      "_Color": [0.35, 1.35, 2.4, 1.0],
+      "_SecondaryColor": [1.45, 0.7, 3.4, 1.0],
+      "_Shape": 0,
+      "_EdgeWidth": 0.045,
+      "_PulseSpeed": 1.6667,
+      "_PulseAmount": 0.12,
+      "_Intensity": 1.15
+    }
+  }
+}

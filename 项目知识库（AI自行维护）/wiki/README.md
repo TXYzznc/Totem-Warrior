@@ -68,7 +68,7 @@ python tools\ai_index\build_ai_manifests.py
 - `项目知识库（AI自行维护）/wiki/PROJECT_MAP.md`
 - `项目知识库（AI自行维护）/wiki/ACTIVE_CONTEXT.md`
 - `项目知识库（AI自行维护）/wiki/manifests/*.json`
-- `LegacyProjectArchive/Assets/Scripts/Modules/*/MODULE.md`
+- `Assets/Game/Scripts/`
 
 校验：
 

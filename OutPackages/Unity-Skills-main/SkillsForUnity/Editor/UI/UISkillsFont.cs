@@ -51,8 +51,7 @@ namespace UnitySkills
 
                 // Dynamic, multi-atlas FontAsset → own atlas, grows safely, no shared-atlas drop.
                 _cjkFont = FontAsset.CreateFontAsset(font);
-                if (_cjkFont != null)
-                    _cjkFont.hideFlags = HideFlags.DontSave; // runtime-only, never persisted
+                ProtectRuntimeFontResources(_cjkFont);
             }
             catch (Exception ex)
             {
@@ -72,7 +71,34 @@ namespace UnitySkills
             if (root == null) return;
             var fa = GetFontAsset();
             if (fa == null) return;
+            // Dynamic FontAsset may append atlas textures after its initial creation.
+            // Keep every generated native object alive while editor windows reference it.
+            ProtectRuntimeFontResources(fa);
             root.style.unityFontDefinition = new StyleFontDefinition(fa);
+        }
+
+        private static void ProtectRuntimeFontResources(FontAsset fontAsset)
+        {
+            if (fontAsset == null) return;
+
+            // DontSave includes DontUnloadUnusedAsset. Applying it only to FontAsset is
+            // insufficient because TextCore creates the material and atlas textures as
+            // separate native objects that UI Toolkit retains directly.
+            fontAsset.hideFlags = HideFlags.DontSave;
+
+            var material = fontAsset.material;
+            if (material != null)
+                material.hideFlags = HideFlags.DontSave;
+
+            var atlasTextures = fontAsset.atlasTextures;
+            if (atlasTextures == null) return;
+
+            for (var i = 0; i < atlasTextures.Length; i++)
+            {
+                var atlasTexture = atlasTextures[i];
+                if (atlasTexture != null)
+                    atlasTexture.hideFlags = HideFlags.DontSave;
+            }
         }
     }
 }

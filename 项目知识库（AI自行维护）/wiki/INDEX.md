@@ -22,6 +22,7 @@
 | [工作流迁移.md](工作流迁移.md) | active | openspec 工作流迁移说明 |
 | [../../tools/AI_TOOL_USAGE.md](../../tools/AI_TOOL_USAGE.md) | active | Claude Code、Codex 与其他 AI 编辑器的统一 SKILL/Agent/MCP 使用统计协议和接入说明 |
 | [Codex批量出图协议.md](Codex批量出图协议.md) | active | 批量出图和资源生成约束 |
+| [AI帧动画制作工作流.md](AI帧动画制作工作流.md) | active | 关键帧、双端插值、循环补帧、抠图、对齐与切片的 AI 帧动画生产规范 |
 | [unity-skills-CJK编码修复.md](unity-skills-CJK编码修复.md) | active | Windows 中文编码问题修复记录 |
 | [Tattoo系统重构.md](Tattoo系统重构.md) | historical-reference | 旧框架时期 Tattoo 重构记录，只作为历史证据 |
 
@@ -29,7 +30,16 @@
 
 | 文档 | 状态 | 说明 |
 |---|---|---|
-| [3D_PvPvE当前上下文与进度_2026-07-25.md](3D_PvPvE当前上下文与进度_2026-07-25.md) | active | 3D PvPvE 重构的背景、确认共识、Git 进度、风险与下一步入口 |
+| [3D_PvPvE六人双排重构基线_2026-08-10.md](3D_PvPvE六人双排重构基线_2026-08-10.md) | active | 当前 6 人双排、三轮第一阶段，以及主开发/美术两个 OpenSpec 的唯一入口 |
+| [3D_PvPvE当前上下文与进度_2026-07-25.md](3D_PvPvE当前上下文与进度_2026-07-25.md) | superseded | 含 20/50 人、多武器、旧 UI 与旧撤离节奏，只作为历史演进证据 |
+
+## 2.2 想法库
+
+| 文档/目录 | 状态 | 说明 |
+|---|---|---|
+| [想法库/README.md](想法库/README.md) | active | 第一版暂不实施、但值得保留并在未来重新评估的设计想法 |
+| [想法库/IDEA-001-纹身颜料消耗差异化.md](想法库/IDEA-001-纹身颜料消耗差异化.md) | parked | 未来可按部位或特殊效果图案区分颜料消耗；第一版统一为 10 份 |
+| [想法库/IDEA-002-元素反应生成新事件与反应链.md](想法库/IDEA-002-元素反应生成新事件与反应链.md) | parked | 未来允许元素反应派生新事件并形成受控反应链；第一版反应为终止节点 |
 
 ## 3. 已降权历史资料
 
@@ -70,4 +80,4 @@
 - 每次新增、移动、删除 wiki 文档后必须更新本索引。
 - 过时文档必须使用 `historical-reference`、`superseded` 或 `draft` 标记。
 - 生成索引不手改，统一运行 `python tools\ai_index\build_ai_manifests.py`。
-- 当前运行框架是 GF_X；旧 `Assets/Scripts` 只作为 `LegacyProjectArchive` 证据。
+- 当前运行框架是 GF_X；已删除的旧 `Assets/Scripts` 不再作为资料来源。

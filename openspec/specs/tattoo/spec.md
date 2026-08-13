@@ -24,80 +24,56 @@ TBD - created by archiving change 01-tattoo-framework-rewrite. Update Purpose af
 - **AND** MUST NOT 调用 `EventBus.RequestAsync` 任何请求
 
 ### Requirement: TattooModule.Equip MUST 在配置有效时挂载 slot 并广播 BuildChangedEvent
+Equip MUST 验证当前为构筑阶段、部位属于六部位、图案为 P01/P02、元素为火/冰/雷且资源足够；成功后原子扣除 10 份颜料并广播构筑变化。替换已有纹身时 MUST 先按 60% 即 6 份返还旧颜料。
 
-`Equip(partId, colorId, patternId)` MUST 校验三个 id 都在对应 DataTable 行集合内；校验通过 MUST 把对应 slot 写入 `Equipped` 并 `Publish(BuildChangedEvent)`。配置缺失（如 colorId 不存在）MUST 记 `FrameworkLogger.Error` 且 MUST NOT 修改 `Equipped`、MUST NOT 发事件。
+#### Scenario: 合法装备 P01
+- **GIVEN** 当前为构筑阶段且玩家拥有至少 10 份目标颜料
+- **WHEN** 玩家在空部位装备 P01
+- **THEN** 颜料减少 10
+- **AND** slot、视觉和 `BuildChangedEvent` 同步更新
 
-#### Scenario: 装备触发广播
-
-- **GIVEN** `TattooModule` 已初始化
-- **WHEN** 调用 `TattooModule.Equip(partId=4, colorId=1, patternId=1)`（右臂红线）
-- **THEN** EventBus MUST 发出 `BuildChangedEvent { Equipped.Count == 1 }`
-- **AND** `TattooModule.Equipped[0]` MUST = `{ Part=RightArm, Color=Red(Fire), Pattern=Line(SingleHit) }`
-
-#### Scenario: 配置不存在时的容错
-
-- **GIVEN** `tattoo_color.json` 中不存在 `colorId = 999`
-- **WHEN** `TattooModule.Equip(partId=1, colorId=999, patternId=1)`
-- **THEN** `FrameworkLogger.Error` MUST 输出 `"ColorId=999 NotFound"`
-- **AND** MUST NOT 修改 `Equipped`
-- **AND** MUST NOT 发 `BuildChangedEvent`
+#### Scenario: 非构筑阶段装备
+- **GIVEN** 当前为战斗阶段
+- **WHEN** 真人或 Bot 请求 Equip
+- **THEN** 请求失败且不得扣除资源或广播变化
 
 ### Requirement: TattooModule MUST 按 slot 部位匹配事件并广播 EffectAppliedEvent
+TattooModule MUST 将一次行为的所有合法部位效果提交给确定性效果队列，而不是立即嵌套结算。枪械臂仅在造成有效直接伤害时触发；头部弱点、闪避、移动、躯干和保留的主动技能臂按规格优先级进入队列。
 
-收到战斗事件（AttackHit / CritHit / Damaged / SkillCast / DodgePressed / MoveTick）时，TattooModule MUST 遍历 `Equipped` 找出部位匹配的 slot 并触发对应 strategy 链；命中 MUST `Publish(EffectAppliedEvent)`；部位不匹配 MUST NOT 触发任何 strategy。`PendingTrigger` 列表中匹配当前事件类型的条目 MUST 被消耗（从 `Player.PendingTriggers` 移除）。
-
-#### Scenario: 普攻事件触发右臂 slot
-
-- **GIVEN** `TattooModule.Equipped` 含右臂红线 slot
-- **WHEN** `EventBus.Publish(new AttackHitEvent { Target=t1, BaseDamage=10 })`
-- **THEN** EventBus MUST 发出 `EffectAppliedEvent`
-- **AND** `result.Element` MUST == `"Fire"` 且 `result.Shape` MUST contains `"SingleHit"`
-- **AND** `result.Damage` MUST > 0
-- **AND** `t1.Health` MUST 减少
-
-#### Scenario: 部位不匹配的事件不触发
-
-- **GIVEN** `TattooModule.Equipped` 仅含右臂红线
-- **WHEN** `EventBus.Publish(new CritHitEvent { ... })`（头部触发的事件）
-- **THEN** MUST NOT 发出 `EffectAppliedEvent`
-- **AND** MUST NOT 调用任何 strategy
-
-#### Scenario: PendingTrigger 消耗
-
-- **GIVEN** `Player.PendingTriggers` 含 1 条 `{ ConsumeOnEvent = SkillCastEvent, Source = "Torso" }`
-- **WHEN** `EventBus.Publish(new SkillCastEvent { SkillId="anything" })`
-- **THEN** `Player.PendingTriggers.Count` MUST == 0（已消耗）
-- **AND** MUST 发出 `EffectAppliedEvent { Note contains "ConsumedPending" }`
+#### Scenario: 无有效直接伤害
+- **WHEN** 枪击被无敌、队友免伤或其他规则完全抵消
+- **THEN** 枪械臂效果不得触发
 
 ### Requirement: TattooModule.Clear MUST 清空 Build 并广播
+对局清理时 Clear MUST 清空六部位与运行时来源状态并广播；玩家在构筑阶段主动拆除单个部位时 MUST 只清理该部位并返还 6 份对应颜料。
 
-`Clear()` MUST 把 `Equipped` 与 `Player.PendingTriggers` 同时清空 并 `Publish(BuildChangedEvent { Equipped.Count == 0 })`。
-
-#### Scenario: Build 清空
-
-- **GIVEN** `TattooModule.Equipped.Count == 6`（满 Build）
-- **WHEN** `TattooModule.Clear()`
-- **THEN** `TattooModule.Equipped.Count` MUST == 0
-- **AND** EventBus MUST 发出 `BuildChangedEvent { Equipped.Count == 0 }`
-- **AND** `Player.PendingTriggers.Count` MUST == 0
+#### Scenario: 主动拆除单个部位
+- **WHEN** 构筑阶段玩家拆除一个已装备纹身
+- **THEN** 该部位变为空且返还 6 份颜料
+- **AND** 其他五个部位不变化
 
 ### Requirement: TattooModule MUST 在 Shutdown 与战斗结束时正确收尾
-
-`ShutdownAsync` MUST 释放 `Player` 引用、清空三个策略字典；MUST NOT 抛未处理异常。`CombatModule` 检测到 `enemy.Count == 0` 时 MUST `Publish(CombatEndedEvent { PlayerWin = true })`，UI Toolkit `CombatHUDForm` MUST 接收并显示胜利面板。
+Tattoo runtime MUST 在 Shutdown 和离开 CombatHud 时释放 Participant build、PendingTrigger 和运行时订阅，且不得抛未处理异常。Run 胜负 MUST 由 Participant 生存状态决定；Enemy 全灭 MUST NOT 发布胜利，最后一名 Participant 存活时 MUST 发布包含 winnerParticipantId 的结算结果。
 
 #### Scenario: 关闭时反序
-
-- **GIVEN** `ModuleRunner.ShutdownAsync` 被调用
-- **WHEN** 关闭流程进行到 `TattooModule`
-- **THEN** `Player` 引用 MUST 被释放
-- **AND** `_elementBehaviors / _shapeBehaviors / _partBehaviors` MUST 清空
+- **WHEN** GF_X runtime 执行 shutdown 或离开 CombatHud
+- **THEN** Tattoo runtime MUST 清空 build、pending trigger 和事件订阅
 - **AND** MUST NOT 抛未处理异常
 
-#### Scenario: 战斗结束广播
+#### Scenario: 怪物全灭不触发胜利
+- **WHEN** 所有 Light、Elite 和 Boss 均死亡但仍有至少 2 名 Participant 存活
+- **THEN** Run MUST 保持进行
+- **AND** Tattoo runtime MUST 保持可用
 
-- **GIVEN** `CombatModule + SpawnerModule + TattooModule` 都已就绪
-- **AND** 所有敌人被消灭
-- **WHEN** `CombatModule` 检测到 `enemy.Count == 0`
-- **THEN** EventBus MUST 发出 `CombatEndedEvent { PlayerWin = true }`
-- **AND** UI Toolkit `CombatHUDForm` MUST 接收到并显示胜利面板
+#### Scenario: 最后一名参赛者触发结算
+- **WHEN** 只剩 1 名 Participant 存活
+- **THEN** Combat result MUST 记录该 Participant 为 winner
+- **AND** CombatHUD MUST 显示本地玩家对应的胜利或失败结果
+
+### Requirement: 图案效果必须具有无数值公开文本
+每个可装备图案配置 MUST 提供用于对手情报面板的无精确数值效果文本，并与实际行为语义一致。
+
+#### Scenario: 配置缺少公开文本
+- **WHEN** 数据验证发现 P01 或 P02 的公开文本为空
+- **THEN** 诊断失败且不得进入发布验收
 

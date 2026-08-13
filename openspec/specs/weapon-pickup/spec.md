@@ -62,20 +62,21 @@ TBD - created by archiving change 18-weapon-pickup-and-upgrade. Update Purpose a
 ---
 
 ### Requirement: 精英敌人按 WeaponDropConfig 权重掉落
+EnemyLootService MUST 仅在真实 `EnemyTier.Elite` 死亡时，根据 EnemyLootConfig/WeaponDropConfig 的 Elite 来源加权选择武器并生成公开拾取物。SmartBot、LightBot 或 Human 的 ControllerKind MUST NOT 触发精英掉落。Light/Boss 是否掉武器 MUST 完全由各自 LootTable 决定，不得复用 Elite 默认规则。
 
-`WeaponSpawnerModule` MUST 订阅 `EnemyDeadEvent`，仅当 `e.IsElite==true` 时按 `WeaponDropConfig.GetByDropSource("Elite")` 加权随机选 1 把武器；并在 `e.Position` Spawn 拾取 GO。Light/Boss 死亡 MUST NOT 触发。
+#### Scenario: SmartBot 死亡不等于精英掉落
+- **WHEN** ControllerKind=SmartBot 的 Participant 死亡
+- **THEN** Elite weapon drop MUST NOT 触发
+- **AND** 只允许创建 Participant death chest
 
-#### Scenario: 普通 Light 敌人死亡不掉武器
-- **GIVEN** Light EnemyActor 死亡
-- **WHEN** `EnemyDeadEvent(IsElite=false)` publish
-- **THEN** WeaponSpawnerModule.OnEnemyDead 跳过；场上无新拾取 GO
+#### Scenario: 真实 Elite 按权重掉落武器
+- **WHEN** EnemyTier.Elite 在位置 P 死亡且 LootTable 含多个 Elite 武器候选
+- **THEN** EnemyLootService MUST 使用确定性 seed 加权选择配置候选
+- **AND** 在 P 生成无 OwnerId 的 Weapon pickup
 
-#### Scenario: 精英敌人按权重掉落已知武器
-- **GIVEN** Elite EnemyActor 在 RoomIndex=5 死亡，WeaponDropConfig 有 3 行 Elite 来源（Weight 各 30/40/30）
-- **WHEN** `EnemyDeadEvent(IsElite=true, Position=P)` publish
-- **THEN** WeaponSpawnerModule 按权重随机选 1 行，SpawnDroppedWeapon(weaponId, P)；GO 上挂 WeaponPickupTrigger
-
----
+#### Scenario: 普通怪不继承精英默认掉落
+- **WHEN** EnemyTier.Light 死亡且其 LootTable 不含武器
+- **THEN** 场上 MUST 不生成武器拾取物
 
 ### Requirement: 宝箱 / 商人 概率与扣金（fallback 容错）
 

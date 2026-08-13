@@ -9,7 +9,7 @@ Unity 版本：`2022.3.62f3`
 
 ## 0. 总览结论
 
-当前工程已经从旧 `Assets/Scripts` 业务框架迁移到 GF_X 运行框架。旧代码、旧测试、旧工具和旧配置表已经作为历史证据归档到 `LegacyProjectArchive`，不再参与当前启动、编译和运行链路。
+当前工程已经从旧 `Assets/Scripts` 业务框架迁移到 GF_X 运行框架。旧代码、旧测试、旧工具和旧配置表已从工作区移除，不再参与当前启动、编译和运行链路。
 
 当前首轮目标已经达成：
 
@@ -64,7 +64,7 @@ Unity 版本：`2022.3.62f3`
 - `TotemGameProcedure` 创建并驱动 `TotemGameRuntime`。
 - `TotemGameRuntime` 统一注册、初始化、tick、late tick 和关闭 runtime services。
 - 启动链通过 `StartupChainDiagnosticScenario` 和 GF_X 全量诊断验证。
-- 旧 `Assets/Scripts` 不再存在于活动路径，旧业务代码已归档到 `LegacyProjectArchive/Assets/Scripts`。
+- 旧 `Assets/Scripts` 不再存在于工作区或活动路径。
 - GF_X DemoGame 示例内容已删除：
   - `Assets/Game/Examples` 不存在。
   - `GameData/Examples` 不存在。
@@ -662,7 +662,7 @@ AI 资源总索引：
 - UI form bound asset：12。
 - placeholder UI art：113。
 - `Assets/Game/Examples` 已不再进入资源索引。
-- `Assets/Resources/Sprite/UI` 仍是临时 UI 占位资源。
+- UI 临时占位资源如需保留，统一位于 `Assets/Game/Sprites/UI`；不得恢复旧 `Assets/Resources/Sprite/UI`。
 
 资源使用规则：
 
@@ -781,9 +781,8 @@ cmd /c openspec validate native-enemy-domain-rebuild --strict
 
 当前仍保留但不是运行入口：
 
-- `LegacyProjectArchive`：旧代码、旧测试、旧工具、旧表、旧报告证据。
 - `Assets/Resources/Prefab/UI`：旧 UI prefab 作为复用/对照资源。
-- `Assets/Resources/Sprite/UI`：临时 UI 占位资源。
+- `Assets/Game/Sprites/UI`：当前 UI Sprite 资源根目录；旧 `Assets/Resources/Sprite/UI` 不再使用。
 - `tools/playtest/reports`：少量当前 playtest 证据。
 
 ## 2. 项目结构与各文件夹作用
@@ -801,7 +800,6 @@ cmd /c openspec validate native-enemy-domain-rebuild --strict
 | `CompressImageTool` | 图片压缩工具。 | 工具维护时改 |
 | `项目知识库（AI自行维护）` | 人类与 AI 共同使用的知识层；生成文档进 `outputs`，稳定知识进 `wiki`，外部原始输入进 `raw`。 | 按目录规则维护 |
 | `GameData` | 当前配置表、catalog、诊断报告。 | 配置和诊断核心目录 |
-| `LegacyProjectArchive` | 旧工程证据归档。 | 只读为主 |
 | `Library` | Unity 自动生成缓存。 | 不要手动改，不提交 |
 | `Logs` | Unity/工具日志。 | 不提交或只读 |
 | `openspec` | 大中型变更的 spec/proposal/design/tasks。 | 设计/重构变更时维护 |
@@ -844,7 +842,7 @@ cmd /c openspec validate native-enemy-domain-rebuild --strict
 | `Assets/Game/ScriptableAssets` | GF_X ScriptableObject 配置，如 `AppConfigs.asset` |
 | `Assets/Game/Scripts` | 当前业务代码。后续游戏功能优先放这里 |
 | `Assets/Game/ScriptsBuiltin` | GF_X 框架、编辑器工具、诊断、导表工具。改动需谨慎 |
-| `Assets/Game/Shader` | GF_X/项目 shader |
+| `Assets/Game/Shaders` | GF_X/项目 shader |
 | `Assets/Game/Tests` | 当前测试入口 |
 
 ### 2.4 `Assets/Game/Scripts`
@@ -880,7 +878,7 @@ cmd /c openspec validate native-enemy-domain-rebuild --strict
 - 输入只走 `TotemInputService`。
 - 不在 `Update` / `LateUpdate` 热路径引入 GC 分配。
 - 业务配置不要写死在代码里，优先放 Business JSON。
-- 旧代码只去 `LegacyProjectArchive` 查证，不复制旧架构。
+- 不恢复或复制旧架构；当前实现以 GF_X 代码与 OpenSpec 为准。
 
 ### 2.5 `Assets/Game/ScriptsBuiltin`
 
@@ -960,28 +958,7 @@ cmd /c openspec validate native-enemy-domain-rebuild --strict
 - 新运行时必须通过 `TotemAssetService` / runtime asset catalog。
 - UI 必须通过 GF_X UI Form 生命周期。
 
-### 2.8 `LegacyProjectArchive`
-
-旧工程证据归档。
-
-| 路径 | 作用 |
-|---|---|
-| `LegacyProjectArchive/Assets/Scripts` | 旧业务代码证据 |
-| `LegacyProjectArchive/Assets/Scripts/Modules` | 24 个旧模块说明和源证据 |
-| `LegacyProjectArchive/Assets/Resources/DataTable` | 旧配置表 JSON 证据 |
-| `LegacyProjectArchive/Assets/Scripts/DataTable` | 旧生成 C# 表类型证据 |
-| `LegacyProjectArchive/Assets/Tests` | 旧测试证据 |
-| `LegacyProjectArchive/tools` | 旧工具/旧 playtest 报告证据 |
-| `LegacyProjectArchive/OutPackages` | 旧外部包证据 |
-
-规则：
-
-- 只读为主。
-- 用来论证旧功能和需求。
-- 不要把旧 runtime 架构复制回来。
-- 不要把归档内容移动回活动 `Assets`。
-
-### 2.9 `tools`
+### 2.8 `tools`
 
 | 路径 | 作用 |
 |---|---|
@@ -1008,7 +985,6 @@ cmd /c openspec validate native-enemy-domain-rebuild --strict
 |---|---|
 | `openspec/changes/gf-x-business-runtime-refactor` | 当前 GF_X 原生重构主变更 |
 | `openspec/changes/gf-x-framework-migration-phase1` | GF_X 框架迁移一期 |
-| `openspec/changes/26-fixed-map-three-themes` | 固定 400m / 三主题地图 |
 | `openspec/changes/27-ai-information-contract` | AI 信息合同 |
 | `openspec/changes/28-pcg-map-runtime-integration` | PCG 地图运行时接入，已完成 T1-T10 并通过 `172937` 全量诊断 |
 | `openspec/specs` | 已沉淀的规格文档 |
@@ -1087,7 +1063,7 @@ python tools\ai_index\build_ai_manifests.py --check
 
 #### 3.1.4 美术资源人工确认
 
-- [ ] 人工确认 `Assets/Resources/Sprite/UI` 中哪些占位图可以短期继续用。
+- [ ] 人工确认 `Assets/Game/Sprites/UI` 中哪些占位图可以短期继续用。
 - [ ] 人工确认 1679 个资源索引里 `duplicate_name_review` 资源是否需要重命名/合并。
 - [ ] 人工确认当前 actor prefab 是否只是临时视觉。
 - [ ] 人工确认武器 sprite 是否需要全部重做。
@@ -1296,7 +1272,7 @@ python tools\ai_index\build_ai_manifests.py --check
 ### 4.2 改代码
 
 1. 先查 `Assets/Game/Scripts` 当前实现。
-2. 需要旧行为证据时再查 `LegacyProjectArchive`。
+2. 需要行为证据时查当前 GF_X 代码、Business DataTable、OpenSpec 与诊断报告。
 3. 新业务优先放 `Assets/Game/Scripts/Runtime/Services` 或 `Assets/Game/Scripts/UI`。
 4. 不恢复旧框架。
 5. 不绕过 `TotemInputService`。

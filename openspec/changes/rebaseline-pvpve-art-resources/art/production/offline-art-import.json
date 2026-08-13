@@ -1,0 +1,372 @@
+{
+  "generator": "art/tools/generate_offline_art.py",
+  "design": "方盒、切角、折线与低面数形状优先",
+  "unityTarget": "2022.3.62f3",
+  "assets": {
+    "UI_FP_Panel_Primary_128.png": {
+      "spriteMode": "Single",
+      "border": [
+        12,
+        12,
+        12,
+        12
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "sRGB": true
+    },
+    "UI_FP_Panel_Secondary_128.png": {
+      "spriteMode": "Single",
+      "border": [
+        12,
+        12,
+        12,
+        12
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "sRGB": true
+    },
+    "UI_FP_Panel_Light_128.png": {
+      "spriteMode": "Single",
+      "border": [
+        12,
+        12,
+        12,
+        12
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "sRGB": true
+    },
+    "UI_FP_Button_Normal_512x96.png": {
+      "spriteMode": "Single",
+      "border": [
+        16,
+        16,
+        16,
+        16
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "sRGB": true
+    },
+    "UI_FP_Button_Focused_512x96.png": {
+      "spriteMode": "Single",
+      "border": [
+        16,
+        16,
+        16,
+        16
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "sRGB": true
+    },
+    "UI_FP_Button_Pressed_512x96.png": {
+      "spriteMode": "Single",
+      "border": [
+        16,
+        16,
+        16,
+        16
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "sRGB": true
+    },
+    "UI_FP_Button_Disabled_512x96.png": {
+      "spriteMode": "Single",
+      "border": [
+        16,
+        16,
+        16,
+        16
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "sRGB": true
+    },
+    "ICO_FP_Element_Fire.png": {
+      "spriteMode": "Single",
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "sRGB": true,
+      "alpha": true
+    },
+    "ICO_FP_Element_Ice.png": {
+      "spriteMode": "Single",
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "sRGB": true,
+      "alpha": true
+    },
+    "ICO_FP_Element_Lightning.png": {
+      "spriteMode": "Single",
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "sRGB": true,
+      "alpha": true
+    },
+    "ICO_FP_Tattoo_P01.png": {
+      "spriteMode": "Single",
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "sRGB": true,
+      "alpha": true
+    },
+    "ICO_FP_Tattoo_P02.png": {
+      "spriteMode": "Single",
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "sRGB": true,
+      "alpha": true
+    },
+    "ICO_FP_Combat_Weakpoint.png": {
+      "spriteMode": "Single",
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "sRGB": true,
+      "alpha": true
+    },
+    "ICO_FP_State_Health.png": {
+      "spriteMode": "Single",
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "sRGB": true,
+      "alpha": true
+    },
+    "ICO_FP_State_Shield.png": {
+      "spriteMode": "Single",
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "sRGB": true,
+      "alpha": true
+    },
+    "ICO_FP_State_Downed.png": {
+      "spriteMode": "Single",
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "sRGB": true,
+      "alpha": true
+    },
+    "ICO_FP_State_Rescue.png": {
+      "spriteMode": "Single",
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "sRGB": true,
+      "alpha": true
+    },
+    "ICO_FP_State_Warning.png": {
+      "spriteMode": "Single",
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "sRGB": true,
+      "alpha": true
+    },
+    "ICO_FP_Weapon_Ammo.png": {
+      "spriteMode": "Single",
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "sRGB": true,
+      "alpha": true
+    },
+    "ICO_FP_Team_Duo.png": {
+      "spriteMode": "Single",
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "sRGB": true,
+      "alpha": true
+    },
+    "ICO_FP_Build_Slots.png": {
+      "spriteMode": "Single",
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "sRGB": true,
+      "alpha": true
+    },
+    "ICO_FP_Request_Pigment.png": {
+      "spriteMode": "Single",
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "sRGB": true,
+      "alpha": true
+    },
+    "ICO_FP_Reaction_HeatShock.png": {
+      "spriteMode": "Single",
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "sRGB": true,
+      "alpha": true
+    },
+    "ICO_FP_Reaction_Overload.png": {
+      "spriteMode": "Single",
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "sRGB": true,
+      "alpha": true
+    },
+    "ICO_FP_Reaction_Stasis.png": {
+      "spriteMode": "Single",
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "sRGB": true,
+      "alpha": true
+    },
+    "UI_FP_IconAtlas_512.png": {
+      "spriteMode": "Multiple",
+      "cell": [
+        64,
+        64
+      ],
+      "count": 18,
+      "order": [
+        "ICO_FP_Element_Fire.png",
+        "ICO_FP_Element_Ice.png",
+        "ICO_FP_Element_Lightning.png",
+        "ICO_FP_Tattoo_P01.png",
+        "ICO_FP_Tattoo_P02.png",
+        "ICO_FP_Combat_Weakpoint.png",
+        "ICO_FP_State_Health.png",
+        "ICO_FP_State_Shield.png",
+        "ICO_FP_State_Downed.png",
+        "ICO_FP_State_Rescue.png",
+        "ICO_FP_State_Warning.png",
+        "ICO_FP_Weapon_Ammo.png",
+        "ICO_FP_Team_Duo.png",
+        "ICO_FP_Build_Slots.png",
+        "ICO_FP_Request_Pigment.png",
+        "ICO_FP_Reaction_HeatShock.png",
+        "ICO_FP_Reaction_Overload.png",
+        "ICO_FP_Reaction_Stasis.png"
+      ],
+      "sRGB": true
+    },
+    "UI_FP_Reticle_Default_128.png": {
+      "spriteMode": "Single",
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "sRGB": true
+    },
+    "UI_FP_HitConfirm_Weakpoint_128.png": {
+      "spriteMode": "Single",
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "sRGB": true
+    },
+    "UI_FP_DangerFrame_512.png": {
+      "spriteMode": "Single",
+      "border": [
+        96,
+        96,
+        96,
+        96
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "sRGB": true
+    },
+    "T_FP_VFX_Noise_256.png": {
+      "sRGB": false,
+      "wrap": "Repeat",
+      "filter": "Bilinear",
+      "format": "R8 preferred"
+    },
+    "T_FP_VFX_CoreRamp_256x16.png": {
+      "sRGB": false,
+      "wrap": "Clamp",
+      "filter": "Bilinear",
+      "alpha": true
+    },
+    "T_FP_VFX_Dither4x4_64.png": {
+      "sRGB": false,
+      "wrap": "Repeat",
+      "filter": "Point",
+      "format": "R8 preferred"
+    },
+    "T_FP_VFX_ShapeAtlas_512x256.png": {
+      "sRGB": false,
+      "wrap": "Clamp",
+      "filter": "Bilinear",
+      "cells": [
+        4,
+        2
+      ],
+      "order": [
+        "box_frame",
+        "diamond_frame",
+        "wedge",
+        "shard",
+        "branch",
+        "segments",
+        "cross",
+        "brackets"
+      ]
+    },
+    "T_UI_FP_MainMenu_Background_Oasis_v02.png": {
+      "textureType": "Default",
+      "sRGB": true,
+      "wrap": "Clamp",
+      "filter": "Bilinear",
+      "maxSize": 4096,
+      "compression": "Normal or High Quality per target",
+      "role": "首选主菜单背景候选；以绿洲新城现有地图与装饰资源为参考"
+    }
+  }
+}

@@ -61,7 +61,7 @@ TBD - created by archiving change 17-ui-structure-first. Update Purpose after ar
 
 ### Requirement: 阶段 4 按 layout 拆素材，多张 mockup Fan-Out 并行
 
-阶段 4 主对话 MUST 按 mockup 页面数 fan-out N 个子 Agent，各自调 `ui-asset-splitting` SKILL。每个 Agent MUST 从 `prefab-layout.md` 读该页节点树，按节点拆背景 / 组件 / 状态变体。状态变体 MUST 每态独立一张贴图；一张画布装不下 MUST 拆多张 batch（如 `_merged/batch_1.png`）。产出 MUST 搬进 `Assets/Resources/Sprite/UI/<PageName>/`。
+阶段 4 主对话 MUST 按 mockup 页面数 fan-out N 个子 Agent，各自调 `ui-asset-splitting` SKILL。每个 Agent MUST 从 `prefab-layout.md` 读该页节点树，按节点拆背景 / 组件 / 状态变体。状态变体 MUST 每态独立一张贴图；一张画布装不下 MUST 拆多张 batch（如 `_merged/batch_1.png`）。产出 MUST 搬进 `Assets/Game/Sprites/UI/<PageName>/`。
 
 #### Scenario: 多张 mockup 并行拆分
 - **GIVEN** 阶段 3 通过了 3 张 mockup
@@ -74,13 +74,13 @@ TBD - created by archiving change 17-ui-structure-first. Update Purpose after ar
 - **THEN** MUST 拆 `_merged/batch_1.png` / `batch_2.png`，MUST NOT 硬塞到一张画布上
 
 #### Scenario: 导入设置不许手动改
-- **GIVEN** 素材已搬进 `Assets/Resources/Sprite/UI/<PageName>/`
+- **GIVEN** 素材已搬进 `Assets/Game/Sprites/UI/<PageName>/`
 - **WHEN** `UISpriteImportProcessor` 自动运行
 - **THEN** `.meta` 中 `textureType: 8` MUST 已被自动设置；开发者 MUST NOT 在 Inspector 里手动改
 
 ### Requirement: 阶段 5 单线 client-unity，用 unity-skills MCP 按 layout 建 Prefab
 
-阶段 5 MUST 是**单线** client-unity（不再 fan-out art-ui 出标注稿）。client-unity MUST 前置读取 `prefab-layout.md` + `art/mockups/<PageName>.png` + `Assets/Resources/Sprite/UI/<PageName>/`。Prefab 创建 MUST 优先调 `unity-skills` MCP（按 layout 节点树建层级 + 设 RectTransform 四元组 + 贴入拆分素材 + AddComponent）；MCP 不可用 MUST 回退到通知用户在 Unity Editor 手动搭。调用 unity-skills 时若参数含 CJK / Emoji MUST 用 `--stdin-json` 模式。
+阶段 5 MUST 是**单线** client-unity（不再 fan-out art-ui 出标注稿）。client-unity MUST 前置读取 `prefab-layout.md` + `art/mockups/<PageName>.png` + `Assets/Game/Sprites/UI/<PageName>/`。Prefab 创建 MUST 优先调 `unity-skills` MCP（按 layout 节点树建层级 + 设 RectTransform 四元组 + 贴入拆分素材 + AddComponent）；MCP 不可用 MUST 回退到通知用户在 Unity Editor 手动搭。调用 unity-skills 时若参数含 CJK / Emoji MUST 用 `--stdin-json` 模式。
 
 #### Scenario: v3 阶段 5 禁止 Fan-Out
 - **GIVEN** 主对话要进入阶段 5
@@ -110,4 +110,16 @@ TBD - created by archiving change 17-ui-structure-first. Update Purpose after ar
 - **GIVEN** 联调时把某节点 anchoredPosition 从 (0, -60) 改成 (0, -80)
 - **WHEN** 修复通过
 - **THEN** MUST 同步更新 `prefab-layout.md` 中该节点的 anchoredPosition
+
+### Requirement: UI 结构文档必须声明运行时展示槽位与通用组件归属
+
+阶段 1 的 `prefab-layout.md` MUST 对每个包含 Image 的节点声明其素材职责：`ui-shell`、`runtime-slot` 或 `data-asset`。每个 `ui-shell` MUST 标明其专属或通用归属；每个 `runtime-slot` MUST 标明其容器、遮罩、比例与运行时加载来源。页面不得把角色、物品、纹身、皮肤或预览内容误列为静态 UI Sprite。
+
+#### Scenario: TattooStudioForm 的预览区域
+- **WHEN** art-ui 为 TattooStudioForm 输出 `prefab-layout.md`
+- **THEN** 角色预览、纹身贴花和前后材质预览 MUST 声明为 `runtime-slot` 或 `data-asset`，而预览框、遮罩、分隔箭头和状态边框 MUST 声明为 `ui-shell`
+
+#### Scenario: 跨页面复用组件
+- **WHEN** art-ui 发现多个页面使用同形的卡片、选择框、九宫格边框、进度轨道或按键提示底板
+- **THEN** `prefab-layout.md` MUST 将它们列入跨页复用组件，并指向 `通用UI组件` 中的唯一资源名
 

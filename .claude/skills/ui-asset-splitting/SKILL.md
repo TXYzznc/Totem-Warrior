@@ -7,7 +7,7 @@ description: 把用户已确认的 UI 效果图（mockup）拆分成可用于搭
 
 ## 一、定位与边界
 
-**做的**：输入一张**已确认**的 UI 效果图（`art/mockups/<FormName>.png`），分析其中包含哪些独立美术单元（背景 + N 个图标/按钮/进度条等组件，含必要的状态变体），调 Codex 重新生成这些独立素材（不是从原图抠图，是基于原图描述重新生成同风格的透明背景小图），本地抠图+切图后落到 `art/raw/<FormName>/`，最终搬进 `Assets/Resources/Sprite/UI/<FormName>/`。
+**做的**：输入一张**已确认**的 UI 效果图（`art/mockups/<FormName>.png`），分析其中包含哪些独立美术单元（背景 + N 个图标/按钮/进度条等组件，含必要的状态变体），调 Codex 重新生成这些独立素材（不是从原图抠图，是基于原图描述重新生成同风格的透明背景小图），本地抠图+切图后落到 `art/raw/<FormName>/`，最终搬进 `Assets/Game/Sprites/UI/<FormName>/`。
 
 **不做的**：
 - 效果图本身的生成（→ [codex-image-gen](../codex-image-gen/SKILL.md)）
@@ -20,7 +20,7 @@ codex-image-gen（出 mockup，用户确认）
        ↓
 ui-asset-splitting（本 SKILL — 拆成可用素材）
        ↓
-art/raw/<FormName>/*.png → 搬进 Assets/Resources/Sprite/UI/<FormName>/
+art/raw/<FormName>/*.png → 搬进 Assets/Game/Sprites/UI/<FormName>/
        ↓
 client-unity 搭 Prefab（直接用这些 Sprite）
 ```
@@ -113,11 +113,11 @@ PY
 ### 3.5 搬运入库 + 自动导入设置
 
 ```bash
-mkdir -p "Assets/Resources/Sprite/UI/<FormName>"
-cp art/raw/<FormName>/*.png "Assets/Resources/Sprite/UI/<FormName>/"
+mkdir -p "Assets/Game/Sprites/UI/<FormName>"
+cp art/raw/<FormName>/*.png "Assets/Game/Sprites/UI/<FormName>/"
 ```
 
-文件落到 `Assets/Resources/Sprite/UI/` 下后，Unity 重新聚焦/编译时 `UISpriteImportProcessor`（`Assets/Editor/UISpriteImportProcessor.cs`）会**自动**在导入阶段把 Texture Type 设为 `Sprite (2D and UI)` + 关闭 mipmap + Bilinear 过滤，**不需要手动在 Inspector 里改**。若文件是在 Unity 未运行时拷贝进去的，下次打开 Editor 触发导入时才会生效；可用 `unity-skills` MCP 的 `manage_asset` 主动触发一次 reimport 确认。
+文件落到 `Assets/Game/Sprites/UI/` 下后，Unity 重新聚焦/编译时 `UISpriteImportProcessor`（`Assets/Editor/UISpriteImportProcessor.cs`）会**自动**在导入阶段把 Texture Type 设为 `Sprite (2D and UI)` + 关闭 mipmap + Bilinear 过滤，**不需要手动在 Inspector 里改**。若文件是在 Unity 未运行时拷贝进去的，下次打开 Editor 触发导入时才会生效；可用 `unity-skills` MCP 的 `manage_asset` 主动触发一次 reimport 确认。
 
 ### 3.6 写生成记录
 
@@ -153,7 +153,7 @@ cp art/raw/<FormName>/*.png "Assets/Resources/Sprite/UI/<FormName>/"
 - [ ] **alpha 硬检查全 OK**：§3.4 脚本跑完所有组件素材（非 `_bg.png`）四角 alpha=0、有透明像素，无一行 FAIL
 - [ ] **无普通文字进素材**：标签/数值/按钮文案/键名走 TMP_Text 节点；仅特殊艺术字作图片
 - [ ] **每张 `_bg.png` 已用 Read 工具肉眼核验是干净场景图**（不含 UI 面板/图标/文字），不是别的 Form 串号过来的组件画布（参考 §五 踩坑 7）
-- [ ] 已搬运到 `Assets/Resources/Sprite/UI/<FormName>/`
+- [ ] 已搬运到 `Assets/Game/Sprites/UI/<FormName>/`
 - [ ] `Assets/Editor/UISpriteImportProcessor.cs` 存在且生效（抽查 1 张素材的 `.meta` 确认 `textureType: 8`）
 - [ ] `生成记录.md` 完整覆盖所有拆分项
 - [ ] 失败/抠图瑕疵项已明确告知用户，未隐瞒

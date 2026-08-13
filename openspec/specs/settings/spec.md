@@ -117,7 +117,7 @@ v1.0 交付 SettingsForm 时 MUST 包含重绑定区（3 行：Move / Attack / P
 
 ### Requirement: Prefab 层级契约（v2 UI 重做）
 
-`Assets/Resources/Prefab/UI/Settings.prefab` 的层级结构 MUST 与 `openspec/changes/10-settings-form/art/prefab-layout.md` 定义的节点树一致。所有 RectTransform 参数（anchor / pivot / sizeDelta / anchoredPosition）以 layout 为准。阶段 5 client-unity 拼装时 SHALL NOT 偏离 layout 自行推断结构。
+`Assets/Game/Prefabs/UI/Settings.prefab` 的层级结构 MUST 与 `openspec/changes/10-settings-form/art/prefab-layout.md` 定义的节点树一致。所有 RectTransform 参数（anchor / pivot / sizeDelta / anchoredPosition）以 layout 为准。阶段 5 client-unity 拼装时 SHALL NOT 偏离 layout 自行推断结构。
 
 #### Scenario: 阶段 5 拼装完成后
 

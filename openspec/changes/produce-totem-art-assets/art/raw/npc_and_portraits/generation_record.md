@@ -23,7 +23,7 @@
 - 商人与纹身师均为完整全身、双脚可见、Idle 站姿，可用于 2.5D 场景摆放。
 - 纹身师保留现有身份要求的紫色发光纹身；商人无固定纹身。
 - `player_2` 与 `player_3` 均无固定纹身，头颈、手臂与上躯干的未来贴花空间保持可读。
-- 原始与处理素材保留在本目录；2026-07-13 已非破坏性导入正式 Unity 路径：`Assets/Game/Sprite/NPC/NpcTattooist/npc_tattooist_idle.png`、`Assets/Game/Sprite/NPC/NpcMerchant/npc_merchant_idle.png`、`Assets/Game/Sprite/UI/CharacterSelectForm/Portraits/player_2_signal_hunter_portrait.png` 与 `Assets/Game/Sprite/UI/CharacterSelectForm/Portraits/player_3_augmented_subject_portrait.png`。
+- 原始与处理素材保留在本目录；2026-07-13 已非破坏性导入正式 Unity 路径：`Assets/Game/Sprites/NPC/NpcTattooist/npc_tattooist_idle.png`、`Assets/Game/Sprites/NPC/NpcMerchant/npc_merchant_idle.png`、`Assets/Game/Sprites/UI/CharacterSelectForm/Portraits/player_2_signal_hunter_portrait.png` 与 `Assets/Game/Sprites/UI/CharacterSelectForm/Portraits/player_3_augmented_subject_portrait.png`。
 
 ## Unity integration (2026-07-13)
 

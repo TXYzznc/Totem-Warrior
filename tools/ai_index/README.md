@@ -13,7 +13,7 @@ python tools\ai_index\build_ai_manifests.py
 - `项目知识库（AI自行维护）/wiki/PROJECT_MAP.md`
 - `项目知识库（AI自行维护）/wiki/ACTIVE_CONTEXT.md`
 - `项目知识库（AI自行维护）/wiki/manifests/*.json`
-- `LegacyProjectArchive/Assets/Scripts/Modules/*/MODULE.md`（旧行为证据卡）
+- `Assets/Game/Scripts/`（当前 GF_X 业务实现）
 
 ## 校验
 
@@ -21,7 +21,7 @@ python tools\ai_index\build_ai_manifests.py
 python tools\ai_index\build_ai_manifests.py --check
 ```
 
-`--check` 只判断生成物是否与当前项目结构一致，不判断业务逻辑正确性。当前 GF_X 业务代码入口是 `Assets/Game/Scripts`；旧 `LegacyProjectArchive/Assets/Scripts` 只作为需求反推和历史证据。
+`--check` 只判断生成物是否与当前项目结构一致，不判断业务逻辑正确性。当前 GF_X 业务代码入口是 `Assets/Game/Scripts`；已移除的旧业务代码不再作为需求反推或历史证据。
 
 历史 wiki/GDD 降权规则：旧文档中出现的 `Assets/Scripts`、`GameApp`、`EventBus`、旧 `InputModule` 只作为迁移前证据或需求反推线索，不能覆盖当前 GF_X 运行时口径。当前实现以 `Assets/Game/Scripts`、GF_X runtime、`TotemInputService` / `ITotemInputProvider` 为准。
 

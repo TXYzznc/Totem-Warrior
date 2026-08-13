@@ -10,7 +10,7 @@ Date: 2026-07-13
 
 ## Runtime assets
 
-- Sprite directory: `Assets/Game/Sprite/Actors/ActorCommonM02/` (96 Sprites, never a retired legacy art directory).
+- Sprite directory: `Assets/Game/Sprites/Actors/ActorCommonM02/` (96 Sprites, never a retired legacy art directory).
 - Animation directory: `Assets/Game/Animation/Actors/ActorCommonM02/` (16 directional clips and `ActorCommonM02.controller`).
 - Sprite import: PPU 512, custom bottom foot pivot `(0.5, 1/512)`, alpha transparency, clamp wrap, no mipmaps.
 - Controller parameters are exactly the five parameters already driven by `TotemActorService`: `IsMoving`, `Direction`, `AttackTrigger`, `Die`, and `Dead`.

@@ -52,7 +52,7 @@ Player、SmartAI、LightAI 共用 `actor_common` 的同一份无纹身角色资�
 ## Migration Plan
 
 1. 在本 change 的 `art/` 中生成概念、四视图、源画布、切图和处理记录。
-2. 验收后将最终 PNG 复制到 `Assets/Game/Sprite/Actors/` 与 `NPC/`，保留源文件在 change 中。
+2. 验收后将最终 PNG 复制到 `Assets/Game/Sprites/Actors/` 与 `NPC/`，保留源文件在 change 中。
 3. 创建 AnimatorController 与 clips，绑定 Actor/NPC prefab；更新 runtime catalog、required keys 与美术索引。
 4. 修改 actor tint 为脚下阵营环，复跑 Unity 编译、actor runtime、runtime assets 和 gameplay runtime 检查。
 5. 任一资源或导入验证失败时，仅删除本 change 新增的最终文件并回退该 key/prefab 引用；不恢复已删除旧目录。

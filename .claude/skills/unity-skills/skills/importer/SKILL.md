@@ -28,7 +28,7 @@ description: "Get and set import settings for Textures, Audio, and Models. Use *
 
 | Parameter | Type | Description |
 |-----------|------|-------------|
-| `assetPath` | string | Path like `Assets/Textures/icon.png` |
+| `assetPath` | string | Path like `Assets/Game/Textures/UI/icon.png` |
 | `textureType` | string | Default, NormalMap, Sprite, EditorGUI, Cursor, Cookie, Lightmap, SingleChannel |
 | `maxSize` | int | 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192 |
 | `filterMode` | string | Point, Bilinear, Trilinear |
@@ -42,7 +42,7 @@ description: "Get and set import settings for Textures, Audio, and Models. Use *
 ```python
 # Single - convert to sprite
 unity_skills.call_skill("texture_set_settings",
-    assetPath="Assets/Textures/ui_button.png",
+    assetPath="Assets/Game/Textures/UI/ui_button.png",
     textureType="Sprite",
     spritePixelsPerUnit=100,
     filterMode="Bilinear"
@@ -50,9 +50,9 @@ unity_skills.call_skill("texture_set_settings",
 
 # Batch - convert multiple to sprites
 unity_skills.call_skill("texture_set_settings_batch", items=[
-    {"assetPath": "Assets/Textures/icon1.png", "textureType": "Sprite"},
-    {"assetPath": "Assets/Textures/icon2.png", "textureType": "Sprite"},
-    {"assetPath": "Assets/Textures/icon3.png", "textureType": "Sprite"}
+    {"assetPath": "Assets/Game/Textures/UI/icon1.png", "textureType": "Sprite"},
+    {"assetPath": "Assets/Game/Textures/UI/icon2.png", "textureType": "Sprite"},
+    {"assetPath": "Assets/Game/Textures/UI/icon3.png", "textureType": "Sprite"}
 ])
 ```
 
@@ -103,7 +103,7 @@ unity_skills.call_skill("audio_set_settings_batch", items=[
 
 | Parameter | Type | Description |
 |-----------|------|-------------|
-| `assetPath` | string | Path like `Assets/Models/char.fbx` |
+| `assetPath` | string | Path like `Assets/Game/Models/Characters/char.fbx` |
 | `globalScale` | float | Import scale factor |
 | `meshCompression` | string | Off, Low, Medium, High |
 | `isReadable` | bool | CPU readable mesh data |
@@ -118,7 +118,7 @@ unity_skills.call_skill("audio_set_settings_batch", items=[
 ```python
 # Character with humanoid animation
 unity_skills.call_skill("model_set_settings",
-    assetPath="Assets/Models/character.fbx",
+    assetPath="Assets/Game/Models/Characters/character.fbx",
     animationType="Humanoid",
     meshCompression="Medium",
     generateSecondaryUV=True
@@ -126,7 +126,7 @@ unity_skills.call_skill("model_set_settings",
 
 # Static prop - optimize
 unity_skills.call_skill("model_set_settings",
-    assetPath="Assets/Models/prop_barrel.fbx",
+    assetPath="Assets/Game/Models/Environment/prop_barrel.fbx",
     animationType="None",
     importAnimation=False,
     importCameras=False,
@@ -136,8 +136,8 @@ unity_skills.call_skill("model_set_settings",
 
 # Batch
 unity_skills.call_skill("model_set_settings_batch", items=[
-    {"assetPath": "Assets/Models/prop1.fbx", "animationType": "None", "meshCompression": "High"},
-    {"assetPath": "Assets/Models/prop2.fbx", "animationType": "None", "meshCompression": "High"}
+    {"assetPath": "Assets/Game/Models/Environment/prop1.fbx", "animationType": "None", "meshCompression": "High"},
+    {"assetPath": "Assets/Game/Models/Environment/prop2.fbx", "animationType": "None", "meshCompression": "High"}
 ])
 ```
 

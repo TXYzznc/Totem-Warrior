@@ -64,20 +64,20 @@ import unity_skills
 # Create an unlit shader
 unity_skills.call_skill("shader_create",
     shaderName="Custom/MyUnlit",
-    savePath="Assets/Shaders/MyUnlit.shader",
+    savePath="Assets/Game/Shaders/Common/MyUnlit.shader",
     template="Unlit"
 )
 
 # Create a surface shader
 unity_skills.call_skill("shader_create",
     shaderName="Custom/MyPBR",
-    savePath="Assets/Shaders/MyPBR.shader",
+    savePath="Assets/Game/Shaders/Common/MyPBR.shader",
     template="Standard"
 )
 
 # Read shader source
 source = unity_skills.call_skill("shader_read",
-    shaderPath="Assets/Shaders/MyUnlit.shader"
+    shaderPath="Assets/Game/Shaders/Common/MyUnlit.shader"
 )
 print(source['content'])
 

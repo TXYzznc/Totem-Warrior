@@ -13,7 +13,7 @@ This directory is for local packages that are actively referenced by
 
 | Package | Archive path | Reason |
 |---|---|---|
-| UniTask upstream clone | `LegacyProjectArchive/OutPackages/UniTask` | The active project uses the GF_X embedded UniTask at `Assets/Plugins/UniTask`; keeping a second source clone under `OutPackages` polluted AI/code searches. |
+| UniTask upstream clone | 已移除 | The active project uses the GF_X embedded UniTask at `Assets/Plugins/UniTask`; keeping a second source clone under `OutPackages` polluted AI/code searches. |
 
 ## Rules
 

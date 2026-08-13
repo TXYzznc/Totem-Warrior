@@ -135,7 +135,7 @@
 - [ ] 从 `prefab-layout.md` 读节点树，按节点拆背景/组件/状态变体
 - [ ] **状态每态独立**：layout 中每个含 states 的节点，每态独立成图
 - [ ] **画布不够拆多张**：1024×1024 绿幕组件画布装不下时，拆 `_merged/batch_1.png` / `_merged/batch_2.png`
-- [ ] 输出到 `art/raw/<PageName>/`，之后搬进 `Assets/Resources/Sprite/UI/<PageName>/`
+- [ ] 输出到 `art/raw/<PageName>/`，之后搬进 `Assets/Game/Sprites/UI/<PageName>/`
 - [ ] `await UniTask.WhenAll` 等所有 Agent 返回
 
 ### ✅ 阶段 5：拼装实现（干跑，单线 client-unity）
@@ -143,7 +143,7 @@
 新会话应当**描述**：
 
 - [ ] **单线** client-unity（**不是** Fan-Out）—— v3 已取消 art-ui 标注稿中间层
-- [ ] client-unity 前置读取：`prefab-layout.md` + `art/mockups/SettingsForm.png` + `Assets/Resources/Sprite/UI/SettingsForm/`
+- [ ] client-unity 前置读取：`prefab-layout.md` + `art/mockups/SettingsForm.png` + `Assets/Game/Sprites/UI/SettingsForm/`
 - [ ] 调 `unity-skills` MCP 按 layout 节点树建 Canvas 层级 + 设 anchor/pivot/sizeDelta/anchoredPosition + 贴入拆分素材 + AddComponent（Button / Slider 等）
 - [ ] **CJK 参数必须走 `--stdin-json` 模式**（节点名 / 按钮文本 / 说明文字含中文时）
 - [ ] MCP 不可用 → **回退**到通知用户在 Unity Editor 手动搭（**不许**偷偷自己改 .prefab 文件）

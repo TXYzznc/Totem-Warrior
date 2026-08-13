@@ -4,7 +4,7 @@
 
 - 运行时资源表 `GameData/AIData/GameplayCatalogs/totem_runtime_assets.json` 共 38 条 entry，24 个 active asset path 均存在；Player、SmartAI、LightAI、Boss、两名 NPC 与 `player_2` / `player_3` 肖像 key 均指向当前正式资源。
 - `tools/ai_index/build_ai_manifests.py --check` 通过。生成的 `wiki/manifests/art_assets.json` 使用 Unity GUID 依赖反链记录 Prefab → AnimatorController → AnimationClip → Sprite 的间接用途；无 `Unclassified` 或 `classification_needed` 美术项。
-- 四份 PCG catalog 共 1,354 条 `Assets/Game/Sprite/PCG/...` 引用均已解析；没有 `Assets/Resources/PCG/Terrain/` 的误创建补图依赖。
+- 四份 PCG catalog 共 1,354 条 `Assets/Game/Sprites/PCG/...` 引用均已解析；没有 `Assets/Resources/PCG/Terrain/` 的误创建补图依赖。
 - `Totem First Slice UI` 诊断已通过：角色 1 没有肖像 key，角色 2 / 3 分别加载 `ui.character.portrait.2` / `ui.character.portrait.3`。
 - `Totem Runtime Assets` 与 `Totem Actor Visual Runtime` 诊断通过；Player、SmartAI、LightAI 的中性角色主体配合运行时脚下阵营环，Boss 与 NPC 不创建阵营环。
 

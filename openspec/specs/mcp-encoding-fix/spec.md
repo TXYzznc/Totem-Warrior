@@ -45,7 +45,7 @@ TBD - created by archiving change 14-mcp-encoding-fix. Update Purpose after arch
 
 ### Requirement: 修复 MUST NOT 改动 13-fix-broken-prefabs 已修的 4 个 Prefab
 
-修复过程 MUST 仅修改 `unity_skills.py` + SKILL.md + CLAUDE.md + 测试目录文件。MUST NOT 触碰 `Assets/Resources/Prefab/UI/Settings.prefab` / `SelfTattoo.prefab` / `ThreeChoice.prefab` / `TattooEnchant.prefab`。验收脚本写 Prefab 时 MUST 使用临时副本目录（`/tmp/` 或 `tests/regression/temp_prefabs/`），完成后 MUST 删除副本。
+修复过程 MUST 仅修改 `unity_skills.py` + SKILL.md + CLAUDE.md + 测试目录文件。MUST NOT 触碰 `Assets/Game/Prefabs/UI/Settings.prefab` / `SelfTattoo.prefab` / `ThreeChoice.prefab` / `TattooEnchant.prefab`。验收脚本写 Prefab 时 MUST 使用临时副本目录（`/tmp/` 或 `tests/regression/temp_prefabs/`），完成后 MUST 删除副本。
 
 #### Scenario: 13 已修 Prefab mtime 未被本期改动
 

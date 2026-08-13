@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-07-15",
+  "generated_at": "2026-08-12",
   "source": "tools/ai_index/build_ai_manifests.py",
   "root": "Assets/Resources",
   "buckets": [
     {
-      "path": "LegacyProjectArchive/Assets/Resources/DataTable",
+      "path": "GameData/AIData/DataTables/Business",
       "exists": true,
-      "files": 56,
+      "files": 7,
       "children": []
     },
     {

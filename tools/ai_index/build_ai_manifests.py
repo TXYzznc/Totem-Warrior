@@ -15,14 +15,10 @@ ROOT = Path(__file__).resolve().parents[2]
 KB_DIR = ROOT / "项目知识库（AI自行维护）"
 WIKI_DIR = KB_DIR / "wiki"
 MANIFEST_DIR = WIKI_DIR / "manifests"
-ACTIVE_SCRIPTS_DIR = ROOT / "Assets" / "Scripts"
-LEGACY_SCRIPTS_DIR = ROOT / "LegacyProjectArchive" / "Assets" / "Scripts"
-SCRIPTS_DIR = ACTIVE_SCRIPTS_DIR if ACTIVE_SCRIPTS_DIR.exists() else LEGACY_SCRIPTS_DIR
-MODULES_DIR = SCRIPTS_DIR / "Modules"
-ACTIVE_DATA_JSON_DIR = ROOT / "Assets" / "Resources" / "DataTable"
-LEGACY_DATA_JSON_DIR = ROOT / "LegacyProjectArchive" / "Assets" / "Resources" / "DataTable"
-DATA_JSON_DIR = ACTIVE_DATA_JSON_DIR if ACTIVE_DATA_JSON_DIR.exists() else LEGACY_DATA_JSON_DIR
-DATA_CS_DIR = SCRIPTS_DIR / "DataTable"
+SCRIPTS_DIR = ROOT / "Assets" / "Game" / "Scripts"
+MODULES_DIR = SCRIPTS_DIR
+DATA_JSON_DIR = ROOT / "GameData" / "AIData" / "DataTables" / "Business"
+DATA_CS_DIR = SCRIPTS_DIR / "DataTable" / "Business"
 AI_DATATABLE_DIR = ROOT / "GameData" / "AIData" / "DataTables"
 DATATABLE_EXCEL_DIR = ROOT / "GameData" / "DataTables"
 RESOURCES_DIR = ROOT / "Assets" / "Resources"
@@ -95,7 +91,7 @@ REVIEW_POLICIES = (
     },
     {
         "review_state": "placeholder",
-        "path_prefixes": ["Assets/Resources/Sprite/UI/"],
+        "path_prefixes": ["Assets/Game/Sprites/UI/"],
         "note": "Confirmed by user on 2026-07-08: old Sprite/UI art can be used temporarily in this phase but should be regenerated later.",
     },
 )
@@ -202,8 +198,7 @@ MODULE_META: dict[str, ModuleMeta] = {
         ("项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/systems/07-地图生成.md",),
         ("MapTemplateConfig", "ZoneShrinkConfig"),
         specs=(
-            "openspec/changes/26-fixed-map-three-themes/specs/map-fixed-terrain/spec.md",
-            "openspec/changes/26-fixed-map-three-themes/specs/map-interactive-spawn/spec.md",
+            "openspec/changes/simplify-pcg-terrain-pipeline/specs/pcg-terrain-visual-system/spec.md",
         ),
     ),
     "NPC": ModuleMeta(
@@ -230,13 +225,13 @@ MODULE_META: dict[str, ModuleMeta] = {
         "GF_X Launch 场景入口、场景切换和旧场景证据边界。",
         "client-unity",
         specs=("openspec/specs/main-menu-flow/spec.md",),
-        resources=("Assets/Game/Scene", "LegacyProjectArchive/Assets/Scenes"),
+        resources=("Assets/Game/Scene",),
     ),
     "Settings": ModuleMeta(
         "设置项、设置 UI 数据接入与运行时选项。",
         "client-unity",
         specs=("openspec/specs/settings/spec.md",),
-        resources=("Assets/Resources/Prefab/UI/Settings.prefab",),
+        resources=("Assets/Game/Prefabs/UI/Settings.prefab",),
     ),
     "Skill": ModuleMeta(
         "主动技能配置、释放、命中效果与技能 UI 数据。",
@@ -307,16 +302,14 @@ MODULE_META: dict[str, ModuleMeta] = {
 FEATURE_SLICE_DEFINITIONS: tuple[dict[str, Any], ...] = (
     {
         "id": "ui_entry_flow",
-        "name": "主菜单 -> 角色选择 -> 启动选择 -> 战斗 HUD",
+        "name": "主菜单 -> 本地对局确认 -> 构筑 -> 战斗 HUD",
         "status": "covered_with_manual_visual_boundary",
         "product_goal": "首屏启动链路干净进入当前 GF_X 工作区，旧 UI 只作为视觉/需求证据。",
         "modules": ["Flow", "Scene", "UI", "Input", "GameState"],
         "business_tables": ["UIFormConfig"],
         "runtime_services": ["TotemGameFlowService", "TotemUIService", "TotemInputService"],
-        "ui_forms": ["MainMenu", "CharacterSelect", "StartupSelect", "CombatHUD"],
-        "runtime_asset_keys": [
-            "ui.character.card.unlocked",
-        ],
+        "ui_forms": ["MainMenu", "CombatHUD", "RunResult"],
+        "runtime_asset_keys": ["actor.player", "weapon.rifle.patrol.v1"],
         "docs": [
             "openspec/specs/main-menu-flow/spec.md",
             "项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/modules/12-UIModule+各UIForm.md",
@@ -327,8 +320,8 @@ FEATURE_SLICE_DEFINITIONS: tuple[dict[str, Any], ...] = (
             "Scenario/BusinessRuntime/Totem Runtime Causality Smoke",
         ],
         "discipline_handoff": {
-            "design": "确认首轮流程状态、按钮语义、角色选择和启动选择的可见规则。",
-            "art": "按 runtime_usages 检查角色头像、卡框和 UI 占位图，后续替换仍保持相同 runtime key。",
+            "design": "确认六人双排、五轮流程和本地对局确认的可见规则。",
+            "art": "按 first-playable 稳定 UI 槽位交付新视觉，旧角色选择资源不再进入运行目录。",
             "program": "流程只走 TotemGameFlowService/TotemUIService/TotemInputService，不回接旧 GameApp/UIModule。",
             "qa": "用 First Slice UI 和 Causality Smoke 证明状态流、输入流和 HUD 进入点。",
         },
@@ -549,7 +542,7 @@ FEATURE_SLICE_DEFINITIONS: tuple[dict[str, Any], ...] = (
         "docs": [
             "项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/modules/07-MapGenModule.md",
             "项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/systems/07-地图生成.md",
-            "openspec/changes/26-fixed-map-three-themes/specs/map-fixed-terrain/spec.md",
+            "openspec/changes/simplify-pcg-terrain-pipeline/specs/pcg-terrain-visual-system/spec.md",
         ],
         "diagnostic_scenarios": [
             "Scenario/BusinessRuntime/Totem Gameplay Runtime",
@@ -789,7 +782,11 @@ def count_files(path: Path, patterns: tuple[str, ...]) -> int:
 def registry_entries() -> dict[str, str]:
     registry_path = DATA_CS_DIR / "DataTableRegistry.cs"
     if not registry_path.exists():
-        return {}
+        return {
+            path.stem: path.stem
+            for path in DATA_CS_DIR.glob("*.cs")
+            if path.stem != "DataTableRegistry"
+        }
     text = read_text(registry_path)
     entries: dict[str, str] = {}
     for file_name, type_name in re.findall(r'new DataTableEntry\("([^"]+)",\s*typeof\(([^)]+)\)\)', text):
@@ -893,8 +890,16 @@ def build_datatables_manifest() -> dict[str, Any]:
 
     for json_path in sorted(DATA_JSON_DIR.glob("*.json")):
         raw = json.loads(read_text(json_path))
-        table = raw.get("table")
-        fields = raw.get("fields", [])
+        table = raw.get("table") or raw.get("tableName")
+        fields = raw.get("fields") or [
+            {
+                "name": column.get("key"),
+                "type": column.get("type"),
+                "desc": column.get("comment"),
+            }
+            for column in raw.get("columns", [])
+            if column.get("role") != "comment" and column.get("key")
+        ]
         rows = raw.get("rows", [])
         file_name = json_path.stem
         csharp_type = entries.get(file_name)
@@ -2100,7 +2105,7 @@ AGENTS.md
 | 功能切片索引 | `项目知识库（AI自行维护）/wiki/manifests/feature_slices.json` | 按功能串联策划表、美术 runtime key、程序服务、UI 和诊断证据 |
 | 诊断定位索引 | `项目知识库（AI自行维护）/wiki/manifests/diagnostic_triage.json` | 从失败的 GF_X 诊断反查功能切片、表、服务、UI 和资源 key |
 | 美术资源 | `Assets/Resources/Prefab/` / `Sprite/` / `Audio/` / `Effect/` + `Assets/Game/Prefabs/` | 复用资源内容，但加载和生命周期必须走 GF_X；先查 `manifests/art_assets.json` 的 `usage_status`、`runtime_usages`、`ui_form_usages` 反链 |
-| 测试证据 | `GameData/Diagnostics/Reports/` / `tools/playtest/reports/` / `LegacyProjectArchive/Assets/Tests/` | GF_X 自动诊断、人工 playtest、旧测试证据 |
+| 测试证据 | `GameData/Diagnostics/Reports/` / `tools/playtest/reports/` | GF_X 自动诊断与人工 playtest |
 
 ## 3. 模块总览
 

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-15",
+  "generated_at": "2026-08-12",
   "source": "tools/ai_index/build_ai_manifests.py",
   "purpose": "Reverse index from GF_X diagnostic scenarios to feature slices and likely design/art/program/QA investigation surfaces.",
   "count": 19,
@@ -317,8 +317,8 @@
         "weapon.pistol_basic"
       ],
       "docs": [
-        "openspec/changes/26-fixed-map-three-themes/specs/map-fixed-terrain/spec.md",
         "openspec/changes/gf-x-business-runtime-refactor/SMART_AI_PERSONALITY_DRAFT.md",
+        "openspec/changes/simplify-pcg-terrain-pipeline/specs/pcg-terrain-visual-system/spec.md",
         "项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/modules/02-CombatModule.md",
         "项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/modules/03-WeaponModule.md",
         "项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/modules/04-SkillModule.md",
@@ -731,11 +731,11 @@
         },
         {
           "id": "ui_entry_flow",
-          "name": "主菜单 -> 角色选择 -> 启动选择 -> 战斗 HUD",
+          "name": "主菜单 -> 本地对局确认 -> 构筑 -> 战斗 HUD",
           "status": "covered_with_manual_visual_boundary",
           "discipline_handoff": {
-            "design": "确认首轮流程状态、按钮语义、角色选择和启动选择的可见规则。",
-            "art": "按 runtime_usages 检查角色头像、卡框和 UI 占位图，后续替换仍保持相同 runtime key。",
+            "design": "确认六人双排、五轮流程和本地对局确认的可见规则。",
+            "art": "按 first-playable 稳定 UI 槽位交付新视觉，旧角色选择资源不再进入运行目录。",
             "program": "流程只走 TotemGameFlowService/TotemUIService/TotemInputService，不回接旧 GameApp/UIModule。",
             "qa": "用 First Slice UI 和 Causality Smoke 证明状态流、输入流和 HUD 进入点。"
           }
@@ -761,16 +761,15 @@
         "TotemUIService"
       ],
       "ui_forms": [
-        "CharacterSelect",
         "CombatHUD",
         "MainMenu",
         "RunResult",
         "Settings",
-        "StartupSelect",
         "ThreeChoice"
       ],
       "runtime_asset_keys": [
-        "ui.character.card.unlocked"
+        "actor.player",
+        "weapon.rifle.patrol.v1"
       ],
       "docs": [
         "openspec/specs/main-menu-flow/spec.md",
@@ -1013,7 +1012,7 @@
         "weapon.pistol_basic"
       ],
       "docs": [
-        "openspec/changes/26-fixed-map-three-themes/specs/map-fixed-terrain/spec.md",
+        "openspec/changes/simplify-pcg-terrain-pipeline/specs/pcg-terrain-visual-system/spec.md",
         "openspec/specs/tattoo/spec.md",
         "项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/modules/01-TattooModule.md",
         "项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/modules/02-CombatModule.md",
@@ -1364,11 +1363,11 @@
         },
         {
           "id": "ui_entry_flow",
-          "name": "主菜单 -> 角色选择 -> 启动选择 -> 战斗 HUD",
+          "name": "主菜单 -> 本地对局确认 -> 构筑 -> 战斗 HUD",
           "status": "covered_with_manual_visual_boundary",
           "discipline_handoff": {
-            "design": "确认首轮流程状态、按钮语义、角色选择和启动选择的可见规则。",
-            "art": "按 runtime_usages 检查角色头像、卡框和 UI 占位图，后续替换仍保持相同 runtime key。",
+            "design": "确认六人双排、五轮流程和本地对局确认的可见规则。",
+            "art": "按 first-playable 稳定 UI 槽位交付新视觉，旧角色选择资源不再进入运行目录。",
             "program": "流程只走 TotemGameFlowService/TotemUIService/TotemInputService，不回接旧 GameApp/UIModule。",
             "qa": "用 First Slice UI 和 Causality Smoke 证明状态流、输入流和 HUD 进入点。"
           }
@@ -1421,11 +1420,10 @@
         "TotemZoneService"
       ],
       "ui_forms": [
-        "CharacterSelect",
         "CombatHUD",
         "MainMenu",
+        "RunResult",
         "Shop",
-        "StartupSelect",
         "TattooEnchant",
         "TattooStudio"
       ],
@@ -1448,15 +1446,15 @@
         "enemy.fallback.virus_swamp.boss",
         "npc.merchant",
         "npc.tattooist",
-        "ui.character.card.unlocked",
         "weapon.knife_basic",
-        "weapon.pistol_basic"
+        "weapon.pistol_basic",
+        "weapon.rifle.patrol.v1"
       ],
       "docs": [
         ".claude/skills/playtest-driver/SKILL.md",
-        "openspec/changes/26-fixed-map-three-themes/specs/map-fixed-terrain/spec.md",
         "openspec/changes/gf-x-business-runtime-refactor/REQUIREMENTS_INVENTORY.md",
         "openspec/changes/gf-x-business-runtime-refactor/SMART_AI_PERSONALITY_DRAFT.md",
+        "openspec/changes/simplify-pcg-terrain-pipeline/specs/pcg-terrain-visual-system/spec.md",
         "openspec/specs/main-menu-flow/spec.md",
         "项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/modules/07-MapGenModule.md",
         "项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/modules/08-EnemyModule+BossModule.md",
@@ -1570,11 +1568,11 @@
       "feature_slices": [
         {
           "id": "ui_entry_flow",
-          "name": "主菜单 -> 角色选择 -> 启动选择 -> 战斗 HUD",
+          "name": "主菜单 -> 本地对局确认 -> 构筑 -> 战斗 HUD",
           "status": "covered_with_manual_visual_boundary",
           "discipline_handoff": {
-            "design": "确认首轮流程状态、按钮语义、角色选择和启动选择的可见规则。",
-            "art": "按 runtime_usages 检查角色头像、卡框和 UI 占位图，后续替换仍保持相同 runtime key。",
+            "design": "确认六人双排、五轮流程和本地对局确认的可见规则。",
+            "art": "按 first-playable 稳定 UI 槽位交付新视觉，旧角色选择资源不再进入运行目录。",
             "program": "流程只走 TotemGameFlowService/TotemUIService/TotemInputService，不回接旧 GameApp/UIModule。",
             "qa": "用 First Slice UI 和 Causality Smoke 证明状态流、输入流和 HUD 进入点。"
           }
@@ -1589,13 +1587,13 @@
         "TotemUIService"
       ],
       "ui_forms": [
-        "CharacterSelect",
         "CombatHUD",
         "MainMenu",
-        "StartupSelect"
+        "RunResult"
       ],
       "runtime_asset_keys": [
-        "ui.character.card.unlocked"
+        "actor.player",
+        "weapon.rifle.patrol.v1"
       ],
       "docs": [
         "openspec/specs/main-menu-flow/spec.md",

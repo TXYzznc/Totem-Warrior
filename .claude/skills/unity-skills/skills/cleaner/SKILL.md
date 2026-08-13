@@ -122,7 +122,7 @@ Find what objects reference a specific asset.
 ```python
 # Check what uses a texture
 result = call_skill("cleaner_get_asset_usage", 
-    assetPath="Assets/Textures/player.png")
+    assetPath="Assets/Game/Textures/Characters/player.png")
 ```
 
 ---

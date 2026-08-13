@@ -1,6 +1,6 @@
 # 病毒沼泽环境立物：首批绘制生产单
 
-> 状态：**已验收并接入正式 PCG**（2026-07-16）。31 张立物已以透明 PNG 导入 `Assets/Game/Sprite/PCG/Props/VirusSwamp/`，并由正式 `WorldObjectCatalog` 配置静态地物与既有交互锚点视觉。
+> 状态：**已验收并接入正式 PCG**（2026-07-16）。31 张立物已以透明 PNG 导入 `Assets/Game/Sprites/PCG/Props/VirusSwamp/`，并由正式 `WorldObjectCatalog` 配置静态地物与既有交互锚点视觉。
 
 ## 目标与数量
 
@@ -34,4 +34,4 @@
 2. 在深色与浅色地貌上检查轮廓，不能因深色物体丢失读性。
 3. 交互物在缩放后须能一眼读为宝箱、武器架/武器残骸或选择台座；地标中的纹身师、商人位置须保留前方可站立的空间。
 4. 已完成自动检查：31 张 RGBA 输出均有透明四角；绿幕源图均保留在 `raw/environment/virus-swamp/`，透明候选位于同级 `alpha/`。
-5. 已完成用户验收：31 项已正式导入 `Assets/Game/Sprite/PCG/Props/VirusSwamp/` 并接入正式 PCG catalog；其中 18 项参与地貌随机生成，14 条锚点视觉复用 13 项交互/地标资源（选择祭坛复用两次）。
+5. 已完成用户验收：31 项已正式导入 `Assets/Game/Sprites/PCG/Props/VirusSwamp/` 并接入正式 PCG catalog；其中 18 项参与地貌随机生成，14 条锚点视觉复用 13 项交互/地标资源（选择祭坛复用两次）。

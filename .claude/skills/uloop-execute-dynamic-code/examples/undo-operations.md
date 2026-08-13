@@ -197,7 +197,7 @@ return "Modified ScriptableObject (Undo available)";
 ```csharp
 using UnityEditor;
 
-string path = "Assets/Materials/MyMaterial.mat";
+string path = "Assets/Game/Materials/Common/MyMaterial.mat";
 Material mat = AssetDatabase.LoadAssetAtPath<Material>(path);
 if (mat == null)
 {
@@ -208,4 +208,3 @@ Undo.RecordObject(mat, "Change Material Color");
 mat.color = Color.red;
 return "Changed material color (Undo available)";
 ```
-

@@ -57,8 +57,8 @@ return $"Found {paths.Count} prefabs in {folder}";
 ```csharp
 using UnityEditor;
 
-string sourcePath = "Assets/Materials/MyMaterial.mat";
-string destPath = "Assets/Materials/MyMaterial_Backup.mat";
+string sourcePath = "Assets/Game/Materials/Common/MyMaterial.mat";
+string destPath = "Assets/Game/Materials/Common/MyMaterial_Backup.mat";
 
 bool success = AssetDatabase.CopyAsset(sourcePath, destPath);
 return success ? $"Copied to {destPath}" : "Copy failed";
@@ -81,7 +81,7 @@ return string.IsNullOrEmpty(error) ? $"Moved to {destPath}" : $"Error: {error}";
 ```csharp
 using UnityEditor;
 
-string assetPath = "Assets/Materials/OldName.mat";
+string assetPath = "Assets/Game/Materials/Common/OldName.mat";
 string newName = "NewName";
 
 string error = AssetDatabase.RenameAsset(assetPath, newName);

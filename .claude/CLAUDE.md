@@ -24,13 +24,13 @@
 - 如果任何旧文档、skill 参考或外部链接写着 Unity 6 / 6000.3，它们只能作为通用思路参考；落地代码、包版本、API 用法必须按 `2022.3.62f3` 校验。
 - 当前启动场景：`Assets/Game/Scene/Launch.unity`
 - 当前业务运行时代码：`Assets/Game/Scripts`
-- 旧业务代码证据：`LegacyProjectArchive`，不得重新挂回启动或运行流程
+- 已移除旧业务代码；不得恢复旧启动或运行流程
 - 旧美术资源可复用：`Assets/Resources/Prefab`、`Assets/Resources/Sprite` 等只作为资源来源，加载和生命周期必须走 GF_X runtime 服务
 - AI 可编辑业务配置源：`GameData/AIData/DataTables/Business/*.json`
 - 策划可读业务配置表：`GameData/DataTables/Business/*.xlsx`
 - 运行配置产物：`GameData/AIData/GameplayCatalogs/totem_gameplay_catalog.json`（由 Business AI DataTable 生成）
 - 运行资源索引：`GameData/AIData/GameplayCatalogs/totem_runtime_assets.json`
-- 旧业务 DataTable 证据：`LegacyProjectArchive/Assets/Resources/DataTable`
+- 不保留旧业务 DataTable；当前唯一配置源为 Business AI DataTables
 
 禁止在新工作中恢复或依赖旧运行宿主：`GameApp`、`ModuleRunner`、`EventBus`、`UIModule`、`DataTableModule`、`SaveModule`。不要新建 `Assets/Resources/DataTable`，不要为新玩法运行旧 `DataTableGenerator`。当前业务配置工作流为：AI 修改 `GameData/AIData/DataTables/Business/*.json` → 逆向生成 `GameData/DataTables/Business/*.xlsx` → 生成/检查 `GameData/AIData/GameplayCatalogs/totem_gameplay_catalog.json` → 跑 GF_X 诊断。
 
@@ -269,7 +269,7 @@ openspec/changes/<NN-name>/
 | **1. 结构设计**🔄 | art-ui（用 `unity-rect-transform` SKILL） | `openspec/changes/<change>/art/prefab-layout.md`（含全局约定 + 每页节点树 + RectTransform 数据 + 状态清单 + 跨页复用组件） | layout 完整、用户确认所有页面结构；缺失即阻塞 |
 | **2. 效果图设计** | art-ui | `art/prompts.md`：每页一条效果图提示词，**开头必带「结构约束」段落**（画布尺寸 + 各节点占比，直接从 layout 提取） | 用户确认提示词；含结构约束段 |
 | **3. 效果图生成** | 主对话 → `codex-image-gen` | `art/mockups/<PageName>.png` + 同目录 `生成记录.md` | 用户确认效果图（**3 轮重试上限**：每轮调整提示词；3 轮仍不满意 → 阻塞通知用户人工介入） |
-| **4. 素材拆分** | 主对话 fan-out 子 Agent → `ui-asset-splitting` | `art/raw/<PageName>/`（背景 1 张 + 组件/状态变体若干张，layout 每个 states 独立成图；一张画布装不下拆多张 batch）→ 搬进 `Assets/Resources/Sprite/UI/<PageName>/` | 每页拆分清单与 layout 节点数一致；`UISpriteImportProcessor` 自动设好导入参数（抽查 1 张 `.meta` 确认 `textureType: 8`） |
+| **4. 素材拆分** | 主对话 fan-out 子 Agent → `ui-asset-splitting` | `art/raw/<PageName>/`（背景 1 张 + 组件/状态变体若干张，layout 每个 states 独立成图；一张画布装不下拆多张 batch）→ 搬进 `Assets/Game/Sprites/UI/<PageName>/` | 每页拆分清单与 layout 节点数一致；`UISpriteImportProcessor` 自动设好导入参数（抽查 1 张 `.meta` 确认 `textureType: 8`） |
 | **5. 拼装实现**🔄 | client-unity（单线，用 `unity-rect-transform` SKILL 读 layout） | Prefab 文件（unity-skills MCP 自动建，按 layout 节点树建层级 + 贴入阶段 4 素材 + 设 RectTransform 数据）+ UIForm 脚本 | Prefab 层级与 `prefab-layout.md` 一致；UIForm 编译通过 |
 | **6. 联调微调** | client-unity + 用户 | 运行时截图 vs 效果图对比 + 偏差修复 | 运行时与效果图视觉一致（间距 / 字号 / 配色） |
 
@@ -282,7 +282,7 @@ openspec/changes/<NN-name>/
 5. **状态每态独立生成**：layout 中每个含 `states: [normal, pressed, disabled, ...]` 的节点，每态在阶段 3/4 各出一张，禁止一张图里画多态
 6. **阶段 4 素材必须透明背景 + 禁止裁 mockup**：组件素材只能由 Codex 绿幕重生成或程序化 PIL 生成（四角 alpha 必须 = 0），**严禁从已确认的 mockup 上直接裁矩形**（会带面板底色变成不透明方块）；普通文字（标签/数值/按钮文案/键名）走 Prefab 里 TMP_Text 独立节点，只有特殊艺术字才作为图片素材。"MVP 简化"只能砍状态变体数量，绝不能砍"透明重生成"这个生产方式。详见 [skills/ui-asset-splitting/SKILL.md](./skills/ui-asset-splitting/SKILL.md) §一铁律 + §3.4 alpha 硬检查（2026-07-01 SettingsForm v2 踩坑固化）
 7. **画布不够就加新画布**：一张 1920×1080 mockup 装不下时拆 `<Page>_part1.png` / `<Page>_part2.png`；1024×1024 绿幕组件画布装不下时拆 `_merged/batch_1.png` / `_merged/batch_2.png`
-8. **导入设置不手动改**：`Assets/Resources/Sprite/UI/` 下贴图由 `Assets/Editor/UISpriteImportProcessor.cs` 自动设置 Texture Type 等参数，禁止在 Inspector 里手动调（改了也会在下次 reimport 被覆盖，应改脚本而非改单个贴图）
+8. **导入设置不手动改**：`Assets/Game/Sprites/UI/` 下贴图由 `Assets/Editor/UISpriteImportProcessor.cs` 自动设置 Texture Type 等参数，禁止在 Inspector 里手动调（改了也会在下次 reimport 被覆盖，应改脚本而非改单个贴图）
 9. **Prefab 优先 MCP 自动建**：阶段 5 由 client-unity 调用 `unity-skills` MCP 按 layout 建层级 + 贴入阶段 4 素材；**MCP 不可用** → 回退到通知用户在 Unity Editor 手动搭。**调用 unity-skills 时若参数含 CJK / Emoji（节点名、按钮文本、说明文字等），必须用 `--stdin-json` 模式**，详见 [skills/unity-skills/SKILL.md](./skills/unity-skills/SKILL.md) 「中文 / CJK 参数调用约定（强制）」
 10. **效果图重试上限 3 轮**：codex-image-gen 调用失败或用户不满意 → 调整提示词/加参考图重试，**累计 3 轮仍未通过即停下来交回用户决定**（手动找参考 / 跳过本页 / 重新设计），禁止无限重试
 11. **联调以效果图为准绳**：阶段 6 必须把运行时截图与 mockups 并排对比，列偏差清单后再迭代；client-unity 不许凭感觉调
@@ -316,13 +316,13 @@ openspec/changes/<NN-name>/
 ## 七、技术栈
 
 - **框架核心**：GF_X runtime / Procedure / GameTools / Diagnostics，当前入口为 `Assets/Game/Scene/Launch.unity`
-- **业务代码**：新代码只放 `Assets/Game/Scripts`，旧 `Assets/Scripts` 代码已归档到 `LegacyProjectArchive`
+- **业务代码**：新代码只放 `Assets/Game/Scripts`；已移除的旧 `Assets/Scripts` 不得恢复。
 - **UniTask / DOTween**：以 GF_X 迁入版本为准
 - **AI 可编辑业务配置**：`GameData/AIData/DataTables/Business/*.json`
 - **策划可读业务配置**：`GameData/DataTables/Business/*.xlsx`
 - **运行配置产物**：`GameData/AIData/GameplayCatalogs/totem_gameplay_catalog.json`
 - **运行资源索引**：`GameData/AIData/GameplayCatalogs/totem_runtime_assets.json`
-- **旧 DataTable**：仅作为 `LegacyProjectArchive/Assets/Resources/DataTable` 下的需求证据，不作为新运行时配置源
+- **旧 DataTable**：已移除，不作为需求或运行时配置源。
 - **开发热重载**：Unity Domain Reload + Enter Play Mode Options
 
 ---
@@ -442,7 +442,7 @@ python tools/audit_skill_usage.py   # 多编辑器使用频次 + 来源覆盖 + 
 
 - 新运行时代码只写入 `Assets/Game/Scripts`
 - 不得在启动/运行流程中恢复旧 `GameApp`、`ModuleRunner`、`EventBus`、`UIModule`、`DataTableModule`
-- 不要新建 `Assets/Resources/DataTable`，旧表只保留在 `LegacyProjectArchive/Assets/Resources/DataTable`
+- 不要新建或恢复 `Assets/Resources/DataTable`；业务配置只使用 Business AI DataTables。
 - Business AI DataTables、gameplay catalog 与 runtime asset catalog 是当前运行配置入口；不要回退到旧 `Assets/Resources/DataTable`
 - gameplay catalog 不允许在 service 内复制成隐藏静态缓存；需要静态辅助查询时从 `TotemDataService.LoadGameplayCatalogOrDefault` 读取
 - 资源缺失和 fallback 必须计数并进入诊断报告

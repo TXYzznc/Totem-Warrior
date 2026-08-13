@@ -38,13 +38,13 @@ Import external files into the project.
 # Single
 unity_skills.call_skill("asset_import",
     sourcePath="C:/Downloads/texture.png",
-    destinationPath="Assets/Textures/texture.png"
+    destinationPath="Assets/Game/Textures/texture.png"
 )
 
 # Batch
 unity_skills.call_skill("asset_import_batch", items=[
-    {"sourcePath": "C:/Downloads/tex1.png", "destinationPath": "Assets/Textures/tex1.png"},
-    {"sourcePath": "C:/Downloads/tex2.png", "destinationPath": "Assets/Textures/tex2.png"}
+    {"sourcePath": "C:/Downloads/tex1.png", "destinationPath": "Assets/Game/Textures/tex1.png"},
+    {"sourcePath": "C:/Downloads/tex2.png", "destinationPath": "Assets/Game/Textures/tex2.png"}
 ])
 ```
 
@@ -57,12 +57,12 @@ Delete assets from the project.
 
 ```python
 # Single
-unity_skills.call_skill("asset_delete", assetPath="Assets/Textures/old.png")
+unity_skills.call_skill("asset_delete", assetPath="Assets/Game/Textures/old.png")
 
 # Batch
 unity_skills.call_skill("asset_delete_batch", items=[
-    {"path": "Assets/Textures/old1.png"},
-    {"path": "Assets/Textures/old2.png"}
+    {"path": "Assets/Game/Textures/old1.png"},
+    {"path": "Assets/Game/Textures/old2.png"}
 ])
 ```
 
@@ -77,8 +77,8 @@ Move or rename assets.
 ```python
 # Single (also works for rename)
 unity_skills.call_skill("asset_move",
-    sourcePath="Assets/Materials/Red.mat",
-    destinationPath="Assets/Materials/Player/RedMetal.mat"
+    sourcePath="Assets/Game/Materials/Common/Red.mat",
+    destinationPath="Assets/Game/Materials/Player/RedMetal.mat"
 )
 
 # Batch
@@ -141,17 +141,17 @@ Get information about an asset.
 import unity_skills
 
 # BAD: 4 API calls
-unity_skills.call_skill("asset_move", sourcePath="Assets/tex1.png", destinationPath="Assets/Textures/tex1.png")
-unity_skills.call_skill("asset_move", sourcePath="Assets/tex2.png", destinationPath="Assets/Textures/tex2.png")
-unity_skills.call_skill("asset_move", sourcePath="Assets/tex3.png", destinationPath="Assets/Textures/tex3.png")
-unity_skills.call_skill("asset_move", sourcePath="Assets/tex4.png", destinationPath="Assets/Textures/tex4.png")
+unity_skills.call_skill("asset_move", sourcePath="Assets/tex1.png", destinationPath="Assets/Game/Textures/tex1.png")
+unity_skills.call_skill("asset_move", sourcePath="Assets/tex2.png", destinationPath="Assets/Game/Textures/tex2.png")
+unity_skills.call_skill("asset_move", sourcePath="Assets/tex3.png", destinationPath="Assets/Game/Textures/tex3.png")
+unity_skills.call_skill("asset_move", sourcePath="Assets/tex4.png", destinationPath="Assets/Game/Textures/tex4.png")
 
 # GOOD: 1 API call
 unity_skills.call_skill("asset_move_batch", items=[
-    {"sourcePath": "Assets/tex1.png", "destinationPath": "Assets/Textures/tex1.png"},
-    {"sourcePath": "Assets/tex2.png", "destinationPath": "Assets/Textures/tex2.png"},
-    {"sourcePath": "Assets/tex3.png", "destinationPath": "Assets/Textures/tex3.png"},
-    {"sourcePath": "Assets/tex4.png", "destinationPath": "Assets/Textures/tex4.png"}
+    {"sourcePath": "Assets/tex1.png", "destinationPath": "Assets/Game/Textures/tex1.png"},
+    {"sourcePath": "Assets/tex2.png", "destinationPath": "Assets/Game/Textures/tex2.png"},
+    {"sourcePath": "Assets/tex3.png", "destinationPath": "Assets/Game/Textures/tex3.png"},
+    {"sourcePath": "Assets/tex4.png", "destinationPath": "Assets/Game/Textures/tex4.png"}
 ])
 ```
 

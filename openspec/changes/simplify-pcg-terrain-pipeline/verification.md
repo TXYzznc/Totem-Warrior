@@ -6,7 +6,7 @@
 - 运行组件：`Assets/Game/Scripts/Testing/PCGGrassRiverPreviewController.cs`
 - 布局算法：`Assets/Game/Scripts/Runtime/PCGMap/PCGGrassRiverPreviewLayout.cs`
 - 场景构建/自检：`Assets/Game/Editor/PCGGrassRiverPreviewSceneBuilder.cs`
-- 资源：`Assets/Game/Sprite/PCG/Pilot/GrassRiver/`
+- 资源：`Assets/Game/Sprites/PCG/Pilot/GrassRiver/`
 
 打开场景后进入 Play Mode，会以 seed `20260715` 自动生成 16×12 地图。选中 `PCG Grass Water Preview Controller` 可修改 seed、尺寸、最小/最大水域宽度和装饰概率，并使用 Inspector 按钮在编辑态重新生成。默认水域宽度为 2–5 格：每两行向宽或窄变化一格，相邻行至少保留一个共享水格。
 

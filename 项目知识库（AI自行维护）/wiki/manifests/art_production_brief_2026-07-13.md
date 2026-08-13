@@ -6,12 +6,12 @@
 
 | 交付 | 当前状态 | 原始产物位置 |
 |---|---|---|
-| 通用玩家（Player / SmartAI / LightAI 共用）最终基准 | **已完成：M02 石墨灰开放短外套、成熟结实体格、中低精细度厚涂；四视图与 96 帧动作已导入** | 源：`openspec/changes/produce-totem-art-assets/art/explorations/player_style_round_01/mature_candidates/M02_graphite_open_jacket_warrior.png`；正式：`Assets/Game/Sprite/Actors/ActorCommonM02/` |
-| AI 遗迹执政官概念、四视图、四方向动作帧 | 已完成并绑定 Boss prefab / AnimatorController | 源：`openspec/changes/produce-totem-art-assets/art/raw/boss_ai_ruins_warden/`；正式：`Assets/Game/Sprite/Actors/BossAIruinsWarden/` |
-| 纹身师全身 Idle | 已完成并绑定 NpcTattooist prefab | `Assets/Game/Sprite/NPC/NpcTattooist/npc_tattooist_idle.png` |
-| 商人全身 Idle | 已完成并绑定 NpcMerchant prefab | `Assets/Game/Sprite/NPC/NpcMerchant/npc_merchant_idle.png` |
-| `player_2` 荒原讯号猎手肖像 | 已完成并接入角色选择 | `Assets/Game/Sprite/UI/CharacterSelectForm/Portraits/player_2_signal_hunter_portrait.png` |
-| `player_3` 失控改造者肖像 | 已完成并接入角色选择 | `Assets/Game/Sprite/UI/CharacterSelectForm/Portraits/player_3_augmented_subject_portrait.png` |
+| 通用玩家（Player / SmartAI / LightAI 共用）最终基准 | **已完成：M02 石墨灰开放短外套、成熟结实体格、中低精细度厚涂；四视图与 96 帧动作已导入** | 源：`openspec/changes/produce-totem-art-assets/art/explorations/player_style_round_01/mature_candidates/M02_graphite_open_jacket_warrior.png`；正式：`Assets/Game/Sprites/Actors/ActorCommonM02/` |
+| AI 遗迹执政官概念、四视图、四方向动作帧 | 已完成并绑定 Boss prefab / AnimatorController | 源：`openspec/changes/produce-totem-art-assets/art/raw/boss_ai_ruins_warden/`；正式：`Assets/Game/Sprites/Actors/BossAIruinsWarden/` |
+| 纹身师全身 Idle | 已完成并绑定 NpcTattooist prefab | `Assets/Game/Sprites/NPC/NpcTattooist/npc_tattooist_idle.png` |
+| 商人全身 Idle | 已完成并绑定 NpcMerchant prefab | `Assets/Game/Sprites/NPC/NpcMerchant/npc_merchant_idle.png` |
+| `player_2` 荒原讯号猎手肖像 | 已完成并接入角色选择 | `Assets/Game/Sprites/UI/CharacterSelectForm/Portraits/player_2_signal_hunter_portrait.png` |
+| `player_3` 失控改造者肖像 | 已完成并接入角色选择 | `Assets/Game/Sprites/UI/CharacterSelectForm/Portraits/player_3_augmented_subject_portrait.png` |
 
 原始交付保留在 OpenSpec 变更目录；已通过审阅、切图和 Import Settings 校验的版本进入上述正式目录。不得使用已废弃的五个旧 Sprite 目录。
 
@@ -103,13 +103,13 @@ Boss 为两倍于玩家的直立双足巨构守卫，服务于 `AI_RUINS` 主题
 
 ## 已排除或延后
 
-- 不恢复 `Assets/Game/Sprite/Character`、`Characters`、`Environments`、`Recipes`、`Tattoo` 五个旧目录。
-- PCG 主地形风格与资源不在本轮统一重绘范围。此前 50 张“缺图”的结论由 catalog 路径错误造成；资源已回归 `Assets/Game/Sprite/PCG/`，路径校验已确认没有该美术缺口。
+- 不恢复 `Assets/Game/Sprites/Character`、`Characters`、`Environments`、`Recipes`、`Tattoo` 五个旧目录。
+- PCG 当前不在资源生产范围，相关目录表待后续删除；不得将其视为可用资源或补图需求。
 - 玩家 2 / 玩家 3 首批只有独立立绘占位，没有战斗四视图、帧动画、独立 prefab 或独立能力设计。
 
 ## PCG 误创建清理
 
-- 本轮曾依据错误路径生成并导入 50 张 PCG 图片；这些误创建资源及其 raw、预览、检查文件均已移除。项目既有 PCG 资源位于 `Assets/Game/Sprite/PCG/...`，现行 catalog 引用已通过路径校验。
+- 本轮曾依据错误路径生成并导入 50 张 PCG 图片；这些误创建资源及其 raw、预览、检查文件均已移除。PCG 不再是当前有效资源范围，相关 catalog 将由后续清理任务删除。
 - 这 50 张 `Assets/Resources/PCG/Terrain/` 图片、对应 `.meta`、raw、预览与检查文件均不属于项目资产，必须移除；不删除任何既有 PCG 切片、对象、POI 或 route 资源。
 
 ## 后续接入约束

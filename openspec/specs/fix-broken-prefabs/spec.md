@@ -45,14 +45,14 @@ TBD - created by archiving change 13-fix-broken-prefabs. Update Purpose after ar
 
 ### Requirement: Prefab Image/RawImage 组件 MUST 全部绑定有效 Sprite GUID
 
-4 个 Prefab 中所有 `Image` / `RawImage` 组件的 `m_Sprite` 字段 MUST 指向有效的 GUID + fileID 组合，MUST NOT 留 `{fileID: 0}` 空引用。Sprite 引用 MUST 来自 `Assets/Resources/Sprite/UI/<PageName>Form/` 子目录下的素材，MUST NOT 跨 PageName 引用。
+4 个 Prefab 中所有 `Image` / `RawImage` 组件的 `m_Sprite` 字段 MUST 指向有效的 GUID + fileID 组合，MUST NOT 留 `{fileID: 0}` 空引用。Sprite 引用 MUST 来自 `Assets/Game/Sprites/UI/<PageName>Form/` 子目录下的素材，MUST NOT 跨 PageName 引用。
 
 #### Scenario: Settings.prefab 37 处 Sprite 全部绑定
 
 - **GIVEN** Settings.prefab 修复完成
 - **WHEN** grep `m_Sprite: {fileID: 0}` 在该 Prefab YAML 中
 - **THEN** 结果 MUST 为 0 匹配
-- **AND** 所有绑定的 GUID MUST 在 `Assets/Resources/Sprite/UI/Settings/` 下能找到对应 `.png.meta`
+- **AND** 所有绑定的 GUID MUST 在 `Assets/Game/Sprites/UI/Settings/` 下能找到对应 `.png.meta`
 
 ### Requirement: 修复过程 MUST NOT 修改其它 6 个验收通过的 Prefab
 

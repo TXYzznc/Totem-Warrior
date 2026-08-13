@@ -148,7 +148,7 @@ Codex 若没有可调用的 `grill-me` 工具，也必须按该 skill 的反问�
 
 - 始终用**中文**回答。
 - 优先用简单方案。
-- 改 Unity 业务代码先看 [Assets/Game/Scripts/](./Assets/Game/Scripts/) 既有 conventions；旧 `Assets/Scripts` 只作为 `LegacyProjectArchive` 里的历史证据。
+- 改 Unity 业务代码先看 [Assets/Game/Scripts/](./Assets/Game/Scripts/) 既有 conventions；已移除的旧 `Assets/Scripts` 不再作为项目资料来源。
 - 不在 Update 里做 GC alloc。
 - ScriptableObject 是配置不是数据库。
 - 所有按键输入必须走 `TotemInputService` / `ITotemInputProvider`。

@@ -289,7 +289,7 @@ USS uses the Yoga flexbox engine. Default `flex-direction` is `column`.
 .card {
     /* Background */
     background-color: rgba(0, 0, 0, 0.8);
-    background-image: url("project://database/Assets/Textures/bg.png");
+    background-image: url("project://database/Assets/Game/Textures/UI/bg.png");
     -unity-background-scale-mode: scale-to-fit;  /* stretch-to-fill | scale-and-crop | scale-to-fit */
     -unity-background-image-tint-color: #FFFFFF80;
 

@@ -366,7 +366,7 @@ if (selected.Length == 0)
     return "No GameObjects selected";
 }
 
-string materialPath = "Assets/Materials/NewMaterial.mat";
+string materialPath = "Assets/Game/Materials/Common/NewMaterial.mat";
 Material newMat = AssetDatabase.LoadAssetAtPath<Material>(materialPath);
 if (newMat == null)
 {
@@ -391,4 +391,3 @@ foreach (GameObject obj in selected)
 Undo.CollapseUndoOperations(undoGroup);
 return $"Replaced material on {replaced} objects";
 ```
-

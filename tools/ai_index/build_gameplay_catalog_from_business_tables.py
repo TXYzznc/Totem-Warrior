@@ -88,74 +88,11 @@ def simple_fields(*names: str) -> tuple[tuple[str, str, FieldParser], ...]:
 
 
 TABLE_SPECS: tuple[TableSpec, ...] = (
-    TableSpec("ItemConfig", "items", "ItemId", "itemId", (
-        ("ItemId", "itemId", integer),
-        ("ItemType", "itemType", text),
-        ("SubType", "subType", text),
-        ("Tier", "tier", integer),
-        ("DisplayName", "displayName", text),
-        ("Rarity", "rarity", text),
-        ("MaxStack", "maxStack", integer),
-        ("BasePrice", "basePrice", integer),
-        ("SellRatio", "sellRatio", floating),
-    )),
     TableSpec("ResourceConfig", "resources", "Id", "id", (
         ("Id", "id", integer),
         ("Name", "name", text),
         ("Type", "resourceType", text),
         ("LoadPath", "loadPath", text),
-    )),
-    TableSpec("WeaponConfig", "weapons", "WeaponId", "weaponId", (
-        ("WeaponId", "weaponId", text),
-        ("Name", "displayName", text),
-        ("Class", "className", text),
-        ("BaseDamage", "baseDamage", floating),
-        ("AttackSpeed", "attackSpeed", floating),
-        ("Range", "range", floating),
-        ("ChargedMul", "chargedMul", floating),
-        ("ProjectileId", "projectileId", text),
-        ("Rarity", "rarity", integer),
-        ("MaxAmmo", "maxAmmo", integer),
-        ("BaseStartup", "baseStartup", integer),
-        ("BaseActive", "baseActive", integer),
-        ("BaseRecovery", "baseRecovery", integer),
-        ("RequiresCharge", "requiresCharge", boolean),
-        ("AimSpreadHalfDeg", "aimSpreadHalfDeg", floating),
-        ("NormalTraitId", "normalTraitId", text),
-        ("ChargedTraitId", "chargedTraitId", text),
-        ("WeaponPrefabPath", "weaponPrefabPath", text),
-    )),
-    TableSpec("ProjectileConfig", "projectiles", "ProjectileId", "projectileId", (
-        ("ProjectileId", "projectileId", text),
-        ("Speed", "speed", floating),
-        ("MaxRange", "maxRange", floating),
-        ("Piercing", "piercing", boolean),
-        ("AoeRadius", "aoeRadius", floating),
-        ("VisualPrefabPath", "visualPrefabPath", text),
-        ("PoolSize", "poolSize", integer),
-    )),
-    TableSpec("WeaponTraitConfig", "weaponTraits", "TraitId", "traitId", (
-        ("TraitId", "traitId", text),
-        ("Name", "displayName", text),
-        ("Description", "description", text),
-        ("EffectType", "effectType", text),
-        ("EffectParam1", "effectParam1", floating),
-        ("EffectParam2", "effectParam2", floating),
-    )),
-    TableSpec("WeaponDropConfig", "weaponDrops", "DropId", "dropId", (
-        ("DropId", "dropId", text),
-        ("WeaponId", "weaponId", text),
-        ("DropSource", "dropSource", text),
-        ("Weight", "weight", integer),
-        ("MinRoomIndex", "minRoomIndex", integer),
-        ("MaxRoomIndex", "maxRoomIndex", integer),
-    )),
-    TableSpec("ChestConfig", "chestRewards", "ChestId", "chestId", (
-        ("ChestId", "chestId", text),
-        ("RewardType", "rewardType", text),
-        ("RewardId", "rewardId", text),
-        ("RewardAmount", "rewardAmount", integer),
-        ("Probability", "probability", integer),
     )),
     TableSpec("MapTemplateConfig", "mapTemplates", "Id", "id", (
         ("Id", "id", integer),
@@ -168,158 +105,18 @@ TABLE_SPECS: tuple[TableSpec, ...] = (
         ("HudAccentColor", "hudAccentColor", text),
         ("DominantColor", "dominantColor", text),
     )),
-    TableSpec("TattooPartConfig", "tattooParts", "Id", "id", (
-        ("Id", "id", integer),
-        ("Name", "name", text),
-        ("TriggerEvent", "triggerEvent", text),
-        ("ScaleStat", "scaleStat", text),
-        ("SymmetryGroup", "symmetryGroup", text),
-        ("ScaleFactor", "scaleFactor", floating),
-        ("PassiveDimension", "passiveDimension", text),
-    )),
-    TableSpec("TattooColorConfig", "tattooColors", "Id", "id", (
-        ("Id", "id", integer),
-        ("Name", "name", text),
+    TableSpec("MapResourcePickupConfig", "mapResourcePickups", "PickupId", "pickupId", (
+        ("PickupId", "pickupId", text),
+        ("Category", "category", text),
+        ("ResourceId", "resourceId", text),
         ("Element", "element", text),
-        ("ColorMultiplier", "multiplier", floating),
-    )),
-    TableSpec("TattooElementConfig", "tattooElements", "Id", "id", (
-        ("Id", "id", integer),
-        ("Name", "name", text),
-        ("BaseMultiplier", "baseMultiplier", floating),
-        ("Param1", "param1", floating),
-        ("Param2", "param2", floating),
-        ("Param3", "param3", floating),
-    )),
-    TableSpec("TattooPatternConfig", "tattooPatterns", "Id", "id", (
-        ("Id", "id", integer),
-        ("Name", "name", text),
-        ("Shape", "shape", text),
-        ("PatternMultiplier", "multiplier", floating),
-    )),
-    TableSpec("TattooShapeConfig", "tattooShapes", "Id", "id", (
-        ("Id", "id", integer),
-        ("Name", "name", text),
-        ("Param1", "param1", floating),
-        ("Param2", "param2", floating),
-        ("Param3", "param3", floating),
-    )),
-    TableSpec("TattooReadingTimeConfig", "tattooReadingTimes", "PartId", "partId", (
-        ("PartId", "partId", integer),
-        ("PartName", "partName", text),
-        ("DurationSec", "durationSec", floating),
-    )),
-    TableSpec("TattooEnchantAffixConfig", "tattooEnchantAffixes", "Id", "id", (
-        ("Id", "id", integer),
-        ("PartId", "partId", integer),
-        ("ColorTier", "colorTier", text),
-        ("AffixType", "affixType", text),
-        ("StatKey", "statKey", text),
-        ("Value", "value", floating),
-        ("ConditionKey", "conditionKey", text),
-        ("ConditionVal", "conditionVal", floating),
-        ("DisplayText", "displayText", text),
-        ("Weight", "weight", floating),
-    )),
-    TableSpec("TattooEnchantRecipeConfig", "tattooEnchantRecipes", "Id", "id", (
-        ("Id", "id", integer),
-        ("ColorTier", "colorTier", text),
-        ("CoinCost", "coinCost", integer),
-        ("RarePigmentCost", "rarePigmentCost", integer),
-        ("MaxAffixPerSlot", "maxAffixPerSlot", integer),
-    )),
-    TableSpec("SkillConfig", "skills", "SkillId", "skillId", (
-        ("SkillId", "skillId", text),
-        ("Name", "displayName", text),
-        ("ChargeModel", "chargeModel", integer),
-        ("Cooldown", "cooldown", floating),
-        ("MaxCharges", "maxCharges", integer),
-        ("ChargeRegenTime", "chargeRegenTime", floating),
-        ("HoldDuration", "holdDuration", floating),
-        ("OverchargeWindow", "overchargeWindow", floating),
-        ("StartupFrames", "startupFrames", integer),
-        ("ActiveFrames", "activeFrames", integer),
-        ("RecoveryFrames", "recoveryFrames", integer),
-        ("DamageMul", "damageMul", floating),
-        ("HitShape", "hitShape", text),
-        ("HitRadius", "hitRadius", floating),
-        ("Element", "element", text),
-        ("CancelableByDodge", "cancelableByDodge", boolean),
-        ("ItemId", "itemId", integer),
-    ), preserve_extra_seed_rows=True),
-    TableSpec("EnemyConfig", "enemies", "EnemyId", "enemyId", (
-        ("EnemyId", "enemyId", text),
-        ("DisplayName", "displayName", text),
-        ("ThemeId", "themeId", text),
-        ("Tier", "tier", text),
-        ("RuntimeAssetKey", "runtimeAssetKey", text),
-        ("FallbackRuntimeAssetKey", "fallbackRuntimeAssetKey", text),
-        ("BehaviorProfileId", "behaviorProfileId", text),
-        ("AbilityIds", "abilityIds", text),
-        ("BaseHP", "baseHP", floating),
-        ("HPCurveK", "hpCurveK", floating),
-        ("BaseDamage", "baseDamage", floating),
-        ("DamageCurveK", "damageCurveK", floating),
-        ("MoveSpeed", "moveSpeed", floating),
-        ("AttackRange", "attackRange", floating),
-        ("DetectRange", "detectRange", floating),
-        ("LeashRange", "leashRange", floating),
-        ("SkillIds", "skillIds", text),
-        ("LootTableId", "lootTableId", text),
-        ("GuaranteedLootIds", "guaranteedLootIds", text),
-        ("SpawnCost", "spawnCost", integer),
-        ("ElitePaintDropRare", "elitePaintDropRare", integer),
-        ("XPReward", "xpReward", integer),
-        ("CoinReward", "coinReward", text),
-        ("PoolIds", "poolIds", text),
-    )),
-    TableSpec("EnemyAbilityConfig", "enemyAbilities", "AbilityId", "abilityId", (
-        ("AbilityId", "abilityId", text),
-        ("AbilityType", "abilityType", text),
-        ("Range", "range", floating),
-        ("Radius", "radius", floating),
-        ("Cooldown", "cooldown", floating),
-        ("Windup", "windup", floating),
-        ("Active", "active", floating),
-        ("Recovery", "recovery", floating),
-        ("DamageMultiplier", "damageMultiplier", floating),
-        ("StatusId", "statusId", text),
-        ("StatusChance", "statusChance", floating),
-        ("SummonEnemyId", "summonEnemyId", text),
-        ("SummonCount", "summonCount", integer),
-        ("VfxId", "vfxId", text),
-        ("AudioCueId", "audioCueId", text),
-        ("ParametersJson", "parametersJson", text),
-    )),
-    TableSpec("EncounterSpawnConfig", "encounterSpawns", "EncounterId", "encounterId", (
-        ("EncounterId", "encounterId", text),
-        ("ThemeId", "themeId", text),
-        ("ZoneRoles", "zoneRoles", text),
-        ("EnemyPoolIds", "enemyPoolIds", text),
-        ("StartTime", "startTime", floating),
-        ("EndTime", "endTime", floating),
-        ("InitialCount", "initialCount", integer),
-        ("ActiveCap", "activeCap", integer),
-        ("TotalCap", "totalCap", integer),
-        ("WaveMin", "waveMin", integer),
-        ("WaveMax", "waveMax", integer),
-        ("WaveInterval", "waveInterval", floating),
-        ("MinParticipantDistance", "minParticipantDistance", floating),
-        ("MinSpacing", "minSpacing", floating),
+        ("MinAmount", "minAmount", integer),
+        ("MaxAmount", "maxAmount", integer),
         ("Weight", "weight", integer),
-        ("Unique", "unique", boolean),
-    )),
-    TableSpec("EnemyLootConfig", "enemyLoot", "LootEntryId", "lootEntryId", (
-        ("LootEntryId", "lootEntryId", text),
-        ("LootTableId", "lootTableId", text),
-        ("ItemId", "itemId", text),
-        ("RewardType", "rewardType", text),
-        ("MinCount", "minCount", integer),
-        ("MaxCount", "maxCount", integer),
-        ("Weight", "weight", integer),
-        ("Guaranteed", "guaranteed", boolean),
-        ("TierFilter", "tierFilter", text),
-        ("ThemeId", "themeId", text),
+        ("MinRound", "minRound", integer),
+        ("MaxRound", "maxRound", integer),
+        ("AssetKey", "assetKey", text),
+        ("Enabled", "enabled", boolean),
     )),
     TableSpec("ZoneShrinkConfig", "zonePhases", "Id", "id", (
         ("Id", "id", integer),
@@ -329,73 +126,6 @@ TABLE_SPECS: tuple[TableSpec, ...] = (
         ("TargetRadius", "targetRadius", floating),
         ("OutZoneDamage", "outZoneDamage", floating),
         ("CenterOffsetMode", "centerOffsetMode", text),
-    )),
-    TableSpec("BossPhaseConfig", "bossPhases", "PhaseIndex", "phaseIndex", (
-        ("BossId", "bossId", text),
-        ("PhaseIndex", "phaseIndex", integer),
-        ("HPThreshold", "hpThreshold", floating),
-        ("AbilityIds", "abilityIds", text),
-        ("NewSkillIds", "skillIds", text),
-        ("EnrageMultiplier", "enrageMultiplier", floating),
-        ("PhaseVFXId", "phaseVFXId", text),
-        ("PhaseBGMCueId", "phaseBGMCueId", text),
-        ("DeathPatternRecipeId", "deathPatternRecipeId", text),
-    )),
-    TableSpec("NPCConfig", "npcs", "Id", "configId", (
-        ("Id", "configId", integer),
-        ("NPCId", "npcId", text),
-        ("Type", "type", text),
-        ("MapTheme", "mapTheme", text),
-        ("ShopStockTable", "shopStockTable", text),
-        ("InteractRadius", "interactRadius", floating),
-        ("ThemePriceMul", "themePriceMultiplier", floating),
-        ("GuardRadius", "guardRadius", floating),
-        ("ServiceCooldown", "serviceCooldown", floating),
-        ("GuardSpawnId", "guardSpawnId", text),
-        ("GuardCount1", "guardCount1", integer),
-        ("GuardCount2", "guardCount2", integer),
-    )),
-    TableSpec("ShopStockConfig", "shopStocks", "Id", "id", (
-        ("Id", "id", integer),
-        ("TableId", "tableId", text),
-        ("ItemId", "itemId", integer),
-        ("Category", "category", text),
-        ("Weight", "weight", floating),
-        ("MinCount", "minCount", integer),
-        ("MaxCount", "maxCount", integer),
-        ("BasePrice", "basePrice", integer),
-        ("SellRatio", "sellRatio", floating),
-    )),
-    TableSpec("MerchantConfig", "merchantSlots", "Id", "id", (
-        ("SlotIndex", "slotIndex", integer),
-        ("WeaponId", "weaponId", text),
-        ("GoldCost", "goldCost", integer),
-        ("RefreshWeight", "refreshWeight", integer),
-    )),
-    TableSpec("EventConfig", "events", "EventId", "eventId", (
-        ("EventId", "eventId", text),
-        ("EventType", "eventType", text),
-        ("DisplayName", "displayName", text),
-        ("TriggerCondition", "triggerCondition", text),
-        ("BaseRewardCoin", "baseRewardCoin", integer),
-        ("RewardPoolId", "rewardPoolId", text),
-        ("TimeoutSec", "timeoutSec", floating),
-        ("CurseDebuffId", "curseDebuffId", text),
-        ("WeightBase", "weightBase", integer),
-        ("IsRepeatAllowed", "isRepeatAllowed", boolean),
-    )),
-    TableSpec("ThreeChoiceOptionConfig", "choiceOptions", "OptionId", "optionId", (
-        ("OptionId", "optionId", text),
-        ("OptionType", "optionType", text),
-        ("DisplayName", "displayName", text),
-        ("DescKey", "descKey", text),
-        ("ContentRef", "contentRef", text),
-        ("SkillSlot", "skillSlot", integer),
-        ("ValueInt", "valueInt", integer),
-        ("WeightBase", "weightBase", integer),
-        ("WeightBuildBonus", "weightBuildBonus", text),
-        ("MinRunElapsedSec", "minRunElapsedSec", floating),
-        ("IsUnique", "isUnique", boolean),
     )),
     TableSpec("BotConfig", "botProfiles", "BotId", "botId", (
         ("BotId", "botId", integer),
@@ -409,28 +139,16 @@ TABLE_SPECS: tuple[TableSpec, ...] = (
         ("Confidence", "confidence", floating),
         ("PreferredPreset", "preferredPreset", integer),
         ("LootGreedFactor", "lootGreedFactor", floating),
-        ("SelfTattooBoldness", "selfTattooBoldness", floating),
-        ("EnchantGreed", "enchantGreed", floating),
         ("Personality", "personality", text),
         ("TargetPlayerWeight", "targetPlayerWeight", floating),
         ("TargetHumanoidAiWeight", "targetHumanoidAiWeight", floating),
-        ("TargetBossWeight", "targetBossWeight", floating),
         ("TargetResourceWeight", "targetResourceWeight", floating),
-        ("ReadingTargetWeight", "readingTargetWeight", floating),
-        ("ShopPreference", "shopPreference", floating),
         ("RiskTolerance", "riskTolerance", floating),
     )),
     TableSpec("BotBuildPreset", "botBuildPresets", "PresetId", "presetId", (
         ("PresetId", "presetId", integer),
         ("Name", "name", text),
-        ("Tendency", "tendency", json_cell),
-        ("PreferredParts", "preferredParts", json_cell),
-        ("RecommendedSeq", "recommendedSeq", json_cell),
-        ("EarlyGameWeapon", "earlyGameWeapon", integer),
         ("BehaviorMacro", "behaviorMacro", text),
-        ("PreferredSkillQ", "preferredSkillQ", integer),
-        ("PreferredSkillE", "preferredSkillE", integer),
-        ("TargetEnchantAffixes", "targetEnchantAffixes", json_cell),
     )),
 )
 
@@ -461,14 +179,6 @@ def transform_row(spec: TableSpec, values: dict[str, str], seed: dict[str, Any] 
         row["activeAssetPath"] = resource_active_asset_path(resource_type, load_path)
     elif spec.table_name == "WeaponConfig":
         row["cooldown"] = weapon_cooldown(values)
-    elif spec.table_name == "NPCConfig":
-        npc_type = text(values.get("Type"))
-        row.setdefault("offers", [])
-        if not row.get("roomType"):
-            row["roomType"] = "Merchant" if npc_type.lower() == "merchant" else "TattooStudio"
-        row.setdefault("offsetX", 0.0)
-        row.setdefault("offsetY", 0.0)
-        row.setdefault("offsetZ", 0.0)
 
     return row
 
@@ -536,145 +246,44 @@ def split_ids(value: Any) -> list[str]:
     return [part.strip() for part in text(value).split(",") if part.strip()]
 
 
-def validate_enemy_domain(catalog: dict[str, Any]) -> None:
-    errors: list[str] = []
-
-    def require(condition: bool, message: str) -> None:
-        if not condition:
-            errors.append(message)
-
-    enemies = catalog.get("enemies") or []
-    abilities = catalog.get("enemyAbilities") or []
-    phases = catalog.get("bossPhases") or []
-    encounters = catalog.get("encounterSpawns") or []
-    loot_rows = catalog.get("enemyLoot") or []
-    items = {str(row.get("itemId")) for row in catalog.get("items") or []}
-    weapons = {text(row.get("weaponId")) for row in catalog.get("weapons") or []}
-    audio_cues = {text(row.get("cueId")) for row in catalog.get("audioCues") or []}
-
-    expected_tiers = {
-        "enemy_common_hunter": "Light",
-        "enemy_common_shooter": "Light",
-        "enemy_common_guardian": "Elite",
-        "enemy_ai_servo": "Light",
-        "enemy_ai_arc_drone": "Light",
-        "enemy_ai_manager": "Elite",
-        "boss_ai_core_zero": "Boss",
-        "enemy_alien_crawler": "Light",
-        "enemy_alien_spitter": "Light",
-        "enemy_alien_guard": "Elite",
-        "boss_alien_hive_mother": "Boss",
-        "enemy_virus_mutant": "Light",
-        "enemy_virus_spore_carrier": "Light",
-        "enemy_virus_spore_host": "Elite",
-        "boss_virus_terminus": "Boss",
-    }
-    enemy_by_id = {text(row.get("enemyId")): row for row in enemies}
-    require(len(enemies) == 15, f"EnemyConfig must contain 15 rows, got {len(enemies)}.")
-    require(set(enemy_by_id) == set(expected_tiers), "EnemyConfig ids do not match the 15 confirmed design ids.")
-    for enemy_id, tier in expected_tiers.items():
-        row = enemy_by_id.get(enemy_id) or {}
-        require(row.get("tier") == tier, f"{enemy_id} must use tier {tier}.")
-
-    ability_by_id = {text(row.get("abilityId")): row for row in abilities}
-    require(len(ability_by_id) == len(abilities), "EnemyAbilityConfig ability ids must be unique and non-empty.")
-    expected_ability_types = {
-        "Melee", "Projectile", "Charge", "Leap", "Beam", "ConeSweep", "AreaPulse",
-        "HazardZone", "Shield", "Summon", "Regenerate", "DeathBurst", "PhaseTransition",
-    }
-    actual_ability_types = {text(row.get("abilityType")) for row in abilities}
-    require(expected_ability_types <= actual_ability_types, "EnemyAbilityConfig must cover all 13 reusable ability types.")
-    for ability_id, row in ability_by_id.items():
-        require(bool(ability_id), "EnemyAbilityConfig has an empty AbilityId.")
-        require(row.get("cooldown", 0) >= 0 and row.get("windup", 0) >= 0 and row.get("active", 0) >= 0 and row.get("recovery", 0) >= 0,
-                f"{ability_id} has a negative timing value.")
-        require(0 <= row.get("statusChance", 0) <= 1, f"{ability_id} StatusChance must be in 0..1.")
-        summon_id = text(row.get("summonEnemyId"))
-        if row.get("abilityType") == "Summon":
-            require(summon_id in enemy_by_id and row.get("summonCount", 0) > 0, f"{ability_id} has an invalid SummonEnemyId/SummonCount.")
-        elif summon_id:
-            require(False, f"{ability_id} declares SummonEnemyId but is not a Summon ability.")
-        cue_id = text(row.get("audioCueId"))
-        if cue_id:
-            require(cue_id in audio_cues, f"{ability_id} references missing AudioCueId {cue_id}.")
-        try:
-            json.loads(text(row.get("parametersJson")) or "{}")
-        except json.JSONDecodeError as exception:
-            errors.append(f"{ability_id} ParametersJson is invalid: {exception}.")
-
-    pools: set[str] = set()
-    loot_tables = {text(row.get("lootTableId")) for row in loot_rows}
-    loot_by_id = {text(row.get("lootEntryId")): row for row in loot_rows}
-    require(len(loot_by_id) == len(loot_rows), "EnemyLootConfig entry ids must be unique and non-empty.")
-    for enemy_id, row in enemy_by_id.items():
-        for ability_id in split_ids(row.get("abilityIds")):
-            require(ability_id in ability_by_id, f"{enemy_id} references missing AbilityId {ability_id}.")
-        require(bool(text(row.get("behaviorProfileId"))), f"{enemy_id} BehaviorProfileId is empty.")
-        require(bool(text(row.get("runtimeAssetKey"))), f"{enemy_id} RuntimeAssetKey is empty.")
-        require(bool(text(row.get("fallbackRuntimeAssetKey"))), f"{enemy_id} FallbackRuntimeAssetKey is empty.")
-        require(row.get("leashRange", 0) >= row.get("detectRange", 0), f"{enemy_id} LeashRange must be >= DetectRange.")
-        require(row.get("spawnCost", 0) > 0, f"{enemy_id} SpawnCost must be positive.")
-        table_id = text(row.get("lootTableId"))
-        require(table_id in loot_tables, f"{enemy_id} references missing LootTableId {table_id}.")
-        for loot_id in split_ids(row.get("guaranteedLootIds")):
-            loot = loot_by_id.get(loot_id)
-            require(loot is not None, f"{enemy_id} references missing GuaranteedLootId {loot_id}.")
-            if loot is not None:
-                require(bool(loot.get("guaranteed")) and loot.get("lootTableId") == table_id,
-                        f"{enemy_id} GuaranteedLootId {loot_id} must be guaranteed and belong to {table_id}.")
-        pools.update(split_ids(row.get("poolIds")))
-
-    recipe_ids = {text(row.get("deathPatternRecipeId")) for row in phases if text(row.get("deathPatternRecipeId"))}
-    for loot_id, row in loot_by_id.items():
-        require(bool(loot_id) and bool(text(row.get("lootTableId"))), "EnemyLootConfig ids must be non-empty.")
-        require(row.get("minCount", 0) > 0 and row.get("maxCount", 0) >= row.get("minCount", 0), f"{loot_id} has an invalid count range.")
-        require(bool(row.get("guaranteed")) or row.get("weight", 0) > 0, f"{loot_id} must be guaranteed or have positive weight.")
-        reward_type = text(row.get("rewardType"))
-        item_id = text(row.get("itemId"))
-        if reward_type == "Weapon":
-            require(item_id in weapons, f"{loot_id} references missing WeaponConfig id {item_id}.")
-        elif reward_type == "Recipe":
-            require(item_id in recipe_ids, f"{loot_id} references missing Boss recipe id {item_id}.")
-        else:
-            require(item_id in items, f"{loot_id} references missing ItemConfig id {item_id}.")
-
-    expected_themes = {"ai_ruins", "alien_hive", "virus_swamp"}
-    require(len(encounters) == 9, f"EncounterSpawnConfig must contain 9 schedules, got {len(encounters)}.")
-    for row in encounters:
-        encounter_id = text(row.get("encounterId"))
-        require(text(row.get("themeId")) in expected_themes, f"{encounter_id} has an invalid ThemeId.")
-        require(bool(text(row.get("zoneRoles"))), f"{encounter_id} ZoneRoles is empty.")
-        for pool_id in split_ids(row.get("enemyPoolIds")):
-            require(pool_id in pools, f"{encounter_id} references missing enemy pool {pool_id}.")
-        require(row.get("initialCount", 0) <= row.get("activeCap", 0) <= row.get("totalCap", 0), f"{encounter_id} count caps are invalid.")
-        require(row.get("waveMin", 0) <= row.get("waveMax", 0), f"{encounter_id} wave range is invalid.")
-        require(row.get("minParticipantDistance", 0) > 0 and row.get("minSpacing", 0) > 0, f"{encounter_id} spawn safety distances must be positive.")
-
-    phases_by_boss: dict[str, list[dict[str, Any]]] = {}
-    for row in phases:
-        phases_by_boss.setdefault(text(row.get("bossId")), []).append(row)
-    expected_bosses = {enemy_id for enemy_id, tier in expected_tiers.items() if tier == "Boss"}
-    require(set(phases_by_boss) == expected_bosses, "BossPhaseConfig must cover exactly the three confirmed bosses.")
-    for boss_id, boss_phases in phases_by_boss.items():
-        boss_phases.sort(key=lambda row: row.get("phaseIndex", 0))
-        require([row.get("phaseIndex") for row in boss_phases] == [1, 2, 3], f"{boss_id} must have phases 1, 2, 3.")
-        require([row.get("hpThreshold") for row in boss_phases] == [1.0, 0.6, 0.3], f"{boss_id} thresholds must be 1.0, 0.6, 0.3.")
-        require(bool(text(boss_phases[-1].get("deathPatternRecipeId"))), f"{boss_id} phase 3 recipe is empty.")
-        for row in boss_phases:
-            for ability_id in split_ids(row.get("abilityIds")):
-                require(ability_id in ability_by_id, f"{boss_id} phase {row.get('phaseIndex')} references missing AbilityId {ability_id}.")
-            require(text(row.get("phaseBGMCueId")) in audio_cues, f"{boss_id} phase {row.get('phaseIndex')} references a missing BGM cue.")
-
-    if errors:
-        raise ValueError("Enemy domain catalog validation failed:\n- " + "\n- ".join(errors))
-
-
 def build_catalog(input_dir: Path, seed_path: Path) -> dict[str, Any]:
     catalog = json.loads(seed_path.read_text(encoding="utf-8-sig"), object_pairs_hook=OrderedDict)
+    for retired_key in (
+        "enemies", "enemyAbilities", "encounterSpawns", "enemyLoot", "bossPhases", "chestRewards",
+        "weaponDrops", "skills", "npcs", "shopStocks", "merchantSlots", "events", "choiceOptions",
+        "tattooParts", "tattooColors", "tattooElements", "tattooPatterns", "tattooShapes", "items",
+        "tattooReadingTimes", "weapons", "projectiles", "weaponTraits",
+    ):
+        catalog.pop(retired_key, None)
     catalog["source"] = "GameData/AIData/DataTables/Business"
     for spec in TABLE_SPECS:
         apply_table(catalog, input_dir, spec)
-    validate_enemy_domain(catalog)
+    catalog["botProfiles"] = [
+        row for row in catalog.get("botProfiles", [])
+        if str(row.get("personality", "")).lower() != "bosspriority"
+    ]
+    for row in catalog["botProfiles"]:
+        for retired_key in (
+            "targetBossWeight", "selfTattooBoldness", "enchantGreed",
+            "readingTargetWeight", "shopPreference",
+        ):
+            row.pop(retired_key, None)
+    catalog["audioCues"] = [
+        row for row in catalog.get("audioCues", [])
+        if str(row.get("legacySource", "")).lower() != "bossphaseconfig.phasebgmcueid"
+        and str(row.get("cueId", "")) not in {
+            "sfx_hit_melee", "sfx_hit_special", "sfx_hit_default", "sfx_skill_cast"
+        }
+    ]
+    for cue in catalog.get("audioCues", []):
+        if cue.get("cueId") == "bgm_in_game":
+            cue["usage"] = "Combat BGM."
+        elif cue.get("cueId") == "sfx_kill":
+            cue["usage"] = "Opponent eliminated."
+    envelope = catalog.get("aiTuning")
+    if isinstance(envelope, dict):
+        for retired_key in ("bossAttackRange", "bossMoveSpeed", "bossAttackCooldown", "bossDamage"):
+            envelope.pop(retired_key, None)
     return attach_generation_info(catalog, input_dir)
 
 

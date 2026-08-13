@@ -4,7 +4,7 @@
 
 ## What Changes
 
-- 将运行时资源目录及默认资源目录中的旧 Sprite 路径更新为 `Assets/Game/Sprite`。
+- 将运行时资源目录及默认资源目录中的旧 Sprite 路径更新为 `Assets/Game/Sprites`。
 - 让运行时目录、PCG 配置与 PCG 贴图通过项目现有 GF 资源加载管线读取，移除业务运行时的 `Resources.Load` 依赖。
 - 更新纹身资源配置、生成目录和编辑器诊断/迁移工具中的活动旧路径。
 - 将 AppSettings、Obfuz 密钥和 AOT 元数据的加载与构建路径迁出已删除的 `Assets/Resources`。

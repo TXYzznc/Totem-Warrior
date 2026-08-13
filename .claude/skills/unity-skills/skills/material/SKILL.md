@@ -63,12 +63,12 @@ Assign material to object's renderer.
 
 ```python
 # Single
-unity_skills.call_skill("material_assign", name="Cube", materialPath="Assets/Materials/Red.mat")
+unity_skills.call_skill("material_assign", name="Cube", materialPath="Assets/Game/Materials/Common/Red.mat")
 
 # Batch
 unity_skills.call_skill("material_assign_batch", items=[
-    {"name": "Cube1", "materialPath": "Assets/Materials/Red.mat"},
-    {"name": "Cube2", "materialPath": "Assets/Materials/Blue.mat"}
+    {"name": "Cube1", "materialPath": "Assets/Game/Materials/Common/Red.mat"},
+    {"name": "Cube2", "materialPath": "Assets/Game/Materials/Common/Blue.mat"}
 ])
 ```
 
@@ -110,7 +110,7 @@ Set emission color with auto-enable keyword.
 ```python
 # Single - glowing green
 unity_skills.call_skill("material_set_emission",
-    path="Assets/Materials/Glow.mat",
+    path="Assets/Game/Materials/Common/Glow.mat",
     r=0, g=1, b=0.5, intensity=3.0
 )
 
@@ -173,10 +173,10 @@ import unity_skills
 # BAD: 6 API calls
 unity_skills.call_skill("material_create", name="Mat1", savePath="Assets/Materials")
 unity_skills.call_skill("material_create", name="Mat2", savePath="Assets/Materials")
-unity_skills.call_skill("material_set_color", path="Assets/Materials/Mat1.mat", r=1, g=0, b=0)
-unity_skills.call_skill("material_set_color", path="Assets/Materials/Mat2.mat", r=0, g=0, b=1)
-unity_skills.call_skill("material_assign", name="Cube1", materialPath="Assets/Materials/Mat1.mat")
-unity_skills.call_skill("material_assign", name="Cube2", materialPath="Assets/Materials/Mat2.mat")
+unity_skills.call_skill("material_set_color", path="Assets/Game/Materials/Common/Mat1.mat", r=1, g=0, b=0)
+unity_skills.call_skill("material_set_color", path="Assets/Game/Materials/Common/Mat2.mat", r=0, g=0, b=1)
+unity_skills.call_skill("material_assign", name="Cube1", materialPath="Assets/Game/Materials/Common/Mat1.mat")
+unity_skills.call_skill("material_assign", name="Cube2", materialPath="Assets/Game/Materials/Common/Mat2.mat")
 
 # GOOD: 3 API calls
 unity_skills.call_skill("material_create_batch", items=[
@@ -184,12 +184,12 @@ unity_skills.call_skill("material_create_batch", items=[
     {"name": "Mat2", "savePath": "Assets/Materials"}
 ])
 unity_skills.call_skill("material_set_colors_batch", items=[
-    {"path": "Assets/Materials/Mat1.mat", "r": 1, "g": 0, "b": 0},
-    {"path": "Assets/Materials/Mat2.mat", "r": 0, "g": 0, "b": 1}
+    {"path": "Assets/Game/Materials/Common/Mat1.mat", "r": 1, "g": 0, "b": 0},
+    {"path": "Assets/Game/Materials/Common/Mat2.mat", "r": 0, "g": 0, "b": 1}
 ])
 unity_skills.call_skill("material_assign_batch", items=[
-    {"name": "Cube1", "materialPath": "Assets/Materials/Mat1.mat"},
-    {"name": "Cube2", "materialPath": "Assets/Materials/Mat2.mat"}
+    {"name": "Cube1", "materialPath": "Assets/Game/Materials/Common/Mat1.mat"},
+    {"name": "Cube2", "materialPath": "Assets/Game/Materials/Common/Mat2.mat"}
 ])
 ```
 

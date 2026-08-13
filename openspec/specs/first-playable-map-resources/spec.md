@@ -1,0 +1,40 @@
+# first-playable-map-resources Specification
+
+## Purpose
+TBD - created by archiving change rebuild-six-player-pvpve-first-playable. Update Purpose after archive.
+## Requirements
+### Requirement: 第一阶段必须为纯 PVP
+first-playable 运行时 MUST 只生成 6 名玩家/Bot 参赛者，不得注册、生成或更新真正 Enemy、Encounter、EnemyLoot、Boss 或敌人弱点逻辑。通用战斗、元素、伤害与归因合同可以保留，但不得包含可达的 Enemy 专用分支。
+
+#### Scenario: 启动纯 PVP 对局
+- **WHEN** 从主菜单确认本地 first-playable
+- **THEN** 场上只有 6 名三队参赛者和地图资源拾取物
+- **AND** 运行时服务、对象、目录和结果证据中的 Enemy 数量恒为 0
+
+### Requirement: 地图资源必须使用独立拾取模型
+地图颜料与基础资源 MUST 使用独立的 MapResourcePickup 合同，不得伪装为武器拾取或复用 EnemyLoot。权威配置表 MUST 为每种拾取物分别定义资源类别/ID、最小数量、最大数量、权重、轮次范围、资源键和启用状态；同种拾取物数量在该小范围内确定性随机，拾取后进入该参与者个人库存。
+
+#### Scenario: 玩家拾取火颜料
+- **WHEN** 玩家在战斗阶段合法拾取一个火颜料资源
+- **THEN** 其火颜料库存原子增加该记录本次确定性生成的配置区间数量
+- **AND** 枪械配置、武器等级和队友库存不发生变化
+
+#### Scenario: 不同拾取物使用不同数量区间
+- **WHEN** 配置加载两种数量区间不同的活动拾取物
+- **THEN** 每种拾取物只在自身闭区间内生成数量
+- **AND** 不使用全局写死数量覆盖记录配置
+
+### Requirement: 资源刷新必须确定且绑定合法锚点
+每轮战斗开始时系统 MUST 从合法地图资源锚点按 match seed 和轮次确定性选择位置与资源类型；相同输入必须生成相同结果，重复锚点、不可达锚点和构筑阶段拾取必须被拒绝并留下诊断证据。
+
+#### Scenario: 固定 seed 重跑第二轮资源刷新
+- **WHEN** 两次运行使用相同 seed、轮次和合法锚点集合
+- **THEN** 资源类型、数量和锚点完全一致
+
+### Requirement: 第一阶段资源池必须受限
+资源池 MUST 只包含火/冰/雷颜料和明确允许的基础资源；不得包含旧武器、多武器升级、玩家主动技能、P03～P08 体验卡、EnemyLoot、Boss 核心或高阶撤离资源。
+
+#### Scenario: 检查活动资源目录
+- **WHEN** first-playable 读取地图资源配置
+- **THEN** 所有活动记录均属于允许资源池
+

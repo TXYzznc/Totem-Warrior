@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate GF_X AI DataTable manifests from archived business table JSON."""
+"""One-shot migration utility for importing an explicitly supplied legacy table source."""
 
 from __future__ import annotations
 
@@ -11,7 +11,6 @@ from typing import Any
 
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_SOURCE = REPO_ROOT / "LegacyProjectArchive" / "Assets" / "Resources" / "DataTable"
 DEFAULT_OUTPUT = REPO_ROOT / "GameData" / "AIData" / "DataTables" / "Business"
 
 BOT_PROFILE_FIELDS: list[dict[str, str]] = [
@@ -324,7 +323,7 @@ def build_manifest(source_file: Path, existing_manifest: dict[str, Any] | None =
         "sourceExcelLastWriteUtc": source_excel_last_write_utc or "",
         "generatedAtUtc": generated_at,
         "tableComment": (
-            f"Business table migrated from LegacyProjectArchive/Assets/Resources/DataTable/{source_file.name}. "
+            f"Business table imported from an explicit migration source ({source_file.name}). "
             "GF_X Id is numeric; original business keys are preserved as data columns."
         ),
         "columns": columns,
@@ -335,7 +334,7 @@ def build_manifest(source_file: Path, existing_manifest: dict[str, Any] | None =
 def generate(source_dir: Path, output_dir: Path, check: bool) -> int:
     source_files = sorted(source_dir.glob("*.json"))
     if not source_files:
-        raise FileNotFoundError(f"No legacy table json files found: {source_dir}")
+        raise FileNotFoundError(f"No source table json files found: {source_dir}")
 
     generated: dict[Path, tuple[dict[str, Any], str]] = {}
     for source_file in source_files:
@@ -374,7 +373,7 @@ def generate(source_dir: Path, output_dir: Path, check: bool) -> int:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--source", type=Path, default=DEFAULT_SOURCE)
+    parser.add_argument("--source", type=Path, required=True)
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
     parser.add_argument("--check", action="store_true")
     args = parser.parse_args()

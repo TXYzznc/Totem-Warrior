@@ -152,7 +152,7 @@ FrameworkLogger.Info("ModuleName", $"Key=Value Key2=Value2");
 |---|---|
 | `prefab-layout.md` 未产出或未确认 | 不许写效果图提示词 |
 | 效果图未生成或用户未确认 | 不许调 ui-asset-splitting 拆素材 |
-| 素材未拆分入库到 `Assets/Resources/Sprite/UI/<PageName>/` | 不许调 unity-skills MCP 建 Prefab |
+| 素材未拆分入库到 `Assets/Game/Sprites/UI/<PageName>/` | 不许调 unity-skills MCP 建 Prefab |
 | 运行时截图未与效果图对比 | 不许声称该 UI 完成 |
 
 ### Prefab 创建路径

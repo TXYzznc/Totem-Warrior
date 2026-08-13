@@ -9,9 +9,6 @@ EditorBuildSettings:
     path: Assets/Game/Scene/Launch.unity
     guid: 18868d941a71f02498051516873367ce
   - enabled: 1
-    path: Assets/Game/Scene/TotemGame.unity
-    guid: 342d700700312634383450de4ceac060
-  - enabled: 1
     path: Assets/Game/Scene/OasisCity.unity
     guid: 8e55e44ba17f9af47b2326acac1b2671
   m_configObjects: {}

@@ -2,19 +2,16 @@
 
 > 由 `tools/ai_index/build_ai_manifests.py` 生成。用于提醒 AI 当前项目状态和任务前检查项。
 >
-> 生成日期：2026-07-15
+> 生成日期：2026-08-12
 
 ## 1. 活跃 OpenSpec Change
 
-- `26-fixed-map-three-themes`：openspec/changes/26-fixed-map-three-themes（proposal=True，design=True，tasks=True）
-- `27-ai-information-contract`：openspec/changes/27-ai-information-contract（proposal=True，design=True，tasks=True）
-- `28-pcg-map-runtime-integration`：openspec/changes/28-pcg-map-runtime-integration（proposal=True，design=True，tasks=True）
-- `additive-gameplay-loading-world-sorting`：openspec/changes/additive-gameplay-loading-world-sorting（proposal=True，design=True，tasks=True）
+- `3d-pvpve-art-vertical-slice`：openspec/changes/3d-pvpve-art-vertical-slice（proposal=True，design=True，tasks=True）
+- `add-oasis-city-lookdev-lighting`：openspec/changes/add-oasis-city-lookdev-lighting（proposal=True，design=True，tasks=True）
 - `dynamic-tattoo-visuals`：openspec/changes/dynamic-tattoo-visuals（proposal=True，design=True，tasks=True）
-- `gf-x-business-runtime-refactor`：openspec/changes/gf-x-business-runtime-refactor（proposal=True，design=True，tasks=True）
-- `gf-x-framework-migration-phase1`：openspec/changes/gf-x-framework-migration-phase1（proposal=True，design=True，tasks=True）
-- `native-enemy-domain-rebuild`：openspec/changes/native-enemy-domain-rebuild（proposal=True，design=True，tasks=True）
+- `generic-visual-destruction`：openspec/changes/generic-visual-destruction（proposal=True，design=True，tasks=True）
 - `produce-totem-art-assets`：openspec/changes/produce-totem-art-assets（proposal=True，design=True，tasks=True）
+- `rebaseline-pvpve-art-resources`：openspec/changes/rebaseline-pvpve-art-resources（proposal=True，design=True，tasks=True）
 - `remove-resources-load-paths`：openspec/changes/remove-resources-load-paths（proposal=True，design=True，tasks=True）
 - `simplify-pcg-terrain-pipeline`：openspec/changes/simplify-pcg-terrain-pipeline（proposal=True，design=True，tasks=True）
 
@@ -37,6 +34,15 @@
 
 ## 4. 当前索引健康
 
-状态：`warning`，warning 数：1，功能切片数：14，诊断定位场景数：19
+状态：`warning`，warning 数：10，功能切片数：14，诊断定位场景数：19
 
-- 旧版证据表使用业务主键而不是 Id:int；当前 Business AI DataTables 已补 GF_X Id:int。只有重跑旧生成器或改旧证据表时才需要处理这些主键: BossPhaseConfig.BossId:string, BotBuildPreset.PresetId:int, BotConfig.BotId:int, ChestConfig.ChestId:string, EnemyConfig.EnemyId:string, EventConfig.EventId:string, ItemConfig.ItemId:int, MerchantConfig.SlotIndex:int, ProjectileConfig.ProjectileId:string, SkillConfig.SkillId:string, TattooReadingTimeConfig.PartId:int, ThreeChoiceOptionConfig.OptionId:string, WeaponConfig.WeaponId:string, WeaponDropConfig.DropId:string, WeaponTraitConfig.TraitId:string
+- Common 缺少 MODULE_META 描述
+- Editor 缺少 MODULE_META 描述
+- Entity 缺少 MODULE_META 描述
+- EventArgs 缺少 MODULE_META 描述
+- Extension 缺少 MODULE_META 描述
+- Network 缺少 MODULE_META 描述
+- Procedures 缺少 MODULE_META 描述
+- Runtime 缺少 MODULE_META 描述
+- ScriptableObject 缺少 MODULE_META 描述
+- Testing 缺少 MODULE_META 描述

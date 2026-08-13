@@ -19,7 +19,9 @@ related_skills:
 
 ## 一、背景
 
-GameDesinger 项目 2026-06-24 完成 AI 协作框架集成（详见 [REFACTOR_REPORT.md](../../REFACTOR_REPORT.md)），引入 IGameModule / ModuleRunner / EventBus / DataTable / ResourceModule 体系。但原 Tattoo 业务代码（12 个 .cs，含 Composer/CombatRunner/21 SO 多态子类）完全脱离框架：
+> 历史说明：本页记录的是 2026-06 的旧 `IGameModule / ModuleRunner / EventBus` 方案，已被当前 GF_X runtime 取代；它只用于追溯，不可作为实现依据。
+
+GameDesinger 项目曾在 2026-06 使用 AI 协作框架集成方案，并引入 IGameModule / ModuleRunner / EventBus / DataTable / ResourceModule 体系。但原 Tattoo 业务代码（12 个 .cs，含 Composer/CombatRunner/21 SO 多态子类）完全脱离框架：
 
 | 现状 | 框架要求 |
 |---|---|

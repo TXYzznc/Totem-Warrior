@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-15",
+  "generated_at": "2026-08-12",
   "source": "tools/ai_index/build_ai_manifests.py",
   "purpose": "Feature-slice index for design/art/program/QA handoffs during the GF_X rewrite.",
   "count": 14,
@@ -127,12 +127,12 @@
     "npc.tattooist",
     "skill.skill_fireball_01",
     "skill.skill_phase_dash",
-    "ui.character.card.unlocked",
     "weapon.bow_charge",
     "weapon.energy_fist",
     "weapon.hammer_heavy",
     "weapon.knife_basic",
-    "weapon.pistol_basic"
+    "weapon.pistol_basic",
+    "weapon.rifle.patrol.v1"
   ],
   "diagnostic_scenarios": [
     "Scenario/BusinessRuntime/GF_X Rewrite Inventory Contract",
@@ -156,19 +156,310 @@
     "Scenario/Startup/Launch To Totem Runtime Smoke"
   ],
   "validation": {
-    "missing_modules": {},
-    "uncovered_legacy_modules": [],
-    "missing_business_tables": {},
-    "missing_runtime_services": {},
-    "uncovered_runtime_services": [],
-    "missing_runtime_asset_keys": {},
+    "missing_modules": {
+      "ui_entry_flow": [
+        "Flow",
+        "GameState",
+        "Input",
+        "Scene"
+      ],
+      "first_round_population": [
+        "Bot",
+        "Combat",
+        "Enemy",
+        "GameState",
+        "Spawner"
+      ],
+      "combat_weapon_skill": [
+        "Combat",
+        "Skill",
+        "Status",
+        "VFX",
+        "Weapon"
+      ],
+      "tattoo_builds": [
+        "Economy",
+        "NPC",
+        "Status",
+        "Tattoo"
+      ],
+      "smart_ai_roster": [
+        "Bot",
+        "Combat",
+        "Enemy",
+        "Tattoo",
+        "Weapon"
+      ],
+      "economy_shop_chest": [
+        "Economy",
+        "NPC",
+        "Spawner",
+        "Weapon"
+      ],
+      "npc_interactions": [
+        "Economy",
+        "NPC",
+        "Tattoo"
+      ],
+      "three_choice_events": [
+        "Economy",
+        "Event",
+        "Tattoo",
+        "Weapon"
+      ],
+      "map_zone": [
+        "Camera",
+        "Combat",
+        "MapGen",
+        "Spawner"
+      ],
+      "boss_phase": [
+        "Bot",
+        "Combat",
+        "Economy",
+        "Enemy",
+        "Skill",
+        "VFX"
+      ],
+      "native_enemy_domain": [
+        "Combat",
+        "Economy",
+        "Enemy",
+        "MapGen",
+        "Spawner"
+      ],
+      "audio_vfx_feedback": [
+        "Audio",
+        "Combat",
+        "Enemy",
+        "Skill",
+        "VFX"
+      ],
+      "save_meta_settings": [
+        "GameState",
+        "Save",
+        "Settings"
+      ],
+      "data_resource_contracts": [
+        "Resource"
+      ]
+    },
+    "uncovered_legacy_modules": [
+      "Common",
+      "Editor",
+      "Entity",
+      "EventArgs",
+      "Extension",
+      "Network",
+      "Procedures",
+      "Runtime",
+      "ScriptableObject",
+      "Testing"
+    ],
+    "missing_business_tables": {
+      "first_round_population": [
+        "EnemyConfig"
+      ],
+      "combat_weapon_skill": [
+        "ProjectileConfig",
+        "SkillConfig",
+        "WeaponConfig",
+        "WeaponDropConfig",
+        "WeaponTraitConfig"
+      ],
+      "tattoo_builds": [
+        "TattooColorConfig",
+        "TattooElementConfig",
+        "TattooEnchantAffixConfig",
+        "TattooEnchantRecipeConfig",
+        "TattooPartConfig",
+        "TattooPatternConfig",
+        "TattooReadingTimeConfig",
+        "TattooShapeConfig"
+      ],
+      "smart_ai_roster": [
+        "SkillConfig",
+        "TattooPartConfig",
+        "WeaponConfig"
+      ],
+      "economy_shop_chest": [
+        "ChestConfig",
+        "ItemConfig",
+        "MerchantConfig",
+        "ShopStockConfig",
+        "WeaponDropConfig"
+      ],
+      "npc_interactions": [
+        "MerchantConfig",
+        "NPCConfig",
+        "ShopStockConfig",
+        "TattooEnchantAffixConfig",
+        "TattooEnchantRecipeConfig"
+      ],
+      "three_choice_events": [
+        "EventConfig",
+        "ItemConfig",
+        "TattooEnchantAffixConfig",
+        "ThreeChoiceOptionConfig",
+        "WeaponConfig"
+      ],
+      "map_zone": [
+        "ChestConfig",
+        "NPCConfig"
+      ],
+      "boss_phase": [
+        "BossPhaseConfig",
+        "EncounterSpawnConfig",
+        "EnemyAbilityConfig",
+        "EnemyConfig",
+        "EnemyLootConfig"
+      ],
+      "native_enemy_domain": [
+        "BossPhaseConfig",
+        "EncounterSpawnConfig",
+        "EnemyAbilityConfig",
+        "EnemyConfig",
+        "EnemyLootConfig"
+      ],
+      "audio_vfx_feedback": [
+        "BossPhaseConfig",
+        "SkillConfig"
+      ],
+      "data_resource_contracts": [
+        "BossPhaseConfig",
+        "ChestConfig",
+        "EnemyConfig",
+        "EventConfig",
+        "ItemConfig",
+        "MerchantConfig",
+        "NPCConfig",
+        "ProjectileConfig",
+        "ShopStockConfig",
+        "SkillConfig",
+        "TattooColorConfig",
+        "TattooElementConfig",
+        "TattooEnchantAffixConfig",
+        "TattooEnchantRecipeConfig",
+        "TattooPartConfig",
+        "TattooPatternConfig",
+        "TattooReadingTimeConfig",
+        "TattooShapeConfig",
+        "ThreeChoiceOptionConfig",
+        "WeaponConfig",
+        "WeaponDropConfig",
+        "WeaponTraitConfig"
+      ]
+    },
+    "missing_runtime_services": {
+      "combat_weapon_skill": [
+        "TotemSkillService"
+      ],
+      "tattoo_builds": [
+        "TotemEconomyService",
+        "TotemNpcService",
+        "TotemTattooService"
+      ],
+      "smart_ai_roster": [
+        "TotemTattooService"
+      ],
+      "economy_shop_chest": [
+        "TotemChestService",
+        "TotemEconomyService",
+        "TotemNpcService"
+      ],
+      "npc_interactions": [
+        "TotemEconomyService",
+        "TotemNpcService",
+        "TotemTattooService"
+      ],
+      "three_choice_events": [
+        "TotemChoiceService",
+        "TotemEconomyService",
+        "TotemTattooService"
+      ],
+      "boss_phase": [
+        "TotemEnemyLootService",
+        "TotemEnemyService",
+        "TotemEnemyWorldService"
+      ],
+      "native_enemy_domain": [
+        "TotemEnemyLootService",
+        "TotemEnemyService",
+        "TotemEnemyWorldService"
+      ],
+      "audio_vfx_feedback": [
+        "TotemEnemyService",
+        "TotemEnemyWorldService"
+      ]
+    },
+    "uncovered_runtime_services": [
+      "TotemEffectResolutionService",
+      "TotemExtractionService",
+      "TotemFirstPlayableElementService",
+      "TotemFirstPlayableLifecycleService",
+      "TotemFirstPlayableSocialService",
+      "TotemFirstPlayableTattooBuildService",
+      "TotemMapResourceService",
+      "TotemMatchFlowService"
+    ],
+    "missing_runtime_asset_keys": {
+      "combat_weapon_skill": [
+        "effect.projectile.arrow_bow",
+        "effect.projectile.bullet_pistol",
+        "skill.skill_fireball_01",
+        "skill.skill_phase_dash",
+        "weapon.bow_charge",
+        "weapon.energy_fist",
+        "weapon.hammer_heavy",
+        "weapon.knife_basic",
+        "weapon.pistol_basic"
+      ],
+      "smart_ai_roster": [
+        "weapon.knife_basic",
+        "weapon.pistol_basic"
+      ],
+      "economy_shop_chest": [
+        "chest.chest_common",
+        "chest.chest_rare",
+        "npc.merchant"
+      ],
+      "npc_interactions": [
+        "npc.merchant",
+        "npc.tattooist"
+      ],
+      "boss_phase": [
+        "enemy.boss_ai_core_zero",
+        "enemy.boss_alien_hive_mother",
+        "enemy.boss_virus_terminus",
+        "enemy.fallback.ai_ruins.boss",
+        "enemy.fallback.alien_hive.boss",
+        "enemy.fallback.virus_swamp.boss"
+      ],
+      "native_enemy_domain": [
+        "enemy.boss_ai_core_zero",
+        "enemy.boss_alien_hive_mother",
+        "enemy.boss_virus_terminus",
+        "enemy.fallback.ai_ruins.boss",
+        "enemy.fallback.alien_hive.boss",
+        "enemy.fallback.virus_swamp.boss"
+      ],
+      "audio_vfx_feedback": [
+        "effect.boss.bolt",
+        "effect.projectile.arrow_bow",
+        "effect.projectile.bullet_pistol",
+        "effect.skill.burst"
+      ],
+      "data_resource_contracts": [
+        "weapon.knife_basic"
+      ]
+    },
     "missing_required_fields": {},
-    "valid": true
+    "valid": false
   },
   "slices": [
     {
       "id": "ui_entry_flow",
-      "name": "主菜单 -> 角色选择 -> 启动选择 -> 战斗 HUD",
+      "name": "主菜单 -> 本地对局确认 -> 构筑 -> 战斗 HUD",
       "status": "covered_with_manual_visual_boundary",
       "product_goal": "首屏启动链路干净进入当前 GF_X 工作区，旧 UI 只作为视觉/需求证据。",
       "modules": [
@@ -188,12 +479,12 @@
       ],
       "ui_forms": [
         "MainMenu",
-        "CharacterSelect",
-        "StartupSelect",
-        "CombatHUD"
+        "CombatHUD",
+        "RunResult"
       ],
       "runtime_asset_keys": [
-        "ui.character.card.unlocked"
+        "actor.player",
+        "weapon.rifle.patrol.v1"
       ],
       "docs": [
         "openspec/specs/main-menu-flow/spec.md",
@@ -205,8 +496,8 @@
         "Scenario/BusinessRuntime/Totem Runtime Causality Smoke"
       ],
       "discipline_handoff": {
-        "design": "确认首轮流程状态、按钮语义、角色选择和启动选择的可见规则。",
-        "art": "按 runtime_usages 检查角色头像、卡框和 UI 占位图，后续替换仍保持相同 runtime key。",
+        "design": "确认六人双排、五轮流程和本地对局确认的可见规则。",
+        "art": "按 first-playable 稳定 UI 槽位交付新视觉，旧角色选择资源不再进入运行目录。",
         "program": "流程只走 TotemGameFlowService/TotemUIService/TotemInputService，不回接旧 GameApp/UIModule。",
         "qa": "用 First Slice UI 和 Causality Smoke 证明状态流、输入流和 HUD 进入点。"
       },
@@ -222,12 +513,17 @@
       },
       "runtime_asset_catalog": "GameData/AIData/GameplayCatalogs/totem_runtime_assets.json",
       "validation": {
-        "missing_modules": [],
+        "missing_modules": [
+          "Flow",
+          "GameState",
+          "Input",
+          "Scene"
+        ],
         "missing_business_tables": [],
         "missing_runtime_services": [],
         "missing_runtime_asset_keys": [],
         "missing_required_fields": [],
-        "valid": true
+        "valid": false
       }
     },
     {
@@ -291,12 +587,20 @@
       },
       "runtime_asset_catalog": "GameData/AIData/GameplayCatalogs/totem_runtime_assets.json",
       "validation": {
-        "missing_modules": [],
-        "missing_business_tables": [],
+        "missing_modules": [
+          "Bot",
+          "Combat",
+          "Enemy",
+          "GameState",
+          "Spawner"
+        ],
+        "missing_business_tables": [
+          "EnemyConfig"
+        ],
         "missing_runtime_services": [],
         "missing_runtime_asset_keys": [],
         "missing_required_fields": [],
-        "valid": true
+        "valid": false
       }
     },
     {
@@ -379,12 +683,36 @@
       },
       "runtime_asset_catalog": "GameData/AIData/GameplayCatalogs/totem_runtime_assets.json",
       "validation": {
-        "missing_modules": [],
-        "missing_business_tables": [],
-        "missing_runtime_services": [],
-        "missing_runtime_asset_keys": [],
+        "missing_modules": [
+          "Combat",
+          "Skill",
+          "Status",
+          "VFX",
+          "Weapon"
+        ],
+        "missing_business_tables": [
+          "ProjectileConfig",
+          "SkillConfig",
+          "WeaponConfig",
+          "WeaponDropConfig",
+          "WeaponTraitConfig"
+        ],
+        "missing_runtime_services": [
+          "TotemSkillService"
+        ],
+        "missing_runtime_asset_keys": [
+          "effect.projectile.arrow_bow",
+          "effect.projectile.bullet_pistol",
+          "skill.skill_fireball_01",
+          "skill.skill_phase_dash",
+          "weapon.bow_charge",
+          "weapon.energy_fist",
+          "weapon.hammer_heavy",
+          "weapon.knife_basic",
+          "weapon.pistol_basic"
+        ],
         "missing_required_fields": [],
-        "valid": true
+        "valid": false
       }
     },
     {
@@ -463,12 +791,30 @@
       },
       "runtime_asset_catalog": "GameData/AIData/GameplayCatalogs/totem_runtime_assets.json",
       "validation": {
-        "missing_modules": [],
-        "missing_business_tables": [],
-        "missing_runtime_services": [],
+        "missing_modules": [
+          "Economy",
+          "NPC",
+          "Status",
+          "Tattoo"
+        ],
+        "missing_business_tables": [
+          "TattooColorConfig",
+          "TattooElementConfig",
+          "TattooEnchantAffixConfig",
+          "TattooEnchantRecipeConfig",
+          "TattooPartConfig",
+          "TattooPatternConfig",
+          "TattooReadingTimeConfig",
+          "TattooShapeConfig"
+        ],
+        "missing_runtime_services": [
+          "TotemEconomyService",
+          "TotemNpcService",
+          "TotemTattooService"
+        ],
         "missing_runtime_asset_keys": [],
         "missing_required_fields": [],
-        "valid": true
+        "valid": false
       }
     },
     {
@@ -540,12 +886,27 @@
       },
       "runtime_asset_catalog": "GameData/AIData/GameplayCatalogs/totem_runtime_assets.json",
       "validation": {
-        "missing_modules": [],
-        "missing_business_tables": [],
-        "missing_runtime_services": [],
-        "missing_runtime_asset_keys": [],
+        "missing_modules": [
+          "Bot",
+          "Combat",
+          "Enemy",
+          "Tattoo",
+          "Weapon"
+        ],
+        "missing_business_tables": [
+          "SkillConfig",
+          "TattooPartConfig",
+          "WeaponConfig"
+        ],
+        "missing_runtime_services": [
+          "TotemTattooService"
+        ],
+        "missing_runtime_asset_keys": [
+          "weapon.knife_basic",
+          "weapon.pistol_basic"
+        ],
         "missing_required_fields": [],
-        "valid": true
+        "valid": false
       }
     },
     {
@@ -621,12 +982,31 @@
       },
       "runtime_asset_catalog": "GameData/AIData/GameplayCatalogs/totem_runtime_assets.json",
       "validation": {
-        "missing_modules": [],
-        "missing_business_tables": [],
-        "missing_runtime_services": [],
-        "missing_runtime_asset_keys": [],
+        "missing_modules": [
+          "Economy",
+          "NPC",
+          "Spawner",
+          "Weapon"
+        ],
+        "missing_business_tables": [
+          "ChestConfig",
+          "ItemConfig",
+          "MerchantConfig",
+          "ShopStockConfig",
+          "WeaponDropConfig"
+        ],
+        "missing_runtime_services": [
+          "TotemChestService",
+          "TotemEconomyService",
+          "TotemNpcService"
+        ],
+        "missing_runtime_asset_keys": [
+          "chest.chest_common",
+          "chest.chest_rare",
+          "npc.merchant"
+        ],
         "missing_required_fields": [],
-        "valid": true
+        "valid": false
       }
     },
     {
@@ -697,12 +1077,29 @@
       },
       "runtime_asset_catalog": "GameData/AIData/GameplayCatalogs/totem_runtime_assets.json",
       "validation": {
-        "missing_modules": [],
-        "missing_business_tables": [],
-        "missing_runtime_services": [],
-        "missing_runtime_asset_keys": [],
+        "missing_modules": [
+          "Economy",
+          "NPC",
+          "Tattoo"
+        ],
+        "missing_business_tables": [
+          "MerchantConfig",
+          "NPCConfig",
+          "ShopStockConfig",
+          "TattooEnchantAffixConfig",
+          "TattooEnchantRecipeConfig"
+        ],
+        "missing_runtime_services": [
+          "TotemEconomyService",
+          "TotemNpcService",
+          "TotemTattooService"
+        ],
+        "missing_runtime_asset_keys": [
+          "npc.merchant",
+          "npc.tattooist"
+        ],
         "missing_required_fields": [],
-        "valid": true
+        "valid": false
       }
     },
     {
@@ -768,12 +1165,27 @@
       },
       "runtime_asset_catalog": "GameData/AIData/GameplayCatalogs/totem_runtime_assets.json",
       "validation": {
-        "missing_modules": [],
-        "missing_business_tables": [],
-        "missing_runtime_services": [],
+        "missing_modules": [
+          "Economy",
+          "Event",
+          "Tattoo",
+          "Weapon"
+        ],
+        "missing_business_tables": [
+          "EventConfig",
+          "ItemConfig",
+          "TattooEnchantAffixConfig",
+          "ThreeChoiceOptionConfig",
+          "WeaponConfig"
+        ],
+        "missing_runtime_services": [
+          "TotemChoiceService",
+          "TotemEconomyService",
+          "TotemTattooService"
+        ],
         "missing_runtime_asset_keys": [],
         "missing_required_fields": [],
-        "valid": true
+        "valid": false
       }
     },
     {
@@ -806,7 +1218,7 @@
       "docs": [
         "项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/modules/07-MapGenModule.md",
         "项目知识库（AI自行维护）/wiki/历史资料/GDD-v2/systems/07-地图生成.md",
-        "openspec/changes/26-fixed-map-three-themes/specs/map-fixed-terrain/spec.md"
+        "openspec/changes/simplify-pcg-terrain-pipeline/specs/pcg-terrain-visual-system/spec.md"
       ],
       "diagnostic_scenarios": [
         "Scenario/BusinessRuntime/Totem Gameplay Runtime",
@@ -837,12 +1249,20 @@
       },
       "runtime_asset_catalog": "GameData/AIData/GameplayCatalogs/totem_runtime_assets.json",
       "validation": {
-        "missing_modules": [],
-        "missing_business_tables": [],
+        "missing_modules": [
+          "Camera",
+          "Combat",
+          "MapGen",
+          "Spawner"
+        ],
+        "missing_business_tables": [
+          "ChestConfig",
+          "NPCConfig"
+        ],
         "missing_runtime_services": [],
         "missing_runtime_asset_keys": [],
         "missing_required_fields": [],
-        "valid": true
+        "valid": false
       }
     },
     {
@@ -922,12 +1342,36 @@
       },
       "runtime_asset_catalog": "GameData/AIData/GameplayCatalogs/totem_runtime_assets.json",
       "validation": {
-        "missing_modules": [],
-        "missing_business_tables": [],
-        "missing_runtime_services": [],
-        "missing_runtime_asset_keys": [],
+        "missing_modules": [
+          "Bot",
+          "Combat",
+          "Economy",
+          "Enemy",
+          "Skill",
+          "VFX"
+        ],
+        "missing_business_tables": [
+          "BossPhaseConfig",
+          "EncounterSpawnConfig",
+          "EnemyAbilityConfig",
+          "EnemyConfig",
+          "EnemyLootConfig"
+        ],
+        "missing_runtime_services": [
+          "TotemEnemyLootService",
+          "TotemEnemyService",
+          "TotemEnemyWorldService"
+        ],
+        "missing_runtime_asset_keys": [
+          "enemy.boss_ai_core_zero",
+          "enemy.boss_alien_hive_mother",
+          "enemy.boss_virus_terminus",
+          "enemy.fallback.ai_ruins.boss",
+          "enemy.fallback.alien_hive.boss",
+          "enemy.fallback.virus_swamp.boss"
+        ],
         "missing_required_fields": [],
-        "valid": true
+        "valid": false
       }
     },
     {
@@ -1007,12 +1451,35 @@
       },
       "runtime_asset_catalog": "GameData/AIData/GameplayCatalogs/totem_runtime_assets.json",
       "validation": {
-        "missing_modules": [],
-        "missing_business_tables": [],
-        "missing_runtime_services": [],
-        "missing_runtime_asset_keys": [],
+        "missing_modules": [
+          "Combat",
+          "Economy",
+          "Enemy",
+          "MapGen",
+          "Spawner"
+        ],
+        "missing_business_tables": [
+          "BossPhaseConfig",
+          "EncounterSpawnConfig",
+          "EnemyAbilityConfig",
+          "EnemyConfig",
+          "EnemyLootConfig"
+        ],
+        "missing_runtime_services": [
+          "TotemEnemyLootService",
+          "TotemEnemyService",
+          "TotemEnemyWorldService"
+        ],
+        "missing_runtime_asset_keys": [
+          "enemy.boss_ai_core_zero",
+          "enemy.boss_alien_hive_mother",
+          "enemy.boss_virus_terminus",
+          "enemy.fallback.ai_ruins.boss",
+          "enemy.fallback.alien_hive.boss",
+          "enemy.fallback.virus_swamp.boss"
+        ],
         "missing_required_fields": [],
-        "valid": true
+        "valid": false
       }
     },
     {
@@ -1078,12 +1545,29 @@
       },
       "runtime_asset_catalog": "GameData/AIData/GameplayCatalogs/totem_runtime_assets.json",
       "validation": {
-        "missing_modules": [],
-        "missing_business_tables": [],
-        "missing_runtime_services": [],
-        "missing_runtime_asset_keys": [],
+        "missing_modules": [
+          "Audio",
+          "Combat",
+          "Enemy",
+          "Skill",
+          "VFX"
+        ],
+        "missing_business_tables": [
+          "BossPhaseConfig",
+          "SkillConfig"
+        ],
+        "missing_runtime_services": [
+          "TotemEnemyService",
+          "TotemEnemyWorldService"
+        ],
+        "missing_runtime_asset_keys": [
+          "effect.boss.bolt",
+          "effect.projectile.arrow_bow",
+          "effect.projectile.bullet_pistol",
+          "effect.skill.burst"
+        ],
         "missing_required_fields": [],
-        "valid": true
+        "valid": false
       }
     },
     {
@@ -1137,12 +1621,16 @@
       },
       "runtime_asset_catalog": "GameData/AIData/GameplayCatalogs/totem_runtime_assets.json",
       "validation": {
-        "missing_modules": [],
+        "missing_modules": [
+          "GameState",
+          "Save",
+          "Settings"
+        ],
         "missing_business_tables": [],
         "missing_runtime_services": [],
         "missing_runtime_asset_keys": [],
         "missing_required_fields": [],
-        "valid": true
+        "valid": false
       }
     },
     {
@@ -1276,12 +1764,39 @@
       },
       "runtime_asset_catalog": "GameData/AIData/GameplayCatalogs/totem_runtime_assets.json",
       "validation": {
-        "missing_modules": [],
-        "missing_business_tables": [],
+        "missing_modules": [
+          "Resource"
+        ],
+        "missing_business_tables": [
+          "BossPhaseConfig",
+          "ChestConfig",
+          "EnemyConfig",
+          "EventConfig",
+          "ItemConfig",
+          "MerchantConfig",
+          "NPCConfig",
+          "ProjectileConfig",
+          "ShopStockConfig",
+          "SkillConfig",
+          "TattooColorConfig",
+          "TattooElementConfig",
+          "TattooEnchantAffixConfig",
+          "TattooEnchantRecipeConfig",
+          "TattooPartConfig",
+          "TattooPatternConfig",
+          "TattooReadingTimeConfig",
+          "TattooShapeConfig",
+          "ThreeChoiceOptionConfig",
+          "WeaponConfig",
+          "WeaponDropConfig",
+          "WeaponTraitConfig"
+        ],
         "missing_runtime_services": [],
-        "missing_runtime_asset_keys": [],
+        "missing_runtime_asset_keys": [
+          "weapon.knife_basic"
+        ],
         "missing_required_fields": [],
-        "valid": true
+        "valid": false
       }
     }
   ],

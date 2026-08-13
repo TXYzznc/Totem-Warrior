@@ -10,7 +10,7 @@ using UnityEditor;
 Shader shader = Shader.Find("Standard");
 Material mat = new Material(shader);
 mat.name = "MyMaterial";
-string path = "Assets/Materials/MyMaterial.mat";
+string path = "Assets/Game/Materials/Common/MyMaterial.mat";
 AssetDatabase.CreateAsset(mat, path);
 AssetDatabase.SaveAssets();
 return $"Material created at {path}";
@@ -21,7 +21,7 @@ return $"Material created at {path}";
 ```csharp
 using UnityEditor;
 
-string matPath = "Assets/Materials/MyMaterial.mat";
+string matPath = "Assets/Game/Materials/Common/MyMaterial.mat";
 Material mat = AssetDatabase.LoadAssetAtPath<Material>(matPath);
 mat.SetColor("_Color", new Color(1f, 0.5f, 0f, 1f));
 EditorUtility.SetDirty(mat);
@@ -34,7 +34,7 @@ return "Material color set to orange";
 ```csharp
 using UnityEditor;
 
-string matPath = "Assets/Materials/MyMaterial.mat";
+string matPath = "Assets/Game/Materials/Common/MyMaterial.mat";
 Material mat = AssetDatabase.LoadAssetAtPath<Material>(matPath);
 
 mat.SetFloat("_Metallic", 0.8f);
@@ -51,8 +51,8 @@ return "Material properties updated";
 ```csharp
 using UnityEditor;
 
-string matPath = "Assets/Materials/MyMaterial.mat";
-string texPath = "Assets/Textures/MyTexture.png";
+string matPath = "Assets/Game/Materials/Common/MyMaterial.mat";
+string texPath = "Assets/Game/Textures/Common/MyTexture.png";
 
 Material mat = AssetDatabase.LoadAssetAtPath<Material>(matPath);
 Texture2D tex = AssetDatabase.LoadAssetAtPath<Texture2D>(texPath);
@@ -68,7 +68,7 @@ return $"Assigned {tex.name} to material";
 ```csharp
 using UnityEditor;
 
-string matPath = "Assets/Materials/MyMaterial.mat";
+string matPath = "Assets/Game/Materials/Common/MyMaterial.mat";
 Material mat = AssetDatabase.LoadAssetAtPath<Material>(matPath);
 
 GameObject selected = Selection.activeGameObject;
@@ -93,7 +93,7 @@ return $"Assigned {mat.name} to {selected.name}";
 ```csharp
 using UnityEditor;
 
-string matPath = "Assets/Materials/MyMaterial.mat";
+string matPath = "Assets/Game/Materials/Common/MyMaterial.mat";
 Material mat = AssetDatabase.LoadAssetAtPath<Material>(matPath);
 
 mat.EnableKeyword("_EMISSION");
@@ -130,8 +130,8 @@ return $"Found {matchingMaterials.Count} materials using {shaderName}";
 ```csharp
 using UnityEditor;
 
-string sourcePath = "Assets/Materials/MyMaterial.mat";
-string destPath = "Assets/Materials/MyMaterial_Copy.mat";
+string sourcePath = "Assets/Game/Materials/Common/MyMaterial.mat";
+string destPath = "Assets/Game/Materials/Common/MyMaterial_Copy.mat";
 
 Material source = AssetDatabase.LoadAssetAtPath<Material>(sourcePath);
 Material copy = new Material(source);

@@ -1,6 +1,6 @@
 # AI 遗迹环境立物：生产记录
 
-> Completion audit (2026-07-16): 31 final PNG assets are present under `Assets/Game/Sprite/PCG/Props/AiRuins/`; the object catalog references all 31 unique assets (18 static objects + 14 anchor-visual entries, with one intentional asset reuse). Transparent-corner, import-setting, JSON, and PCG runtime-console checks passed.
+> Completion audit (2026-07-16): 31 final PNG assets are present under `Assets/Game/Sprites/PCG/Props/AiRuins/`; the object catalog references all 31 unique assets (18 static objects + 14 anchor-visual entries, with one intentional asset reuse). Transparent-corner, import-setting, JSON, and PCG runtime-console checks passed.
 
 > 状态：**进行中**（2026-07-16）。本主题以现有 AI 遗迹地形图为唯一视觉基线，不以病毒沼泽或通用概念图替代。
 
@@ -14,11 +14,11 @@
 
 | ID | 用途 | 原图 | 正式资源 | 验证 |
 | --- | --- | --- | --- | --- |
-| `ai_ruins_fallen_gate` | `player.spawn` 固定地标 | `art/raw/environment/ai-ruins/landmarks/ai_ruins_fallen_gate_chromakey.png` | `Assets/Game/Sprite/PCG/Props/AiRuins/Landmarks/ai_ruins_fallen_gate.png` | 512×512、RGBA 四角 alpha=0、catalog 可解析、运行时已生成 `PCG_Anchor_ai_ruins_fallen_gate_0` |
-| `ai_ruins_command_spire` | `boss.spawn` 固定地标 | `art/raw/environment/ai-ruins/landmarks/ai_ruins_command_spire_chromakey.png` | `Assets/Game/Sprite/PCG/Props/AiRuins/Landmarks/ai_ruins_command_spire.png` | 512×512、RGBA 四角 alpha=0、catalog 可解析、运行时已生成 `PCG_Anchor_ai_ruins_command_spire_1` |
-| `ai_ruins_power_relay` | `encounter.mid.center` 固定地标 | `art/raw/environment/ai-ruins/landmarks/ai_ruins_power_relay_chromakey.png` | `Assets/Game/Sprite/PCG/Props/AiRuins/Landmarks/ai_ruins_power_relay.png` | 512×512、RGBA 四角 alpha=0、catalog 可解析 |
-| `ai_ruins_ink_terminal` | `npc.tattooist.base` 既有交互外观 | `art/raw/environment/ai-ruins/landmarks/ai_ruins_ink_terminal_chromakey.png` | `Assets/Game/Sprite/PCG/Props/AiRuins/Landmarks/ai_ruins_ink_terminal.png` | 512×512、RGBA 四角 alpha=0、catalog 可解析 |
-| `ai_ruins_scrap_kiosk` | `npc.merchant.base` 既有交互外观 | `art/raw/environment/ai-ruins/landmarks/ai_ruins_scrap_kiosk_chromakey.png` | `Assets/Game/Sprite/PCG/Props/AiRuins/Landmarks/ai_ruins_scrap_kiosk.png` | 512×512、RGBA 四角 alpha=0、catalog 可解析 |
+| `ai_ruins_fallen_gate` | `player.spawn` 固定地标 | `art/raw/environment/ai-ruins/landmarks/ai_ruins_fallen_gate_chromakey.png` | `Assets/Game/Sprites/PCG/Props/AiRuins/Landmarks/ai_ruins_fallen_gate.png` | 512×512、RGBA 四角 alpha=0、catalog 可解析、运行时已生成 `PCG_Anchor_ai_ruins_fallen_gate_0` |
+| `ai_ruins_command_spire` | `boss.spawn` 固定地标 | `art/raw/environment/ai-ruins/landmarks/ai_ruins_command_spire_chromakey.png` | `Assets/Game/Sprites/PCG/Props/AiRuins/Landmarks/ai_ruins_command_spire.png` | 512×512、RGBA 四角 alpha=0、catalog 可解析、运行时已生成 `PCG_Anchor_ai_ruins_command_spire_1` |
+| `ai_ruins_power_relay` | `encounter.mid.center` 固定地标 | `art/raw/environment/ai-ruins/landmarks/ai_ruins_power_relay_chromakey.png` | `Assets/Game/Sprites/PCG/Props/AiRuins/Landmarks/ai_ruins_power_relay.png` | 512×512、RGBA 四角 alpha=0、catalog 可解析 |
+| `ai_ruins_ink_terminal` | `npc.tattooist.base` 既有交互外观 | `art/raw/environment/ai-ruins/landmarks/ai_ruins_ink_terminal_chromakey.png` | `Assets/Game/Sprites/PCG/Props/AiRuins/Landmarks/ai_ruins_ink_terminal.png` | 512×512、RGBA 四角 alpha=0、catalog 可解析 |
+| `ai_ruins_scrap_kiosk` | `npc.merchant.base` 既有交互外观 | `art/raw/environment/ai-ruins/landmarks/ai_ruins_scrap_kiosk_chromakey.png` | `Assets/Game/Sprites/PCG/Props/AiRuins/Landmarks/ai_ruins_scrap_kiosk.png` | 512×512、RGBA 四角 alpha=0、catalog 可解析 |
 
 ## 后续顺序
 

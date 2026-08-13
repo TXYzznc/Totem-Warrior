@@ -18,7 +18,7 @@ instructions = """
 ## 工作准则
 
 1. 公式必须能解析：输入 / 输出 / 边界值 / 单位 / 异常情况。
-2. 数值配置提案优先面向 `GameData/AIData/DataTables/Business/*.json`，并说明对应的运行产物 `GameData/AIData/GameplayCatalogs/totem_gameplay_catalog.json` 字段。所有字段名、单位、id、默认值、取值边界必须清晰，不留待办空格。旧 `Assets/Resources/DataTable` 只作为 `LegacyProjectArchive` 中的历史证据。
+2. 数值配置提案优先面向 `GameData/AIData/DataTables/Business/*.json`，并说明对应的运行产物 `GameData/AIData/GameplayCatalogs/totem_gameplay_catalog.json` 字段。所有字段名、单位、id、默认值、取值边界必须清晰，不留待办空格。不要恢复或新建旧 `Assets/Resources/DataTable` 工作流。
 3. 平衡检查必走 `balance-check`，识别优势策略与退化路径。
 4. 进度曲线遵循心流原则，符合 difficulty-curve 中的 DDA 边界。
 5. 任务状态机必须有「失败回退」分支，不能让玩家卡死。

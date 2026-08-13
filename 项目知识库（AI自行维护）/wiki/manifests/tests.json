@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-15",
+  "generated_at": "2026-08-12",
   "source": "tools/ai_index/build_ai_manifests.py",
   "unity_tests": [],
   "playtest_reports": [
@@ -11,18 +11,41 @@
     "tools/playtest/reports/_TEMPLATE.md"
   ],
   "openspec_specs": [
+    "openspec/specs/ai-information-contract/spec.md",
+    "openspec/specs/ai-tool-usage-telemetry/spec.md",
+    "openspec/specs/authored-oasis-city-runtime/spec.md",
     "openspec/specs/camera-system/spec.md",
+    "openspec/specs/combat-entity-domain/spec.md",
+    "openspec/specs/construction-intelligence-and-trade/spec.md",
     "openspec/specs/core-ui-screens/spec.md",
+    "openspec/specs/downed-revive-elimination/spec.md",
+    "openspec/specs/elemental-reaction-and-effect-queue/spec.md",
+    "openspec/specs/enemy-ai-runtime/spec.md",
+    "openspec/specs/enemy-encounter-spawning/spec.md",
+    "openspec/specs/enemy-loot-progression/spec.md",
+    "openspec/specs/first-playable-acceptance/spec.md",
+    "openspec/specs/first-playable-map-resources/spec.md",
     "openspec/specs/fix-broken-prefabs/spec.md",
     "openspec/specs/gameplay-character-art/spec.md",
+    "openspec/specs/gf-x-ai-diagnostics/spec.md",
+    "openspec/specs/gf-x-business-runtime/spec.md",
+    "openspec/specs/gf-x-framework-migration/spec.md",
     "openspec/specs/main-menu-flow/spec.md",
     "openspec/specs/mcp-encoding-fix/spec.md",
+    "openspec/specs/oasis-city-building-blockout-preparation/spec.md",
+    "openspec/specs/participant-readiness/spec.md",
+    "openspec/specs/pcg-map-runtime/spec.md",
     "openspec/specs/player-attack-system/spec.md",
     "openspec/specs/playtest-driver/spec.md",
+    "openspec/specs/round-build-combat-loop/spec.md",
+    "openspec/specs/scene-camera-review-tool/spec.md",
     "openspec/specs/settings/spec.md",
+    "openspec/specs/six-player-duo-match/spec.md",
     "openspec/specs/skill-governance/spec.md",
     "openspec/specs/skill-routing/spec.md",
     "openspec/specs/tattoo/spec.md",
+    "openspec/specs/test-extraction-flow/spec.md",
+    "openspec/specs/ui-asset-catalog/spec.md",
     "openspec/specs/ui-planning/spec.md",
     "openspec/specs/ui-workflow/spec.md",
     "openspec/specs/unity-skills-routing/spec.md",
@@ -32,36 +55,8 @@
   ],
   "active_changes": [
     {
-      "id": "26-fixed-map-three-themes",
-      "path": "openspec/changes/26-fixed-map-three-themes",
-      "has_proposal": true,
-      "has_design": true,
-      "has_tasks": true,
-      "artifacts": [
-        ".openspec.yaml",
-        "CONTRACT.md",
-        "design.md",
-        "proposal.md",
-        "tasks.md"
-      ]
-    },
-    {
-      "id": "27-ai-information-contract",
-      "path": "openspec/changes/27-ai-information-contract",
-      "has_proposal": true,
-      "has_design": true,
-      "has_tasks": true,
-      "artifacts": [
-        ".openspec.yaml",
-        "CONTRACT.md",
-        "design.md",
-        "proposal.md",
-        "tasks.md"
-      ]
-    },
-    {
-      "id": "28-pcg-map-runtime-integration",
-      "path": "openspec/changes/28-pcg-map-runtime-integration",
+      "id": "3d-pvpve-art-vertical-slice",
+      "path": "openspec/changes/3d-pvpve-art-vertical-slice",
       "has_proposal": true,
       "has_design": true,
       "has_tasks": true,
@@ -72,8 +67,8 @@
       ]
     },
     {
-      "id": "additive-gameplay-loading-world-sorting",
-      "path": "openspec/changes/additive-gameplay-loading-world-sorting",
+      "id": "add-oasis-city-lookdev-lighting",
+      "path": "openspec/changes/add-oasis-city-lookdev-lighting",
       "has_proposal": true,
       "has_design": true,
       "has_tasks": true,
@@ -98,55 +93,13 @@
       ]
     },
     {
-      "id": "gf-x-business-runtime-refactor",
-      "path": "openspec/changes/gf-x-business-runtime-refactor",
-      "has_proposal": true,
-      "has_design": true,
-      "has_tasks": true,
-      "artifacts": [
-        "BASELINE.md",
-        "COMPLETION_AUDIT.md",
-        "DATATABLE_MIGRATION_MANIFEST.md",
-        "DECISIONS_NEEDED.md",
-        "GAMEPLAY_RUNTIME_SLICE.md",
-        "GF_X_TOOL_MIGRATION_MANIFEST.md",
-        "LEGACY_EFFECT_COVERAGE.md",
-        "LEGACY_OPENSPEC_SPEC_STATUS.md",
-        "REQUIREMENTS_INVENTORY.md",
-        "SMART_AI_PERSONALITY_DRAFT.md",
-        "T9F7_FIRST_TUNING_REPORT.md",
-        "T9F7_START_CONFIRMATION.md",
-        "design.md",
-        "proposal.md",
-        "tasks.md"
-      ]
-    },
-    {
-      "id": "gf-x-framework-migration-phase1",
-      "path": "openspec/changes/gf-x-framework-migration-phase1",
+      "id": "generic-visual-destruction",
+      "path": "openspec/changes/generic-visual-destruction",
       "has_proposal": true,
       "has_design": true,
       "has_tasks": true,
       "artifacts": [
         ".openspec.yaml",
-        "CONTRACT.md",
-        "MIGRATION_INVENTORY.md",
-        "MIGRATION_RECORD.md",
-        "design.md",
-        "proposal.md",
-        "tasks.md"
-      ]
-    },
-    {
-      "id": "native-enemy-domain-rebuild",
-      "path": "openspec/changes/native-enemy-domain-rebuild",
-      "has_proposal": true,
-      "has_design": true,
-      "has_tasks": true,
-      "artifacts": [
-        ".openspec.yaml",
-        "BASELINE_AUDIT.md",
-        "VERIFICATION_REPORT.md",
         "design.md",
         "proposal.md",
         "tasks.md"
@@ -155,6 +108,19 @@
     {
       "id": "produce-totem-art-assets",
       "path": "openspec/changes/produce-totem-art-assets",
+      "has_proposal": true,
+      "has_design": true,
+      "has_tasks": true,
+      "artifacts": [
+        ".openspec.yaml",
+        "design.md",
+        "proposal.md",
+        "tasks.md"
+      ]
+    },
+    {
+      "id": "rebaseline-pvpve-art-resources",
+      "path": "openspec/changes/rebaseline-pvpve-art-resources",
       "has_proposal": true,
       "has_design": true,
       "has_tasks": true,
@@ -186,6 +152,7 @@
       "has_tasks": true,
       "artifacts": [
         ".openspec.yaml",
+        "PCG环境美术后续开发交接.md",
         "design.md",
         "proposal.md",
         "tasks.md",
