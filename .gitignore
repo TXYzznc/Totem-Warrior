@@ -88,6 +88,8 @@ tools/**/dist/
 
 # codex 临时素材/工作目录（本地素材参考，不进版本控制）
 .codex/tmp/
+.codex_tmp/
+.codex-tmp/
 /tmp/
 
 # 美术需求构建依赖与生成过程文件（均可由脚本重建）
@@ -149,3 +151,13 @@ tools/Jenkins/jenkins.war
 Assets/Game/Font/Common/SIMHEI SDF.asset
 .vscode/settings.json
 /GameData/Diagnostics
+
+# Local/generated work products. Keep source assets and reproducible scripts,
+# but do not let reports, previews, and one-off assistant outputs pollute the workspace.
+/artifacts/test-results/
+/GameData/AIData/Reports/
+/outputs/
+/Exports/
+/输出日志/
+/ss.json
+/project-knowledge-base/outputs/
