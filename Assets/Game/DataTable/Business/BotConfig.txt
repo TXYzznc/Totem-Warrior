@@ -1,4 +1,4 @@
-#	六人纯 PVP 第一版 Bot 配置。纹身构筑由 FirstPlayableBotBuildPlanner 处理，本表只描述战斗与目标选择行为。
+#	六人纯 PVP 第一版 Bot 配置。纹身构筑由 FirstPlayableBotBuildPlanner 处理，本表只描述战斗与目标选择行为。																	
 #	Id		BotId	Type	DisplayName	RethinkInterval	AttackCooldown	VisionRadius	AggroRadius	DodgeReactionMs	Confidence	PreferredPreset	LootGreedFactor	Personality	TargetPlayerWeight	TargetHumanoidAiWeight	TargetResourceWeight	RiskTolerance
 #	int		int	string	string	float	float	float	float	int	float	int	float	string	float	float	float	float
 #	GF_X numeric row id.	Note	稳定 Bot 配置 ID。	Smart / Light。	调试显示名。	决策重算间隔（秒）。	最小攻击冷却。	目标搜索半径。	偏好交战半径。	闪避反应延迟（毫秒）。	决策置信度 0..1。	行为宏预设 ID。	资源拾取偏好。	Aggressive / Conservative / ResourceAcquisition / PlayerPriority / Hybrid。	真人目标权重。	其他 Bot 目标权重。	地图资源目标权重。	风险容忍度 0..1。

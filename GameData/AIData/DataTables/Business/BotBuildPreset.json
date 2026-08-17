@@ -4,8 +4,8 @@
   "tableName": "BotBuildPreset",
   "relativePath": "Business/BotBuildPreset",
   "sourceExcel": "GameData/DataTables/Business/BotBuildPreset.xlsx",
-  "sourceExcelLastWriteUtc": "2026-08-11T09:33:05.4384215Z",
-  "generatedAtUtc": "2026-08-11T09:35:28.5757153Z",
+  "sourceExcelLastWriteUtc": "2026-08-17T06:53:22.6008918Z",
+  "generatedAtUtc": "2026-08-17T06:53:23.0048909Z",
   "tableComment": "第一版 Bot 行为预设。纹身构筑由 FirstPlayableBotBuildPlanner 独立处理；此表不再包含旧元素、技能、武器或附魔字段。",
   "columns": [
     {

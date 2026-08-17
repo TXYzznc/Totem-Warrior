@@ -4,8 +4,8 @@
   "tableName": "BotConfig",
   "relativePath": "Business/BotConfig",
   "sourceExcel": "GameData/DataTables/Business/BotConfig.xlsx",
-  "sourceExcelLastWriteUtc": "2026-08-11T09:33:05.7979220Z",
-  "generatedAtUtc": "2026-08-11T09:35:28.7722155Z",
+  "sourceExcelLastWriteUtc": "2026-08-17T06:53:23.4268913Z",
+  "generatedAtUtc": "2026-08-17T06:53:23.7608931Z",
   "tableComment": "六人纯 PVP 第一版 Bot 配置。纹身构筑由 FirstPlayableBotBuildPlanner 处理，本表只描述战斗与目标选择行为。",
   "columns": [
     {

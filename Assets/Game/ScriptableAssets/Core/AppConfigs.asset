@@ -18,7 +18,6 @@ MonoBehaviour:
   - Business/BotConfig
   - Business/MapTemplateConfig
   - Business/MapResourcePickupConfig
-  - Business/ResourceConfig
   - Business/UIFormConfig
   - Business/ZoneShrinkConfig
   - Core/EntityGroupTable

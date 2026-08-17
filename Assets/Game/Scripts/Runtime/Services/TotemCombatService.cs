@@ -1,17 +1,9 @@
 ﻿
 using UnityEngine;
 
-public enum TotemCombatRunMode
-{
-    Standard = 0,
-    ExplorationPreview = 1,
-}
-
 public sealed class TotemCombatService : TotemRuntimeServiceBase, ITotemRuntimeTickService, ITotemGameplaySimulationService
 {
     private const float MoveSpeed = 5f;
-    private const float PreviewMoveSpeedMin = 0.5f;
-    private const float PreviewMoveSpeedMax = 15f;
     private const float DodgeDistance = 4f;
 
     private TotemGameFlowService flowService;
@@ -34,9 +26,6 @@ public sealed class TotemCombatService : TotemRuntimeServiceBase, ITotemRuntimeT
     private int gameplayCommandSequence;
     private bool active;
     private bool runFinished;
-    private TotemCombatRunMode nextCombatRunMode = TotemCombatRunMode.Standard;
-    private TotemCombatRunMode currentCombatRunMode = TotemCombatRunMode.Standard;
-    private float explorationPreviewMoveSpeed = MoveSpeed;
     private string lastAction = string.Empty;
     private string lastReason = string.Empty;
     private int lastTargetActorId;
@@ -52,35 +41,6 @@ public sealed class TotemCombatService : TotemRuntimeServiceBase, ITotemRuntimeT
     public override string ServiceName => "Combat";
 
     public TotemRunResultSnapshot LastRunResult => lastRunResult;
-
-    public bool IsExplorationPreview => currentCombatRunMode == TotemCombatRunMode.ExplorationPreview;
-
-    /// <summary>PCG 预览专用的当前玩家移速；正式对局始终返回正式基础值。</summary>
-    public float CurrentPlayerMoveSpeed => IsExplorationPreview ? explorationPreviewMoveSpeed : MoveSpeed;
-
-    /// <summary>
-    /// 仅在 PCG 探索预览中临时覆盖玩家移速。运行模式离开 CombatHud 后自动复位，
-    /// 不写入数值配置、存档或正式对局状态。
-    /// </summary>
-    public bool SetExplorationPreviewPlayerMoveSpeed(float moveSpeed)
-    {
-        if (!IsExplorationPreview)
-        {
-            return false;
-        }
-
-        explorationPreviewMoveSpeed = Mathf.Clamp(moveSpeed, PreviewMoveSpeedMin, PreviewMoveSpeedMax);
-        return true;
-    }
-
-    /// <summary>
-    /// 指定下一次进入 CombatHud 时使用的运行模式。
-    /// 请求仅消费一次；正式对局默认保留结算规则。
-    /// </summary>
-    public void RequestNextCombatRunMode(TotemCombatRunMode runMode)
-    {
-        nextCombatRunMode = runMode;
-    }
 
     protected override void OnInitialize(TotemGameRuntime runtime)
     {
@@ -114,9 +74,6 @@ public sealed class TotemCombatService : TotemRuntimeServiceBase, ITotemRuntimeT
         }
 
         active = false;
-        nextCombatRunMode = TotemCombatRunMode.Standard;
-        currentCombatRunMode = TotemCombatRunMode.Standard;
-        explorationPreviewMoveSpeed = MoveSpeed;
         inputService = null;
         actorService = null;
         weaponService = null;
@@ -293,7 +250,7 @@ public sealed class TotemCombatService : TotemRuntimeServiceBase, ITotemRuntimeT
             actorService.TryApplyFirstPlayableMoveCommand(
                 command,
                 deltaTime,
-                CurrentPlayerMoveSpeed * movementMultiplier,
+                MoveSpeed * movementMultiplier,
                 out _);
         }
 
@@ -347,7 +304,7 @@ public sealed class TotemCombatService : TotemRuntimeServiceBase, ITotemRuntimeT
             actorService.TryApplyFirstPlayableMoveCommand(
                 command,
                 deltaTime,
-                CurrentPlayerMoveSpeed * multiplier,
+                MoveSpeed * multiplier,
                 out _);
         }
     }
@@ -528,9 +485,6 @@ public sealed class TotemCombatService : TotemRuntimeServiceBase, ITotemRuntimeT
     {
         if (nextState == TotemGameFlowState.CombatHud)
         {
-            currentCombatRunMode = nextCombatRunMode;
-            nextCombatRunMode = TotemCombatRunMode.Standard;
-            explorationPreviewMoveSpeed = MoveSpeed;
             active = true;
             runFinished = false;
             elapsedSec = 0f;
@@ -549,16 +503,13 @@ public sealed class TotemCombatService : TotemRuntimeServiceBase, ITotemRuntimeT
         {
             active = false;
             runFinished = false;
-            currentCombatRunMode = TotemCombatRunMode.Standard;
-            explorationPreviewMoveSpeed = MoveSpeed;
             GFTrace.Info("TotemCombat", "Combat.Stopped", null, GFTrace.Data("nextState", nextState.ToString()));
         }
     }
 
     private void EvaluateRunEnd()
     {
-        if (currentCombatRunMode == TotemCombatRunMode.ExplorationPreview
-            || runFinished
+        if (runFinished
             || actorService?.Player == null)
         {
             return;

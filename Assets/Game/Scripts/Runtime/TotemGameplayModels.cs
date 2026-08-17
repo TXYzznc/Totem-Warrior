@@ -107,16 +107,6 @@ public sealed class TotemVfxSnapshot
     public bool lastFloatingTextStrong;
 }
 
-public sealed class TotemResourceDefinition
-{
-    public int Id;
-    public string Name;
-    public string ResourceType;
-    public string LoadPath;
-    public string AssetKey;
-    public string ActiveAssetPath;
-}
-
 public sealed class TotemRoomInfo
 {
     public int RoomId;
@@ -170,22 +160,12 @@ public sealed class TotemMapSnapshot
     public float WorldGroundY;
     public string SourceSceneName;
     public float MinRoomSize;
-    public int TerrainPoolId;
     public string PrefabPath;
     public string HudAccentColor;
     public string DominantColor;
     public Vector2 InitialZoneCenter;
     public TotemRoomInfo[] Rooms = Array.Empty<TotemRoomInfo>();
     public TotemMapAnchor[] AnchorPlacements = Array.Empty<TotemMapAnchor>();
-    public int TerrainCellSize;
-    public int TerrainGridWidth;
-    public int TerrainGridHeight;
-    public byte[] TerrainGrid = Array.Empty<byte>();
-    public int GroundCellCount;
-    public int SlowCellCount;
-    public int BlockedCellCount;
-    public int CoverCellCount;
-    public int HazardCellCount;
 }
 
 public sealed class TotemMapRuntimeSnapshot
@@ -213,7 +193,6 @@ public sealed class TotemMapTemplateDefinition
     public string ThemeName;
     public float MapSize;
     public float MinRoomSize;
-    public int TerrainPoolId;
     public string PrefabPath;
     public string HudAccentColor;
     public string DominantColor;

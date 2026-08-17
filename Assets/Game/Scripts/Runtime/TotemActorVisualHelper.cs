@@ -56,18 +56,8 @@ public static class TotemActorVisualHelper
             return true;
         }
 
-        switch (assetKey)
-        {
-            case "actor.smartAi":
-                color = SmartAiFactionColor;
-                return true;
-            case "actor.lightAi":
-                color = LightAiFactionColor;
-                return true;
-            default:
-                color = default;
-                return false;
-        }
+        color = default;
+        return false;
     }
 
     public static bool TryResolveFactionRingColor(TotemActorKind kind, out Color color)

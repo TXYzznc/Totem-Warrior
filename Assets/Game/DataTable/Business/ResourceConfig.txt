@@ -1,4 +1,0 @@
-#	Business configuration maintained in the GF_X AI DataTable workflow. Id is numeric and business keys are preserved as data columns.							
-#	Id		Name	Type	LoadPath
-#	int		string	string	string
-#	GF_X numeric row id. Original business key is preserved as a data column when its name is not Id.	Note	资源标识名	资源类型，对应 Resources 下子目录名	相对 Resources/{Type}/ 的加载路径，不含扩展名

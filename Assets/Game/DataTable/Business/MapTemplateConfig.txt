@@ -1,5 +1,5 @@
-#	六人纯 PVP 第一版只使用已完成的绿洲新城场景。
-#	Id		ThemeName	MapSize	MinRoomSize	BspMaxDepth	TerrainPoolId	PrefabPath	HudAccentColor	DominantColor
-#	int		string	float	float	int	int	string	string	string
-#	GF_X numeric row id.	Note	场景主题名。	地图边界尺寸（米）。	运行时布局最小房间尺寸。	运行时布局最大递归深度。	地块池 ID。	场景或预制体路径。	HUD 强调色。	环境主色。
-	1		OASIS_CITY	400.0	40.0	4	101	Assets/Game/Scene/OasisCity.unity	#379091	#B7824F
+#	六人纯 PVP 第一版只使用已完成的绿洲新城场景。							
+#	Id		ThemeName	MapSize	MinRoomSize	PrefabPath	HudAccentColor	DominantColor
+#	int		string	float	float	string	string	string
+#	GF_X numeric row id.	Note	场景主题名。	地图边界尺寸（米）。	运行时布局最小房间尺寸。	场景或预制体路径。	HUD 强调色。	环境主色。
+	1		OASIS_CITY	400.0	40.0	Assets/Game/Scene/OasisCity.unity	#379091	#B7824F

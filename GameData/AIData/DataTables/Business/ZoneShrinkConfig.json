@@ -4,8 +4,8 @@
   "tableName": "ZoneShrinkConfig",
   "relativePath": "Business/ZoneShrinkConfig",
   "sourceExcel": "GameData/DataTables/Business/ZoneShrinkConfig.xlsx",
-  "sourceExcelLastWriteUtc": "2026-08-11T09:33:07.7599224Z",
-  "generatedAtUtc": "2026-08-11T09:35:29.7307160Z",
+  "sourceExcelLastWriteUtc": "2026-08-17T06:53:25.5698915Z",
+  "generatedAtUtc": "2026-08-17T06:53:25.7793922Z",
   "tableComment": "Business configuration maintained in the GF_X AI DataTable workflow. Id is numeric and business keys are preserved as data columns.",
   "columns": [
     {

@@ -1,7 +1,7 @@
-#	First-playable UI form catalog. Legacy character selection, shop, choice and free-form tattoo screens were removed.
+#	First-playable UI form catalog. Legacy character selection, shop, choice and free-form tattoo screens were removed.					
 #	Id		FormName	PrefabPath	SortOrder	IsExclusive
 #	int		string	string	int	bool
-#	GF_X numeric row id.	Note
+#	GF_X numeric row id.	Note				
 	1		CombatHUDForm	UI/CombatHUD	0	false
 	6		PauseMenuForm	UI/PauseMenu	20	false
 	7		RunResultForm	UI/RunResult	20	false

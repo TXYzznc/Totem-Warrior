@@ -1,4 +1,4 @@
-#	第一版 Bot 行为预设。纹身构筑由 FirstPlayableBotBuildPlanner 独立处理；此表不再包含旧元素、技能、武器或附魔字段。
+#	第一版 Bot 行为预设。纹身构筑由 FirstPlayableBotBuildPlanner 独立处理；此表不再包含旧元素、技能、武器或附魔字段。				
 #	Id		PresetId	Name	BehaviorMacro
 #	int		int	string	string
 #	GF_X numeric row id.	Note	稳定行为预设 ID。	调试显示名。	Rush / Camp / Pivot / Hybrid。

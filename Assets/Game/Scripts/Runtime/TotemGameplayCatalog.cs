@@ -8,7 +8,6 @@ public sealed class TotemGameplayCatalog
     public int schemaVersion = 1;
     public string source = string.Empty;
     public TotemGameplayCatalogGenerationInfo generation = new TotemGameplayCatalogGenerationInfo();
-    public TotemResourceCatalogEntry[] resources = Array.Empty<TotemResourceCatalogEntry>();
     public TotemMapResourcePickupCatalogEntry[] mapResourcePickups = Array.Empty<TotemMapResourcePickupCatalogEntry>();
     public TotemMapTemplateCatalogEntry[] mapTemplates = Array.Empty<TotemMapTemplateCatalogEntry>();
     public TotemZonePhaseCatalogEntry[] zonePhases = Array.Empty<TotemZonePhaseCatalogEntry>();
@@ -20,7 +19,6 @@ public sealed class TotemGameplayCatalog
     public void Normalize()
     {
         if (generation == null) generation = new TotemGameplayCatalogGenerationInfo();
-        if (resources == null) resources = Array.Empty<TotemResourceCatalogEntry>();
         if (mapResourcePickups == null) mapResourcePickups = Array.Empty<TotemMapResourcePickupCatalogEntry>();
         if (mapTemplates == null) mapTemplates = Array.Empty<TotemMapTemplateCatalogEntry>();
         if (zonePhases == null) zonePhases = Array.Empty<TotemZonePhaseCatalogEntry>();
@@ -28,17 +26,6 @@ public sealed class TotemGameplayCatalog
         if (botProfiles == null) botProfiles = Array.Empty<TotemBotProfileCatalogEntry>();
         if (botBuildPresets == null) botBuildPresets = Array.Empty<TotemBotBuildPresetCatalogEntry>();
         if (aiTuning == null) aiTuning = TotemAITuningDefinition.Default;
-    }
-
-    public TotemResourceDefinition[] CreateResourceDefinitions()
-    {
-        var result = new TotemResourceDefinition[resources.Length];
-        for (int i = 0; i < resources.Length; i++)
-        {
-            result[i] = resources[i].ToDefinition();
-        }
-
-        return result;
     }
 
     public TotemMapResourcePickupDefinition[] CreateMapResourcePickupDefinitions()
@@ -125,7 +112,6 @@ public sealed class TotemGameplayCatalog
                 sourceFileCount = 0,
                 sourceContentHash = "BuildDefault",
             },
-            resources = BuildDefaultResources(),
             mapResourcePickups = BuildDefaultMapResourcePickups(),
             mapTemplates = BuildDefaultMapTemplates(),
             zonePhases = new[]
@@ -140,13 +126,6 @@ public sealed class TotemGameplayCatalog
             botBuildPresets = BuildDefaultBotBuildPresets(),
             aiTuning = TotemAITuningDefinition.Default,
         };
-    }
-
-    private static TotemResourceCatalogEntry[] BuildDefaultResources()
-    {
-        // Tattoo sprite assets are now registered in totem_runtime_assets.json and loaded through
-        // TotemAssetService. ResourceConfig remains empty because it is not the visual asset catalog.
-        return Array.Empty<TotemResourceCatalogEntry>();
     }
 
     private static TotemMapResourcePickupCatalogEntry[] BuildDefaultMapResourcePickups()
@@ -193,7 +172,7 @@ public sealed class TotemGameplayCatalog
     {
         return new[]
         {
-            new TotemMapTemplateCatalogEntry { id = 1, themeName = "OASIS_CITY", mapSize = 400f, minRoomSize = 40f, terrainPoolId = 101, prefabPath = "Assets/Game/Scene/OasisCity.unity", hudAccentColor = "#379091", dominantColor = "#B7824F" },
+            new TotemMapTemplateCatalogEntry { id = 1, themeName = "OASIS_CITY", mapSize = 400f, minRoomSize = 40f, prefabPath = "Assets/Game/Scene/OasisCity.unity", hudAccentColor = "#379091", dominantColor = "#B7824F" },
         };
     }
 
@@ -311,37 +290,12 @@ public sealed class TotemGameplayCatalogGenerationInfo
 }
 
 [Serializable]
-public sealed class TotemResourceCatalogEntry
-{
-    public int id;
-    public string name;
-    public string resourceType;
-    public string loadPath;
-    public string assetKey;
-    public string activeAssetPath;
-
-    public TotemResourceDefinition ToDefinition()
-    {
-        return new TotemResourceDefinition
-        {
-            Id = id,
-            Name = name ?? string.Empty,
-            ResourceType = resourceType ?? string.Empty,
-            LoadPath = loadPath ?? string.Empty,
-            AssetKey = assetKey ?? string.Empty,
-            ActiveAssetPath = activeAssetPath ?? string.Empty,
-        };
-    }
-}
-
-[Serializable]
 public sealed class TotemMapTemplateCatalogEntry
 {
     public int id;
     public string themeName;
     public float mapSize;
     public float minRoomSize;
-    public int terrainPoolId;
     public string prefabPath;
     public string hudAccentColor;
     public string dominantColor;
@@ -354,7 +308,6 @@ public sealed class TotemMapTemplateCatalogEntry
             ThemeName = themeName ?? string.Empty,
             MapSize = mapSize > 0f ? mapSize : TotemMapService.DefaultMapSize,
             MinRoomSize = minRoomSize > 0f ? minRoomSize : 15f,
-            TerrainPoolId = terrainPoolId,
             PrefabPath = prefabPath ?? string.Empty,
             HudAccentColor = hudAccentColor ?? string.Empty,
             DominantColor = dominantColor ?? string.Empty,
@@ -644,7 +597,6 @@ public static class TotemGameplayCatalogValidator
 
         catalog.Normalize();
         Require(catalog.schemaVersion > 0, errors, "schemaVersion must be positive.");
-        Require(ResourcesAreValid(catalog), errors, "ResourceConfig rows must be valid and must not reference retired sprite folders.");
         Require(catalog.mapTemplates.Length == 1, errors, "First playable must define exactly one map template.");
         Require(MapTemplatesAreValid(catalog), errors, "Map templates must define ids, theme names, map size and colors.");
         Require(MapResourcePickupsAreValid(catalog), errors, "Map resource pickups must define unique enabled pigment types with valid amount ranges, weights and rounds.");
@@ -668,42 +620,6 @@ public static class TotemGameplayCatalogValidator
         {
             errors?.Add(message);
         }
-    }
-
-    private static bool ResourcesAreValid(TotemGameplayCatalog catalog)
-    {
-        var ids = new HashSet<int>();
-        for (int i = 0; i < catalog.resources.Length; i++)
-        {
-            var resource = catalog.resources[i];
-            if (resource == null || resource.id <= 0 || !ids.Add(resource.id) ||
-                string.IsNullOrWhiteSpace(resource.name) || string.IsNullOrWhiteSpace(resource.resourceType) ||
-                string.IsNullOrWhiteSpace(resource.loadPath) || string.IsNullOrWhiteSpace(resource.assetKey) ||
-                string.IsNullOrWhiteSpace(resource.activeAssetPath))
-            {
-                return false;
-            }
-
-            if (ReferencesRetiredSpriteFolder(resource.loadPath) || ReferencesRetiredSpriteFolder(resource.activeAssetPath))
-            {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    private static bool ReferencesRetiredSpriteFolder(string assetPath)
-    {
-        if (string.IsNullOrWhiteSpace(assetPath))
-        {
-            return false;
-        }
-
-        return assetPath.StartsWith("Assets/Game/Sprites/Character/", StringComparison.Ordinal) ||
-               assetPath.StartsWith("Assets/Game/Sprites/Characters/", StringComparison.Ordinal) ||
-               assetPath.StartsWith("Assets/Game/Sprites/Environments/", StringComparison.Ordinal) ||
-               assetPath.StartsWith("Assets/Game/Sprites/Recipes/", StringComparison.Ordinal);
     }
 
     private static bool AllDelimitedIdsExist(string value, HashSet<string> ids)

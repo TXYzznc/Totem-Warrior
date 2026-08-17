@@ -56,24 +56,6 @@ public class MapTemplateConfig : DataRowBase
         }
 
         /// <summary>
-        /// 运行时布局最大递归深度。
-        /// </summary>
-        public int BspMaxDepth
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 地块池 ID。
-        /// </summary>
-        public int TerrainPoolId
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
         /// 场景或预制体路径。
         /// </summary>
         public string PrefabPath
@@ -115,8 +97,6 @@ public class MapTemplateConfig : DataRowBase
             ThemeName = columnStrings[index++];
             MapSize = float.Parse(columnStrings[index++]);
             MinRoomSize = float.Parse(columnStrings[index++]);
-            BspMaxDepth = int.Parse(columnStrings[index++]);
-            TerrainPoolId = int.Parse(columnStrings[index++]);
             PrefabPath = columnStrings[index++];
             HudAccentColor = columnStrings[index++];
             DominantColor = columnStrings[index++];
@@ -134,8 +114,6 @@ public class MapTemplateConfig : DataRowBase
                     ThemeName = binaryReader.ReadString();
                     MapSize = binaryReader.ReadSingle();
                     MinRoomSize = binaryReader.ReadSingle();
-                    BspMaxDepth = binaryReader.Read7BitEncodedInt32();
-                    TerrainPoolId = binaryReader.Read7BitEncodedInt32();
                     PrefabPath = binaryReader.ReadString();
                     HudAccentColor = binaryReader.ReadString();
                     DominantColor = binaryReader.ReadString();

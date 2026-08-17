@@ -68,11 +68,6 @@ public static class TotemRuntimeAssetCatalogValidator
     private static readonly string[] RequiredKeys =
     {
         "actor.player",
-        "actor.player.1",
-        "actor.player.2",
-        "actor.player.3",
-        "actor.smartAi",
-        "actor.lightAi",
         TotemFirstPlayableArtHandoff.WeaponKey,
         "effect.attack.hit",
     };

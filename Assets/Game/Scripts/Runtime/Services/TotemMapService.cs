@@ -6,8 +6,6 @@ using UnityEngine.SceneManagement;
 public sealed class TotemMapService : TotemRuntimeServiceBase
 {
     public const float DefaultMapSize = 768f;
-    public const int TerrainCellSize = 4;
-
     private const string GameplaySceneName = "OasisCity";
     private static readonly Vector2 AuthoredWorldMin = new Vector2(-256f, -384f);
     private static readonly Vector2 AuthoredWorldMax = new Vector2(256f, 384f);
@@ -168,14 +166,12 @@ public sealed class TotemMapService : TotemRuntimeServiceBase
             WorldGroundY = 2f,
             SourceSceneName = sourceSceneName ?? GameplaySceneName,
             MinRoomSize = template.MinRoomSize,
-            TerrainPoolId = template.TerrainPoolId,
             PrefabPath = template.PrefabPath,
             HudAccentColor = template.HudAccentColor,
             DominantColor = template.DominantColor,
             InitialZoneCenter = center,
             Rooms = BuildQuadrantRooms(worldMin, worldMax, footprint),
             AnchorPlacements = anchors ?? Array.Empty<TotemMapAnchor>(),
-            GroundCellCount = 1,
         };
     }
 
@@ -390,7 +386,7 @@ public sealed class TotemMapService : TotemRuntimeServiceBase
         return new TotemMapTemplateDefinition
         {
             Id = 1, ThemeName = "OASIS_CITY", MapSize = DefaultMapSize, MinRoomSize = 40f,
-            TerrainPoolId = 101, PrefabPath = "Assets/Game/Scene/OasisCity.unity",
+            PrefabPath = "Assets/Game/Scene/OasisCity.unity",
             HudAccentColor = "#66CCFF", DominantColor = "#3A4858",
         };
     }

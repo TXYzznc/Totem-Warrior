@@ -1176,11 +1176,6 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
         string assetKey = GetActorAssetKey(actor);
         string usedAssetKey = assetKey;
         bool instantiated = TryInstantiateActorObject(usedAssetKey, actor, out var instance);
-        if (!instantiated && actor.Kind == TotemActorKind.Player && !string.Equals(assetKey, "actor.player", StringComparison.Ordinal))
-        {
-            usedAssetKey = "actor.player";
-            instantiated = TryInstantiateActorObject(usedAssetKey, actor, out instance);
-        }
 
         if (instantiated)
         {
@@ -1219,17 +1214,7 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
 
     public static string GetPlayerAssetKey(int characterId)
     {
-        switch (characterId)
-        {
-            case 1:
-                return "actor.player.1";
-            case 2:
-                return "actor.player.2";
-            case 3:
-                return "actor.player.3";
-            default:
-                return "actor.player";
-        }
+        return "actor.player";
     }
 
     private static string GetActorAssetKey(TotemActorModel actor)
@@ -1252,11 +1237,9 @@ public sealed class TotemActorService : TotemRuntimeServiceBase, ITotemRuntimeTi
         switch (kind)
         {
             case TotemActorKind.Player:
-                return "actor.player";
             case TotemActorKind.SmartAi:
-                return "actor.smartAi";
             case TotemActorKind.LightAi:
-                return "actor.lightAi";
+                return "actor.player";
             default:
                 return string.Empty;
         }
