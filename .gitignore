@@ -164,3 +164,6 @@ Assets/Game/Font/Common/SIMHEI SDF.asset
 
 # Local OpenSpec plans, specifications, archives, and generated assets.
 /openspec/
+
+# Local art source/archive assets. Store externally, not in Git.
+/artifacts/
