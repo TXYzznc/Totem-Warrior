@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "com.besty.unity-skills": "file:../OutPackages/Unity-Skills-main/SkillsForUnity",
+    "com.handzlikchris.fastscriptreload": "file:../LocalPackages/FastScriptReload/Assets",
     "com.code-philosophy.hybridclr": "https://gitee.com/focus-creative-games/hybridclr_unity.git",
     "com.code-philosophy.obfuz": "https://gitee.com/focus-creative-games/obfuz.git",
     "com.code-philosophy.obfuz4hybridclr": "https://gitee.com/focus-creative-games/obfuz4hybridclr.git",

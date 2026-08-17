@@ -9,6 +9,12 @@
         "com.unity.timeline": "1.7.7"
       }
     },
+    "com.handzlikchris.fastscriptreload": {
+      "version": "file:../LocalPackages/FastScriptReload/Assets",
+      "depth": 0,
+      "source": "local",
+      "dependencies": {}
+    },
     "com.code-philosophy.hybridclr": {
       "version": "https://gitee.com/focus-creative-games/hybridclr_unity.git",
       "depth": 0,

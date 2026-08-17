@@ -149,6 +149,8 @@ Codex 若没有可调用的 `grill-me` 工具，也必须按该 skill 的反问�
 - 始终用**中文**回答。
 - 优先用简单方案。
 - 改 Unity 业务代码先看 [Assets/Game/Scripts/](./Assets/Game/Scripts/) 既有 conventions；已移除的旧 `Assets/Scripts` 不再作为项目资料来源。
+- Editor Play Mode 内的小范围 C# 方法体迭代可使用 FSR；配置、适用范围和验收见 [Docs/Development/FastScriptReload.md](./Docs/Development/FastScriptReload.md)。结构变更、泛型、字段/序列化、程序集和依赖变更必须停止 Play Mode 后按普通 Unity 编译流程验证。
+- FSR 只用于 Editor Play Mode 开发效率；不启用 `LiveScriptReload_IncludeInBuild_Enabled`，不将其当作已发布 Player 的热更新方案，也不额外安装第二份 FSR。
 - 不在 Update 里做 GC alloc。
 - ScriptableObject 是配置不是数据库。
 - 所有按键输入必须走 `TotemInputService` / `ITotemInputProvider`。

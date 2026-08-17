@@ -31,6 +31,8 @@
 - 运行配置产物：`GameData/AIData/GameplayCatalogs/totem_gameplay_catalog.json`（由 Business AI DataTable 生成）
 - 运行资源索引：`GameData/AIData/GameplayCatalogs/totem_runtime_assets.json`
 - 不保留旧业务 DataTable；当前唯一配置源为 Business AI DataTables
+- Editor Play Mode 内的小范围 C# 方法体迭代可使用 FSR；配置、适用范围和验收见 [Docs/Development/FastScriptReload.md](../Docs/Development/FastScriptReload.md)。字段/序列化、泛型、程序集、依赖和其他结构变更必须停止 Play Mode 后按普通 Unity 编译流程验证。
+- FSR 仅用于 Editor Play Mode；不启用 `LiveScriptReload_IncludeInBuild_Enabled`，不把它作为已发布 Player 的热更新方案，也不额外安装第二份 FSR。
 
 禁止在新工作中恢复或依赖旧运行宿主：`GameApp`、`ModuleRunner`、`EventBus`、`UIModule`、`DataTableModule`、`SaveModule`。不要新建 `Assets/Resources/DataTable`，不要为新玩法运行旧 `DataTableGenerator`。业务配置变更必须同步维护 `GameData/AIData/DataTables/Business/*.json`、`GameData/DataTables/Business/*.xlsx`、对应 C# DataRow 和 `totem_gameplay_catalog.json`，然后跑 GF_X 诊断。
 

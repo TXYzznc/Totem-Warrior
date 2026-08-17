@@ -24,4 +24,8 @@ python .claude/skills/unity-skills/scripts/unity_skills.py totem_diagnostics_run
 python tools/ai_index/build_ai_manifests.py --check
 ```
 
+## 编辑器 Play Mode 热重载
+
+项目内置本地 UPM 形式的 Fast Script Reload（FSR），用于在 Unity Editor 的 Play Mode 中迭代已有 C# 方法体而不退出运行会话。首次使用、日常流程、回调、限制与排查见 [FSR 开发指南](Docs/Development/FastScriptReload.md)。FSR 不用于已发布 Player 的热更新，也不替代 HybridCLR。
+
 生成的测试报告、助手输出、导出包和临时文件均不应提交；规则见 `.gitignore`。
