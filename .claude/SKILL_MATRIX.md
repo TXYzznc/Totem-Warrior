@@ -89,7 +89,7 @@
 - 关键词 hit：`设计 / 架构 / 重构 / 大改 / 重写 / GDD / PRD / 系统 / 范式 / 方案 / 思路`
 - 必须先调用 `grill-me`（或 `grill-with-docs`），输出至少 3 轮关键反问
 - 决策确定后通过 `openspec new change "NN-功能名"` 落地
-- 同步更新 `项目知识库（AI自行维护）/wiki/INDEX.md`
+- 仅在策划结论变化时同步更新 `Docs/GameDesign/目录.md` 及对应权威策划页
 
 未走以上三步给出的方案，视为违规——主对话有义务驳回。
 

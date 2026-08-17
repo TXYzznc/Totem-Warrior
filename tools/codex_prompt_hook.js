@@ -76,7 +76,7 @@ function decisionGateContext(prompt) {
     "检测到「大型决策」关键词。按 Claude 工作流的两阶段 FSM 执行：",
     "阶段 A：先用 grill-me / grill-with-docs 的问题框架多轮反问，直到 5 条全清才能退出：1)目标 2)关键决策(A/B 比较) 3)边界 4)验收标准 5)约束。",
     "阶段 B：挖透后先做任务规模评估；命中 openspec 信号则创建 openspec change，否则走轻量路径。执行期间模糊点按阶段 A 共识自决。",
-    "仅以下情况可中断阶段 B：与阶段 A 共识冲突 / 不可逆变更 / 改动 .claude、openspec、Assets/Scripts/Core 框架核心。",
+    "仅以下情况可中断阶段 B：与阶段 A 共识冲突 / 不可逆变更 / 改动 .claude、openspec、Assets/Game/ScriptsBuiltin 框架核心。",
     "Codex 适配：agent 路由先按 .codex/agents/*.toml 读取对应职责和白名单；若当前 Codex 运行时不能原生调用该 agent，则主对话按该 agent prompt 与 skill 白名单等价执行。",
   ].join("\n");
 }

@@ -25,19 +25,19 @@
 - 当前启动场景：`Assets/Game/Scene/Launch.unity`
 - 当前业务运行时代码：`Assets/Game/Scripts`
 - 已移除旧业务代码；不得恢复旧启动或运行流程
-- 旧美术资源可复用：`Assets/Resources/Prefab`、`Assets/Resources/Sprite` 等只作为资源来源，加载和生命周期必须走 GF_X runtime 服务
+- `Assets/Game` 中现存美术资源均已确认并已导入；缺失资源表示尚未制作。运行时加载和生命周期必须走 GF_X runtime 服务
 - AI 可编辑业务配置源：`GameData/AIData/DataTables/Business/*.json`
 - 策划可读业务配置表：`GameData/DataTables/Business/*.xlsx`
 - 运行配置产物：`GameData/AIData/GameplayCatalogs/totem_gameplay_catalog.json`（由 Business AI DataTable 生成）
 - 运行资源索引：`GameData/AIData/GameplayCatalogs/totem_runtime_assets.json`
 - 不保留旧业务 DataTable；当前唯一配置源为 Business AI DataTables
 
-禁止在新工作中恢复或依赖旧运行宿主：`GameApp`、`ModuleRunner`、`EventBus`、`UIModule`、`DataTableModule`、`SaveModule`。不要新建 `Assets/Resources/DataTable`，不要为新玩法运行旧 `DataTableGenerator`。当前业务配置工作流为：AI 修改 `GameData/AIData/DataTables/Business/*.json` → 逆向生成 `GameData/DataTables/Business/*.xlsx` → 生成/检查 `GameData/AIData/GameplayCatalogs/totem_gameplay_catalog.json` → 跑 GF_X 诊断。
+禁止在新工作中恢复或依赖旧运行宿主：`GameApp`、`ModuleRunner`、`EventBus`、`UIModule`、`DataTableModule`、`SaveModule`。不要新建 `Assets/Resources/DataTable`，不要为新玩法运行旧 `DataTableGenerator`。业务配置变更必须同步维护 `GameData/AIData/DataTables/Business/*.json`、`GameData/DataTables/Business/*.xlsx`、对应 C# DataRow 和 `totem_gameplay_catalog.json`，然后跑 GF_X 诊断。
 
 Unity 诊断优先使用：
 
 ```text
-python .claude/skills/unity-skills/scripts/unity_skills.py totem_diagnostics_run_all --port 8092
+python .claude/skills/unity-skills/scripts/unity_skills.py totem_diagnostics_run_all --port 8090
 ```
 
 人工在 Unity 菜单中复跑时可用 `Game Framework/GameTools/Diagnostics/Run All`；AI 自动验证不要再通过通用 `editor_execute_menu` 路由这个菜单。
@@ -57,7 +57,7 @@ python .claude/skills/unity-skills/scripts/unity_skills.py totem_diagnostics_run
 - 回复尽量简洁，不要加无关的客套话。
 - 优先用简单方案，不要过度工程。
 - 涉及项目代码和业务开发时，必须先遵循本 CLAUDE.md 与 [conventions.md](./conventions.md)。
-- 查找具体系统/问题文档时，先查阅[项目知识库索引 INDEX.md](../项目知识库（AI自行维护）/wiki/INDEX.md)。
+- 查找游戏规则时先读 [Docs/GameDesign/目录.md](../Docs/GameDesign/目录.md)；查工程事实时再读 `GameData/AIData/ProjectManifests/` 和当前代码。
 - 所有按键输入必须走 `TotemInputService` / `ITotemInputProvider`。
 
 ---
@@ -168,7 +168,7 @@ python .claude/skills/unity-skills/scripts/unity_skills.py totem_diagnostics_run
 1. `openspec new change <NN-功能名>` → 写 proposal/design/tasks/specs
 2. 按 tasks.md 顺序实现（client-unity / art-director 等 agent 落地）
 3. 中途遇到模糊点：**优先按阶段 A 的共识自决**，写日志/spec 备注
-4. 完成后 `openspec archive-change <NN-name>` + 同步更新 [项目知识库（AI自行维护）/wiki/INDEX.md](../项目知识库（AI自行维护）/wiki/INDEX.md)
+4. 完成后 `openspec archive-change <NN-name>`；若改变策划结论，再同步更新 [Docs/GameDesign/目录.md](../Docs/GameDesign/目录.md) 及对应权威策划页
 
 #### B2. 轻量路径（跳过 openspec）
 
@@ -481,7 +481,6 @@ GFLogger.Info("TotemDiagnostics", $"Scenario={scenarioName} Success={success} Wa
 | [SKILL_MATRIX.md](./SKILL_MATRIX.md) | agent × skill 白名单 + 兜底规则 |
 | [AGENTS.md](./AGENTS.md) | 多 Agent 协作 5 模式 |
 | [conventions.md](./conventions.md) | 编码规范 |
-| [资源配置规范.md](./资源配置规范.md) | ResourceModule + ResourceConfig |
 | [美术资源规范.md](./美术资源规范.md) | 2D 美术生产侧前置约束：各视觉类别的 Max 尺寸 / 格式 / 文件大小预算（ai-art / codex-image-gen 写提示词时必读，生产即合规） |
 | [skills/SKILLS_INDEX.md](./skills/SKILLS_INDEX.md) | 113 个本地项目 skill 分组索引 |
 | [GAMEPLAY_RUNTIME_SLICE.md](../GAMEPLAY_RUNTIME_SLICE.md) | 当前 GF_X 业务运行时切片与诊断证据 |

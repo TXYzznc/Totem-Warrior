@@ -122,7 +122,7 @@ Codex 若没有可调用的 `grill-me` 工具，也必须按该 skill 的反问�
 
 - **平台**：Unity 2022.3.62f3
 - **版本覆盖**：若旧文档、skill 参考或外部链接写 Unity 6 / 6000.3，只能作为通用思路参考；落地代码、包版本、API 用法必须按 Unity 2022.3.62f3 校验。
-- **GF_X 全量诊断**：AI 自动验证优先运行 `python .claude/skills/unity-skills/scripts/unity_skills.py totem_diagnostics_run_all --port 8092`；`Game Framework/GameTools/Diagnostics/Run All` 只作为人工菜单复跑入口，不要通过通用 `editor_execute_menu` 路由这个菜单。
+- **GF_X 全量诊断**：当前项目 Unity Skills 服务地址为 `http://localhost:8090/`。AI 自动验证优先运行 `python .claude/skills/unity-skills/scripts/unity_skills.py totem_diagnostics_run_all --port 8090`；`Game Framework/GameTools/Diagnostics/Run All` 只作为人工菜单复跑入口，不要通过通用 `editor_execute_menu` 路由这个菜单。
 - **OS**：Windows 10。Claude Code 按原约定使用 bash、路径用 `/`；Codex 桌面当前可能运行在 PowerShell，执行命令时以当前 shell 为准，但输出和文档路径尽量使用 `/` 或明确的绝对路径。
 - **Python**：`.venv/`（frame-ronin MCP），见 [setup.md](./setup.md)
 - **凭据**：复制 [.env.example](./.env.example) 为 `.env` 后填值
