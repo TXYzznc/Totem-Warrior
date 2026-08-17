@@ -115,7 +115,9 @@ internal static class InteractiveObjImportTool
                         issues.Add($"{prefabPath}/{renderer.name}: null material");
                         continue;
                     }
-                    if (material.shader == null || material.shader.name != "Universal Render Pipeline/Lit")
+                    if (material.shader == null ||
+                        (material.shader.name != "Universal Render Pipeline/Lit" &&
+                         material.shader.name != "Game/InteractiveObj/Smoke Navy Glass"))
                     {
                         issues.Add($"{material.name}: wrong shader");
                     }
@@ -149,24 +151,31 @@ internal static class InteractiveObjImportTool
         }
 
         Material glass = AssetDatabase.LoadAssetAtPath<Material>(glassMaterialPath);
-        if (glass == null || glass.shader == null || glass.shader.name != "Universal Render Pipeline/Lit")
+        Shader glassShader = Shader.Find("Game/InteractiveObj/Smoke Navy Glass");
+        if (glass == null || glassShader == null)
         {
-            throw new InvalidOperationException("The gun magazine glass material must use URP Lit.");
+            throw new InvalidOperationException("The Smoke Navy Glass shader was not found.");
         }
 
-        // Transparent navy glass: reuse the baked maps but avoid expensive screen-space refraction.
-        glass.SetFloat("_Surface", 1f);
-        glass.SetFloat("_Blend", 0f);
-        glass.SetFloat("_SrcBlend", 5f); // SrcAlpha
-        glass.SetFloat("_DstBlend", 10f); // OneMinusSrcAlpha
-        glass.SetFloat("_ZWrite", 0f);
-        glass.SetFloat("_AlphaToMask", 0f);
-        glass.SetColor("_BaseColor", new Color(0.045f, 0.118f, 0.175f, 0.52f));
-        glass.SetFloat("_Metallic", 0.08f);
-        glass.SetFloat("_Smoothness", 0.88f);
+        // Smoke-navy crystal: one transparent forward pass, with a procedural internal energy flow.
+        glass.shader = glassShader;
+        glass.SetColor("_BaseColor", new Color(0.035f, 0.115f, 0.175f, 1f));
+        glass.SetFloat("_BumpScale", 0.72f);
+        glass.SetFloat("_Opacity", 0.58f);
+        glass.SetFloat("_EdgeOpacity", 0.84f);
+        glass.SetFloat("_FresnelPower", 3.2f);
+        glass.SetColor("_EdgeColor", new Color(0.18f, 0.62f, 0.82f, 1f));
+        glass.SetFloat("_EdgeIntensity", 0.72f);
+        glass.SetFloat("_Smoothness", 0.86f);
+        glass.SetFloat("_SmokeStrength", 0.34f);
+        glass.SetFloat("_NoiseScale", 32f);
+        glass.SetColor("_FlowColor", new Color(0.03f, 0.72f, 1.1f, 1f));
+        glass.SetFloat("_FlowIntensity", 0.55f);
+        glass.SetFloat("_FlowSpeed", 0.11f);
+        glass.SetFloat("_FlowTiling", 2.2f);
+        glass.SetFloat("_FlowWidth", 0.16f);
+        glass.SetFloat("_FlowDistortion", 0.12f);
         glass.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Transparent;
-        glass.EnableKeyword("_SURFACE_TYPE_TRANSPARENT");
-        glass.DisableKeyword("_ALPHATEST_ON");
         EditorUtility.SetDirty(glass);
 
         GameObject root = PrefabUtility.LoadPrefabContents(prefabPath);
@@ -195,6 +204,65 @@ internal static class InteractiveObjImportTool
 
         AssetDatabase.SaveAssets();
         Debug.Log($"[InteractiveObjImport] Applied navy transparent glass to {rendererName}: {glassMaterialPath}");
+    }
+
+    [MenuItem("GameTools/Art/Apply Gun Matte Finish")]
+    private static void ApplyGunMatteFinish()
+    {
+        const string materialFolder = "Assets/Game/Materials/InteractiveObj/GUN_001";
+        const string prefabPath = "Assets/Game/Prefabs/InteractiveObj/PF_GUN_001.prefab";
+        const int glassPart = 4;
+        int updated = 0;
+
+        foreach (string guid in AssetDatabase.FindAssets("t:Material", new[] { materialFolder }))
+        {
+            string path = AssetDatabase.GUIDToAssetPath(guid);
+            Match match = Regex.Match(Path.GetFileNameWithoutExtension(path), @"MAT_GUN_001_P(\d+)$");
+            if (!match.Success || int.Parse(match.Groups[1].Value) == glassPart)
+            {
+                continue;
+            }
+
+            Material material = AssetDatabase.LoadAssetAtPath<Material>(path);
+            if (material == null)
+            {
+                continue;
+            }
+
+            // The MS texture retains panel-to-panel variation; scalar values cap the overall sheen.
+            bool darkStructuralPart = int.Parse(match.Groups[1].Value) is 0 or 3 or 5 or 6 or 7 or 8 or 9 or 10 or 11 or 12 or 13 or 14;
+            material.shader = Shader.Find("Universal Render Pipeline/Lit");
+            material.SetFloat("_Metallic", darkStructuralPart ? 0.16f : 0.08f);
+            material.SetFloat("_Smoothness", darkStructuralPart ? 0.46f : 0.38f);
+            material.SetFloat("_BumpScale", 0.9f);
+            material.SetFloat("_SpecularHighlights", 1f);
+            material.SetFloat("_EnvironmentReflections", 0.55f);
+            material.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Geometry;
+            EditorUtility.SetDirty(material);
+            updated++;
+        }
+
+        GameObject root = PrefabUtility.LoadPrefabContents(prefabPath);
+        try
+        {
+            Material glass = AssetDatabase.LoadAssetAtPath<Material>(materialFolder + "/MAT_GUN_001_P04_Glass.mat");
+            Transform magazine = root.GetComponentsInChildren<Transform>(true)
+                .FirstOrDefault(transform => transform.name == "FINAL2_GUN_001_tripo_part_4");
+            Renderer renderer = magazine != null ? magazine.GetComponent<Renderer>() : null;
+            if (renderer == null || glass == null)
+            {
+                throw new InvalidOperationException("Gun magazine glass binding could not be preserved.");
+            }
+            renderer.sharedMaterials = Enumerable.Repeat(glass, renderer.sharedMaterials.Length).ToArray();
+            PrefabUtility.SaveAsPrefabAsset(root, prefabPath);
+        }
+        finally
+        {
+            PrefabUtility.UnloadPrefabContents(root);
+        }
+
+        AssetDatabase.SaveAssets();
+        Debug.Log($"[InteractiveObjImport] Applied matte finish to {updated} gun parts; P04 remains smoke-navy glass.");
     }
 
     private static void ConfigureTextureImporters()
@@ -330,6 +398,15 @@ internal static class InteractiveObjImportTool
                 {
                     Debug.LogWarning($"[InteractiveObjImport] Missing material for {assetId}/{renderer.name}, part {part}.");
                     continue;
+                }
+
+                if (assetId == "GUN_001" && part == 4)
+                {
+                    Material glass = AssetDatabase.LoadAssetAtPath<Material>($"{MaterialRoot}/GUN_001/MAT_GUN_001_P04_Glass.mat");
+                    if (glass != null)
+                    {
+                        material = glass;
+                    }
                 }
 
                 Material[] slots = renderer.sharedMaterials;
