@@ -6,7 +6,6 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
-import re
 from collections import OrderedDict
 from dataclasses import dataclass
 from pathlib import Path
@@ -45,19 +44,6 @@ def json_cell(value: Any) -> Any:
     return json.loads(raw)
 
 
-def resource_asset_key(name: str) -> str:
-    normalized = re.sub(r"([a-z0-9])([A-Z])", r"\1_\2", name)
-    return re.sub(r"[^a-z0-9_]+", ".", normalized.lower()).strip(".")
-
-
-def resource_active_asset_path(resource_type: str, load_path: str) -> str:
-    if load_path.startswith("Assets/"):
-        return load_path
-    if resource_type.lower() == "sprite":
-        return f"Assets/Resources/Sprite/{load_path}.png"
-    return f"Assets/Resources/{resource_type}/{load_path}"
-
-
 def weapon_cooldown(row: dict[str, str]) -> float:
     frames = integer(row.get("BaseStartup")) + integer(row.get("BaseActive")) + integer(row.get("BaseRecovery"))
     return 0.35 if frames <= 0 else round(frames / 60.0, 6)
@@ -88,19 +74,11 @@ def simple_fields(*names: str) -> tuple[tuple[str, str, FieldParser], ...]:
 
 
 TABLE_SPECS: tuple[TableSpec, ...] = (
-    TableSpec("ResourceConfig", "resources", "Id", "id", (
-        ("Id", "id", integer),
-        ("Name", "name", text),
-        ("Type", "resourceType", text),
-        ("LoadPath", "loadPath", text),
-    )),
     TableSpec("MapTemplateConfig", "mapTemplates", "Id", "id", (
         ("Id", "id", integer),
         ("ThemeName", "themeName", text),
         ("MapSize", "mapSize", floating),
         ("MinRoomSize", "minRoomSize", floating),
-        ("BspMaxDepth", "bspMaxDepth", integer),
-        ("TerrainPoolId", "terrainPoolId", integer),
         ("PrefabPath", "prefabPath", text),
         ("HudAccentColor", "hudAccentColor", text),
         ("DominantColor", "dominantColor", text),
@@ -171,13 +149,7 @@ def transform_row(spec: TableSpec, values: dict[str, str], seed: dict[str, Any] 
     for source, target, parser in spec.fields:
         row[target] = parser(values.get(source))
 
-    if spec.table_name == "ResourceConfig":
-        name = text(values.get("Name"))
-        resource_type = text(values.get("Type"))
-        load_path = text(values.get("LoadPath"))
-        row["assetKey"] = resource_asset_key(name)
-        row["activeAssetPath"] = resource_active_asset_path(resource_type, load_path)
-    elif spec.table_name == "WeaponConfig":
+    if spec.table_name == "WeaponConfig":
         row["cooldown"] = weapon_cooldown(values)
 
     return row
@@ -252,12 +224,16 @@ def build_catalog(input_dir: Path, seed_path: Path) -> dict[str, Any]:
         "enemies", "enemyAbilities", "encounterSpawns", "enemyLoot", "bossPhases", "chestRewards",
         "weaponDrops", "skills", "npcs", "shopStocks", "merchantSlots", "events", "choiceOptions",
         "tattooParts", "tattooColors", "tattooElements", "tattooPatterns", "tattooShapes", "items",
-        "tattooReadingTimes", "weapons", "projectiles", "weaponTraits",
+        "tattooReadingTimes", "tattooEnchantAffixes", "tattooEnchantRecipes",
+        "weapons", "projectiles", "weaponTraits", "resources",
     ):
         catalog.pop(retired_key, None)
     catalog["source"] = "GameData/AIData/DataTables/Business"
     for spec in TABLE_SPECS:
         apply_table(catalog, input_dir, spec)
+    for row in catalog.get("mapTemplates", []):
+        row.pop("bspMaxDepth", None)
+        row.pop("terrainPoolId", None)
     catalog["botProfiles"] = [
         row for row in catalog.get("botProfiles", [])
         if str(row.get("personality", "")).lower() != "bosspriority"

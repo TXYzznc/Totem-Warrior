@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "generatedBy": "tools/ai_index/build_ai_manifests.py",
+  "testCount": 21,
+  "tests": [
+    "Assets/Game/Tests/EditMode/TotemEffectResolutionQueueTests.cs",
+    "Assets/Game/Tests/EditMode/TotemFirstPlayableContractTests.cs",
+    "Assets/Game/Tests/EditMode/TotemFirstPlayableElementStateTests.cs",
+    "Assets/Game/Tests/EditMode/TotemFirstPlayableExtractionTests.cs",
+    "Assets/Game/Tests/EditMode/TotemFirstPlayableGunTests.cs",
+    "Assets/Game/Tests/EditMode/TotemFirstPlayableMapResourceTests.cs",
+    "Assets/Game/Tests/EditMode/TotemFirstPlayableMatchSettlementTests.cs",
+    "Assets/Game/Tests/EditMode/TotemFirstPlayableParticipantLifeStateTests.cs",
+    "Assets/Game/Tests/EditMode/TotemFirstPlayableSocialStateTests.cs",
+    "Assets/Game/Tests/EditMode/TotemFirstPlayableTattooBuildTests.cs",
+    "Assets/Game/Tests/EditMode/TotemFirstPlayableUiFormattingTests.cs",
+    "Assets/Game/Tests/EditMode/TotemMatchFlowTests.cs",
+    "Assets/Game/Tests/EditMode/TotemTattooPatternTargetResolverTests.cs",
+    "Assets/Game/Tests/EditMode/TotemUnityTestResultPersistenceBridge.cs",
+    "Assets/Game/Tests/PlayMode/TotemBotTwentyRunSmokeTests.cs",
+    "Assets/Game/Tests/PlayMode/TotemCombatHudInputSmokeTests.cs",
+    "Assets/Game/Tests/PlayMode/TotemExtractionFlowSmokeTests.cs",
+    "Assets/Game/Tests/PlayMode/TotemFiveRoundMatchFlowSmokeTests.cs",
+    "Assets/Game/Tests/PlayMode/TotemLaunchReloadLifecycleSmokeTests.cs",
+    "Assets/Game/Tests/PlayMode/TotemMapSpawnSelectionTests.cs",
+    "Assets/Game/Tests/PlayMode/TotemPlayModeTestIsolation.cs"
+  ],
+  "diagnosticScenarioCount": 12,
+  "diagnosticScenarios": [
+    "Assets/Game/Scripts/Editor/Diagnostics/TotemCombatDomainDiagnosticScenario.cs",
+    "Assets/Game/Scripts/Editor/Diagnostics/TotemFirstPlayableContractDiagnosticScenario.cs",
+    "Assets/Game/Scripts/Editor/Diagnostics/TotemFirstPlayableElementStateDiagnosticScenario.cs",
+    "Assets/Game/Scripts/Editor/Diagnostics/TotemFirstPlayableGunDiagnosticScenario.cs",
+    "Assets/Game/Scripts/Editor/Diagnostics/TotemFirstPlayableLifecycleDiagnosticScenario.cs",
+    "Assets/Game/Scripts/Editor/Diagnostics/TotemFirstPlayablePurePvpDiagnosticScenario.cs",
+    "Assets/Game/Scripts/Editor/Diagnostics/TotemFirstPlayableSocialDiagnosticScenario.cs",
+    "Assets/Game/Scripts/Editor/Diagnostics/TotemFirstPlayableTattooBuildDiagnosticScenario.cs",
+    "Assets/Game/Scripts/Editor/Diagnostics/TotemFiveRoundMatchFlowDiagnosticScenario.cs",
+    "Assets/Game/Scripts/Editor/Diagnostics/TotemParticipantReadinessDiagnosticScenario.cs",
+    "Assets/Game/Scripts/Editor/Diagnostics/TotemParticipantRosterDiagnosticScenario.cs",
+    "Assets/Game/Scripts/Editor/Diagnostics/TotemSixPlayerDuoRuntimeDiagnosticScenario.cs"
+  ]
+}

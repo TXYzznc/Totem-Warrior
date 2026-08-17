@@ -130,7 +130,7 @@ namespace UGF.EditorTools
 
             context.Detail("forbidden.uiSpriteSidecarFiles", hits.Count);
             context.Detail("forbidden.uiSpriteSidecarExamples", string.Join(", ", hits.Take(10)));
-            context.Assert(hits.Count == 0, "UI sprite assets should contain art assets only. Move README/log/json sidecars to 项目知识库（AI自行维护）/raw.");
+            context.Assert(hits.Count == 0, "UI sprite folders must contain art assets only. Delete generated sidecars or move archival evidence under artifacts/archive.");
         }
 
         private static void ForbidRuntimeResidues(GFDiagnosticScenarioContext context)

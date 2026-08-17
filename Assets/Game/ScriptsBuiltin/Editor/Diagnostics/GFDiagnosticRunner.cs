@@ -15,7 +15,7 @@ namespace UGF.EditorTools
         private const string ReportAction = "gf-diagnostics-run-all";
         private const string SnapshotAction = "gf-diagnostics-snapshot";
         private const string ResourceRuleEditorAsset = "Assets/Plugins/UnityGameFramework/Configs/ResourceRuleEditor.asset";
-        private const int ExpectedBusinessDataTableCount = 7;
+        private const int ExpectedBusinessDataTableCount = 6;
 
         [MenuItem("Game Framework/GameTools/Diagnostics/Run All", false, 1021)]
         public static void RunAllFromMenu()

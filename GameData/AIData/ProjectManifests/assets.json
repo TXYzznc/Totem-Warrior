@@ -1,0 +1,1624 @@
+{
+  "schemaVersion": 1,
+  "generatedBy": "tools/ai_index/build_ai_manifests.py",
+  "sourceRoot": "Assets/Game",
+  "assetPolicy": "Every existing art asset under Assets/Game is approved and imported; absent required art has not been made.",
+  "count": 323,
+  "assets": [
+    {
+      "path": "Assets/Game/Font/Common/AlibabaPuHuiTi-3-85-Bold-Title SDF.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Font/Common/AlibabaPuHuiTi-3-85-Bold.ttf",
+      "extension": ".ttf",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Font/Common/AlibabaSansJP.ttf",
+      "extension": ".ttf",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Font/Common/AlibabaSansKR.ttf",
+      "extension": ".ttf",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Font/Common/SIMHEI.TTF",
+      "extension": ".ttf",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/Common/UIHighLight.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/Common/UIMaskBg.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/Common/UIMasked.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/Environment/OasisCity/Blockout/CB_Entrance_Green.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/Environment/OasisCity/Blockout/CB_Function_Blue.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/Environment/OasisCity/Blockout/CB_Interaction_Cyan.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/Environment/OasisCity/Blockout/CB_Restricted_Red.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/Environment/OasisCity/Blockout/CB_Structure_Gray.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/Environment/OasisCity/Blockout/CB_Walkable_Sand.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/Environment/OasisCity/Buildings/Common/M_Oasis_MAT_BF_ENT.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/Environment/OasisCity/Buildings/Common/M_Oasis_MAT_BF_FLOOR.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/Environment/OasisCity/Buildings/Common/M_Oasis_MAT_BF_FUNC.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/Environment/OasisCity/Buildings/Common/M_Oasis_MAT_BF_METAL.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/Environment/OasisCity/Buildings/Common/M_Oasis_MAT_BF_RESTRICT.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/Environment/OasisCity/Buildings/Common/M_Oasis_MAT_BF_STR.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/Environment/OasisCity/Decorations/M_Oasis_DE01.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/Environment/OasisCity/Decorations/M_Oasis_DE01_v1.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/Environment/OasisCity/Decorations/M_Oasis_DE01_v2.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/Environment/OasisCity/Decorations/M_Oasis_DE02.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/Environment/OasisCity/Decorations/M_Oasis_DE02_v1.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/Environment/OasisCity/Decorations/M_Oasis_DE02_v2.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/Environment/OasisCity/Decorations/M_Oasis_DE031.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/Environment/OasisCity/Decorations/M_Oasis_DE032.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/Environment/OasisCity/Decorations/M_Oasis_DE04.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/Environment/OasisCity/Decorations/M_Oasis_DE04_v1.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/Environment/OasisCity/Decorations/M_Oasis_DE04_v2.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/Environment/OasisCity/Decorations/M_Oasis_DE051.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/Environment/OasisCity/Decorations/M_Oasis_DE052.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/Environment/OasisCity/Decorations/M_Oasis_DE06.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/Environment/OasisCity/Decorations/M_Oasis_DE06_v1.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/Environment/OasisCity/Decorations/M_Oasis_DE06_v2.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/Environment/OasisCity/Decorations/M_Oasis_DE07.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/Environment/OasisCity/Decorations/M_Oasis_DE07_v1.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/Environment/OasisCity/Decorations/M_Oasis_DE07_v2.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/Environment/OasisCity/Decorations/M_Oasis_DE08.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/Environment/OasisCity/Decorations/M_Oasis_DE08_v1.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/Environment/OasisCity/Decorations/M_Oasis_DE08_v2.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/Environment/OasisCity/Decorations/M_Oasis_DE09.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/Environment/OasisCity/Decorations/M_Oasis_DE09_v1.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/Environment/OasisCity/Decorations/M_Oasis_DE09_v2.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/Environment/OasisCity/Decorations/M_Oasis_DE10.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/Environment/OasisCity/Decorations/M_Oasis_DE10_v1.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/Environment/OasisCity/Decorations/M_Oasis_DE10_v2.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/Environment/OasisCity/Decorations/M_Oasis_DE111.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/Environment/OasisCity/Decorations/M_Oasis_DE112.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/Environment/OasisCity/Decorations/M_Oasis_DE12.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/Environment/OasisCity/SceneData/MAT_Oasis_Bridge.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/Environment/OasisCity/SceneData/MAT_Oasis_Placeholder.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/Environment/OasisCity/SceneData/MAT_Oasis_Review.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/Environment/OasisCity/SceneData/MAT_Oasis_Road.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/Environment/OasisCity/SceneData/MAT_Oasis_Sand.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/Environment/OasisCity/SceneData/MAT_Oasis_Wall.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/Environment/OasisCity/SceneData/MAT_Oasis_Water.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/InteractiveObj/GUN_001/MAT_GUN_001_P00.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/InteractiveObj/GUN_001/MAT_GUN_001_P01.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/InteractiveObj/GUN_001/MAT_GUN_001_P02.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/InteractiveObj/GUN_001/MAT_GUN_001_P03.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/InteractiveObj/GUN_001/MAT_GUN_001_P04.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/InteractiveObj/GUN_001/MAT_GUN_001_P04_Glass.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/InteractiveObj/GUN_001/MAT_GUN_001_P05.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/InteractiveObj/GUN_001/MAT_GUN_001_P06.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/InteractiveObj/GUN_001/MAT_GUN_001_P07.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/InteractiveObj/GUN_001/MAT_GUN_001_P08.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/InteractiveObj/GUN_001/MAT_GUN_001_P09.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/InteractiveObj/GUN_001/MAT_GUN_001_P10.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/InteractiveObj/GUN_001/MAT_GUN_001_P11.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/InteractiveObj/GUN_001/MAT_GUN_001_P12.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/InteractiveObj/GUN_001/MAT_GUN_001_P13.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/InteractiveObj/GUN_001/MAT_GUN_001_P14.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/InteractiveObj/INT_PROP_001/MAT_INT_PROP_001_P00.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/InteractiveObj/INT_PROP_001/MAT_INT_PROP_001_P01.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/InteractiveObj/INT_PROP_001/MAT_INT_PROP_001_P02.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/InteractiveObj/INT_PROP_001/MAT_INT_PROP_001_P03.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/InteractiveObj/INT_PROP_001/MAT_INT_PROP_001_P04.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/InteractiveObj/INT_PROP_001/MAT_INT_PROP_001_P11.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/InteractiveObj/INT_PROP_001/MAT_INT_PROP_001_P18.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/InteractiveObj/INT_PROP_002/MAT_INT_PROP_002_P01.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/InteractiveObj/INT_PROP_002/MAT_INT_PROP_002_P02.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/InteractiveObj/INT_PROP_002/MAT_INT_PROP_002_P03.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/InteractiveObj/INT_PROP_002/MAT_INT_PROP_002_P05.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/InteractiveObj/INT_PROP_002/MAT_INT_PROP_002_P08.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/InteractiveObj/INT_PROP_002/MAT_INT_PROP_002_P10.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/InteractiveObj/INT_PROP_003/MAT_INT_PROP_003_P05.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/InteractiveObj/INT_PROP_003/MAT_INT_PROP_003_P12.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/InteractiveObj/INT_PROP_003/MAT_INT_PROP_003_P18.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/InteractiveObj/INT_PROP_003/MAT_INT_PROP_003_P30.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/InteractiveObj/INT_PROP_003/MAT_INT_PROP_003_P40.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/InteractiveObj/INT_PROP_004/MAT_INT_PROP_004_P00.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/InteractiveObj/INT_PROP_004/MAT_INT_PROP_004_P03.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/InteractiveObj/INT_PROP_004/MAT_INT_PROP_004_P04.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/InteractiveObj/INT_PROP_004/MAT_INT_PROP_004_P06.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/InteractiveObj/INT_PROP_005/MAT_INT_PROP_005_P00.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/InteractiveObj/INT_PROP_005/MAT_INT_PROP_005_P01.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/InteractiveObj/INT_PROP_005/MAT_INT_PROP_005_P02.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/InteractiveObj/INT_PROP_005/MAT_INT_PROP_005_P03.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/InteractiveObj/INT_PROP_005/MAT_INT_PROP_005_P04.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/InteractiveObj/INT_PROP_005/MAT_INT_PROP_005_P05.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/InteractiveObj/INT_PROP_005/MAT_INT_PROP_005_P06.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/InteractiveObj/INT_PROP_005/MAT_INT_PROP_005_P07.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/InteractiveObj/INT_PROP_006/MAT_INT_PROP_006_P00.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/InteractiveObj/INT_PROP_006/MAT_INT_PROP_006_P06.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/InteractiveObj/INT_PROP_006/MAT_INT_PROP_006_P10.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/InteractiveObj/INT_PROP_006/MAT_INT_PROP_006_P11.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/InteractiveObj/INT_PROP_006/MAT_INT_PROP_006_P15.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/InteractiveObj/INT_PROP_006/MAT_INT_PROP_006_P19.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/InteractiveObj/INT_PROP_006/MAT_INT_PROP_006_P22.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/InteractiveObj/INT_PROP_007/MAT_INT_PROP_007_P01.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/InteractiveObj/INT_PROP_007/MAT_INT_PROP_007_P05.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/InteractiveObj/INT_PROP_007/MAT_INT_PROP_007_P06.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/InteractiveObj/INT_PROP_007/MAT_INT_PROP_007_P10.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/InteractiveObj/INT_PROP_007/MAT_INT_PROP_007_P15.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/InteractiveObj/INT_PROP_008/MAT_INT_PROP_008_P00.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/InteractiveObj/INT_PROP_008/MAT_INT_PROP_008_P07.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/InteractiveObj/INT_PROP_009/MAT_INT_PROP_009_P00.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/InteractiveObj/INT_PROP_010/MAT_INT_PROP_010_P00.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/InteractiveObj/INT_PROP_010/MAT_INT_PROP_010_P01.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/InteractiveObj/INT_PROP_010/MAT_INT_PROP_010_P03.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/InteractiveObj/INT_PROP_010/MAT_INT_PROP_010_P04.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/InteractiveObj/INT_PROP_010/MAT_INT_PROP_010_P07.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/InteractiveObj/INT_PROP_010/MAT_INT_PROP_010_P09.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/InteractiveObj/INT_PROP_010/MAT_INT_PROP_010_P10.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/InteractiveObj/INT_PROP_010/MAT_INT_PROP_010_P12.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/InteractiveObj/INT_PROP_010/MAT_INT_PROP_010_P13.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/InteractiveObj/INT_PROP_011/MAT_INT_PROP_011_P00.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/InteractiveObj/INT_PROP_011/MAT_INT_PROP_011_P01.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/InteractiveObj/INT_PROP_011/MAT_INT_PROP_011_P02.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/InteractiveObj/INT_PROP_011/MAT_INT_PROP_011_P05.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Materials/InteractiveObj/INT_PROP_012/MAT_INT_PROP_012_P00.mat",
+      "extension": ".mat",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Models/Environment/OasisCity/Buildings/SM_Oasis_BF01.fbx",
+      "extension": ".fbx",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Models/Environment/OasisCity/Buildings/SM_Oasis_BF02.fbx",
+      "extension": ".fbx",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Models/Environment/OasisCity/Buildings/SM_Oasis_BF03.fbx",
+      "extension": ".fbx",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Models/Environment/OasisCity/Buildings/SM_Oasis_BF04.fbx",
+      "extension": ".fbx",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Models/Environment/OasisCity/Buildings/SM_Oasis_BF05.fbx",
+      "extension": ".fbx",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Models/Environment/OasisCity/Buildings/SM_Oasis_BF06.fbx",
+      "extension": ".fbx",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Models/Environment/OasisCity/Buildings/SM_Oasis_BF07.fbx",
+      "extension": ".fbx",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Models/Environment/OasisCity/Buildings/SM_Oasis_BF08.fbx",
+      "extension": ".fbx",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Models/Environment/OasisCity/Buildings/SM_Oasis_BF09.fbx",
+      "extension": ".fbx",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Models/Environment/OasisCity/Buildings/SM_Oasis_BF10.fbx",
+      "extension": ".fbx",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Models/Environment/OasisCity/Buildings/SM_Oasis_BF11.fbx",
+      "extension": ".fbx",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Models/Environment/OasisCity/Buildings/SM_Oasis_BF12.fbx",
+      "extension": ".fbx",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Models/Environment/OasisCity/Buildings/SM_Oasis_BF13.fbx",
+      "extension": ".fbx",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Models/Environment/OasisCity/Buildings/SM_Oasis_BF14.fbx",
+      "extension": ".fbx",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Models/Environment/OasisCity/Buildings/SM_Oasis_BF15.fbx",
+      "extension": ".fbx",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Models/Environment/OasisCity/Buildings/SM_Oasis_BF16.fbx",
+      "extension": ".fbx",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Models/Environment/OasisCity/Buildings/SM_Oasis_BF17.fbx",
+      "extension": ".fbx",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Models/Environment/OasisCity/Buildings/SM_Oasis_BF18.fbx",
+      "extension": ".fbx",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Models/Environment/OasisCity/Buildings/SM_Oasis_BF19.fbx",
+      "extension": ".fbx",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Models/Environment/OasisCity/Buildings/SM_Oasis_BF20.fbx",
+      "extension": ".fbx",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Models/Environment/OasisCity/Buildings/SM_Oasis_BF21.fbx",
+      "extension": ".fbx",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Models/Environment/OasisCity/Buildings/SM_Oasis_BF22.fbx",
+      "extension": ".fbx",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Models/Environment/OasisCity/Buildings/SM_Oasis_BF23.fbx",
+      "extension": ".fbx",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Models/Environment/OasisCity/Buildings/SM_Oasis_BF24.fbx",
+      "extension": ".fbx",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Models/Environment/OasisCity/Decorations/SM_Oasis_DE01.fbx",
+      "extension": ".fbx",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Models/Environment/OasisCity/Decorations/SM_Oasis_DE01_v1.fbx",
+      "extension": ".fbx",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Models/Environment/OasisCity/Decorations/SM_Oasis_DE01_v2.fbx",
+      "extension": ".fbx",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Models/Environment/OasisCity/Decorations/SM_Oasis_DE02.fbx",
+      "extension": ".fbx",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Models/Environment/OasisCity/Decorations/SM_Oasis_DE02_v1.fbx",
+      "extension": ".fbx",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Models/Environment/OasisCity/Decorations/SM_Oasis_DE02_v2.fbx",
+      "extension": ".fbx",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Models/Environment/OasisCity/Decorations/SM_Oasis_DE031.fbx",
+      "extension": ".fbx",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Models/Environment/OasisCity/Decorations/SM_Oasis_DE032.fbx",
+      "extension": ".fbx",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Models/Environment/OasisCity/Decorations/SM_Oasis_DE04.fbx",
+      "extension": ".fbx",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Models/Environment/OasisCity/Decorations/SM_Oasis_DE04_v1.fbx",
+      "extension": ".fbx",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Models/Environment/OasisCity/Decorations/SM_Oasis_DE04_v2.fbx",
+      "extension": ".fbx",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Models/Environment/OasisCity/Decorations/SM_Oasis_DE051.fbx",
+      "extension": ".fbx",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Models/Environment/OasisCity/Decorations/SM_Oasis_DE052.fbx",
+      "extension": ".fbx",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Models/Environment/OasisCity/Decorations/SM_Oasis_DE06.fbx",
+      "extension": ".fbx",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Models/Environment/OasisCity/Decorations/SM_Oasis_DE06_v1.fbx",
+      "extension": ".fbx",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Models/Environment/OasisCity/Decorations/SM_Oasis_DE06_v2.fbx",
+      "extension": ".fbx",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Models/Environment/OasisCity/Decorations/SM_Oasis_DE07.fbx",
+      "extension": ".fbx",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Models/Environment/OasisCity/Decorations/SM_Oasis_DE07_v1.fbx",
+      "extension": ".fbx",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Models/Environment/OasisCity/Decorations/SM_Oasis_DE07_v2.fbx",
+      "extension": ".fbx",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Models/Environment/OasisCity/Decorations/SM_Oasis_DE08.fbx",
+      "extension": ".fbx",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Models/Environment/OasisCity/Decorations/SM_Oasis_DE08_v1.fbx",
+      "extension": ".fbx",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Models/Environment/OasisCity/Decorations/SM_Oasis_DE08_v2.fbx",
+      "extension": ".fbx",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Models/Environment/OasisCity/Decorations/SM_Oasis_DE09.fbx",
+      "extension": ".fbx",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Models/Environment/OasisCity/Decorations/SM_Oasis_DE09_v1.fbx",
+      "extension": ".fbx",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Models/Environment/OasisCity/Decorations/SM_Oasis_DE09_v2.fbx",
+      "extension": ".fbx",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Models/Environment/OasisCity/Decorations/SM_Oasis_DE10.fbx",
+      "extension": ".fbx",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Models/Environment/OasisCity/Decorations/SM_Oasis_DE10_v1.fbx",
+      "extension": ".fbx",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Models/Environment/OasisCity/Decorations/SM_Oasis_DE10_v2.fbx",
+      "extension": ".fbx",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Models/Environment/OasisCity/Decorations/SM_Oasis_DE111.fbx",
+      "extension": ".fbx",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Models/Environment/OasisCity/Decorations/SM_Oasis_DE112.fbx",
+      "extension": ".fbx",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Models/Environment/OasisCity/Decorations/SM_Oasis_DE12.fbx",
+      "extension": ".fbx",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Models/InteractiveObj/SM_GUN_001.fbx",
+      "extension": ".fbx",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Models/InteractiveObj/SM_INT_PROP_001.fbx",
+      "extension": ".fbx",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Models/InteractiveObj/SM_INT_PROP_002.fbx",
+      "extension": ".fbx",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Models/InteractiveObj/SM_INT_PROP_003.fbx",
+      "extension": ".fbx",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Models/InteractiveObj/SM_INT_PROP_004.fbx",
+      "extension": ".fbx",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Models/InteractiveObj/SM_INT_PROP_005.fbx",
+      "extension": ".fbx",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Models/InteractiveObj/SM_INT_PROP_006.fbx",
+      "extension": ".fbx",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Models/InteractiveObj/SM_INT_PROP_007.fbx",
+      "extension": ".fbx",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Models/InteractiveObj/SM_INT_PROP_008.fbx",
+      "extension": ".fbx",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Models/InteractiveObj/SM_INT_PROP_009.fbx",
+      "extension": ".fbx",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Models/InteractiveObj/SM_INT_PROP_010.fbx",
+      "extension": ".fbx",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Models/InteractiveObj/SM_INT_PROP_011.fbx",
+      "extension": ".fbx",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Models/InteractiveObj/SM_INT_PROP_012.fbx",
+      "extension": ".fbx",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Prefabs/Core/GFExtension.prefab",
+      "extension": ".prefab",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Prefabs/Environment/OasisCity/Buildings/PF_Oasis_BF01.prefab",
+      "extension": ".prefab",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Prefabs/Environment/OasisCity/Buildings/PF_Oasis_BF02.prefab",
+      "extension": ".prefab",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Prefabs/Environment/OasisCity/Buildings/PF_Oasis_BF03.prefab",
+      "extension": ".prefab",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Prefabs/Environment/OasisCity/Buildings/PF_Oasis_BF04.prefab",
+      "extension": ".prefab",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Prefabs/Environment/OasisCity/Buildings/PF_Oasis_BF05.prefab",
+      "extension": ".prefab",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Prefabs/Environment/OasisCity/Buildings/PF_Oasis_BF06.prefab",
+      "extension": ".prefab",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Prefabs/Environment/OasisCity/Buildings/PF_Oasis_BF07.prefab",
+      "extension": ".prefab",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Prefabs/Environment/OasisCity/Buildings/PF_Oasis_BF08.prefab",
+      "extension": ".prefab",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Prefabs/Environment/OasisCity/Buildings/PF_Oasis_BF09.prefab",
+      "extension": ".prefab",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Prefabs/Environment/OasisCity/Buildings/PF_Oasis_BF10.prefab",
+      "extension": ".prefab",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Prefabs/Environment/OasisCity/Buildings/PF_Oasis_BF11.prefab",
+      "extension": ".prefab",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Prefabs/Environment/OasisCity/Buildings/PF_Oasis_BF12.prefab",
+      "extension": ".prefab",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Prefabs/Environment/OasisCity/Buildings/PF_Oasis_BF13.prefab",
+      "extension": ".prefab",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Prefabs/Environment/OasisCity/Buildings/PF_Oasis_BF14.prefab",
+      "extension": ".prefab",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Prefabs/Environment/OasisCity/Buildings/PF_Oasis_BF15.prefab",
+      "extension": ".prefab",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Prefabs/Environment/OasisCity/Buildings/PF_Oasis_BF16.prefab",
+      "extension": ".prefab",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Prefabs/Environment/OasisCity/Buildings/PF_Oasis_BF17.prefab",
+      "extension": ".prefab",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Prefabs/Environment/OasisCity/Buildings/PF_Oasis_BF18.prefab",
+      "extension": ".prefab",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Prefabs/Environment/OasisCity/Buildings/PF_Oasis_BF19.prefab",
+      "extension": ".prefab",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Prefabs/Environment/OasisCity/Buildings/PF_Oasis_BF20.prefab",
+      "extension": ".prefab",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Prefabs/Environment/OasisCity/Buildings/PF_Oasis_BF21.prefab",
+      "extension": ".prefab",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Prefabs/Environment/OasisCity/Buildings/PF_Oasis_BF22.prefab",
+      "extension": ".prefab",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Prefabs/Environment/OasisCity/Buildings/PF_Oasis_BF23.prefab",
+      "extension": ".prefab",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Prefabs/Environment/OasisCity/Buildings/PF_Oasis_BF24.prefab",
+      "extension": ".prefab",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Prefabs/Environment/OasisCity/Decorations/PF_Oasis_DE01.prefab",
+      "extension": ".prefab",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Prefabs/Environment/OasisCity/Decorations/PF_Oasis_DE01_v1.prefab",
+      "extension": ".prefab",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Prefabs/Environment/OasisCity/Decorations/PF_Oasis_DE01_v2.prefab",
+      "extension": ".prefab",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Prefabs/Environment/OasisCity/Decorations/PF_Oasis_DE02.prefab",
+      "extension": ".prefab",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Prefabs/Environment/OasisCity/Decorations/PF_Oasis_DE02_v1.prefab",
+      "extension": ".prefab",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Prefabs/Environment/OasisCity/Decorations/PF_Oasis_DE02_v2.prefab",
+      "extension": ".prefab",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Prefabs/Environment/OasisCity/Decorations/PF_Oasis_DE031.prefab",
+      "extension": ".prefab",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Prefabs/Environment/OasisCity/Decorations/PF_Oasis_DE032.prefab",
+      "extension": ".prefab",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Prefabs/Environment/OasisCity/Decorations/PF_Oasis_DE04.prefab",
+      "extension": ".prefab",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Prefabs/Environment/OasisCity/Decorations/PF_Oasis_DE04_v1.prefab",
+      "extension": ".prefab",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Prefabs/Environment/OasisCity/Decorations/PF_Oasis_DE04_v2.prefab",
+      "extension": ".prefab",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Prefabs/Environment/OasisCity/Decorations/PF_Oasis_DE051.prefab",
+      "extension": ".prefab",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Prefabs/Environment/OasisCity/Decorations/PF_Oasis_DE052.prefab",
+      "extension": ".prefab",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Prefabs/Environment/OasisCity/Decorations/PF_Oasis_DE06.prefab",
+      "extension": ".prefab",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Prefabs/Environment/OasisCity/Decorations/PF_Oasis_DE06_v1.prefab",
+      "extension": ".prefab",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Prefabs/Environment/OasisCity/Decorations/PF_Oasis_DE06_v2.prefab",
+      "extension": ".prefab",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Prefabs/Environment/OasisCity/Decorations/PF_Oasis_DE07.prefab",
+      "extension": ".prefab",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Prefabs/Environment/OasisCity/Decorations/PF_Oasis_DE07_v1.prefab",
+      "extension": ".prefab",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Prefabs/Environment/OasisCity/Decorations/PF_Oasis_DE07_v2.prefab",
+      "extension": ".prefab",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Prefabs/Environment/OasisCity/Decorations/PF_Oasis_DE08.prefab",
+      "extension": ".prefab",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Prefabs/Environment/OasisCity/Decorations/PF_Oasis_DE08_v1.prefab",
+      "extension": ".prefab",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Prefabs/Environment/OasisCity/Decorations/PF_Oasis_DE08_v2.prefab",
+      "extension": ".prefab",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Prefabs/Environment/OasisCity/Decorations/PF_Oasis_DE09.prefab",
+      "extension": ".prefab",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Prefabs/Environment/OasisCity/Decorations/PF_Oasis_DE09_v1.prefab",
+      "extension": ".prefab",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Prefabs/Environment/OasisCity/Decorations/PF_Oasis_DE09_v2.prefab",
+      "extension": ".prefab",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Prefabs/Environment/OasisCity/Decorations/PF_Oasis_DE10.prefab",
+      "extension": ".prefab",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Prefabs/Environment/OasisCity/Decorations/PF_Oasis_DE10_v1.prefab",
+      "extension": ".prefab",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Prefabs/Environment/OasisCity/Decorations/PF_Oasis_DE10_v2.prefab",
+      "extension": ".prefab",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Prefabs/Environment/OasisCity/Decorations/PF_Oasis_DE111.prefab",
+      "extension": ".prefab",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Prefabs/Environment/OasisCity/Decorations/PF_Oasis_DE112.prefab",
+      "extension": ".prefab",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Prefabs/Environment/OasisCity/Decorations/PF_Oasis_DE12.prefab",
+      "extension": ".prefab",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Prefabs/InteractiveObj/PF_GUN_001.prefab",
+      "extension": ".prefab",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Prefabs/InteractiveObj/PF_INT_PROP_001.prefab",
+      "extension": ".prefab",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Prefabs/InteractiveObj/PF_INT_PROP_002.prefab",
+      "extension": ".prefab",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Prefabs/InteractiveObj/PF_INT_PROP_003.prefab",
+      "extension": ".prefab",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Prefabs/InteractiveObj/PF_INT_PROP_004.prefab",
+      "extension": ".prefab",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Prefabs/InteractiveObj/PF_INT_PROP_005.prefab",
+      "extension": ".prefab",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Prefabs/InteractiveObj/PF_INT_PROP_006.prefab",
+      "extension": ".prefab",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Prefabs/InteractiveObj/PF_INT_PROP_007.prefab",
+      "extension": ".prefab",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Prefabs/InteractiveObj/PF_INT_PROP_008.prefab",
+      "extension": ".prefab",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Prefabs/InteractiveObj/PF_INT_PROP_009.prefab",
+      "extension": ".prefab",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Prefabs/InteractiveObj/PF_INT_PROP_010.prefab",
+      "extension": ".prefab",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Prefabs/InteractiveObj/PF_INT_PROP_011.prefab",
+      "extension": ".prefab",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Prefabs/InteractiveObj/PF_INT_PROP_012.prefab",
+      "extension": ".prefab",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Prefabs/UI/CombatHUD.prefab",
+      "extension": ".prefab",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Prefabs/UI/MainMenu.prefab",
+      "extension": ".prefab",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Prefabs/UI/PauseMenu.prefab",
+      "extension": ".prefab",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Prefabs/UI/RunResult.prefab",
+      "extension": ".prefab",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Prefabs/UI/Settings.prefab",
+      "extension": ".prefab",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Shaders/FirstPlayable/UI/TotemFirstPlayableUIFocus.shader",
+      "extension": ".shader",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Shaders/FirstPlayable/VFX/TotemFirstPlayableProceduralShape.shader",
+      "extension": ".shader",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Shaders/FirstPlayable/VFX/TotemFirstPlayableProceduralTrail.shader",
+      "extension": ".shader",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Shaders/InteractiveObj/SmokeNavyGlass.shader",
+      "extension": ".shader",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Shaders/TotemVisualDestruction.shader",
+      "extension": ".shader",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Shaders/TotemVisualDestructionParticles.shader",
+      "extension": ".shader",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Sprites/Tattoo/P01.png",
+      "extension": ".png",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Sprites/Tattoo/P02.png",
+      "extension": ".png",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Sprites/Tattoo/P03.png",
+      "extension": ".png",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Sprites/Tattoo/P04.png",
+      "extension": ".png",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Sprites/Tattoo/P05.png",
+      "extension": ".png",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Sprites/Tattoo/P06.png",
+      "extension": ".png",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Sprites/Tattoo/P07.png",
+      "extension": ".png",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Sprites/Tattoo/P08.png",
+      "extension": ".png",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Sprites/UI/FirstPlayable/backgrounds/T_UI_FP_MainMenu_Background_Oasis_v02.png",
+      "extension": ".png",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Sprites/UI/FirstPlayable/buttons/UI_FP_Button_Disabled_512x96.png",
+      "extension": ".png",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Sprites/UI/FirstPlayable/buttons/UI_FP_Button_Focused_512x96.png",
+      "extension": ".png",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Sprites/UI/FirstPlayable/buttons/UI_FP_Button_Normal_512x96.png",
+      "extension": ".png",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Sprites/UI/FirstPlayable/buttons/UI_FP_Button_Pressed_512x96.png",
+      "extension": ".png",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Sprites/UI/FirstPlayable/hud/UI_FP_DangerFrame_512.png",
+      "extension": ".png",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Sprites/UI/FirstPlayable/hud/UI_FP_HitConfirm_Weakpoint_128.png",
+      "extension": ".png",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Sprites/UI/FirstPlayable/hud/UI_FP_Reticle_Default_128.png",
+      "extension": ".png",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Sprites/UI/FirstPlayable/icons/ICO_FP_Build_Slots.png",
+      "extension": ".png",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Sprites/UI/FirstPlayable/icons/ICO_FP_Combat_Weakpoint.png",
+      "extension": ".png",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Sprites/UI/FirstPlayable/icons/ICO_FP_Element_Fire.png",
+      "extension": ".png",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Sprites/UI/FirstPlayable/icons/ICO_FP_Element_Ice.png",
+      "extension": ".png",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Sprites/UI/FirstPlayable/icons/ICO_FP_Element_Lightning.png",
+      "extension": ".png",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Sprites/UI/FirstPlayable/icons/ICO_FP_Reaction_HeatShock.png",
+      "extension": ".png",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Sprites/UI/FirstPlayable/icons/ICO_FP_Reaction_Overload.png",
+      "extension": ".png",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Sprites/UI/FirstPlayable/icons/ICO_FP_Reaction_Stasis.png",
+      "extension": ".png",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Sprites/UI/FirstPlayable/icons/ICO_FP_Request_Pigment.png",
+      "extension": ".png",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Sprites/UI/FirstPlayable/icons/ICO_FP_State_Downed.png",
+      "extension": ".png",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Sprites/UI/FirstPlayable/icons/ICO_FP_State_Health.png",
+      "extension": ".png",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Sprites/UI/FirstPlayable/icons/ICO_FP_State_Rescue.png",
+      "extension": ".png",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Sprites/UI/FirstPlayable/icons/ICO_FP_State_Shield.png",
+      "extension": ".png",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Sprites/UI/FirstPlayable/icons/ICO_FP_State_Warning.png",
+      "extension": ".png",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Sprites/UI/FirstPlayable/icons/ICO_FP_Tattoo_P01.png",
+      "extension": ".png",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Sprites/UI/FirstPlayable/icons/ICO_FP_Tattoo_P02.png",
+      "extension": ".png",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Sprites/UI/FirstPlayable/icons/ICO_FP_Team_Duo.png",
+      "extension": ".png",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Sprites/UI/FirstPlayable/icons/ICO_FP_Weapon_Ammo.png",
+      "extension": ".png",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Sprites/UI/FirstPlayable/icons/UI_FP_IconAtlas_512.png",
+      "extension": ".png",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Sprites/UI/FirstPlayable/panels/UI_FP_Panel_Light_128.png",
+      "extension": ".png",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Sprites/UI/FirstPlayable/panels/UI_FP_Panel_Primary_128.png",
+      "extension": ".png",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Sprites/UI/FirstPlayable/panels/UI_FP_Panel_Secondary_128.png",
+      "extension": ".png",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Textures/FirstPlayable/VFX/T_FP_VFX_CoreRamp_256x16.png",
+      "extension": ".png",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Textures/FirstPlayable/VFX/T_FP_VFX_Dither4x4_64.png",
+      "extension": ".png",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Textures/FirstPlayable/VFX/T_FP_VFX_Noise_256.png",
+      "extension": ".png",
+      "approved": true
+    },
+    {
+      "path": "Assets/Game/Textures/FirstPlayable/VFX/T_FP_VFX_ShapeAtlas_512x256.png",
+      "extension": ".png",
+      "approved": true
+    }
+  ]
+}

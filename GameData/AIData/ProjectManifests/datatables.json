@@ -1,0 +1,114 @@
+{
+  "schemaVersion": 1,
+  "generatedBy": "tools/ai_index/build_ai_manifests.py",
+  "sourceRoot": "GameData/AIData/DataTables/Business",
+  "count": 6,
+  "tables": [
+    {
+      "tableName": "BotBuildPreset",
+      "path": "GameData/AIData/DataTables/Business/BotBuildPreset.json",
+      "sourceExcel": "GameData/DataTables/Business/BotBuildPreset.xlsx",
+      "rowCount": 7,
+      "columns": [
+        "#",
+        "Id",
+        "PresetId",
+        "Name",
+        "BehaviorMacro"
+      ]
+    },
+    {
+      "tableName": "BotConfig",
+      "path": "GameData/AIData/DataTables/Business/BotConfig.json",
+      "sourceExcel": "GameData/DataTables/Business/BotConfig.xlsx",
+      "rowCount": 6,
+      "columns": [
+        "#",
+        "Id",
+        "BotId",
+        "Type",
+        "DisplayName",
+        "RethinkInterval",
+        "AttackCooldown",
+        "VisionRadius",
+        "AggroRadius",
+        "DodgeReactionMs",
+        "Confidence",
+        "PreferredPreset",
+        "LootGreedFactor",
+        "Personality",
+        "TargetPlayerWeight",
+        "TargetHumanoidAiWeight",
+        "TargetResourceWeight",
+        "RiskTolerance"
+      ]
+    },
+    {
+      "tableName": "MapResourcePickupConfig",
+      "path": "GameData/AIData/DataTables/Business/MapResourcePickupConfig.json",
+      "sourceExcel": "GameData/DataTables/Business/MapResourcePickupConfig.xlsx",
+      "rowCount": 9,
+      "columns": [
+        "#",
+        "Id",
+        "PickupId",
+        "Category",
+        "ResourceId",
+        "Element",
+        "MinAmount",
+        "MaxAmount",
+        "Weight",
+        "MinRound",
+        "MaxRound",
+        "AssetKey",
+        "Enabled"
+      ]
+    },
+    {
+      "tableName": "MapTemplateConfig",
+      "path": "GameData/AIData/DataTables/Business/MapTemplateConfig.json",
+      "sourceExcel": "GameData/DataTables/Business/MapTemplateConfig.xlsx",
+      "rowCount": 1,
+      "columns": [
+        "#",
+        "Id",
+        "ThemeName",
+        "MapSize",
+        "MinRoomSize",
+        "PrefabPath",
+        "HudAccentColor",
+        "DominantColor"
+      ]
+    },
+    {
+      "tableName": "UIFormConfig",
+      "path": "GameData/AIData/DataTables/Business/UIFormConfig.json",
+      "sourceExcel": "GameData/DataTables/Business/UIFormConfig.xlsx",
+      "rowCount": 5,
+      "columns": [
+        "#",
+        "Id",
+        "FormName",
+        "PrefabPath",
+        "SortOrder",
+        "IsExclusive"
+      ]
+    },
+    {
+      "tableName": "ZoneShrinkConfig",
+      "path": "GameData/AIData/DataTables/Business/ZoneShrinkConfig.json",
+      "sourceExcel": "GameData/DataTables/Business/ZoneShrinkConfig.xlsx",
+      "rowCount": 4,
+      "columns": [
+        "#",
+        "Id",
+        "PhaseName",
+        "StartTime",
+        "Duration",
+        "TargetRadius",
+        "OutZoneDamage",
+        "CenterOffsetMode"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,233 @@
+{
+  "schemaVersion": 1,
+  "generatedBy": "tools/ai_index/build_ai_manifests.py",
+  "designAuthority": "Docs/GameDesign/目录.md",
+  "count": 11,
+  "modules": [
+    {
+      "name": "Common",
+      "path": "Assets/Game/Scripts/Common",
+      "scriptCount": 6,
+      "scripts": [
+        "Assets/Game/Scripts/Common/Const.cs",
+        "Assets/Game/Scripts/Common/Core/Const.Groups.cs",
+        "Assets/Game/Scripts/Common/DOTweenSequence.cs",
+        "Assets/Game/Scripts/Common/FlowLayoutGroup.cs",
+        "Assets/Game/Scripts/Common/LocalizationTextMesh.cs",
+        "Assets/Game/Scripts/Common/RefParams.cs"
+      ]
+    },
+    {
+      "name": "DataTable",
+      "path": "Assets/Game/Scripts/DataTable",
+      "scriptCount": 11,
+      "scripts": [
+        "Assets/Game/Scripts/DataTable/Business/BotBuildPreset.cs",
+        "Assets/Game/Scripts/DataTable/Business/BotConfig.cs",
+        "Assets/Game/Scripts/DataTable/Business/MapResourcePickupConfig.cs",
+        "Assets/Game/Scripts/DataTable/Business/MapTemplateConfig.cs",
+        "Assets/Game/Scripts/DataTable/Business/UIFormConfig.cs",
+        "Assets/Game/Scripts/DataTable/Business/ZoneShrinkConfig.cs",
+        "Assets/Game/Scripts/DataTable/Core/EntityGroupTable.cs",
+        "Assets/Game/Scripts/DataTable/Core/LanguagesTable.cs",
+        "Assets/Game/Scripts/DataTable/Core/SoundGroupTable.cs",
+        "Assets/Game/Scripts/DataTable/Core/UIGroupTable.cs",
+        "Assets/Game/Scripts/DataTable/Core/UITable.cs"
+      ]
+    },
+    {
+      "name": "Editor",
+      "path": "Assets/Game/Scripts/Editor",
+      "scriptCount": 12,
+      "scripts": [
+        "Assets/Game/Scripts/Editor/Diagnostics/TotemCombatDomainDiagnosticScenario.cs",
+        "Assets/Game/Scripts/Editor/Diagnostics/TotemFirstPlayableContractDiagnosticScenario.cs",
+        "Assets/Game/Scripts/Editor/Diagnostics/TotemFirstPlayableElementStateDiagnosticScenario.cs",
+        "Assets/Game/Scripts/Editor/Diagnostics/TotemFirstPlayableGunDiagnosticScenario.cs",
+        "Assets/Game/Scripts/Editor/Diagnostics/TotemFirstPlayableLifecycleDiagnosticScenario.cs",
+        "Assets/Game/Scripts/Editor/Diagnostics/TotemFirstPlayablePurePvpDiagnosticScenario.cs",
+        "Assets/Game/Scripts/Editor/Diagnostics/TotemFirstPlayableSocialDiagnosticScenario.cs",
+        "Assets/Game/Scripts/Editor/Diagnostics/TotemFirstPlayableTattooBuildDiagnosticScenario.cs",
+        "Assets/Game/Scripts/Editor/Diagnostics/TotemFiveRoundMatchFlowDiagnosticScenario.cs",
+        "Assets/Game/Scripts/Editor/Diagnostics/TotemParticipantReadinessDiagnosticScenario.cs",
+        "Assets/Game/Scripts/Editor/Diagnostics/TotemParticipantRosterDiagnosticScenario.cs",
+        "Assets/Game/Scripts/Editor/Diagnostics/TotemSixPlayerDuoRuntimeDiagnosticScenario.cs"
+      ]
+    },
+    {
+      "name": "Entity",
+      "path": "Assets/Game/Scripts/Entity",
+      "scriptCount": 4,
+      "scripts": [
+        "Assets/Game/Scripts/Entity/Core/EntityBase.cs",
+        "Assets/Game/Scripts/Entity/Core/EntityParams.cs",
+        "Assets/Game/Scripts/Entity/ParticleEntity.cs",
+        "Assets/Game/Scripts/Entity/SampleEntity.cs"
+      ]
+    },
+    {
+      "name": "EventArgs",
+      "path": "Assets/Game/Scripts/EventArgs",
+      "scriptCount": 1,
+      "scripts": [
+        "Assets/Game/Scripts/EventArgs/GFEventArgs.cs"
+      ]
+    },
+    {
+      "name": "Extension",
+      "path": "Assets/Game/Scripts/Extension",
+      "scriptCount": 26,
+      "scripts": [
+        "Assets/Game/Scripts/Extension/Animation/AnimationExtension.cs",
+        "Assets/Game/Scripts/Extension/AwaitExtension/AwaitExtension.cs",
+        "Assets/Game/Scripts/Extension/AwaitExtension/AwaitParams.cs",
+        "Assets/Game/Scripts/Extension/AwaitExtension/DownloadResult.cs",
+        "Assets/Game/Scripts/Extension/AwaitExtension/WebRequestResult.cs",
+        "Assets/Game/Scripts/Extension/ConfigExtension.cs",
+        "Assets/Game/Scripts/Extension/DOTweenExtension.cs",
+        "Assets/Game/Scripts/Extension/DataModel/DataModelBase.cs",
+        "Assets/Game/Scripts/Extension/DataModel/DataModelComponent.cs",
+        "Assets/Game/Scripts/Extension/DataModel/DataModelStorageBase.cs",
+        "Assets/Game/Scripts/Extension/DataModel/TypeIdPair.cs",
+        "Assets/Game/Scripts/Extension/DataTableExtension.cs",
+        "Assets/Game/Scripts/Extension/EntityExtension.cs",
+        "Assets/Game/Scripts/Extension/GF.cs",
+        "Assets/Game/Scripts/Extension/LocalizationExtension.cs",
+        "Assets/Game/Scripts/Extension/ResourceExtension.cs",
+        "Assets/Game/Scripts/Extension/SettingExtension.cs",
+        "Assets/Game/Scripts/Extension/SoundExtension.cs",
+        "Assets/Game/Scripts/Extension/StaticUIComponent.cs",
+        "Assets/Game/Scripts/Extension/TransformExtension.cs",
+        "Assets/Game/Scripts/Extension/UIExtension.cs",
+        "Assets/Game/Scripts/Extension/UtilityEx.cs",
+        "Assets/Game/Scripts/Extension/Variable/VarAction.cs",
+        "Assets/Game/Scripts/Extension/Variable/VarFloat.cs",
+        "Assets/Game/Scripts/Extension/Variable/VarVector3Array.cs",
+        "Assets/Game/Scripts/Extension/VariablePool/VariablePoolComponent.cs"
+      ]
+    },
+    {
+      "name": "Network",
+      "path": "Assets/Game/Scripts/Network",
+      "scriptCount": 12,
+      "scripts": [
+        "Assets/Game/Scripts/Network/CSPacketBase.cs",
+        "Assets/Game/Scripts/Network/CSPacketHeader.cs",
+        "Assets/Game/Scripts/Network/NetworkChannelHelper.cs",
+        "Assets/Game/Scripts/Network/Packet/CSHeartBeat.cs",
+        "Assets/Game/Scripts/Network/Packet/SCHeartBeat.cs",
+        "Assets/Game/Scripts/Network/PacketBase.cs",
+        "Assets/Game/Scripts/Network/PacketHandler/SCHeartBeatHandler.cs",
+        "Assets/Game/Scripts/Network/PacketHandlerBase.cs",
+        "Assets/Game/Scripts/Network/PacketHeaderBase.cs",
+        "Assets/Game/Scripts/Network/PacketType.cs",
+        "Assets/Game/Scripts/Network/SCPacketBase.cs",
+        "Assets/Game/Scripts/Network/SCPacketHeader.cs"
+      ]
+    },
+    {
+      "name": "Procedures",
+      "path": "Assets/Game/Scripts/Procedures",
+      "scriptCount": 4,
+      "scripts": [
+        "Assets/Game/Scripts/Procedures/ChangeSceneProcedure.cs",
+        "Assets/Game/Scripts/Procedures/PreloadProcedure.cs",
+        "Assets/Game/Scripts/Procedures/TotemGameProcedure.cs",
+        "Assets/Game/Scripts/Procedures/WorkspaceProcedure.cs"
+      ]
+    },
+    {
+      "name": "Runtime",
+      "path": "Assets/Game/Scripts/Runtime",
+      "scriptCount": 58,
+      "scripts": [
+        "Assets/Game/Scripts/Runtime/FirstPlayable/TotemEffectResolutionQueue.cs",
+        "Assets/Game/Scripts/Runtime/FirstPlayable/TotemFirstPlayableAssetContracts.cs",
+        "Assets/Game/Scripts/Runtime/FirstPlayable/TotemFirstPlayableCombatContracts.cs",
+        "Assets/Game/Scripts/Runtime/FirstPlayable/TotemFirstPlayableElementState.cs",
+        "Assets/Game/Scripts/Runtime/FirstPlayable/TotemFirstPlayableExtraction.cs",
+        "Assets/Game/Scripts/Runtime/FirstPlayable/TotemFirstPlayableMapResources.cs",
+        "Assets/Game/Scripts/Runtime/FirstPlayable/TotemFirstPlayableMatchContracts.cs",
+        "Assets/Game/Scripts/Runtime/FirstPlayable/TotemFirstPlayableMatchSettlement.cs",
+        "Assets/Game/Scripts/Runtime/FirstPlayable/TotemFirstPlayableParticipantLifeState.cs",
+        "Assets/Game/Scripts/Runtime/FirstPlayable/TotemFirstPlayableResultEvidence.cs",
+        "Assets/Game/Scripts/Runtime/FirstPlayable/TotemFirstPlayableSocialContracts.cs",
+        "Assets/Game/Scripts/Runtime/FirstPlayable/TotemFirstPlayableSocialState.cs",
+        "Assets/Game/Scripts/Runtime/FirstPlayable/TotemFirstPlayableTattooBuild.cs",
+        "Assets/Game/Scripts/Runtime/FirstPlayable/TotemFirstPlayableUiText.cs",
+        "Assets/Game/Scripts/Runtime/FirstPlayable/TotemHitRegionMarker.cs",
+        "Assets/Game/Scripts/Runtime/Services/ITotemRuntimeService.cs",
+        "Assets/Game/Scripts/Runtime/Services/TotemAIService.cs",
+        "Assets/Game/Scripts/Runtime/Services/TotemActorService.cs",
+        "Assets/Game/Scripts/Runtime/Services/TotemAssetService.cs",
+        "Assets/Game/Scripts/Runtime/Services/TotemAudioService.cs",
+        "Assets/Game/Scripts/Runtime/Services/TotemCameraService.cs",
+        "Assets/Game/Scripts/Runtime/Services/TotemCombatRelationshipService.cs",
+        "Assets/Game/Scripts/Runtime/Services/TotemCombatService.cs",
+        "Assets/Game/Scripts/Runtime/Services/TotemDataService.cs",
+        "Assets/Game/Scripts/Runtime/Services/TotemEffectResolutionService.cs",
+        "Assets/Game/Scripts/Runtime/Services/TotemExtractionService.cs",
+        "Assets/Game/Scripts/Runtime/Services/TotemFirstPlayableElementService.cs",
+        "Assets/Game/Scripts/Runtime/Services/TotemFirstPlayableLifecycleService.cs",
+        "Assets/Game/Scripts/Runtime/Services/TotemFirstPlayableSocialService.cs",
+        "Assets/Game/Scripts/Runtime/Services/TotemFirstPlayableTattooBuildService.cs",
+        "Assets/Game/Scripts/Runtime/Services/TotemGameFlowService.cs",
+        "Assets/Game/Scripts/Runtime/Services/TotemInputService.cs",
+        "Assets/Game/Scripts/Runtime/Services/TotemInteractionService.cs",
+        "Assets/Game/Scripts/Runtime/Services/TotemMapResourceService.cs",
+        "Assets/Game/Scripts/Runtime/Services/TotemMapService.cs",
+        "Assets/Game/Scripts/Runtime/Services/TotemMatchClockService.cs",
+        "Assets/Game/Scripts/Runtime/Services/TotemMatchFlowService.cs",
+        "Assets/Game/Scripts/Runtime/Services/TotemMetaProgressService.cs",
+        "Assets/Game/Scripts/Runtime/Services/TotemParticipantReadinessService.cs",
+        "Assets/Game/Scripts/Runtime/Services/TotemRunStatsService.cs",
+        "Assets/Game/Scripts/Runtime/Services/TotemRuntimeServiceBase.cs",
+        "Assets/Game/Scripts/Runtime/Services/TotemSettingsService.cs",
+        "Assets/Game/Scripts/Runtime/Services/TotemStatusService.cs",
+        "Assets/Game/Scripts/Runtime/Services/TotemUIService.cs",
+        "Assets/Game/Scripts/Runtime/Services/TotemVfxService.cs",
+        "Assets/Game/Scripts/Runtime/Services/TotemWeaponService.cs",
+        "Assets/Game/Scripts/Runtime/Services/TotemZoneService.cs",
+        "Assets/Game/Scripts/Runtime/TotemActorVisualHelper.cs",
+        "Assets/Game/Scripts/Runtime/TotemCombatDomain.cs",
+        "Assets/Game/Scripts/Runtime/TotemExtendedGameplayModels.cs",
+        "Assets/Game/Scripts/Runtime/TotemGameRuntime.cs",
+        "Assets/Game/Scripts/Runtime/TotemGameplayCatalog.cs",
+        "Assets/Game/Scripts/Runtime/TotemGameplayModels.cs",
+        "Assets/Game/Scripts/Runtime/TotemGameplaySceneLoader.cs",
+        "Assets/Game/Scripts/Runtime/TotemMapAnchorAuthoring.cs",
+        "Assets/Game/Scripts/Runtime/TotemMapSceneAuthoring.cs",
+        "Assets/Game/Scripts/Runtime/TotemRuntimeAssetCatalog.cs",
+        "Assets/Game/Scripts/Runtime/VisualDestruction/TotemVisualDestruction.cs"
+      ]
+    },
+    {
+      "name": "ScriptableObject",
+      "path": "Assets/Game/Scripts/ScriptableObject",
+      "scriptCount": 1,
+      "scripts": [
+        "Assets/Game/Scripts/ScriptableObject/AppConfigs.cs"
+      ]
+    },
+    {
+      "name": "UI",
+      "path": "Assets/Game/Scripts/UI",
+      "scriptCount": 13,
+      "scripts": [
+        "Assets/Game/Scripts/UI/Core/UIFormBase.cs",
+        "Assets/Game/Scripts/UI/Core/UIItemBase.cs",
+        "Assets/Game/Scripts/UI/Core/UIItemObject.cs",
+        "Assets/Game/Scripts/UI/Core/UIParams.cs",
+        "Assets/Game/Scripts/UI/Core/UIViews.cs",
+        "Assets/Game/Scripts/UI/TotemCombatHUDForm.cs",
+        "Assets/Game/Scripts/UI/TotemFirstPlayableHudPresenter.cs",
+        "Assets/Game/Scripts/UI/TotemMainMenuForm.cs",
+        "Assets/Game/Scripts/UI/TotemOverlayFormBase.cs",
+        "Assets/Game/Scripts/UI/TotemPauseMenuForm.cs",
+        "Assets/Game/Scripts/UI/TotemRunResultForm.cs",
+        "Assets/Game/Scripts/UI/TotemSettingsForm.cs",
+        "Assets/Game/Scripts/UI/TotemUIFormBase.cs"
+      ]
+    }
+  ]
+}
