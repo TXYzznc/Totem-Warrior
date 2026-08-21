@@ -113,6 +113,52 @@ public sealed class FirstPlayableCoreDomainContractTests
         Assert.That(snapshot.TimesDowned, Is.EqualTo(0));
     }
 
+    [Test]
+    public void TattooCatalog_ContainsOnlyConfirmedPatternsAndIndependentCooldowns()
+    {
+        TattooEffectDefinition p01RightArm;
+        TattooEffectDefinition p02RightArm;
+        TattooEffectDefinition ignored;
+
+        Assert.That(TattooEffectCatalog.TryGet(TattooPatternId.P01, TattooBodyPart.RightArm, out p01RightArm), Is.True);
+        Assert.That(TattooEffectCatalog.TryGet(TattooPatternId.P02, TattooBodyPart.RightArm, out p02RightArm), Is.True);
+        Assert.That(p01RightArm.CooldownSeconds, Is.EqualTo(2.5f));
+        Assert.That(p02RightArm.CooldownSeconds, Is.EqualTo(6f));
+        Assert.That(TattooEffectCatalog.TryGet((TattooPatternId)3, TattooBodyPart.Head, out ignored), Is.False);
+    }
+
+    [Test]
+    public void TattooBuild_ReplacementIsAtomicAndUsesTenSixEconomy()
+    {
+        TattooBuildState build = TattooBuildState.CreateEmpty(10, 10, 0);
+        TattooBuildMutationResult equipped = build.TryEquip(MatchPhase.OpeningBuild, TattooBodyPart.Head, TattooPatternId.P01, ElementType.Fire);
+        TattooBuildMutationResult replaced = equipped.State.TryEquip(MatchPhase.OpeningBuild, TattooBodyPart.Head, TattooPatternId.P02, ElementType.Ice);
+        TattooBuildMutationResult rejected = replaced.State.TryEquip(MatchPhase.Round1Combat, TattooBodyPart.Head, TattooPatternId.P01, ElementType.Fire);
+
+        Assert.That(equipped.IsSuccess, Is.True);
+        Assert.That(replaced.IsSuccess, Is.True);
+        Assert.That(replaced.State.GetPigment(ElementType.Fire), Is.EqualTo(6));
+        Assert.That(replaced.State.GetPigment(ElementType.Ice), Is.EqualTo(0));
+        Assert.That(rejected.IsSuccess, Is.False);
+        Assert.That(rejected.State.GetSlot(TattooBodyPart.Head).Pattern, Is.EqualTo(TattooPatternId.P02));
+    }
+
+    [Test]
+    public void TattooCooldown_IsPerBodyPartAndRefreshesAtCombatStart()
+    {
+        TattooBuildState build = TattooBuildState.CreateEmpty(20, 0, 0);
+        build = build.TryEquip(MatchPhase.OpeningBuild, TattooBodyPart.LeftArm, TattooPatternId.P01, ElementType.Fire).State;
+        build = build.TryEquip(MatchPhase.OpeningBuild, TattooBodyPart.RightArm, TattooPatternId.P01, ElementType.Fire).State;
+        var cooldowns = new TattooCooldownState();
+
+        Assert.That(cooldowns.TryStart(build, TattooBodyPart.LeftArm), Is.True);
+        Assert.That(cooldowns.TryStart(build, TattooBodyPart.RightArm), Is.True);
+        Assert.That(cooldowns.GetRemaining(TattooBodyPart.LeftArm), Is.EqualTo(10f));
+        Assert.That(cooldowns.GetRemaining(TattooBodyPart.RightArm), Is.EqualTo(2.5f));
+        cooldowns.RefreshForCombatStart(build);
+        Assert.That(cooldowns.GetRemaining(TattooBodyPart.LeftArm), Is.EqualTo(0f));
+    }
+
     private static ParticipantRoster CreateRoster()
     {
         ParticipantRoster roster;
