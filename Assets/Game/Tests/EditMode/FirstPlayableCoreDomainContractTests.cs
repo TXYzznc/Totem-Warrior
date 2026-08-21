@@ -159,6 +159,48 @@ public sealed class FirstPlayableCoreDomainContractTests
         Assert.That(cooldowns.GetRemaining(TattooBodyPart.LeftArm), Is.EqualTo(0f));
     }
 
+    [Test]
+    public void Elements_SameTypeStacksFifoAndRefreshesDecay()
+    {
+        var first = new ParticipantId(1);
+        var second = new ParticipantId(3);
+        ElementAttachment attachment = default(ElementAttachment);
+        attachment = attachment.Apply(ElementType.Fire, first, 10).Attachment;
+        attachment = attachment.Apply(ElementType.Fire, second, 11).Attachment;
+        attachment = attachment.Apply(ElementType.Fire, first, 12).Attachment;
+        ElementAttachment refreshed = attachment.Apply(ElementType.Fire, second, 13).Attachment;
+
+        Assert.That(refreshed.Strength, Is.EqualTo(ElementStrength.Strong));
+        Assert.That(refreshed.GetLayerSource(0).ParticipantId, Is.EqualTo(first));
+        Assert.That(refreshed.RemainingToDecaySeconds, Is.EqualTo(ElementAttachment.DecayIntervalSeconds));
+        Assert.That(refreshed.AdvanceTime(3f).Strength, Is.EqualTo(ElementStrength.Standard));
+    }
+
+    [Test]
+    public void Elements_DifferentTypeConsumesOldestLayerAndCreatesTerminalReaction()
+    {
+        var source = new ParticipantId(1);
+        var trigger = new ParticipantId(3);
+        ElementAttachment attachment = default(ElementAttachment);
+        attachment = attachment.Apply(ElementType.Fire, source, 1).Attachment;
+        ElementApplicationResult result = attachment.Apply(ElementType.Ice, trigger, 2);
+
+        Assert.That(result.HasReaction, Is.True);
+        Assert.That(result.Reaction.Definition.Type, Is.EqualTo(ElementReactionType.ThermalShock));
+        Assert.That(result.Reaction.TriggerParticipantId, Is.EqualTo(trigger));
+        Assert.That(result.Reaction.AssistingLayer.ParticipantId, Is.EqualTo(source));
+        Assert.That(result.Attachment.HasElement, Is.False);
+    }
+
+    [Test]
+    public void Elements_ExposeConfirmedTraitBaselines()
+    {
+        Assert.That(ElementReactionRules.GetTrait(ElementType.Lightning), Is.EqualTo(ElementTraitKind.LightningDischarge));
+        Assert.That(ElementReactionRules.GetTraitStrength(ElementType.Fire, ElementStrength.Strong), Is.EqualTo(1.5f));
+        Assert.That(ElementReactionRules.GetTraitStrength(ElementType.Ice, ElementStrength.Standard), Is.EqualTo(0.20f));
+        Assert.That(ElementReactionRules.Get(ElementType.Fire, ElementType.Lightning).RadiusMeters, Is.EqualTo(3f));
+    }
+
     private static ParticipantRoster CreateRoster()
     {
         ParticipantRoster roster;
