@@ -2,11 +2,24 @@
 
 public sealed class TotemPauseMenuForm : TotemOverlayFormBase
 {
+    [SerializeField] private TMPro.TMP_Text statusText;
+    [SerializeField] private UnityEngine.UI.Button resumeButton;
+    [SerializeField] private UnityEngine.UI.Button settingsButton;
+    [SerializeField] private UnityEngine.UI.Button mainMenuButton;
+
+    protected override void OnInit(object userData)
+    {
+        base.OnInit(userData);
+        statusText ??= FindChildComponent<TMPro.TMP_Text>("Txt_PauseStatus");
+        resumeButton = BindButton(resumeButton, "Btn_Resume", OnClickClose);
+        settingsButton = BindButton(settingsButton, "Btn_PauseSettings", OnSettingsClicked);
+        mainMenuButton = BindButton(mainMenuButton, "Btn_ReturnMainMenu", OnReturnToMainMenuClicked);
+    }
     protected override void OnOpen(object userData)
     {
         base.OnOpen(userData);
         Time.timeScale = 0f;
-        BuildView();
+        statusText?.SetText(FormatStatus(CombatService?.CaptureCombatSnapshot()));
         GFTrace.Success("TotemUI", "PauseMenu.Open");
     }
 
@@ -14,15 +27,6 @@ public sealed class TotemPauseMenuForm : TotemOverlayFormBase
     {
         Time.timeScale = 1f;
         base.OnClose(isShutdown, userData);
-    }
-
-    private void BuildView()
-    {
-        var panel = RebuildPanel("Paused", new Vector2(440f, 330f));
-        AddText(panel, "Status", FormatStatus(CombatService?.CaptureCombatSnapshot()), 16, TextAnchor.MiddleCenter, 46f);
-        AddButton(panel, "ResumeButton", "Resume", OnClickClose);
-        AddButton(panel, "SettingsButton", "Settings", OnSettingsClicked);
-        AddButton(panel, "MainMenuButton", "Return To Main Menu", OnReturnToMainMenuClicked);
     }
 
     private void OnSettingsClicked()
@@ -40,9 +44,9 @@ public sealed class TotemPauseMenuForm : TotemOverlayFormBase
     {
         if (snapshot == null)
         {
-            return "Combat paused";
+            return "战斗已暂停";
         }
 
-        return $"HP {snapshot.playerHealth:F0}  Alive {snapshot.aliveParticipantCount}  Eliminations {snapshot.killCount}";
+        return $"生命 {snapshot.playerHealth:F0} · 存活 {snapshot.aliveParticipantCount} · 淘汰 {snapshot.killCount}";
     }
 }

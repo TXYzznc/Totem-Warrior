@@ -4,8 +4,8 @@
   "tableName": "UIFormConfig",
   "relativePath": "Business/UIFormConfig",
   "sourceExcel": "GameData/DataTables/Business/UIFormConfig.xlsx",
-  "sourceExcelLastWriteUtc": "2026-08-17T06:53:25.1248911Z",
-  "generatedAtUtc": "2026-08-17T06:53:25.3293914Z",
+  "sourceExcelLastWriteUtc": "2026-08-18T09:28:19.1504053Z",
+  "generatedAtUtc": "2026-08-18T09:28:19.4169055Z",
   "tableComment": "First-playable UI form catalog. Legacy character selection, shop, choice and free-form tattoo screens were removed.",
   "columns": [
     {

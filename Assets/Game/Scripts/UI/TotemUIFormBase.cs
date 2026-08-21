@@ -35,8 +35,6 @@ public abstract class TotemUIFormBase : UIFormBase
 
     protected TotemInteractionService InteractionService => Runtime?.GetService<TotemInteractionService>();
 
-    protected TotemMetaProgressService MetaProgressService => Runtime?.GetService<TotemMetaProgressService>();
-
     protected TotemMapService MapService => Runtime?.GetService<TotemMapService>();
 
     protected T FindChildComponent<T>(string childName) where T : Component

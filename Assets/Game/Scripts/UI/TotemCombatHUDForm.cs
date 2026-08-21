@@ -21,9 +21,12 @@ public sealed class TotemCombatHUDForm : TotemUIFormBase
     [SerializeField] private Image weaponIcon;
     [SerializeField] private Component ammoText;
     [SerializeField] private Component zoneTimerText;
+    [SerializeField] private Component tattooSummaryText;
+    [SerializeField] private Component elementStateText;
     [SerializeField] private Transform logListRoot;
     [SerializeField] private TMP_Text logRowTemplate;
     [SerializeField] private RawImage minimapImage;
+    [SerializeField] private TMP_FontAsset firstPlayableFont;
 
     private readonly WaitForSeconds refreshWait = new WaitForSeconds(RefreshIntervalSeconds);
     private readonly List<TMP_Text> logRows = new List<TMP_Text>(MaxLogRows);
@@ -67,14 +70,24 @@ public sealed class TotemCombatHUDForm : TotemUIFormBase
             zoneTimerText = FindChildComponent<Text>("ZoneTimerText");
         }
 
+        if (tattooSummaryText == null)
+        {
+            tattooSummaryText = FindChildComponent<TMPro.TMP_Text>("Txt_TattooSummary");
+        }
+
+        if (elementStateText == null)
+        {
+            elementStateText = FindChildComponent<TMPro.TMP_Text>("Txt_ElementState");
+        }
+
         if (logListRoot == null)
         {
-            logListRoot = FindChildTransform("LogListRoot");
+            logListRoot = FindChildTransform("LogListRoot") ?? FindChildTransform("List_CombatLog");
         }
 
         if (logRowTemplate == null)
         {
-            logRowTemplate = FindChildComponent<TMP_Text>("LogRowTemplate");
+            logRowTemplate = FindChildComponent<TMP_Text>("LogRowTemplate") ?? FindChildComponent<TMP_Text>("Item_LogRowTemplate");
         }
 
         if (logRowTemplate != null)
@@ -98,7 +111,7 @@ public sealed class TotemCombatHUDForm : TotemUIFormBase
         {
             firstPlayablePresenter = gameObject.AddComponent<TotemFirstPlayableHudPresenter>();
         }
-        firstPlayablePresenter.Initialize(Runtime);
+        firstPlayablePresenter.Initialize(Runtime, firstPlayableFont);
         refreshCoroutine = StartCoroutine(RefreshHudLoop());
         GFTrace.Success("TotemUI", "CombatHUD.Open");
     }
@@ -186,6 +199,8 @@ public sealed class TotemCombatHUDForm : TotemUIFormBase
     {
         RefreshPlayerHp();
         RefreshWeaponText();
+        RefreshTattooSummary();
+        RefreshElementState();
         RefreshCombatLog();
         RefreshMinimap();
         RefreshZoneText();
@@ -208,6 +223,66 @@ public sealed class TotemCombatHUDForm : TotemUIFormBase
     {
         string weaponId = TotemWeaponService.DefaultWeaponId;
         SetText(ammoText, FormatWeaponStatus(weaponId, 0, false, 0f, 0f));
+    }
+
+    private void RefreshTattooSummary()
+    {
+        TotemFirstPlayableTattooBuildState state = Runtime?.GetService<TotemFirstPlayableTattooBuildService>()
+            ?.GetOrCreateState(ActorService?.Player);
+        TotemTattooLoadoutEntry[] loadout = state?.CaptureLoadout();
+        int equipped = 0;
+        if (loadout != null)
+        {
+            for (int i = 0; i < loadout.Length; i++)
+            {
+                if (loadout[i].IsEquipped) equipped++;
+            }
+        }
+
+        TotemTattooLoadoutEntry leftArm = state?.GetSlot(TotemTattooSlotId.LeftArm) ?? default;
+        string activeSkill = leftArm.IsEquipped
+            ? $"{leftArm.Pattern} · {leftArm.Element}"
+            : "未装备";
+        SetText(tattooSummaryText, $"纹身：{equipped}/6 · 左臂主动：{activeSkill}");
+    }
+
+    private void RefreshElementState()
+    {
+        TotemFirstPlayableElementService elementService = Runtime?.GetService<TotemFirstPlayableElementService>();
+        TotemActorModel player = ActorService?.Player;
+        if (elementService == null
+            || player == null
+            || !elementService.TryGetState(player.CombatantId, out TotemFirstPlayableElementState state)
+            || !state.HasElement)
+        {
+            SetText(elementStateText, "元素状态：无");
+            return;
+        }
+
+        SetText(elementStateText,
+            $"元素状态：{FormatElementName(state.Element)} · {FormatElementTier(state.Tier)}（{state.LayerCount} 层 · {state.DecayRemaining:0.0}s）");
+    }
+
+    private static string FormatElementName(TotemFirstPlayableElement element)
+    {
+        return element switch
+        {
+            TotemFirstPlayableElement.Fire => "火",
+            TotemFirstPlayableElement.Ice => "冰",
+            TotemFirstPlayableElement.Lightning => "雷",
+            _ => "无",
+        };
+    }
+
+    private static string FormatElementTier(TotemElementTier tier)
+    {
+        return tier switch
+        {
+            TotemElementTier.Weak => "弱",
+            TotemElementTier.Standard => "标准",
+            TotemElementTier.Strong => "强",
+            _ => "无",
+        };
     }
 
     private void RefreshCombatLog()
@@ -250,18 +325,69 @@ public sealed class TotemCombatHUDForm : TotemUIFormBase
 
     private void RefreshZoneText()
     {
-        var interaction = InteractionService?.CaptureSnapshot();
-        string prompt = interaction?.prompt ?? string.Empty;
-        string statusSummary = TotemStatusService.FormatStatusSummary(StatusService?.CaptureSnapshot(ActorService?.Player));
-        string matchStatus = FormatMatchFlowStatus(MatchFlowService);
         var zone = ZoneService?.CaptureSnapshot();
-        if (zone == null || !zone.active)
+        string zoneSummary = zone == null || !zone.active
+            ? "安全区：等待对局开始"
+            : $"{FormatZoneStatus(zone.currentPhaseId, zone.currentRadius, zone.outZoneDamage)} · {FormatZoneDirection(ActorService?.Player, MapService?.CurrentMap)}";
+        string extractionSummary = FormatExtractionStatus(
+            Runtime?.GetService<TotemExtractionService>(),
+            ActorService?.Player);
+        SetText(zoneTimerText, $"{zoneSummary}\n{extractionSummary}");
+    }
+
+    private static string FormatZoneDirection(TotemActorModel player, TotemMapSnapshot map)
+    {
+        if (player == null || map == null)
         {
-            SetText(zoneTimerText, AppendStatus(AppendPrompt(matchStatus, prompt), statusSummary));
-            return;
+            return "方向待定";
         }
 
-        SetText(zoneTimerText, AppendStatus(AppendPrompt(AppendMatchStatus(matchStatus, FormatZoneStatus(zone.currentPhaseId, zone.currentRadius, zone.outZoneDamage)), prompt), statusSummary));
+        Vector3 center = new Vector3(map.InitialZoneCenter.x, player.Position.y, map.InitialZoneCenter.y);
+        Vector3 offset = center - player.Position;
+        offset.y = 0f;
+        float distance = offset.magnitude;
+        if (distance < 1f)
+        {
+            return "中心区域";
+        }
+
+        float angle = Mathf.Atan2(offset.x, offset.z) * Mathf.Rad2Deg;
+        int directionIndex = (Mathf.RoundToInt(angle / 45f) + 8) % 8;
+        string[] directions = { "北", "东北", "东", "东南", "南", "西南", "西", "西北" };
+        return $"向{directions[directionIndex]} {distance:F0}m";
+    }
+
+    private static string FormatExtractionStatus(TotemExtractionService extraction, TotemActorModel player)
+    {
+        TotemExtractionSnapshot snapshot = extraction?.CaptureSnapshot();
+        if (snapshot == null || !snapshot.unlocked)
+        {
+            return "撤离：未解锁";
+        }
+
+        if (snapshot.completed)
+        {
+            return "撤离：已完成";
+        }
+
+        if (snapshot.focusedPointInstanceId > 0 && snapshot.interactionDuration > 0f)
+        {
+            return $"撤离：交互 {snapshot.interactionProgress / snapshot.interactionDuration:P0} · 长按交互键";
+        }
+
+        TotemExtractionPoint[] points = extraction.CaptureActivePoints();
+        float nearestDistance = float.PositiveInfinity;
+        for (int i = 0; player != null && points != null && i < points.Length; i++)
+        {
+            nearestDistance = Mathf.Min(nearestDistance, Vector3.Distance(player.Position, points[i].Position));
+        }
+
+        if (!float.IsPositiveInfinity(nearestDistance))
+        {
+            return $"撤离：已解锁 · 最近点 {nearestDistance:F0}m";
+        }
+
+        return "撤离：已解锁 · 正在定位";
     }
 
     public static string FormatMatchFlowStatus(TotemMatchFlowService flow)
@@ -315,15 +441,15 @@ public sealed class TotemCombatHUDForm : TotemUIFormBase
     {
         if (showAmmo)
         {
-            return $"Weapon: {weaponId}  Ammo: {ammo}";
+            return $"武器：{weaponId} · 弹药：{ammo}";
         }
 
-        return $"Weapon: {weaponId}";
+        return $"武器：{weaponId}";
     }
 
     public static string FormatZoneStatus(int phaseId, float radius, float outZoneDamage)
     {
-        return $"Zone P{phaseId} R{radius:F0} D{outZoneDamage:F0}";
+        return $"安全区 P{phaseId} · 半径 {radius:F0} · 圈外伤害 {outZoneDamage:F0}";
     }
 
     public static string AppendPrompt(string status, string prompt)
@@ -377,12 +503,12 @@ public sealed class TotemCombatHUDForm : TotemUIFormBase
 
         if (string.Equals(snapshot.lastAction, "CombatStarted", StringComparison.Ordinal))
         {
-            return "Combat started";
+            return "战斗开始";
         }
 
         string target = !string.IsNullOrWhiteSpace(snapshot.lastTargetName)
             ? snapshot.lastTargetName
-            : snapshot.lastTargetActorId > 0 ? $"Actor {snapshot.lastTargetActorId}" : string.Empty;
+            : snapshot.lastTargetActorId > 0 ? $"目标 {snapshot.lastTargetActorId}" : string.Empty;
         string suffix = snapshot.lastKilled ? " KO" : string.Empty;
         string detail = snapshot.lastDamage > 0f ? $" -{snapshot.lastDamage:F0}{suffix}" : suffix;
         string source = snapshot.lastWeaponId;

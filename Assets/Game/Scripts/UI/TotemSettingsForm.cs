@@ -2,10 +2,31 @@
 
 public sealed class TotemSettingsForm : TotemOverlayFormBase
 {
+    [SerializeField] private TMPro.TMP_Text summaryText;
+    [SerializeField] private UnityEngine.UI.Button bgmDownButton;
+    [SerializeField] private UnityEngine.UI.Button bgmUpButton;
+    [SerializeField] private UnityEngine.UI.Button sfxDownButton;
+    [SerializeField] private UnityEngine.UI.Button sfxUpButton;
+    [SerializeField] private UnityEngine.UI.Button qualityButton;
+    [SerializeField] private UnityEngine.UI.Button saveButton;
+    [SerializeField] private UnityEngine.UI.Button cancelButton;
     private float bgmVolume;
     private float sfxVolume;
     private int qualityLevel;
     private bool committed;
+
+    protected override void OnInit(object userData)
+    {
+        base.OnInit(userData);
+        summaryText ??= FindChildComponent<TMPro.TMP_Text>("Txt_SettingsSummary");
+        bgmDownButton = BindButton(bgmDownButton, "Btn_BgmDown", () => AdjustBgm(-0.1f));
+        bgmUpButton = BindButton(bgmUpButton, "Btn_BgmUp", () => AdjustBgm(0.1f));
+        sfxDownButton = BindButton(sfxDownButton, "Btn_SfxDown", () => AdjustSfx(-0.1f));
+        sfxUpButton = BindButton(sfxUpButton, "Btn_SfxUp", () => AdjustSfx(0.1f));
+        qualityButton = BindButton(qualityButton, "Btn_Quality", NextQuality);
+        saveButton = BindButton(saveButton, "Btn_SettingsSave", Save);
+        cancelButton = BindButton(cancelButton, "Btn_SettingsCancel", Cancel);
+    }
 
     protected override void OnOpen(object userData)
     {
@@ -23,15 +44,7 @@ public sealed class TotemSettingsForm : TotemOverlayFormBase
 
     private void BuildView()
     {
-        var panel = RebuildPanel("Settings", new Vector2(520f, 420f));
-        AddText(panel, "Summary", TotemSettingsService.FormatSnapshot(BuildDraft()), 17, TextAnchor.MiddleCenter, 44f);
-        AddButton(panel, "BgmDown", "BGM -", () => AdjustBgm(-0.1f));
-        AddButton(panel, "BgmUp", "BGM +", () => AdjustBgm(0.1f));
-        AddButton(panel, "SfxDown", "SFX -", () => AdjustSfx(-0.1f));
-        AddButton(panel, "SfxUp", "SFX +", () => AdjustSfx(0.1f));
-        AddButton(panel, "QualityButton", $"Quality Next ({qualityLevel})", NextQuality);
-        AddButton(panel, "SaveButton", "Save", Save);
-        AddButton(panel, "CancelButton", "Cancel", Cancel);
+        summaryText?.SetText(TotemSettingsService.FormatSnapshot(BuildDraft()));
     }
 
     private void AdjustBgm(float delta)
