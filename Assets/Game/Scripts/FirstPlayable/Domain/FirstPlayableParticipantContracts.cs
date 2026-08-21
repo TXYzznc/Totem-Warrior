@@ -229,8 +229,6 @@ namespace GameDesinger.FirstPlayable.Domain
             float playerDamage,
             int playerKnockdowns,
             int playerEliminations,
-            float pveDamage,
-            int pveKills,
             float teammateHealing,
             float teammateShieldOrMitigation,
             int successfulRevives,
@@ -244,8 +242,6 @@ namespace GameDesinger.FirstPlayable.Domain
             PlayerDamage = playerDamage < 0f ? 0f : playerDamage;
             PlayerKnockdowns = playerKnockdowns < 0 ? 0 : playerKnockdowns;
             PlayerEliminations = playerEliminations < 0 ? 0 : playerEliminations;
-            PveDamage = pveDamage < 0f ? 0f : pveDamage;
-            PveKills = pveKills < 0 ? 0 : pveKills;
             TeammateHealing = teammateHealing < 0f ? 0f : teammateHealing;
             TeammateShieldOrMitigation = teammateShieldOrMitigation < 0f ? 0f : teammateShieldOrMitigation;
             SuccessfulRevives = successfulRevives < 0 ? 0 : successfulRevives;
@@ -260,8 +256,6 @@ namespace GameDesinger.FirstPlayable.Domain
         public float PlayerDamage { get; }
         public int PlayerKnockdowns { get; }
         public int PlayerEliminations { get; }
-        public float PveDamage { get; }
-        public int PveKills { get; }
         public float TeammateHealing { get; }
         public float TeammateShieldOrMitigation { get; }
         public int SuccessfulRevives { get; }

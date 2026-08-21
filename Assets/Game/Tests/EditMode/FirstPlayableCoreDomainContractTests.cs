@@ -105,7 +105,7 @@ public sealed class FirstPlayableCoreDomainContractTests
     [Test]
     public void AchievementSnapshot_ClampsNegativeReadModelValues()
     {
-        var snapshot = new MatchAchievementSnapshot(-1f, -1, -1, -1f, -1, -1f, -1f, -1, -1, -1f, -1f, -1, -1, -1);
+        var snapshot = new MatchAchievementSnapshot(-1f, -1, -1, -1f, -1f, -1, -1, -1f, -1f, -1, -1, -1);
 
         Assert.That(snapshot.PlayerDamage, Is.EqualTo(0f));
         Assert.That(snapshot.PlayerEliminations, Is.EqualTo(0));
@@ -199,6 +199,45 @@ public sealed class FirstPlayableCoreDomainContractTests
         Assert.That(ElementReactionRules.GetTraitStrength(ElementType.Fire, ElementStrength.Strong), Is.EqualTo(1.5f));
         Assert.That(ElementReactionRules.GetTraitStrength(ElementType.Ice, ElementStrength.Standard), Is.EqualTo(0.20f));
         Assert.That(ElementReactionRules.Get(ElementType.Fire, ElementType.Lightning).RadiusMeters, Is.EqualTo(3f));
+    }
+
+    [Test]
+    public void PigmentTransfer_ApprovesOnlyTeammatesAndRechecksInventory()
+    {
+        ParticipantRoster roster = CreateRoster();
+        var request = new PigmentTransferRequest(1, new ParticipantId(1), new ParticipantId(2), ElementType.Fire, 6, MatchPhase.Build2);
+        PigmentTransferResult accepted = PigmentTransferRules.TryApprove(roster, MatchPhase.Build2, request, new PigmentInventory(1, 0, 0), new PigmentInventory(6, 0, 0));
+        PigmentTransferResult insufficient = PigmentTransferRules.TryApprove(roster, MatchPhase.Build2, request, new PigmentInventory(1, 0, 0), new PigmentInventory(5, 0, 0));
+
+        Assert.That(accepted.IsSuccess, Is.True);
+        Assert.That(accepted.RequesterInventory.Fire, Is.EqualTo(7));
+        Assert.That(accepted.ApproverInventory.Fire, Is.EqualTo(0));
+        Assert.That(insufficient.Rejection, Is.EqualTo(PigmentTransferRejection.InventoryChanged));
+        Assert.That(insufficient.RequesterInventory.Fire, Is.EqualTo(1));
+        Assert.That(insufficient.ApproverInventory.Fire, Is.EqualTo(5));
+    }
+
+    [Test]
+    public void PigmentTransfer_RejectsEnemyAndExpiredRequests()
+    {
+        ParticipantRoster roster = CreateRoster();
+        var enemyRequest = new PigmentTransferRequest(1, new ParticipantId(1), new ParticipantId(3), ElementType.Ice, 1, MatchPhase.Build2);
+        var expiredRequest = new PigmentTransferRequest(2, new ParticipantId(1), new ParticipantId(2), ElementType.Ice, 1, MatchPhase.Build2);
+
+        Assert.That(PigmentTransferRules.TryApprove(roster, MatchPhase.Build2, enemyRequest, new PigmentInventory(0, 0, 0), new PigmentInventory(0, 1, 0)).Rejection, Is.EqualTo(PigmentTransferRejection.NotTeammates));
+        Assert.That(PigmentTransferRules.TryApprove(roster, MatchPhase.Build3, expiredRequest, new PigmentInventory(0, 0, 0), new PigmentInventory(0, 1, 0)).Rejection, Is.EqualTo(PigmentTransferRejection.RequestExpired));
+    }
+
+    [Test]
+    public void BuildIntelSnapshot_UsesFrozenBuildAndPurePvpAchievements()
+    {
+        TattooBuildState build = TattooBuildState.CreateEmpty(10, 0, 0).TryEquip(MatchPhase.Build2, TattooBodyPart.Head, TattooPatternId.P01, ElementType.Fire).State;
+        var snapshot = new BuildIntelSnapshot(new ParticipantId(1), ParticipantLifeState.Alive, build, new ParticipantAttributeSnapshot(150f, 12f), new MatchAchievementSnapshot(10f, 1, 0, 0f, 0f, 0, 0, 0f, 0f, 1, 2, 0));
+
+        Assert.That(snapshot.IsValidBoundaryState, Is.True);
+        Assert.That(snapshot.Build.GetSlot(TattooBodyPart.Head).Pattern, Is.EqualTo(TattooPatternId.P01));
+        Assert.That(snapshot.Attributes.BaseHealth, Is.EqualTo(150f));
+        Assert.That(snapshot.Achievements.ResourcesShared, Is.EqualTo(2));
     }
 
     private static ParticipantRoster CreateRoster()
